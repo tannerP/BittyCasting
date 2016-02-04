@@ -1,0 +1,52 @@
+<div class="col-md-8 col-md-offset-2">
+    <div class="jumbotron text-center">
+        <h2 class="dark-grey">Sign up</h3>
+        <form class="container-page" ng-submit="user.saveUser()">
+                
+               
+                <div class = "form-group">
+                        <input type = "text"
+                            placeholder="Full Name"
+                            class = "form-control"
+                            ng-model = "user.userData.name">
+                </div>
+                <div class = "form-group">
+                        <input type = "text"
+                            placeholder="Company"
+                            class = "form-control"
+                            ng-model = "user.userData.company">
+                </div>
+                   <div class = "form-group">
+                    <input type = "email"
+                            placeholder="Email"
+                            class = "form-control"
+                            ng-model = "user.userData.email">
+                </div>     
+                <div class = "form-group">
+                        <input type = "text"
+                            placeholder="Phone Number"
+                            class = "form-control"
+                            ng-model = "user.userData.phone_number">
+                </div>
+                <div class = "form-group">
+                        <input type = "text"
+                            placeholder="Location"
+                            class = "form-control"
+                            ng-model = "user.userData.location">
+                </div>
+                <div class = "form-group">
+                        <input type = "password"
+                            placeholder="Password"
+                            class = "form-control"
+                            ng-model = "user.userData.password">
+                </div>
+                <div class = "form-group">
+                        <input type = "password"
+                            placeholder="Confirm Password"
+                            class = "form-control"
+                            ng-model = "user.userData.password">
+                </div>
+                <button type="submit" class="btn btn-primary" ang-show ="">Sign up</button>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,12 @@
+div.card {
+  display: block;
+  width: 31%;
+  height: 20%;
+  background-color: orange;
+  margin: 1%;
+  float: left; }
+
+div.card:hover {
+  background-color: blue; }
+
+/*# sourceMappingURL=character.css.map */

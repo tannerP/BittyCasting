@@ -1,0 +1,26 @@
+<div class="col-md-6 col-md-offset-3">  
+    <div class="jumbotron text-center">
+    <h1> <span>{{project.projectData.name || ""}}</span><br> Casting Characters</h1>
+   </div>
+    <ul class= 'roles'>
+        <li class ="card add"> <a class="card" href='/addRole/{{project.projectData._id}}'> <span>Create new role</span>
+        </a>
+        </li>
+        <li class="card"><span> Hey!</span></li>
+        </li>
+        <li class="card" ng-repeat-start="role in project.roles">
+            <!-- <a class="btn btn-detault" ngClick={{projectsController.getProDetails(project.id) }}> 
+            {{project.name}} </a> -->
+            <a class ="card" id="projectDetails" ng-href="/projectRoles/{{project._id}}">
+                <span>Create new role</span>
+            </a>
+            <a class = "btn btn-detault" id="projectEdit" href="/edit_projectDetails/{{project._id}}">
+                <span class='glyphicon glyphicon-pencil '></span>
+            </a>
+        </li>
+        <span ng-repeat-end></span>
+        <!--li ng-repeat-end class="new_project"><a class = "btn btn-detault" href="/newproject"> Create new project </a>
+        </li--> 
+    </ul>
+
+</div>

@@ -1,0 +1,16 @@
+@import 'profile';
+@import 'header';
+@import 'new_project';
+@import 'castings';
+@import 'viewAuditionPage';
+
+.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
+
+.container-fluid{
+	position:relative;
+	top:50px;
+	padding:5px;
+}
+ a{
+ 	color:orange;
+ }

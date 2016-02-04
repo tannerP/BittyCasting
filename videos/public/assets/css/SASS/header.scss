@@ -1,0 +1,22 @@
+
+div.vertical-line{
+    border-left: 1px solid #808080;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top:15px;
+    margin-bottom:15px;
+    width: 2px;
+}
+nav.navbar-fixed-top{
+	margin-bottom: 0;
+	height:50;
+}
+.navbar-right{
+	height:50px;
+	width:auto;
+	padding-right:10px;
+	ul{
+		right:10px;
+	}
+}

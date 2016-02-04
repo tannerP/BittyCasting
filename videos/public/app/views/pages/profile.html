@@ -1,0 +1,22 @@
+
+<h1 class='pageTitle'>Profile</h1>
+<a class='' href="/newproject">Create new project</a>
+<hr align="left" class= 'pageTittle_hor'>
+
+
+	<ul class= 'projects'>
+		<li class="new_project btn btn-detault"><a  href="/newproject"> Create new project </a>
+		</li>
+		<li class="project btn btn-detault" ng-repeat-start="project in projectsController.projects">
+			<!-- <a class="btn btn-detault" ngClick={{projectsController.getProDetails(project.id) }}> 
+			{{project.name}} </a> -->
+			<a id="projectName" href="/castings/{{project._id}}"><span>{{project.name}}</span></a>
+			<a id="projectEdit" href="/edit_projectDetails/{{project._id}}">
+					<span class='glyphicon glyphicon-pencil '></span>
+			</a>
+
+		</li>
+		<li ng-repeat-end> </li>
+	 	<!--li ng-repeat-end class="new_project"><a class = "btn btn-detault" href="/newproject"> Create new project </a>
+		</li--> 
+	</ul>

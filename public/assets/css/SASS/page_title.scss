@@ -1,0 +1,14 @@
+$title_fontsize: '30px';
+$primary_color: rgba(40, 32, 172, 0.48);
+
+h1.pageTittle{
+	font-size: $title_fontsize;
+	color:	$primary_color;
+}
+
+hr.pageTittle_hor{
+	width:40%;
+	border-color:black;
+	margin-top: 0px;
+	margin-bottom: 25px
+}

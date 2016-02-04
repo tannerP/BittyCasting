@@ -1,0 +1,27 @@
+<div class="col-md-6 col-md-offset-3">  
+    <div class="jumbotron text-center">
+    <h1 ng-if="!project.existing"> Create project</h1>
+    <h1 ng-if="project.existing"> {{project.projectData.name}} </h1>
+        <form class="container-page" ng-submit="project.save()">
+            <div class = "form-group name">
+                <input type = "text"
+                        placeholder="Project name"
+                        class = "form-control"
+                        ng-model = "project.projectData.name">
+            </div>
+            <textarea rows="4" cols="50" class ="form-control"
+                        ng-model = "project.projectData.details"
+                        placeholder="Project Detail">
+            </textarea>
+            
+            <div class='form-group'>
+            <a href="/profile" class="btn btn-default">
+                <span>Cancel</span>
+            </a>
+            <button type="submit" class="btn btn-primary" ng-if="project.existing"> Save</button>
+            <button type="submit" class="btn btn-primary" ng-if="!project.existing"> Create project</button>
+            </div>
+        </form>
+        <button type="submit" class="btn btn-danger" ng-if="project.existing" ng-controller="delete_project as deleter" ng-click='deleter.delete(project.projectData._id)'> Delete</button>
+     </div>
+</div>
