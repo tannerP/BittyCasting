@@ -11,10 +11,8 @@ var mongoose = require('mongoose') //for working with mongoDB
 var config = require('./config'); //get config file
 var path = require('path');
 var User = require(__dirname + '/server//models/user.js');
-var video        = require('./lib/video');
 var BinaryServer = require('binaryjs').BinaryServer;
 var http         = require('http');
-var video        = require('./lib/video');
 
 //var port = config.port; //PORT
 
