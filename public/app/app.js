@@ -4,6 +4,8 @@ angular.module('userApp', [
 	'app.routes',
 	'authService',
 	'userService',
+	'AMMService',
+	'AMMCtrl',
 	'mainCtrl',
 	'projectCtrl',
 	'userCtrl',

@@ -4,7 +4,8 @@ li.card {
   height: 20%;
   margin: 1%;
   float: left;
-  background-color: orange; }
+  background-color: orange;
+  text-align: center; }
 
 li.card.add {
   background: white;

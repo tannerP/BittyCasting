@@ -27,7 +27,6 @@ apiRouter.all('*',function(req,res,next){
 			}else{
 				req.userData = User.findOne({'_id':decoded.id}, function(err, data){
 					if(data){
-						console.log("User found line 30: " + data);
 						return data;
 					}})
 				/*console.log("req.userData" +req.userData);*/
@@ -44,6 +43,103 @@ apiRouter.all('*',function(req,res,next){
 		});
 	}
 });
+
+//===============================  Get All Roles ============================
+apiRouter.route('/CastingBoard')
+	/*.get(function(req,res){
+		Role.find({projectID:req.params.projectID}, function(err, roles){
+			if(err) res.send(err);
+			else res.send(roles);
+		})
+	})*/
+	.get(function(req, res) {
+		console.log("Project ID "+ JSON.stringify(req.params));
+		Role.find({ 'projectID': req.body.projectID},function(err,roles){
+		if(err){ 
+			res.send(err);
+			console.log(err); 
+		}
+		else{
+		console.log("Project ID "+ req.params.projectID);
+		console.log("Found roles: " + roles)
+			
+		res.json({'success':true ,'data':roles});
+	}})
+	})
+	//create role
+	apiRouter.route('/role')
+		.post(function(req,res){
+				var role = new Role();
+				role.user = req.decoded.name;
+				role.userID = req.decoded.id;
+				role.projectID = req.body.projectID;
+
+				role.name = req.body.name;
+				role.details = req.body.details;
+				role.resume = req.body.resume;
+				role.HS = req.body.HS;
+				role.coverletter = req.body.coverLetter;
+				role.auditionvideo = req.body.auditionVideo;
+				role.monologue = req.body.monologue;
+				role.save(function(err){
+					if(err){
+						return  res.json({success:false,
+								error: err})	}
+					res.json({message:'Role created.'});
+					})
+				})
+
+//===============================  CastingBoard  ============================
+apiRouter.route('/CastingBoard/:role_id')
+	.get(function(req,res){
+		Role.findOne({_id:req.params.role_id}, function(err, data){
+			if(!err){
+			res.json({success:true, data:data});
+		}})
+	})
+
+	.delete(function(req, res){
+		Role.remove({
+			_id:req.params.role_id
+		}, function(err,user){
+			if(err) return res.send(err);
+			res.json({message: 'Successfully deleted'});
+		})
+	})
+
+	.put(function(req,res){
+		Role.findById(req.params.role_id, function(err,role){
+			if(err) res.send(err);
+				// Don't need to update
+				/*role.user = req.decoded.name;
+				role.userID = req.decoded.id;
+				role.projectID = req.params.role_id;*/
+
+				role.name = req.body.name;
+				role.details = req.body.details;
+				role.resume = req.body.resume;
+				role.HS = req.body.HS;
+				role.coverletter = req.body.coverLetter;
+				role.auditionvideo = req.body.auditionVideo;
+				role.monologue = req.body.monologue;
+				role.save(function(err){
+					if(err){
+						return  res.json({success:false,
+								error: err})	}
+					res.json({message:'Role saved.'});
+				})
+				/*role.save(function(err){
+				if (err) console.log(err);
+				if (err) res.send(err);
+				else{
+						res.json({
+						success: true,
+						message:'Project updated!',
+					});	
+				}*/
+			})
+		})
+
 
 //===============================  Project  ============================
 apiRouter.route('/project')
@@ -65,6 +161,7 @@ apiRouter.route('/project')
 	})
 	//get all projects belong to user
 	.get(function(req, res) {
+		console.log("getting all roles belong to project.");
 		console.log(req.decoded.id);
 		Project.find({ user_id: req.decoded.id},function(err,projects){
 		if(err){ 
@@ -76,8 +173,6 @@ apiRouter.route('/project')
 		res.json({'success':true ,'data':projects});
 	}})
 	})
-
-
 
 //===============================  Project:project_id  ============================
 apiRouter.route('/project/:project_id')
@@ -113,75 +208,6 @@ apiRouter.route('/project/:project_id')
 		})
 	})
 
-//===============================  Get All Roles ============================
-apiRouter.route('/roles/:projectID')
-	.get(function(req,res){
-		Role.find({projectID:req.params.projectID}, function(err, roles){
-			if(err) res.send(err);
-			res.json({success:true, data:roles});
-		})
-	})
-		
-//===============================  Roles  ============================
-apiRouter.route('/role/:role_id')
-	.get(function(req,res){
-		Role.findOne({_id:req.params.role_id}, function(err, data){
-			if(!err){
-			console.log("api line 149: role data base on ID" + JSON.stringify(data));
-			res.json({success:true, data:data});
-		}})
-	})
-
-	.delete(function(req, res){
-		Role.remove({
-			_id:req.params.role_id
-		}, function(err,user){
-			if(err) return res.send(err);
-			res.json({message: 'Successfully deleted'});
-		})
-	})
-	//create new role
-	.post(function(req,res){
-		var role = new Role();
-		role.user = req.decoded.name;
-		role.userID = req.decoded.id;
-		role.projectID = req.params.project_id;
-
-		role.name = req.body.name;
-		role.details = req.body.details;
-		role.resume = req.body.resume;
-		role.HS = req.body.HS;
-		role.coverletter = req.body.coverLetter;
-		role.auditionvideo = req.body.auditionVideo;
-		role.monologue = req.body.monologue;
-		role.save(function(err){
-			if(err){
-				return  res.json({success:false,
-						error: err})	}
-			res.json({message:'Role created.'});
-			})
-		})
-
-		.put(function(req,res){
-		var role = new Role();
-		role.user = req.decoded.name;
-		role.userID = req.decoded.id;
-		role.projectID = req.params.project_id;
-
-		role.name = req.body.name;
-		role.details = req.body.details;
-		role.resume = req.body.resume;
-		role.HS = req.body.HS;
-		role.coverletter = req.body.coverLetter;
-		role.auditionvideo = req.body.auditionVideo;
-		role.monologue = req.body.monologue;
-		role.save(function(err){
-			if(err){
-				return  res.json({success:false,
-						error: err})	}
-			res.json({message:'Role saved.'});
-			})
-		})
 
 //===============================  USERS  ============================
 apiRouter.route('/users/:user_id')

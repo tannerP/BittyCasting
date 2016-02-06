@@ -1,11 +1,11 @@
-background: angular.module('projectCtrl',['userService'])
+angular.module('projectCtrl',['userService'])
 
-	.controller('viewAuditionPageController', function(){
+	/*.controller('AMM', function(){
 		var vm = this;
-		vm.message = 'HELLO';
+		vm.message = 'AMM';
 	})
-	
-	.controller('roleEditController', function(Role, $location, $routeParams){
+	*/
+	.controller('edit_RoleController', function(Role, $location, $routeParams){
 		var vm = this;
 		vm.edit = true;
 		vm.processing = true;
@@ -17,7 +17,7 @@ background: angular.module('projectCtrl',['userService'])
 		vm.roleData.monologue = false;*/
 		Role.get($routeParams.role_id)
 			.success(function(data){
-				console.log(data.data);
+				vm.processing = false;
 				vm.roleData = data.data;
 			})
 			.error(function(err){
@@ -25,9 +25,9 @@ background: angular.module('projectCtrl',['userService'])
 			})
 
 		vm.updateRole = function(){
-			console.log(JSON.stringify(vm.roleData));
-			Role.update($routeParams.project_id,vm.roleData)
+			Role.update($routeParams.role_id,vm.roleData)
 				.success(function(){
+					vm.processing = false;
 					window.history.back();
 				})
 				.error(function(err){
@@ -35,13 +35,16 @@ background: angular.module('projectCtrl',['userService'])
 				})
 	}})
 
-	.controller('roleFormController', function(Role, $location, $routeParams){
+	.controller('add_RoleController', function(Role, $location, $routeParams){
 		var vm = this;
 		vm.edit = false;
 		vm.roleData = {};
-
+		vm.project_id = $routeParams.project_id;
 		vm.createRole = function(){
-			console.log(JSON.stringify(vm.roleData));
+			console.log("project ID :" + vm.project_id);
+			
+			vm.roleData.projectID = $routeParams.project_id;
+			
 			Role.create($routeParams.project_id,vm.roleData)
 				.success(function(){
 					window.history.back();
@@ -51,8 +54,8 @@ background: angular.module('projectCtrl',['userService'])
 				})
 	}})
 
-		//Profile.html
-	.controller('loadProjectsController', function(Project, $location)	{
+//home.html
+	.controller('home_ProjectsController', function(Project, $location)	{
 		var vm = this;
 		vm.processing = true;
 		vm.projects;
@@ -72,28 +75,37 @@ background: angular.module('projectCtrl',['userService'])
 				vm.message = err;
 			});
 	}})
-	//casting.html
-	.controller('projectcastingsController', function(Role, $location, $routeParams){
+
+//CastingBoard.html
+	.controller('CastingBoardController', function(Role, Project ,$location, $routeParams){
 		var vm = this;
 		vm.processing = true;
-		vm.rolesArray;
-		vm.proj_id = $routeParams.project_id;
-		console.log('Enter Project Castings Controller');
+		vm.Roles  = [];
+		vm.project_id = $routeParams.project_id;
+		vm.project = {};
 
-		Role.getAll(vm.proj_id)
+		Project.get(vm.project_id)
+			.success(function(data){
+					console.log(data.project);
+					vm.project = data.project;
+				})
+			.error(function(err){
+				vm.message = err;
+			});
+		
+		console.log('Enter Project Castings Controller, Role ID: '+ vm.project_id);
+		//Get roles from project
+		Role.getAll(({'data':$routeParams.project_id}))
 		.success(function(data){
-			console.log("Got Roles Successfully:" + JSON.stringify(data.data));
 			vm.processing = false;
-			vm.Roles = data	;
-
-			var temp =  JSON.stringify(data);
-			console.log("Role Data " + temp);
+			vm.Roles = data.data;
+			var temp =  JSON.stringify(data.data);
+			console.log(data.data[0]);
 			console.log(typeof temp);			
 		})
-		.error(function(){
+		.error(function(error){
 			console.log(error);
 		})
-
 
 		vm.save = function(){
 			vm.processing = true;
@@ -103,11 +115,12 @@ background: angular.module('projectCtrl',['userService'])
 					vm.processing = false;
 					vm.projectData = {};
 					vm.message = data.message;
-					$location.path('/project/' + vm.proj_id); //need create a variable to keep track of current project. 
+					$location.path('/project/' + $routeParams.project_id); 
 
 			});
 	}})
-	//project.html
+
+//project.html
 	.controller('newProjectController', function(Project, $location)	{
 		var vm = this;
 		vm.existing = false;
@@ -128,7 +141,7 @@ background: angular.module('projectCtrl',['userService'])
 		}})
 
 	//page: project.html
-	.controller('saveEdittingProjectController', function(Project,$location,$routeParams)	{
+	.controller('edit_ProjectController', function(Project,$location,$routeParams)	{
 		var vm = this;
 		vm.existing = true;
 		vm.processing = true;

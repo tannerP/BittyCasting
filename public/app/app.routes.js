@@ -9,7 +9,6 @@ angular.module('app.routes', ['ngRoute'])
             controller : 'homeCtrl',
             controllerAs : 'page'
         })
-        //login page
         .when('/login', {
             templateUrl : '/app/views/pages/login.html',
         	controller   : 'mainController',
@@ -17,46 +16,45 @@ angular.module('app.routes', ['ngRoute'])
         })
         .when('/home',  {
             templateUrl: 'app/views/pages/home.html',
-            controller: 'loadProjectsController',
+            controller: 'home_ProjectsController',
             controllerAs: 'projectsController'
         })
-/*---------------- Projects ----------------*/
 
+/*---------------- Projects ----------------*/
         .when('/newproject',  {
             templateUrl: 'app/views/pages/project_form.html',
-            controller: 'newProjectController',
+            controller: 'new_ProjectController',
             controllerAs: 'project'
         })
         .when('/edit_projectDetails/:project_id',  {
             templateUrl: 'app/views/pages/project_form.html',
-            controller: 'saveEdittingProjectController',
+            controller: 'edit_ProjectController',
             controllerAs: 'project'
         })
-        .when('/project/:project_id',  {
-            templateUrl: 'app/views/pages/project.html',
-            controller: 'projectcastingsController',
-            controllerAs: 'project'
+        .when('/CastingBoard/:project_id',  {
+            templateUrl: 'app/views/pages/CastingBoard.html',
+            controller: 'CastingBoardController',
+            controllerAs: 'page'
         })
-/*---------------- Roles ----------------*/
+
+/*---------------- CastingBoard ----------------*/
         .when('/addRole/:project_id',  {
             templateUrl: 'app/views/pages/role.html',
-            controller: 'roleFormController',
+            controller: 'add_RoleController',
             controllerAs: 'page'
         })
         .when('/editRole/:role_id',  {
             templateUrl: 'app/views/pages/role.html',
-            controller: 'roleEditController',
+            controller: 'edit_RoleController',
             controllerAs: 'page'
         })
         .when('/viewauditions/:role_id',  {
             templateUrl: 'app/views/pages/viewauditions.html',
-            controller: 'viewAuditionPageController',
+            controller: 'AMMController',
             controllerAs: 'page'
         })
 
 /*---------------- Users ----------------*/
-        //form to create a new user
-        // same view as edit page
         .when('/users',  {
             templateUrl: 'app/views/pages/users/all.html',
             controller: 'userController',
@@ -75,7 +73,6 @@ angular.module('app.routes', ['ngRoute'])
         })
 
  /*---------------- Public ----------------*/  
-
         .when('/features', {
             templateUrl : '/app/views/pages/features.html',
             controller : 'homeCtrl',

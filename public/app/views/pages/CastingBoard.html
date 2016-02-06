@@ -1,0 +1,17 @@
+<div class="col-md-6 col-md-offset-3">  
+    <div class="jumbotron text-center">
+    <h1> <span>{{page.project.name || ""}}</span><br> Characters Casting</h1>
+   </div>
+    <ul class= 'roles'>
+        <li class ="card add"> <a class="card" href='/addRole/{{page.project_id}}'>
+        <span>Create new role</span></a></li>
+        <li class="card" ng-repeat-start="role in page.Roles">
+            <h3> {{role.name}}</h3>
+            <a href='/viewauditions/{{role._id}}'> <span>View auditions</span></a>
+            <a class = "btn btn-detault" id="projectEdit" href="/editRole/{{role._id}}">
+                <span class='glyphicon glyphicon-pencil '></span></a>
+        </li>
+        <span ng-repeat-end></span>
+    </ul>
+
+</div>
