@@ -32,21 +32,14 @@ app.use(function(req,res,next){
 
 //==================================--DB--====================================
 
-var config = {
-      "USER"    : "",           
-      "PASS"    : "",
-      "HOST"    : "ec2-54-201-100-109.us-west-2.compute.amazonaws.com",  
-      "PORT"    : "27017", 
-      "DATABASE" : "my_example"
-    };
 var dbPath  = "mongodb://"+config.USER + ":"+
     config.PASS + "@"+
     config.HOST + ":"+
     config.PORT + "/"+
     config.DATABASE;
 
-/*mongoose.connect('mongodb://localhost/local');*/
-mongoose.connect(dbPath);
+mongoose.connect('mongodb://localhost/local');
+/*mongoose.connect(dbPath);*/
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function (callback) {
