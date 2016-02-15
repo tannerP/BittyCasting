@@ -3,6 +3,7 @@ var User = require("../models/user");
 var config = require("../../config");
 var path = require('path');
 var jwt = require('jsonwebtoken');
+var passport = require('passport');
 
 module.exports = function(app,express){
 var app = express.Router();
