@@ -32,15 +32,15 @@ app.use(function(req,res,next){
 
 //==================================--DB--====================================
 
-var dbPath  = "mongodb://"+config.USER + ":"+
-    config.PASS + "@"+
+var dbPath  = "mongodb://" +
     config.HOST + ":"+
-    config.PORT + "/"+
+    config.PORT + "/"+	
     config.DATABASE;
 
-mongoose.connect('mongodb://localhost/local');
-/*mongoose.connect(dbPath);*/
+/*mongoose.connect('mongodb://localhost/local');*/
+mongoose.connect(dbPath);
 var db = mongoose.connection;
+
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function (callback) {
   console.log('MONGO: successfully connected to db');
