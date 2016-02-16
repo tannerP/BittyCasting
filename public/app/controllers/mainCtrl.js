@@ -8,24 +8,26 @@ angular.module('mainCtrl', ['authService'])
 		vm.message = 'HELLO';
 	}])
 
-	.controller('mainController',['$scope','Auth','$location','$rootScope',
-		function($rootScope,Auth,$location,$scope) {
+	.controller('mainController',['$scope','Auth','$location','$rootScope','$route',
+		function($rootScope,Auth,$location,$scope,$route) {
 		var vm = this;
-		$rootScope.userName;
-		$rootScope.userID;
-		//get info if a person is logged in
+		vm.user={};
+
 		vm.loggedIn = Auth.isLoggedIn();
+		console.log(vm.user);
+
+		Auth.getUser(function(data){
+		 $scope.user = data;
+		});
 
 		$scope.isActive = function (viewLocation) { 
 	        return viewLocation === $location.path();
 	    };
-
+	
 		//check to see if a user is logged in on every request
 		$rootScope.$on('$routeChangeStart', function () {
 			vm.loggedIn = Auth.isLoggedIn();
 		});
-
-	
 		//function to handle login form
 		vm.doLogin = function () {
 			//processing Icon
@@ -37,23 +39,13 @@ angular.module('mainCtrl', ['authService'])
 		Auth.login(vm.loginData.email, vm.loginData.password)
 			.success(function (data) {
 					vm.processing = false;
-
 				if (data.success) {
-						/*$rootScope.username = data.name;
-						$rootScope.id =  data._id;*/
 						$location.path('/home');
-					//if a user successfully logs in, redirect to users page
-					/*Auth.getUser()
-						.then(function(data) {
-							$rootScope.username = data.name;
-							$rootScope.id =  data._id;
-							$location.path('/home')
-						 })*/
 					}
 				else vm.error = data.message;
 			});
 		};
-
+		console.log($scope.user);
 		//function to handle loggin out
 		vm.doLogout = function () {
 			Auth.logout();

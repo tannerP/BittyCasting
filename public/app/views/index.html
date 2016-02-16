@@ -15,6 +15,7 @@
 	<!--=============================================== Custome CSS =====================================================-->
 	    <!-- load bootstrap from CDN and custome CSS -->
 	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css">
+	
 	<link rel="stylesheet" type="text/css" href="assets/css/public/style.css">
 	<!--==================================================== JS =====================================================-->
 	<!-- load angular and angular-route via CDN -->
@@ -22,6 +23,10 @@
 	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.8/angular.min.js"></script>
 	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.8/angular-route.js"></script>
 	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.8/angular-animate.js"></script>
+	<script src="bower_components/angular-strap/dist/angular-strap.min.js"></script>
+	<script src="bower_components/angular-strap/dist/angular-strap.tpl.min.js"></script>
+
+
 	<!-- BOOTSTRAP-->	<!-- controllers -->
 	<script src="app/controllers/mainCtrl.js"></script>
 	<script src="app/controllers/userCtrl.js"></script>
@@ -87,7 +92,7 @@
 				ng-if = "!main.loggedIn"><a href ="/login"> <span class="glyphicon glyphicon-log-in"></span> Login</a></li>
 			
 			<li ng-class="{ active: isActive('/home')}"
-				ng-if = "main.loggedIn"><a href ="/home">Home</a></li>
+				ng-if = "main.loggedIn"><a href ="/home">{{user.name}}</a></li>
 			
 			<li ng-click = "main.doLogout()" ng-if = "main.loggedIn"><a href = "#">Logout</a></li>
     </ul>

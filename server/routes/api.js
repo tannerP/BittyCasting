@@ -208,7 +208,13 @@ apiRouter.route('/project/:project_id')
 		})
 	})
 
-
+	apiRouter.route('/me')
+	.get(function(req,res){
+			User.findById(req.decoded.id, function(err,user){
+			if(err) res.send(err);
+			res.json(user);
+		})
+		});
 //===============================  USERS  ============================
 apiRouter.route('/users/:user_id')
 	.get(function(req,res){

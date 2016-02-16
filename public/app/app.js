@@ -1,6 +1,7 @@
 
 angular.module('userApp', [
 	'ngAnimate',
+	'mgcrea.ngStrap',
 	'app.routes',
 	'authService',
 	'userService',
