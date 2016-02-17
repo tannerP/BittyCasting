@@ -15,6 +15,9 @@
 	<!--=============================================== Custome CSS =====================================================-->
 	    <!-- load bootstrap from CDN and custome CSS -->
 	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css">
+	<link rel="stylesheet" href="bower_components/angular-motion/dist/angular-motion.min.css">
+	<link rel="stylesheet" href="bower_components/bootstrap-additions/dist/bootstrap-additions.min.css">
+
 	
 	<link rel="stylesheet" type="text/css" href="assets/css/public/style.css">
 	<!--==================================================== JS =====================================================-->
@@ -89,7 +92,7 @@
 				ng-if = "!main.loggedIn" ><a href ="/signup"><span class="glyphicon glyphicon-user"></span> Signup</a></li>
 			
 			<li ng-class="{ active: isActive('/login')}"
-				ng-if = "!main.loggedIn"><a href ="/login"> <span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+				ng-if = "!main.loggedIn"><a ng-click='main.test()'href =""> <span class="glyphicon glyphicon-log-in"></span> Login</a></li>
 			
 			<li ng-class="{ active: isActive('/home')}"
 				ng-if = "main.loggedIn"><a href ="/home">{{user.name}}</a></li>
@@ -111,7 +114,12 @@
           </ul>
         </div> --><!--/.nav-collapse -->
 		<!-- Angular-->
+
 	<main class = "container-fluid">
+	<button type="button" class="btn btn-lg btn-primary" bs-aside="aside">Click to toggle aside
+  <br>
+  <small>(using an object)</small>
+</button>
 		<!-- ANGULAR VIEWS -->
 		<div ng-view></div>
 	</main>
