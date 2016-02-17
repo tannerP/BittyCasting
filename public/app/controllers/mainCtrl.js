@@ -16,9 +16,6 @@ angular.module('mainCtrl', ['authService'])
 		vm.loggedIn = Auth.isLoggedIn();
 		console.log(vm.user);
 
-		Auth.getUser(function(data){
-		 $scope.user = data;
-		});
 
 		$scope.isActive = function (viewLocation) { 
 	        return viewLocation === $location.path();
@@ -39,6 +36,9 @@ angular.module('mainCtrl', ['authService'])
 		Auth.login(vm.loginData.email, vm.loginData.password)
 			.success(function (data) {
 					vm.processing = false;
+					Auth.getUser(function(data){
+		 			$scope.user = data;
+				});
 				if (data.success) {
 						$location.path('/home');
 					}
