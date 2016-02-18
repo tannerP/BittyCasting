@@ -28,7 +28,6 @@
 	<script src="bower_components/angular-strap/dist/angular-strap.min.js"></script>
 	<script src="bower_components/angular-strap/dist/angular-strap.tpl.min.js"></script>
 
-
 	<!-- BOOTSTRAP-->	<!-- controllers -->
 	<script src="app/controllers/mainCtrl.js"></script>
 	<script src="app/controllers/userCtrl.js"></script>
@@ -39,62 +38,18 @@
 	<script src="app/services/authService.js"></script>
 	<script src="app/services/userService.js"></script>
 	<script src="app/lib/ui-bootstrap-tpls-1.1.1.js"></script>
-	<!-- main Angular app files -->
+	
+<!-- 	<script src="app/components/nav/nav_directive.js"></script>
+ -->	<!-- main Angular app files -->
 	<script src="app/app.routes.js"></script>
 	<script src="app/app.js"></script>
 	<script src="assets/js/main.js"></script>
 </head>
 <!--================================================ BODY ===========================================================-->
 <body ng-app="userApp" ng-controller="mainController as main">
-<script>
-  window.fbAsyncInit = function() {
-    FB.init({
-      appId      : '131112037275305',
-      xfbml      : true,
-      version    : 'v2.5'
-    });
-  };
-
-  (function(d, s, id){
-     var js, fjs = d.getElementsByTagName(s)[0];
-     if (d.getElementById(id)) {return;}
-     js = d.createElement(s); js.id = id;
-     js.src = "//connect.facebook.net/en_US/sdk.js";
-     fjs.parentNode.insertBefore(js, fjs);
-   }(document, 'script', 'facebook-jssdk'));
-</script>
-<!-- Fixed navbar -->
-    <nav class="navbar navbar-default navbar-fixed-top " ng-controller="navController as nav">
-      <div class="container">
-        <div class="navbar-header">
-          <a class="navbar-brand" href="/">Tellin
-				</a>
-        </div>
-    <div class="collapse navbar-collapse navbar-right">
-    <ul class="nav navbar-nav">
-        <li ng-class="{ active: isActive('/features')}" 
-            	ng-if='!main.loggedIn'><a href="/features">Features</a></li>
-			
-			<li ng-class="{ active: isActive('/pricing')}"
-				ng-if='!main.loggedIn'><a href="/pricing">Pricing</a></li>
-			
-			<li ng-class="{ active: isActive('/resources')}"
-				ng-if='!main.loggedIn'><a href="/resources">Resources</a></li>
-			
-			<li ng-class="{ active: isActive('/signup')}"
-				ng-if = "!main.loggedIn" ><a href ="/signup"><span class="glyphicon glyphicon-user"></span> Signup</a></li>
-			
-			<li ng-class="{ active: isActive('/login')}"
-				ng-if = "!main.loggedIn"><a ng-click='nav.test()'href =""> <span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-			
-			<li ng-class="{ active: isActive('/home')}"
-				ng-if = "main.loggedIn"><a href ="/home">{{user.name}}</a></li>
-			
-			<li ng-click = "main.doLogout()" ng-if = "main.loggedIn"><a href = "#">Logout</a></li>
-    </ul>
-</div>
-</nav>
-
+	<div ng-controller="navCtrl as navCtrl">
+		<div nav ></div>
+	</div>
 	<main class = "container-fluid">
 	<h2>{{main.message}}</h2>
 		<!-- ANGULAR VIEWS -->

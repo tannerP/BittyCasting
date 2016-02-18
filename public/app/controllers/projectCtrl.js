@@ -89,6 +89,12 @@ angular.module('projectCtrl',['userService', 'mgcrea.ngStrap'])
 				vm.message = err;
 			});
 	}})
+	.directive('myCustomer', function() {
+  return {
+  	restrict:'E',
+    template: 'Name: Address: '
+  }
+})
 
 //CastingBoard.html
 	.controller('CastingBoardController', function(Role, Project ,$location, $routeParams){

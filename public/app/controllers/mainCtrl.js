@@ -33,6 +33,7 @@ angular.module('mainCtrl', ['authService','mgcrea.ngStrap'])
 	function($scope,Auth,$location){
 			var vm = this;
 			vm.message;
+			vm.process = false;
 			vm.doLogin = function () {
 			vm.processing = true; //TODO:processing Icon
 			vm.error = '';
@@ -40,20 +41,23 @@ angular.module('mainCtrl', ['authService','mgcrea.ngStrap'])
 				.success(function (data) {
 					vm.processing = false;
 					Auth.getUser(function(data){
-		 			$scope.user = data;jkjk
+		 			$scope.user = data;
 				});
 				if (data.success) {
 						$location.path('/home');
 					}
 				else vm.error = data.message;
 			});
-			console.log("button click");
 		};
 	}])
 
 .controller('publicCtrl', ['$scope','$aside',
 		function($scope,$aside){
-			console.log('publicController');
+		$scope.customer = {
+    name: 'Naomi',
+    address: '1600 Amphitheatre'
+  	}
+		
 		var vm = this;
 		vm.message = "publicCtrl"
    	var loginAside = $aside({
@@ -77,5 +81,19 @@ angular.module('mainCtrl', ['authService','mgcrea.ngStrap'])
    			signupAside.$promise.then(signupAside.toggle);	
 				}
 	}])
+
+/* NAV */
+.controller('navCtrl', ['$scope','$aside',
+	function($scope,$aside){
+		var vm = this;
+		vm.navCtrl;
+
+	}])
+.directive('nav', function() {
+  return {
+  	restrict:'A',
+    templateUrl: 'components/nav/nav.tmpl.html'
+  };
+});
 
 

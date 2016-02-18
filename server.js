@@ -49,7 +49,11 @@ db.once('open', function (callback) {
 var apiRoutes = require(__dirname + '/server/routes/api')(app,express);
 var publicRoutes = require(__dirname + '/server/routes/authentication')(app,express);
 
+app.use('/bower_components',
+	express.static(__dirname + '/public/bower_components'));
 app.use(express.static(__dirname + '/public'));
+app.use(express.static(__dirname + '/public'));
+
 app.use('/',publicRoutes); 
 app.use('/api',apiRoutes); 
 app.all('*', function(req, res, next){
