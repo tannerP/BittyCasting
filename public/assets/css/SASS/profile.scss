@@ -1,15 +1,24 @@
 @import 'page_title';
 
-div.main{
+
+
+ div.main{
 	width:100%;
 	height:100%;
 	background-color: white;
 }
-
+.new_project{	
+		width:auto;
+		border-style: solid;
+		border-width: 1px;
+		border-height:20px;
+		border-width: 20px;
+			border-color: orange;
+			background-color: white;
+			a{color:orange;}
+			}
 ul.projects{
 	list-style-type: none;
-	width:60%;
-	height:100%;
 	margin-left: auto;
 	margin-right: auto;
 	padding-top: auto;
@@ -19,25 +28,20 @@ ul.projects{
 		height: auto;
 		border-style: solid;
 		border-width: 1px;
+		color:black;
+		width:auto;
+		height:15%;
+		width:25%;
+		margin-top: 25px;
+		font-size: 25px;
+		
 		span#projectName{
 			background-color: white;
 		}		
 		span#projectName:hover{
 			background-color: grey;
 		}
-		color:black;
-		width:auto;
-		height:8%;
-		width:100%;
-		margin-top: 25px;
-		font-size: 25px;
-		
 		}
-	.new_project{	
-			border-color: orange;
-			background-color: white;
-			a{color:orange;}
-			}
 	.project{	
 			a#projectEdit{
 			float:right		}
@@ -52,4 +56,4 @@ ul.projects{
 			}
 		}
 
-}
+} 

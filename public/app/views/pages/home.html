@@ -1,14 +1,12 @@
 
 <h1 class='pageTitle'>Home</h1>
-<a class='' href="/newproject">Create new project</a>
 <hr align="left" class= 'pageTitle_hor'>
-
-
+<div class="projectHeader">
+	<button class='new_project' ng-click="home.test()"href=""> + Create project</button>
+</div>
 	<ul class= 'projects'>
-		<li class="new_project btn btn-detault"><a  href="/newproject"> Create new project </a>
-		</li>
-		<li class="project btn btn-detault" ng-repeat-start="project in projectsController.projects">
-			<!-- <a class="btn btn-detault" ngClick={{projectsController.getProDetails(project.id) }}> 
+		<li class="project btn btn-detault" ng-repeat-start="project in home.projects">
+			<!-- <a class="btn btn-detault" ngClick={{home.getProDetails(project.id) }}> 
 			{{project.name}} </a> -->
 			<a id="projectName" href="/CastingBoard/{{project._id}}"><span>{{project.name}}</span></a>
 			<a id="projectEdit" href="/edit_projectDetails/{{project._id}}">

@@ -1,37 +1,43 @@
-angular.module('mainCtrl', ['authService'])
-
-	
-	.controller('homeCtrl', ['$scope','$rootScope',function($scope, $rootScope){
+angular.module('mainCtrl', ['authService','mgcrea.ngStrap'])
+	.controller('navController',['$scope','$location','$aside','Auth',
+		function($scope,$aside,$location,Auth){
 		var vm = this;
-		this.name = $rootScope.fullname
-		console.log($rootScope.fullname);
-		vm.message = 'HELLO';
-	}])
-
-	.controller('mainController',['$scope','Auth','$location','$rootScope','$aside',
-		function($rootScope,Auth,$location,$scope,$route,$aside) {
-		var vm = this;
-		vm.user={};
-
 		vm.loggedIn = Auth.isLoggedIn();
-
-		$scope.isActive = function (viewLocation) { 
+				vm.isActive = function (viewLocation) { 
 	        return viewLocation === $location.path();
 	    };
+		vm.message = " hey there";
+		vm.test = function(){
+   	var myAside = $aside({title: 'My mainController', content: 'My Content'});	
+   		}
+	}])
+	.controller('mainController',['$scope','Auth','$location',
+		function($rootScope, Auth, $location, $scope ) {
+		var vm = this;
+
+		vm.loggedIn = Auth.isLoggedIn();
 
 		$rootScope.$on('$routeChangeStart', function () {
 			vm.loggedIn = Auth.isLoggedIn();
 		});
-		vm.test = function(){
-			var aside = $aside({title: 'My Title', content: 'My Content', show: true});
-		}
-		vm.doLogin = function () {
-			//TODO:processing Icon
-			vm.processing = true;
-			vm.error = '';
 
-		Auth.login(vm.loginData.email, vm.loginData.password)
-			.success(function (data) {
+		
+		vm.doLogout = function () {
+			Auth.logout();
+			vm.user = {};
+			$location.path('/');
+		}
+	}])
+
+.controller('loginCtrl',['$scope','Auth','$location',
+	function($scope,Auth,$location){
+			var vm = this;
+			vm.message;
+			vm.doLogin = function () {
+			vm.processing = true; //TODO:processing Icon
+			vm.error = '';
+			Auth.login(vm.loginData.email, vm.loginData.password)
+				.success(function (data) {
 					vm.processing = false;
 					Auth.getUser(function(data){
 		 			$scope.user = data;jkjk
@@ -41,17 +47,35 @@ angular.module('mainCtrl', ['authService'])
 					}
 				else vm.error = data.message;
 			});
+			console.log("button click");
 		};
-		console.log($scope.user);
+	}])
 
-		vm.doLogout = function () {
-			Auth.logout();
-			vm.user = {};
-			$location.path('/login');
-		}
-	}]);
+.controller('publicCtrl', ['$scope','$aside',
+		function($scope,$aside){
+			console.log('publicController');
+		var vm = this;
+		vm.message = "publicCtrl"
+   	var loginAside = $aside({
+											title:"Login",
+											show: false, 
+										 	controller:'loginCtrl',
+										 	controllerAs:'login',						
+										  templateUrl:'/app/views/pages/login.html'		
+										});
+		var	signupAside =  $aside({scope:$scope,
+											title:"Sign up",
+											show: false, 
+										 	controller:'loginCtrl',						
+										  templateUrl:'/app/views/pages/signup.html'										 				
+										}) 											
 
-
-
+   	vm.login = function(){
+   			loginAside.$promise.then(loginAside.toggle);	
+				}
+		vm.signup = function(){
+   			signupAside.$promise.then(signupAside.toggle);	
+				}
+	}])
 
 

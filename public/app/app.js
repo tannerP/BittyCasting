@@ -1,7 +1,8 @@
 
 angular.module('userApp', [
-	'ngAnimate',
+	'ui.bootstrap',
 	'mgcrea.ngStrap',
+	'ngAnimate',
 	'app.routes',
 	'authService',
 	'userService',
@@ -9,9 +10,14 @@ angular.module('userApp', [
 	'AMMCtrl',
 	'mainCtrl',
 	'projectCtrl',
-	'userCtrl',
-	'ui.bootstrap'
+	'userCtrl'
 	])
+ .config(function($asideProvider) {
+  angular.extend($asideProvider.defaults, {
+    animation: 'am-slide-right',
+    placement: 'right'
+  });
+})
 .config(function($httpProvider)	{	
 	//attach our auth inteceptor to the http requests
 	$httpProvider.interceptors.push('AuthInterceptor');

@@ -6,7 +6,7 @@ angular.module('app.routes', ['ngRoute'])
         // route for the home page
         .when('/', {
             templateUrl : '/app/views/pages/index.html',
-            controller : 'homeCtrl',
+            controller : 'publicCtrl',
             controllerAs : 'page'
         })
         .when('/login', {
@@ -17,7 +17,7 @@ angular.module('app.routes', ['ngRoute'])
         .when('/home',  {
             templateUrl: 'app/views/pages/home.html',
             controller: 'home_ProjectsController',
-            controllerAs: 'projectsController'
+            controllerAs: 'home'
         })
 
 /*---------------- Projects ----------------*/
@@ -76,17 +76,17 @@ angular.module('app.routes', ['ngRoute'])
         .when('/features', {
             templateUrl : '/app/views/pages/features.html',
             controller : 'homeCtrl',
-            controllerAs : 'home'
+            controllerAs : 'page'
         })
         .when('/pricing', {
             templateUrl : '/app/views/pages/pricing.html',
             controller : 'homeCtrl',
-            controllerAs : 'home'
+            controllerAs : 'page'
         })    
         .when('/resources', {
             templateUrl : '/app/views/pages/resources.html',
             controller : 'homeCtrl',
-            controllerAs : 'home'
+            controllerAs : 'page'
         })    
         .when('/signup', {
             templateUrl : '/app/views/pages/signup.html',

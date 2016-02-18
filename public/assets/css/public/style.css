@@ -13,10 +13,19 @@ div.main {
   height: 100%;
   background-color: white; }
 
+.new_project {
+  width: auto;
+  border-style: solid;
+  border-width: 1px;
+  border-height: 20px;
+  border-width: 20px;
+  border-color: orange;
+  background-color: white; }
+  .new_project a {
+    color: orange; }
+
 ul.projects {
   list-style-type: none;
-  width: 60%;
-  height: 100%;
   margin-left: auto;
   margin-right: auto;
   padding-top: auto;
@@ -28,19 +37,14 @@ ul.projects {
     border-width: 1px;
     color: black;
     width: auto;
-    height: 8%;
-    width: 100%;
+    height: 15%;
+    width: 25%;
     margin-top: 25px;
     font-size: 25px; }
     ul.projects li.btn span#projectName {
       background-color: white; }
     ul.projects li.btn span#projectName:hover {
       background-color: grey; }
-  ul.projects .new_project {
-    border-color: orange;
-    background-color: white; }
-    ul.projects .new_project a {
-      color: orange; }
   ul.projects .project {
     border-color: orange;
     background-color: orange;

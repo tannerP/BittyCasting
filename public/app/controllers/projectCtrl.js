@@ -1,4 +1,4 @@
-angular.module('projectCtrl',['userService'])
+angular.module('projectCtrl',['userService', 'mgcrea.ngStrap'])
 
 	/*.controller('AMM', function(){
 		var vm = this;
@@ -55,10 +55,24 @@ angular.module('projectCtrl',['userService'])
 	}})
 
 //home.html
-	.controller('home_ProjectsController', function(Project, $location)	{
+	.controller('home_ProjectsController', function(Project, $location, $aside)	{
 		var vm = this;
+		var newPrjAside =  $aside({
+											title:"Login",
+											show: false, 
+										 	controller:'loginCtrl',
+										 	controllerAs:'login',						
+										  templateUrl:'/app/views/pages/project_form.html'		
+										});
+
 		vm.processing = true;
 		vm.projects;
+		
+		vm.test = function(){
+			newPrjAside.toggle();
+			console.log("click click");
+		}
+
 		Project.getAll()
 			.success(function(data){
 				vm.processing = false;
