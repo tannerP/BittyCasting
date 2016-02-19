@@ -17,7 +17,7 @@
             <div class='form-group'>
              <button type="button" class="btn btn-default" ng-click="$hide()">cancel</button>
 
-            <button type="submit" class="btn btn-primary" ng-if="project.existing"> Save</button>
+            <button type="submit" class="btn btn-primary" ng-if="project.existing" ng-click="project.save()"> Save</button>
             <button type="submit" class="btn btn-primary" ng-if="!project.existing"> Create project</button>
             </div>
         </form>

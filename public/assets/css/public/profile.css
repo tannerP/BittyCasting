@@ -1,4 +1,9 @@
+div.pageHeader {
+  width: auto;
+  background: grey; }
+
 h1.pageTittle {
+  text-align: center;
   font-size: "30px";
   color: rgba(40, 32, 172, 0.48); }
 
@@ -9,9 +14,20 @@ hr.pageTittle_hor {
   margin-bottom: 25px; }
 
 div.main {
+  text-align: center;
   width: 100%;
-  height: 100%;
-  background-color: white; }
+  height: 100%; }
+
+.card {
+  background-color: grey; }
+
+img {
+  width: auto;
+  height: auto; }
+
+.card_action {
+  width: 15px;
+  height: 15px; }
 
 .new_project {
   width: auto;
@@ -26,35 +42,6 @@ div.main {
 
 ul.projects {
   list-style-type: none;
-  margin-left: auto;
-  margin-right: auto;
-  padding-top: auto;
-  padding-left: auto; }
-  ul.projects li.btn {
-    width: 100%;
-    height: auto;
-    border-style: solid;
-    border-width: 1px;
-    color: black;
-    width: auto;
-    height: 15%;
-    width: 25%;
-    margin-top: 25px;
-    font-size: 25px; }
-    ul.projects li.btn span#projectName {
-      background-color: white; }
-    ul.projects li.btn span#projectName:hover {
-      background-color: grey; }
-  ul.projects .project {
-    border-color: orange;
-    background-color: orange;
-    color: white;
-    margin-top: 15px; }
-    ul.projects .project a#projectEdit {
-      float: right; }
-    ul.projects .project a {
-      color: white; }
-    ul.projects .project a:hover {
-      color: grey; }
+  width: 40%; }
 
 /*# sourceMappingURL=profile.css.map */

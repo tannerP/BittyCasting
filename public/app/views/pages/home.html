@@ -1,21 +1,42 @@
 
-<h1 class='pageTitle'>Home</h1>
-<hr align="left" class= 'pageTitle_hor'>
-<div class="projectHeader">
-	<button class='new_project' ng-click="home.test()"href=""> + Create project</button>
+<div class=pageHeader>
+  <h1 align="center" class='pageTitle'>My projects</h1>
+  <hr align="left" class= 'pageTitle_hor'>
+  <div class="projectHeader">
+  	<button class='new_project' 
+      ng-click="home.test()"> + Create project</button>
+  </div>
 </div>
-
+<md-content class="md-padding" layout-xs="column" layout="row">
 	<ul class= 'projects'>
-		<li class="project btn btn-detault" ng-repeat-start="project in home.projects">
-			<!-- <a class="btn btn-detault" ngClick={{home.getProDetails(project.id) }}> 
-			{{project.name}} </a> -->
-			<a id="projectName" href="/CastingBoard/{{project._id}}"><span>{{project.name}}</span></a>
-			<a id="projectEdit" href="/edit_projectDetails/{{project._id}}">
-					<span class='glyphicon glyphicon-pencil '></span>
-			</a>
+		<li class="project" ng-repeat-start="project in home.projects">
+			<md-card class="card">
+        <md-card-title>
+          <md-card-title-text>
+            <span class="md-headline">{{project.name}}</span>
+            	<a id="projectEdit" href="/edit_projectDetails/{{project._id}}">
+							<span class='glyphicon glyphicon-pencil '></span>
+							</a>
+          </md-card-title-text>
+          <md-card-title-media>
+            <div class="md-media-lg card-media"></div>
+          </md-card-title-media>
+        </md-card-title>
+        <br><br>
+        <md-card-actions layout="row" layout-align="end center">
+          <md-button class="card_action">
+            <span class="glyphicon glyphicon-duplicate" style="font-size:30px; color:#fff"></span>
+          </md-button>
+          <md-button>
+            <i class="material-icons" style="font-size:30px; color:#fff">delete</i>
+          </md-button>
+          <md-button> <span class="glyphicon glyphicon-eye-open"
+           style="font-size:30px; color:#fff"></span></md-button>
+        </md-card-actions>
+      </md-card>
+      <md-card>
+  </li>    
+	<li ng-repeat-end> </li>
+</ul>
+</md-con  
 
-		</li>
-		<li ng-repeat-end> </li>
-	 	<!--li ng-repeat-end class="new_project"><a class = "btn btn-detault" href="/newproject"> Create new project </a>
-		</li--> 
-	</ul>

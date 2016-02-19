@@ -57,11 +57,11 @@ angular.module('projectCtrl',['userService', 'mgcrea.ngStrap'])
 //home.html
 	.controller('home_ProjectsController', function(Project, $location, $aside)	{
 		var vm = this;
-		var newPrjAside =  $aside({
+		var newPrjAside = $aside({
 											title:"Login",
 											show: false, 
-										 	controller:'loginCtrl',
-										 	controllerAs:'login',						
+										 	controller:'newProjectController',
+										 	controllerAs:'project',						
 										  templateUrl:'/app/views/pages/project_form.html'		
 										});
 
@@ -70,7 +70,6 @@ angular.module('projectCtrl',['userService', 'mgcrea.ngStrap'])
 		
 		vm.test = function(){
 			newPrjAside.toggle();
-			console.log("click click");
 		}
 
 		Project.getAll()
@@ -89,14 +88,6 @@ angular.module('projectCtrl',['userService', 'mgcrea.ngStrap'])
 				vm.message = err;
 			});
 	}})
-	.directive('myCustomer', function() {
-  return {
-  	restrict:'E',
-    template: 'Name: Address: '
-  }
-})
-
-//CastingBoard.html
 	.controller('CastingBoardController', function(Role, Project ,$location, $routeParams){
 		var vm = this;
 		vm.processing = true;
@@ -144,7 +135,6 @@ angular.module('projectCtrl',['userService', 'mgcrea.ngStrap'])
 	.controller('newProjectController', function(Project, $location)	{
 		var vm = this;
 		vm.existing = false;
-		vm.processing = true;
 		vm.projectData;
 		vm.save = function(){
 			vm. processing = true;

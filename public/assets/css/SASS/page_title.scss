@@ -1,7 +1,12 @@
 $title_fontsize: '30px';
 $primary_color: rgba(40, 32, 172, 0.48);
 
+div.pageHeader{
+	width:auto;
+	background:grey;
+}
 h1.pageTittle{
+	text-align: center;
 	font-size: $title_fontsize;
 	color:	$primary_color;
 }

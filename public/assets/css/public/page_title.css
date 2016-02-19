@@ -1,4 +1,9 @@
+div.pageHeader {
+  width: auto;
+  background: grey; }
+
 h1.pageTittle {
+  text-align: center;
   font-size: "30px";
   color: rgba(40, 32, 172, 0.48); }
 

@@ -11,8 +11,8 @@ var mongoose = require('mongoose') //for working with mongoDB
 var config = require('./config'); //get config file
 var path = require('path');
 var User = require(__dirname + '/server//models/user.js');
-var BinaryServer = require('binaryjs').BinaryServer;
-var http         = require('http');
+/*var io = require('socket.io')(app);*/
+
 
 //var port = config.port; //PORT
 
@@ -59,9 +59,12 @@ app.use('/api',apiRoutes);
 app.all('*', function(req, res, next){
 	res.sendFile(path.join(__dirname+"/public/app/views/index.html"))
 })
-
 app.listen(config.port);
 
+/*io.on('connection', function(socket){
+	console.log('a user connected');
+})
+*/
 console.log("Magic happens on port" + config.port);
 
 

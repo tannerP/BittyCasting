@@ -13,12 +13,12 @@
     
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" ng-class="!navCollapsed && 'in'">
-        <ul class="nav navbar-nav">
-          <li class="active"><a href="/home">My project</a></li>
+        <ul ng-if='main.loggedIn' class="nav navbar-nav">
+          <li class="active"><a href="/home">My projects</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
-          <li ng-if = "!main.loggedIn"><a href="#">Create account</a></li>
-          <li ng-if = "!main.loggedIn"><a href="#" ng-click='navCtrl.test()'>Sign in</a></li>
+          <li ng-if="!main.loggedIn" ng-click='nav.signup()'><a href="#">Create account</a></li>
+          <li ng-if = "!main.loggedIn"><a href="#" ng-click='nav.signin()'>Sign in</a></li>
           <li ng-click = "main.doLogout()" ng-if = "main.loggedIn"><a href = "#">Logout</a></li>
         </ul>
       </div><!-- /.navbar-collapse -->
