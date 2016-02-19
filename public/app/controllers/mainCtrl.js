@@ -1,5 +1,5 @@
 angular.module('mainCtrl', ['authService','mgcrea.ngStrap'])
-	.controller('navController',['$scope','$location','$aside','Auth',
+	.controller('navController',['$scope','$location','$aside','$popover' ,'Auth',
 		function($scope,$aside,$location,Auth){
 		var vm = this;
 		vm.loggedIn = Auth.isLoggedIn();
@@ -83,9 +83,21 @@ angular.module('mainCtrl', ['authService','mgcrea.ngStrap'])
 	}])
 
 /* NAV */
-.controller('navCtrl', ['$scope','$aside',
-	function($scope,$aside){
+.controller('navCtrl', ['$scope','$popover',
+	function($scope,$popover){
+		console.log($popover);	
+	/*	var myPopover = $popover(element, {
+                    title: 'My Title',
+                    contentTemplate: 'example.html',
+                    html: true,
+                    trigger: 'manual',
+                    autoClose: true,
+                    scope: scope
+                });*/                
 		var vm = this;
+		vm.test = function(){
+			myPopover.show()	;
+		}
 		vm.navCtrl;
 
 	}])
