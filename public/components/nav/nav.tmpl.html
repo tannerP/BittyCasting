@@ -17,8 +17,8 @@
           <li class="active"><a href="/home">My project</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
-          <li><a href="#">Create account</a></li>
-          <li><a href="#" ng-click='navCtrl.test()'>Sign in</a></li>
+          <li ng-if = "!main.loggedIn"><a href="#">Create account</a></li>
+          <li ng-if = "!main.loggedIn"><a href="#" ng-click='navCtrl.test()'>Sign in</a></li>
           <li ng-click = "main.doLogout()" ng-if = "main.loggedIn"><a href = "#">Logout</a></li>
         </ul>
       </div><!-- /.navbar-collapse -->
