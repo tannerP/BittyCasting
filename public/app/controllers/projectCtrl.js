@@ -144,9 +144,8 @@ angular.module('projectCtrl',['userService', 'mgcrea.ngStrap'])
 					vm.processing = false;
 					vm.projectData = {};
 					vm.message = data.message;
-					$location.path('/home');
-
 				});
+			$location.path('/home');
 
 		}})
 

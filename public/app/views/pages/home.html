@@ -14,9 +14,6 @@
         <md-card-title>
           <md-card-title-text>
             <span class="md-headline">{{project.name}}</span>
-            	<a id="projectEdit" href="/edit_projectDetails/{{project._id}}">
-							<span class='glyphicon glyphicon-pencil '></span>
-							</a>
           </md-card-title-text>
           <md-card-title-media>
             <div class="md-media-lg card-media"></div>
@@ -32,9 +29,12 @@
           </md-button>
           <md-button> <span class="glyphicon glyphicon-eye-open"
            style="font-size:30px; color:#fff"></span></md-button>
+          <md-button id="projectEdit"><a style="font-size:30px; color:#fff" href="/edit_projectDetails/{{project._id}}" class='glyphicon glyphicon-pencil'>
+                <!-- <span class='glyphicon glyphicon-pencil '></span> -->
+                </a></md-button>
+          </md-card-actions>
         </md-card-actions>
       </md-card>
-      <md-card>
   </li>    
 	<li ng-repeat-end> </li>
 </ul>
