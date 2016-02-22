@@ -31,9 +31,9 @@ angular.module('app.routes', ['ngRoute'])
             controller: 'edit_ProjectController',
             controllerAs: 'project'
         })
-        .when('/CastingBoard/:project_id',  {
+        .when('/projectDetails/:project_id',  {
             templateUrl: 'app/views/pages/CastingBoard.html',
-            controller: 'CastingBoardController',
+            controller: 'prjDetailController',
             controllerAs: 'page'
         })
 

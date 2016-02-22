@@ -1,6 +1,6 @@
-angular.module('projectCtrl',['userService', 'mgcrea.ngStrap'])
+angular.module('projectCtrl',['userService', 'mgcrea.ngStrap']).
 
-	.controller('edit_RoleController', function(Role, $location, $routeParams){
+	controller('edit_RoleController', function(Role, $location, $routeParams){
 		var vm = this;
 		vm.edit = true;
 		vm.processing = true;
@@ -28,9 +28,9 @@ angular.module('projectCtrl',['userService', 'mgcrea.ngStrap'])
 				.error(function(err){
 					console.log(err.message);
 				})
-	}})
+	}}).
 
-	.controller('add_RoleController', function(Role, $location, $routeParams){
+	controller('add_RoleController', function(Role, $location, $routeParams){
 		var vm = this;
 		vm.edit = false;
 		vm.roleData = {};
@@ -66,10 +66,10 @@ var vm = this
 			deletePrjAside.toggle();
 			console.log("hey");
 		}
-})
+}).
 
 //home.html
-	.controller('home_ProjectsController', function(Project, $location, $aside,$scope)	{
+	controller('home_ProjectsController', function(Project, $location, $aside,$scope)	{
 		var vm = this;
 		var newPrjAside = $aside({
 											scope:$scope,
@@ -116,8 +116,8 @@ var vm = this
 			.error(function(err){
 				vm.message = err;
 			});
-	}})
-	.controller('CastingBoardController', function(Role, Project ,$location, $routeParams){
+	}}).
+	controller('prjDetailController', function(Role, Project ,$location, $routeParams){
 		var vm = this;
 		vm.processing = true;
 		vm.Roles  = [];
@@ -158,10 +158,10 @@ var vm = this
 					$location.path('/project/' + $routeParams.project_id); 
 
 			});
-	}})
+	}}).
 
 //project.html
-	.controller('newProjectController', function(Project, $location,$route, $scope)	{
+	controller('newProjectController', function(Project, $location,$route, $scope)	{
 		var vm = this;
 		vm.existing = false;
 		vm.projectData;
@@ -178,10 +178,10 @@ var vm = this
 				});
 			$location.path('/home');
 
-		}})
+		}}).
 
 	//page: project.html
-	.controller('edit_ProjectController', function(Project,$location,$routeParams)	{
+	controller('edit_ProjectController', function(Project,$location,$routeParams)	{
 		var vm = this;
 		vm.existing = true;
 		vm.processing = true;
@@ -211,9 +211,9 @@ var vm = this
 				console.log(err);
 			});
 
-	}})
+	}}).
 	//Change to style.flexDirection = 'column-reverse' 
-	.controller('deleteProjectController',function(Project,$location,$scope,$route)	{
+	controller('deleteProjectController',function(Project,$location,$scope,$route)	{
 		var vm = this; 
 		vm.process = true;
 		vm.existing = true;

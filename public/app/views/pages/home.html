@@ -9,13 +9,14 @@
 </div>
 <div class="mainContent">
   	<ul class= 'projects'>
-  		<li class="card"
+  		<li 
           ng-repeat-start="project in home.projects">
-        <span class="md-headline">{{project.name}}</span>          
-        <br><br>
-        <div class='actionBar'>
-          <span class="glyphicon glyphicon-duplicate"></span>
-          <span class="glyphicon glyphicon-trash" ng-click='home.deleteBtn(project)'></span>
+        <div class="card">    
+          <a href="/projectDetails/project._id"class="md-headline">{{project.name}}</a>
+          <div class='actionBar'>
+            <span class="glyphicon glyphicon-duplicate"></span>
+            <span class="glyphicon glyphicon-trash" ng-click='home.deleteBtn(project)'></span>
+          </div>
         </div>
     </li>    
   	<li ng-repeat-end> </li>
