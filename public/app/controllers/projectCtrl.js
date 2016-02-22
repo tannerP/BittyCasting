@@ -77,7 +77,7 @@ var vm = this
 											keyboard:true, 
 										 	controller:'newProjectController',
 										 	controllerAs:'projectAside',						
-										  templateUrl:'/app/views/pages/project_form.html'		
+										  templateUrl:'/app/views/pages/project_form.tmpl.html'		
 										});
 		  deletePrjAside = $aside({
   										scope:$scope,
@@ -85,7 +85,7 @@ var vm = this
 											show: false, 
 										 	controller:'deleteProjectController',
 										 	controllerAs:'projectAside',
-										 	templateUrl:'/app/views/pages/project_form.html'		
+										 	templateUrl:'/app/views/pages/deleteProject.tmpl.html'		
 										  })
 		vm.processing = true;
 		vm.projects;
@@ -160,7 +160,7 @@ var vm = this
 	}})
 
 //project.html
-	.controller('newProjectController', function(Project, $location)	{
+	.controller('newProjectController', function(Project, $location,$route, $scope)	{
 		var vm = this;
 		vm.existing = false;
 		vm.projectData;
@@ -169,9 +169,11 @@ var vm = this
 			vm.message;
 			Project.create(vm.projectData)
 				.success(function(data)	{
+					$route.reload();
 					vm.processing = false;
 					vm.projectData = {};
 					vm.message = data.message;
+					$scope.$hide()
 				});
 			$location.path('/home');
 

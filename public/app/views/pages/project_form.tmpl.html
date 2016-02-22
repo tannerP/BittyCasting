@@ -1,25 +1,21 @@
 <div class="aside" tabindex="-1" role="dialog">
     
     <h1 ng-if="!projectAside.delete"> Create Project</h1>
-    <h1 ng-if="projectAside.delete"> Delete {{home.projectData.name}} ?</h1>
-        <form class="container-page" ng-submit="page.save()">
+    <h1 ng-if="projectAside.delete"> Delete {{projectData.name}} ?</h1>
+        <form class="container-page" ng-submit="projectAside.save()">
             <div class = "form-group name">
                 <input type = "text"
                         placeholder="Project name"
                         class = "form-control"
-                        ng-model = "home.projectData.name"></div>
-            <textarea rows="4" cols="40" class ="form-control"
+                        ng-model = "projectAside.projectData.name"></div>
+                <textarea rows="4" cols="40" class ="form-control"
                         placeholder="Project details"
-                        ng-model = "home.projectData.details"></textarea>
-            
+                        ng-model = "projectAside.projectData.details"></textarea>
             <div class='form-group'>
             <button type="button" class="btn btn-default"
                 ng-click="$hide()"> Cancel </button>
             <button type="submit" class="btn btn-primary"
                  ng-if="!projectAside.delete"> Create page </button>
-            <button type="submit" class="btn btn-primary"
-                ng-if="projectAside.delete" 
-                ng-click='projectAside.delete(home.projectData._id)'> Delete </button>
             </div>
         </form>
         <br>

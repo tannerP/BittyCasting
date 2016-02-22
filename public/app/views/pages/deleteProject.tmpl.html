@@ -1,0 +1,16 @@
+<div class="aside" tabindex="-1" role="dialog">
+    
+    
+    <h1 ng-if="projectAside.delete"> Delete {{home.projectData.name}} ?</h1>
+     <div class = "form-group name">				
+      <span ng-model = "home.projectData.details">"Project Details:"{{home.projectData.details}}</span>
+      <div class='form-group'>
+      <button type="button" class="btn btn-default"
+          ng-click="$hide()"> Cancel </button>
+      <button type="submit" class="btn btn-primary"
+           ng-if="!projectAside.delete"> Create page </button>
+      <button type="submit" class="btn btn-primary"
+          ng-if="projectAside.delete" 
+          ng-click='projectAside.delete(home.projectData._id)'> Delete </button>
+      </div>
+</div>
