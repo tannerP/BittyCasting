@@ -4,39 +4,18 @@
   <hr align="left" class= 'pageTitle_hor'>
   <div class="projectHeader">
   	<button class='new_project' 
-      ng-click="home.test()"> + Create project</button>
+      ng-click="home.newPrjBtn()"> + Create project</button>
   </div>
 </div>
-<md-content class="md-padding" layout-xs="column" layout="row">
-	<ul class= 'projects'>
-		<li class="project" ng-repeat-start="project in home.projects">
-			<md-card class="card">
-        <md-card-title>
-          <md-card-title-text>
-            <span class="md-headline">{{project.name}}</span>
-          </md-card-title-text>
-          <md-card-title-media>
-            <div class="md-media-lg card-media"></div>
-          </md-card-title-media>
-        </md-card-title>
+<div class="mainContent">
+  	<ul class= 'projects'>
+  		<li class="card" ng-repeat-start="project in home.projects">
+        <span class="md-headline">{{project.name}}</span>          
+        <div class="md-media-lg card-media"></div>
         <br><br>
-        <md-card-actions layout="row" layout-align="end center">
-          <md-button class="card_action">
-            <span class="glyphicon glyphicon-duplicate" style="font-size:30px; color:#fff"></span>
-          </md-button>
-          <md-button>
-            <i class="material-icons" style="font-size:30px; color:#fff">delete</i>
-          </md-button>
-          <md-button> <span class="glyphicon glyphicon-eye-open"
-           style="font-size:30px; color:#fff"></span></md-button>
-          <md-button id="projectEdit"><a style="font-size:30px; color:#fff" href="/edit_projectDetails/{{project._id}}" class='glyphicon glyphicon-pencil'>
-                <!-- <span class='glyphicon glyphicon-pencil '></span> -->
-                </a></md-button>
-          </md-card-actions>
-        </md-card-actions>
-      </md-card>
-  </li>    
-	<li ng-repeat-end> </li>
-</ul>
-</md-con  
-
+        <span class="glyphicon glyphicon-duplicate"></span>
+        <span class="glyphicon glyphicon-trash"></span>
+    </li>    
+  	<li ng-repeat-end> </li>
+  </ul>
+</div>

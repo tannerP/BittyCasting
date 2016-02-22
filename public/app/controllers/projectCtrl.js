@@ -1,10 +1,5 @@
 angular.module('projectCtrl',['userService', 'mgcrea.ngStrap'])
 
-	/*.controller('AMM', function(){
-		var vm = this;
-		vm.message = 'AMM';
-	})
-	*/
 	.controller('edit_RoleController', function(Role, $location, $routeParams){
 		var vm = this;
 		vm.edit = true;
@@ -68,7 +63,7 @@ angular.module('projectCtrl',['userService', 'mgcrea.ngStrap'])
 		vm.processing = true;
 		vm.projects;
 		
-		vm.test = function(){
+		vm.newPrjBtn = function(){
 			newPrjAside.toggle();
 		}
 
