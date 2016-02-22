@@ -18,16 +18,11 @@ div.main {
   width: 100%;
   height: 100%; }
 
-.card {
-  background-color: grey; }
-
-img {
-  width: auto;
-  height: auto; }
-
-.card_action {
-  width: 15px;
-  height: 15px; }
+li.card {
+  font-size: 30px;
+  color: #fff;
+  background-color: grey;
+  margin: 3px; }
 
 .new_project {
   width: auto;
@@ -41,26 +36,7 @@ img {
     color: orange; }
 
 ul.projects {
-  list-style-type: none;
-  width: 40%; }
-
-li.card {
-  display: block;
-  width: 31%;
-  height: 20%;
-  margin: 1%;
-  float: left;
-  background-color: orange;
-  text-align: center; }
-
-li.card.add {
-  background: white;
-  border-style: solid;
-  border-width: 3px;
-  border-color: orange; }
-
-li.card:hover {
-  background-color: grey; }
+  list-style-type: none; }
 
 div#video-pane {
   width: 70%;
