@@ -1,7 +1,20 @@
 @import 'profile';
-@import 'header';
 @import 'castings';
 @import 'viewAuditionPage';
+
+
+
+$font-primary: 'Open Sans', sans-serif;
+
+$color-grey-darkest: #242424;
+$color-grey-dark: #666666;
+$color-grey: #999999;
+$color-grey-light: #cccccc;
+$color-grey-lightest: #eeeeee;
+
+$color-blue-darken: #069A9F;
+$color-blue: #06bcc2;
+$color-blue-lighten: #48d8d8;
 
 .nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
 
@@ -10,6 +23,35 @@
 	top:8px;
 	padding:1px;
 }
- a{
- 	color:orange;
- }
+
+body {
+    font-family: $font-primary;
+    background-color: #eeeeee;
+}
+
+header {
+    background-color: #ffffff;
+    -webkit-box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.1);
+    -moz-box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.1);
+    box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.1);
+}
+
+.logoNav {
+    fill: $color-grey-darkest;
+    width: 180px;
+    float: left;
+    padding: 15px;
+}
+
+.nav>li>a:focus, .nav>li>a:hover {
+    background-color: #red;
+}
+
+.navCustom a {
+    font-size: 12px;
+    color: $color-grey-dark;
+}
+
+    a:hover {
+    color: $color-grey-darkest;
+}
