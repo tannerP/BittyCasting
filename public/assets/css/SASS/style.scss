@@ -43,10 +43,11 @@ header {
     padding: 15px;
 }
 
-.nav>li>a:focus, .nav>li>a:hover {
-    background-color: #red;
+/* HERE! :) */
+.navbar-nav>li>a:hover{
+    background-color: #FFFF00;
+    color: #FFC0CB;
 }
-
 .navCustom a {
     font-size: 12px;
     color: $color-grey-dark;
