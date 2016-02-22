@@ -81,8 +81,8 @@ var vm = this
 										});
 		  deletePrjAside = $aside({
   										scope:$scope,
-											keyboard:true,
 											show: false, 
+											keyboard:true,
 										 	controller:'deleteProjectController',
 										 	controllerAs:'projectAside',
 										 	templateUrl:'/app/views/pages/deleteProject.tmpl.html'		
@@ -93,11 +93,12 @@ var vm = this
 		vm.newPrjBtn = function(){
 			vm.projectData = {};
 			newPrjAside.$promise.then(newPrjAside.toggle);	
-			console.log(vm.projectData);
+			/*console.log(vm.projectData);*/
 		}
 		vm.deleteBtn = function(data){
 			vm.projectData = data;
-			deletePrjAside.toggle();
+			deletePrjAside.$promise.then(deletePrjAside.toggle);	
+			/*deletePrjAside.toggle();*/
 		}
 
 		Project.getAll()
@@ -212,7 +213,7 @@ var vm = this
 
 	}})
 	//Change to style.flexDirection = 'column-reverse' 
-	.controller('deleteProjectController',function(Project,$location,$scope)	{
+	.controller('deleteProjectController',function(Project,$location,$scope,$route)	{
 		var vm = this; 
 		vm.process = true;
 		vm.existing = true;
@@ -222,11 +223,10 @@ var vm = this
 			console.log('Deleting prodID:' + projID);
 			Project.delete(projID)
 			.success(function(){
-				$location.path('/home');
+				$route.reload();
 				vm.processing = false;
 				vm.projectData = null;
-
-				$location.path('/home');
+				$scope.$hide();	
 
 			})
 			.error(function(err){
