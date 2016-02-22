@@ -47,24 +47,43 @@ angular.module('projectCtrl',['userService', 'mgcrea.ngStrap'])
 				.error(function(err){
 					console.log(err.message);
 				})
-	}})
+	}}).
+controller('card_ProjectController', function(Project, $location, $aside, $scope)	{
+var vm = this		
+	vm.deleteCtrl = true;
+
+  deletePrjAside = $aside({
+											scope:$scope,	
+											title:"Login",
+											keyboard:true,
+											show: false, 
+										 	controller:'deleteProjectController',
+										 	controllerAs:'page',
+										  templateUrl:'/app/views/pages/project_form.html'		
+										});
+	vm.message = "card controller message";
+	vm.deleteBtn = function(){
+			deletePrjAside.toggle();
+			console.log("hey");
+		}
+})
 
 //home.html
-	.controller('home_ProjectsController', function(Project, $location, $aside)	{
+	.controller('home_ProjectsController', function(Project, $location, $aside,$scope)	{
 		var vm = this;
 		var newPrjAside = $aside({
+											scope:$scope,
 											title:"Login",
 											show: false, 
 										 	controller:'newProjectController',
 										 	controllerAs:'project',						
 										  templateUrl:'/app/views/pages/project_form.html'		
 										});
-
 		vm.processing = true;
 		vm.projects;
 		
 		vm.newPrjBtn = function(){
-			newPrjAside.toggle();
+			newPrjAside.$promise.then(loginAside.toggle);	
 		}
 
 		Project.getAll()
@@ -177,7 +196,7 @@ angular.module('projectCtrl',['userService', 'mgcrea.ngStrap'])
 
 	}})
 	//Change to style.flexDirection = 'column-reverse' 
-	.controller('delete_project',function(Project,$location)	{
+	.controller('deleteProjectController',function(Project,$location)	{
 		var vm = this; 
 		vm.process = true;
 		vm.existing = true;

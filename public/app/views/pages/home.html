@@ -9,12 +9,11 @@
 </div>
 <div class="mainContent">
   	<ul class= 'projects'>
-  		<li class="card" ng-repeat-start="project in home.projects">
+  		<li class="card" ng-controller = "card_ProjectController as card" ng-repeat-start="project in home.projects">
         <span class="md-headline">{{project.name}}</span>          
-        <div class="md-media-lg card-media"></div>
         <br><br>
         <span class="glyphicon glyphicon-duplicate"></span>
-        <span class="glyphicon glyphicon-trash"></span>
+        <span ng-click='card.deleteBtn()' class="glyphicon glyphicon-trash"></span>
     </li>    
   	<li ng-repeat-end> </li>
   </ul>

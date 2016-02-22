@@ -32,37 +32,21 @@
                     </ul>
 
                    <div class="custom-action-nav">        
-                    <ul>  
-
-                    <ul class="nav navbar-nav navbar-right">
-                      <li><a href="#">Features</a></li>
-                      <li><a href="#">Pricing</a></li>
-                      <li><a href="#">About</a></li>
-                      <li><a href="#">|</a></li>  
-                      
-
+                    <ul>
                       <li ng-if = "!main.loggedIn"><a href="#" ng-click='nav.signin()'>Sign in</a></li>
                         <li ng-if="!main.loggedIn" ng-click='nav.signup()'><a href="#" class="custom-btn-primary-small">Sign up for free</a></li>
-                        
-                      <li ng-click = "main.doLogout()" ng-if = "main.loggedIn"><a href = "#">Logout</a></li>
+                      <li ng-if="main.loggedIn" ng-click="main.doLogout()" ><a href = "#">Logout</a></li>
                     </ul>
-                  </div>   
-
-                      
-                  <div class="custom-site-nav">      
-                    <ul ng-if = "!main.loggedIn" class="nav navbar-nav">
-                      <li><a href="#">About</a></li>
-                      <li><a href="#">Features</a></li>
-                      <li><a href="#">Pricing</a></li>
-                      <li><a href="#">Blog</a></li>
-                      <li><a href="#">Contact</a></li>
-                    </ul>    
+                      <div class="custom-site-nav">      
+                      <ul ng-if = "!main.loggedIn" class="nav navbar-nav">
+                        <li><a href="#">About</a></li>
+                        <li><a href="#">Features</a></li>
+                        <li><a href="#">Pricing</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Contact</a></li>
+                      </ul>    
                   </div>
-                      
-                      
- 
-                      
-
+                  </div>   
                   </div><!-- /.navbar-collapse -->
             
              </nav>

@@ -1,25 +1,27 @@
 <div class="aside" tabindex="-1" role="dialog">
     
-    <h1 ng-if="!project.existing"> Create project</h1>
-    <h1 ng-if="project.existing"> {{project.projectData.name}} </h1>
-        <form class="container-page" ng-submit="project.save()">
+    <h1 ng-if="!page.existing"> Create page</h1>
+    <h1 ng-if="page.existing"> {{message}} </h1>
+    <h1> Delete {{name}}</h1>
+    {{name}}
+        <form class="container-page" ng-submit="page.save()">
             <div class = "form-group name">
                 <input type = "text"
                         placeholder="Project name"
                         class = "form-control"
-                        ng-model = "project.projectData.name">
+                        ng-model = "page.name">
             </div>
             <textarea rows="4" cols="50" class ="form-control"
-                        ng-model = "project.projectData.details"
-                        placeholder="Project Detail">
+                        ng-model = "page.details"
+                        placeholder="Project details">
             </textarea>
             <br>
             <div class='form-group'>
              <button type="button" class="btn btn-default" ng-click="$hide()">cancel</button>
 
-            <button type="submit" class="btn btn-primary" ng-if="project.existing" ng-click="project.save()"> Save</button>
-            <button type="submit" class="btn btn-primary" ng-if="!project.existing"> Create project</button>
+            <button type="submit" class="btn btn-primary" ng-if="page.existing" ng-click="page.save()"> Save</button>
+            <button type="submit" class="btn btn-primary" ng-if="!page.existing"> Create page</button>
             </div>
         </form>
-        <button type="submit" class="btn btn-danger" ng-if="project.existing" ng-controller="delete_project as deleter" ng-click='deleter.delete(project.projectData._id)'> Delete</button>
+        <button type="submit" ng-click='delete(page._id)'> Delete</button>
 </div>

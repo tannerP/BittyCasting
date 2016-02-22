@@ -1,5 +1,6 @@
-angular.module('mainCtrl', ['authService','mgcrea.ngStrap'])
-.controller('publicCtrl', ['$scope','$aside',
+angular.module('mainCtrl', ['authService','mgcrea.ngStrap']).
+
+controller('publicCtrl', ['$scope','$aside',
 		function($scope,$aside){
 		$scope.customer = {
     name: 'Naomi',
@@ -29,8 +30,8 @@ angular.module('mainCtrl', ['authService','mgcrea.ngStrap'])
 		vm.signup = function(){
    			signupAside.$promise.then(signupAside.toggle);	
 				}
-	}])
-	.controller('mainController',['$scope','Auth','$location',"$sce",
+	}]).
+controller('mainController',['$scope','Auth','$location',"$sce",
 		function($rootScope, Auth, $location, $scope, $sce ) {
 		var vm = this;
 
@@ -45,15 +46,12 @@ angular.module('mainCtrl', ['authService','mgcrea.ngStrap'])
 			vm.user = {};
 			$location.path('/');
 		}
-	}])
-// controller applied to user creation page
-	.controller('signupCtrl', function(User)	{
+	}]).
+controller('signupCtrl', function(User)	{
 		var vm = this;
 
-		// variable to hide/show elements of the view
-		// differentiates between create or edit page
 		vm.type = 'create';
-		// function to create a user
+
 		vm.saveUser = function()	{
 			vm.processing = true;
 
@@ -70,9 +68,8 @@ angular.module('mainCtrl', ['authService','mgcrea.ngStrap'])
 					vm.message = data.message;
 				});
 
-	}})
-
-.controller('loginCtrl',['$scope','Auth','$location',
+	}}).
+controller('loginCtrl',['$scope','Auth','$location',
 	function($scope,Auth,$location){
 			var vm = this;
 			vm.message;
@@ -92,12 +89,16 @@ angular.module('mainCtrl', ['authService','mgcrea.ngStrap'])
 				else vm.error = data.message;
 			});
 		};
-	}])
+	}]).
 
 /* NAV */
-.controller('navCtrl', ['$scope','$popover','$aside',
-	function($scope,$popover,$aside){
+controller('navCtrl', ['$scope','$popover','$aside','Auth',
+	function($scope,$popover,$aside,Auth){
 		var vm = this;
+		vm.loggedIn = Auth.isLoggedIn();
+		vm.isActive = function (viewLocation) { 
+	        return viewLocation === $location.path();
+	    };
 		 var loginAside = $aside({
 											title:"Login",
 											show: false, 
@@ -112,7 +113,6 @@ angular.module('mainCtrl', ['authService','mgcrea.ngStrap'])
 										 	controllerAs:'project',					
 										  templateUrl:'/app/views/pages/signup.html'										 				
 										}) 	
-		console.log("popover: "+ $popover);	
           
 		vm.signin = function(){
 			loginAside.toggle();
@@ -122,22 +122,16 @@ angular.module('mainCtrl', ['authService','mgcrea.ngStrap'])
 		}
 		vm.navCtrl;
 
-	}])
-.directive('nav', function() {
+	}]).
+directive('nav', function() {
   return {
   	restrict:'A',
     templateUrl: 'components/nav/nav.tmpl.html'
   };
-})
-	
-.controller('navController',['$scope','$location','$aside','$popover' ,'Auth',
+}).
+controller('navController',['$scope','$location','$aside','$popover' ,'Auth',
 		function($scope,$aside,$location,Auth){
 		var vm = this;
-		vm.loggedIn = Auth.isLoggedIn();
-				vm.isActive = function (viewLocation) { 
-	        return viewLocation === $location.path();
-	    };
-		vm.message = " hey there";
 		vm.test = function(){
    	var myAside = $aside({title: 'My mainController', content: 'My Content'});	
    		}
