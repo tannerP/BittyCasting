@@ -53,16 +53,16 @@ var vm = this
 	vm.deleteCtrl = true;
 
   deletePrjAside = $aside({
-											scope:$scope,	
-											title:"Login",
+  										scope:$scope,
 											keyboard:true,
 											show: false, 
 										 	controller:'deleteProjectController',
-										 	controllerAs:'page',
+										 	controllerAs:'asideProject',
 										  templateUrl:'/app/views/pages/project_form.html'		
 										});
 	vm.message = "card controller message";
-	vm.deleteBtn = function(){
+	vm.deleteBtn = function(prjData){
+		vm.targetedPrj = prjData;
 			deletePrjAside.toggle();
 			console.log("hey");
 		}
@@ -73,17 +73,31 @@ var vm = this
 		var vm = this;
 		var newPrjAside = $aside({
 											scope:$scope,
-											title:"Login",
-											show: false, 
+											show: false,
+											keyboard:true, 
 										 	controller:'newProjectController',
-										 	controllerAs:'project',						
+										 	controllerAs:'projectAside',						
 										  templateUrl:'/app/views/pages/project_form.html'		
 										});
+		  deletePrjAside = $aside({
+  										scope:$scope,
+											keyboard:true,
+											show: false, 
+										 	controller:'deleteProjectController',
+										 	controllerAs:'projectAside',
+										 	templateUrl:'/app/views/pages/project_form.html'		
+										  })
 		vm.processing = true;
 		vm.projects;
 		
 		vm.newPrjBtn = function(){
-			newPrjAside.$promise.then(loginAside.toggle);	
+			vm.projectData = {};
+			newPrjAside.$promise.then(newPrjAside.toggle);	
+			console.log(vm.projectData);
+		}
+		vm.deleteBtn = function(data){
+			vm.projectData = data;
+			deletePrjAside.toggle();
 		}
 
 		Project.getAll()
@@ -196,7 +210,7 @@ var vm = this
 
 	}})
 	//Change to style.flexDirection = 'column-reverse' 
-	.controller('deleteProjectController',function(Project,$location)	{
+	.controller('deleteProjectController',function(Project,$location,$scope)	{
 		var vm = this; 
 		vm.process = true;
 		vm.existing = true;
