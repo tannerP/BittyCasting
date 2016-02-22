@@ -2,7 +2,9 @@
 @import 'castings';
 @import 'viewAuditionPage';
 
-
+/***************************
+          Colors
+***************************/
 
 $font-primary: 'Open Sans', sans-serif;
 
@@ -16,7 +18,42 @@ $color-blue-darken: #069A9F;
 $color-blue: #06bcc2;
 $color-blue-lighten: #48d8d8;
 
-.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
+/***************************
+     Reusable elements
+***************************/
+
+@mixin box-shadow($top, $left, $blur, $spread, $color) {
+    -webkit-box-shadow: $top $left $blur $spread $color;
+    -moz-box-shadow: $top $left $blur $spread $color;
+    box-shadow: $top $left $blur $spread $color;
+}
+
+@mixin transition($property, $duration, $ease) {
+  -webkit-transition: $property $duration $ease;
+  -moz-transition: $property $duration $ease;
+  -ms-transition: $property $duration $ease;
+  -o-transition: $property $duration $ease;
+  transition: $property $duration $ease;
+}
+
+.custom-btn-primary-small {   
+        color: white;  
+        background-color: $color-blue; 
+        padding: 9px 20px;
+        @include box-shadow(0px, 1px, 1px, 0px, rgba(0,0,0,0.2));
+        @include transition(all, 0.8s, ease);
+        &:hover {
+            background-color: $color-blue-darken;
+            color: white; 
+            @include transition(all, 0.8s, ease);
+        }  
+}
+
+/***************************
+           Global
+***************************/
+
+.pagination, .carousel, .panel-title a { cursor: pointer; }
 
 .container-fluid{
 	position:relative;
@@ -29,29 +66,83 @@ body {
     background-color: #eeeeee;
 }
 
+/***************************
+           Header
+***************************/
+
 header {
     background-color: #ffffff;
-    -webkit-box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.1);
-    -moz-box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.1);
-    box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.1);
+    @include box-shadow(0px, 2px, 3px, 0px, rgba(0,0,0,0.1));
 }
 
 .logoNav {
-    fill: $color-grey-darkest;
-    width: 180px;
-    float: left;
-    padding: 15px;
+        fill: $color-grey-darkest;
+        width: 170px;
+        float: left;
+        padding: 15px 0;
+        @include transition(all, 0.2s, ease);
+        &:hover {
+            fill: $color-blue;
+            @include transition(all, 0.2s, ease);
+        }   
+    }
+
+.custom-site-nav { 
+
+    ul {float: right;}
+    
+    li {   
+        a {          
+            font-size: 12px;
+            color: $color-grey-dark;
+            line-height: 56px;
+            margin-right: 40px;
+            padding: 0;
+            @include transition(all, 0.2s, ease);
+        }       
+        a:hover, a:focus  {
+            background-color: transparent;
+            color: $color-blue;
+            @include transition(all, 0.2s, ease);
+        }
+    }
 }
 
-/* HERE! :) */
-.navbar-nav>li>a:hover{
-    background-color: #FFFF00;
-    color: #FFC0CB;
-}
-.navCustom a {
-    font-size: 12px;
-    color: $color-grey-dark;
-}
-a:hover {
-    color: $color-grey-darkest;
+.custom-action-nav  {
+    
+    ul {
+        list-style-type: none;
+        float: right;
+        margin: 0;
+        padding: 0;
+    }
+    
+    li {           
+        display: inline;
+        
+        a {
+            font-size: 12px;           
+            line-height: 56px;
+            margin-left: 40px;
+            text-decoration: none;
+        }   
+        
+        &:first-child { 
+            border-left: #ccc 1px solid;
+            a {
+                color: $color-grey-dark;
+                @include transition(all, 0.2s, ease);
+            }
+            a:hover, a:focus  {
+                background-color: transparent;
+                color: $color-blue;
+                @include transition(all, 0.2s, ease);
+            }
+
+        } 
+
+    }
+    
+    
+
 }
