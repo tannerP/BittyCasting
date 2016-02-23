@@ -1,16 +1,19 @@
 
 <div class=pageHeader>
-  <h1 align="center" class='pageTitle'>My projects</h1>
-  <hr align="left" class= 'pageTitle_hor'>
+    
+  <div class='pageTitle'>My projects</div>
+    
   <div class="projectHeader">
-  	<button class='new_project' 
-      ng-click="home.newPrjBtn()"> + Create project</button>
+  	<button class='custom-btn-secondary-small' ng-click="home.newPrjBtn()"> + Create project</button>
   </div>
+    
 </div>
+
+
 <div class="mainContent">
-  	<ul class= 'projects'>
-  		<li 
-          ng-repeat-start="project in home.projects">
+    
+  	<ul class='projects'>
+  		<li ng-repeat-start="project in home.projects">
         <div class="card">    
           <a href="/projectDetails/project._id"class="md-headline">{{project.name}}</a>
           <div class='actionBar'>
@@ -18,7 +21,8 @@
             <span class="glyphicon glyphicon-trash" ng-click='home.deleteBtn(project)'></span>
           </div>
         </div>
-    </li>    
-  	<li ng-repeat-end> </li>
-  </ul>
+        </li>    
+        <li ng-repeat-end> </li>
+    </ul>
+    
 </div>
