@@ -113,7 +113,16 @@ header {
     transition: all 0.2s ease; }
 
 .custom-site-nav ul {
+  position: relative;
   float: right; }
+  .custom-site-nav ul:after {
+    content: "";
+    background: #ccc;
+    position: absolute;
+    top: 18px;
+    right: 0;
+    height: 19px;
+    width: 1px; }
 .custom-site-nav li a {
   display: inline;
   font-size: 12px;
@@ -134,8 +143,6 @@ header {
   -ms-transition: all 0.2s ease;
   -o-transition: all 0.2s ease;
   transition: all 0.2s ease; }
-.custom-site-nav li a:last-child {
-  border-right: #ccc 1px solid; }
 
 .custom-site-nav-in ul {
   float: left; }
