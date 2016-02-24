@@ -10,7 +10,7 @@ angular.module('userService', [])
 		return $http.get('/api/roles/'+ projectID);
 	}	 
 	roleFactory.create = function(projectID, roleData){
-		return $http.post('/api/role/'+projectID,roleData);
+		return $http.post('/api/createRole/'+projectID,roleData);
 	}
 	roleFactory.update = function(id,roleData){
 		return $http.put('/api/role/' + projectID, roleData);

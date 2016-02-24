@@ -66,14 +66,14 @@ apiRouter.route('/roles/:projectID')
 	})
 });
 //create role
-apiRouter.route('/role/:projectID')
+apiRouter.route('/createRole/:projectID')
 		.post(function(req,res){
 				var role = new Role();
 				role.user = req.decoded.name;
 				role.userID = req.decoded.id;
-				console.log(req);
+				console.log(req.body);
 				
-				role.projectID = req.paramss.projectID;
+				role.projectID = req.params.projectID;
 				role.name = req.body.name;
 				role.details = req.body.details;
 				role.resume = req.body.resume;
