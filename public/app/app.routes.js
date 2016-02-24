@@ -20,6 +20,12 @@ angular.module('app.routes', ['ngRoute'])
             controllerAs: 'home'
         })
 
+/*--------------- Applicants ---------------*/
+.when('/ApplyHere',  {
+            templateUrl: 'app/views/pages/project_form.html',
+            controller: 'new_ProjectController',
+            controllerAs: 'project'
+        })
 /*---------------- Projects ----------------*/
         .when('/newproject',  {
             templateUrl: 'app/views/pages/project_form.html',

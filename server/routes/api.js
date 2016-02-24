@@ -45,29 +45,28 @@ apiRouter.all('*',function(req,res,next){
 });
 
 //===============================  Get All Roles ============================
-apiRouter.route('/roles')
-	/*.get(function(req,res){
-		Role.find({projectID:req.params.projectID}, function(err, roles){
-			if(err) res.send(err);
-			else res.send(roles);
-		})
-	})*/
+apiRouter.route('/roles/:projectID')
 	.get(function(req, res) {
-		console.log("Project ID "+ JSON.stringify(req.params));
-		Role.find({ 'projectID': req.body.projectID},function(err,roles){
-		if(err){ 
-			res.send(err);
-			console.log(err); 
+		console.log('/roles/:prjID');
+		console.log("Project ID 1"+ req );
+		var output = '';
+		for (var property in req.params) {
+  	output += property + ': ' + req.params[property]+'; ';
+}
+	console.log(output);
+	/*console.log("Found roles: " + req.params.projectID.toSource());*/
+		Role.find({ 'projectID': req.params.projectID},function(err,roles){
+			if(err){ 
+				res.send(err);
+				console.log(err); 
+			}
+			else{
+			res.json({'success':true ,'data':roles});
 		}
-		else{
-		console.log("Project ID "+ req.params.projectID);
-		console.log("Found roles: " + roles)
-			
-		res.json({'success':true ,'data':roles});
-	}})
 	})
-	//create role
-	apiRouter.route('/role')
+});
+//create role
+apiRouter.route('/role')
 		.post(function(req,res){
 				var role = new Role();
 				role.user = req.decoded.name;

@@ -3,14 +3,14 @@ controller('prjDetailController', function(Role, Project ,$location, $routeParam
 		var vm = this;
 		vm.processing = true;
 		vm.Roles  = [];
-		vm.project_id = $routeParams.project_id;
+		vm.projectID = $routeParams.project_id;
 		vm.project = {};
 		var newRoleAside = $aside({
 											show: false,
 											keyboard:true, 
 										 	controller:'addRoleController',
 										 	controllerAs:'roleAside',						
-										  templateUrl:'/app/views/pages/role_form..tmpl.html'		
+										  templateUrl:'/app/views/pages/role_form.tmpl.html'		
 										});
 
 		vm.createRoleBtn = function(){
@@ -18,7 +18,7 @@ controller('prjDetailController', function(Role, Project ,$location, $routeParam
 			console.log('createRoleBtn');
 			newRoleAside.$promise.then(newRoleAside.toggle);	
 		}
-
+		//remove, get data from parent scope
 		Project.get(vm.project_id)
 			.success(function(data){
 					console.log(data.project);
@@ -28,9 +28,7 @@ controller('prjDetailController', function(Role, Project ,$location, $routeParam
 				vm.message = err;
 			});
 		
-		console.log('Enter Project Castings Controller, Role ID: '+ vm.project_id);
-		//Get roles from project
-		Role.getAll(({'data':$routeParams.project_id}))
+		Role.getAll(vm.projectID)
 		.success(function(data){
 			vm.processing = false;
 			vm.Roles = data.data;
@@ -93,6 +91,7 @@ controller('prjDetailController', function(Role, Project ,$location, $routeParam
 			console.log("project ID :" + vm.project_id);
 			
 			vm.roleData.projectID = $routeParams.project_id;
+			console.log(role)
 			
 			Role.create(vm.roleData)
 				.success(function(){
