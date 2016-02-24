@@ -1,8 +1,16 @@
+
 <div class="col-md-10 col-md-offset-1">  
     <div class="jumbotron text-center">
     <h1> <span>{{page.project.name || ""}}</span><br> Characters Casting</h1>
    </div>
-    <ul class= 'roles'>
+    <div class="utlBar">
+        <span style="size:34px;"
+            class="glyphicon glyphicon-th"
+            ng-click="page.toggleView()">
+        </span>
+    </div>
+<!------------------ GRID VIEW ------------------>
+    <ul class= 'roles' ng-show='page.gridView'>
         <li class ="card add"> <span class="card" ng-click="page.createRoleBtn()">
         <span>Create new role</span></a></li>
         <li class="card" ng-repeat-start="role in page.Roles">
@@ -15,3 +23,31 @@
     </ul>
 
 </div>
+<!------------------ LIST VIEW ------------------>
+<table class = "table table-bordered table-striped" ng-show="!page.gridView">
+<thead>
+    <tr>
+        <th>Name</th>
+        <th>Details</th>
+        <th>Date</th>
+    </tr>
+</thead>
+
+<tbody> 
+<!-- LOOP OVER THE USERS -->
+    <tr ng-repeat = "role in page.Roles">
+        <td>{{ role.name }}</td>
+        <td>{{ role.details }}</td>
+        <td>{{ role.date }}</td>
+        <td><a href = "#"
+            ng-click="page.createRoleBtn()"
+            class = "btn btn-primary"> Delete</a>
+            <a href = "#"
+            ng-click = "page.shareRoleBtn()"
+            class = "btn btn-primary">
+                 <span class="glyphicon glyphicon-share"></a>
+        </td>
+    </tr>
+</tbody>    
+
+</table>

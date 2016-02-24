@@ -5,14 +5,27 @@ controller('prjDetailController', function(Role, Project ,$location, $routeParam
 		vm.Roles  = [];
 		vm.projectID = $routeParams.project_id;
 		vm.project = {};
+		var gridView = true;
+		vm.toggleView = function(){
+			vm.gridView = !vm.gridView;
+		}
+
 		var newRoleAside = $aside({
 											show: false,
 											keyboard:true, 
 										 	controller:'addRoleController',
 										 	controllerAs:'roleAside',						
 										  templateUrl:'/app/views/pages/role_form.tmpl.html'		
+										}),
+		shareRoleAside = $aside({
+											show: false,
+											keyboard:true, 
+										  templateUrl:'/app/views/pages/role_share.tmpl.html'		
 										});
-
+		vm.shareRoleBtn = function(){
+			console.log('shareRoleBtn');
+			shareRoleAside.$promise.then(shareRoleAside.toggle);	
+		}
 		vm.createRoleBtn = function(){
 			vm.roleData = {};
 			console.log('createRoleBtn');
@@ -21,7 +34,6 @@ controller('prjDetailController', function(Role, Project ,$location, $routeParam
 		//remove, get data from parent scope
 		Project.get(vm.project_id)
 			.success(function(data){
-					console.log(data.project);
 					vm.project = data.project;
 				})
 			.error(function(err){
@@ -82,20 +94,20 @@ controller('prjDetailController', function(Role, Project ,$location, $routeParam
 				})
 	}}).
 
-	controller('addRoleController', function(Role, $location, $routeParams){
+	controller('addRoleController', function(Role, $location, $routeParams, $route, $scope){
 		var vm = this;
 		vm.edit = false;
 		vm.roleData = {};
-		vm.project_id = $routeParams.project_id;
-		vm.createRole = function(){
-			console.log("project ID :" + vm.project_id);
+		vm.createRoleBtn = function(){
+			console.log("project ID :" + $routeParams.project_id);
 			
-			vm.roleData.projectID = $routeParams.project_id;
-			console.log(role)
-			
-			Role.create(vm.roleData)
+			vm.projectID = $routeParams.project_id;
+			console.log("Role Data:" + JSON.stringify(vm.roleData));			
+			Role.create(vm.projectID, vm.roleData)
 				.success(function(){
-					window.history.back();
+					vm.roleData = {};
+					$route.reload();
+					$scope.$hide()
 				})
 				.error(function(err){
 					console.log(err.message);
@@ -124,6 +136,10 @@ var vm = this
 //home.html
 	controller('home_ProjectsController', function(Project, $location, $aside,$scope)	{
 		var vm = this;
+		var gridView = true;
+		vm.toggleView = function(){
+				vm.gridView = !vm.gridView;
+			}
 		var newPrjAside = $aside({
 											scope:$scope,
 											show: false,

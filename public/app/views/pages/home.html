@@ -9,10 +9,16 @@
     
 </div>
 
+<div class="utlBar">
+  <span style="size:34px;"
+    class="glyphicon glyphicon-th"
+    ng-click="home.toggleView()">
+  </span>
+</div>
 
 <div class="mainContent">
     
-  	<ul class='projects'>
+  	<ul class='projects' ng-show="home.gridView">
         
   		<li ng-repeat-start="project in home.projects">
             
@@ -42,5 +48,27 @@
         
         <li ng-repeat-end> </li>
     </ul>
+
+    <table class = "table table-bordered table-striped" ng-show="!home.gridView">
+      <thead>
+          <tr>
+              <th>Name</th>
+              <th>Details</th>
+              <th>Date</th>
+          </tr>
+      </thead>
+
+      <tbody> 
+      <!-- LOOP OVER THE USERS -->
+          <tr ng-repeat = "project in home.projects">
+              <td>{{ project.name }}</td>
+              <td>{{ project.details }}</td>
+              <td>{{ project.date }}</td>
+              <td> <a href = "#"
+                  ng-click = ""
+                  class = "btn btn-primary"> Delete</a></td>
+          </tr>
+      </tbody>    
+      </table>
     
 </div>
