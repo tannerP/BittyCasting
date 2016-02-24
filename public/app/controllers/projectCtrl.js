@@ -1,5 +1,5 @@
 angular.module('projectCtrl',['userService', 'mgcrea.ngStrap']).
-controller('prjDetailController', function(Role, Project ,$location, $routeParams, $scope, $aside){
+controller('prjDetailController', function(Role, Project ,$location, $routeParams, $scope, $aside, $route){
 		var vm = this;
 		vm.processing = true;
 		vm.Roles  = [];
@@ -22,6 +22,22 @@ controller('prjDetailController', function(Role, Project ,$location, $routeParam
 											keyboard:true, 
 										  templateUrl:'/app/views/pages/role_share.tmpl.html'		
 										});
+		vm.deleteRoleBtn = function(id){
+
+			console.log('deleteRoleBtn');
+			/*shareRoleAside.$promise.then(shareRoleAside.toggle);*/
+			Role.delete(id)
+			.success(function(){
+				$route.reload();
+				vm.processing = false;
+				vm.projectData = null;
+				/*$scope.$hide();	*/
+
+			})
+			.error(function(err){
+				console.log(err);}
+				)	
+		}
 		vm.shareRoleBtn = function(){
 			console.log('shareRoleBtn');
 			shareRoleAside.$promise.then(shareRoleAside.toggle);	
@@ -31,6 +47,8 @@ controller('prjDetailController', function(Role, Project ,$location, $routeParam
 			console.log('createRoleBtn');
 			newRoleAside.$promise.then(newRoleAside.toggle);	
 		}
+		vm.back = function(){
+			window.history.back();		}
 		//remove, get data from parent scope
 		Project.get(vm.project_id)
 			.success(function(data){
@@ -45,7 +63,6 @@ controller('prjDetailController', function(Role, Project ,$location, $routeParam
 			vm.processing = false;
 			vm.Roles = data.data;
 			var temp =  JSON.stringify(data.data);
-			console.log(data.data[0]);
 			
 		})
 		.error(function(error){

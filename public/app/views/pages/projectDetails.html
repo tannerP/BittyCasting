@@ -4,10 +4,14 @@
     <h1> <span>{{page.project.name || ""}}</span><br> Characters Casting</h1>
    </div>
     <div class="utlBar">
-        <span style="size:34px;"
+        <span style="font-size:34px;"
+            class ="glyphicon glyphicon-back"
+            ng-click="page.back()" >
+
+        ></span>
+        <span style="font-size:34px;"
             class="glyphicon glyphicon-th"
-            ng-click="page.toggleView()">
-        </span>
+            ng-click="page.toggleView()"></span>
     </div>
 <!------------------ GRID VIEW ------------------>
     <ul class= 'roles' ng-show='page.gridView'>
@@ -40,7 +44,7 @@
         <td>{{ role.details }}</td>
         <td>{{ role.date }}</td>
         <td><a href = "#"
-            ng-click="page.createRoleBtn()"
+            ng-click="page.deleteRoleBtn(role._id)"
             class = "btn btn-primary"> Delete</a>
             <a href = "#"
             ng-click = "page.shareRoleBtn()"
