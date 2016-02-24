@@ -1,5 +1,59 @@
 angular.module('projectCtrl',['userService', 'mgcrea.ngStrap']).
+controller('prjDetailController', function(Role, Project ,$location, $routeParams, $scope, $aside){
+		var vm = this;
+		vm.processing = true;
+		vm.Roles  = [];
+		vm.project_id = $routeParams.project_id;
+		vm.project = {};
+		var newRoleAside = $aside({
+											show: false,
+											keyboard:true, 
+										 	controller:'addRoleController',
+										 	controllerAs:'roleAside',						
+										  templateUrl:'/app/views/pages/role_form..tmpl.html'		
+										});
 
+		vm.createRoleBtn = function(){
+			vm.roleData = {};
+			console.log('createRoleBtn');
+			newRoleAside.$promise.then(newRoleAside.toggle);	
+		}
+
+		Project.get(vm.project_id)
+			.success(function(data){
+					console.log(data.project);
+					vm.project = data.project;
+				})
+			.error(function(err){
+				vm.message = err;
+			});
+		
+		console.log('Enter Project Castings Controller, Role ID: '+ vm.project_id);
+		//Get roles from project
+		Role.getAll(({'data':$routeParams.project_id}))
+		.success(function(data){
+			vm.processing = false;
+			vm.Roles = data.data;
+			var temp =  JSON.stringify(data.data);
+			console.log(data.data[0]);
+			
+		})
+		.error(function(error){
+			console.log(error);
+		})
+
+		vm.save = function(){
+			vm.processing = true;
+			vm.message;
+			Character.save(vm.charData)
+			.success(function(data)	{
+					vm.processing = false;
+					vm.projectData = {};
+					vm.message = data.message;
+					$location.path('/project/' + $routeParams.project_id); 
+
+			});
+	}}).
 	controller('edit_RoleController', function(Role, $location, $routeParams){
 		var vm = this;
 		vm.edit = true;
@@ -30,7 +84,7 @@ angular.module('projectCtrl',['userService', 'mgcrea.ngStrap']).
 				})
 	}}).
 
-	controller('add_RoleController', function(Role, $location, $routeParams){
+	controller('addRoleController', function(Role, $location, $routeParams){
 		var vm = this;
 		vm.edit = false;
 		vm.roleData = {};
@@ -40,7 +94,7 @@ angular.module('projectCtrl',['userService', 'mgcrea.ngStrap']).
 			
 			vm.roleData.projectID = $routeParams.project_id;
 			
-			Role.create($routeParams.project_id,vm.roleData)
+			Role.create(vm.roleData)
 				.success(function(){
 					window.history.back();
 				})
@@ -117,49 +171,6 @@ var vm = this
 				vm.message = err;
 			});
 	}}).
-	controller('prjDetailController', function(Role, Project ,$location, $routeParams){
-		var vm = this;
-		vm.processing = true;
-		vm.Roles  = [];
-		vm.project_id = $routeParams.project_id;
-		vm.project = {};
-
-		Project.get(vm.project_id)
-			.success(function(data){
-					console.log(data.project);
-					vm.project = data.project;
-				})
-			.error(function(err){
-				vm.message = err;
-			});
-		
-		console.log('Enter Project Castings Controller, Role ID: '+ vm.project_id);
-		//Get roles from project
-		Role.getAll(({'data':$routeParams.project_id}))
-		.success(function(data){
-			vm.processing = false;
-			vm.Roles = data.data;
-			var temp =  JSON.stringify(data.data);
-			console.log(data.data[0]);
-			console.log(typeof temp);			
-		})
-		.error(function(error){
-			console.log(error);
-		})
-
-		vm.save = function(){
-			vm.processing = true;
-			vm.message;
-			Character.save(vm.charData)
-			.success(function(data)	{
-					vm.processing = false;
-					vm.projectData = {};
-					vm.message = data.message;
-					$location.path('/project/' + $routeParams.project_id); 
-
-			});
-	}}).
-
 //project.html
 	controller('newProjectController', function(Project, $location,$route, $scope)	{
 		var vm = this;

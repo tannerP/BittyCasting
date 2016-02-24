@@ -23,12 +23,12 @@
                 <div class="cardInfo">
                 
                     <a href="/projectDetails/project._id" class="md-headline"><div class="cardTitle">{{project.name}}</div></a>
-                    <div class="cardSubTitle">Number of role</div>
+                    <div class="cardSubTitle">Number of roles</div>
 
                     <div class='actionBar'>
                         <ul>
-                            <li></li>
-                            <li></li>
+                            <li class="trashcan" ng-click='home.deleteBtn(project)'></li>
+                            <li class="duplicate"></li>
                         </ul>
                         <!--span class="glyphicon glyphicon-duplicate"></span>
                         <span class="glyphicon glyphicon-trash" ng-click='home.deleteBtn(project)'></span-->

@@ -32,7 +32,7 @@ angular.module('app.routes', ['ngRoute'])
             controllerAs: 'project'
         })
         .when('/projectDetails/:project_id',  {
-            templateUrl: 'app/views/pages/CastingBoard.html',
+            templateUrl: 'app/views/pages/projectDetails.html',
             controller: 'prjDetailController',
             controllerAs: 'page'
         })
@@ -47,6 +47,7 @@ angular.module('app.routes', ['ngRoute'])
             templateUrl: 'app/views/pages/role.html',
             controller: 'edit_RoleController',
             controllerAs: 'page'
+
         })
         .when('/viewauditions/:role_id',  {
             templateUrl: 'app/views/pages/viewauditions.html',

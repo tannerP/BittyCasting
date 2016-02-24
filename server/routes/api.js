@@ -45,7 +45,7 @@ apiRouter.all('*',function(req,res,next){
 });
 
 //===============================  Get All Roles ============================
-apiRouter.route('/CastingBoard')
+apiRouter.route('/roles')
 	/*.get(function(req,res){
 		Role.find({projectID:req.params.projectID}, function(err, roles){
 			if(err) res.send(err);
@@ -72,8 +72,8 @@ apiRouter.route('/CastingBoard')
 				var role = new Role();
 				role.user = req.decoded.name;
 				role.userID = req.decoded.id;
+				
 				role.projectID = req.body.projectID;
-
 				role.name = req.body.name;
 				role.details = req.body.details;
 				role.resume = req.body.resume;
@@ -90,7 +90,7 @@ apiRouter.route('/CastingBoard')
 				})
 
 //===============================  CastingBoard  ============================
-apiRouter.route('/CastingBoard/:role_id')
+apiRouter.route('/role/:role_id')
 	.get(function(req,res){
 		Role.findOne({_id:req.params.role_id}, function(err, data){
 			if(!err){
