@@ -118,9 +118,11 @@ $color-red: #D84444;
 	padding:1px;
 }
 
-body {
+html, body {
     font-family: $font-primary;
-    background-color: #eeeeee;
+    background: #eeeeee;
+    height: 100%;
+    position: relative;
 }
 
 /***************************
@@ -130,6 +132,9 @@ body {
 header {
     background-color: #ffffff;
     @include box-shadow(0px, 2px, 3px, 0px, rgba(0,0,0,0.1));
+    position: fixed;
+    right: 0;
+    left: 0;
 }
 
 .logoNav {
@@ -170,12 +175,19 @@ header {
             line-height: 56px;
             margin: 0 35px 0 0;
             padding: 0;
+            cursor: pointer;
             @include transition(all, 0.2s, ease);
         }       
         a:hover, a:focus  {
             background-color: transparent;
             color: $color-blue;
             @include transition(all, 0.2s, ease);
+        }
+        
+        a.active {
+            color: $color-blue;
+//            border-bottom: 2px solid $color-blue;
+//            padding-bottom: 6px;
         }
         
     }
@@ -201,10 +213,13 @@ header {
             @include transition(all, 0.2s, ease);
         }
         a:first-child {
-        border-left: #ccc 1px solid;}
+        border-left: #ccc 1px solid;}     
+
     }
 
 }
+
+
 
 .custom-action-nav  {
     
@@ -241,6 +256,26 @@ header {
 
     }
 
+}
+
+/***************************
+          Landing page
+***************************/
+
+.container {
+    section {height: 600px;}
+    
+    #features {
+        background-color: aqua;}
+    
+    #pricing {
+        background-color: aquamarine;}
+    
+    #stories {
+        background-color: bisque;}
+    
+    #contact {
+        background-color: darkkhaki;}
 }
 
 /***************************

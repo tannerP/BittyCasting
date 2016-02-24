@@ -41,20 +41,18 @@
                         <li ng-if="!main.loggedIn" ng-click='nav.signup()'><a href="#" class="custom-btn-primary-small">Sign up</a></li>
                       <li ng-if="main.loggedIn" ng-click="main.doLogout()" ><a href = "#">Logout</a></li>
                     </ul>
-                    </div>   
-                       
+                    </div>               
                        
                       <div class="custom-site-nav">      
-                      <ul ng-if = "!main.loggedIn" class="nav navbar-nav">
-                        
-                        <li><a href="#">Features</a></li>
-                        <li><a href="#">Pricing</a></li>
-                        <li><a href="#">Stories</a></li>
-                        <li><a href="#">Blog</a></li>
-                        <li><a href="#">Contact</a></li>
-                      </ul>    
-                  
-                  </div>   
+                          <ul ng-if = "!main.loggedIn" class="nav navbar-nav">               
+                            <li><a class="active" data-scroll-nav="0">Features</a></li>
+                            <li><a data-scroll-nav="1">Pricing</a></li>
+                            <li><a data-scroll-nav="2">Stories</a></li>
+                            <li><a data-scroll-nav="3">Contact</a></li>
+                          </ul>      
+                      </div>   
+                      
+                      
                   </div><!-- /.navbar-collapse -->
             
              </nav>

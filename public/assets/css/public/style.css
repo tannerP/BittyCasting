@@ -107,9 +107,11 @@ video {
   top: 8px;
   padding: 1px; }
 
-body {
+html, body {
   font-family: "Open Sans", sans-serif;
-  background-color: #eeeeee; }
+  background: #eeeeee;
+  height: 100%;
+  position: relative; }
 
 /***************************
            Header
@@ -118,7 +120,10 @@ header {
   background-color: #ffffff;
   -webkit-box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.1);
   -moz-box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.1);
-  box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.1); }
+  box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  right: 0;
+  left: 0; }
 
 .logoNav {
   fill: #242424;
@@ -156,6 +161,7 @@ header {
   line-height: 56px;
   margin: 0 35px 0 0;
   padding: 0;
+  cursor: pointer;
   -webkit-transition: all 0.2s ease;
   -moz-transition: all 0.2s ease;
   -ms-transition: all 0.2s ease;
@@ -169,6 +175,8 @@ header {
   -ms-transition: all 0.2s ease;
   -o-transition: all 0.2s ease;
   transition: all 0.2s ease; }
+.custom-site-nav li a.active {
+  color: #06bcc2; }
 
 .custom-site-nav-in ul {
   float: left; }
@@ -222,6 +230,20 @@ header {
     -ms-transition: all 0.2s ease;
     -o-transition: all 0.2s ease;
     transition: all 0.2s ease; }
+
+/***************************
+          Landing page
+***************************/
+.container section {
+  height: 600px; }
+.container #features {
+  background-color: aqua; }
+.container #pricing {
+  background-color: aquamarine; }
+.container #stories {
+  background-color: bisque; }
+.container #contact {
+  background-color: darkkhaki; }
 
 /***************************
            Homepage
