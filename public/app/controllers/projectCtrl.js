@@ -5,6 +5,11 @@ controller('prjDetailController', function(Role, Project ,$location, $routeParam
 		vm.Roles  = [];
 		vm.projectID = $routeParams.project_id;
 		vm.project = {};
+		var gridView = true;
+		vm.toggleView = function(){
+			vm.gridView = !vm.gridView;
+		}
+
 		var newRoleAside = $aside({
 											show: false,
 											keyboard:true, 
@@ -124,6 +129,10 @@ var vm = this
 //home.html
 	controller('home_ProjectsController', function(Project, $location, $aside,$scope)	{
 		var vm = this;
+		var gridView = true;
+		vm.toggleView = function(){
+				vm.gridView = !vm.gridView;
+			}
 		var newPrjAside = $aside({
 											scope:$scope,
 											show: false,
