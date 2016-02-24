@@ -16,8 +16,16 @@ controller('prjDetailController', function(Role, Project ,$location, $routeParam
 										 	controller:'addRoleController',
 										 	controllerAs:'roleAside',						
 										  templateUrl:'/app/views/pages/role_form.tmpl.html'		
+										}),
+		shareRoleAside = $aside({
+											show: false,
+											keyboard:true, 
+										  templateUrl:'/app/views/pages/role_share.tmpl.html'		
 										});
-
+		vm.shareRoleBtn = function(){
+			console.log('shareRoleBtn');
+			shareRoleAside.$promise.then(shareRoleAside.toggle);	
+		}
 		vm.createRoleBtn = function(){
 			vm.roleData = {};
 			console.log('createRoleBtn');
@@ -26,7 +34,6 @@ controller('prjDetailController', function(Role, Project ,$location, $routeParam
 		//remove, get data from parent scope
 		Project.get(vm.project_id)
 			.success(function(data){
-					console.log(data.project);
 					vm.project = data.project;
 				})
 			.error(function(err){

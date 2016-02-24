@@ -73,7 +73,7 @@ apiRouter.route('/role/:projectID')
 				role.userID = req.decoded.id;
 				console.log(req);
 				
-				role.projectID = req.params.projectID;
+				role.projectID = req.paramss.projectID;
 				role.name = req.body.name;
 				role.details = req.body.details;
 				role.resume = req.body.resume;

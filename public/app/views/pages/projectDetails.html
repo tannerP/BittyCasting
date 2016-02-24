@@ -9,6 +9,7 @@
             ng-click="page.toggleView()">
         </span>
     </div>
+<!------------------ GRID VIEW ------------------>
     <ul class= 'roles' ng-show='page.gridView'>
         <li class ="card add"> <span class="card" ng-click="page.createRoleBtn()">
         <span>Create new role</span></a></li>
@@ -22,7 +23,7 @@
     </ul>
 
 </div>
-
+<!------------------ LIST VIEW ------------------>
 <table class = "table table-bordered table-striped" ng-show="!page.gridView">
 <thead>
     <tr>
@@ -38,12 +39,15 @@
         <td>{{ role.name }}</td>
         <td>{{ role.details }}</td>
         <td>{{ role.date }}</td>
-        <td class = "col-sm-2">
-            <a ng-href = "/users/{{person._id}}" class = "btn btn-danger">Edit</a>
+        <td><a href = "#"
+            ng-click="page.createRoleBtn()"
+            class = "btn btn-primary"> Delete</a>
+            <a href = "#"
+            ng-click = "page.shareRoleBtn()"
+            class = "btn btn-primary">
+                 <span class="glyphicon glyphicon-share"></a>
         </td>
-        <td> <a href = "#"
-            ng-click = "user.deleteUser(person._id)"
-            class = "btn btn-primary"> Delete</a></td>
     </tr>
 </tbody>    
+
 </table>
