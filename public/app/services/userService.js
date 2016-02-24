@@ -4,22 +4,22 @@ angular.module('userService', [])
 
 .factory('Role', function($http){
 	var roleFactory={};
-	 
-	roleFactory.create = function(id, roleData){
-		return $http.post('/api/role/', roleData);
-	}
-	roleFactory.update = function(role_id,roleData){
-		return $http.put('/api/role/' + role_id, roleData);
-	}
-	roleFactory.get = function(role_id)	{
-		return $http.get('/api/role/' + role_id);
-	}
-	roleFactory.delete  = function(role_id)	{
-		return $http.delete('/api/role/' + role_id);
-	}
+	
 	roleFactory.getAll = function(projectID)	{
 		console.log(projectID);
 		return $http.get('/api/roles/'+ projectID);
+	}	 
+	roleFactory.create = function(projectID, roleData){
+		return $http.post('/api/role/'+projectID,roleData);
+	}
+	roleFactory.update = function(id,roleData){
+		return $http.put('/api/role/' + projectID, roleData);
+	}
+	roleFactory.get = function(id)	{
+		return $http.get('/api/role/' + projectID);
+	}
+	roleFactory.delete  = function(id)	{
+		return $http.delete('/api/role/' + id);
 	}
 	
 	return roleFactory;

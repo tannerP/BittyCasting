@@ -66,13 +66,14 @@ apiRouter.route('/roles/:projectID')
 	})
 });
 //create role
-apiRouter.route('/role')
+apiRouter.route('/role/:projectID')
 		.post(function(req,res){
 				var role = new Role();
 				role.user = req.decoded.name;
 				role.userID = req.decoded.id;
+				console.log(req);
 				
-				role.projectID = req.body.projectID;
+				role.projectID = req.params.projectID;
 				role.name = req.body.name;
 				role.details = req.body.details;
 				role.resume = req.body.resume;
@@ -80,6 +81,8 @@ apiRouter.route('/role')
 				role.coverletter = req.body.coverLetter;
 				role.auditionvideo = req.body.auditionVideo;
 				role.monologue = req.body.monologue;
+				console.log(role);
+				
 				role.save(function(err){
 					if(err){
 						return  res.json({success:false,
