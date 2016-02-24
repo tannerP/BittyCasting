@@ -9,6 +9,9 @@ $font-primary: 'Open Sans', sans-serif;
 $font-size-page-heading: 24px;
 $font-size-page-subheading: 18px;
 
+$font-size-side-heading: 20px;
+$font-size-side-formtitle: 10px;
+
 $font-size-regular: 12px;
 $font-size-small: 10px;
 
@@ -27,6 +30,8 @@ $color-blue-darken: #069A9F;
 $color-blue: #06bcc2;
 $color-blue-lighten: #48d8d8;
 
+$color-red: #D84444;
+
 /***************************
      Reusable elements
 ***************************/
@@ -38,18 +43,24 @@ $color-blue-lighten: #48d8d8;
 }
 
 @mixin transition($property, $duration, $ease) {
-  -webkit-transition: $property $duration $ease;
-  -moz-transition: $property $duration $ease;
-  -ms-transition: $property $duration $ease;
-  -o-transition: $property $duration $ease;
-  transition: $property $duration $ease;
+    -webkit-transition: $property $duration $ease;
+    -moz-transition: $property $duration $ease;
+    -ms-transition: $property $duration $ease;
+    -o-transition: $property $duration $ease;
+    transition: $property $duration $ease;
 }
 
 @mixin border-radius($radius) {
-  -webkit-border-radius: $radius;
-     -moz-border-radius: $radius;
-      -ms-border-radius: $radius;
-          border-radius: $radius;
+    -webkit-border-radius: $radius;
+    -moz-border-radius: $radius;
+    -ms-border-radius: $radius;
+    border-radius: $radius;
+}
+
+@mixin rotate($degree) {
+    -ms-transform: rotate($degree); /* IE 9 */
+    -webkit-transform: rotate($degree); /* Safari */
+    transform: rotate($degree);
 }
 
 .custom-btn-primary-small {   
@@ -60,7 +71,22 @@ $color-blue-lighten: #48d8d8;
         @include box-shadow(0px, 1px, 1px, 0px, rgba(0,0,0,0.2));
         @include transition(all, 0.8s, ease);
         &:hover, &:focus {
-            background-color: $color-grey-darken;
+            background-color: $color-blue-darken;
+            color: white; 
+            @include transition(all, 0.8s, ease);
+        }  
+}
+
+.custom-btn-primary-large {  
+        width: 100%;
+        border: 0;
+        color: white;  
+        background-color: $color-blue; 
+        padding: 12px;
+        @include box-shadow(0px, 1px, 1px, 0px, rgba(0,0,0,0.2));
+        @include transition(all, 0.8s, ease);
+        &:hover, &:focus {
+            background-color: $color-blue-darken;
             color: white; 
             @include transition(all, 0.8s, ease);
         }  
@@ -341,8 +367,110 @@ ul.projects li {
     }
 }
 
+/***************************
+          Side panel
+***************************/
 
+.aside {
+    width: 400px;
+    padding: 0 20px 20px 20px;
+    
+    p {
+        font-size: $font-size-small;
+        color: $color-grey;
+        line-height: 18px;
+        margin-bottom: 8px;
+        
+        a {
+            color: $color-blue;
+            @include transition(all, 0.2s, ease);
+            &:hover, &:focus {
+                color: $color-blue-lighten;
+                text-decoration: none;
+                @include transition(all, 0.2s, ease);
+            }
+        }
+    }
+    
+}
 
+.aside-backdrop.am-fade, .modal-backdrop.am-fade {
+    background: rgba(0,0,0,.7);
+    -webkit-animation-duration: .2s;
+    animation-duration: .2s;
+    @include transition(all, 0.2s, ease);
+}
 
+.custom-close {
+    width: 28px;
+    height: 28px;
+    background-color: red;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: url("/assets/imgs/ic_cross.svg") no-repeat center center;
+    @include transition(all, 0.2s, ease);
+    
+    &:hover, &:focus {
+        cursor: pointer;
+        @include transition(all, 0.2s, ease);
+        @include rotate(180deg);
+    }
+}
 
+.asideTitle {
+    font-size: $font-size-side-heading;
+    text-transform: uppercase;
+    text-align: center;
+	color:	$color-grey-darkest;
+    letter-spacing: 6px;
+    padding: 20px;
+}
+
+.form-group {
+    
+    margin-bottom: 28px;
+      
+    label {
+        font-family: $font-primary;
+        font-size: $font-size-side-formtitle;
+        color:	$color-grey;
+        font-weight: 400;
+    }
+    
+    input {
+        font-family: $font-primary;
+        font-size: $font-size-regular;
+        @include border-radius(0);
+        border: none;
+        border-bottom: 1px solid $color-grey-darkest;
+        
+        &:focus {
+            outline: none;
+            border-bottom: 1px solid $color-blue;
+        }
+    }
+    
+    input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
+        -webkit-box-shadow: 0 0 0px 1000px white inset;
+    }
+}
+
+.custom-form {
+    display: block;
+    width: 100%;
+    height: 34px;
+    padding: 6px 0;
+    font-size: $font-size-regular;
+    line-height: 1.42857143;
+}
+
+.custom-alert {
+    color: $color-red;
+    outline: none;
+    padding: 12px;
+    font-size: $font-size-regular;
+    border: 1px solid $color-red;
+    margin-bottom: 20px;
+}
 

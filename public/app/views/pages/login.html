@@ -1,31 +1,40 @@
 <div class="aside" tabindex="-1" role="dialog">
-      <h2>Sign in</h2>
+    
+      <div class="asideTitle">Sign in</div>
+    
+      <div ng-if="!login.processing" type="button" class="custom-close" ng-click="$hide()"></div>
+    
       <form ng-required='true' ng-submit ="login.doLogin()">
+          
+          <!-- ERROR ICON -->
+          <div class = "custom-alert" ng-if="login.error">
+            {{login.error}}
+          </div>
+          
 
           <!-- USERNAME INPUT -->
+         
           <div class = "form-group">
-            <label> Email </label>
-            <input type="text" class = "form-control"
-            ng-model="login.loginData.email">
+            <label>E-mail</label>
+            <input type="text" class = "custom-form" ng-model="login.loginData.email">
           </div>
 
           <!-- PASSWORD INPUT -->
 
           <div class = "form-group">
-            <label> Password </label>
-            <input type = "password" class = "form-control"
-              ng-model ="login.loginData.password">
+            <label>Password</label>
+            <input type = "password" class = "custom-form" ng-model = "login.loginData.password">
           </div>
-          <!-- ERROR ICON -->
-          <div class = "alert alert-danger" ng-if="login.error">
-            {{login.error}}
-          </div>
-          <button type="submit" class "btn btn-default" ng-if = "!login.processing">
-          <span >Login</span>
+          
+          <button type="submit" class = "custom-btn-primary-large" ng-if = "!login.processing">
+              <span >Sign in</span>
           </button>
 
           <img align="center" style="padding-right: auto;"ng-if="login.processing" src='/assets/images/login_spinner.svg'>
-
-           <button ng-if="!login.processing" type="button" class="close" ng-click="$hide()">Cancel</button>
+  
       </form>
+    
+    <p>Forget <a href="#">password?</a></p>
+    <p>Don't have an account? <a href="#" ng-click='nav.signup()'>Sign up</a></p>
+    
 </div>
