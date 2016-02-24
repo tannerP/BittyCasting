@@ -21,6 +21,9 @@ video {
   height: 100%; }
 
 /***************************
+           Font
+***************************/
+/***************************
           Colors
 ***************************/
 /***************************
@@ -39,8 +42,8 @@ video {
   -ms-transition: all 0.8s ease;
   -o-transition: all 0.8s ease;
   transition: all 0.8s ease; }
-  .custom-btn-primary-small:hover {
-    background-color: #069A9F;
+  .custom-btn-primary-small:hover, .custom-btn-primary-small:focus {
+    background-color: #444444;
     color: white;
     -webkit-transition: all 0.8s ease;
     -moz-transition: all 0.8s ease;
@@ -61,8 +64,8 @@ video {
   -ms-transition: all 0.8s ease;
   -o-transition: all 0.8s ease;
   transition: all 0.8s ease; }
-  .custom-btn-secondary-small:hover {
-    background-color: #242424;
+  .custom-btn-secondary-small:hover, .custom-btn-secondary-small:focus {
+    background-color: #444444;
     color: white;
     -webkit-transition: all 0.8s ease;
     -moz-transition: all 0.8s ease;
@@ -209,7 +212,7 @@ div.pageHeader {
 .pageTitle {
   font-family: "Open Sans", sans-serif;
   text-align: center;
-  font-size: 30px;
+  font-size: 24px;
   color: #242424;
   text-transform: uppercase;
   letter-spacing: 6px;
@@ -228,10 +231,68 @@ ul.projects li {
   margin: 0; }
 
 .card {
-  background-color: grey;
-  font-size: 30px;
   color: #fff;
   margin: 10px;
-  height: 187px; }
+  height: 187px;
+  text-align: center;
+  background-color: grey;
+  -webkit-box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.1); }
+  .card .cardImg {
+    height: 125px;
+    background-color: burlywood; }
+  .card .cardInfo {
+    background-color: white;
+    height: 62px; }
+    .card .cardInfo a {
+      text-decoration: none; }
+    .card .cardInfo .cardTitle {
+      font-size: 12px;
+      color: #242424;
+      padding-top: 4px; }
+    .card .cardInfo .cardSubTitle {
+      font-size: 10px;
+      color: #999999; }
+    .card .cardInfo .actionBar {
+      padding: 16px 0; }
+      .card .cardInfo .actionBar ul {
+        left: 50%;
+        position: relative;
+        margin-left: -44px;
+        list-style: none;
+        padding: 0; }
+        .card .cardInfo .actionBar ul li {
+          width: 36px;
+          height: 36px;
+          -webkit-border-radius: 50%;
+          -moz-border-radius: 50%;
+          -ms-border-radius: 50%;
+          border-radius: 50%;
+          border: 1px solid #666666;
+          float: left;
+          margin: 0;
+          margin-right: 16px;
+          -webkit-transition: all 0.2s ease;
+          -moz-transition: all 0.2s ease;
+          -ms-transition: all 0.2s ease;
+          -o-transition: all 0.2s ease;
+          transition: all 0.2s ease; }
+          .card .cardInfo .actionBar ul li:nth-child(1) {
+            background: url("/assets/imgs/ic_trash.svg") no-repeat center center white;
+            background-size: 16px 16px; }
+          .card .cardInfo .actionBar ul li:nth-child(2) {
+            background: url("/assets/imgs/ic_duplicate.svg") no-repeat center center white;
+            background-size: 16px 16px; }
+          .card .cardInfo .actionBar ul li:last-child {
+            margin-right: 0; }
+          .card .cardInfo .actionBar ul li:hover, .card .cardInfo .actionBar ul li:focus {
+            background-color: #eeeeee;
+            cursor: pointer;
+            -webkit-transition: all 0.2s ease;
+            -moz-transition: all 0.2s ease;
+            -ms-transition: all 0.2s ease;
+            -o-transition: all 0.2s ease;
+            transition: all 0.2s ease; }
 
 /*# sourceMappingURL=style.css.map */

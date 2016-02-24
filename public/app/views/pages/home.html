@@ -13,15 +13,33 @@
 <div class="mainContent">
     
   	<ul class='projects'>
+        
   		<li ng-repeat-start="project in home.projects">
-        <div class="card">    
-          <a href="/projectDetails/project._id"class="md-headline">{{project.name}}</a>
-          <div class='actionBar'>
-            <span class="glyphicon glyphicon-duplicate"></span>
-            <span class="glyphicon glyphicon-trash" ng-click='home.deleteBtn(project)'></span>
-          </div>
-        </div>
+            
+            <div class="card"> 
+                
+                <div class="cardImg"></div>
+                
+                <div class="cardInfo">
+                
+                    <a href="/projectDetails/project._id" class="md-headline"><div class="cardTitle">{{project.name}}</div></a>
+                    <div class="cardSubTitle">Number of role</div>
+
+                    <div class='actionBar'>
+                        <ul>
+                            <li></li>
+                            <li></li>
+                        </ul>
+                        <!--span class="glyphicon glyphicon-duplicate"></span>
+                        <span class="glyphicon glyphicon-trash" ng-click='home.deleteBtn(project)'></span-->
+                    </div>
+                    
+                </div>    
+
+            </div>
+            
         </li>    
+        
         <li ng-repeat-end> </li>
     </ul>
     

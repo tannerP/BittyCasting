@@ -1,12 +1,23 @@
 @import 'viewAuditionPage';
 
 /***************************
-          Colors
+           Font
 ***************************/
 
 $font-primary: 'Open Sans', sans-serif;
 
+$font-size-page-heading: 24px;
+$font-size-page-subheading: 18px;
+
+$font-size-regular: 12px;
+$font-size-small: 10px;
+
+/***************************
+          Colors
+***************************/
+
 $color-grey-darkest: #242424;
+$color-grey-darken: #444444;
 $color-grey-dark: #666666;
 $color-grey: #999999;
 $color-grey-light: #cccccc;
@@ -34,6 +45,13 @@ $color-blue-lighten: #48d8d8;
   transition: $property $duration $ease;
 }
 
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+     -moz-border-radius: $radius;
+      -ms-border-radius: $radius;
+          border-radius: $radius;
+}
+
 .custom-btn-primary-small {   
         border: 0;
         color: white;  
@@ -41,8 +59,8 @@ $color-blue-lighten: #48d8d8;
         padding: 9px 20px;
         @include box-shadow(0px, 1px, 1px, 0px, rgba(0,0,0,0.2));
         @include transition(all, 0.8s, ease);
-        &:hover {
-            background-color: $color-blue-darken;
+        &:hover, &:focus {
+            background-color: $color-grey-darken;
             color: white; 
             @include transition(all, 0.8s, ease);
         }  
@@ -55,8 +73,8 @@ $color-blue-lighten: #48d8d8;
         padding: 9px 20px;
         @include box-shadow(0px, 1px, 1px, 0px, rgba(0,0,0,0.2));
         @include transition(all, 0.8s, ease);
-        &:hover {
-            background-color: $color-grey-darkest;
+        &:hover, &:focus {
+            background-color: $color-grey-darken;
             color: white; 
             @include transition(all, 0.8s, ease);
         }  
@@ -121,7 +139,7 @@ header {
         a {  
             
             display: inline;
-            font-size: 12px;
+            font-size: $font-size-regular;
             color: $color-grey-dark;
             line-height: 56px;
             margin: 0 35px 0 0;
@@ -144,7 +162,7 @@ header {
     li {
         a {             
             display: inline;
-            font-size: 12px;
+            font-size: $font-size-regular;
             color: $color-grey-dark;
             line-height: 56px;
             margin: 0 0 0 35px;
@@ -175,7 +193,7 @@ header {
         display: inline;
         
         a {
-            font-size: 12px;           
+            font-size: $font-size-regular;        
             line-height: 56px;
             margin-left: 35px;
             text-decoration: none;
@@ -215,7 +233,7 @@ div.pageHeader{
 .pageTitle{
     font-family: $font-primary;
 	text-align: center;
-	font-size: 30px;
+	font-size: $font-size-page-heading;
 	color:	$color-grey-darkest;
     text-transform: uppercase;
     letter-spacing: 6px;
@@ -225,8 +243,6 @@ div.pageHeader{
 .projectHeader {
     
 }
-
-
 
 ul.projects{
 	list-style-type: none;
@@ -245,11 +261,88 @@ ul.projects li {
 }
 
 .card{
-    background-color: grey;
-	font-size:30px; 
-	color:#fff;
-	margin: 10px;
+    
+    color:#fff;
+    margin: 10px;
     height: 187px;
+    text-align: center;
+    background-color: grey;
+    @include box-shadow(0px, 2px, 2px, 0px, rgba(0,0,0,0.1));
+    
+    .cardImg {
+        height: 125px;
+        background-color: burlywood;
+    }
+    
+    .cardInfo {
+        
+        background-color: white;
+        height: 62px;
+        
+        a {
+            text-decoration: none;
+        }
+
+        .cardTitle {
+            font-size: $font-size-regular;
+            color: $color-grey-darkest; 
+            padding-top: 4px;
+        }
+
+        .cardSubTitle {
+            font-size: $font-size-small;
+            color: $color-grey;  
+            
+        }
+
+        .actionBar {
+
+            padding: 16px 0;
+
+            ul  {
+                left: 50%;
+                position: relative;
+                margin-left: -44px;
+                list-style:none;
+                padding: 0;
+
+                li {
+                    width: 36px;
+                    height: 36px;
+                    @include border-radius(50%);
+                    border: 1px solid $color-grey-dark;
+                    float: left;
+                    margin: 0;       
+                    margin-right: 16px;
+                    @include transition(all, 0.2s, ease);
+
+                    &:nth-child(1) {
+                        background: url("/assets/imgs/ic_trash.svg") no-repeat center center white;
+                        background-size: 16px 16px;           
+                    }
+
+                    &:nth-child(2) {
+                        background: url("/assets/imgs/ic_duplicate.svg") no-repeat center center white;
+                        background-size: 16px 16px;            
+                    }
+
+                    &:last-child {
+                        margin-right: 0;
+                    }
+
+                    &:hover, &:focus {
+                        background-color: #eeeeee;
+                        cursor: pointer;
+                        @include transition(all, 0.2s, ease);
+                    }
+                }
+            }
+        }
+    }
 }
+
+
+
+
 
 
