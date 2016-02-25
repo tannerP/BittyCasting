@@ -21,7 +21,7 @@ controller('prjDetailController', function(Role, Project ,$location, $routeParam
 											scope:$scope,
 											show: false,
 											keyboard:true,
-											controller:'addRoleController',
+											controller:'shareRoleController',
 										 	controllerAs:'roleAside', 
 										  templateUrl:'/app/views/pages/role_share.tmpl.html'		
 										});
@@ -95,6 +95,18 @@ controller('prjDetailController', function(Role, Project ,$location, $routeParam
 
 			});
 	}}).
+ controller('shareRoleController', ['$scope', function ($scope) {
+        $scope.textToCopy = 'I can copy by clicking!';
+
+        $scope.success = function () {
+            console.log('Copied!');
+        };
+
+        $scope.fail = function (err) {
+            console.error('Error!', err);
+        }
+      }
+    ]).
 	controller('editRoleController', function(Role, $location, $routeParams){
 		var vm = this;
 		vm.edit = true;
@@ -171,7 +183,7 @@ var vm = this
 				vm.getDtlBtn = function(prjID){
 					$location.path('/projectDetails/'+prjID);
 				}
-		var gridView = true;
+		vm.gridView = true;
 		vm.toggleView = function(){
 				vm.gridView = !vm.gridView;
 			}

@@ -8,8 +8,6 @@
       <button type="button" class="btn btn-default"
           ng-click="$hide()"> Cancel </button>
       <button type="submit" class="btn btn-primary"
-           ng-if="!projectAside.delete"> Create page </button>
-      <button type="submit" class="btn btn-primary"
           ng-if="projectAside.delete" 
           ng-click='projectAside.delete(home.projectData._id)'> Delete </button>
       </div>

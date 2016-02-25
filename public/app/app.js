@@ -1,6 +1,7 @@
 
 angular.module('userApp', [
-	"ngSanitize",
+	'angular-clipboard',
+	'ngSanitize',
 	'ui.bootstrap',
 	'mgcrea.ngStrap',
 	'ngAnimate',

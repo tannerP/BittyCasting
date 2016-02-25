@@ -1,4 +1,6 @@
 <div class="aside" tabindex="-1" role="dialog">
     <h2> Delete Role</h2>
-        
+    <button type="button" class="btn btn-default"
+                ng-click="$hide()"> Cancel </button>
+    <button ng-if="!roleAside.edit" type="submit" class="btn btn-primary" ng-click="">Delete</button>    
 </div>

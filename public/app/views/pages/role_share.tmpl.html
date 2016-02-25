@@ -2,9 +2,9 @@
     <form class="container-roleAside">
         <h3 class="dark-grey" ng-if="!roleAside.edit">Share Role</h3>
        <h2> {{project.name}}</h2>
+       <input type="text" ng-model="textToCopy">
+			<button clipboard class="btn btn-primary" text="textToCopy" on-copied="success()" on-error="fail(err)">Copy</button>
         <button type="button" class="btn btn-default"
                 ng-click="$hide()"> Cancel </button>
-        <button ng-if="!roleAside.edit" type="submit" class="btn btn-primary" ng-click="roleAside.createRoleBtn()">Add role</button>
-        <button ng-if="roleAside.edit" type="submit" class="btn btn-primary" ng-click="roleAside.updateRole()">Save changes</button>'
     </form>
 </div>
