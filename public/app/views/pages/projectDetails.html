@@ -47,11 +47,13 @@
         <td><span class="tblDate">{{ role.date }}</span>
             <a href = "#"
             ng-click="page.deleteRoleBtn(role._id)"
-            class = "btn btn-primary"> Delete</a>
+            class = "btn btn-warning"> Delete</a>
             <a href = "#"
             ng-click = "page.shareRoleBtn()"
             class = "btn btn-primary">
                  <span class="glyphicon glyphicon-share"></a>
+            <button type="button" class=" btn btn-info glyphicon glyphicon-eye-open  "
+                ng-click=""></button>
         </td>
     </tr>
 </tbody>    
