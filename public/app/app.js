@@ -11,7 +11,8 @@ angular.module('userApp', [
 	'AMMCtrl',
 	'mainCtrl',
 	'projectCtrl',
-	'userCtrl'
+	'userCtrl',
+	'footer'
 	])
  .config(function($asideProvider) {
   angular.extend($asideProvider.defaults, {
