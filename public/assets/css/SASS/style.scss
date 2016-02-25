@@ -135,6 +135,7 @@ header {
     position: fixed;
     right: 0;
     left: 0;
+    z-index: 10;
 }
 
 .logoNav {
@@ -262,19 +263,82 @@ header {
           Landing page
 ***************************/
 
-.container {
-    section {height: 600px;}
+section {
     
-    #features {
-        background-color: aqua;}
     
-    #pricing {
+    &.features {
+        height: 660px; 
+        width: 100%; 
+        background: url("/assets/imgs/img_indexCover.png") no-repeat 50% 50% fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+    
+        .brandMessage {
+            
+            position: absolute;
+            top: 190px;
+            left: 50%;
+            margin-left: -28%;
+            width: 55%;
+            text-align: center;
+            
+            
+            .brandHeading {
+                font-size: 36px;
+                color: $color-grey-darkest;
+                letter-spacing: 4;
+                margin-bottom: 30px;
+            } 
+            
+            .brandSubHeading {
+                font-size: 20px;
+                color: $color-grey-dark;
+                line-height: 38px;
+                margin-bottom: 60px;
+            } 
+            
+            .brandRequest {                
+                input {
+                    width: 70%;
+                    height: 60px;
+                    padding: 12px;
+                    border: 1px solid $color-grey-light;
+                    display: inline-block;
+                    &:focus {
+                        outline: none;
+                        border: 1px solid $color-blue;
+                    }
+                }
+                button {
+                    width: 29%;
+                    height: 60px;
+                    display: inline-block;}               
+                p {
+                    font-size: $font-size-regular;
+                    color: $color-grey;
+                    text-align: left;
+                    margin: 10px 0 0 2px;
+                }
+            }
+            
+
+        }
+    
+    }
+        
+    
+    &.pricing {
+        height: 600px;
         background-color: aquamarine;}
     
-    #stories {
+    &.stories {
+        height: 600px;
         background-color: bisque;}
     
-    #contact {
+    &.contact {
+        height: 600px;
         background-color: darkkhaki;}
 }
 

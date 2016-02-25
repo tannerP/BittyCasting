@@ -123,7 +123,8 @@ header {
   box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.1);
   position: fixed;
   right: 0;
-  left: 0; }
+  left: 0;
+  z-index: 10; }
 
 .logoNav {
   fill: #242424;
@@ -234,15 +235,57 @@ header {
 /***************************
           Landing page
 ***************************/
-.container section {
-  height: 600px; }
-.container #features {
-  background-color: aqua; }
-.container #pricing {
+section.features {
+  height: 660px;
+  width: 100%;
+  background: url("/assets/imgs/img_indexCover.png") no-repeat 50% 50% fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover; }
+  section.features .brandMessage {
+    position: absolute;
+    top: 190px;
+    left: 50%;
+    margin-left: -28%;
+    width: 55%;
+    text-align: center; }
+    section.features .brandMessage .brandHeading {
+      font-size: 36px;
+      color: #242424;
+      letter-spacing: 4;
+      margin-bottom: 30px; }
+    section.features .brandMessage .brandSubHeading {
+      font-size: 20px;
+      color: #666666;
+      line-height: 38px;
+      margin-bottom: 60px; }
+    section.features .brandMessage .brandRequest input {
+      width: 70%;
+      height: 60px;
+      padding: 12px;
+      border: 1px solid #cccccc;
+      display: inline-block; }
+      section.features .brandMessage .brandRequest input:focus {
+        outline: none;
+        border: 1px solid #06bcc2; }
+    section.features .brandMessage .brandRequest button {
+      width: 29%;
+      height: 60px;
+      display: inline-block; }
+    section.features .brandMessage .brandRequest p {
+      font-size: 12px;
+      color: #999999;
+      text-align: left;
+      margin: 10px 0 0 2px; }
+section.pricing {
+  height: 600px;
   background-color: aquamarine; }
-.container #stories {
+section.stories {
+  height: 600px;
   background-color: bisque; }
-.container #contact {
+section.contact {
+  height: 600px;
   background-color: darkkhaki; }
 
 /***************************
