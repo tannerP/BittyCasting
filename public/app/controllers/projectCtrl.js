@@ -17,6 +17,14 @@ controller('prjDetailController', function(Role, Project ,$location, $routeParam
 										 	controllerAs:'roleAside',						
 										  templateUrl:'/app/views/pages/role_form.tmpl.html'		
 										}),
+				editPrjAside = $aside({
+											scope:$scope,
+											keyboard:true, 
+											show: false,
+											controller:'editProjectController',
+										 	controllerAs:'projectAside',
+										  templateUrl:'/app/views/pages/project_form.tmpl.html'		
+										}),
 		shareRoleAside = $aside({
 											scope:$scope,
 											show: false,
@@ -36,28 +44,18 @@ controller('prjDetailController', function(Role, Project ,$location, $routeParam
 		vm.deleteRoleBtn = function(id){
 			console.log('deleteRoleBtn');
 			deleteRoleAside.$promise.then(deleteRoleAside.toggle);	
-			
-			/*shareRoleAside.$promise.then(shareRoleAside.toggle);*/
-		/*	Role.delete(id)
-			.success(function(){
-				$route.reload();
-				vm.processing = false;
-				vm.projectData = null;*/
-				/*$scope.$hide();	
-
-			})
-			.error(function(err){
-				console.log(err);}
-				)	*/
 		}
 		vm.shareRoleBtn = function(){
-		
 			shareRoleAside.$promise.then(shareRoleAside.toggle);	
 		}
 		vm.createRoleBtn = function(){
 			vm.roleData = {};
 			console.log('createRoleBtn');
 			newRoleAside.$promise.then(newRoleAside.toggle);	
+		}
+		vm.editPrjBtn = function(){
+			vm.roleData = {};
+			editPrjAside.$promise.then(editPrjAside.toggle);	
 		}
 		vm.back = function(){
 			window.history.back();		}
@@ -236,7 +234,7 @@ var vm = this
 //project.html
 	controller('newProjectController', function(Project, $location,$route, $scope)	{
 		var vm = this;
-		vm.existing = false;
+		vm.NEW = true;
 		vm.projectData;
 		vm.save = function(){
 			vm. processing = true;
@@ -254,9 +252,9 @@ var vm = this
 		}}).
 
 	//page: project.html
-	controller('edit_ProjectController', function(Project,$location,$routeParams)	{
+	controller('editProjectController', function(Project,$location,$routeParams)	{
 		var vm = this;
-		vm.existing = true;
+		vm.NEW = false;
 		vm.processing = true;
 		vm.projectData;
 		vm.proj_id = $routeParams.project_id;

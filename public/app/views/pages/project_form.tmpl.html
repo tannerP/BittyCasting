@@ -1,7 +1,6 @@
-<div class="aside" tabindex="-1" role="dialog">
-    
-    <h1 ng-if="!projectAside.delete"> Create Project</h1>
-    <h1 ng-if="projectAside.delete"> Delete {{projectData.name}} ?</h1>
+<div class="aside" tabindex="-1" role="dialog">    
+    <h1 ng-if="projectAside.NEW"> Create Project</h1>
+    <h1 ng-if="!projectAside.NEW"> Edit</h1>
         <form class="container-page" ng-submit="projectAside.save()">
             <div class = "form-group name">
                 <input type = "text"
@@ -11,11 +10,14 @@
                 <textarea rows="4" cols="40" class ="form-control"
                         placeholder="Project details"
                         ng-model = "projectAside.projectData.details"></textarea>
+            <br>
             <div class='form-group'>
             <button type="button" class="btn btn-default"
                 ng-click="$hide()"> Cancel </button>
             <button type="submit" class="btn btn-primary"
-                 ng-if="!projectAside.delete"> Create page </button>
+                 ng-if="projectAside.NEW"> Create page </button>
+            <button type="submit" class="btn btn-primary"
+                 ng-if="!projectAside.NEW"> Save changes </button>
             </div>
         </form>
         <br>

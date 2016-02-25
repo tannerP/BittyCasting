@@ -11,8 +11,9 @@
         <span style="float:right;"
             class="glyphicon glyphicon-th"
             ng-click="page.toggleView()"></span>
-          <div class="projectHeader">
-            <button class='custom-btn-secondary-small' ng-click="page.createRoleBtn()"> + Create role</button>
+        <div class="projectHeader">
+        <button class='custom-btn-secondary-small' ng-click="page.createRoleBtn()"> + Create role</button>
+        <button class='custom-btn-secondary-small' ng-click="page.editPrjBtn()">Edit Project</button>
           </div>
     </div>
 <!------------------ GRID VIEW ------------------>
@@ -45,15 +46,17 @@
         <td>{{role.num_applicants}}
         <td>{{ role.details }}</td>
         <td><span class="tblDate">{{ role.date }}</span>
-            <a href = "#"
-            ng-click="page.deleteRoleBtn(role._id)"
-            class = "btn btn-warning"> Delete</a>
-            <a href = "#"
-            ng-click = "page.shareRoleBtn()"
-            class = "btn btn-primary">
-                 <span class="glyphicon glyphicon-share"></a>
-            <button type="button" class=" btn btn-info glyphicon glyphicon-eye-open  "
-                ng-click=""></button>
+            <div class='tblToolBar'>
+                <a href = "#"
+                ng-click="page.deleteRoleBtn(role._id)"
+                class = "btn btn-warning"> Delete</a>
+                <a href = "#"
+                ng-click = "page.shareRoleBtn()"
+                class = "btn btn-primary">
+                     <span class="glyphicon glyphicon-share"></span></a>
+                <button type="button" class=" btn btn-info glyphicon glyphicon-eye-open  "
+                    ng-click=""></button>
+            </div>
         </td>
     </tr>
 </tbody>    
