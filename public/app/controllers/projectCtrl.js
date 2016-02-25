@@ -3,7 +3,6 @@ controller('prjDetailController', function(Role, Project ,$location, $routeParam
 		var vm = this;
 		vm.processing = true;
 		vm.Roles  = [];
-		vm.projectID = $routeParams.project_id;
 		vm.project = {};
 		var gridView = true;
 		vm.toggleView = function(){
@@ -11,6 +10,7 @@ controller('prjDetailController', function(Role, Project ,$location, $routeParam
 		}
 
 		var newRoleAside = $aside({
+											scope:$scope,
 											show: false,
 											keyboard:true, 
 										 	controller:'addRoleController',
@@ -18,13 +18,19 @@ controller('prjDetailController', function(Role, Project ,$location, $routeParam
 										  templateUrl:'/app/views/pages/role_form.tmpl.html'		
 										}),
 		shareRoleAside = $aside({
+											scope:$scope,
 											show: false,
-											keyboard:true, 
+											keyboard:true,
+											controller:'addRoleController',
+										 	controllerAs:'roleAside', 
 										  templateUrl:'/app/views/pages/role_share.tmpl.html'		
 										});
 		deleteRoleAside = $aside({
-											show: false,
+											scope:$scope,
 											keyboard:true, 
+											show: false,
+											controller:'addRoleController',
+										 	controllerAs:'roleAside',
 										  templateUrl:'/app/views/pages/role_delete.tmpl.html'		
 										});
 		vm.deleteRoleBtn = function(id){
@@ -55,16 +61,18 @@ controller('prjDetailController', function(Role, Project ,$location, $routeParam
 		}
 		vm.back = function(){
 			window.history.back();		}
+
 		//remove, get data from parent scope
-		Project.get(vm.project_id)
+		Project.get($routeParams.project_id)
 			.success(function(data){
 					vm.project = data.project;
+					console.log(vm.project);
 				})
 			.error(function(err){
 				vm.message = err;
 			});
 		
-		Role.getAll(vm.projectID)
+		Role.getAll($routeParams.project_id)
 		.success(function(data){
 			vm.processing = false;
 			vm.Roles = data.data;
@@ -87,7 +95,7 @@ controller('prjDetailController', function(Role, Project ,$location, $routeParam
 
 			});
 	}}).
-	controller('edit_RoleController', function(Role, $location, $routeParams){
+	controller('editRoleController', function(Role, $location, $routeParams){
 		var vm = this;
 		vm.edit = true;
 		vm.processing = true;

@@ -65,7 +65,7 @@
       <tbody> 
       <!-- LOOP OVER THE USERS -->
           <tr ng-repeat = "project in home.projects">
-              <td ng-click=" home.getDtlBtn(project._id)">
+              <td ng-click="home.getDtlBtn(project._id)"    style="hover:background-color:blue;">
                 {{ project.name }}</td>
               <td>{{ project.details }}</td>
               <td>{{ project.date }}</td>
