@@ -33,6 +33,7 @@
 <thead>
     <tr>
         <th>Name</th>
+        <th>Applicants</th>
         <th>Details</th>
         <th>Date</th>
     </tr>
@@ -42,9 +43,10 @@
 <!-- LOOP OVER THE USERS -->
     <tr ng-repeat = "role in page.Roles">
         <td>{{ role.name }}</td>
+        <td>{{role.num_applicants}}
         <td>{{ role.details }}</td>
-        <td>{{ role.date }}</td>
-        <td><a href = "#"
+        <td><span class="tblDate">{{ role.date }}</span>
+            <a href = "#"
             ng-click="page.deleteRoleBtn(role._id)"
             class = "btn btn-primary"> Delete</a>
             <a href = "#"

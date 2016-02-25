@@ -22,24 +22,30 @@ controller('prjDetailController', function(Role, Project ,$location, $routeParam
 											keyboard:true, 
 										  templateUrl:'/app/views/pages/role_share.tmpl.html'		
 										});
+		deleteRoleAside = $aside({
+											show: false,
+											keyboard:true, 
+										  templateUrl:'/app/views/pages/role_delete.tmpl.html'		
+										});
 		vm.deleteRoleBtn = function(id){
-
 			console.log('deleteRoleBtn');
+			deleteRoleAside.$promise.then(deleteRoleAside.toggle);	
+			
 			/*shareRoleAside.$promise.then(shareRoleAside.toggle);*/
-			Role.delete(id)
+		/*	Role.delete(id)
 			.success(function(){
 				$route.reload();
 				vm.processing = false;
-				vm.projectData = null;
-				/*$scope.$hide();	*/
+				vm.projectData = null;*/
+				/*$scope.$hide();	
 
 			})
 			.error(function(err){
 				console.log(err);}
-				)	
+				)	*/
 		}
 		vm.shareRoleBtn = function(){
-			console.log('shareRoleBtn');
+		
 			shareRoleAside.$promise.then(shareRoleAside.toggle);	
 		}
 		vm.createRoleBtn = function(){
@@ -151,8 +157,12 @@ var vm = this
 }).
 
 //home.html
-	controller('home_ProjectsController', function(Project, $location, $aside,$scope)	{
+	controller('home_ProjectsController',
+	 function(Project, $location, $aside,$scope)	{
 		var vm = this;
+				vm.getDtlBtn = function(prjID){
+					$location.path('/projectDetails/'+prjID);
+				}
 		var gridView = true;
 		vm.toggleView = function(){
 				vm.gridView = !vm.gridView;

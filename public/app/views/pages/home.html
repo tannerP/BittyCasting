@@ -65,11 +65,12 @@
       <tbody> 
       <!-- LOOP OVER THE USERS -->
           <tr ng-repeat = "project in home.projects">
-              <td>{{ project.name }}</td>
+              <td ng-click=" home.getDtlBtn(project._id)">
+                {{ project.name }}</td>
               <td>{{ project.details }}</td>
               <td>{{ project.date }}</td>
               <td> <a href = "#"
-                  ng-click = ""
+                  ng-click='home.deleteBtn(project)'
                   class = "btn btn-primary"> Delete</a></td>
           </tr>
       </tbody>    
