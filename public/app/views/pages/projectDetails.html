@@ -3,7 +3,7 @@
     <div class="jumbotron text-center">
     <h1> <span>{{page.project.name || ""}}</span><br> Characters Casting</h1>
    </div>
-    <div class="utlBar">
+    <div class="utilBar">
         <span style="font-size:34px;"
             class ="glyphicon glyphicon-back"
             ng-click="page.back()" >
@@ -12,11 +12,12 @@
         <span style="font-size:34px;"
             class="glyphicon glyphicon-th"
             ng-click="page.toggleView()"></span>
+          <div class="projectHeader">
+            <button class='custom-btn-secondary-small' ng-click="page.createRoleBtn()"> + Create role</button>
+          </div>
     </div>
 <!------------------ GRID VIEW ------------------>
     <ul class= 'roles' ng-show='page.gridView'>
-        <li class ="card add"> <span class="card" ng-click="page.createRoleBtn()">
-        <span>Create new role</span></a></li>
         <li class="card" ng-repeat-start="role in page.Roles">
             <h3> {{role.name}}</h3>
             <a href='#/viewauditions/{{role._id}}'> <span>View auditions</span></a>
