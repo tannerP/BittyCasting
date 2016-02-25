@@ -235,7 +235,7 @@ header {
 /***************************
           Landing page
 ***************************/
-section.features {
+section.home {
   height: 660px;
   width: 100%;
   background: url("/assets/imgs/img_indexCover.png") no-repeat 50% 50% fixed;
@@ -243,44 +243,47 @@ section.features {
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover; }
-  section.features .brandMessage {
+  section.home .brandMessage {
     position: absolute;
     top: 190px;
     left: 50%;
     margin-left: -28%;
     width: 55%;
     text-align: center; }
-    section.features .brandMessage .brandHeading {
+    section.home .brandMessage .brandHeading {
       font-size: 36px;
       color: #242424;
       letter-spacing: 4;
       margin-bottom: 30px; }
-    section.features .brandMessage .brandSubHeading {
+    section.home .brandMessage .brandSubHeading {
       font-size: 20px;
       color: #666666;
       line-height: 38px;
       margin-bottom: 60px; }
-    section.features .brandMessage .brandRequest input {
+    section.home .brandMessage .brandRequest input {
       width: 70%;
       height: 60px;
       padding: 12px;
       border: 1px solid #cccccc;
       display: inline-block; }
-      section.features .brandMessage .brandRequest input:focus {
+      section.home .brandMessage .brandRequest input:focus {
         outline: none;
         border: 1px solid #06bcc2; }
-    section.features .brandMessage .brandRequest button {
+    section.home .brandMessage .brandRequest button {
       width: 29%;
       height: 60px;
       display: inline-block; }
-    section.features .brandMessage .brandRequest p {
+    section.home .brandMessage .brandRequest p {
       font-size: 12px;
       color: #999999;
       text-align: left;
       margin: 10px 0 0 2px; }
-section.pricing {
+section.features {
   height: 600px;
   background-color: aquamarine; }
+section.pricing {
+  height: 600px;
+  background-color: beige; }
 section.stories {
   height: 600px;
   background-color: bisque; }

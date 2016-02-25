@@ -266,7 +266,7 @@ header {
 section {
     
     
-    &.features {
+    &.home {
         height: 660px; 
         width: 100%; 
         background: url("/assets/imgs/img_indexCover.png") no-repeat 50% 50% fixed;
@@ -327,11 +327,14 @@ section {
         }
     
     }
-        
+       
+    &.features {
+        height: 600px;
+        background-color: aquamarine;}
     
     &.pricing {
         height: 600px;
-        background-color: aquamarine;}
+        background-color: beige;}
     
     &.stories {
         height: 600px;
