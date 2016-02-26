@@ -1,0 +1,77 @@
+<div class="col-md-8 col-md-offset-2" style="margin-top:10%;">
+<h1>Apply</h1>
+<style>.button {
+    text-align: center;
+    -moz-appearance: button;
+    /* Firefox */
+    -webkit-appearance: button;
+    /* Safari and Chrome */
+    padding: 10px;
+    margin: 10px;
+    width: 200px;
+    height: 50px;
+}
+.drop-box {
+    background: #F8F8F8;
+    border: 5px dashed #DDD;
+    width: 400px;
+    height: 200px;
+    text-align: center;
+    padding-top: 25px;
+    margin: 10px;
+}
+.dragover {
+    border: 5px dashed blue;
+} </style>
+<div ng-controller="MainCtrl">
+
+    <div class="row marketing">
+        <div class="form-group">
+            <label for="photos">Input Picture</label>
+            <input id="photos" type="file" class="btn" ng-file-select="onFileSelect($files)" multiple>
+            <p class="help-block">Select pictures</p>
+            <div ng-repeat="file in files" class="container">
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar" style="width:{{file.progress}}%;">
+                        {{file.name}} : {{file.progress}}
+                    </div>
+                </div>
+                <button class="btn btn-ttc" type="button" ng-click="abort($index)" ng-show="file.progress != 100">Abort</button>
+            </div>
+        </div>
+    </div>
+<div ng-controller='MyCtrl'>
+    <form>
+        <input class="custom-form" type="text" ng-model="fName" placeholder="First name">
+        <input class="custom-form" type="text" ng-model="lName" placeholder="Last name">
+        <input class="custom-form" type="email" ng-model="email" placeholder="Email">
+        <input class="custom-form" type="tel" ng-model="phone" placeholder="Phone">
+        <!--
+        watching model:
+         <div class="button" ngf-select ng-model="file" ngf-multiple="false">Select File</div> -->
+        Upload on form submit or button click
+        on file change multiple:
+        <div class="button" ngf-select="upload($files)" ngf-multiple="true">Select File</div>
+        Drop File:
+        <div ngf-drop ngf-select ng-model="files" class="drop-box" 
+            ngf-drag-over-class="'dragover'" ngf-multiple="true" ngf-allow-dir="true"
+            accept="image/*,application/pdf" 
+            ngf-pattern="'image/*,application/pdf'">Drop pdfs or images here or click to upload</div>
+        <div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>
+        <input class="custom-form" type="text" ng-model="youtube_link" placeholder="Youtube">
+        <input class="custom-form" type="text" ng-model="vimeo_link" placeholder="Vimeo">
+        <input class="custom-form" type="text" ng-model="other_link" placeholder="Other">
+    </form>
+    Image thumbnail: <img ngf-thumbnail="file || '/thumb.jpg'">
+    Audio preview: <audio controls ngf-src="file"></audio>
+    Video preview: <video controls ngf-src="file"></video>
+
+    Files:
+    <ul>
+        <li ng-repeat="f in files" style="font:smaller">{{f.name}} {{f.$error}} {{f.$errorParam}}</li>
+    </ul>
+    Upload Log:
+    <pre>{{log}}</pre>
+        </div>
+    </div>
+</div>
