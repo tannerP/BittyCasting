@@ -1,24 +1,26 @@
 
 <div class="col-md-10 col-md-offset-1">  
     <div class="jumbotron text-center">
-    <h1> <span>{{page.project.name || ""}}</span><br> Characters Casting</h1>
+    <h1> <span>{{prjDetailCtr.project.name || ""}}</span><br> Characters Casting</h1>
    </div>
     <div class="utilBar">
         <span style="font-size:34px;"
             class ="glyphicon"
-            ng-click="page.back()" >
+            ng-click="prjDetailCtr.back()" >
         <=back </span> 
         <span style="float:right;"
             class="glyphicon glyphicon-th"
-            ng-click="page.toggleView()"></span>
+            ng-click="prjDetailCtr.toggleView()"></span>
         <div class="projectHeader">
-        <button class='custom-btn-secondary-small' ng-click="page.createRoleBtn()"> + Create role</button>
-        <button class='custom-btn-secondary-small' ng-click="page.editPrjBtn()">Edit Project</button>
+        <button class='custom-btn-secondary-small' 
+                ng-click="prjDetailCtr.createRoleBtn()"> + Create role
+        </button>
+        <button class='custom-btn-secondary-small' ng-click="prjDetailCtr.editPrjBtn()">Edit Project</button>
           </div>
     </div>
 <!------------------ GRID VIEW ------------------>
-    <ul class= 'roles' ng-show='page.gridView'>
-        <li class="card" ng-repeat-start="role in page.Roles">
+    <ul class= 'roles' ng-show='prjDetailCtr.gridView'>
+        <li class="card" ng-repeat-start="role in prjDetailCtr.Roles">
             <h3> {{role.name}}</h3>
             <a href='#/viewauditions/{{role._id}}'> <span>View auditions</span></a>
             <a class = "btn btn-detault" id="projectEdit" href="/#editRole/{{role._id}}">
@@ -29,7 +31,7 @@
 
 </div>
 <!------------------ LIST VIEW ------------------>
-<table class = "table table-bordered table-striped" ng-show="!page.gridView">
+<table class = "table table-bordered table-striped" ng-show="!prjDetailCtr.gridView">
 <thead>
     <tr>
         <th>Name</th>
@@ -41,21 +43,24 @@
 
 <tbody> 
 <!-- LOOP OVER THE USERS -->
-    <tr ng-repeat = "role in page.Roles">
+    <tr ng-repeat = "role in prjDetailCtr.Roles">
         <td>{{ role.name }}</td>
         <td>{{role.num_applicants}}
         <td>{{ role.details }}</td>
         <td><span class="tblDate">{{ role.date }}</span>
             <div class='tblToolBar'>
+                <!-- Delete Btn-->
                 <a href = "#"
-                ng-click="page.deleteRoleBtn(role._id)"
+                ng-click="prjDetailCtr.deleteBtn(role)"
                 class = "btn btn-warning"> Delete</a>
-                <a href = "#"
-                ng-click = "page.shareRoleBtn()"
-                class = "btn btn-primary">
-                     <span class="glyphicon glyphicon-share"></span></a>
-                <button type="button" class=" btn btn-info glyphicon glyphicon-eye-open  "
-                    ng-click=""></button>
+                <!-- Share Btn -->
+                <a href = "#" ng-click = "prjDetailCtr.shareBtn(role)"
+                class = "btn btn-primary glyphicon glyphicon-share">
+                </a>
+                <!-- Preview -->
+                <a href="#" ng-click="prjDetailCtr.preview(role)"
+                    class=" btn btn-info glyphicon glyphicon-eye-open">
+                </a>
             </div>
         </td>
     </tr>

@@ -8,7 +8,6 @@ controller('prjDetailController', function(Role, Project ,$location, $routeParam
 		vm.toggleView = function(){
 			vm.gridView = !vm.gridView;
 		}
-
 		var newRoleAside = $aside({
 											scope:$scope,
 											show: false,
@@ -37,18 +36,19 @@ controller('prjDetailController', function(Role, Project ,$location, $routeParam
 											scope:$scope,
 											keyboard:true, 
 											show: false,
-											controller:'addRoleController',
-										 	controllerAs:'roleAside',
+											controller:'deleteRoleController',
+											controllerAs:'aside',
 										  templateUrl:'/app/views/pages/role_delete.tmpl.html'		
 										});
-		vm.deleteRoleBtn = function(id){
-			console.log('deleteRoleBtn');
+		vm.deleteBtn = function(data){
+			vm.roleData = data;
 			deleteRoleAside.$promise.then(deleteRoleAside.toggle);	
 		}
-		vm.shareRoleBtn = function(){
+		vm.shareBtn = function(data){
+			vm.roleData = data;
 			shareRoleAside.$promise.then(shareRoleAside.toggle);	
 		}
-		vm.createRoleBtn = function(){
+		vm.createBtn = function(){
 			vm.roleData = {};
 			console.log('createRoleBtn');
 			newRoleAside.$promise.then(newRoleAside.toggle);	
@@ -94,7 +94,8 @@ controller('prjDetailController', function(Role, Project ,$location, $routeParam
 			});
 	}}).
  controller('shareRoleController', ['$scope', function ($scope) {
-        $scope.textToCopy = 'I can copy by clicking!';
+        var url_base = "http://bittycasting.com/Apply"
+        $scope.textToCopy = url_base;
 
         $scope.success = function () {
             console.log('Copied!');
@@ -105,6 +106,20 @@ controller('prjDetailController', function(Role, Project ,$location, $routeParam
         }
       }
     ]).
+controller('deleteRoleController', function(Role, $location, $routeParams, $route, $scope){
+		var vm = this;
+		vm.roleData = {};
+		vm.delete = function(id){
+			Role.delete(id)
+				.success(function(){
+					vm.roleData = {};
+					$route.reload();
+					$scope.$hide()
+				})
+				.error(function(err){
+					console.log(err.message);
+				})
+	}}).
 	controller('editRoleController', function(Role, $location, $routeParams){
 		var vm = this;
 		vm.edit = true;
@@ -154,26 +169,6 @@ controller('prjDetailController', function(Role, Project ,$location, $routeParam
 					console.log(err.message);
 				})
 	}}).
-controller('card_ProjectController', function(Project, $location, $aside, $scope)	{
-var vm = this		
-	vm.deleteCtrl = true;
-
-  deletePrjAside = $aside({
-  										scope:$scope,
-											keyboard:true,
-											show: false, 
-										 	controller:'deleteProjectController',
-										 	controllerAs:'asideProject',
-										  templateUrl:'/app/views/pages/project_form.html'		
-										});
-	vm.message = "card controller message";
-	vm.deleteBtn = function(prjData){
-		vm.targetedPrj = prjData;
-			deletePrjAside.toggle();
-			console.log("hey");
-		}
-}).
-
 //home.html
 	controller('home_ProjectsController',
 	 function(Project, $location, $aside,$scope)	{

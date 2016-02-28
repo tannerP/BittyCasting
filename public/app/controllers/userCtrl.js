@@ -28,7 +28,6 @@ angular.module('userCtrl',['userService'])
 						});
 	}})
 
-
 	.controller('userEditController', function($routeParams,User)	{
 		var vm = this;
 		vm.type = 'edit';

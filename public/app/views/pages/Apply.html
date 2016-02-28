@@ -23,8 +23,8 @@
 .dragover {
     border: 5px dashed blue;
 } </style>
-<div ng-controller="MainCtrl">
-
+<div>
+<!-- 
     <div class="row marketing">
         <div class="form-group">
             <label for="photos">Input Picture</label>
@@ -40,31 +40,30 @@
             </div>
         </div>
     </div>
-<div ng-controller='MyCtrl'>
+<div > -->
     <form>
         <input class="custom-form" type="text" ng-model="fName" placeholder="First name">
         <input class="custom-form" type="text" ng-model="lName" placeholder="Last name">
         <input class="custom-form" type="email" ng-model="email" placeholder="Email">
         <input class="custom-form" type="tel" ng-model="phone" placeholder="Phone">
-        <!--
-        watching model:
-         <div class="button" ngf-select ng-model="file" ngf-multiple="false">Select File</div> -->
         Upload on form submit or button click
-        on file change multiple:
-        <div class="button" ngf-select="upload($files)" ngf-multiple="true">Select File</div>
-        Drop File:
-        <div ngf-drop ngf-select ng-model="files" class="drop-box" 
-            ngf-drag-over-class="'dragover'" ngf-multiple="true" ngf-allow-dir="true"
-            accept="image/*,application/pdf" 
-            ngf-pattern="'image/*,application/pdf'">Drop pdfs or images here or click to upload</div>
-        <div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>
-        <input class="custom-form" type="text" ng-model="youtube_link" placeholder="Youtube">
-        <input class="custom-form" type="text" ng-model="vimeo_link" placeholder="Vimeo">
-        <input class="custom-form" type="text" ng-model="other_link" placeholder="Other">
+        <form ng-app="fileUpload" ng-controller="MyCtrl" name="form">
+          Single Image with validations
+          <div class="button" ngf-select ng-model="page.file" name="file" ngf-pattern="'image/*'"
+            ngf-accept="'image/*'" ngf-max-size="10MB" ngf-min-height="100" 
+            ngf-resize="{width: 400, height: 400}">Select</div>
+          Multiple files
+          <div class="button" ngf-select ng-model="page.files" ngf-multiple="true">Select</div>
+          Drop files: <div ngf-drop ng-model="page.file" class="drop-box">Drop</div>
+          <button type="submit" ng-click="page.submit()">submit</button>
+        </form>
+        <input class="custom-form" type="text" ng-model="page.youtube_link" placeholder="Youtube">
+        <input class="custom-form" type="text" ng-model="page.vimeo_link" placeholder="Vimeo">
+        <input class="custom-form" type="text" ng-model="page.other_link" placeholder="Other">
     </form>
-    Image thumbnail: <img ngf-thumbnail="file || '/thumb.jpg'">
-    Audio preview: <audio controls ngf-src="file"></audio>
-    Video preview: <video controls ngf-src="file"></video>
+    Image thumbnail: <img ngf-thumbnail="page.file || '/thumb.jpg'">
+    Audio preview: <audio controls ngf-src="page.file"></audio>
+    Video preview: <video controls ngf-src="page.file"></video>
 
     Files:
     <ul>

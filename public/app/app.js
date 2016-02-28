@@ -1,6 +1,7 @@
 
 angular.module('userApp', [
 	'angular-clipboard',
+	'ngFileUpload',
 	'ngSanitize',
 	'ui.bootstrap',
 	'mgcrea.ngStrap',
@@ -9,7 +10,7 @@ angular.module('userApp', [
 	'authService',
 	'userService',
 	'AMMService',
-	'AMMCtrl',
+	'applyCtrl',
 	'mainCtrl',
 	'projectCtrl',
 	'userCtrl',

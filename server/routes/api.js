@@ -99,7 +99,6 @@ apiRouter.route('/role/:role_id')
 			res.json({success:true, data:data});
 		}})
 	})
-
 	.delete(function(req, res){
 		Role.remove({
 			_id:req.params.role_id

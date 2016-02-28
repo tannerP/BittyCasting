@@ -3,7 +3,6 @@ angular.module('app.routes', ['ngRoute'])
 .config(
     function($routeProvider, $locationProvider) {
     $routeProvider
-        // route for the home page
         .when('/', {
             templateUrl : '/app/views/pages/index.html',
             controller : 'publicCtrl',
@@ -21,10 +20,10 @@ angular.module('app.routes', ['ngRoute'])
         })
 
 /*--------------- Applicants ---------------*/
-.when('/ApplyHere',  {
-            templateUrl: 'app/views/pages/project_form.html',
-            controller: 'new_ProjectController',
-            controllerAs: 'project'
+.when('/Apply',  {
+            templateUrl: 'app/views/pages/Apply.html',
+            controller: 'applyController',
+            controllerAs: 'page'
         })
 /*---------------- Projects ----------------*/
         .when('/newproject',  {
@@ -38,12 +37,11 @@ angular.module('app.routes', ['ngRoute'])
             controllerAs: 'project'
         })
         .when('/projectDetails/:project_id',  {
-            templateUrl: 'app/views/pages/projectDetails.html',
+            templateUrl: 'app/views/pages/ProjectDetails.html',
             controller: 'prjDetailController',
-            controllerAs: 'page'
+            controllerAs: 'prjDetailCtr'
         })
-
-/*---------------- CastingBoard ----------------*/
+        /*---------------- Role ----------------*/
         .when('/addRole/:project_id',  {
             templateUrl: 'app/views/pages/role.html',
             controller: 'add_RoleController',
@@ -60,7 +58,6 @@ angular.module('app.routes', ['ngRoute'])
             controller: 'AMMController',
             controllerAs: 'page'
         })
-
 /*---------------- Users ----------------*/
         .when('/users',  {
             templateUrl: 'app/views/pages/users/all.html',
