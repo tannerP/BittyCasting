@@ -373,21 +373,23 @@ div.pageHeader{
         .gridListToggle {
             
             div {
-                width: 28px;
-                height: 28px;
+                width: 20px;
+                height: 20px;
                 background-color: red;
                 display: inline-block;
-                margin-left: 2px;
+                margin: 4px 0 0 4px;
                 cursor: pointer;
                 opacity: 0.5;
                 filter: alpha(opacity=50);
                 
                 &:nth-child(1) {
                     background: url("/assets/imgs/ic_grid.svg") no-repeat center center;
+                    background-size: 16px 16px;
                 }
                 
                 &:nth-child(2) {
                     background: url("/assets/imgs/ic_list.svg") no-repeat center center;
+                    background-size: 18px 18px;
                 }
                 
                 &:hover, &:focus {
@@ -512,6 +514,63 @@ ul.projects li {
     }
 }
 
+.custom-table {
+    padding: 0 10px;
+    
+    .table {
+        font-size: $font-size-regular;
+        
+        th.table-collumn-name {width: 20%; cursor: pointer;}
+        th.table-collumn-details {width: 60%;}
+        th.table-collumn-date {width: 20%;}
+        
+        tbody tr td {
+            
+            vertical-align: middle;
+        
+            .table-utl {
+                height: 36px;
+
+                ul {
+                    height: 36px;
+                    
+                    li{
+                        display: inline;
+                        float: right;
+                        margin-left: 6px;
+                        width: 36px;
+                        height: 36px;
+                        @include border-radius(50%);
+                        border: 1px solid $color-grey-dark;
+
+                        &:nth-child(1) {
+                            background: url("/assets/imgs/ic_trash.svg") no-repeat center center white;
+                            background-size: 16px 16px;           
+                        }
+
+                        &:nth-child(2) {
+                            background: url("/assets/imgs/ic_duplicate.svg") no-repeat center center white;
+                            background-size: 16px 16px;           
+                        }
+
+                        &:hover, &:focus {
+                            background-color: #eeeeee;
+                            cursor: pointer;
+                            @include transition(all, 0.2s, ease);
+                        }
+                    }
+                }
+            }
+        }
+        
+    }
+    .table>thead>tr>th {
+        border-bottom: 2px solid $color-grey;
+    }
+    .table-hover>tbody>tr:hover {
+        background-color: $color-grey-light;
+    }
+}
 /***************************
           Side panel
 ***************************/
@@ -629,6 +688,7 @@ ul.projects li {
     color: white;
     background-color: $color-blue;
     font-size: $font-size-regular;
+    margin-top: 60px;
     
     p {
         padding-right: 35px;
