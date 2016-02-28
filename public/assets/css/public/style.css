@@ -235,6 +235,16 @@ header {
 /***************************
           Landing page
 ***************************/
+section .sectionTitle {
+  font-weight: 600;
+  font-size: 24px;
+  text-align: center;
+  color: #242424;
+  margin: 60px 0 15px 0; }
+section .sectionTitleDivider {
+  margin: 0 auto 60px auto;
+  width: 80px;
+  border-top: 1px solid #242424; }
 section.home {
   height: 660px;
   width: 100%;
@@ -280,16 +290,14 @@ section.home {
       margin: 10px 0 0 2px; }
 section.features {
   height: 600px;
-  background-color: aquamarine; }
+  background-color: white; }
 section.pricing {
-  height: 600px;
-  background-color: beige; }
+  height: 600px; }
 section.stories {
   height: 600px;
-  background-color: bisque; }
+  background-color: white; }
 section.contact {
-  height: 600px;
-  background-color: darkkhaki; }
+  height: 600px; }
 
 /***************************
            Homepage
