@@ -306,7 +306,25 @@ div.mainContent {
   margin: 0 -10px; }
 
 div.pageHeader {
-  margin-bottom: 28px; }
+  margin: 56px 0 28px 0; }
+  div.pageHeader .utlBar {
+    float: right; }
+    div.pageHeader .utlBar .gridListToggle div {
+      width: 28px;
+      height: 28px;
+      background-color: red;
+      display: inline-block;
+      margin-left: 2px;
+      cursor: pointer;
+      opacity: 0.5;
+      filter: alpha(opacity=50); }
+      div.pageHeader .utlBar .gridListToggle div:nth-child(1) {
+        background: url("/assets/imgs/ic_grid.svg") no-repeat center center; }
+      div.pageHeader .utlBar .gridListToggle div:nth-child(2) {
+        background: url("/assets/imgs/ic_list.svg") no-repeat center center; }
+      div.pageHeader .utlBar .gridListToggle div:hover, div.pageHeader .utlBar .gridListToggle div:focus {
+        opacity: 1;
+        filter: alpha(opacity=100); }
 
 .pageTitle {
   font-family: "Open Sans", sans-serif;
