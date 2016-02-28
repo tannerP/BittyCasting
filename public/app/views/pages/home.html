@@ -1,24 +1,21 @@
 
-<div class=pageHeader>
-    
-  <div class='pageTitle'>My projects</div>
-    
-  <div class="projectHeader">
-  	<button class='custom-btn-secondary-small' ng-click="home.newPrjBtn()"> + Create project</button>
+<div class="col-md-10 col-md-offset-1">  
+  <div class=pageHeader>    
+    <div class='pageTitle'>My projects</div>
+    <div class="projectHeader">
+    	<button class='custom-btn-secondary-small' ng-click="home.newPrjBtn()"> + Create project</button>
+    </div>
   </div>
-    
-</div>
-
-<div class="utlBar">
-  <span style="size:34px;"
-    class="glyphicon glyphicon-th"
-    ng-click="home.toggleView()">
-  </span>
-  <span style="size:34px;"
-    class="glyphicon glyphicon-th"
-    ng-click="home.toggleView()">
-  </span>
-</div>
+  <div class="utlBar">
+    <span style="size:34px;"
+      class="glyphicon glyphicon-th"
+      ng-click="home.toggleView()">
+    </span>
+    <span style="size:34px;"
+      class="glyphicon glyphicon-th"
+      ng-click="home.toggleView()">
+    </span>
+  </div>
 
 <div class="mainContent">
     
@@ -72,6 +69,6 @@
                   class = "btn btn-primary"> Delete</a><span>{{ project.date }}</span></td>
           </tr>
       </tbody>    
-      </table>
-    
+    </table>
+  </div>
 </div>
