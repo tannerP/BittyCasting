@@ -235,6 +235,16 @@ header {
 /***************************
           Landing page
 ***************************/
+section .sectionTitle {
+  font-weight: 600;
+  font-size: 24px;
+  text-align: center;
+  color: #242424;
+  margin: 60px 0 15px 0; }
+section .sectionTitleDivider {
+  margin: 0 auto 60px auto;
+  width: 80px;
+  border-top: 1px solid #242424; }
 section.home {
   height: 660px;
   width: 100%;
@@ -280,16 +290,14 @@ section.home {
       margin: 10px 0 0 2px; }
 section.features {
   height: 600px;
-  background-color: aquamarine; }
+  background-color: white; }
 section.pricing {
-  height: 600px;
-  background-color: beige; }
+  height: 600px; }
 section.stories {
   height: 600px;
-  background-color: bisque; }
+  background-color: white; }
 section.contact {
-  height: 600px;
-  background-color: darkkhaki; }
+  height: 600px; }
 
 /***************************
            Homepage
@@ -298,7 +306,25 @@ div.mainContent {
   margin: 0 -10px; }
 
 div.pageHeader {
-  margin-bottom: 28px; }
+  margin: 56px 0 28px 0; }
+  div.pageHeader .utlBar {
+    float: right; }
+    div.pageHeader .utlBar .gridListToggle div {
+      width: 28px;
+      height: 28px;
+      background-color: red;
+      display: inline-block;
+      margin-left: 2px;
+      cursor: pointer;
+      opacity: 0.5;
+      filter: alpha(opacity=50); }
+      div.pageHeader .utlBar .gridListToggle div:nth-child(1) {
+        background: url("/assets/imgs/ic_grid.svg") no-repeat center center; }
+      div.pageHeader .utlBar .gridListToggle div:nth-child(2) {
+        background: url("/assets/imgs/ic_list.svg") no-repeat center center; }
+      div.pageHeader .utlBar .gridListToggle div:hover, div.pageHeader .utlBar .gridListToggle div:focus {
+        opacity: 1;
+        filter: alpha(opacity=100); }
 
 .pageTitle {
   font-family: "Open Sans", sans-serif;

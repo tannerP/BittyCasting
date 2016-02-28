@@ -25,7 +25,7 @@
     <ul class= 'roles' ng-show='prjDetailCtr.gridView'>
         <li class="card" ng-repeat-start="role in prjDetailCtr.Roles">
             <h3> {{role.name}}</h3>
-            <a href='#/viewauditions/{{role._id}}'> <span>View auditions</span></a>
+            <a href='/viewauditions/{{role._id}}'> <span>View auditions</span></a>
             <a class = "btn btn-detault" id="projectEdit" href="/#editRole/{{role._id}}">
                 <span class='glyphicon glyphicon-pencil '></span></a>
         </li>
@@ -47,7 +47,7 @@
 <tbody> 
 <!-- LOOP OVER THE USERS -->
     <tr ng-repeat = "role in prjDetailCtr.Roles">
-        <td>{{ role.name }}</td>
+        <td><a href='/viewauditions/{{role._id}}'>{{ role.name }}</a></td>
         <td>{{role.num_applicants}}
         <td>{{ role.details }}</td>
         <td><span class="tblDate">{{ role.date }}</span>

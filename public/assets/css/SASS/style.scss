@@ -265,6 +265,19 @@ header {
 
 section {
     
+    .sectionTitle {
+        font-weight: 600;
+        font-size: $font-size-page-heading;
+        text-align: center;
+        color: $color-grey-darkest;
+        margin: 60px 0 15px 0;
+    }
+    
+    .sectionTitleDivider {
+        margin: 0 auto 60px auto;
+        width: 80px;
+        border-top: 1px solid $color-grey-darkest; 
+    }
     
     &.home {
         height: 660px; 
@@ -330,19 +343,17 @@ section {
        
     &.features {
         height: 600px;
-        background-color: aquamarine;}
+        background-color: white;}
     
     &.pricing {
-        height: 600px;
-        background-color: beige;}
+        height: 600px;}
     
     &.stories {
         height: 600px;
-        background-color: bisque;}
+        background-color: white;}
     
     &.contact {
-        height: 600px;
-        background-color: darkkhaki;}
+        height: 600px;}
 }
 
 /***************************
@@ -354,7 +365,39 @@ div.mainContent{
 }
 
 div.pageHeader{
-    margin-bottom: 28px;
+    margin: 56px 0 28px 0;
+    
+    .utlBar {
+        float: right;
+        
+        .gridListToggle {
+            
+            div {
+                width: 28px;
+                height: 28px;
+                background-color: red;
+                display: inline-block;
+                margin-left: 2px;
+                cursor: pointer;
+                opacity: 0.5;
+                filter: alpha(opacity=50);
+                
+                &:nth-child(1) {
+                    background: url("/assets/imgs/ic_grid.svg") no-repeat center center;
+                }
+                
+                &:nth-child(2) {
+                    background: url("/assets/imgs/ic_list.svg") no-repeat center center;
+                }
+                
+                &:hover, &:focus {
+                    opacity: 1;
+                    filter: alpha(opacity=100);
+                }
+                
+            }
+        }
+    }
 
 }
 

@@ -17,6 +17,30 @@
     </span>
   </div>
 
+<div class="container">
+
+<div class="pageHeader">
+    
+  <div class='pageTitle'>My projects</div>
+    
+  <div class="projectHeader">
+      
+        <button class='custom-btn-secondary-small' ng-click="home.newPrjBtn()"> + Create project</button>
+      
+        <div class="utlBar">           
+            <div class="sort"></div>
+            <div class="gridListToggle">
+                <div ng-click="home.toggleView()"></div>
+                <div ng-click="home.toggleView()"></div>   
+            </div>
+            
+        </div>    
+      
+  </div>
+    
+</div>
+
+
 <div class="mainContent">
     
   	<ul class='projects' ng-show="home.gridView">
@@ -69,6 +93,12 @@
                   class = "btn btn-primary"> Delete</a><span>{{ project.date }}</span></td>
           </tr>
       </tbody>    
+
     </table>
   </div>
+
+      </table>
+    
+</div>
+    
 </div>
