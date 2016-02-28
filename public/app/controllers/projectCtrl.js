@@ -94,7 +94,7 @@ controller('prjDetailController', function(Role, Project ,$location, $routeParam
 			});
 	}}).
  controller('shareRoleController', ['$scope', function ($scope) {
-        var url_base = "http://bittycasting.com/Apply"
+        var url_base = "bittycasting.com/Apply"
         $scope.textToCopy = url_base;
 
         $scope.success = function () {

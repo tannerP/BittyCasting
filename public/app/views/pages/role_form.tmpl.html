@@ -1,21 +1,88 @@
 <div class="aside" tabindex="-1" role="dialog">
     <form class="container-roleAside">
-        <h3 class="dark-grey" ng-if="!roleAside.edit">Add Character</h3>
-        <h3 class="dark-grey" ng-if="roleAside.edit">Edit Character</h3>
-       <h2> {{project.name}}</h2>
+        <h3 class="dark-grey" ng-if="!roleAside.edit">Add Role</h3>
+        <h3 class="dark-grey" ng-if="roleAside.edit">Edit Role</h3>
+       <h2>{{project.name}}</h2>
         <div class = "form-group">
-                <input type = "text"
-                    placeholder="Character Name"
-                    class = "form-control"
-                    ng-model = "roleAside.roleData.name">
-        </div>
-        <div class = "form-group">
-         	<textarea rows="15" cols="70" class =""
-                placeholder="Project Detail"
+            <label ng-if="roleAside.roleData.name">
+                Role name</label>
+            <input type = "text"
+                placeholder="Role Name"
+                class = "form-control"
+                ng-model = "roleAside.roleData.name">
+            <br>   
+            <label ng-if="roleAside.roleData.detail">
+                Description</label>
+            <textarea rows="5" cols="60" class =""
+                placeholder="Description (Max 220 characters)"
                 ng-model = "roleAside.roleData.details"
                 ></textarea>
+            <label ng-if="roleAside.roleData.Deadline">
+                Applican open until</label>
+            <input type = "text"
+                placeholder="Date"
+                class = "form-control"
+                ng-model = "roleAside.roleData.Deadline">
+            <br>   
+            <label ng-if="roleAside.roleData.location">
+            Location</label>
+            <input type = "text"
+                placeholder="Location"
+                class = "form-control"
+                ng-model = "roleAside.roleData.location">
+            <br>
+            <br>   
+            <label ng-if="roleAside.roleData.Deadline">Time</label>
+            <input type = "text"
+                placeholder="Pay term"
+                class = "form-control"
+                ng-model = "roleAside.roleData.time">
+            <label ng-if="roleAside.roleData.time">Pay terms</label>
+            <input type = "text"
+                placeholder="Age"
+                class = "form-control"
+                ng-model = "roleAside.roleData.payterms">
+            <label ng-if="roleAside.roleData.time">Age</label>
+            <input type = "text"
+                placeholder="Gender"
+                class = "form-control"
+                ng-model = "roleAside.roleData.payterms">
+            <label ng-if="roleAside.roleData.time">Gender</label>
+            <input type = "text"
+                placeholder="Time"
+                class = "form-control"
+                ng-model = "roleAside.roleData.payterms">
     	</div>
     	<div class = "form-group">
+
+
+         <table class = "table table-bordered table-striped" ng-show="!home.gridView">
+          <thead>
+              <tr>
+                  <th>Type</th>
+                  <th>Format</th>
+                  <th>Required</th>
+              </tr>
+          </thead>
+      <tbody> 
+      <!-- LOOP OVER THE USERS -->
+          <tr>
+              <td> Headshot</td>
+          </tr>
+          <tr>
+              <td> Resume </td>
+          </tr>
+          <tr>
+              <td> Cover letter </td>
+          </tr>
+          <tr>
+              <td> Audition Video </td>
+              <td></td>
+              <td>  <label class="btn btn-success" ng-model="radioModel" uib-btn-radio="'Left'" uncheckable>Left</label></td>
+          </tr>
+      </tbody>    
+      </table>
+    
     		<label>Headshot</label>
     		<input type="checkbox" 
                 ng-model="roleAside.roleData.headshot"

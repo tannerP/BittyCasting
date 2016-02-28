@@ -1,12 +1,18 @@
 angular.module('applyCtrl',['userService', 'mgcrea.ngStrap']).
-	controller('applyController',['$scope','Upload','$http', 
-        function ($scope, Upload,$http) {
+	controller('applyController',['$scope','Upload','$http','$rootScope', 
+        function ($scope, Upload,$http, $rootScope) {
     //upload later on form submit or something similar
     var vm = this;
+    vm.test = function(){
+        $http.get('/api/s3Policy?mimeType='+ 'jpeg').
+        success(function(response) {
+                console.log(response);
+    })
+    };
     vm.submit = function() {
         console.log("Myctrl submit button pressed");
       if (vm.file) {
-        vm.uploadFiles(vm.file);
+        vm.uploadFiles(vm.file)
       }
     };
     // upload on file select or drop

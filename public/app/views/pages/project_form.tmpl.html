@@ -3,10 +3,14 @@
     <h1 ng-if="!projectAside.NEW"> Edit</h1>
         <form class="container-page" ng-submit="projectAside.save()">
             <div class = "form-group name">
+                <label ng-if="projectAside.projectData.name">
+                Name</label>
                 <input type = "text"
                         placeholder="Project name"
                         class = "form-control"
                         ng-model = "projectAside.projectData.name"></div>
+                <label ng-if="projectAside.projectData.detail">
+                Detail</label>
                 <textarea rows="4" cols="40" class ="form-control"
                         placeholder="Project details"
                         ng-model = "projectAside.projectData.details"></textarea>

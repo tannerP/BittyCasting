@@ -11,9 +11,12 @@
         <span style="float:right;"
             class="glyphicon glyphicon-th"
             ng-click="prjDetailCtr.toggleView()"></span>
+        <span style="float:right;"
+            class="glyphicon glyphicon-th"
+            ng-click="prjDetailCtr.toggleView()"></span>
         <div class="projectHeader">
         <button class='custom-btn-secondary-small' 
-                ng-click="prjDetailCtr.createRoleBtn()"> + Create role
+                ng-click="prjDetailCtr.createBtn()"> + Create role
         </button>
         <button class='custom-btn-secondary-small' ng-click="prjDetailCtr.editPrjBtn()">Edit Project</button>
           </div>
@@ -22,7 +25,7 @@
     <ul class= 'roles' ng-show='prjDetailCtr.gridView'>
         <li class="card" ng-repeat-start="role in prjDetailCtr.Roles">
             <h3> {{role.name}}</h3>
-            <a href='#/viewauditions/{{role._id}}'> <span>View auditions</span></a>
+            <a href='/viewauditions/{{role._id}}'> <span>View auditions</span></a>
             <a class = "btn btn-detault" id="projectEdit" href="/#editRole/{{role._id}}">
                 <span class='glyphicon glyphicon-pencil '></span></a>
         </li>
@@ -36,15 +39,15 @@
     <tr>
         <th>Name</th>
         <th>Applicants</th>
-        <th>Details</th>
-        <th>Date</th>
+        <th>Description</th>
+        <th>Application Close</th>
     </tr>
 </thead>
 
 <tbody> 
 <!-- LOOP OVER THE USERS -->
     <tr ng-repeat = "role in prjDetailCtr.Roles">
-        <td>{{ role.name }}</td>
+        <td><a href='/viewauditions/{{role._id}}'>{{ role.name }}</a></td>
         <td>{{role.num_applicants}}
         <td>{{ role.details }}</td>
         <td><span class="tblDate">{{ role.date }}</span>
@@ -52,14 +55,15 @@
                 <!-- Delete Btn-->
                 <a href = "#"
                 ng-click="prjDetailCtr.deleteBtn(role)"
-                class = "btn btn-warning"> Delete</a>
+                class = "btn btn-warning glyphicon 
+                glyphicon-headphones">Delete</a>
                 <!-- Share Btn -->
                 <a href = "#" ng-click = "prjDetailCtr.shareBtn(role)"
-                class = "btn btn-primary glyphicon glyphicon-share">
+                class = "btn btn-primary glyphicon glyphicon-share">Share
                 </a>
                 <!-- Preview -->
                 <a href="#" ng-click="prjDetailCtr.preview(role)"
-                    class=" btn btn-info glyphicon glyphicon-eye-open">
+                    class=" btn btn-info glyphicon glyphicon-eye-open">Preview
                 </a>
             </div>
         </td>
