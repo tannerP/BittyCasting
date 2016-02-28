@@ -6,6 +6,10 @@ var Role = require('../models/role');
 var Project = require('../models/project');
 var jwt = require('jsonwebtoken');
 var config = require('../../config');
+var S3Config = require('../aws.json');
+var aws = require('../lib/aws');
+
+
 
 var superSecret = config.secret;
 
@@ -43,7 +47,18 @@ apiRouter.all('*',function(req,res,next){
 		});
 	}
 });
-
+/* S3 Config*/
+apiRouter.route('/config')
+	.get(function (req, res, next) {
+    return res.json(200, {
+        awsConfig: {
+            bucket: S3Config.bucket
+        }
+        });
+  })
+  apiRouter.route('/s3Policy')
+	.get(aws.getS3Policy);
+  
 //===============================  Get All Roles ============================
 apiRouter.route('/roles/:projectID')
 	.get(function(req, res) {
