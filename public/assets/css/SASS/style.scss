@@ -576,3 +576,85 @@ ul.projects li {
     margin-bottom: 20px;
 }
 
+/***************************
+          Footer
+***************************/
+
+.footer {
+    height: 56px;
+    line-height: 56px;
+    color: white;
+    background-color: $color-blue;
+    font-size: $font-size-regular;
+    
+    p {
+        padding-right: 35px;
+        margin: 0;
+        display: inline;
+        float: left;
+        position: relative;
+        &:after {
+            content:""; 
+            background: white; 
+            position: absolute; 
+            top: 18px; 
+            right: 0; 
+            height: 19px; 
+            width: 1px;
+        } 
+    }
+    .custom-nav-footer {
+        
+        ul {        
+            float: left;
+            margin: 0;
+            -webkit-padding-start:0px;
+        
+            li {
+                display: inline;
+                margin: 0 0 0 35px;
+
+                a {
+                    color: white;
+                    @include transition(all, 0.2s, ease);
+
+                    &:hover, &:focus {
+                        cursor: pointer;
+                        opacity: 0.7;
+                        filter: alpha(opacity=70);
+                        text-decoration: none;
+                        @include transition(all, 0.2s, ease);
+                    }
+                }
+            }
+        }
+    }
+    
+    .social {
+        ul li {
+            float: right;
+            display: inline;
+            margin: 4px 0 0 20px;
+            background-color: red;
+            width: 28px;
+            height: 28px;
+            @include transition(all, 0.2s, ease);
+            
+            &:nth-child(1) {
+                background: url("/assets/imgs/ic_social_fb.svg") no-repeat center center;
+                background-size: 22px 22px;
+            }
+            &:nth-child(2) {
+                background: url("/assets/imgs/ic_social_twitter.svg") no-repeat center center;
+                background-size: 24px 24px;
+            }
+            &:hover, &:focus {
+                        cursor: pointer;
+                        opacity: 0.7;
+                        filter: alpha(opacity=70);
+                        text-decoration: none;
+                        @include transition(all, 0.2s, ease);
+            }
+        }
+    }
+}
