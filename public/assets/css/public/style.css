@@ -495,4 +495,80 @@ ul.projects li {
   border: 1px solid #D84444;
   margin-bottom: 20px; }
 
+/***************************
+          Footer
+***************************/
+.footer {
+  height: 56px;
+  line-height: 56px;
+  color: white;
+  background-color: #06bcc2;
+  font-size: 12px; }
+  .footer p {
+    padding-right: 35px;
+    margin: 0;
+    display: inline;
+    float: left;
+    position: relative; }
+    .footer p:after {
+      content: "";
+      background: white;
+      position: absolute;
+      top: 18px;
+      right: 0;
+      height: 19px;
+      width: 1px; }
+  .footer .custom-nav-footer ul {
+    float: left;
+    margin: 0;
+    -webkit-padding-start: 0px; }
+    .footer .custom-nav-footer ul li {
+      display: inline;
+      margin: 0 0 0 35px; }
+      .footer .custom-nav-footer ul li a {
+        color: white;
+        -webkit-transition: all 0.2s ease;
+        -moz-transition: all 0.2s ease;
+        -ms-transition: all 0.2s ease;
+        -o-transition: all 0.2s ease;
+        transition: all 0.2s ease; }
+        .footer .custom-nav-footer ul li a:hover, .footer .custom-nav-footer ul li a:focus {
+          cursor: pointer;
+          opacity: 0.7;
+          filter: alpha(opacity=70);
+          text-decoration: none;
+          -webkit-transition: all 0.2s ease;
+          -moz-transition: all 0.2s ease;
+          -ms-transition: all 0.2s ease;
+          -o-transition: all 0.2s ease;
+          transition: all 0.2s ease; }
+  .footer .social ul li {
+    float: right;
+    display: inline;
+    margin: 4px 0 0 20px;
+    background-color: red;
+    width: 28px;
+    height: 28px;
+    -webkit-transition: all 0.2s ease;
+    -moz-transition: all 0.2s ease;
+    -ms-transition: all 0.2s ease;
+    -o-transition: all 0.2s ease;
+    transition: all 0.2s ease; }
+    .footer .social ul li:nth-child(1) {
+      background: url("/assets/imgs/ic_social_fb.svg") no-repeat center center;
+      background-size: 22px 22px; }
+    .footer .social ul li:nth-child(2) {
+      background: url("/assets/imgs/ic_social_twitter.svg") no-repeat center center;
+      background-size: 24px 24px; }
+    .footer .social ul li:hover, .footer .social ul li:focus {
+      cursor: pointer;
+      opacity: 0.7;
+      filter: alpha(opacity=70);
+      text-decoration: none;
+      -webkit-transition: all 0.2s ease;
+      -moz-transition: all 0.2s ease;
+      -ms-transition: all 0.2s ease;
+      -o-transition: all 0.2s ease;
+      transition: all 0.2s ease; }
+
 /*# sourceMappingURL=style.css.map */
