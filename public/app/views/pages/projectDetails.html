@@ -13,7 +13,7 @@
             ng-click="prjDetailCtr.toggleView()"></span>
         <div class="projectHeader">
         <button class='custom-btn-secondary-small' 
-                ng-click="prjDetailCtr.createRoleBtn()"> + Create role
+                ng-click="prjDetailCtr.createBtn()"> + Create role
         </button>
         <button class='custom-btn-secondary-small' ng-click="prjDetailCtr.editPrjBtn()">Edit Project</button>
           </div>
@@ -36,8 +36,8 @@
     <tr>
         <th>Name</th>
         <th>Applicants</th>
-        <th>Details</th>
-        <th>Date</th>
+        <th>Description</th>
+        <th>Application Close</th>
     </tr>
 </thead>
 
@@ -52,14 +52,15 @@
                 <!-- Delete Btn-->
                 <a href = "#"
                 ng-click="prjDetailCtr.deleteBtn(role)"
-                class = "btn btn-warning"> Delete</a>
+                class = "btn btn-warning glyphicon 
+                glyphicon-headphones">Delete</a>
                 <!-- Share Btn -->
                 <a href = "#" ng-click = "prjDetailCtr.shareBtn(role)"
-                class = "btn btn-primary glyphicon glyphicon-share">
+                class = "btn btn-primary glyphicon glyphicon-share">Share
                 </a>
                 <!-- Preview -->
                 <a href="#" ng-click="prjDetailCtr.preview(role)"
-                    class=" btn btn-info glyphicon glyphicon-eye-open">
+                    class=" btn btn-info glyphicon glyphicon-eye-open">Preview
                 </a>
             </div>
         </td>
