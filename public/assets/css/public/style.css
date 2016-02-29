@@ -484,10 +484,31 @@ ul.projects li {
       width: 60%; }
     .custom-table .table th.table-collumn-date {
       width: 20%; }
+    .custom-table .table tbody tr {
+      cursor: pointer; }
+      .custom-table .table tbody tr:hover > td .table-utl {
+        opacity: 1;
+        -webkit-transition: all 0.2s ease;
+        -moz-transition: all 0.2s ease;
+        -ms-transition: all 0.2s ease;
+        -o-transition: all 0.2s ease;
+        transition: all 0.2s ease;
+        -ms-transform: translate(-20px, 0);
+        /* IE 9 */
+        -webkit-transform: translate(-20px, 0);
+        /* Safari */
+        transform: translate(-20px, 0); }
     .custom-table .table tbody tr td {
       vertical-align: middle; }
       .custom-table .table tbody tr td .table-utl {
-        height: 36px; }
+        height: 36px;
+        opacity: 0;
+        -webkit-transition: all 0.2s ease;
+        -moz-transition: all 0.2s ease;
+        -ms-transition: all 0.2s ease;
+        -o-transition: all 0.2s ease;
+        transition: all 0.2s ease;
+        margin-right: -20px; }
         .custom-table .table tbody tr td .table-utl ul {
           height: 36px; }
           .custom-table .table tbody tr td .table-utl ul li {
@@ -500,7 +521,12 @@ ul.projects li {
             -moz-border-radius: 50%;
             -ms-border-radius: 50%;
             border-radius: 50%;
-            border: 1px solid #666666; }
+            border: 1px solid #666666;
+            -webkit-transition: all 0.2s ease;
+            -moz-transition: all 0.2s ease;
+            -ms-transition: all 0.2s ease;
+            -o-transition: all 0.2s ease;
+            transition: all 0.2s ease; }
             .custom-table .table tbody tr td .table-utl ul li:nth-child(1) {
               background: url("/assets/imgs/ic_trash.svg") no-repeat center center white;
               background-size: 16px 16px; }

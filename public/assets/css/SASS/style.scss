@@ -585,12 +585,24 @@ ul.projects li {
         th.table-collumn-details {width: 60%;}
         th.table-collumn-date {width: 20%;}
         
+        tbody tr {
+            cursor: pointer;
+            &:hover>td .table-utl {
+                opacity: 1;
+                @include transition(all, 0.2s, ease);
+                @include translate(-20px, 0);
+            }
+        }
+        
         tbody tr td {
             
             vertical-align: middle;
         
             .table-utl {
                 height: 36px;
+                opacity: 0;
+                @include transition(all, 0.2s, ease);
+                margin-right: -20px;
 
                 ul {
                     height: 36px;
@@ -603,6 +615,7 @@ ul.projects li {
                         height: 36px;
                         @include border-radius(50%);
                         border: 1px solid $color-grey-dark;
+                        @include transition(all, 0.2s, ease);
 
                         &:nth-child(1) {
                             background: url("/assets/imgs/ic_trash.svg") no-repeat center center white;
