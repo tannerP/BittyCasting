@@ -162,7 +162,7 @@ apiRouter.route('/project')
 		console.log("req.decoded: " + req.decoded.id);
 		console.log("req.body: " + req.body);
 		project.name = req.body.name;
-		project.details = req.body.details
+		project.description = req.body.description
 		
 		project.save(function(err){
 			if(err){

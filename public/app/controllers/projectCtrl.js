@@ -239,6 +239,8 @@ controller('deleteRoleController', function(Role, $location, $routeParams, $rout
 			vm.message;
 			Project.create(vm.projectData)
 				.success(function(data)	{
+					console.log(data);
+					console.log(vm.projectData);
 					$route.reload();
 					vm.processing = false;
 					vm.projectData = {};
