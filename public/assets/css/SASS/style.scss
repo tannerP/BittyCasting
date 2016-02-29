@@ -681,6 +681,24 @@ ul.projects li {
     line-height: 1.42857143;
 }
 
+.custom-form-textarea {
+    resize: vertical;
+    display: block;
+    width: 100%;
+    padding: 6px 0;
+    line-height: 1.42857143;
+    font-family: $font-primary;
+    font-size: $font-size-regular;
+    @include border-radius(0);
+    border: none;
+    border-bottom: 1px solid $color-grey-darkest;
+
+    &:focus {
+        outline: none;
+        border-bottom: 1px solid $color-blue;
+    }
+}
+
 .custom-alert {
     color: $color-red;
     outline: none;
