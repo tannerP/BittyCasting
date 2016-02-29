@@ -366,26 +366,26 @@ ul.projects li {
     left: 0;
     width: 100%;
     height: 187px;
-    background-color: rgba(0, 0, 0, 0.5);
-    opacity: 0;
+    background-color: transparent;
     -webkit-transition: all 0.3s ease;
     -moz-transition: all 0.3s ease;
     -ms-transition: all 0.3s ease;
     -o-transition: all 0.3s ease;
     transition: all 0.3s ease; }
+    .card .cardScrim:hover {
+      background-color: rgba(0, 0, 0, 0.5);
+      -webkit-transition: all 0.3s ease;
+      -moz-transition: all 0.3s ease;
+      -ms-transition: all 0.3s ease;
+      -o-transition: all 0.3s ease;
+      transition: all 0.3s ease; }
   .card .cardInfoBg {
     position: absolute;
     bottom: 0;
     width: 100%;
     height: 60px;
-    background-color: white; }
-  .card:hover > .cardScrim {
-    opacity: 1;
-    -webkit-transition: all 0.3s ease;
-    -moz-transition: all 0.3s ease;
-    -ms-transition: all 0.3s ease;
-    -o-transition: all 0.3s ease;
-    transition: all 0.3s ease; }
+    background-color: white;
+    z-index: 1; }
   .card:hover > .cardInfo .actionBar {
     opacity: 1;
     -webkit-transition: all 0.3s ease;
@@ -414,7 +414,8 @@ ul.projects li {
     -moz-transition: all 0.3s ease;
     -ms-transition: all 0.3s ease;
     -o-transition: all 0.3s ease;
-    transition: all 0.3s ease; }
+    transition: all 0.3s ease;
+    z-index: 2; }
     .card .cardInfo a {
       text-decoration: none; }
     .card .cardInfo .cardTitle {
