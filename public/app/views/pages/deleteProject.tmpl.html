@@ -1,14 +1,33 @@
 <div class="aside" tabindex="-1" role="dialog">
     
+    <div class="asideTitle" ng-if="projectAside.delete">Delete project?</div>
     
-    <h1 ng-if="projectAside.delete"> Delete {{home.projectData.name}} ?</h1>
-     <div class = "form-group name">				
-      <span ng-model = "home.projectData.details">"Project Details:"{{home.projectData.details}}</span>
-      <div class='form-group'>
-      <button type="button" class="btn btn-default"
-          ng-click="$hide()"> Cancel </button>
-      <button type="submit" class="btn btn-primary"
-          ng-if="projectAside.delete" 
-          ng-click='projectAside.delete(home.projectData._id)'> Delete </button>
-      </div>
-</div>
+    <section>
+        <div class="asideSubtitle">Name</div>
+        <p>{{home.projectData.name}}</p>
+    </section>
+    
+<!--
+    <section>
+        <div class="asideSubtitle">Description</div>
+        <p><span ng-model = "home.projectData.details">{{home.projectData.details}}</span></p>
+    </section>
+-->
+    
+    <section>
+        <div class="checkbox">
+            <label><input type="checkbox"><span></span> All roles associated with this project will be deleted.</label>
+            <label><input type="checkbox"><span></span> All applicants and their files associated with roles in this project will be deleted.</label>
+            <label><input type="checkbox"><span></span> This action is irreversible.</label>
+        </div>
+    </section>    
+    
+    
+    <button type="button" class="custom-btn-primary-large custom-btn-cancel" ng-click="$hide()">Cancel </button>
+    
+    <button type="submit" class = "custom-btn-primary-large custom-btn-delete" ng-if="projectAside.delete" ng-click="projectAside.delete(home.projectData._id)">Delete</button>
+    
+   
+</div>     
+    
+

@@ -1,4 +1,21 @@
 
+/***************************
+          Colors
+***************************/
+
+$color-grey-darkest: #242424;
+$color-grey-darken: #444444;
+$color-grey-dark: #666666;
+$color-grey: #999999;
+$color-grey-light: #cccccc;
+$color-grey-lightest: #eeeeee;
+
+$color-blue-darken: #069A9F;
+$color-blue: #06bcc2;
+$color-blue-lighten: #48d8d8;
+
+$color-red-darken: #ba3a3a;
+$color-red: #D84444;
 
 /***************************
            Font
@@ -16,33 +33,20 @@ $font-size-regular: 12px;
 $font-size-small: 10px;
 
 p {
-    $font-size-regular: 12px;
+    font-size: $font-size-regular;
     line-height: 24px;
-    
 }
-
-/***************************
-          Colors
-***************************/
-
-$color-grey-darkest: #242424;
-$color-grey-darken: #444444;
-$color-grey-dark: #666666;
-$color-grey: #999999;
-$color-grey-light: #cccccc;
-$color-grey-lightest: #eeeeee;
-
-$color-blue-darken: #069A9F;
-$color-blue: #06bcc2;
-$color-blue-lighten: #48d8d8;
-
-$color-red: #D84444;
 
 /***************************
      Reusable elements
 ***************************/
 
 .clear {clear: both;}
+
+.custom-disable {
+    opacity: 0.4;
+    filter: alpha(opacity=40);
+}
 
 @mixin box-shadow($top, $left, $blur, $spread, $color) {
     -webkit-box-shadow: $top $left $blur $spread $color;
@@ -676,19 +680,104 @@ ul.projects li {
     width: 400px;
     padding: 0 20px 20px 20px;
     
-    p {
-        font-size: $font-size-small;
-        color: $color-grey;
-        line-height: 18px;
-        margin-bottom: 8px;
-        
-        a {
-            color: $color-blue;
-            @include transition(all, 0.2s, ease);
-            &:hover, &:focus {
-                color: $color-blue-lighten;
-                text-decoration: none;
+    .asideMessage {
+        p {
+            font-size: $font-size-small;
+            color: $color-grey;
+            line-height: 18px;
+            margin-bottom: 8px;
+
+            a {
+                color: $color-blue;
                 @include transition(all, 0.2s, ease);
+                &:hover, &:focus {
+                    color: $color-blue-lighten;
+                    text-decoration: none;
+                    @include transition(all, 0.2s, ease);
+                }
+            }
+        }
+    }
+    
+    .custom-close {
+    width: 28px;
+    height: 28px;
+    background-color: red;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: url("/assets/imgs/ic_cross.svg") no-repeat center center;
+    @include transition(all, 0.2s, ease);
+    
+        &:hover, &:focus {
+            cursor: pointer;
+            @include transition(all, 0.2s, ease);
+            @include rotate(180deg);
+        }
+    }
+
+    .asideTitle {
+        font-size: $font-size-side-heading;
+        text-transform: uppercase;
+        text-align: center;
+        color:	$color-grey-darkest;
+        letter-spacing: 6px;
+        padding: 20px;
+    }
+
+    .asideSubtitle {
+        font-family: $font-primary;
+        font-size: $font-size-side-formtitle;
+        color:	$color-grey;
+        font-weight: 400;
+    }
+    
+    section {
+        margin-bottom: 28px;
+    }
+    
+    .custom-btn-cancel {
+        background-color: $color-grey-dark;
+        width: 170px;
+        float: left;
+        margin-right: 20px;
+        @include transition(all, 0.8s, ease);
+        &:hover, &:focus {
+            background-color: $color-grey-darken;
+            @include transition(all, 0.8s, ease);
+        }
+    }
+    .custom-btn-delete {
+        background-color: $color-red;
+        width: 170px;
+        float: left;
+        @include transition(all, 0.8s, ease);
+        &:hover, &:focus {
+            background-color: $color-red-darken;
+            @include transition(all, 0.8s, ease);
+        }
+    }
+    
+    .checkbox { 
+        label {
+            font-size: $font-size-regular;
+            line-height: 24px;
+            padding-left: 0;
+            input[type="checkbox"] {display: none;}
+            span {
+                display:inline-block;
+                width: 20px;
+                height: 20px;
+                border: none;
+                background-color: $color-grey-light;
+                cursor:pointer;
+                vertical-align: middle;
+                margin-right: 3px;
+                
+            }
+            input:checked + span {
+                background: url("/assets/imgs/ic_check.svg") no-repeat center center $color-grey-light;
+                background-size: 12px 12px;
             }
         }
     }
@@ -702,31 +791,7 @@ ul.projects li {
     @include transition(all, 0.2s, ease);
 }
 
-.custom-close {
-    width: 28px;
-    height: 28px;
-    background-color: red;
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    background: url("/assets/imgs/ic_cross.svg") no-repeat center center;
-    @include transition(all, 0.2s, ease);
-    
-    &:hover, &:focus {
-        cursor: pointer;
-        @include transition(all, 0.2s, ease);
-        @include rotate(180deg);
-    }
-}
 
-.asideTitle {
-    font-size: $font-size-side-heading;
-    text-transform: uppercase;
-    text-align: center;
-	color:	$color-grey-darkest;
-    letter-spacing: 6px;
-    padding: 20px;
-}
 
 .form-group {
     
