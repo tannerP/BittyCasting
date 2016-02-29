@@ -567,6 +567,24 @@ ul.projects li {
   font-size: 12px;
   line-height: 1.42857143; }
 
+.custom-form-textarea {
+  resize: vertical;
+  display: block;
+  width: 100%;
+  padding: 6px 0;
+  line-height: 1.42857143;
+  font-family: "Open Sans", sans-serif;
+  font-size: 12px;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  -ms-border-radius: 0;
+  border-radius: 0;
+  border: none;
+  border-bottom: 1px solid #242424; }
+  .custom-form-textarea:focus {
+    outline: none;
+    border-bottom: 1px solid #06bcc2; }
+
 .custom-alert {
   color: #D84444;
   outline: none;
