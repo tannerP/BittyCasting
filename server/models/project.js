@@ -11,10 +11,21 @@ var ProjectSchema = new Schema ({
 		index: {unique:true}
 	},
 	details: String,
-	role_ids : {
-		//how to add an array of IDs? 
-		type: Array
-	}
 
+	roles: [{role_name:{type:String,required:true},
+					description:{type:String, require:true},
+					end_date:{type:Date, required:false},
+					end_time:{type:String, require:false},
+					updated_date:{type:Date, default:Date.now},
+					location:{type:String, require:false},
+					paid:{type:String},
+					age_min: {type:Number, min:18, max:65},
+					sex:{type:String},
+					requirements:[{
+						name:String,
+						required:Boolean
+					}]
+
+				}]
 });
 module.exports = mongoose.model('Project',ProjectSchema);
