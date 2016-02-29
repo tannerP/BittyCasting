@@ -1,12 +1,18 @@
 /***************************
            Font
 ***************************/
+p {
+  line-height: 24px; }
+
 /***************************
           Colors
 ***************************/
 /***************************
      Reusable elements
 ***************************/
+.clear {
+  clear: both; }
+
 .custom-btn-primary-small {
   border: 0;
   color: white;
@@ -302,7 +308,8 @@ div.mainContent {
   margin: 0 -10px; }
 
 div.pageHeader {
-  margin: 56px 0 28px 0; }
+  margin: 56px 5px 28px 5px;
+  position: relative; }
   div.pageHeader .utlBar {
     float: right; }
     div.pageHeader .utlBar .gridListToggle div {
@@ -332,9 +339,6 @@ div.pageHeader {
   text-transform: uppercase;
   letter-spacing: 6px;
   padding: 40px 0; }
-
-.projectHeader {
-  padding: 0 5px; }
 
 ul.projects {
   list-style-type: none;
@@ -475,15 +479,32 @@ ul.projects li {
 
 .custom-table {
   padding: 0 15px; }
+  .custom-table .table-project-overview thead tr th:nth-child(1) {
+    width: 20%;
+    cursor: pointer; }
+  .custom-table .table-project-overview thead tr th:nth-child(2) {
+    width: 60%; }
+  .custom-table .table-project-overview thead tr th:nth-child(3) {
+    width: 20%; }
+  .custom-table .table-project-overview .table-utl ul li:nth-child(1) {
+    background: url("/assets/imgs/ic_trash.svg") no-repeat center center white; }
+  .custom-table .table-project-overview .table-utl ul li:nth-child(2) {
+    background: url("/assets/imgs/ic_duplicate.svg") no-repeat center center white; }
+  .custom-table .table-project-details thead tr th:nth-child(1) {
+    width: 20%;
+    cursor: pointer; }
+  .custom-table .table-project-details thead tr th:nth-child(2) {
+    width: 20%; }
+  .custom-table .table-project-details thead tr th:nth-child(3) {
+    width: 40%; }
+  .custom-table .table-project-details thead tr th:nth-child(4) {
+    width: 20%; }
+  .custom-table .table-project-details .table-utl ul li:nth-child(1) {
+    background: url("/assets/imgs/ic_trash.svg") no-repeat center center white; }
+  .custom-table .table-project-details .table-utl ul li:nth-child(2) {
+    background: url("/assets/imgs/ic_share.svg") no-repeat center center white; }
   .custom-table .table {
     font-size: 12px; }
-    .custom-table .table th.table-collumn-name {
-      width: 20%;
-      cursor: pointer; }
-    .custom-table .table th.table-collumn-details {
-      width: 60%; }
-    .custom-table .table th.table-collumn-date {
-      width: 20%; }
     .custom-table .table tbody tr {
       cursor: pointer; }
       .custom-table .table tbody tr:hover > td .table-utl {
@@ -528,10 +549,8 @@ ul.projects li {
             -o-transition: all 0.2s ease;
             transition: all 0.2s ease; }
             .custom-table .table tbody tr td .table-utl ul li:nth-child(1) {
-              background: url("/assets/imgs/ic_trash.svg") no-repeat center center white;
               background-size: 16px 16px; }
             .custom-table .table tbody tr td .table-utl ul li:nth-child(2) {
-              background: url("/assets/imgs/ic_duplicate.svg") no-repeat center center white;
               background-size: 16px 16px; }
             .custom-table .table tbody tr td .table-utl ul li:hover, .custom-table .table tbody tr td .table-utl ul li:focus {
               background-color: #eeeeee;
@@ -674,6 +693,67 @@ ul.projects li {
   margin-bottom: 20px; }
 
 /***************************
+      Project overview
+***************************/
+.custom-back {
+  position: absolute;
+  top: 42px;
+  left: 0;
+  width: 28px;
+  height: 28px;
+  background: url("/assets/imgs/ic_back.svg") no-repeat center center;
+  background-size: 24px 24px;
+  -webkit-transition: all 0.2s ease;
+  -moz-transition: all 0.2s ease;
+  -ms-transition: all 0.2s ease;
+  -o-transition: all 0.2s ease;
+  transition: all 0.2s ease; }
+  .custom-back:hover, .custom-back:focus {
+    cursor: pointer;
+    opacity: 0.7;
+    filter: alpha(opacity=70);
+    -webkit-transition: all 0.2s ease;
+    -moz-transition: all 0.2s ease;
+    -ms-transition: all 0.2s ease;
+    -o-transition: all 0.2s ease;
+    transition: all 0.2s ease; }
+
+.custom-edit {
+  position: absolute;
+  top: 42px;
+  right: 0;
+  width: 28px;
+  height: 28px;
+  background: url("/assets/imgs/ic_edit.svg") no-repeat center center;
+  background-size: 24px 24px;
+  -webkit-transition: all 0.2s ease;
+  -moz-transition: all 0.2s ease;
+  -ms-transition: all 0.2s ease;
+  -o-transition: all 0.2s ease;
+  transition: all 0.2s ease; }
+  .custom-edit:hover, .custom-edit:focus {
+    cursor: pointer;
+    opacity: 0.7;
+    filter: alpha(opacity=70);
+    -webkit-transition: all 0.2s ease;
+    -moz-transition: all 0.2s ease;
+    -ms-transition: all 0.2s ease;
+    -o-transition: all 0.2s ease;
+    transition: all 0.2s ease; }
+
+.projectDetails {
+  background-color: white;
+  padding: 0;
+  margin-bottom: 28px;
+  -webkit-box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.1); }
+  .projectDetails section {
+    padding: 15px; }
+    .projectDetails section:nth-child(1) img {
+      margin-top: -30px; }
+
+/***************************
           Footer
 ***************************/
 .footer {
@@ -687,6 +767,7 @@ ul.projects li {
     padding: 0 20px; }
   .footer p {
     padding-right: 35px;
+    line-height: 56px;
     margin: 0;
     display: inline;
     float: left;

@@ -15,6 +15,12 @@ $font-size-side-formtitle: 10px;
 $font-size-regular: 12px;
 $font-size-small: 10px;
 
+p {
+    $font-size-regular: 12px;
+    line-height: 24px;
+    
+}
+
 /***************************
           Colors
 ***************************/
@@ -35,6 +41,8 @@ $color-red: #D84444;
 /***************************
      Reusable elements
 ***************************/
+
+.clear {clear: both;}
 
 @mixin box-shadow($top, $left, $blur, $spread, $color) {
     -webkit-box-shadow: $top $left $blur $spread $color;
@@ -388,7 +396,8 @@ div.mainContent{
 }
 
 div.pageHeader{
-    margin: 56px 0 28px 0;
+    margin: 56px 5px 28px 5px;
+    position: relative;
     
     .utlBar {
         float: right;
@@ -434,10 +443,6 @@ div.pageHeader{
     text-transform: uppercase;
     letter-spacing: 6px;
     padding: 40px 0;
-}
-
-.projectHeader {
-    padding: 0 5px;
 }
 
 ul.projects{
@@ -578,13 +583,32 @@ ul.projects li {
 .custom-table {
     padding: 0 15px;
     
+    .table-project-overview {
+        
+        thead tr th:nth-child(1) {width: 20%; cursor: pointer;} //name
+        thead tr th:nth-child(2) {width: 60%;} //details
+        thead tr th:nth-child(3) {width: 20%;} //date      
+        .table-utl ul li {
+            &:nth-child(1) {background: url("/assets/imgs/ic_trash.svg") no-repeat center center white;}
+            &:nth-child(2) {background: url("/assets/imgs/ic_duplicate.svg") no-repeat center center white;}
+        }
+    }
+    
+    .table-project-details {
+
+        thead tr th:nth-child(1) {width: 20%; cursor: pointer;}  //name
+        thead tr th:nth-child(2) {width: 20%;}  //applicants
+        thead tr th:nth-child(3) {width: 40%;}  //description
+        thead tr th:nth-child(4) {width: 20%;}  //open until
+        .table-utl ul li {
+            &:nth-child(1) {background: url("/assets/imgs/ic_trash.svg") no-repeat center center white;}
+            &:nth-child(2) {background: url("/assets/imgs/ic_share.svg") no-repeat center center white;}
+        }
+    }
+    
     .table {
         font-size: $font-size-regular;
-        
-        th.table-collumn-name {width: 20%; cursor: pointer;}
-        th.table-collumn-details {width: 60%;}
-        th.table-collumn-date {width: 20%;}
-        
+
         tbody tr {
             cursor: pointer;
             &:hover>td .table-utl {
@@ -618,12 +642,10 @@ ul.projects li {
                         @include transition(all, 0.2s, ease);
 
                         &:nth-child(1) {
-                            background: url("/assets/imgs/ic_trash.svg") no-repeat center center white;
                             background-size: 16px 16px;           
                         }
 
                         &:nth-child(2) {
-                            background: url("/assets/imgs/ic_duplicate.svg") no-repeat center center white;
                             background-size: 16px 16px;           
                         }
 
@@ -645,6 +667,7 @@ ul.projects li {
         background-color: $color-grey-light;
     }
 }
+
 /***************************
           Side panel
 ***************************/
@@ -771,6 +794,65 @@ ul.projects li {
 }
 
 /***************************
+      Project overview
+***************************/
+
+.custom-back {
+    position: absolute;
+    top: 42px;
+    left: 0;
+    width: 28px;
+    height: 28px;
+    background: url("/assets/imgs/ic_back.svg") no-repeat center center;
+    background-size: 24px 24px;
+    @include transition(all, 0.2s, ease);
+    &:hover, &:focus {
+        cursor: pointer;
+        opacity: 0.7;
+        filter: alpha(opacity=70);
+        @include transition(all, 0.2s, ease);
+    }
+}
+
+.custom-edit {
+    position: absolute;
+    top: 42px;
+    right: 0;
+    width: 28px;
+    height: 28px;
+    background: url("/assets/imgs/ic_edit.svg") no-repeat center center;
+    background-size: 24px 24px;
+    @include transition(all, 0.2s, ease);
+    &:hover, &:focus {
+        cursor: pointer;
+        opacity: 0.7;
+        filter: alpha(opacity=70);
+        @include transition(all, 0.2s, ease);
+    }
+}
+
+.projectDetails {
+    background-color: white;
+    padding: 0;
+    margin-bottom: 28px;
+    @include box-shadow(0px, 2px, 2px, 0px, rgba(0,0,0,0.1));
+    
+    section {
+        padding: 15px;
+        &:nth-child(1){
+            img {
+                margin-top: -30px;
+            }
+        }
+        &:nth-child(2){
+            
+        }
+    }
+}
+
+
+
+/***************************
           Footer
 ***************************/
 
@@ -788,6 +870,7 @@ ul.projects li {
     
     p {
         padding-right: 35px;
+        line-height: 56px;
         margin: 0;
         display: inline;
         float: left;
