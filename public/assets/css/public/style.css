@@ -492,9 +492,11 @@ ul.projects li {
   .custom-table .table-project-overview thead tr th:nth-child(3) {
     width: 20%; }
   .custom-table .table-project-overview .table-utl ul li:nth-child(1) {
-    background: url("/assets/imgs/ic_trash.svg") no-repeat center center white; }
+    background: url("/assets/imgs/ic_trash.svg") no-repeat center center white;
+    background-size: 16px 16px; }
   .custom-table .table-project-overview .table-utl ul li:nth-child(2) {
-    background: url("/assets/imgs/ic_duplicate.svg") no-repeat center center white; }
+    background: url("/assets/imgs/ic_duplicate.svg") no-repeat center center white;
+    background-size: 16px 16px; }
   .custom-table .table-project-details thead tr th:nth-child(1) {
     width: 20%;
     cursor: pointer; }
@@ -505,9 +507,11 @@ ul.projects li {
   .custom-table .table-project-details thead tr th:nth-child(4) {
     width: 20%; }
   .custom-table .table-project-details .table-utl ul li:nth-child(1) {
-    background: url("/assets/imgs/ic_trash.svg") no-repeat center center white; }
+    background: url("/assets/imgs/ic_trash.svg") no-repeat center center white;
+    background-size: 16px 16px; }
   .custom-table .table-project-details .table-utl ul li:nth-child(2) {
-    background: url("/assets/imgs/ic_share.svg") no-repeat center center white; }
+    background: url("/assets/imgs/ic_share.svg") no-repeat center center white;
+    background-size: 16px 16px; }
   .custom-table .table {
     font-size: 12px; }
     .custom-table .table tbody tr {
@@ -553,10 +557,6 @@ ul.projects li {
             -ms-transition: all 0.2s ease;
             -o-transition: all 0.2s ease;
             transition: all 0.2s ease; }
-            .custom-table .table tbody tr td .table-utl ul li:nth-child(1) {
-              background-size: 16px 16px; }
-            .custom-table .table tbody tr td .table-utl ul li:nth-child(2) {
-              background-size: 16px 16px; }
             .custom-table .table tbody tr td .table-utl ul li:hover, .custom-table .table tbody tr td .table-utl ul li:focus {
               background-color: #eeeeee;
               cursor: pointer;

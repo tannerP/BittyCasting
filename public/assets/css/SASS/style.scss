@@ -593,8 +593,11 @@ ul.projects li {
         thead tr th:nth-child(2) {width: 60%;} //details
         thead tr th:nth-child(3) {width: 20%;} //date      
         .table-utl ul li {
-            &:nth-child(1) {background: url("/assets/imgs/ic_trash.svg") no-repeat center center white;}
-            &:nth-child(2) {background: url("/assets/imgs/ic_duplicate.svg") no-repeat center center white;}
+            &:nth-child(1) {
+                background: url("/assets/imgs/ic_trash.svg") no-repeat center center white;
+                background-size: 16px 16px; }
+            &:nth-child(2) {background: url("/assets/imgs/ic_duplicate.svg") no-repeat center center white;
+            background-size: 16px 16px; }
         }
     }
     
@@ -605,8 +608,10 @@ ul.projects li {
         thead tr th:nth-child(3) {width: 40%;}  //description
         thead tr th:nth-child(4) {width: 20%;}  //open until
         .table-utl ul li {
-            &:nth-child(1) {background: url("/assets/imgs/ic_trash.svg") no-repeat center center white;}
-            &:nth-child(2) {background: url("/assets/imgs/ic_share.svg") no-repeat center center white;}
+            &:nth-child(1) {background: url("/assets/imgs/ic_trash.svg") no-repeat center center white;
+            background-size: 16px 16px; }
+            &:nth-child(2) {background: url("/assets/imgs/ic_share.svg") no-repeat center center white;
+            background-size: 16px 16px; }
         }
     }
     
@@ -644,14 +649,6 @@ ul.projects li {
                         @include border-radius(50%);
                         border: 1px solid $color-grey-dark;
                         @include transition(all, 0.2s, ease);
-
-                        &:nth-child(1) {
-                            background-size: 16px 16px;           
-                        }
-
-                        &:nth-child(2) {
-                            background-size: 16px 16px;           
-                        }
 
                         &:hover, &:focus {
                             background-color: #eeeeee;
