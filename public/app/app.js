@@ -18,7 +18,7 @@ angular.module('userApp', [
 	])
 	.run(function ($rootScope, $location, $http) {
 
-    $http.get('/api/config').success(function(config) {
+    $http.get('/config').success(function(config) {
         $rootScope.config = config;
       });
   })

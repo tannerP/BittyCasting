@@ -54,6 +54,14 @@ app.use('/bower_components',
 app.use(express.static(__dirname + '/public'));
 app.use(express.static(__dirname + '/public'));
 
+/* S3 Config*/
+  app.get('/api/config', function(){
+    return res.json(200, {
+        awsConfig: {
+            bucket: S3Config.bucket
+        }
+        })
+  });
 app.use('/',publicRoutes); 
 app.use('/api',apiRoutes); 
 app.all('*', function(req, res, next){

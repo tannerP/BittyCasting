@@ -1,36 +1,4 @@
 angular.module('mainCtrl', ['authService','mgcrea.ngStrap']).
-
-controller('publicCtrl', ['$scope','$aside',
-		function($scope,$aside){
-		$scope.customer = {
-    name: 'Naomi',
-    address: '1600 Amphitheatre'
-  	}
-		
-		var vm = this;
-		vm.message = "publicCtrl"
-   	var loginAside = $aside({
-											title:"Login",
-											show: false, 
-										 	controller:'loginCtrl',
-										 	controllerAs:'login',						
-										  templateUrl:'/app/views/pages/login.html'		
-										});
-		var	signupAside =  $aside({scope:$scope,
-											title:"Sign up",
-											show: false, 
-										 	controller:'signupCtrl',	
-										 	controllerAs:'user',					
-										  templateUrl:'/app/views/pages/signup.html'										 				
-										}) 											
-
-   	vm.login = function(){
-   			loginAside.$promise.then(loginAside.toggle);	
-				}
-		vm.signup = function(){
-   			signupAside.$promise.then(signupAside.toggle);	
-				}
-	}]).
 controller('mainController',['$scope','Auth','$location',"$sce",
 		function($rootScope, Auth, $location, $scope, $sce ) {
 		var vm = this;
@@ -49,20 +17,19 @@ controller('mainController',['$scope','Auth','$location',"$sce",
 	}]).
 controller('signupCtrl', function(User)	{
 		var vm = this;
-
+		vm.userData={};
 		vm.type = 'create';
 
 		vm.saveUser = function()	{
 			vm.processing = true;
-
+			console.log("createUser");
 			//clear the message
 			vm.message = '';
-
 			// use the create function in the userService
 			User.create(vm.userData)
 				.success(function (data)	{
 					vm.processing = false;
-
+					$scope.$hide();
 					//clear the form
 					vm.userData = {};
 					vm.message = data.message;
@@ -73,6 +40,7 @@ controller('loginCtrl',['$scope','Auth','$location',
 	function($scope,Auth,$location){
 			var vm = this;
 			vm.message;
+			vm.loginData = {};
 			vm.process = false;
 			vm.doLogin = function () {
 			vm.processing = true; //TODO:processing Icon
@@ -80,6 +48,8 @@ controller('loginCtrl',['$scope','Auth','$location',
 			Auth.login(vm.loginData.email, vm.loginData.password)
 				.success(function (data) {
 					vm.processing = false;
+					vm.loginData = {};
+					$scope.$hide();
 					Auth.getUser(function(data){
 		 			$scope.user = data;
 				});
@@ -106,11 +76,11 @@ controller('navCtrl', ['$scope','$popover','$aside','Auth',
 										 	controllerAs:'login',						
 										  templateUrl:'/app/views/pages/login.html'		
 										});
-		 	var	signupAside =  $aside({scope:$scope,
+		 	var	signupAside =  $aside({
 											title:"Sign up",
 											show: false, 
 										 	controller:'signupCtrl',	
-										 	controllerAs:'project',					
+										 	controllerAs:'user',					
 										  templateUrl:'/app/views/pages/signup.html'										 				
 										}) 	
           
@@ -128,11 +98,4 @@ directive('nav', function() {
   	restrict:'A',
     templateUrl: 'components/nav/nav.tmpl.html'
   };
-}).
-controller('navController',['$scope','$location','$aside','$popover' ,'Auth',
-		function($scope,$aside,$location,Auth){
-		var vm = this;
-		vm.test = function(){
-   	var myAside = $aside({title: 'My mainController', content: 'My Content'});	
-   		}
-	}])
+});

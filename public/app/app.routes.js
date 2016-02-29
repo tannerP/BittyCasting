@@ -4,9 +4,7 @@ angular.module('app.routes', ['ngRoute'])
     function($routeProvider, $locationProvider) {
     $routeProvider
         .when('/', {
-            templateUrl : '/app/views/pages/index.html',
-            controller : 'publicCtrl',
-            controllerAs : 'page'
+            templateUrl : '/app/views/pages/index.html'
         })
         .when('/login', {
             templateUrl : '/app/views/pages/login.html',
@@ -94,7 +92,7 @@ angular.module('app.routes', ['ngRoute'])
         })    
         .when('/signup', {
             templateUrl : '/app/views/pages/signup.html',
-            controller   : 'userCreateController',
+            controller   : 'signupCtrl',
             controllerAs   : 'user'
         })
         .otherwise({

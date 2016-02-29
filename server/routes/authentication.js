@@ -58,12 +58,10 @@ app.route('/register')
 		//create a new instance of the User model
 		var user = new User();
 		//set the users information (comes from the request)
-		user.name = req.body.name;
+		user.last_name = req.body.last_name;
+		user.first_name = req.body.first_name;
 		user.password = req.body.password;
 		user.email = req.body.email;
-		user.phone_number = req.body.phone_number;
-		user.location = req.body.location;
-		user.company = req.body.company;
 		console.log(user);
 		//save the user and check for errors
 		user.save(function(err){

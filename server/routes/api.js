@@ -47,15 +47,6 @@ apiRouter.all('*',function(req,res,next){
 		});
 	}
 });
-/* S3 Config*/
-apiRouter.route('/config')
-	.get(function (req, res, next) {
-    return res.json(200, {
-        awsConfig: {
-            bucket: S3Config.bucket
-        }
-        });
-  })
   apiRouter.route('/s3Policy')
 	.get(aws.getS3Policy);
   

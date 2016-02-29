@@ -6,7 +6,11 @@ var Schema = mongoose.Schema;
 
 //user Schema by mongoose
 var UserSchema = new Schema({
-	name : {
+	last_name : {
+		type:String,
+		require: true, 
+	},
+	first_name : {
 		type:String,
 		require: true, 
 	},
@@ -15,23 +19,11 @@ var UserSchema = new Schema({
 		required:true, 
 		select:true
 	},
-	company:{
-		type:String,
-		require:false
-	},
-	phone_number:{
-		type:String,
-		require:false
-	},
 	email:{
 		type:String,
 		require:true,
 		index:{	unique:true	}
 	},
-	location:{
-		type:String,
-		require: false
-	}
 });
 
 //hash the password before the user is saved
