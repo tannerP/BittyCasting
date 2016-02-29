@@ -82,8 +82,8 @@ apiRouter.route('/createRole/:projectID')
 				role.projectID = req.params.projectID;
 				role.name = req.body.name;
 				role.description = req.body.description;
-				role.end_date = req.body.endDate;
-				role.end_time = req.body.endTime;
+				role.end_date = req.body.end_date;
+				role.end_time = req.body.end_time;
 				
 				role.location = req.body.location;
 				role.payterms =  req.body.payterms;

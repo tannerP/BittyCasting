@@ -56,6 +56,15 @@
 	<script src="app/controllers/userCtrl.js"></script>
 	<script src="app/controllers/projectCtrl.js"></script>
 	<script src="app/controllers/applyCtrl.js"></script>
+    
+    <!-- BOOTSTRAP Date picker https://eonasdan.github.io/bootstrap-datetimepicker/Installing/-->
+    <script type="text/javascript" src="/bower_components/jquery/dist/jquery.js"></script>
+    <script type="text/javascript" src="/bower_components/moment/min/moment.min.js"></script>
+    <script type="text/javascript" src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+    <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" />
+    
 	<!-- services -->
 	<script src="app/services/AMMService.js"></script>
 	<script src="app/services/authService.js"></script>
@@ -109,6 +118,14 @@
             });
         }); 
     </script>   
+ 
+<!--Date picker--> 
+    <script type="text/javascript">
+            $(function () {
+                $('#datetimepicker4').datetimepicker();
+            });
+    </script>
+    
 </head>
 <body ng-app="userApp" ng-controller="mainController as main">
     <div nav ng-controller="navCtrl as nav"></div>

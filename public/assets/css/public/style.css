@@ -1,17 +1,22 @@
 /***************************
+          Colors
+***************************/
+/***************************
            Font
 ***************************/
 p {
+  font-size: 12px;
   line-height: 24px; }
 
-/***************************
-          Colors
-***************************/
 /***************************
      Reusable elements
 ***************************/
 .clear {
   clear: both; }
+
+.custom-disable {
+  opacity: 0.4;
+  filter: alpha(opacity=40); }
 
 .custom-btn-primary-small {
   border: 0;
@@ -487,9 +492,11 @@ ul.projects li {
   .custom-table .table-project-overview thead tr th:nth-child(3) {
     width: 20%; }
   .custom-table .table-project-overview .table-utl ul li:nth-child(1) {
-    background: url("/assets/imgs/ic_trash.svg") no-repeat center center white; }
+    background: url("/assets/imgs/ic_trash.svg") no-repeat center center white;
+    background-size: 16px 16px; }
   .custom-table .table-project-overview .table-utl ul li:nth-child(2) {
-    background: url("/assets/imgs/ic_duplicate.svg") no-repeat center center white; }
+    background: url("/assets/imgs/ic_duplicate.svg") no-repeat center center white;
+    background-size: 16px 16px; }
   .custom-table .table-project-details thead tr th:nth-child(1) {
     width: 20%;
     cursor: pointer; }
@@ -500,9 +507,11 @@ ul.projects li {
   .custom-table .table-project-details thead tr th:nth-child(4) {
     width: 20%; }
   .custom-table .table-project-details .table-utl ul li:nth-child(1) {
-    background: url("/assets/imgs/ic_trash.svg") no-repeat center center white; }
+    background: url("/assets/imgs/ic_trash.svg") no-repeat center center white;
+    background-size: 16px 16px; }
   .custom-table .table-project-details .table-utl ul li:nth-child(2) {
-    background: url("/assets/imgs/ic_share.svg") no-repeat center center white; }
+    background: url("/assets/imgs/ic_share.svg") no-repeat center center white;
+    background-size: 16px 16px; }
   .custom-table .table {
     font-size: 12px; }
     .custom-table .table tbody tr {
@@ -548,10 +557,6 @@ ul.projects li {
             -ms-transition: all 0.2s ease;
             -o-transition: all 0.2s ease;
             transition: all 0.2s ease; }
-            .custom-table .table tbody tr td .table-utl ul li:nth-child(1) {
-              background-size: 16px 16px; }
-            .custom-table .table tbody tr td .table-utl ul li:nth-child(2) {
-              background-size: 16px 16px; }
             .custom-table .table tbody tr td .table-utl ul li:hover, .custom-table .table tbody tr td .table-utl ul li:focus {
               background-color: #eeeeee;
               cursor: pointer;
@@ -571,19 +576,19 @@ ul.projects li {
 .aside {
   width: 400px;
   padding: 0 20px 20px 20px; }
-  .aside p {
+  .aside .asideMessage p {
     font-size: 10px;
     color: #999999;
     line-height: 18px;
     margin-bottom: 8px; }
-    .aside p a {
+    .aside .asideMessage p a {
       color: #06bcc2;
       -webkit-transition: all 0.2s ease;
       -moz-transition: all 0.2s ease;
       -ms-transition: all 0.2s ease;
       -o-transition: all 0.2s ease;
       transition: all 0.2s ease; }
-      .aside p a:hover, .aside p a:focus {
+      .aside .asideMessage p a:hover, .aside .asideMessage p a:focus {
         color: #48d8d8;
         text-decoration: none;
         -webkit-transition: all 0.2s ease;
@@ -591,6 +596,99 @@ ul.projects li {
         -ms-transition: all 0.2s ease;
         -o-transition: all 0.2s ease;
         transition: all 0.2s ease; }
+  .aside .custom-close {
+    width: 28px;
+    height: 28px;
+    background-color: red;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: url("/assets/imgs/ic_cross.svg") no-repeat center center;
+    -webkit-transition: all 0.2s ease;
+    -moz-transition: all 0.2s ease;
+    -ms-transition: all 0.2s ease;
+    -o-transition: all 0.2s ease;
+    transition: all 0.2s ease; }
+    .aside .custom-close:hover, .aside .custom-close:focus {
+      cursor: pointer;
+      -webkit-transition: all 0.2s ease;
+      -moz-transition: all 0.2s ease;
+      -ms-transition: all 0.2s ease;
+      -o-transition: all 0.2s ease;
+      transition: all 0.2s ease;
+      -ms-transform: rotate(180deg);
+      /* IE 9 */
+      -webkit-transform: rotate(180deg);
+      /* Safari */
+      transform: rotate(180deg); }
+  .aside .asideTitle {
+    font-size: 20px;
+    text-transform: uppercase;
+    text-align: center;
+    color: #242424;
+    letter-spacing: 6px;
+    padding: 20px; }
+  .aside .asideSubtitle {
+    font-family: "Open Sans", sans-serif;
+    font-size: 10px;
+    color: #999999;
+    font-weight: 400; }
+  .aside section {
+    margin-bottom: 28px; }
+  .aside .custom-btn-cancel {
+    background-color: #666666;
+    width: 170px;
+    float: left;
+    margin-right: 20px;
+    -webkit-transition: all 0.8s ease;
+    -moz-transition: all 0.8s ease;
+    -ms-transition: all 0.8s ease;
+    -o-transition: all 0.8s ease;
+    transition: all 0.8s ease; }
+    .aside .custom-btn-cancel:hover, .aside .custom-btn-cancel:focus {
+      background-color: #444444;
+      -webkit-transition: all 0.8s ease;
+      -moz-transition: all 0.8s ease;
+      -ms-transition: all 0.8s ease;
+      -o-transition: all 0.8s ease;
+      transition: all 0.8s ease; }
+  .aside .custom-btn-delete {
+    background-color: #D84444;
+    width: 170px;
+    float: left;
+    -webkit-transition: all 0.8s ease;
+    -moz-transition: all 0.8s ease;
+    -ms-transition: all 0.8s ease;
+    -o-transition: all 0.8s ease;
+    transition: all 0.8s ease; }
+    .aside .custom-btn-delete:hover, .aside .custom-btn-delete:focus {
+      background-color: #ba3a3a;
+      -webkit-transition: all 0.8s ease;
+      -moz-transition: all 0.8s ease;
+      -ms-transition: all 0.8s ease;
+      -o-transition: all 0.8s ease;
+      transition: all 0.8s ease; }
+  .aside .checkbox label {
+    display: block;
+    font-size: 12px;
+    line-height: 24px;
+    padding-left: 0;
+    margin: 0 0 10px 24px; }
+    .aside .checkbox label input[type="checkbox"] {
+      display: none; }
+    .aside .checkbox label span {
+      float: left;
+      margin: 3px 3px 0 -24px;
+      display: inline-block;
+      width: 18px;
+      height: 18px;
+      border: none;
+      background-color: #cccccc;
+      cursor: pointer;
+      vertical-align: middle; }
+    .aside .checkbox label input:checked + span {
+      background: url("/assets/imgs/ic_check.svg") no-repeat center center #cccccc;
+      background-size: 12px 12px; }
 
 .aside-backdrop.am-fade, .modal-backdrop.am-fade {
   background: rgba(0, 0, 0, 0.7);
@@ -601,40 +699,6 @@ ul.projects li {
   -ms-transition: all 0.2s ease;
   -o-transition: all 0.2s ease;
   transition: all 0.2s ease; }
-
-.custom-close {
-  width: 28px;
-  height: 28px;
-  background-color: red;
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  background: url("/assets/imgs/ic_cross.svg") no-repeat center center;
-  -webkit-transition: all 0.2s ease;
-  -moz-transition: all 0.2s ease;
-  -ms-transition: all 0.2s ease;
-  -o-transition: all 0.2s ease;
-  transition: all 0.2s ease; }
-  .custom-close:hover, .custom-close:focus {
-    cursor: pointer;
-    -webkit-transition: all 0.2s ease;
-    -moz-transition: all 0.2s ease;
-    -ms-transition: all 0.2s ease;
-    -o-transition: all 0.2s ease;
-    transition: all 0.2s ease;
-    -ms-transform: rotate(180deg);
-    /* IE 9 */
-    -webkit-transform: rotate(180deg);
-    /* Safari */
-    transform: rotate(180deg); }
-
-.asideTitle {
-  font-size: 20px;
-  text-transform: uppercase;
-  text-align: center;
-  color: #242424;
-  letter-spacing: 6px;
-  padding: 20px; }
 
 .form-group {
   margin-bottom: 28px; }
