@@ -49,7 +49,7 @@ controller('loginCtrl',['$scope','Auth','$location',
 				.success(function (data) {
 					vm.processing = false;
 					vm.loginData = {};
-					$scope.$hide();
+				//	$scope.$hide();
 					Auth.getUser(function(data){
 		 			$scope.user = data;
 				});
