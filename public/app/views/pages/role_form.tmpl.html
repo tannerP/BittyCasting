@@ -1,8 +1,21 @@
 <div class="aside" tabindex="-1" role="dialog">
     <form class="container-roleAside">
-        <h3 class="dark-grey" ng-if="!roleAside.edit">Add Role</h3>
-        <h3 class="dark-grey" ng-if="roleAside.edit">Edit Role</h3>
-       <h2>{{project.name}}</h2>
+        <div class="asideTitle" ng-if="!roleAside.edit">Create role</div>
+        <div class="asideTitle" ng-if="roleAside.edit">Edit role</div>
+        <div class = "form-group">
+            <label>Name</label>
+            <input type = "text" class = "custom-form" ng-model = "roleAside.roleData.name">
+        </div>
+        <div class = "form-group">
+            <label>Description (Max 220 characters)</label>
+            <textarea rows="5" cols="40" maxlength="220" class = "custom-form-textarea" ng-model = "roleAside.roleData.details"></textarea>
+        </div>
+        <div class = "form-group">
+            <label>Application open until</label>
+            <input type='text' class="form-control" id='datetimepicker4' />
+        </div>
+        
+       
         <div class = "form-group">
             <label ng-if="roleAside.roleData.name">
                 Role name</label>
@@ -17,6 +30,7 @@
                 placeholder="Description (Max 220 characters)"
                 ng-model = "roleAside.roleData.details"
                 ></textarea>
+            
             <label ng-if="roleAside.roleData.Deadline">
                 Applican open until</label>
             <input type = "text"
@@ -121,4 +135,6 @@
         <button ng-if="!roleAside.edit" type="submit" class="btn btn-primary" ng-click="roleAside.createRoleBtn()">Add role</button>
         <button ng-if="roleAside.edit" type="submit" class="btn btn-primary" ng-click="roleAside.updateRole()">Save changes</button>'
     </form>
+    
 </div>
+
