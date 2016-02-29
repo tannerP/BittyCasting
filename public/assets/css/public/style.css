@@ -669,20 +669,23 @@ ul.projects li {
       -o-transition: all 0.8s ease;
       transition: all 0.8s ease; }
   .aside .checkbox label {
+    display: block;
     font-size: 12px;
     line-height: 24px;
-    padding-left: 0; }
+    padding-left: 0;
+    margin: 0 0 10px 24px; }
     .aside .checkbox label input[type="checkbox"] {
       display: none; }
     .aside .checkbox label span {
+      float: left;
+      margin: 3px 3px 0 -24px;
       display: inline-block;
-      width: 20px;
-      height: 20px;
+      width: 18px;
+      height: 18px;
       border: none;
       background-color: #cccccc;
       cursor: pointer;
-      vertical-align: middle;
-      margin-right: 3px; }
+      vertical-align: middle; }
     .aside .checkbox label input:checked + span {
       background: url("/assets/imgs/ic_check.svg") no-repeat center center #cccccc;
       background-size: 12px 12px; }

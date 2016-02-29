@@ -757,19 +757,24 @@ ul.projects li {
     
     .checkbox { 
         label {
+            display: block;
             font-size: $font-size-regular;
             line-height: 24px;
             padding-left: 0;
-            input[type="checkbox"] {display: none;}
+            margin: 0 0 10px 24px; 
+            input[type="checkbox"] {
+                display: none;
+            }
             span {
+                float: left;
+                margin: 3px 3px 0 -24px;
                 display:inline-block;
-                width: 20px;
-                height: 20px;
+                width: 18px;
+                height: 18px;
                 border: none;
                 background-color: $color-grey-light;
                 cursor:pointer;
                 vertical-align: middle;
-                margin-right: 3px;
                 
             }
             input:checked + span {

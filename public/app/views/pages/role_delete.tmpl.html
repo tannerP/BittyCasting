@@ -1,8 +1,21 @@
 <div class="aside" tabindex="-1" role="dialog">
-    <h2> Delete Role</h2>
-    <span>{{prjDetailCtr.roleData.name}} </span>
-    <span>{{prjDetailCtr.roleData.details}} </span>
-    <button type="button" class="btn btn-default"
-                ng-click="$hide()"> Cancel </button>
-    <button ng-if="!roleAside.edit" type="submit" class="btn btn-primary" ng-click="aside.delete(prjDetailCtr.roleData._id)">Delete</button> 
+        <div class="asideTitle">Delete Role</div>
+        <section>
+            <div class="asideSubtitle">Name</div>
+            <p>{{prjDetailCtr.roleData.name}}</p>
+        </section>
+<!--
+        <section>
+            <div class="asideSubtitle">Description</div>
+            <p>{{prjDetailCtr.roleData.details}}</p>
+        </section>
+-->
+        <section>
+            <div class="checkbox">
+                <label><input type="checkbox"><span></span> All applicants and their files associated with roles in this project will be deleted.</label>
+                <label><input type="checkbox"><span></span> This action is irreversible.</label>
+            </div>
+        </section>
+        <button type="button" class="custom-btn-primary-large custom-btn-cancel" ng-click="$hide()">Cancel</button>
+        <button type="submit" class = "custom-btn-primary-large custom-btn-delete" ng-if="!roleAside.edit" ng-click="aside.delete(prjDetailCtr.roleData._id)">Delete</button>
 </div>
