@@ -1,5 +1,6 @@
 <div class="aside" tabindex="-1" role="dialog">
     <form class="container-roleAside">
+        <div class="custom-close" ng-click="$hide()"></div>
         <div class="asideTitle" ng-if="!roleAside.edit">Create role</div>
         <div class="asideTitle" ng-if="roleAside.edit">Edit role</div>
         <div class = "form-group">
@@ -8,86 +9,70 @@
         </div>
         <div class = "form-group">
             <label>Description (Max 220 characters)</label>
-            <textarea rows="5" cols="40" maxlength="220" class = "custom-form-textarea" ng-model = "roleAside.roleData.details"></textarea>
+            <textarea rows="5" cols="40" maxlength="220" class = "custom-form-textarea" ng-model = "roleAside.roleData.description"></textarea>
         </div>
         <div class = "form-group">
-            <label>Application open until</label>
-            <input type='text' class="custom-form"/>
+            <label>Application end date</label>
+            <input type='text' class="custom-form" ng-model = "roleAside.roleData.end_date"/>
         </div>
+        <div class = "form-group">
+            <label>Application end time</label>
+            <input type='text' class="custom-form" ng-model = "roleAside.roleData.end_time"/>
+        </div>        
         <div class = "form-group">
             <label>Location</label>
             <input type = "text" class = "custom-form" ng-model = "roleAside.roleData.location">
         </div>
-        
-       
         <div class = "form-group">
-
-            
-            <label ng-if="roleAside.roleData.Deadline">
-                Applican open until</label>
-            <input type = "text"
-                placeholder="Date"
-                class = "form-control"
-                ng-model = "roleAside.roleData.Deadline">
-            <br>   
-            <label ng-if="roleAside.roleData.location">
-            Location</label>
-            <input type = "text"
-                placeholder="Location"
-                class = "form-control"
-                ng-model = "roleAside.roleData.location">
-            <br>
-            <br>   
-            <label ng-if="roleAside.roleData.Deadline">Time</label>
-            <input type = "text"
-                placeholder="Pay term"
-                class = "form-control"
-                ng-model = "roleAside.roleData.time">
-            <label ng-if="roleAside.roleData.time">Pay terms</label>
-            <input type = "text"
-                placeholder="Age"
-                class = "form-control"
-                ng-model = "roleAside.roleData.payterms">
-            <label ng-if="roleAside.roleData.time">Age</label>
-            <input type = "text"
-                placeholder="Gender"
-                class = "form-control"
-                ng-model = "roleAside.roleData.payterms">
-            <label ng-if="roleAside.roleData.time">Gender</label>
-            <input type = "text"
-                placeholder="Time"
-                class = "form-control"
-                ng-model = "roleAside.roleData.payterms">
-    	</div>
-    	<div class = "form-group">
-
-
-         <table class = "table table-bordered table-striped" ng-show="!home.gridView">
-          <thead>
-              <tr>
-                  <th>Type</th>
-                  <th>Format</th>
-                  <th>Required</th>
-              </tr>
-          </thead>
-      <tbody> 
-      <!-- LOOP OVER THE USERS -->
-          <tr>
-              <td> Headshot</td>
-          </tr>
-          <tr>
-              <td> Resume </td>
-          </tr>
-          <tr>
-              <td> Cover letter </td>
-          </tr>
-          <tr>
-              <td> Audition Video </td>
-              <td></td>
-              <td>  <label class="btn btn-success" ng-model="radioModel" uib-btn-radio="'Left'" uncheckable>Left</label></td>
-          </tr>
-      </tbody>    
-      </table>
+            <label>Pay terms</label>
+            <input type = "text" class = "custom-form" ng-model = "roleAside.roleData.payterms">
+        </div>
+        <div class = "form-group">
+            <label>Age</label>
+            <input type = "text" class = "custom-form" ng-model = "roleAside.roleData.age">
+        </div>
+        <div class = "form-group">
+            <label>Gender</label>
+            <input type = "text" class = "custom-form" ng-model = "roleAside.roleData.sex">
+        </div>      
+        
+        <section class="custom-table">
+            <table class = "table table-application-requirements" ng-show="!home.gridView">
+                <thead>
+                    <tr>
+                        <th>Type</th>
+                        <th>Format</th>
+                        <th>Required</th>
+                    </tr>
+                </thead>
+                <tbody> 
+                    <!-- LOOP OVER THE USERS -->
+                    <tr>
+                        <td>Headshot</td>
+                        <td></td>
+                        <td>                         
+                            <input type="checkbox" class="custom-switch" checked />
+                        </td>
+                        
+                    </tr>
+                    <tr>
+                        <td>Resume</td>
+                        <td></td>
+                        <td><input type="checkbox" class="custom-switch" checked /></td>
+                    </tr>
+                    <tr>
+                        <td>Cover letter</td>
+                        <td></td>
+                        <td><input type="checkbox" class="custom-switch" checked /></td>
+                    </tr>
+                    <tr>
+                        <td>Audition Video</td>
+                        <td></td>
+                        <td><input type="checkbox" class="custom-switch" checked /></td>
+                    </tr>
+                </tbody>    
+            </table>    
+        </section>
     
     		<label>Headshot</label>
     		<input type="checkbox" 
@@ -121,11 +106,10 @@
 	       		ng-model="roleAside.roleData.monolougue"
 	       		ng-true-value=true
 	       		ng-false-value=false>
-    	</div>
-        <button type="button" class="btn btn-default"
-                ng-click="$hide()"> Cancel </button>
-        <button ng-if="!roleAside.edit" type="submit" class="btn btn-primary" ng-click="roleAside.createRoleBtn()">Add role</button>
-        <button ng-if="roleAside.edit" type="submit" class="btn btn-primary" ng-click="roleAside.updateRole()">Save changes</button>'
+        
+        <button ng-if="!roleAside.edit" type="submit" class="custom-btn-primary-large" ng-click="roleAside.createRoleBtn()">Create role</button>
+        <button ng-if="roleAside.edit" type="submit" class="custom-btn-primary-large" ng-click="roleAside.updateRole()">Save</button>
+
     </form>
     
 </div>

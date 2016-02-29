@@ -585,7 +585,6 @@ ul.projects li {
 }
 
 .custom-table {
-    padding: 0 15px;
     
     .table-project-overview {
         
@@ -613,6 +612,12 @@ ul.projects li {
             &:nth-child(2) {background: url("/assets/imgs/ic_share.svg") no-repeat center center white;
             background-size: 16px 16px; }
         }
+    }
+    
+    .table-application-requirements {
+        thead tr th:nth-child(1) {width: 40%; cursor: pointer;} //type
+        thead tr th:nth-child(2) {width: 40%;} //format
+        thead tr th:nth-child(3) {width: 20%;} //required     
     }
     
     .table {

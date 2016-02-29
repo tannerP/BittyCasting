@@ -62,11 +62,9 @@
           <tbody> 
           <!-- LOOP OVER THE USERS -->
               <tr ng-repeat = "project in home.projects" ng-click = "home.getDtlBtn(project._id)">
-                  <td>
-                    {{ project.name }} (click)</td>
+                  <td>{{ project.name }} (click)</td>
                   <td>{{ project.details }}</td>
-                  <td>
-                      {{ project.date }}
+                  <td>{{ project.date }}
                       <div class="table-utl">
                           <ul>
                               <li class="trashcan" ng-click='home.deleteBtn(project)'></li>

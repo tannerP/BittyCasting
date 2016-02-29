@@ -2,63 +2,17 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var RoleSchema = new Schema({
-	
-	user : {
-		type: String, 
-		require: true,
-	},
-	userID: {
-		type: String, 
-		require: true,
-	},
-	projectID:{
-		type: String, 
-		require: true,
-	},
-	projectname:{
-		type: String, 
-		require: true,
-	},
-	name : {
-		type:String,
-		require: true,
-	},
-	details : {
-		type: String,
-		require: true,
-		select: true,
-	},
-	resume :{
-		type: Boolean,
-		defail: false,
-		require: true,
-		select: true, 
-	},
-	cv_letter :{
-		type: Boolean,
-		defail: false,
-		require: true,
-		select: true, 
-	},
-	headshot :{
-		type: Boolean,
-		defail: false,
-		require: true,
-		select: true, 
-	},
-	video_audition :{
-		type: Boolean,
-		defail: false,
-		require: true,
-		select: true, 
-	},
-	monologue :{
-		type: Boolean,
-		defail: false,
-		require: true,
-		select: true, 
-	}
-
+	updated_date: {type:Date, default:Date.now},
+	userID: {type: String, required: true },
+	projectID:{type: String, required: true },
+	name: {type:String, required: true},
+	description: {type:String, require:true},
+	end_date: {type:String, required:false},
+	end_time: {type:String, require:false},
+	location: {type:String, require:false},
+	payterms: {type:String},
+	age: {type:Number, min:18, max:65},
+	sex: {type:String},
 });
 
 module.exports = mongoose.model('Role',RoleSchema);

@@ -482,93 +482,98 @@ ul.projects li {
             -o-transition: all 0.2s ease;
             transition: all 0.2s ease; }
 
-.custom-table {
-  padding: 0 15px; }
-  .custom-table .table-project-overview thead tr th:nth-child(1) {
-    width: 20%;
+.custom-table .table-project-overview thead tr th:nth-child(1) {
+  width: 20%;
+  cursor: pointer; }
+.custom-table .table-project-overview thead tr th:nth-child(2) {
+  width: 60%; }
+.custom-table .table-project-overview thead tr th:nth-child(3) {
+  width: 20%; }
+.custom-table .table-project-overview .table-utl ul li:nth-child(1) {
+  background: url("/assets/imgs/ic_trash.svg") no-repeat center center white;
+  background-size: 16px 16px; }
+.custom-table .table-project-overview .table-utl ul li:nth-child(2) {
+  background: url("/assets/imgs/ic_duplicate.svg") no-repeat center center white;
+  background-size: 16px 16px; }
+.custom-table .table-project-details thead tr th:nth-child(1) {
+  width: 20%;
+  cursor: pointer; }
+.custom-table .table-project-details thead tr th:nth-child(2) {
+  width: 20%; }
+.custom-table .table-project-details thead tr th:nth-child(3) {
+  width: 40%; }
+.custom-table .table-project-details thead tr th:nth-child(4) {
+  width: 20%; }
+.custom-table .table-project-details .table-utl ul li:nth-child(1) {
+  background: url("/assets/imgs/ic_trash.svg") no-repeat center center white;
+  background-size: 16px 16px; }
+.custom-table .table-project-details .table-utl ul li:nth-child(2) {
+  background: url("/assets/imgs/ic_share.svg") no-repeat center center white;
+  background-size: 16px 16px; }
+.custom-table .table-application-requirements thead tr th:nth-child(1) {
+  width: 40%;
+  cursor: pointer; }
+.custom-table .table-application-requirements thead tr th:nth-child(2) {
+  width: 40%; }
+.custom-table .table-application-requirements thead tr th:nth-child(3) {
+  width: 20%; }
+.custom-table .table {
+  font-size: 12px; }
+  .custom-table .table tbody tr {
     cursor: pointer; }
-  .custom-table .table-project-overview thead tr th:nth-child(2) {
-    width: 60%; }
-  .custom-table .table-project-overview thead tr th:nth-child(3) {
-    width: 20%; }
-  .custom-table .table-project-overview .table-utl ul li:nth-child(1) {
-    background: url("/assets/imgs/ic_trash.svg") no-repeat center center white;
-    background-size: 16px 16px; }
-  .custom-table .table-project-overview .table-utl ul li:nth-child(2) {
-    background: url("/assets/imgs/ic_duplicate.svg") no-repeat center center white;
-    background-size: 16px 16px; }
-  .custom-table .table-project-details thead tr th:nth-child(1) {
-    width: 20%;
-    cursor: pointer; }
-  .custom-table .table-project-details thead tr th:nth-child(2) {
-    width: 20%; }
-  .custom-table .table-project-details thead tr th:nth-child(3) {
-    width: 40%; }
-  .custom-table .table-project-details thead tr th:nth-child(4) {
-    width: 20%; }
-  .custom-table .table-project-details .table-utl ul li:nth-child(1) {
-    background: url("/assets/imgs/ic_trash.svg") no-repeat center center white;
-    background-size: 16px 16px; }
-  .custom-table .table-project-details .table-utl ul li:nth-child(2) {
-    background: url("/assets/imgs/ic_share.svg") no-repeat center center white;
-    background-size: 16px 16px; }
-  .custom-table .table {
-    font-size: 12px; }
-    .custom-table .table tbody tr {
-      cursor: pointer; }
-      .custom-table .table tbody tr:hover > td .table-utl {
-        opacity: 1;
-        -webkit-transition: all 0.2s ease;
-        -moz-transition: all 0.2s ease;
-        -ms-transition: all 0.2s ease;
-        -o-transition: all 0.2s ease;
-        transition: all 0.2s ease;
-        -ms-transform: translate(-20px, 0);
-        /* IE 9 */
-        -webkit-transform: translate(-20px, 0);
-        /* Safari */
-        transform: translate(-20px, 0); }
-    .custom-table .table tbody tr td {
-      vertical-align: middle; }
-      .custom-table .table tbody tr td .table-utl {
-        height: 36px;
-        opacity: 0;
-        -webkit-transition: all 0.2s ease;
-        -moz-transition: all 0.2s ease;
-        -ms-transition: all 0.2s ease;
-        -o-transition: all 0.2s ease;
-        transition: all 0.2s ease;
-        margin-right: -20px; }
-        .custom-table .table tbody tr td .table-utl ul {
-          height: 36px; }
-          .custom-table .table tbody tr td .table-utl ul li {
-            display: inline;
-            float: right;
-            margin-left: 6px;
-            width: 36px;
-            height: 36px;
-            -webkit-border-radius: 50%;
-            -moz-border-radius: 50%;
-            -ms-border-radius: 50%;
-            border-radius: 50%;
-            border: 1px solid #666666;
+    .custom-table .table tbody tr:hover > td .table-utl {
+      opacity: 1;
+      -webkit-transition: all 0.2s ease;
+      -moz-transition: all 0.2s ease;
+      -ms-transition: all 0.2s ease;
+      -o-transition: all 0.2s ease;
+      transition: all 0.2s ease;
+      -ms-transform: translate(-20px, 0);
+      /* IE 9 */
+      -webkit-transform: translate(-20px, 0);
+      /* Safari */
+      transform: translate(-20px, 0); }
+  .custom-table .table tbody tr td {
+    vertical-align: middle; }
+    .custom-table .table tbody tr td .table-utl {
+      height: 36px;
+      opacity: 0;
+      -webkit-transition: all 0.2s ease;
+      -moz-transition: all 0.2s ease;
+      -ms-transition: all 0.2s ease;
+      -o-transition: all 0.2s ease;
+      transition: all 0.2s ease;
+      margin-right: -20px; }
+      .custom-table .table tbody tr td .table-utl ul {
+        height: 36px; }
+        .custom-table .table tbody tr td .table-utl ul li {
+          display: inline;
+          float: right;
+          margin-left: 6px;
+          width: 36px;
+          height: 36px;
+          -webkit-border-radius: 50%;
+          -moz-border-radius: 50%;
+          -ms-border-radius: 50%;
+          border-radius: 50%;
+          border: 1px solid #666666;
+          -webkit-transition: all 0.2s ease;
+          -moz-transition: all 0.2s ease;
+          -ms-transition: all 0.2s ease;
+          -o-transition: all 0.2s ease;
+          transition: all 0.2s ease; }
+          .custom-table .table tbody tr td .table-utl ul li:hover, .custom-table .table tbody tr td .table-utl ul li:focus {
+            background-color: #eeeeee;
+            cursor: pointer;
             -webkit-transition: all 0.2s ease;
             -moz-transition: all 0.2s ease;
             -ms-transition: all 0.2s ease;
             -o-transition: all 0.2s ease;
             transition: all 0.2s ease; }
-            .custom-table .table tbody tr td .table-utl ul li:hover, .custom-table .table tbody tr td .table-utl ul li:focus {
-              background-color: #eeeeee;
-              cursor: pointer;
-              -webkit-transition: all 0.2s ease;
-              -moz-transition: all 0.2s ease;
-              -ms-transition: all 0.2s ease;
-              -o-transition: all 0.2s ease;
-              transition: all 0.2s ease; }
-  .custom-table .table > thead > tr > th {
-    border-bottom: 2px solid #999999; }
-  .custom-table .table-hover > tbody > tr:hover {
-    background-color: #cccccc; }
+.custom-table .table > thead > tr > th {
+  border-bottom: 2px solid #999999; }
+.custom-table .table-hover > tbody > tr:hover {
+  background-color: #cccccc; }
 
 /***************************
           Side panel

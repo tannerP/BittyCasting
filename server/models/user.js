@@ -6,14 +6,8 @@ var Schema = mongoose.Schema;
 
 //user Schema by mongoose
 var UserSchema = new Schema({
-	last_name : {
-		type:String,
-		require: true, 
-	},
-	first_name : {
-		type:String,
-		require: true, 
-	},
+	updated_date: {type:Date, default:Date.now},
+	name : {first:String,last:String},
 	password: {
 		type:String, 
 		required:true, 

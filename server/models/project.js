@@ -2,30 +2,19 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var ProjectSchema = new Schema ({
-	user : String, 
+	user : {}, 
+	updated_date: {type:Date, default:Date.now},
 	user_id : String, 
 
 	name : {
 		type: String, 
-		require : true,
+		required : true,
 		index: {unique:true}
 	},
-	details: String,
+	description:{
+		type: String,
+		required:true
+	}
+	});
 
-	roles: [{role_name:{type:String,required:true},
-					description:{type:String, require:true},
-					end_date:{type:Date, required:false},
-					end_time:{type:String, require:false},
-					updated_date:{type:Date, default:Date.now},
-					location:{type:String, require:false},
-					paid:{type:String},
-					age_min: {type:Number, min:18, max:65},
-					sex:{type:String},
-					requirements:[{
-						name:String,
-						required:Boolean
-					}]
-
-				}]
-});
 module.exports = mongoose.model('Project',ProjectSchema);
