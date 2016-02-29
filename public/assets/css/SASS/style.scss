@@ -140,9 +140,21 @@ header {
 
 .logoNav {
         fill: $color-grey-darkest;
-        width: 150px;
+        height: 55px;
         float: left;
         padding: 17px 0 17px 15px;
+        @include transition(all, 0.2s, ease);
+        &:hover {
+            fill: $color-blue;
+            @include transition(all, 0.2s, ease);
+        }   
+    }
+
+.logoNav_signin {
+        fill: $color-grey-darkest;
+        height: 46px;
+        float: left;
+        padding: 10px 0 0 15px;
         @include transition(all, 0.2s, ease);
         &:hover {
             fill: $color-blue;
@@ -204,8 +216,8 @@ header {
             font-size: $font-size-regular;
             color: $color-grey-dark;
             line-height: 56px;
-            margin: 0 0 0 35px;
-            padding: 0 0 0 35px;
+            margin: 0 0 0 0px;
+//            padding: 0 0 0 35px;
             @include transition(all, 0.2s, ease);
         }       
         a:hover, a:focus  {
@@ -213,8 +225,8 @@ header {
             color: $color-blue;
             @include transition(all, 0.2s, ease);
         }
-        a:first-child {
-        border-left: #ccc 1px solid;}     
+//        a:first-child {
+//        border-left: #ccc 1px solid;}     
 
     }
 
