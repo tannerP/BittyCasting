@@ -116,6 +116,9 @@ header {
   left: 0;
   z-index: 10; }
 
+nav {
+  padding: 0 5px; }
+
 .logoNav {
   fill: #242424;
   height: 55px;
@@ -342,6 +345,9 @@ div.pageHeader {
   letter-spacing: 6px;
   padding: 40px 0; }
 
+.projectHeader {
+  padding: 0 5px; }
+
 ul.projects {
   list-style-type: none;
   margin: 0;
@@ -349,14 +355,10 @@ ul.projects {
   width: 100%; }
 
 ul.projects li {
-  width: 25%;
-  display: block;
-  float: left;
   margin: 0; }
 
 .card {
   color: #fff;
-  margin: 10px;
   height: 187px;
   text-align: center;
   background-color: grey;
@@ -420,7 +422,7 @@ ul.projects li {
             transition: all 0.2s ease; }
 
 .custom-table {
-  padding: 0 10px; }
+  padding: 0 15px; }
   .custom-table .table {
     font-size: 12px; }
     .custom-table .table th.table-collumn-name {
@@ -603,6 +605,8 @@ ul.projects li {
   background-color: #06bcc2;
   font-size: 12px;
   margin-top: 60px; }
+  .footer .container {
+    padding: 0 20px; }
   .footer p {
     padding-right: 35px;
     margin: 0;

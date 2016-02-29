@@ -138,6 +138,10 @@ header {
     z-index: 10;
 }
 
+nav {
+    padding: 0 5px;
+}
+
 .logoNav {
         fill: $color-grey-darkest;
         height: 55px;
@@ -426,7 +430,7 @@ div.pageHeader{
 }
 
 .projectHeader {
-    
+    padding: 0 5px;
 }
 
 ul.projects{
@@ -438,9 +442,9 @@ ul.projects{
 
 
 ul.projects li {
-    width:25%;
-    display: block;
-    float: left;
+//    width:25%;
+//    display: block;
+//    float: left;
     margin: 0;
 
 }
@@ -448,7 +452,6 @@ ul.projects li {
 .card{
     
     color:#fff;
-    margin: 10px;
     height: 187px;
     text-align: center;
     background-color: grey;
@@ -527,7 +530,7 @@ ul.projects li {
 }
 
 .custom-table {
-    padding: 0 10px;
+    padding: 0 15px;
     
     .table {
         font-size: $font-size-regular;
@@ -719,6 +722,10 @@ ul.projects li {
     background-color: $color-blue;
     font-size: $font-size-regular;
     margin-top: 60px;
+    
+    .container {
+        padding: 0 20px;
+    }
     
     p {
         padding-right: 35px;
