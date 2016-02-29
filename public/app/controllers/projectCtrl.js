@@ -1,4 +1,7 @@
 angular.module('projectCtrl',['userService', 'mgcrea.ngStrap']).
+controller('rolePageController', function(Role, Project ,$location, $routeParams, $scope, $aside, $route){
+
+}).
 controller('prjDetailController', function(Role, Project ,$location, $routeParams, $scope, $aside, $route){
 		var vm = this;
 		vm.processing = true;

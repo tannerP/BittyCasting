@@ -53,9 +53,9 @@ angular.module('app.routes', ['ngRoute'])
             controllerAs: 'page'
 
         })
-        .when('/viewauditions/:role_id',  {
-            templateUrl: 'app/views/pages/viewauditions.html',
-            controller: 'AMMController',
+        .when('/rolepage/:role_id',  {
+            templateUrl: 'app/views/pages/rolePage.html',
+            controller: 'rolePageController',
             controllerAs: 'page'
         })
 /*---------------- Users ----------------*/
