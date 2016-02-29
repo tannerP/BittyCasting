@@ -29,26 +29,23 @@
   	<ul class='projects' ng-show="home.gridView">
         
   		<li class="col-lg-3 col-md-4 col-sm-6" ng-repeat-start="project in home.projects">
-            
-            <div class="card"> 
-                
-                <div class="cardImg"></div>
-                
-                <div class="cardInfo">
-                    <a href="/projectDetails/{{project._id}}" class="md-headline"><div class="cardTitle">{{project.name}}</div></a>
-                    <div class="cardSubTitle">Number of roles</div>
+            <a href="/projectDetails/{{project._id}}" class="md-headline">
+                <div class="card">               
+                    <div class="cardScrim"></div> 
+                    <div class="cardInfoBg"></div>
+                        <div class="cardInfo">
+                            <a href="/projectDetails/{{project._id}}" class="md-headline"><div class="cardTitle">{{project.name}}</div></a>
+                            <div class="cardSubTitle">Number of roles</div>
+                            <div class='actionBar'>
+                                <ul>
+                                    <li class="trashcan" ng-click='home.deleteBtn(project)'></li>
+                                    <li class="duplicate"></li>
+                                </ul>
+                            </div>
+                        </div>     
 
-                    <div class='actionBar'>
-                        <ul>
-                            <li class="trashcan" ng-click='home.deleteBtn(project)'></li>
-                            <li class="duplicate"></li>
-                        </ul>
-                    </div>
-                    
-                </div>    
-
-            </div>
-            
+                </div>
+            </a>
         </li>    
         
         <li ng-repeat-end> </li>
