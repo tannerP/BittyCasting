@@ -437,7 +437,7 @@ ul.projects{
 
 
 ul.projects li {
-    margin: 0;
+    margin: 0 0 30px 0;
 }
 
 .card{
@@ -445,18 +445,27 @@ ul.projects li {
     color:#fff;
     height: 187px;
     text-align: center;
-    background-color: grey;
+    background: url("/assets/imgs/img_projectCover01.png") no-repeat top center;
+    background-size: 100% auto;
     @include box-shadow(0px, 2px, 2px, 0px, rgba(0,0,0,0.1));
     
-    .cardImg {
-        height: 125px;
-        background-color: burlywood;
+    &:hover>.cardInfo .actionBar {
+        visibility: visible;
     }
     
+//    .cardImg {
+//        height: 125px;
+//        background-color: burlywood;
+//    }
+    
     .cardInfo {
-        
+
         background-color: white;
-        height: 62px;
+        height: 60px;
+        padding-top: 10px;
+        position: relative;
+        top: 70%;
+        margin-bottom: 0;
         
         a {
             text-decoration: none;
@@ -465,23 +474,23 @@ ul.projects li {
         .cardTitle {
             font-size: $font-size-regular;
             color: $color-grey-darkest; 
-            padding-top: 4px;
+            margin-bottom: 2px;
         }
 
         .cardSubTitle {
             font-size: $font-size-small;
-            color: $color-grey;  
-            
+            color: $color-grey;           
         }
 
         .actionBar {
 
             padding: 16px 0;
+            visibility: hidden;
 
             ul  {
                 left: 50%;
                 position: relative;
-                margin-left: -44px;
+                margin-left: -45px;
                 list-style:none;
                 padding: 0;
 

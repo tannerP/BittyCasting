@@ -343,37 +343,42 @@ ul.projects {
   width: 100%; }
 
 ul.projects li {
-  margin: 0; }
+  margin: 0 0 30px 0; }
 
 .card {
   color: #fff;
   height: 187px;
   text-align: center;
-  background-color: grey;
+  background: url("/assets/imgs/img_projectCover01.png") no-repeat top center;
+  background-size: 100% auto;
   -webkit-box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.1);
   -moz-box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.1);
   box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.1); }
-  .card .cardImg {
-    height: 125px;
-    background-color: burlywood; }
+  .card:hover > .cardInfo .actionBar {
+    visibility: visible; }
   .card .cardInfo {
     background-color: white;
-    height: 62px; }
+    height: 60px;
+    padding-top: 10px;
+    position: relative;
+    top: 70%;
+    margin-bottom: 0; }
     .card .cardInfo a {
       text-decoration: none; }
     .card .cardInfo .cardTitle {
       font-size: 12px;
       color: #242424;
-      padding-top: 4px; }
+      margin-bottom: 2px; }
     .card .cardInfo .cardSubTitle {
       font-size: 10px;
       color: #999999; }
     .card .cardInfo .actionBar {
-      padding: 16px 0; }
+      padding: 16px 0;
+      visibility: hidden; }
       .card .cardInfo .actionBar ul {
         left: 50%;
         position: relative;
-        margin-left: -44px;
+        margin-left: -45px;
         list-style: none;
         padding: 0; }
         .card .cardInfo .actionBar ul li {
