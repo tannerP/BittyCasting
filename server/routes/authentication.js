@@ -15,6 +15,7 @@ app.route('/')
 
 app.route('/login')
 	.post(function(req, res){
+		console.log(req.body);
 		User.findOne({
 			email: req.body.email
 		}).select('name email password').exec(function(err,user){
@@ -58,8 +59,8 @@ app.route('/register')
 		//create a new instance of the User model
 		var user = new User();
 		//set the users information (comes from the request)
-		user.last_name = req.body.last_name;
-		user.first_name = req.body.first_name;
+		user.name.last = req.body.name.first;
+		user.name.first = req.body.name.first;
 		user.password = req.body.password;
 		user.email = req.body.email;
 		console.log(user);

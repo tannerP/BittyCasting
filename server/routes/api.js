@@ -67,6 +67,7 @@ apiRouter.route('/roles/:projectID')
 				console.log(err); 
 			}
 			else{
+				console.log(roles);
 			res.json({'success':true ,'data':roles});
 		}
 	})
@@ -75,18 +76,22 @@ apiRouter.route('/roles/:projectID')
 apiRouter.route('/createRole/:projectID')
 		.post(function(req,res){
 				var role = new Role();
-				role.user = req.decoded.name;
 				role.userID = req.decoded.id;
 				console.log(req.body);
 				
 				role.projectID = req.params.projectID;
 				role.name = req.body.name;
-				role.details = req.body.details;
-				role.resume = req.body.resume;
-				role.HS = req.body.HS;
-				role.coverletter = req.body.coverLetter;
-				role.auditionvideo = req.body.auditionVideo;
-				role.monologue = req.body.monologue;
+				role.description = req.body.description;
+				role.end_date = req.body.endDate;
+				role.end_time = req.body.endTime;
+				
+				role.location = req.body.location;
+				role.payterms =  req.body.payterms;
+				role.age =  req.body.age;
+				role.sex =  req.body.sex;
+				role.requirements = req.body.requirements;
+
+				
 				console.log(role);
 				
 				role.save(function(err){
@@ -121,7 +126,7 @@ apiRouter.route('/role/:role_id')
 				/*role.user = req.decoded.name;
 				role.userID = req.decoded.id;
 				role.projectID = req.params.role_id;*/
-
+				console.log(res.body);
 				role.name = req.body.name;
 				role.details = req.body.details;
 				role.resume = req.body.resume;
@@ -153,10 +158,12 @@ apiRouter.route('/project')
 	.post(function(req,res){
 		/*console.log(req.userData);*/
 		var project = new Project();
-		project.user = req.decoded.name;
 		project.user_id = req.decoded.id;
+		console.log("req.decoded: " + req.decoded.id);
+		console.log("req.body: " + req.body);
 		project.name = req.body.name;
 		project.details = req.body.details
+		
 		project.save(function(err){
 			if(err){
 				return  res.json({success:false,

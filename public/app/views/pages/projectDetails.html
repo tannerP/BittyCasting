@@ -12,7 +12,7 @@
                 <img ng-src="assets/imgs/img_projectCover01.png" class="img-responsive">
             </section>
             <section class="col-md-6">
-                <p>{{prjDetailCtr.project.details}}</p>
+                <p>{{prjDetailCtr.project.description}}</p>
             </section>
             <section class="col-md-3">
                 <p>Thumbnails of collaborators</p>
@@ -67,8 +67,8 @@
                 <tr ng-repeat = "role in prjDetailCtr.Roles">
                     <td><a href='/rolepage/{{role._id}}'>{{ role.name }}</a></td>
                     <td>{{role.num_applicants}}</td>
-                    <td>{{ role.details }}</td>
-                    <td><span class="tblDate">{{ role.date }}</span>
+                    <td>{{ role.description }}</td>
+                    <td><span class="tblDate"> {{role.end_date}}, {{role.end_time }}</span>
                         
                         <div class="table-utl">
                             <ul>

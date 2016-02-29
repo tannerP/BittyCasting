@@ -11,47 +11,52 @@
                 class = "form-control"
                 ng-model = "roleAside.roleData.name">
             <br>   
-            <label ng-if="roleAside.roleData.detail">
+           
+            <label ng-if="roleAside.roleData.description">
                 Description</label>
             <textarea rows="5" cols="60" class =""
                 placeholder="Description (Max 220 characters)"
-                ng-model = "roleAside.roleData.details"
+                ng-model = "roleAside.roleData.description"
                 ></textarea>
-            <label ng-if="roleAside.roleData.Deadline">
+           
+            <label ng-if="roleAside.roleData.endDate">
                 Applican open until</label>
             <input type = "text"
-                placeholder="Date"
+                placeholder="End Date"
                 class = "form-control"
-                ng-model = "roleAside.roleData.Deadline">
-            <br>   
+                ng-model = "roleAside.roleData.endDate">
+            
+            <label ng-if="roleAside.roleData.endTime">End Time</label>
+            <input type = "text"
+                placeholder="End Time"
+                class = "form-control"
+                ng-model = "roleAside.roleData.endTime">
+         <br>  
             <label ng-if="roleAside.roleData.location">
             Location</label>
             <input type = "text"
                 placeholder="Location"
                 class = "form-control"
                 ng-model = "roleAside.roleData.location">
-            <br>
-            <br>   
-            <label ng-if="roleAside.roleData.Deadline">Time</label>
+            
+            <label ng-if="roleAside.roleData.payterms">Pay terms</label>
             <input type = "text"
-                placeholder="Pay term"
+                placeholder="Pay terms"
                 class = "form-control"
-                ng-model = "roleAside.roleData.time">
+                ng-model = "roleAside.roleData.payterms">
+           
             <label ng-if="roleAside.roleData.time">Pay terms</label>
             <input type = "text"
                 placeholder="Age"
                 class = "form-control"
-                ng-model = "roleAside.roleData.payterms">
-            <label ng-if="roleAside.roleData.time">Age</label>
+                ng-model = "roleAside.roleData.age">
+           
+            <label ng-if="roleAside.roleData.time">Gender</label>
             <input type = "text"
                 placeholder="Gender"
                 class = "form-control"
-                ng-model = "roleAside.roleData.payterms">
-            <label ng-if="roleAside.roleData.time">Gender</label>
-            <input type = "text"
-                placeholder="Time"
-                class = "form-control"
-                ng-model = "roleAside.roleData.payterms">
+                ng-model = "roleAside.roleData.sex">
+           
     	</div>
     	<div class = "form-group">
 

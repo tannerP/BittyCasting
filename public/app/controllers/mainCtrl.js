@@ -15,7 +15,7 @@ controller('mainController',['$scope','Auth','$location',"$sce",
 			$location.path('/');
 		}
 	}]).
-controller('signupCtrl', function(User)	{
+controller('signupCtrl', function(User,$scope)	{
 		var vm = this;
 		vm.userData={};
 		vm.type = 'create';
