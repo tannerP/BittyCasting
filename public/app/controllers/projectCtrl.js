@@ -121,20 +121,29 @@ controller('prjDetailController',
         }
       }
     ]).
-controller('deleteRoleController', function(Role, $location, $routeParams, $route, $scope){
+controller('deleteRoleController',['$scope',
+ 'Role','$location','$routeParams','$route','$alert',
+	function($scope,Role, $location, $routeParams, $route, $alert){
 		var vm = this;
 		vm.roleData = {};
+		vm.input1 = false, vm.input2 = false;
+		var errAlert = $alert({title: 'Whoops', content:'Please check all', animation:'am-fade-and-slide-top',duration:'5',
+           placement: 'top-right', type: 'danger', show: false, type:'success'});
 		vm.delete = function(id){
-			Role.delete(id)
-				.success(function(){
-					vm.roleData = {};
-					$route.reload();
-					$scope.$hide()
-				})
-				.error(function(err){
-					console.log(err.message);
-				})
-	}}).
+			if(vm.input1 && vm.input2){
+				Role.delete(id)
+					.success(function(){
+						vm.roleData = {};
+						$route.reload();
+						$scope.$hide()
+					})
+					.error(function(err){
+						console.log(err.message);
+					})
+				}
+				else errAlert.toggle();
+			}
+}]).
 	controller('editRoleController', function(Role, $location, $routeParams){
 		var vm = this;
 		vm.edit = true;

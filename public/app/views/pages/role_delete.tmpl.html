@@ -12,8 +12,11 @@
 -->
         <section>
             <div class="checkbox">
-                <label><input type="checkbox"><span></span> All applicants and their files associated with roles in this project will be deleted.</label>
-                <label><input type="checkbox"><span></span> This action is irreversible.</label>
+                <label>
+                	<input type="checkbox" ng-model='aside.input1'>
+                	<span></span> All applicants and their files associated with roles in this project will be deleted.</label>
+                <label>
+                	<input type="checkbox" ng-model='aside.input2'><span></span> This action is irreversible.</label>
             </div>
         </section>
         <button type="button" class="custom-btn-primary-large custom-btn-cancel" ng-click="$hide()">Cancel</button>
