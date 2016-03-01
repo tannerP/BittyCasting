@@ -96,18 +96,26 @@ controller('prjDetailController', function(Role, Project ,$location, $routeParam
 
 			});
 	}}).
- controller('shareRoleController', ['$scope', function ($scope) {
+ controller('shareRoleController', ['$scope', '$alert',
+  function ($scope,$alert) {
         var url_base = "bittycasting.com/Apply"
         $scope.textToCopy = url_base;
-        $scope.message = '';      
+        $scope.toggle = false;
+      
+         var successAlert = $alert({title: 'Copied!',animation:'am-fade-and-slide-top',duration:'10',
+           placement: 'top-right', type: 'success', show: false, type:'success'}),
+         errAlert = $alert({title: 'Link:',
+          content: 'Copied',
+           placement: 'top-right', type: 'info', show: false, type:'success'});           
 
         $scope.success = function () {
-            $scope.message = 'Copied!'; 
+            $scope.toggle = true;
+            successAlert.toggle();
         };
 
         $scope.fail = function (err) {
             console.error('Error!', err);
-            $scope.message = 'Failed to copy.'; 
+           errAlert.toggle();
         }
       }
     ]).
