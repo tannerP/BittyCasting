@@ -37,7 +37,7 @@
         </div>      
         
         <section class="custom-table">
-            <table class = "table table-application-requirements" ng-show="!home.gridView">
+            <table class = "table table-application-requirements" ng-show="!roleAside.gridView">
                 <thead>
                     <tr>
                         <th>Type</th>
@@ -73,39 +73,6 @@
                 </tbody>    
             </table>    
         </section>
-    
-    		<label>Headshot</label>
-    		<input type="checkbox" 
-                ng-model="roleAside.roleData.headshot"
-                value = false;
-                ng-true-value=true
-                ng-false-value=false>
-
-    		<label>Resume</label>
-    		<input type="checkbox"
-	       		ng-model="roleAside.roleData.resume"
-                ng-true-value=true
-                ng-false-value=false>
-    	
-    		<label>Cover letter</label>
-    		<input type="checkbox"
-	       		ng-model="roleAside.roleData.CV"
-                ng-true-value=true
-                ng-false-value=false> 
-    	
-    	
-    		<label>Audition Video</label>
-    		<input type="checkbox"
-	       		ng-model="roleAside.roleData.auditionVideo"
-                ng-true-value=true
-                ng-false-value=false>
-    	
-    	
-    		<label>Monologue</label>
-    		<input type="checkbox"
-	       		ng-model="roleAside.roleData.monolougue"
-	       		ng-true-value=true
-	       		ng-false-value=false>
         
         <button ng-if="!roleAside.edit" type="submit" class="custom-btn-primary-large" ng-click="roleAside.createRoleBtn()">Create role</button>
         <button ng-if="roleAside.edit" type="submit" class="custom-btn-primary-large" ng-click="roleAside.updateRole()">Save</button>

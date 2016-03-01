@@ -1,9 +1,24 @@
 angular.module('mainCtrl', ['authService','mgcrea.ngStrap']).
-controller('mainController',['$scope','Auth','$location',"$sce",
-		function($rootScope, Auth, $location, $scope, $sce ) {
+controller('mainController',['$scope','$rootScope','Auth','$location',"$sce",
+		function($scope,$rootScope, Auth, $location, $scope, $sce) {
 		var vm = this;
-
-		vm.loggedIn = Auth.isLoggedIn();
+		vm.message = "HEY THERE";
+		vm.loggedIn = false;
+		/*$scope.$on("loggedIn", function(){
+			console.log("Got event");
+		})*/
+		if(vm.loggedIn){
+			vm.user = Auth.getUser();
+		}
+		 /*vm.user = Auth.getUser(function(data){
+				vm.user = data;
+				/*console.log(vm.user);
+				});		
+		 console.log(vm.user);*/
+		 /*vm.$watch("vm.loggedIn", function(newValue, oldValue) {
+			  console.log(newValue);
+			  console.log(oldValue);
+			});*/
 
 		$rootScope.$on('$routeChangeStart', function () {
 			vm.loggedIn = Auth.isLoggedIn();
@@ -36,8 +51,8 @@ controller('signupCtrl', function(User,$scope)	{
 				});
 
 	}}).
-controller('loginCtrl',['$scope','Auth','$location',
-	function($scope,Auth,$location){
+controller('loginCtrl',['$scope','Auth','$location','$route',
+	function($scope,Auth,$location,$route){
 			var vm = this;
 			vm.message;
 			vm.loginData = {};
@@ -48,28 +63,33 @@ controller('loginCtrl',['$scope','Auth','$location',
 			Auth.login(vm.loginData.email, vm.loginData.password)
 				.success(function (data) {
 					vm.processing = false;
-					vm.loginData = {};
-				//	$scope.$hide();
-					Auth.getUser(function(data){
-		 			$scope.user = data;
-				});
+
 				if (data.success) {
-						$location.path('/home');
+					//if a user successfully logs in, redirect to users page
+					$location.path('/home');
+					$route.reload();
+					vm.loginData = null;
+					//this.user = 'name:unchanged';
+					Auth.getUser()
+						.then(function(data) {
+							$scope.name = data.name;
+						 })
 					}
 				else vm.error = data.message;
 			});
 		};
+
 	}]).
 
 /* NAV */
 controller('navCtrl', ['$scope','$popover','$aside','Auth',
 	function($scope,$popover,$aside,Auth){
 		var vm = this;
-		vm.loggedIn = Auth.isLoggedIn();
 		vm.isActive = function (viewLocation) { 
 	        return viewLocation === $location.path();
 	    };
 		 var loginAside = $aside({
+		 									scope:$scope,
 											title:"Login",
 											show: false, 
 										 	controller:'loginCtrl',
