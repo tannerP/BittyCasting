@@ -1,77 +1,159 @@
-<div class="col-md-8 col-md-offset-2" style="margin-top:10%;">
-<h1>Apply</h1>
-<style>.button {
-    text-align: center;
-    -moz-appearance: button;
-    /* Firefox */
-    -webkit-appearance: button;
-    /* Safari and Chrome */
-    padding: 10px;
-    margin: 10px;
-    width: 200px;
-    height: 50px;
-}
-.drop-box {
-    background: #F8F8F8;
-    border: 5px dashed #DDD;
-    width: 400px;
-    height: 200px;
-    text-align: center;
-    padding-top: 25px;
-    margin: 10px;
-}
-.dragover {
-    border: 5px dashed blue;
-} </style>
-<div>
-<!-- 
-    <div class="row marketing">
-        <div class="form-group">
-            <label for="photos">Input Picture</label>
-            <input id="photos" type="file" class="btn" ng-file-select="onFileSelect($files)" multiple>
-            <p class="help-block">Select pictures</p>
-            <div ng-repeat="file in files" class="container">
-                <div class="progress">
-                    <div class="progress-bar" role="progressbar" style="width:{{file.progress}}%;">
-                        {{file.name}} : {{file.progress}}
+
+<div class="applyPage">
+    <div class="applyPageLeftBg"></div>
+    <div class="container">
+        
+        <img class="applyLogo" ng-src="assets/imgs/logo_BittyCasting_B.svg">
+
+        <section class="col-md-6">
+            <div class="applyPageLeft">
+                <div class='pageTitle'>About this role</div>
+                <div class='pageSubtitle'>Role name</div>
+                <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+                <div class="div-table">
+                    <div class="div-table-row">
+                        <div class="div-table-col">Location</div>
+                        <div class="div-table-col">1410 NE Campus Parkway, Seattle, WA 98195</div>
+                    </div>
+                    <div class="div-table-row">
+                        <div class="div-table-col">Time</div>
+                        <div class="div-table-col">2:00 PM, Sat, Feb 27 2016</div>
+                    </div>
+                    <div class="div-table-row">
+                        <div class="div-table-col">Pay term</div>
+                        <div class="div-table-col">$500</div>
+                    </div>
+                    <div class="div-table-row">
+                        <div class="div-table-col">Gender</div>
+                        <div class="div-table-col">Male</div>
+                    </div>
+                    <div class="div-table-row">
+                        <div class="div-table-col">Age</div>
+                        <div class="div-table-col">25-34</div>
                     </div>
                 </div>
-                <button class="btn btn-ttc" type="button" ng-click="abort($index)" ng-show="file.progress != 100">Abort</button>
-            </div>
-        </div>
-    </div>
-<div > -->
-    <form>
-        <input class="custom-form" type="text" ng-model="fName" placeholder="First name">
-        <input class="custom-form" type="text" ng-model="lName" placeholder="Last name">
-        <input class="custom-form" type="email" ng-model="email" placeholder="Email">
-        <input class="custom-form" type="tel" ng-model="phone" placeholder="Phone">
-        Upload on form submit or button click
-        <form ng-app="fileUpload" ng-controller="MyCtrl" name="form">
-          Single Image with validations
-          <div class="button" ngf-select ng-model="page.file" name="file" ngf-pattern="'image/*'"
-            ngf-accept="'image/*'" ngf-max-size="10MB" ngf-min-height="100" 
-            ngf-resize="{width: 400, height: 400}">Select</div>
-          Multiple files
-          <div class="button" ngf-select ng-model="page.files" ngf-multiple="true">Select</div>
-          Drop files: <div ngf-drop ng-model="page.file" class="drop-box">Drop</div>
-          <button type="submit" ng-click="page.submit()">submit</button>
-           <button type="submit" ng-click="page.test()">test</button>
-        </form>
-        <input class="custom-form" type="text" ng-model="page.youtube_link" placeholder="Youtube">
-        <input class="custom-form" type="text" ng-model="page.vimeo_link" placeholder="Vimeo">
-        <input class="custom-form" type="text" ng-model="page.other_link" placeholder="Other">
-    </form>
-    Image thumbnail: <img ngf-thumbnail="page.file || '/thumb.jpg'">
-    Audio preview: <audio controls ngf-src="page.file"></audio>
-    Video preview: <video controls ngf-src="page.file"></video>
 
-    Files:
-    <ul>
-        <li ng-repeat="f in files" style="font:smaller">{{f.name}} {{f.$error}} {{f.$errorParam}}</li>
-    </ul>
-    Upload Log:
-    <pre>{{log}}</pre>
+                <div class='pageTitle'>About this project</div>
+                <div class='pageSubtitle'>Sed ut perspiciatis unde omnis iste natus error sit voluptatem totam rem aperiam</div>
+                <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+                <img ng-src="assets/imgs/img_projectCover01.png" class="img-responsive">
+            </div>
+        </section>
+
+        <section class="col-md-6">
+            <div class="applyPageRight">
+                 <div class='pageTitle'>Apply</div>
+
+                    <!-- 
+                        <div class="row marketing">
+                            <div class="form-group">
+                                <label for="photos">Input Picture</label>
+                                <input id="photos" type="file" class="btn" ng-file-select="onFileSelect($files)" multiple>
+                                <p class="help-block">Select pictures</p>
+                                <div ng-repeat="file in files" class="container">
+                                    <div class="progress">
+                                        <div class="progress-bar" role="progressbar" style="width:{{file.progress}}%;">
+                                            {{file.name}} : {{file.progress}}
+                                        </div>
+                                    </div>
+                                    <button class="btn btn-ttc" type="button" ng-click="abort($index)" ng-show="file.progress != 100">Abort</button>
+                                </div>
+                            </div>
+                        </div>
+                    <div > -->
+
+                        <form>
+                            <div class = "form-group">
+                                <label>First name</label>
+                                <input type = "text" class = "custom-form" ng-model="fName">
+                            </div>
+                            <div class = "form-group">
+                                <label>Last name</label>
+                                <input type = "text" class = "custom-form" ng-model="lName">
+                            </div>
+                            <div class = "form-group">
+                                <label>E-mail</label>
+                                <input type = "email" class = "custom-form" ng-model="email">
+                            </div>   
+                            <div class = "form-group">
+                                <label>Phone number</label>
+                                <input type = "tel" class = "custom-form" ng-model="phone">
+                            </div>                      
+                            <div class = "form-group">
+                                <label>Youtube</label>
+                                <input type = "text" class = "custom-form" ng-model="page.youtube_link">
+                            </div>                       
+                            <div class = "form-group">
+                                <label>Vimeo</label>
+                                <input type = "text" class = "custom-form" ng-model="page.vimeo_link">
+                            </div>   
+                            <div class = "form-group">
+                                <label>Personal site</label>
+                                <input type = "text" class = "custom-form" ng-model="page.other_link">
+                            </div>   
+
+                            <div class = "form-group">
+                                <label>Headshots</label>
+                                <div class="drop-box" ngf-drop ng-model="page.file"><p>Drag and drop &nbsp OR &nbsp <a ngf-select ng-model="page.file" name="file" ngf-pattern="'image/*'" ngf-accept="'image/*'" ngf-max-size="10MB" ngf-min-height="100" ngf-resize="{width: 400, height: 400}">upload from computer</a></p></div>
+                                <img ngf-thumbnail="page.file || '/thumb.jpg'">
+                            </div>
+
+                            <div class = "form-group">
+                                <label>Audition video</label>
+                                <div class="drop-box" ngf-drop ng-model="page.file"><p>Drag and drop &nbsp OR &nbsp <a ngf-select ng-model="page.file" name="file">upload from computer</a></p></div>
+                                <video controls ngf-src="page.file"></video>
+                            </div>
+
+                            <div class = "form-group">
+                                <label>Audition audio</label>
+                                <div class="drop-box" ngf-drop ng-model="page.file"><p>Drag and drop &nbsp OR &nbsp <a ngf-select ng-model="page.file" name="file">upload from computer</a></p></div>
+                                <audio controls ngf-src="page.file"></audio>
+                            </div>
+
+                            <button type="submit" class="custom-btn-primary-large" ng-click="page.submit()">Submit</button>
+                            
+                            <div class="poweredBy">
+                                <p>Powered by<a href="/" target="_blank"><img class="powerLogo" ng-src="assets/imgs/logo_BittyCasting.svg"></a></p>
+                            </div>    
+
+
+
+    <!--
+                            <form ng-app="fileUpload" ng-controller="MyCtrl" name="form">
+
+                              Single Image with validations
+                              <div class="button" ngf-select ng-model="page.file" name="file" ngf-pattern="'image/*'"
+                                ngf-accept="'image/*'" ngf-max-size="10MB" ngf-min-height="100" 
+                                ngf-resize="{width: 400, height: 400}">Select</div>
+                              Multiple files
+                              <div class="button" ngf-select ng-model="page.files" ngf-multiple="true">Select</div>
+                              Drop files: <div ngf-drop ng-model="page.file" class="drop-box">Drop</div>
+                              <button type="submit" ng-click="page.submit()">submit</button>
+                               <button type="submit" ng-click="page.test()">test</button>
+                            </form>
+                            <input class="custom-form" type="text" ng-model="page.youtube_link" placeholder="Youtube">
+                            <input class="custom-form" type="text" ng-model="page.vimeo_link" placeholder="Vimeo">
+                            <input class="custom-form" type="text" ng-model="page.other_link" placeholder="Other">
+                        </form>
+
+
+                Image thumbnail: <img ngf-thumbnail="page.file || '/thumb.jpg'">
+                Audio preview: <audio controls ngf-src="page.file"></audio>
+                Video preview: <video controls ngf-src="page.file"></video>
+
+                Files:
+                <ul>
+                    <li ng-repeat="f in files" style="font:smaller">{{f.name}} {{f.$error}} {{f.$errorParam}}</li>
+                </ul>
+                Upload Log:
+                <pre>{{log}}</pre>
+    -->
+
+
+
+
+                </div>  
+            </section>    
         </div>
-    </div>
+    
 </div>
