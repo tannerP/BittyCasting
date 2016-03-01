@@ -115,9 +115,6 @@ header {
   left: 0;
   z-index: 10; }
 
-nav {
-  padding: 0 5px; }
-
 .logoNav {
   fill: #242424;
   height: 55px;
@@ -309,11 +306,11 @@ section.contact {
 /***************************
            Homepage
 ***************************/
-div.mainContent {
-  margin: 0 -10px; }
+.cardContainer {
+  margin: 0 -15px 0 -15px; }
 
 div.pageHeader {
-  margin: 56px 5px 28px 5px;
+  margin: 56px 0 28px 0;
   position: relative; }
   div.pageHeader .utlBar {
     float: right; }
@@ -482,19 +479,21 @@ ul.projects li {
             -o-transition: all 0.2s ease;
             transition: all 0.2s ease; }
 
-.custom-table .table-project-overview thead tr th:nth-child(1) {
-  width: 20%;
-  cursor: pointer; }
-.custom-table .table-project-overview thead tr th:nth-child(2) {
-  width: 60%; }
-.custom-table .table-project-overview thead tr th:nth-child(3) {
-  width: 20%; }
-.custom-table .table-project-overview .table-utl ul li:nth-child(1) {
-  background: url("/assets/imgs/ic_trash.svg") no-repeat center center white;
-  background-size: 16px 16px; }
-.custom-table .table-project-overview .table-utl ul li:nth-child(2) {
-  background: url("/assets/imgs/ic_duplicate.svg") no-repeat center center white;
-  background-size: 16px 16px; }
+.custom-table .table-project-overview {
+  padding: 0 15px; }
+  .custom-table .table-project-overview thead tr th:nth-child(1) {
+    width: 20%;
+    cursor: pointer; }
+  .custom-table .table-project-overview thead tr th:nth-child(2) {
+    width: 60%; }
+  .custom-table .table-project-overview thead tr th:nth-child(3) {
+    width: 20%; }
+  .custom-table .table-project-overview .table-utl ul li:nth-child(1) {
+    background: url("/assets/imgs/ic_trash.svg") no-repeat center center white;
+    background-size: 16px 16px; }
+  .custom-table .table-project-overview .table-utl ul li:nth-child(2) {
+    background: url("/assets/imgs/ic_duplicate.svg") no-repeat center center white;
+    background-size: 16px 16px; }
 .custom-table .table-project-details thead tr th:nth-child(1) {
   width: 20%;
   cursor: pointer; }

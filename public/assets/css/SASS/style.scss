@@ -163,7 +163,7 @@ header {
 }
 
 nav {
-    padding: 0 5px;
+    
 }
 
 .logoNav {
@@ -395,12 +395,12 @@ section {
            Homepage
 ***************************/
 
-div.mainContent{
-    margin: 0 -10px;
+.cardContainer{
+    margin: 0 -15px 0 -15px;
 }
 
 div.pageHeader{
-    margin: 56px 5px 28px 5px;
+    margin: 56px 0 28px 0;
     position: relative;
     
     .utlBar {
@@ -586,7 +586,8 @@ ul.projects li {
 
 .custom-table {
     
-    .table-project-overview {
+    .table-project-overview {       
+        padding: 0 15px;
         
         thead tr th:nth-child(1) {width: 20%; cursor: pointer;} //name
         thead tr th:nth-child(2) {width: 60%;} //details
