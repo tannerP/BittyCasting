@@ -1,8 +1,10 @@
 angular.module('projectCtrl',['userService', 'mgcrea.ngStrap']).
-controller('rolePageController', function(Role, Project ,$location, $routeParams, $scope, $aside, $route){
+controller('rolePageController', 
+	function(Role, Project ,$location, $routeParams, $scope, $aside, $route){
 
 }).
-controller('prjDetailController', function(Role, Project ,$location, $routeParams, $scope, $aside, $route){
+controller('prjDetailController', 
+	function(Role, Project ,$location, $routeParams, $scope, $aside, $route){
 		var vm = this;
 		vm.processing = true;
 		vm.Roles  = [];
@@ -257,7 +259,8 @@ controller('deleteRoleController', function(Role, $location, $routeParams, $rout
 		}}).
 
 	//page: project.html
-	controller('editProjectController', function(Project,$location,$routeParams)	{
+	controller('editProjectController',
+	 function($scope,Project,$location,$routeParams)	{
 		var vm = this;
 		vm.NEW = false;
 		vm.processing = true;
@@ -267,7 +270,7 @@ controller('deleteRoleController', function(Role, $location, $routeParams, $rout
 		.success(function(data){
 			vm.processing = false;
 			vm.projectData = data.project
-			console.log(JSON.stringify(data));
+				
 		})
 		.error(function(){
 			console.log(error);
@@ -278,9 +281,10 @@ controller('deleteRoleController', function(Role, $location, $routeParams, $rout
 			vm.message;	
 		Project.update(vm.proj_id, vm.projectData)
 			.success(function(data){
+				$location.path('/home');
 				vm.processing  = false;
 				vm.projectData = null;
-				$location.path('/home');
+				$scope.$hide();
 
 			 })
 			.error(function(err){
@@ -289,23 +293,38 @@ controller('deleteRoleController', function(Role, $location, $routeParams, $rout
 
 	}}).
 	//Change to style.flexDirection = 'column-reverse' 
-	controller('deleteProjectController',function(Project,$location,$scope,$route)	{
+	controller('deleteProjectController', ['$scope','$alert','Project','$location','$route',
+		function($scope,$alert,Project,$location,$route)	{
 		var vm = this; 
 		vm.process = true;
 		vm.existing = true;
-		vm.rolls = [];
+
+		var errAlert = $alert({title: 'Whoops', content:'Please check all', animation:'am-fade-and-slide-top',duration:'5',
+           placement: 'top-right', type: 'danger', show: false, type:'success'});
+
+		vm.eval = function(){
+			console.log("eval");
+			if( vm.input1 == true ){
+			vm.agreed = true;
+			}
+		}
 		
 		vm.delete = function(projID) {
-			console.log('Deleting prodID:' + projID);
-			Project.delete(projID)
-			.success(function(){
-				$route.reload();
-				vm.processing = false;
-				vm.projectData = null;
-				$scope.$hide();	
+			if(vm.input1 && vm.input2 && vm.input3){
+				Project.delete(projID)
+				.success(function(){
+					$route.reload();
+					vm.processing = false;
+					vm.projectData = null;
+					$scope.$hide();	
 
-			})
-			.error(function(err){
-				console.log(err);}
-				)
-	}})
+				})
+				.error(function(err){
+					console.log(err);}
+					)
+			}
+			else{
+					errAlert.toggle();
+			}
+		}
+	}]);
