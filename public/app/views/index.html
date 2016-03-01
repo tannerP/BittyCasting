@@ -118,20 +118,12 @@
             });
         }); 
     </script>   
- 
-<!--Date picker--> 
-    <script type="text/javascript">
-            $(function () {
-                $('#datetimepicker4').datetimepicker();
-            });
-    </script>
-    
 </head>
 <body ng-app="userApp" ng-controller="mainController as main">
     <div nav ng-controller="navCtrl as nav"></div>
     <main>
        <div ng-view></div>
     </main>
-   <footer></footer>
+   <footer ng-show="!main.loggedIn"></footer>
 </body>
 </html>

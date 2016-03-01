@@ -19,7 +19,6 @@
     
 </div>
 
-
 <div class="mainContent">
     
   	<ul class='projects' ng-show="home.gridView">
@@ -61,27 +60,26 @@
           <tbody> 
           <!-- LOOP OVER THE USERS -->
               <tr ng-repeat = "project in home.projects">
-                  <a href="/projectDetails/{{project._id}}"
-                  <td>
+                  <td ng-click="home.getProject(project._id)">
                     {{ project.name }}</td>
-                  <td>{{ project.details }}</td>
+                  <td ng-click="home.getProject(project._id)">
+                  {{ project.description }}</td>
+                  </div>
                   <td>
-                      {{ project.date }}
+                      {{ project.updated_date }}
                       <div class="table-utl">
                           <ul>
-                              <li ng-controller = "deleteProjectController as button"class="trashcan" ng-click='button.delete(project._id)'></li>
+                              <li class="trashcan" ng-click='home.deleteBtn(project)'></li>
                               <li class="duplicate"></li>
                           </ul>
                       </div>                     
                      </td>
-                   
-                  
-                      
+
               </tr>
+              <tr ng-repeat-end></tr>
           </tbody>   
             
           </table>
-    </div>
 
     
 </div>

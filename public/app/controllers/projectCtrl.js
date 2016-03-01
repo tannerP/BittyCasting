@@ -176,7 +176,7 @@ controller('deleteRoleController', function(Role, $location, $routeParams, $rout
 	controller('home_ProjectsController',
 	 function(Project, $location, $aside,$scope)	{
 		var vm = this;
-				vm.getDtlBtn = function(prjID){
+				vm.getProject = function(prjID){
 					$location.path('/projectDetails/'+prjID);
 				}
 		vm.gridView = true;
@@ -221,14 +221,9 @@ controller('deleteRoleController', function(Role, $location, $routeParams, $rout
 	    //TODO should be a directive			
 		vm.getProject = function(projectID)	{
 			vm.projectID;
-			Project.get(projectID)
-			.success(function(data){
-					$location.path("/castings")
-				})
-			.error(function(err){
-				vm.message = err;
-			});
-	}}).
+			$location.path("/projectDetails/"+projectID);
+			}
+		}).
 //project.html
 	controller('newProjectController', function(Project, $location,$route, $scope)	{
 		var vm = this;
