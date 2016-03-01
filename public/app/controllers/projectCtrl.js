@@ -99,13 +99,15 @@ controller('prjDetailController', function(Role, Project ,$location, $routeParam
  controller('shareRoleController', ['$scope', function ($scope) {
         var url_base = "bittycasting.com/Apply"
         $scope.textToCopy = url_base;
+        $scope.message = '';      
 
         $scope.success = function () {
-            console.log('Copied!');
+            $scope.message = 'Copied!'; 
         };
 
         $scope.fail = function (err) {
             console.error('Error!', err);
+            $scope.message = 'Failed to copy.'; 
         }
       }
     ]).
