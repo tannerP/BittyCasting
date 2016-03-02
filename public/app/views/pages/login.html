@@ -4,7 +4,7 @@
     
       <div ng-if="!login.processing" type="button" class="custom-close" ng-click="$hide()"></div>
     
-      <form ng-required='true' ng-submit ="login.doLogin()">
+      <form ng-submit="login.doLogin()">
           
           <!-- ERROR ICON -->
           <div class = "custom-alert" ng-if="login.error">

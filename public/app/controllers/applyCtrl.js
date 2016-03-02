@@ -1,8 +1,18 @@
 angular.module('applyCtrl',['userService', 'mgcrea.ngStrap']).
-	controller('applyController',['$scope','Upload','$http','$rootScope', 
-        function ($scope, Upload,$http, $rootScope) {
+	controller('applyController',['$scope','$rootScope','Upload','$http', 'Project', 'Role','$routeParams',
+        function ($scope, $rootScope, Upload, $http, Project, Role, $routeParams) {
     //upload later on form submit or something similar
     var vm = this;
+    vm.roleData={};
+    Role.get($routeParams.role_id).then(function(data){
+        vm.roleData = data.data.data;
+        Project.get(vm.roleData.projectID).then(function(data){
+            console.log(data);
+            vm.prjData = data.data.data;
+        })
+    })
+    
+    console.log(vm.prjData);
     vm.test = function(){
         $http.get('/api/s3Policy?mimeType='+ 'jpeg').
         success(function(response) {

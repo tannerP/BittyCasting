@@ -36,8 +36,13 @@ angular.module('userCtrl',['userService'])
 							vm.userData = data;
 							vm.userData.password = "";
 						 })
-
-
+			vm.saveUser = function(){
+				User.update(vm.userData._id,vm.userData)
+				.success(function(data) {
+					vm.processing = false;
+					vm.message = data.message;
+				});
+			}
 		})
 
 	.controller('userEditController_admin', 

@@ -22,7 +22,7 @@ angular.module('app.routes', ['ngRoute'])
             controllerAs: 'user'
         })
 /*--------------- Applicants ---------------*/
-        .when('/Apply',  {
+        .when('/Apply/:role_id',  {
             templateUrl: 'app/views/pages/Apply.html',
             controller: 'applyController',
             controllerAs: 'page'

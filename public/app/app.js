@@ -16,12 +16,12 @@ angular.module('userApp', [
 	'userCtrl',
 	'footer'
 	])
-	.run(function ($rootScope, $location, $http) {
-
+	/*.run(function ($rootScope, $location, $http) {
     $http.get('/config').success(function(config) {
-        $rootScope.config = config;
+    	console.log(config.awsConfig.bucket);
+        $rootScope.config = config.awsConfig;
       });
-  })
+  })*/
  .config(function($asideProvider) {
   angular.extend($asideProvider.defaults, {
     animation: 'am-slide-right',

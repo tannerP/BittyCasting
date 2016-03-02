@@ -9,10 +9,7 @@ controller('prjDetailController',
 		vm.processing = true;
 		vm.Roles  = [];
 		vm.project = {};
-		var gridView = true;
-		vm.toggleView = function(){
-			vm.gridView = !vm.gridView;
-		}
+
 		var newRoleAside = $aside({
 											scope:$scope,
 											show: false,
@@ -51,6 +48,7 @@ controller('prjDetailController',
 		}
 		vm.shareBtn = function(data){
 			vm.roleData = data;
+			$scope.roleData = data;
 			shareRoleAside.$promise.then(shareRoleAside.toggle);	
 		}
 		vm.createBtn = function(){
@@ -99,11 +97,14 @@ controller('prjDetailController',
 			});
 	}}).
  controller('shareRoleController', ['$scope', '$alert',
-  function ($scope,$alert) {
-        var url_base = "bittycasting.com/Apply"
-        $scope.textToCopy = url_base;
+ 	'$routeParams',
+  function ($scope,$alert,$routeParams) {
+  	console.log($routeParams);
+        var url_base = "bittycasting.com/Apply/";
+        var url_base_dev = "localhost:8080/Apply/" +$scope.roleData._id; 
+        $scope.textToCopy = url_base_dev;
         $scope.toggle = false;
-      
+
          var successAlert = $alert({title: 'Copied!',animation:'am-fade-and-slide-top',duration:'10',
            placement: 'top-right', type: 'success', show: false, type:'success'}),
          errAlert = $alert({title: 'Link:',

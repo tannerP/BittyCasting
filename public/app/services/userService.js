@@ -16,7 +16,7 @@ angular.module('userService', [])
 		return $http.put('/api/role/' + projectID, roleData);
 	}
 	roleFactory.get = function(id)	{
-		return $http.get('/api/role/' + projectID);
+		return $http.get('/api/role/' + id);
 	}
 	roleFactory.delete  = function(id)	{
 		return $http.delete('/api/role/' + id);
@@ -35,6 +35,7 @@ angular.module('userService', [])
 		return $http.get('api/project');
 	}
 	projectFactory.get  = function(proj_id)	{
+		console.log(proj_id);
 		return $http.get('api/project/' + proj_id);
 	}
 	projectFactory.delete  = function(proj_id)	{
