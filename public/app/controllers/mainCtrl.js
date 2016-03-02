@@ -1,15 +1,17 @@
 angular.module('mainCtrl', ['authService','mgcrea.ngStrap']).
 controller('mainController',['$scope','$rootScope','Auth','$location',"$sce",
-		function($scope,$rootScope, Auth, $location, $scope, $sce) {
+		function($scope,$rootScope, Auth, $location, $sce) {
 		var vm = this;
 		vm.message = "HEY THERE";
 		vm.loggedIn = false;
-		/*$scope.$on("loggedIn", function(){
-			console.log("Got event");
-		})*/
-		if(vm.loggedIn){
-			vm.user = Auth.getUser();
-		}
+		vm.userInitial;
+		$scope.$on("LoggedIn", function(){
+				Auth.getUser()
+						.then(function(data) {
+							vm.usrInitial = data.name.first[0] + data.name.last[0];
+						 })
+		})
+
 		 /*vm.user = Auth.getUser(function(data){
 				vm.user = data;
 				/*console.log(vm.user);
@@ -22,6 +24,12 @@ controller('mainController',['$scope','$rootScope','Auth','$location',"$sce",
 
 		$rootScope.$on('$routeChangeStart', function () {
 			vm.loggedIn = Auth.isLoggedIn();
+			if(vm.loggedIn && !vm.name){
+				Auth.getUser()
+						.then(function(data) {
+							vm.usrInitial = data.name.first[0] + data.name.last[0];
+						 })
+		}
 		});
 		
 		vm.doLogout = function () {
@@ -66,13 +74,16 @@ controller('loginCtrl',['$scope','Auth','$location','$route',
 
 				if (data.success) {
 					//if a user successfully logs in, redirect to users page
+					vm.loginData = {};
+					$scope.$hide();
 					$location.path('/home');
 					$route.reload();
-					vm.loginData = null;
+
 					//this.user = 'name:unchanged';
 					Auth.getUser()
 						.then(function(data) {
 							$scope.name = data.name;
+							$scope.$emit("LoggedIn", data.name);
 						 })
 					}
 				else vm.error = data.message;
