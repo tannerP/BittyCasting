@@ -269,7 +269,7 @@ controller('deleteRoleController',['$scope',
 
 	//page: project.html
 	controller('editProjectController',
-	 function($scope,Project,$location,$routeParams)	{
+	 function($scope,Project,$location,$routeParams,$route)	{
 		var vm = this;
 		vm.NEW = false;
 		vm.processing = true;
@@ -290,7 +290,7 @@ controller('deleteRoleController',['$scope',
 			vm.message;	
 		Project.update(vm.proj_id, vm.projectData)
 			.success(function(data){
-				$location.path('/home');
+				$route.reload();
 				vm.processing  = false;
 				vm.projectData = null;
 				$scope.$hide();

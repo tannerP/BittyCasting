@@ -1,14 +1,29 @@
 angular.module('mainCtrl', ['authService','mgcrea.ngStrap']).
-controller('mainController',['$scope','Auth','$location',"$sce",
-		function($rootScope, Auth, $location, $scope, $sce ) {
+controller('mainController',['$scope','$rootScope','Auth','$location',"$sce",
+		function($scope,$rootScope, Auth, $location, $sce) {
 		var vm = this;
-
-		vm.loggedIn = Auth.isLoggedIn();
-
+		vm.message = "HEY THERE";
+		vm.loggedIn = false;
+		vm.userInitial;
+		$scope.$on("LoggedIn", function(){
+				Auth.getUser()
+						.then(function(data) {
+							vm.usrInitial = data.name.first[0] + data.name.last[0];
+						 })
+		})
 		$rootScope.$on('$routeChangeStart', function () {
 			vm.loggedIn = Auth.isLoggedIn();
+			if(vm.loggedIn && !vm.name){
+				Auth.getUser()
+						.then(function(data) {
+							vm.usrInitial = data.name.first[0] + data.name.last[0];
+						 })
+		}
 		});
-		
+		vm.getUsrBtn = function(){
+			$location.path('/profile');
+		}
+
 		vm.doLogout = function () {
 			Auth.logout();
 			vm.user = {};
@@ -36,8 +51,8 @@ controller('signupCtrl', function(User,$scope)	{
 				});
 
 	}}).
-controller('loginCtrl',['$scope','Auth','$location',
-	function($scope,Auth,$location){
+controller('loginCtrl',['$scope','Auth','$location','$route',
+	function($scope,Auth,$location,$route){
 			var vm = this;
 			vm.message;
 			vm.loginData = {};
@@ -48,28 +63,36 @@ controller('loginCtrl',['$scope','Auth','$location',
 			Auth.login(vm.loginData.email, vm.loginData.password)
 				.success(function (data) {
 					vm.processing = false;
-					vm.loginData = {};
-				//	$scope.$hide();
-					Auth.getUser(function(data){
-		 			$scope.user = data;
-				});
+
 				if (data.success) {
-						$location.path('/home');
+					//if a user successfully logs in, redirect to users page
+					vm.loginData = {};
+					$scope.$hide();
+					$location.path('/home');
+					$route.reload();
+
+					//this.user = 'name:unchanged';
+					Auth.getUser()
+						.then(function(data) {
+							$scope.name = data.name;
+							$scope.$emit("LoggedIn", data.name);
+						 })
 					}
 				else vm.error = data.message;
 			});
 		};
+
 	}]).
 
 /* NAV */
 controller('navCtrl', ['$scope','$popover','$aside','Auth',
 	function($scope,$popover,$aside,Auth){
 		var vm = this;
-		vm.loggedIn = Auth.isLoggedIn();
 		vm.isActive = function (viewLocation) { 
 	        return viewLocation === $location.path();
 	    };
 		 var loginAside = $aside({
+		 									scope:$scope,
 											title:"Login",
 											show: false, 
 										 	controller:'loginCtrl',

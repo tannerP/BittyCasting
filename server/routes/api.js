@@ -9,12 +9,9 @@ var config = require('../../config');
 var S3Config = require('../aws.json');
 var aws = require('../lib/aws');
 
-
-
 var superSecret = config.secret;
 
 module.exports = function(app,express){
-
 var apiRouter = express.Router();
 
 //===============================  Token Middleware  =========================

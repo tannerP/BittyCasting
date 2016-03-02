@@ -39,16 +39,15 @@ angular.module('authService', [])
 			return false;
 	};
 	//	get the logged in user
-	authFactory.getUser = function(callback) {
+	authFactory.getUser = function() {
 		return $http.get('/api/me').then(function(data){
-			console.log(data.data);
-			callback(data.data)
+			return data.data;
 			}, function err(response){
 			return response;
 		}
-)}
-	return authFactory;
+		)};
 
+	return authFactory;
 })
 
 //=============================================================================
