@@ -29,6 +29,8 @@ $font-size-page-subheading: 18px;
 $font-size-side-heading: 20px;
 $font-size-side-formtitle: 10px;
 
+$font-size-large: 16px;
+$font-size-medium: 14px;
 $font-size-regular: 12px;
 $font-size-small: 10px;
 
@@ -306,6 +308,8 @@ section {
         text-align: center;
         color: $color-grey-darkest;
         margin: 60px 0 15px 0;
+        letter-spacing: 4;
+        text-transform: uppercase;
     }
     
     .sectionTitleDivider {
@@ -381,14 +385,84 @@ section {
         background-color: white;}
     
     &.pricing {
-        height: 600px;}
+        padding-bottom: 60px;
+        .targetCustomer {   
+            
+            div {
+                text-align: center;
+                padding: 0 30px;
+                img {
+                    width: 80px;
+                    height: 80px;
+                    padding-bottom: 20px;
+                    margin: 0 auto;}
+            }
+        }
+         
+        .pricingPlanWrapper {
+            padding-top: 30px;
+            margin: 0 0 60px 0;
+            .pricingfor {
+                text-align: center;
+                padding: 0 30px 30px 30px;
+                img {
+                    width: 80px;
+                    height: 80px;
+                    padding-bottom: 20px;
+                    margin: 0 auto;}
+            }
+            .pricingPlan {
+                background-color: white;
+                @include box-shadow(0px, 2px, 2px, 0px, rgba(0,0,0,0.1));
+                padding: 15px;
+                margin-bottom: 60px;
+                height: 300px;
+                .pricingCost {
+                    background-color: $color-blue;
+                    text-align: center;
+                    font-size: 20px;
+                    color: white;
+                    margin: -30px 15px 15px 15px;
+                    padding: 15px;
+                }
+                .freePlan {
+                    text-align: left;}
+                .paidPlan {
+                    text-align: center;
+                    img {width: 32px; height: 32px; margin: 20px 0;}
+                }
+            }
+        }     
+    }
     
-    &.stories {
-        height: 600px;
-        background-color: white;}
+    &.about {
+        padding-bottom: 60px;
+//        background: url("/assets/imgs/img_aboutBg.png") no-repeat center bottom white;
+        background-color: white;
+        p:last-child {
+            margin-top: 30px;
+        }
+    }
     
     &.contact {
-        height: 600px;}
+        text-align: center;
+        .contactInfo {
+            display: inline-block;
+            text-align: left;
+
+            img {
+                width: 32px;
+                height: 32px;
+                vertical-align: middle;
+                margin-right: 10px;
+                display: inline;
+            }
+            p {
+                font-size: $font-size-medium;
+                
+            }
+        }
+    }
 }
 
 /***************************
