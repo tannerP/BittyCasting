@@ -28,7 +28,20 @@ angular.module('userCtrl',['userService'])
 						});
 	}})
 
-	.controller('userEditController', function($routeParams,User)	{
+	.controller('profileCtrl', 
+		function($routeParams,User,Auth)	{	
+			var vm = this;
+			Auth.getUser()
+						.then(function(data) {
+							vm.userData = data;
+							vm.userData.password = "";
+						 })
+
+
+		})
+
+	.controller('userEditController_admin', 
+		function($routeParams,User)	{
 		var vm = this;
 		vm.type = 'edit';
 		User.get($routeParams.user_id)

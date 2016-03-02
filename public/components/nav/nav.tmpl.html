@@ -50,9 +50,10 @@
                    <div class="custom-action-nav">        
                     <ul>
                       <li ng-if = "!main.loggedIn"><a href="#" ng-click='nav.signin()'>Sign in</a></li>
-                        <li ng-if="!main.loggedIn" ng-click='nav.signup()'><a href="#" class="custom-btn-primary-small">Sign up</a></li>
+                      <li ng-if="!main.loggedIn" ng-click='nav.signup()'><a href="#" class="custom-btn-primary-small">Sign up</a></li>
+                      
                       <li ng-if="main.loggedIn" ng-click="main.doLogout()" ><a href = "#">Logout</a></li>
-                      <li ng-if="main.loggedIn" ng-click="main.getUserBtn()" ><a href ="#">{{main.usrInitial}}</a></li>
+                      <li ng-if="main.loggedIn" ng-click="main.getUsrBtn()" ><a href ="#">{{main.usrInitial}}</a></li>
                     </ul>
                     </div>               
                        

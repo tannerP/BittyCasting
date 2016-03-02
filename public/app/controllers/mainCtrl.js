@@ -11,17 +11,6 @@ controller('mainController',['$scope','$rootScope','Auth','$location',"$sce",
 							vm.usrInitial = data.name.first[0] + data.name.last[0];
 						 })
 		})
-
-		 /*vm.user = Auth.getUser(function(data){
-				vm.user = data;
-				/*console.log(vm.user);
-				});		
-		 console.log(vm.user);*/
-		 /*vm.$watch("vm.loggedIn", function(newValue, oldValue) {
-			  console.log(newValue);
-			  console.log(oldValue);
-			});*/
-
 		$rootScope.$on('$routeChangeStart', function () {
 			vm.loggedIn = Auth.isLoggedIn();
 			if(vm.loggedIn && !vm.name){
@@ -31,7 +20,10 @@ controller('mainController',['$scope','$rootScope','Auth','$location',"$sce",
 						 })
 		}
 		});
-		
+		vm.getUsrBtn = function(){
+			$location.path('/profile');
+		}
+
 		vm.doLogout = function () {
 			Auth.logout();
 			vm.user = {};

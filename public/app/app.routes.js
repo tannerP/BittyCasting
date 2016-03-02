@@ -16,9 +16,13 @@ angular.module('app.routes', ['ngRoute'])
             controller: 'home_ProjectsController',
             controllerAs: 'home'
         })
-
+        .when('/profile',  {
+            templateUrl: 'app/views/pages/profile.html',
+            controller: 'profileCtrl',
+            controllerAs: 'user'
+        })
 /*--------------- Applicants ---------------*/
-.when('/Apply',  {
+        .when('/Apply',  {
             templateUrl: 'app/views/pages/Apply.html',
             controller: 'applyController',
             controllerAs: 'page'
