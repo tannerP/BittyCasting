@@ -7,8 +7,8 @@ angular.module('applyCtrl',['userService', 'mgcrea.ngStrap']).
     Role.get($routeParams.role_id).then(function(data){
         vm.roleData = data.data.data;
         Project.get(vm.roleData.projectID).then(function(data){
-            console.log(data);
-            vm.prjData = data.data.data;
+            console.log(data.data.project);
+            vm.prjData = data.data.project;
         })
     })
     
