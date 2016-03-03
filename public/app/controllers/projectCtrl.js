@@ -205,13 +205,18 @@ controller('deleteRoleController',['$scope',
 	controller('home_ProjectsController',
 	 function(Project, $location, $aside,$scope)	{
 		var vm = this;
+				vm.gridActive = true;
 				vm.getProject = function(prjID){
 					$location.path('/projectDetails/'+prjID);
 				}
-		vm.gridView = true;
-		vm.toggleView = function(){
-				vm.gridView = !vm.gridView;
+		vm.setGridVw = function(){
+				vm.listActive = false;
+				vm.gridActive = true;
 			}
+		vm.setListVw = function(){
+				vm.gridActive = false;
+				vm.listActive = true;
+			}	
 		var newPrjAside = $aside({
 											scope:$scope,
 											show: false,
