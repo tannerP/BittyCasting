@@ -65,9 +65,10 @@
             <tbody> 
             <!-- LOOP OVER THE USERS -->
                 <tr ng-repeat = "role in prjDetailCtr.Roles">
-                    <td><a href='/rolepage/{{role._id}}'>{{ role.name }}</a></td>
-                    <td>{{role.num_applicants}}</td>
-                    <td>{{ role.description }}</td>
+                    <td ng-click='prjDetailCtr.getRoleBtn(role._id)'>{{ role.name }}/td>
+                    <td ng-click='prjDetailCtr.getRoleBtn(role._id)'>
+                    {{role.num_applicants}}</td>
+                    <td ng-click='prjDetailCtr.getRoleBtn(role._id)'>{{ role.description }}</td>
                     <td><span class="tblDate"> {{role.end_date}}, {{role.end_time }}</span>
                         
                         <div class="table-utl">

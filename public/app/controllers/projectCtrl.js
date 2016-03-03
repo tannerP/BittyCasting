@@ -26,9 +26,7 @@ controller('prjDetailController',
 	function(Role, Project ,$location, $routeParams,
 	 $scope, $aside, $route){
 		var vm = this;
-		vm.processing = true;
-		vm.Roles  = [];
-		vm.project = {};
+		vm.processing = true; vm.Roles=[]; vm.project = {};
 
 		var newRoleAside = $aside({
 											scope:$scope,
@@ -82,6 +80,9 @@ controller('prjDetailController',
 		}
 		vm.back = function(){
 			window.history.back();		}
+
+		vm.getRoleBtn = function(id){
+			$location.path("/rolepage/" + id)		}
 
 		//remove, get data from parent scope
 		Project.get($routeParams.project_id)
