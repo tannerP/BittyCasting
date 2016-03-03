@@ -4,11 +4,10 @@ controller('mainController',['$scope','$rootScope','Auth','$location',"$sce",
 		var vm = this;
 		vm.message = "HEY THERE";
 		vm.loggedIn = false;
-		vm.userInitial;
 		$scope.$on("LoggedIn", function(){
 				Auth.getUser()
 						.then(function(data) {
-							vm.usrInitial = data.name.first[0] + data.name.last[0];
+							vm.usrInitial = (data.name.first[0] + data.name.last[0]).toUpperCase();
 						 })
 		})
 		$rootScope.$on('$routeChangeStart', function () {
@@ -32,7 +31,7 @@ controller('mainController',['$scope','$rootScope','Auth','$location',"$sce",
 			$location.path('/');
 		}
 	}]).
-controller('signupCtrl', function(User,$scope)	{
+controller('signupCtrl', function(User,$scope,$location)	{
 		var vm = this;
 		vm.userData={};
 		vm.type = 'create';
@@ -50,6 +49,10 @@ controller('signupCtrl', function(User,$scope)	{
 					//clear the form
 					vm.userData = {};
 					vm.message = data.message;
+					setTimeout(function(){
+						$location.path('/login')
+					}, 2000)
+					
 				});
 
 	}}).
@@ -69,10 +72,12 @@ controller('loginCtrl',['$scope','Auth','$location','$route',
 				if (data.success) {
 					//if a user successfully logs in, redirect to users page
 					vm.loginData = {};
-					$scope.$hide();
-					$location.path('/home');
-					$route.reload();
-
+					
+					//conditional for /login vs aside
+					if($location.path() =='/login') $location.path('/home');
+					else{
+						$scope.$hide();
+						$location.path('/home');}
 					//this.user = 'name:unchanged';
 					Auth.getUser()
 						.then(function(data) {
@@ -90,6 +95,7 @@ controller('loginCtrl',['$scope','Auth','$location','$route',
 controller('navCtrl', ['$scope','$popover','$aside','Auth',
 	function($scope,$popover,$aside,Auth){
 		var vm = this;
+
 		vm.isActive = function (viewLocation) { 
 	        return viewLocation === $location.path();
 	    };
@@ -99,14 +105,14 @@ controller('navCtrl', ['$scope','$popover','$aside','Auth',
 											show: false, 
 										 	controller:'loginCtrl',
 										 	controllerAs:'login',						
-										  templateUrl:'/app/views/pages/login.html'		
+										  templateUrl:'/app/views/pages/login.tmpl.html'		
 										});
 		 	var	signupAside =  $aside({
 											title:"Sign up",
 											show: false, 
 										 	controller:'signupCtrl',	
 										 	controllerAs:'user',					
-										  templateUrl:'/app/views/pages/signup.html'										 				
+										  templateUrl:'/app/views/pages/signup.tmpl.html'										 				
 										}) 	
           
 		vm.signin = function(){

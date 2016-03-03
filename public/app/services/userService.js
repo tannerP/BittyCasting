@@ -3,10 +3,16 @@
 angular.module('userService', [])
 .factory('Applicant', function($http){
 	var appFactory={};	
+	
 	appFactory.apply = function(data)	{
 		console.log(data);
-		return $http.post('/applicant', data);
-	}	 
+		return $http.post('/applicant', data);	}	 
+	
+	appFactory.getAll = function(roleID)	{
+		console.log(roleID);
+		return $http.get('/api/applicants/'+ roleID)
+		} 
+
 	return appFactory;
 })
 .factory('Role', function($http){

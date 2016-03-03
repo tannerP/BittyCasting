@@ -58,15 +58,12 @@ app.get('/s3Policy',aws.getS3Policy);
 app.use(express.static(__dirname + '/public'));
 /* S3 Config*/
   app.get('/config', function(req,res){
-    return res.json(200, {
-        awsConfig: {
+    return res.json({success:true, awsConfig: {
             bucket: S3Config.bucket
         }
         })
   });
   app.get('/role/:role_id', function(req,res){
-    console.log(req);
-    console.log("HEYYY");
     Role.findOne({_id:req.params.role_id}, function(err, data){
       if(!err){
       res.json({success:true, data:data});
@@ -82,28 +79,40 @@ app.use(express.static(__dirname + '/public'));
         
         console.log(req.body);
         
-        applicant.projectID = req.params.projectID;
-        applicant.name = req.body.name;
-        role.description = req.body.description;
-        role.end_date = req.body.end_date;
-        role.end_time = req.body.end_time;
+        applicant.projectID = req.body.projectID;
+        applicant.roleID = req.body.roleID;
+        if(req.body.name.first){
+        applicant.name.first = req.body.name.first;
+        }
+        if(req.body.name.last){
+        applicant.name.last = req.body.name.last;
+        }
+        if(req.body.email){
+        applicant.email = req.body.email;   
+        }
+        if(req.body.phone){
+        applicant.phone = req.body.phone;
+        }
         
-        role.location = req.body.location;
-        role.payterms =  req.body.payterms;
-        role.age =  req.body.age;
-        role.sex =  req.body.sex;
-        role.requirements = req.body.requirements;
+        
 
+        /*if(req.body.youtube) applicant.youtube = req.body.phone;
+             */
         
-        console.log(role);
-        
-        role.save(function(err){
+        applicant.save(function(err){
           if(err){
             return  res.json({success:false,
                 error: err})  }
-          res.json({message:'Role created.'});
-          })
-        })
+          else{
+          Applicant.findOne({'email':req.body.email}, function(err, data){
+          if(err) return  res.json({success:false,
+                error: err}) 
+            return res.json({success:true, appID:data._id});
+        });
+        }
+      })
+    })
+
 
    /* Project.findById(req.params.project_id, function(err,proj){
       res.json({success:true, project:proj});

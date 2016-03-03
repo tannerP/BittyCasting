@@ -7,28 +7,30 @@ angular.module('applyCtrl',['userService', 'mgcrea.ngStrap']).
     //upload later on form submit or something similar
     var vm = this;
     vm.roleData={};
+    vm.appData ={};
     Role.get($routeParams.role_id).then(function(data){
         vm.roleData = data.data.data;
-
         if(vm.roleData){
         Project.get(vm.roleData.projectID).then(function(data){
             vm.prjData = data.data.project;
+            vm.appData.projectID = data.data.project._id;
+            vm.appData.roleID = vm.roleData._id
         })}
     });
     vm.submit = function() {
-      /*  console.log("Myctrl submit button pressed");
-      if (vm.file) {
-        vm.uploadFiles(vm.file)*/
-      Applicant.apply(vm.appData);
+      Applicant.apply(vm.appData).then(function(resp){
+        vm.applicantID = resp.data.appID;
+        if(vm.roleData) uploadFiles(vm.file);  
+      })
         /*$http.get('/applicant', vm.appData);*/
-
     };
-    vm.uploadFiles = function (data) {
+    var uploadFiles = function (data) {
             console.log($rootScope.awsConfig)
             vm.file = data;
             vm.upload = [];
             for (var i = 0; i < 1; i++) {
-                var file = vm.file
+                /*var  i = 1; //temp fix for loop above*/
+                var file = vm.file;
                 file.progress = parseInt(0);
                 (function (file, i) {
                     $http.get('/s3Policy?mimeType='+ file.type)
@@ -44,7 +46,9 @@ angular.module('applyCtrl',['userService', 'mgcrea.ngStrap']).
                                 return data;
                             },
                             data: {
-                                'key' : 's3UploadExample/'+ Math.round(Math.random()*10000) + '$$' + file.name,
+                                /*'key' : toString(vm.roleData._id) + '/' 
+                                + toString(vm.applicantId) + file.name'hey',*/
+                                'key' : 'upload/'+ Math.round(Math.random()*10000) + '$$' + file.name,
                                 'acl' : 'public-read',
                                 'Content-Type' : file.type,
                                 'AWSAccessKeyId': s3Params.AWSAccessKeyId,

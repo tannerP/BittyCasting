@@ -2,6 +2,7 @@
 'use strict';
 
 var User = require('../models/user');
+var Applicant = require('../models/applicant');
 var Role = require('../models/role');
 var Project = require('../models/project');
 var jwt = require('jsonwebtoken');
@@ -43,8 +44,23 @@ apiRouter.all('*',function(req,res,next){
 		});
 	}
 });
-  
-//===============================  Get All Roles ============================
+
+//==============================  Applicant =========================
+	apiRouter.route('/applicants/:roleID')
+		.get(function(req, res){
+			Applicant.find({ 'roleID': req.params.roleID},function(err,roles){
+			if(err){ 
+				res.send(err);
+				console.log(err); 
+			}
+			else{
+			console.log('Applicants:' + roles);
+			res.json({'success':true ,'data':roles});
+		}
+	})
+		})
+	
+//===============================  Roles ============================
 apiRouter.route('/roles/:projectID')
 	.get(function(req, res) {
 		console.log('/roles/:prjID');

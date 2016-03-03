@@ -1,10 +1,21 @@
 angular.module('projectCtrl',['userService', 'mgcrea.ngStrap']).
 controller('rolePageController', 
-	function(Role, Project ,$location, $routeParams, $scope, $aside, $route){
-
+	function(Applicant ,$location, $routeParams,
+	 $scope, $aside, $routeParams){
+	 var vm = this;
+		console.log($routeParams)
+		Applicant.getAll($routeParams.role_id)
+		.success(function(data){
+			vm.processing = false;
+			vm.applicants = data.data;
+		})
+		.error(function(error){
+			console.log(error);
+		})
 }).
 controller('prjDetailController', 
-	function(Role, Project ,$location, $routeParams, $scope, $aside, $route){
+	function(Role, Project ,$location, $routeParams,
+	 $scope, $aside, $route){
 		var vm = this;
 		vm.processing = true;
 		vm.Roles  = [];
@@ -76,8 +87,6 @@ controller('prjDetailController',
 		.success(function(data){
 			vm.processing = false;
 			vm.Roles = data.data;
-			var temp =  JSON.stringify(data.data);
-			
 		})
 		.error(function(error){
 			console.log(error);
