@@ -335,6 +335,9 @@ section.pricing {
         padding: 15px; }
       section.pricing .pricingPlanWrapper .pricingPlan .freePlan {
         text-align: left; }
+        section.pricing .pricingPlanWrapper .pricingPlan .freePlan .pricingCost {
+          padding-top: 30px;
+          height: 86px; }
       section.pricing .pricingPlanWrapper .pricingPlan .paidPlan {
         text-align: center; }
         section.pricing .pricingPlanWrapper .pricingPlan .paidPlan img {

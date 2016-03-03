@@ -424,7 +424,11 @@ section {
                     padding: 15px;
                 }
                 .freePlan {
-                    text-align: left;}
+                    text-align: left;
+                    .pricingCost {
+                        padding-top: 30px;
+                        height: 86px;}
+                }
                 .paidPlan {
                     text-align: center;
                     img {width: 32px; height: 32px; margin: 20px 0;}
