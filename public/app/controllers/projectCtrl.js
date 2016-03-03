@@ -1,9 +1,18 @@
 angular.module('projectCtrl',['userService', 'mgcrea.ngStrap']).
 controller('rolePageController', 
-	function(Applicant ,$location, $routeParams,
+	function(Applicant, Role, $location, $routeParams,
 	 $scope, $aside, $routeParams){
 	 var vm = this;
 		console.log($routeParams)
+		Role.get($routeParams.role_id)
+		.success(function(data){
+			vm.processing = false;
+			vm.role = data.data;
+		})
+		.error(function(error){
+			console.log(error);
+		})
+
 		Applicant.getAll($routeParams.role_id)
 		.success(function(data){
 			vm.processing = false;
