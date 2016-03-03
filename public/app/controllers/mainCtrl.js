@@ -2,8 +2,15 @@ angular.module('mainCtrl', ['authService','mgcrea.ngStrap']).
 controller('mainController',['$scope','$rootScope','Auth','$location',"$sce",
 		function($scope,$rootScope, Auth, $location, $sce) {
 		var vm = this;
-		vm.message = "HEY THERE";
 		vm.loggedIn = false;
+		vm.footer = true;
+			vm.header = true;
+
+		if($location.path().match('/Apply/')){
+			vm.footer = false;
+			vm.header = false;
+		}
+		
 		$scope.$on("LoggedIn", function(){
 				Auth.getUser()
 						.then(function(data) {

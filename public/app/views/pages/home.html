@@ -17,7 +17,7 @@
 </div>
 
 <div class="cardContainer">
-  	<ul class='projects' ng-show="home.gridActive">
+  	<ul class='projects' ng-show="home.gridView">
         
   		<li class="col-lg-3 col-md-4 col-sm-6" ng-repeat-start="project in home.projects">
             <a href="/projectDetails/{{project._id}}" class="md-headline">
@@ -46,7 +46,7 @@
 </div>
 
     <div class="custom-table table-responsive">
-        <table class = "table table-hover table-project-overview" ng-show="home.listActive">
+        <table class = "table table-hover table-project-overview" ng-show="home.listView">
           <thead>
               <tr>
                   <th>Name</th>

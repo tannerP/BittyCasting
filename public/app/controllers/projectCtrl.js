@@ -210,8 +210,8 @@ controller('deleteRoleController',['$scope',
 					$location.path('/projectDetails/'+prjID);
 				}
 		vm.setGridVw = function(){
-				vm.listActive = false;
-				vm.gridActive = true;
+				vm.listView = false;
+				vm.gridView = true;
 			}
 		vm.setListVw = function(){
 				vm.gridActive = false;

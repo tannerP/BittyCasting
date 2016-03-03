@@ -146,10 +146,10 @@
     </script>   
 </head>
 <body ng-app="userApp" ng-controller="mainController as main">
-    <div nav ng-controller="navCtrl as nav"></div>
+    <div nav ng-if="main.nav" ng-controller="navCtrl as nav"></div>
     <main>
        <div ng-view></div>
     </main>
-   <footer ng-show="!main.loggedIn"></footer>
+   <footer ng-if="!main.loggedIn && main.footer"></footer>
 </body>
 </html>
