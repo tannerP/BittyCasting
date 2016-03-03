@@ -205,7 +205,7 @@ controller('deleteRoleController',['$scope',
 	controller('home_ProjectsController',
 	 function(Project, $location, $aside,$scope)	{
 		var vm = this;
-				vm.gridActive = true;
+				vm.gridView = true;
 				vm.getProject = function(prjID){
 					$location.path('/projectDetails/'+prjID);
 				}
@@ -214,8 +214,8 @@ controller('deleteRoleController',['$scope',
 				vm.gridView = true;
 			}
 		vm.setListVw = function(){
-				vm.gridActive = false;
-				vm.listActive = true;
+				vm.gridView = false;
+				vm.listView = true;
 			}	
 		var newPrjAside = $aside({
 											scope:$scope,
@@ -254,7 +254,7 @@ controller('deleteRoleController',['$scope',
 			})
 	    //TODO should be a directive			
 		vm.getProject = function(projectID)	{
-			vm.projectID;
+			vm.projectID; 	
 			$location.path("/projectDetails/"+projectID);
 			}
 		}).

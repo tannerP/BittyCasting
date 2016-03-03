@@ -64,7 +64,7 @@
                   {{ project.description }}</td>
                   </div>
                   <td>
-                      {{ project.updated_date }}
+                      {{ project.updated_date | date:'MM/dd/yyyy @ h:mma' }}
 
                       <div class="table-utl">
                           <ul>

@@ -4,11 +4,11 @@ controller('mainController',['$scope','$rootScope','Auth','$location',"$sce",
 		var vm = this;
 		vm.loggedIn = false;
 		vm.footer = true;
-			vm.header = true;
+		vm.nav = true;
 
 		if($location.path().match('/Apply/')){
 			vm.footer = false;
-			vm.header = false;
+			vm.nav = false;
 		}
 		
 		$scope.$on("LoggedIn", function(){
@@ -35,6 +35,7 @@ controller('mainController',['$scope','$rootScope','Auth','$location',"$sce",
 		vm.doLogout = function () {
 			Auth.logout();
 			vm.user = {};
+			vm.usrInitial = '';
 			$location.path('/');
 		}
 	}]).
