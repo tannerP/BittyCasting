@@ -136,7 +136,6 @@ apiRouter.route('/role/:role_id')
 				/*role.user = req.decoded.name;
 				role.userID = req.decoded.id;
 				role.projectID = req.params.role_id;*/
-				console.log(res.body);
 				role.name = req.body.name;
 				role.details = req.body.details;
 				role.resume = req.body.resume;
@@ -169,8 +168,6 @@ apiRouter.route('/project')
 		/*console.log(req.userData);*/
 		var project = new Project();
 		project.user_id = req.decoded.id;
-		console.log("req.decoded: " + req.decoded.id);
-		console.log("req.body: " + req.body);
 		project.name = req.body.name;
 		project.description = req.body.description
 		
@@ -185,15 +182,12 @@ apiRouter.route('/project')
 	})
 	//get all projects belong to user
 	.get(function(req, res) {
-		console.log("getting all roles belong to project.");
-		console.log(req.decoded.id);
 		Project.find({ user_id: req.decoded.id},function(err,projects){
 		if(err){ 
 			res.send(err);
 			console.log(err); 
 		}
 		else{
-		console.log("Found Projects: " + projects)
 		res.json({'success':true ,'data':projects});
 	}})
 	})
@@ -276,7 +270,6 @@ apiRouter.route('/users/:user_id')
 		})
 
 	.delete(function(req, res){
-		console.log(req.decoded.id);
 		User.remove({
 				_id:req.decoded.id
 			}, function(err,user){
@@ -289,20 +282,17 @@ apiRouter.route('/users/:user_id')
 apiRouter.route('/admin')
 	// get all the users (accessed at GET http://localhost::8080/api/users)
 	.get(function(req, res) {
-		console.log("received /users request")
 			User.find(function(err,users){
 				if(err){ 
 					res.send(err);
 					console.log(err); }
 				//res: return list of users
 				else{
-				console.log("Found Users" + users)
 				res.json(users); }});
 		});
 apiRouter.route('/users')
 	// get all the users (accessed at GET http://localhost::8080/api/users)
 	.get(function(req, res) {
-		console.log("received /users request")
 			User.find(function(err,users){
 				if(err){ 
 					res.send(err);
