@@ -1,12 +1,18 @@
 //gets data using $http
 //Data gets passed into controller directory to get displayed
 angular.module('userService', [])
-
+.factory('Applicant', function($http){
+	var appFactory={};	
+	appFactory.apply = function(data)	{
+		console.log(data);
+		return $http.post('/applicant', data);
+	}	 
+	return appFactory;
+})
 .factory('Role', function($http){
 	var roleFactory={};
 	
 	roleFactory.getAll = function(projectID)	{
-		console.log(projectID);
 		return $http.get('/api/roles/'+ projectID);
 	}	 
 	roleFactory.create = function(projectID, roleData){
@@ -15,8 +21,8 @@ angular.module('userService', [])
 	roleFactory.update = function(id,roleData){
 		return $http.put('/api/role/' + projectID, roleData);
 	}
-	roleFactory.get = function(id)	{
-		return $http.get('/api/role/' + id);
+	roleFactory.get = function(role_id)	{
+		return $http.get('/role/' + role_id);
 	}
 	roleFactory.delete  = function(id)	{
 		return $http.delete('/api/role/' + id);
@@ -35,8 +41,7 @@ angular.module('userService', [])
 		return $http.get('api/project');
 	}
 	projectFactory.get  = function(proj_id)	{
-		console.log(proj_id);
-		return $http.get('api/project/' + proj_id);
+		return $http.get('/project/' + proj_id);
 	}
 	projectFactory.delete  = function(proj_id)	{
 		return $http.delete('api/project/' + proj_id);

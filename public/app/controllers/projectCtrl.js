@@ -67,7 +67,6 @@ controller('prjDetailController',
 		Project.get($routeParams.project_id)
 			.success(function(data){
 					vm.project = data.project;
-					console.log(vm.project);
 				})
 			.error(function(err){
 				vm.message = err;
@@ -99,7 +98,6 @@ controller('prjDetailController',
  controller('shareRoleController', ['$scope', '$alert',
  	'$routeParams',
   function ($scope,$alert,$routeParams) {
-  	console.log($routeParams);
         var url_base = "bittycasting.com/Apply/";
         var url_base_dev = "localhost:8080/Apply/" +$scope.roleData._id; 
         $scope.textToCopy = url_base_dev;

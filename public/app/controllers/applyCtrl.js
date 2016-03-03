@@ -1,64 +1,41 @@
 angular.module('applyCtrl',['userService', 'mgcrea.ngStrap']).
-	controller('applyController',['$scope','$rootScope','Upload','$http', 'Project', 'Role','$routeParams',
-        function ($scope, $rootScope, Upload, $http, Project, Role, $routeParams) {
+	controller('applyController',['$scope','$rootScope',
+        'Upload','$http', 'Project', 'Role','Applicant',
+        '$routeParams',
+        function ($scope, $rootScope, Upload, $http, Project, 
+            Role, Applicant, $routeParams) {
     //upload later on form submit or something similar
     var vm = this;
     vm.roleData={};
     Role.get($routeParams.role_id).then(function(data){
         vm.roleData = data.data.data;
-        Project.get(vm.roleData.projectID).then(function(data){
-            console.log(data.data.project);
-            vm.prjData = data.data.project;
-        })
-    })
-    
-    console.log(vm.prjData);
-    vm.test = function(){
-        $http.get('/api/s3Policy?mimeType='+ 'jpeg').
-        success(function(response) {
-                console.log(response);
-    })
-    };
-    vm.submit = function() {
-        console.log("Myctrl submit button pressed");
-      if (vm.file) {
-        vm.uploadFiles(vm.file)
-      }
-    };
-    // upload on file select or drop
-    vm.upload = function (file) {
-        console.log("uploading stuff");
-        Upload.upload({
-            url: 'upload/url',
-            data: {file: file, 'username': vm.username}
-        }).then(function (resp) {
-            console.log('Success ' + resp.config.data.file.name + 'uploaded. Response: ' + resp.data);
-        }, function (resp) {
-            console.log('Error status: ' + resp.status);
-        }, function (evt) {
-            var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
-            console.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
-        });
-    };
-    vm.imageUploads = [];
-        vm.abort = function(index) {
-            vm.upload[index].abort();
-            vm.upload[index] = null;
-        };
 
+        if(vm.roleData){
+        Project.get(vm.roleData.projectID).then(function(data){
+            vm.prjData = data.data.project;
+        })}
+    });
+    vm.submit = function() {
+      /*  console.log("Myctrl submit button pressed");
+      if (vm.file) {
+        vm.uploadFiles(vm.file)*/
+      Applicant.apply(vm.appData);
+        /*$http.get('/applicant', vm.appData);*/
+
+    };
     vm.uploadFiles = function (data) {
+            console.log($rootScope.awsConfig)
             vm.file = data;
-            console.log(vm.files);
             vm.upload = [];
             for (var i = 0; i < 1; i++) {
                 var file = vm.file
                 file.progress = parseInt(0);
                 (function (file, i) {
-                    $http.get('/api/s3Policy?mimeType='+ file.type)
+                    $http.get('/s3Policy?mimeType='+ file.type)
                     .success(function(response) {
                         var s3Params = response;
-                        vm.upload[i] = Upload.upload({
-                            url: 'https://' + $rootScope.config.awsConfig.bucket + '.s3.amazonaws.com/',
+                        vm.upload[i] = Upload.upload({ 
+                            url: 'https://' + $rootScope.awsConfig.bucket + '.s3.amazonaws.com/',
                             method: 'POST',
                             transformRequest: function (data, headersGetter) {
                                 //Headers change here
@@ -81,6 +58,7 @@ angular.module('applyCtrl',['userService', 'mgcrea.ngStrap']).
                         .then(function(response) {
                             file.progress = parseInt(100);
                             if (response.status === 201) {
+                                console.log(response.data);
                                 var data = xml2json.parser(response.data),
                                 parsedData;
                                 parsedData = {

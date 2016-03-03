@@ -16,7 +16,9 @@ controller('mainController',['$scope','$rootScope','Auth','$location',"$sce",
 			if(vm.loggedIn && !vm.name){
 				Auth.getUser()
 						.then(function(data) {
+							if(data !=null){
 							vm.usrInitial = data.name.first[0] + data.name.last[0];
+							}
 						 })
 		}
 		});

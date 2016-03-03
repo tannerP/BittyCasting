@@ -3,14 +3,19 @@
 //==================================--BASE SETUP--============================
 //LOAD PACKAGES-------------------------------
 //var jwt = require('jsonwebtoken');//TOKEN Package
+var Role = require('./server/models/role');
+var Project = require('./server/models/project');
+var Applicant = require('./server/models/applicant');
 var express = require ('express'); //EXPRESS Package
 var app = express();	//define our app using express
 var bodyParser = require('body-parser');// get body-parser
 var morgan = require('morgan'); //use to see requests
 var mongoose = require('mongoose') //for working with mongoDB
-var config = require('./config'); //get config file
 var path = require('path');
 var User = require(__dirname + '/server//models/user.js');
+var config = require('./config'); //get config file
+var S3Config = require('./aws.json');
+var aws = require('./server/lib/aws');
 /*var io = require('socket.io')(app);*/
 
 
@@ -49,24 +54,67 @@ db.once('open', function (callback) {
 var apiRoutes = require(__dirname + '/server/routes/api')(app,express);
 var publicRoutes = require(__dirname + '/server/routes/authentication')(app,express);
 
-app.use('/bower_components',
-	express.static(__dirname + '/public/bower_components'));
+app.get('/s3Policy',aws.getS3Policy);
 app.use(express.static(__dirname + '/public'));
-app.use(express.static(__dirname + '/public'));
-
 /* S3 Config*/
-  app.get('/api/config', function(){
+  app.get('/config', function(req,res){
     return res.json(200, {
         awsConfig: {
             bucket: S3Config.bucket
         }
         })
   });
+  app.get('/role/:role_id', function(req,res){
+    console.log(req);
+    console.log("HEYYY");
+    Role.findOne({_id:req.params.role_id}, function(err, data){
+      if(!err){
+      res.json({success:true, data:data});
+    }})
+  });
+  app.get('/project/:project_id', function(req,res){
+    Project.findById(req.params.project_id, function(err,proj){
+      res.json({success:true, project:proj});
+    })
+  });
+   app.post('/applicant',function(req,res){
+        var applicant = new Applicant();
+        
+        console.log(req.body);
+        
+        applicant.projectID = req.params.projectID;
+        applicant.name = req.body.name;
+        role.description = req.body.description;
+        role.end_date = req.body.end_date;
+        role.end_time = req.body.end_time;
+        
+        role.location = req.body.location;
+        role.payterms =  req.body.payterms;
+        role.age =  req.body.age;
+        role.sex =  req.body.sex;
+        role.requirements = req.body.requirements;
+
+        
+        console.log(role);
+        
+        role.save(function(err){
+          if(err){
+            return  res.json({success:false,
+                error: err})  }
+          res.json({message:'Role created.'});
+          })
+        })
+
+   /* Project.findById(req.params.project_id, function(err,proj){
+      res.json({success:true, project:proj});
+    })
+    */
 app.use('/',publicRoutes); 
 app.use('/api',apiRoutes); 
 app.all('*', function(req, res, next){
-	res.sendFile(path.join(__dirname+"/public/app/views/index.html"))
+  res.sendFile(path.join(__dirname+"/public/app/views/index.html"))
 })
+
 app.listen(config.port);
 
 /*io.on('connection', function(socket){
