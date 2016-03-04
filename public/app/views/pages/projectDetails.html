@@ -21,35 +21,8 @@
         <div class="clear"></div>
 
         <button class='custom-btn-secondary-small' ng-click="prjDetailCtr.createBtn()">+ Create role</button>
-        
-<!--
-        <div class="utlBar">           
-            <div class="sort"></div>
-            <div class="gridListToggle">
-                <div ng-click="prjDetailCtr.toggleView()"></div>
-                <div ng-click="prjDetailCtr.toggleView()"></div>   
-            </div>
-        </div>    
--->
-
 </div>
-      
-<!------------------ GRID VIEW ------------------>
-    
-<!--
-    <ul class= 'roles' ng-show='prjDetailCtr.gridView'>
-        <li class="card" ng-repeat-start="role in prjDetailCtr.Roles">
-            <h3> {{role.name}}</h3>
-            <a href='/rolepage/{{role._id}}'> <span>View auditions</span></a>
-            <a class = "btn btn-detault" id="projectEdit" href="/#editRole/{{role._id}}">
-                <span class='glyphicon glyphicon-pencil '></span></a>
-        </li>
-        <span ng-repeat-end></span>
-    </ul>
--->
 
-
-<!------------------ LIST VIEW ------------------>
     
     <div class="custom-table table-responsive">
         <table class = "table table-hover table-project-details" ng-show="!prjDetailCtr.gridView">
@@ -61,7 +34,6 @@
                     <th>Application open until</th>
                 </tr>
             </thead>
-
             <tbody> 
             <!-- LOOP OVER THE USERS -->
                 <tr ng-repeat = "role in prjDetailCtr.Roles">
@@ -76,17 +48,7 @@
                                 <li ng-click="prjDetailCtr.deleteBtn(role)"></li>
                                 <li ng-click = "prjDetailCtr.shareBtn(role)"></li>
                             </ul>
-                        </div>     
- 
-<!--
-                        <div class='tblToolBar'>
-                            
-                            <a href="#" ng-click="prjDetailCtr.preview(role)"
-                                class=" btn btn-info glyphicon glyphicon-eye-open">Preview
-                            </a>
-                        </div>
--->
-                        
+                        </div>                      
                     </td>
                 </tr>
             </tbody>    

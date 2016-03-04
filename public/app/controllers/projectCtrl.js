@@ -81,7 +81,7 @@ controller('prjDetailController',
 			window.history.back();		}
 
 		vm.getRoleBtn = function(id){
-			$location.path("/rolepage/" + id)		}
+			$location.path("/applicants/" + id)		}
 
 		//remove, get data from parent scope
 		Project.get($routeParams.project_id)

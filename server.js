@@ -63,7 +63,7 @@ app.use(express.static(__dirname + '/public'));
         }
         })
   });
-/*  app.get('/role/:role_id', function(req,res){
+  app.get('/role/:role_id', function(req,res){
     Role.findOne({_id:req.params.role_id}, function(err, data){
       if(!err){
       res.json({success:true, data:data});
@@ -73,7 +73,7 @@ app.use(express.static(__dirname + '/public'));
     Project.findById(req.params.project_id, function(err,proj){
       res.json({success:true, project:proj});
     })
-  });*/
+  });
    app.post('/applicant',function(req,res){
         var applicant = new Applicant();
         

@@ -40,6 +40,8 @@ angular.module('app.routes', ['ngRoute'])
         })
         .when('/project/:project_id',  {
             templateUrl: 'app/views/pages/ProjectDetails.html',
+            controller: 'prjDetailController',
+            controllerAs: 'prjDetailCtr'
         })
         /*---------------- Role ----------------*/
         .when('/addRole/:project_id',  {
@@ -53,8 +55,8 @@ angular.module('app.routes', ['ngRoute'])
             controllerAs: 'page'
 
         })
-        .when('/rolepage/:role_id',  {
-            templateUrl: 'app/views/pages/rolePage.html',
+        .when('/applicants/:role_id',  {
+            templateUrl: 'app/views/pages/applicants.html',
             controller: 'rolePageController',
             controllerAs: 'page'
         })
@@ -74,24 +76,7 @@ angular.module('app.routes', ['ngRoute'])
             templateUrl: 'app/views/pages/users/single.html',
             controller: 'userEditController',
             controllerAs: 'user'
-        })
-
- /*---------------- Public ----------------*/  
-        .when('/features', {
-            templateUrl : '/app/views/pages/features.html',
-            controller : 'homeCtrl',
-            controllerAs : 'page'
-        })
-        .when('/pricing', {
-            templateUrl : '/app/views/pages/pricing.html',
-            controller : 'homeCtrl',
-            controllerAs : 'page'
-        })    
-        .when('/resources', {
-            templateUrl : '/app/views/pages/resources.html',
-            controller : 'homeCtrl',
-            controllerAs : 'page'
-        })    
+        })  
         .when('/signup', {
             templateUrl : '/app/views/pages/signup.html',
             controller   : 'signupCtrl',
