@@ -36,7 +36,7 @@
             </thead>
             <tbody> 
             <!-- LOOP OVER THE USERS -->
-                <tr ng-repeat = "role in prjDetailCtr.Roles">
+                <tr class="animate-repeat" ng-repeat = "role in prjDetailCtr.Roles">
                     <td ng-click='prjDetailCtr.getRoleBtn(role._id)'>{{ role.name }}/td>
                     <td ng-click='prjDetailCtr.getRoleBtn(role._id)'>
                     {{role.num_applicants}}</td>

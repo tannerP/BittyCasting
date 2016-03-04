@@ -4,58 +4,72 @@
         <div class="asideTitle" ng-if="!roleAside.edit">Create role</div>
         <div class="asideTitle" ng-if="roleAside.edit">Edit role</div>
         <div class = "form-group">
-            <label>Name</label>
-            <input type = "text" class = "custom-form" ng-model = "roleAside.roleData.name">
+            <label ng-show="roleAside.roleData.name">Name</label>
+            <input type = "text" class = "custom-form" ng-model = "roleAside.roleData.name" placeholder="Name">
+        </div>
+        <div class="form-group">
+            <label ng-show="roleAside.roleData.description">
+            Description (Max 220 characters)</label>
+            <textarea rows="5" cols="40" maxlength="220" placeholder="Description (Max 220 characters)" class = "custom-form-textarea" ng-model = "roleAside.roleData.description"></textarea>
         </div>
         <div class = "form-group">
-            <label>Description (Max 220 characters)</label>
-            <textarea rows="5" cols="40" maxlength="220" class = "custom-form-textarea" ng-model = "roleAside.roleData.description"></textarea>
+            <label ng-show="roleAside.roleData.end_date">Application end date</label>
+            <input placeholder="Application end date" type='text' class="custom-form" ng-model = "roleAside.roleData.end_date"/>
         </div>
         <div class = "form-group">
-            <label>Application end date</label>
-            <input type='text' class="custom-form" ng-model = "roleAside.roleData.end_date"/>
-        </div>
-        <div class = "form-group">
-            <label>Application end time</label>
-            <input type='text' class="custom-form" ng-model = "roleAside.roleData.end_time"/>
+            <label ng-show="roleAside.roleData.end_time">
+                Application end time</label>
+            <input type='text' class="custom-form" ng-model = "roleAside.roleData.end_time" placeholder="Application end time" />
         </div>        
         <div class = "form-group">
-            <label>Location</label>
-            <input type = "text" class = "custom-form" ng-model = "roleAside.roleData.location">
+            <label ng-show="roleAside.roleData.location">Location</label>
+            <input placeholder="Location" type = "text" class = "custom-form" ng-model = "roleAside.roleData.location">
         </div>
         <div class = "form-group">
-            <label>Pay terms</label>
-            <input type = "text" class = "custom-form" ng-model = "roleAside.roleData.payterms">
+            <label ng-show="roleAside.roleData.payterms">Pay terms</label>
+            <input placeholder="Pay terms" type = "text" class = "custom-form" ng-model = "roleAside.roleData.payterms">
         </div>
         <div class = "form-group">
-            <label>Age</label>
-            <input type = "text" class = "custom-form" ng-model = "roleAside.roleData.age">
+            <label ng-show="roleAside.roleData.age">Age</label>
+            <input placeholder="Age" type = "text" class = "custom-form" ng-model = "roleAside.roleData.age">
         </div>
         <div class = "form-group">
-            <label>Gender</label>
-            <input type = "text" class = "custom-form" ng-model = "roleAside.roleData.sex">
+            <label ng-show="roleAside.roleData.sex">Gender</label>
+            <input placeholder="Gender" type = "text" class = "custom-form" ng-model = "roleAside.roleData.sex">
         </div>      
         
         <section class="custom-table">
             <table class = "table table-application-requirements" ng-show="!roleAside.gridView">
                 <thead>
                     <tr>
-                        <th>Type</th>
-                        <th>Format</th>
+                        <th>Requirement</th>
                         <th>Required</th>
                     </tr>
                 </thead>
                 <tbody> 
                     <!-- LOOP OVER THE USERS -->
-                    <tr>
-                        <td>Headshot</td>
-                        <td></td>
-                        <td>                         
-                            <input type="checkbox" class="custom-switch" checked />
+                     <tr ng-show="roleAside.roleData" ng-repeat="reqt in roleAside.roleData.reqts track by $index">
+                        <td ng-show="reqt.value">{{reqt.value}}</td>
+                        <td ng-show="reqt.value">                         
+                            <input type="checkbox" class="custom-switch"
+                            ng-model="reqt.required"/>
                         </td>
+                        <td ng-show="reqt.value"><span class="btn large-btn" ng-click="roleAside.removeReqt(reqt)">Delete</span></td>
                         
                     </tr>
                     <tr>
+                        <td><input ng-model="roleAside.newData.value"
+                        placeholder="New requirement" 
+                        ></td>
+                        <td><input type="checkbox" class="custom-switch"
+                        ng-model="roleAside.newData.required"
+                            ></td>
+                        <td>                         
+                        <button ng-click="roleAside.addReqt(roleAside.newData)">Add</button>
+                        </td>
+                        
+                    </tr>
+               <!--      <tr>
                         <td>Resume</td>
                         <td></td>
                         <td><input type="checkbox" class="custom-switch" checked /></td>
@@ -69,7 +83,7 @@
                         <td>Audition Video</td>
                         <td></td>
                         <td><input type="checkbox" class="custom-switch" checked /></td>
-                    </tr>
+                    </tr> -->
                 </tbody>    
             </table>    
         </section>

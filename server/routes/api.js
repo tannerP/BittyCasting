@@ -96,9 +96,6 @@ apiRouter.route('/createRole/:projectID')
 				role.age =  req.body.age;
 				role.sex =  req.body.sex;
 				role.requirements = req.body.requirements;
-
-				
-			
 				
 				role.save(function(err){
 					if(err){

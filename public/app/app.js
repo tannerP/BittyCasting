@@ -1,5 +1,6 @@
 
 angular.module('userApp', [
+	'xml',
 	'angular-clipboard',
 	'ngFileUpload',
 	'ngSanitize',

@@ -4,6 +4,10 @@ angular.module('userService', [])
 .factory('Applicant', function($http){
 	var appFactory={};	
 	
+	appFactory.update = function(data)	{
+		console.log(data);
+		return $http.put('/applicant', data);	}	 
+
 	appFactory.apply = function(data)	{
 		console.log(data);
 		return $http.post('/applicant', data);	}	 
