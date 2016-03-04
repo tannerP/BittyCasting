@@ -63,13 +63,11 @@ apiRouter.all('*',function(req,res,next){
 //===============================  Roles ============================
 apiRouter.route('/roles/:projectID')
 	.get(function(req, res) {
-		console.log('/roles/:prjID');
-		console.log("Project ID 1"+ req );
 		var output = '';
 		for (var property in req.params) {
   	output += property + ': ' + req.params[property]+'; ';
 }
-	console.log(output);
+
 	/*console.log("Found roles: " + req.params.projectID.toSource());*/
 		Role.find({ 'projectID': req.params.projectID},function(err,roles){
 			if(err){ 
@@ -77,7 +75,6 @@ apiRouter.route('/roles/:projectID')
 				console.log(err); 
 			}
 			else{
-				console.log(roles);
 			res.json({'success':true ,'data':roles});
 		}
 	})
@@ -87,7 +84,6 @@ apiRouter.route('/createRole/:projectID')
 		.post(function(req,res){
 				var role = new Role();
 				role.userID = req.decoded.id;
-				console.log(req.body);
 				
 				role.projectID = req.params.projectID;
 				role.name = req.body.name;
@@ -102,7 +98,7 @@ apiRouter.route('/createRole/:projectID')
 				role.requirements = req.body.requirements;
 
 				
-				console.log(role);
+			
 				
 				role.save(function(err){
 					if(err){
