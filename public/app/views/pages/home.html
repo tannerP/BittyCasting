@@ -58,9 +58,9 @@
           <tbody> 
           <!-- LOOP OVER THE USERS -->
               <tr ng-repeat = "project in home.projects">
-                  <td ng-click="home.getProject(project._id)">
+                  <td ng-click="home.getProjectBtn(project._id)">
                     {{ project.name }}</td>
-                  <td ng-click="home.getProject(project._id)">
+                  <td ng-click="home.getProjectBtn(project._id)">
                   {{ project.description }}</td>
                   </div>
                   <td>

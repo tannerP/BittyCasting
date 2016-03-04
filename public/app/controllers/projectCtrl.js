@@ -264,7 +264,7 @@ controller('deleteRoleController',['$scope',
 				vm.processing = false;
 				vm.projects = data.data;
 			})
-			}
+			
 		}).
 //project.html
 	controller('newProjectController', function(Project, $location,$route, $scope)	{
