@@ -37,7 +37,7 @@
             <label ng-show="roleAside.roleData.sex">Gender</label>
             <input placeholder="Gender" type = "text" class = "custom-form" ng-model = "roleAside.roleData.sex">
         </div>      
-        
+        <div class = "form-group">
         <section class="custom-table">
             <table class = "table table-application-requirements" ng-show="!roleAside.gridView">
                 <thead>
@@ -58,35 +58,20 @@
                         
                     </tr>
                     <tr>
-                        <td><input ng-model="roleAside.newData.value"
+                        <td><input class="custom-form"  ng-model="roleAside.newData.value"
                         placeholder="New requirement" 
                         ></td>
-                        <td><input type="checkbox" class="custom-switch"
+                        <td><input class="custom-form" type="checkbox" class="custom-switch"
                         ng-model="roleAside.newData.required"
                             ></td>
                         <td>                         
                         <button ng-click="roleAside.addReqt(roleAside.newData)">Add</button>
                         </td>
-                        
                     </tr>
-               <!--      <tr>
-                        <td>Resume</td>
-                        <td></td>
-                        <td><input type="checkbox" class="custom-switch" checked /></td>
-                    </tr>
-                    <tr>
-                        <td>Cover letter</td>
-                        <td></td>
-                        <td><input type="checkbox" class="custom-switch" checked /></td>
-                    </tr>
-                    <tr>
-                        <td>Audition Video</td>
-                        <td></td>
-                        <td><input type="checkbox" class="custom-switch" checked /></td>
-                    </tr> -->
                 </tbody>    
             </table>    
         </section>
+        </div>      
         
         <button ng-if="!roleAside.edit" type="submit" class="custom-btn-primary-large" ng-click="roleAside.createRoleBtn()">Create role</button>
         <button ng-if="roleAside.edit" type="submit" class="custom-btn-primary-large" ng-click="roleAside.updateRole()">Save</button>
