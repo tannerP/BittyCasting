@@ -9,7 +9,6 @@ angular.module('userService', [])
 		return $http.post('/applicant', data);	}	 
 	
 	appFactory.getAll = function(roleID)	{
-		console.log(roleID);
 		return $http.get('/api/applicants/'+ roleID)
 		} 
 

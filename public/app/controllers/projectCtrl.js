@@ -3,7 +3,6 @@ controller('rolePageController',
 	function(Applicant, Role, $location, $routeParams,
 	 $scope, $aside, $routeParams){
 	 var vm = this;
-		console.log($routeParams)
 		Role.get($routeParams.role_id)
 		.success(function(data){
 			vm.processing = false;
