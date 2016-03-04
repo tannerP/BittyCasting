@@ -49,18 +49,18 @@
                 <tbody> 
                     <!-- LOOP OVER THE USERS -->
                      <tr ng-show="roleAside.roleData" ng-repeat="reqt in roleAside.roleData.reqts track by $index">
-                        <td ng-show="reqt.value">{{reqt.value}}</td>
+                        <td ng-show="reqt.value"><input class="custom-form"  ng-model="reqt.value"
+                        placeholder="{{reqt.value}}"></td>
                         <td ng-show="reqt.value">                         
                             <input type="checkbox" class="custom-switch"
                             ng-model="reqt.required"/>
                         </td>
                         <td ng-show="reqt.value"><span class="btn large-btn" ng-click="roleAside.removeReqt(reqt)">Delete</span></td>
-                        
                     </tr>
+                    <!-- New Requirement -->
                     <tr>
                         <td><input class="custom-form"  ng-model="roleAside.newData.value"
-                        placeholder="New requirement" 
-                        ></td>
+                        placeholder="New requirement"></td>
                         <td><input class="custom-form" type="checkbox" class="custom-switch"
                         ng-model="roleAside.newData.required"
                             ></td>

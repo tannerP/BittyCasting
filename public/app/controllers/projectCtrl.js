@@ -204,35 +204,18 @@ controller('deleteRoleController',['$scope',
 				console.log("error: input variable");
 				return;
 			}
-			/*vm.roleData.append();*/
 			var item = {value:data.value, required:data.required}
-			console.log("adding new requirement")
 			vm.roleData.reqts.push(item)
 			vm.newData.value = "",vm.newData.required = "True";
 		}
 		vm.removeReqt = function(index){
-			console.log(index);
  			for( i in vm.roleData.reqts){
- 				console.log(vm.roleData.reqts[1]);
  				if(vm.roleData.reqts[i].value === index.value)
  				{
  						delete vm.roleData.reqts[i];
+ 						return;
  				}
  			}
-			/*vm.removeReqt = vm.roleData.reqts.filter(function(obj) {
-   		 return index.indexOf(obj.id) === -1;
-});*/
-
-			/*console.log("data:" + JSON.stringify(data));
-			if(!data){
-				console.log("error: input variable");
-				return;
-			}
-			/*vm.roleData.append();*/
-			/*var item = {value:data.value, required:data.required}
-			console.log("adding new requirement")
-			vm.roleData.reqts.push(item);
-			console.log(vm.roleData);*/
 		}
 
 		vm.createRoleBtn = function(){
