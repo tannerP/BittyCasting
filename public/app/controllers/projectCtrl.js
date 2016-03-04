@@ -255,17 +255,15 @@ controller('deleteRoleController',['$scope',
 			deletePrjAside.$promise.then(deletePrjAside.toggle);	
 			/*deletePrjAside.toggle();*/
 		}
+		vm.getProjectBtn = function(id){
+			$location.path("/project/"+id);
+		}
 
 		Project.getAll()
 			.success(function(data){
 				vm.processing = false;
 				vm.projects = data.data;
 			})
-	    //TODO should be a directive			
-		vm.getProject = function(projectID)	{
-			if(projectID){
-			$location.path("/projectDetails/"+projectID);
-		}
 			}
 		}).
 //project.html
