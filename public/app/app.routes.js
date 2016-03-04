@@ -38,7 +38,7 @@ angular.module('app.routes', ['ngRoute'])
             controller: 'edit_ProjectController',
             controllerAs: 'project'
         })
-        .when('/projectDetails/:project_id',  {
+        .when('/project/:project_id',  {
             templateUrl: 'app/views/pages/ProjectDetails.html',
             controller: 'prjDetailController',
             controllerAs: 'prjDetailCtr'

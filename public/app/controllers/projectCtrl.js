@@ -263,8 +263,9 @@ controller('deleteRoleController',['$scope',
 			})
 	    //TODO should be a directive			
 		vm.getProject = function(projectID)	{
-			vm.projectID; 	
+			if(projectID){
 			$location.path("/projectDetails/"+projectID);
+		}
 			}
 		}).
 //project.html
