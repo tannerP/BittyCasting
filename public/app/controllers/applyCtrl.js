@@ -8,10 +8,10 @@ angular.module('applyCtrl',['userService', 'mgcrea.ngStrap']).
     var vm = this;
     vm.roleData={};
     vm.appData ={};
-    Role.get($routeParams.role_id).then(function(data){
+    Role.appGetRole($routeParams.role_id).then(function(data){
         vm.roleData = data.data.data;
         if(vm.roleData){
-        Project.get(vm.roleData.projectID).then(function(data){
+        Project.appGetPrj(vm.roleData.projectID).then(function(data){
             vm.prjData = data.data.project;
             vm.appData.projectID = data.data.project._id;
             vm.appData.roleID = vm.roleData._id

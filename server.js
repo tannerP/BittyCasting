@@ -63,13 +63,13 @@ app.use(express.static(__dirname + '/public'));
         }
         })
   });
-  app.get('/role/:role_id', function(req,res){
+  app.get('/appRole/:role_id', function(req,res){
     Role.findOne({_id:req.params.role_id}, function(err, data){
       if(!err){
       res.json({success:true, data:data});
     }})
   });
-  app.get('/project/:project_id', function(req,res){
+  app.get('/appPrj/:project_id', function(req,res){
     Project.findById(req.params.project_id, function(err,proj){
       res.json({success:true, project:proj});
     })

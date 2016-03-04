@@ -27,7 +27,10 @@ angular.module('userService', [])
 		return $http.put('/api/role/' + projectID, roleData);
 	}
 	roleFactory.get = function(role_id)	{
-		return $http.get('/role/' + role_id);
+		return $http.get('api/role/' + role_id);
+	}
+	roleFactory.appGetRole = function(role_id)	{
+		return $http.get('appRole/' + role_id);
 	}
 	roleFactory.delete  = function(id)	{
 		return $http.delete('/api/role/' + id);
@@ -47,6 +50,9 @@ angular.module('userService', [])
 	}
 	projectFactory.get  = function(proj_id)	{
 		return $http.get('/project/' + proj_id);
+	}
+	projectFactory.appGetPrj  = function(proj_id)	{
+		return $http.get('/appPrj/' + proj_id);
 	}
 	projectFactory.delete  = function(proj_id)	{
 		return $http.delete('api/project/' + proj_id);
