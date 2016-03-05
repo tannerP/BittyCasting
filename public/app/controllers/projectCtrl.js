@@ -235,7 +235,6 @@ controller('deleteRoleController',['$scope',
 			console.log("project ID :" + $routeParams.project_id);
 			
 			vm.projectID = $routeParams.project_id;
-			console.log("Role Data:" + JSON.stringify(vm.roleData));			
 			Role.create(vm.projectID, vm.roleData)
 				.success(function(){
 					vm.roleData = {};
