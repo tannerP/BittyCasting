@@ -28,7 +28,7 @@ angular.module('userService', [])
 		return $http.post('/api/createRole/'+projectID,roleData);
 	}
 	roleFactory.update = function(id,roleData){
-		return $http.put('/api/role/' + projectID, roleData);
+		return $http.put('/api/role/' + id, roleData);
 	}
 	roleFactory.get = function(role_id)	{
 		return $http.get('api/role/' + role_id);
@@ -53,7 +53,7 @@ angular.module('userService', [])
 		return $http.get('api/project');
 	}
 	projectFactory.get  = function(proj_id)	{
-		return $http.get('/project/' + proj_id);
+		return $http.get('/api/project/' + proj_id);
 	}
 	projectFactory.appGetPrj  = function(proj_id)	{
 		return $http.get('/appPrj/' + proj_id);

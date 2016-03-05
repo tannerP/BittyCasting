@@ -11,7 +11,7 @@ controller('mainController',['$scope','$rootScope','Auth','$location',"$sce",
 			vm.nav = false;
 		}
 		
-		$scope.$on("LoggedIn", function(){
+	$scope.$on("LoggedIn", function(){
 				Auth.getUser()
 						.then(function(data) {
 							vm.usrInitial = (data.name.first[0] + data.name.last[0]).toUpperCase();

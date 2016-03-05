@@ -14,8 +14,8 @@ var RoleSchema = new Schema({
 	age: {type:Number, min:3, max:90},
 	sex: {type:String},
 	requirements:[{
-		key:String,
-		value:String,
+		name:String,
+		required:Boolean,
 	}]
 });
 
