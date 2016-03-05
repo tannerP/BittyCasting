@@ -1,6 +1,7 @@
 //gets data using $http
 //Data gets passed into controller directory to get displayed
 angular.module('userService', [])
+
 .factory('Applicant', function($http){
 	var appFactory={};	
 	
