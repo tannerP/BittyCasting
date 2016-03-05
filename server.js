@@ -32,6 +32,9 @@ app.use(function(req,res,next){
 	res.setHeader('Access-Control-Allow-Orgin','*');
 	res.setHeader('Access-Control-Allow-Method','GET,POST');
 	res.setHeader('Access-Control-Allow-Headers','X-Request-With,content-type,\Authorization');
+  res.setHeader('Last-Modified', (new Date()).toUTCString());
+  res.setHeader('Cache-Control', 'public, max-age=31557600');
+  res.setHeader('Cache-Control', 'private, max-age=31550');
 	next();
 });
 
@@ -54,10 +57,10 @@ db.once('open', function (callback) {
 var apiRoutes = require(__dirname + '/server/routes/api')(app,express);
 var publicRoutes = require(__dirname + '/server/routes/authentication')(app,express);
 
-app.get('/s3Policy',aws.getS3Policy);
 app.use(express.static(__dirname + '/public'));
 /* S3 Config*/
-  app.get('/config', function(req,res){
+app.get('/s3Policy',aws.getS3Policy);
+app.get('/config', function(req,res){
     return res.json({success:true, awsConfig: {
             bucket: S3Config.bucket
         }
