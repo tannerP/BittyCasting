@@ -11,7 +11,6 @@
 
 	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-	
     <!-- Angular -->
 	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css"> 
 	<link rel="stylesheet" href="bower_components/angular-motion/dist/angular-motion.min.css">
@@ -54,7 +53,7 @@
     <script src="bower_components/x2js/xml2json.min.js"></script>
     <script src="bower_components/angular-xml/angular-xml.min.js"></script>
     <script src="components/footer/footer.directive.js"></script>
-    <script src="bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
+    <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
 
 	<!-- BOOTSTRAP-->	<!-- controllers -->
 	<script src="app/controllers/mainCtrl.js"></script>
@@ -115,9 +114,7 @@
 </head>
 <body ng-app="userApp" ng-controller="mainController as main">
     <div nav ng-if="main.nav" ng-controller="navCtrl as nav"></div>
-    <main>
-       <div ng-view></div>
-    </main>
+    <div ng-view></div>
    <footer ng-if="!main.loggedIn && main.footer"></footer>
 </body>
 </html>
