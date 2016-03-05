@@ -10,7 +10,6 @@ angular.module('userApp', [
 	'app.routes',
 	'authService',
 	'userService',
-	'AMMService',
 	'applyCtrl',
 	'mainCtrl',
 	'projectCtrl',

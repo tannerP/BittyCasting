@@ -90,9 +90,6 @@ controller('prjDetailController',
 			vm.roleData = {};
 			editPrjAside.$promise.then(editPrjAside.toggle);	
 		}
-		vm.back = function(){
-			window.history.back();		}
-
 		vm.getRoleBtn = function(id){
 			$location.path("/applicants/" + id)		}
 

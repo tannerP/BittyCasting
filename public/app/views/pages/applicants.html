@@ -5,6 +5,10 @@
       {{page.role.end_time}}</h4>
    </div>
    <div class="details">
+    <div class="section">
+     
+     <div style="top:100px;" class="custom-back" ng-click="main.backBtn()"></div>
+     </div>
    		<div class="section">
    			<h4>Description</h4>
         <p>{{page.role.description}}</p>
@@ -13,9 +17,9 @@
    			<h4>Info</h4>
    		</div>
    		<div class="section">
-      <div class="custom-edit" ng-click="page.editRoleBtn()"></div>
+      <div style="top:100px;"  class="custom-edit" ng-click="page.editRoleBtn()"></div>
    			<h4>Requirements</h4>
-          <span ng-repeat="rq in page.role.requirements"> {{rq.value}}</span>
+          <span ng-repeat="rq in page.role.requirements"> {{rq.name}}</span>
    		</div>
    </div>
 

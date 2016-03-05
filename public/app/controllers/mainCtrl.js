@@ -10,6 +10,8 @@ controller('mainController',['$scope','$rootScope','Auth','$location',"$sce",
 			vm.footer = false;
 			vm.nav = false;
 		}
+		vm.backBtn = function(){
+			window.history.back();		}
 		
 	$scope.$on("LoggedIn", function(){
 				Auth.getUser()
