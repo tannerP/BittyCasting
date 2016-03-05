@@ -53,7 +53,7 @@
                         <td ng-show="reqt"><input class="custom-form"  ng-model="reqt.name"
                         placeholder="reqt.name"></td>
                         <td ng-show="reqt">                         
-                            <input type="checkbox" class="custom-switch"ng-model="reqt.required"/>
+                            <input type="checkbox" class="btn btn-default" ng-model="reqt.required">
                         </td>
                         <td ng-show="reqt"><span class="btn large-btn" ng-click="roleAside.removeReqt(reqt)">Delete</span></td>
                     </tr>
@@ -61,10 +61,9 @@
                     <tr>
                         <td><input class="custom-form"  ng-model="roleAside.newData.name"
                         placeholder="New requirement"></td>
-                        <td><input class="custom-form" type="checkbox" class="custom-switch"
-                        ng-model="roleAside.newData.required"
+                        <td><input  type="checkbox" ng-model="roleAside.newData.required"
                            checked></td>
-                        <td><button ng-click="roleAside.addReqt(roleAside.newData)">Add</button></td>
+                        <td><button class="btn btn-default" ng-click="roleAside.addReqt(roleAside.newData)">Add</button></td>
                     </tr>
                 </tbody>    
             </table>    
