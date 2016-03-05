@@ -33,8 +33,7 @@ app.use(function(req,res,next){
 	res.setHeader('Access-Control-Allow-Method','GET,POST');
 	res.setHeader('Access-Control-Allow-Headers','X-Request-With,content-type,\Authorization');
   res.setHeader('Last-Modified', (new Date()).toUTCString());
-  res.setHeader('Cache-Control', 'public, max-age=31557600');
-  res.setHeader('Cache-Control', 'private, max-age=31550');
+  res.setHeader('Cache-Control', 'public, max-age=3155'); 
 	next();
 });
 

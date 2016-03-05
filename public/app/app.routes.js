@@ -39,9 +39,9 @@ angular.module('app.routes', ['ngRoute'])
             controllerAs: 'project'
         })
         .when('/project/:project_id',  {
-            templateUrl: 'app/views/pages/Apply.html',
-            /*controller: 'prjDetailController',
-            controllerAs: 'prjDetailCtr'*/
+            templateUrl: 'app/views/pages/projectDetails.html',
+            controller: 'prjDetailController',
+            controllerAs: 'prjDetailCtr'
         })
         /*---------------- Role ----------------*/
         .when('/addRole/:project_id',  {
