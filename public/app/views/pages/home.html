@@ -1,6 +1,6 @@
 
 
-<div class="container">
+<div class="container custom-main">
 
 <div class="pageHeader">
     
@@ -60,22 +60,24 @@
                     {{ project.name }}</td>
                   <td ng-click="home.getProjectBtn(project._id)">
                   {{ project.description }}</td>
-                  </div>
+                  
                   <td>
-                      {{ project.updated_date | date:'MM/dd/yyyy @ h:mma' }}
-
+                      <div class="tableHover">{{ project.updated_date | date:'MM/dd/yyyy @ h:mma' }}</div>
+                  
                       <div class="table-utl">
                           <ul>
                               <li class="trashcan" ng-click='home.deleteBtn(project)'></li>
                               <li class="duplicate"></li>
                           </ul>
                       </div>                     
-                     </td>
+                      
+                  </td>
+
 
               </tr>
               <tr ng-repeat-end></tr>
           </tbody>   
             
           </table>
-
+    </div>
     

@@ -488,6 +488,9 @@ section {
            Homepage
 ***************************/
 
+.custom-main {
+padding-bottom: 60px;}
+
 .cardContainer{
     margin: 0 -15px 0 -15px;
 }
@@ -719,46 +722,62 @@ ul.projects li {
 
         tbody tr {
             cursor: pointer;
+            td {
+                vertical-align: middle;
+                position: relative;
+                height: 51px;
+                           
+                .tableHover {
+                    display: inline;
+                    opacity: 1;
+                }
+                
+                .table-utl {
+                    position: absolute;
+                    top: 50%;
+                    right: 10px;
+                    margin: -18px -20px 0 0;
+                    display: inline;
+                    height: 36px;
+                    opacity: 0;
+                    @include transition(all, 0.2s, ease);
+                    
+
+                    ul {
+                        height: 36px;
+
+                        li{
+                            display: inline;
+                            float: right;
+                            margin-left: 6px;
+                            width: 36px;
+                            height: 36px;
+                            @include border-radius(50%);
+                            border: 1px solid $color-grey-dark;
+                            @include transition(all, 0.2s, ease);
+
+                            &:hover, &:focus {
+                                background-color: #eeeeee;
+                                cursor: pointer;
+                                @include transition(all, 0.2s, ease);
+                            }
+                        }
+                    }
+                }  
+            }
+
             &:hover>td .table-utl {
                 opacity: 1;
                 @include transition(all, 0.2s, ease);
                 @include translate(-20px, 0);
             }
-        }
-        
-        tbody tr td {
             
-            vertical-align: middle;
-        
-            .table-utl {
-                height: 36px;
+            &:hover>td .tableHover {
                 opacity: 0;
                 @include transition(all, 0.2s, ease);
-                margin-right: -20px;
-
-                ul {
-                    height: 36px;
-                    
-                    li{
-                        display: inline;
-                        float: right;
-                        margin-left: 6px;
-                        width: 36px;
-                        height: 36px;
-                        @include border-radius(50%);
-                        border: 1px solid $color-grey-dark;
-                        @include transition(all, 0.2s, ease);
-
-                        &:hover, &:focus {
-                            background-color: #eeeeee;
-                            cursor: pointer;
-                            @include transition(all, 0.2s, ease);
-                        }
-                    }
-                }
+                @include translate(-20px, 0);
             }
         }
-        
     }
     .table>thead>tr>th {
         border-bottom: 2px solid $color-grey;
