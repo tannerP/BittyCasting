@@ -24,7 +24,7 @@ $color-red: #D84444;
 $font-primary: 'Open Sans', sans-serif;
 
 $font-size-page-heading: 24px;
-$font-size-page-subheading: 18px;
+$font-size-page-subheading: 16px;
 
 $font-size-side-heading: 20px;
 $font-size-side-formtitle: 10px;
@@ -489,7 +489,7 @@ section {
 ***************************/
 
 .custom-main {
-padding-bottom: 60px;}
+padding-bottompageTitle: 60px;}
 
 .cardContainer{
     margin: 0 -15px 0 -15px;
@@ -1025,6 +1025,11 @@ ul.projects li {
     
     section {
         padding: 15px;
+        .projectDetailsTitle {
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+        
         &:nth-child(1){
             img {
                 margin-top: -30px;

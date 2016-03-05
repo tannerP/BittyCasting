@@ -1,27 +1,28 @@
-<div class="col-md-10 col-md-offset-1">  
-    <div class="jumbotron text-center">
-    <h1>{{page.role.name || "page Casting"}}</h1>
-    <h4>Application open until {{page.role.end_date}},
-      {{page.role.end_time}}</h4>
-   </div>
-   <div class="details">
-    <div class="section">
-     
-     <div style="top:100px;" class="custom-back" ng-click="main.backBtn()"></div>
-     </div>
-   		<div class="section">
-   			<h4>Description</h4>
-        <p>{{page.role.description}}</p>
-   		</div>
-   		<div class="section">
-   			<h4>Info</h4>
-   		</div>
-   		<div class="section">
-      <div style="top:100px;"  class="custom-edit" ng-click="page.editRoleBtn()"></div>
-   			<h4>Requirements</h4>
-          <span ng-repeat="rq in page.role.requirements"> {{rq.name}}</span>
-   		</div>
-   </div>
+<div class="container custom-main"> 
+    <div class="pageHeader">
+        <div class='pageTitle'>{{page.role.name || "page Casting"}}</div>
+        <div class="custom-back" ng-click="main.backBtn()"></div>
+        <div class="custom-edit" ng-click="page.editRoleBtn()"></div>
+        <div class='pageSubtitle'>Application open until {{page.role.end_date}}, {{page.role.end_time}}</div>
+        
+        <div class="projectDetails col-md-12">
+            <section class="col-md-4">
+                <p class="projectDetailsTitle">Description</p>
+                <p>{{page.role.description}}</p>
+            </section>
+            <section class="col-md-4">
+                <p class="projectDetailsTitle">Info</p>
+                <p>This is the info</p>
+            </section>
+            <section class="col-md-4">
+                <p class="projectDetailsTitle">Requirements</p>
+                <p>This is the requirement</p>
+                <span ng-repeat="rq in page.role.requirements"> {{rq.name}}</span>
+            </section>
+        </div>
+        <div class="clear"></div>  
+        
+    </div>
 
   <div class="custom-table table-responsive">
         <table class = "table table-hover table-page-overview" ng-show="!home.gridView">
@@ -58,4 +59,5 @@
               <tr ng-repeat-end></tr>
           </tbody>   
           </table>
+    </div>
 </div>
