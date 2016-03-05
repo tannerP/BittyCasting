@@ -297,6 +297,8 @@ section.features {
   background-color: white; }
   section.features .featureDes {
     margin-bottom: 60px; }
+    section.features .featureDes img {
+      margin: 0 160px 0 -80px; }
     section.features .featureDes .featureTitle {
       font-size: 24px;
       color: #06bcc2;
@@ -307,7 +309,7 @@ section.features {
       line-height: 24px;
       margin-bottom: 10px; }
 section.pricing {
-  padding-bottom: 60px; }
+  padding-bottom: -20px; }
   section.pricing .targetCustomer div {
     text-align: center;
     padding: 0 30px; }
@@ -318,14 +320,14 @@ section.pricing {
       margin: 0 auto; }
   section.pricing .pricingPlanWrapper {
     padding-top: 30px;
-    margin: 0 0 60px 0; }
+    margin: 0 0 0 0; }
     section.pricing .pricingPlanWrapper .pricingPlan {
       background-color: white;
       -webkit-box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.1);
       -moz-box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.1);
       box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.1);
       padding: 15px;
-      margin-bottom: 20px; }
+      margin: 80px 0 20px 0; }
       section.pricing .pricingPlanWrapper .pricingPlan .pricingCost {
         background-color: #06bcc2;
         text-align: center;

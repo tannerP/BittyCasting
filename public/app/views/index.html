@@ -129,11 +129,12 @@
     
     
 <!--Scroll to--> 
-    <script src="http://code.jquery.com/jquery-2.2.1.min.js"></script> 
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script> 
     <script src="assets/js/scrollIt.js"></script>
 	<script>
-		$(function(){
-            $.scrollIt({
+        var $j = jQuery.noConflict();
+		$j(function(){
+            $j.scrollIt({
                 upKey: 38,             // key code to navigate to the next section
                 downKey: 40,           // key code to navigate to the previous section
                 easing: 'ease',      // the easing function for animation
@@ -144,6 +145,15 @@
             });
         }); 
     </script>   
+
+<!--Parallax--> 
+    <script src="assets/js/jquery-2.1.3.min.js"></script>
+    <script src="assets/js/jquery.easing.1.3.js"></script>
+    <script src="assets/js/jquery.parallax-scroll.js"></script>
+    
+
+    
+    
 </head>
 <body ng-app="userApp" ng-controller="mainController as main">
     <div nav ng-if="main.nav" ng-controller="navCtrl as nav"></div>
