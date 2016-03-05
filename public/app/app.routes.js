@@ -40,8 +40,8 @@ angular.module('app.routes', ['ngRoute'])
         })
         .when('/project/:project_id',  {
             templateUrl: 'app/views/pages/ProjectDetails.html',
-            controller: 'prjDetailController',
-            controllerAs: 'prjDetailCtr'
+            /*controller: 'prjDetailController',
+            controllerAs: 'prjDetailCtr'*/
         })
         /*---------------- Role ----------------*/
         .when('/addRole/:project_id',  {

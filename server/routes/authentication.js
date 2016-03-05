@@ -10,7 +10,7 @@ var app = express.Router();
 
 app.route('/')
 	.get(function(req,res){
-		res.sendFile(path.join(__dirname+ '../../../public/app/views/index.html'));
+		res.render(path.join(__dirname+ '../../../public/app/views/index.html'));
 	})
 
 app.route('/login')
