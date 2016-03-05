@@ -23,7 +23,8 @@ angular.module('applyCtrl',['userService', 'mgcrea.ngStrap']).
     vm.submit = function() {
       Applicant.apply(vm.appData).then(function(resp){
         vm.applicantID = resp.data.appID;
-        if(vm.roleData) uploadFiles(vm.file);  
+        vm.appData = "";
+        /*if(vm.roleData) uploadFiles(vm.file);  */
       })
         /*$http.get('/applicant', vm.appData);*/
     };
