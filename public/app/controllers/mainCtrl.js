@@ -10,8 +10,10 @@ controller('mainController',['$scope','$rootScope','Auth','$location',"$sce",
 			vm.footer = false;
 			vm.nav = false;
 		}
+		vm.backBtn = function(){
+			window.history.back();		}
 		
-		$scope.$on("LoggedIn", function(){
+	$scope.$on("LoggedIn", function(){
 				Auth.getUser()
 						.then(function(data) {
 							vm.usrInitial = (data.name.first[0] + data.name.last[0]).toUpperCase();

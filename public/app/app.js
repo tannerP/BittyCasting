@@ -1,5 +1,6 @@
 
 angular.module('userApp', [
+	'xml',
 	'angular-clipboard',
 	'ngFileUpload',
 	'ngSanitize',
@@ -9,7 +10,6 @@ angular.module('userApp', [
 	'app.routes',
 	'authService',
 	'userService',
-	'AMMService',
 	'applyCtrl',
 	'mainCtrl',
 	'projectCtrl',

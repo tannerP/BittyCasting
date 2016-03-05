@@ -72,9 +72,9 @@
                                 <label>Personal site</label>
                                 <input type = "text" class = "custom-form" ng-model="page.appData.link3">
                             </div>   
-
+                            <span ng-repeat="rq in page.roleData.requirements">
                             <div class = "form-group">
-                                <label>Headshots</label>
+                                <label>{{rq.name}}</label>
                                 <div class="drop-box" ngf-drop ng-model="page.file"><p>Drag and drop &nbsp OR &nbsp <a ngf-select ng-model="page.file" name="file" ngf-pattern="'image/*'" ngf-accept="'image/*'" ngf-max-size="10MB" ngf-min-height="100" ngf-resize="{width: 400, height: 400}">upload from computer</a></p></div>
                                 <img ngf-thumbnail="page.file || '/thumb.jpg'">
                             </div>

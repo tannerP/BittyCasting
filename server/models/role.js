@@ -11,8 +11,12 @@ var RoleSchema = new Schema({
 	end_time: {type:String, require:false},
 	location: {type:String, require:false},
 	payterms: {type:String},
-	age: {type:Number, min:18, max:65},
+	age: {type:Number, min:3, max:90},
 	sex: {type:String},
+	requirements:[{
+		name:String,
+		required:Boolean,
+	}]
 });
 
 module.exports = mongoose.model('Role',RoleSchema);

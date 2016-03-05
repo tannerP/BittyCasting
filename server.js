@@ -77,8 +77,6 @@ app.use(express.static(__dirname + '/public'));
    app.post('/applicant',function(req,res){
         var applicant = new Applicant();
         
-        console.log(req.body);
-        
         applicant.projectID = req.body.projectID;
         applicant.roleID = req.body.roleID;
         if(req.body.name.first){
@@ -94,11 +92,6 @@ app.use(express.static(__dirname + '/public'));
         applicant.phone = req.body.phone;
         }
         
-        
-
-        /*if(req.body.youtube) applicant.youtube = req.body.phone;
-             */
-        
         applicant.save(function(err){
           if(err){
             return  res.json({success:false,
@@ -111,8 +104,10 @@ app.use(express.static(__dirname + '/public'));
         });
         }
       })
-    })
+    });
+   app.put('/applicant',function(req,res){
 
+   });
 
    /* Project.findById(req.params.project_id, function(err,proj){
       res.json({success:true, project:proj});

@@ -20,6 +20,19 @@ controller('rolePageController',
 		.error(function(error){
 			console.log(error);
 		})
+
+		var editRoleAside = $aside({
+											scope:$scope,
+											show: false,
+											keyboard:true, 
+										 	controller:'editRoleController',
+										 	controllerAs:'roleAside',						
+										  templateUrl:'/app/views/pages/role_form.tmpl.html'		
+										});
+		vm.editRoleBtn = function(){
+			vm.roleData = {};
+			editRoleAside.$promise.then(editRoleAside.toggle);	
+		}
 }).
 controller('prjDetailController', 
 	function(Role, Project ,$location, $routeParams,
@@ -77,9 +90,6 @@ controller('prjDetailController',
 			vm.roleData = {};
 			editPrjAside.$promise.then(editPrjAside.toggle);	
 		}
-		vm.back = function(){
-			window.history.back();		}
-
 		vm.getRoleBtn = function(id){
 			$location.path("/applicants/" + id)		}
 
@@ -121,7 +131,8 @@ controller('prjDetailController',
         $scope.textToCopy = url_base_dev;
         $scope.toggle = false;
 
-         var successAlert = $alert({title: 'Copied!',animation:'am-fade-and-slide-top',duration:'10',
+         var successAlert = $alert({title: 'Copied!',
+         	animation:'am-fade-and-slide-top',duration:'10',
            placement: 'top-right', type: 'success', show: false, type:'success'}),
          errAlert = $alert({title: 'Link:',
           content: 'Copied',
@@ -144,7 +155,8 @@ controller('deleteRoleController',['$scope',
 		var vm = this;
 		vm.roleData = {};
 		vm.input1 = false, vm.input2 = false;
-		var errAlert = $alert({title: 'Whoops', content:'Please check all', animation:'am-fade-and-slide-top',duration:'5',
+		var errAlert = $alert({title: 'Whoops', content:'Please check all',
+					 animation:'am-fade-and-slide-top',duration:'5',
            placement: 'top-right', type: 'danger', show: false, type:'success'});
 		vm.delete = function(id){
 			if(vm.input1 && vm.input2){
@@ -161,16 +173,13 @@ controller('deleteRoleController',['$scope',
 				else errAlert.toggle();
 			}
 }]).
-	controller('editRoleController', function(Role, $location, $routeParams){
+	controller('editRoleController', 
+		function(Role, $location, $routeParams, $route, $scope){
 		var vm = this;
 		vm.edit = true;
 		vm.processing = true;
 		vm.roleData = {};
-		/*vm.roleData.headshot = false;
-		vm.roleData.resume = false;
-		vm.roleData.CS = false;
-		vm.roleData.auditionVideo = false;
-		vm.roleData.monologue = false;*/
+		vm.roleData.requirements=[];
 		Role.get($routeParams.role_id)
 			.success(function(data){
 				vm.processing = false;
@@ -181,10 +190,13 @@ controller('deleteRoleController',['$scope',
 			})
 
 		vm.updateRole = function(){
+			console.log(vm.roleData);
 			Role.update($routeParams.role_id,vm.roleData)
 				.success(function(){
-					vm.processing = false;
-					window.history.back();
+					$route.reload();
+					vm.processing  = false;
+					vm.projectData = null;
+					$scope.$hide();
 				})
 				.error(function(err){
 					console.log(err.message);
@@ -195,6 +207,30 @@ controller('deleteRoleController',['$scope',
 		var vm = this;
 		vm.edit = false;
 		vm.roleData = {};
+		vm.roleData.requirements=[];
+		vm.newData={};
+		vm.newData.name='',vm.newData.required = true;
+
+		vm.addReqt = function(data){
+			console.log("data:" + JSON.stringify(data));
+			if(!data){
+				console.log("error: input variable");
+				return;
+			}
+			var item = {name:data.name, required:data.required}
+			vm.roleData.requirements.push(item)
+			vm.newData.name = "",vm.newData.required = true;
+		}
+		vm.removeReqt = function(index){
+ 			for( i in vm.roleData.requirements){
+ 				if(vm.roleData.requirements[i].value === index.value)
+ 				{
+ 						delete vm.roleData.requirement[i];
+ 						return;
+ 				}
+ 			}
+		}
+
 		vm.createRoleBtn = function(){
 			console.log("project ID :" + $routeParams.project_id);
 			

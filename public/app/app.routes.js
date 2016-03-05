@@ -85,8 +85,6 @@ angular.module('app.routes', ['ngRoute'])
         .otherwise({
         redirectTo: '/'
       });
-
-
     // get rid of the hash in the URL
     $locationProvider.html5Mode(true);
     }

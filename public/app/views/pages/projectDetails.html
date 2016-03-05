@@ -4,7 +4,7 @@
 <div class="pageHeader">
     
     <div class='pageTitle'>{{prjDetailCtr.project.name}}</div>
-    <div class="custom-back" ng-click="prjDetailCtr.back()"></div>
+    <div class="custom-back" ng-click="main.backBtn()"></div>
     <div class="custom-edit" ng-click="prjDetailCtr.editPrjBtn()"></div>
   
         <div class="projectDetails col-md-12">
@@ -36,8 +36,8 @@
             </thead>
             <tbody> 
             <!-- LOOP OVER THE USERS -->
-                <tr ng-repeat = "role in prjDetailCtr.Roles">
-                    <td ng-click='prjDetailCtr.getRoleBtn(role._id)'>{{ role.name }}/td>
+                <tr class="animate-repeat" ng-repeat = "role in prjDetailCtr.Roles">
+                    <td ng-click='prjDetailCtr.getRoleBtn(role._id)'>{{ role.name }}</td>
                     <td ng-click='prjDetailCtr.getRoleBtn(role._id)'>
                     {{role.num_applicants}}</td>
                     <td ng-click='prjDetailCtr.getRoleBtn(role._id)'>{{ role.description }}</td>

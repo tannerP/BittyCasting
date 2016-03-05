@@ -1,5 +1,8 @@
 angular.module('applyCtrl',['userService', 'mgcrea.ngStrap']).
-	controller('applyController',['$scope','$rootScope',
+	config(function ($httpProvider) {
+            $httpProvider.interceptors.push('xmlHttpInterceptor');
+          }).
+    controller('applyController',['$scope','$rootScope',
         'Upload','$http', 'Project', 'Role','Applicant',
         '$routeParams',
         function ($scope, $rootScope, Upload, $http, Project, 
@@ -63,15 +66,16 @@ angular.module('applyCtrl',['userService', 'mgcrea.ngStrap']).
                             file.progress = parseInt(100);
                             if (response.status === 201) {
                                 console.log(response.data);
-                                var data = xml2json.parser(response.data),
-                                parsedData;
+                                var data = response.data, parsedData;
+                                console.log(data);
                                 parsedData = {
-                                    location: data.postresponse.location,
-                                    bucket: data.postresponse.bucket,
-                                    key: data.postresponse.key,
-                                    etag: data.postresponse.etag
+                                    location: data.Location,
+                                    bucket: data.bucket,
+                                    key: data.key,
+                                    etag: data.etag
                                 };
-                                vm.imageUploads.push(parsedData);
+                                vm.imageUploads.update(parsedData);
+                                Applicant.update(parsedData);
 
                             } else {
                                 alert('Upload Failed');

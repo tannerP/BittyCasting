@@ -96,9 +96,8 @@ apiRouter.route('/createRole/:projectID')
 				role.age =  req.body.age;
 				role.sex =  req.body.sex;
 				role.requirements = req.body.requirements;
-
-				
-			
+				console.log("role" + role.requirements);
+				console.log("body" +  req.body.requirements.toString());
 				
 				role.save(function(err){
 					if(err){
@@ -128,17 +127,17 @@ apiRouter.route('/role/:role_id')
 	.put(function(req,res){
 		Role.findById(req.params.role_id, function(err,role){
 			if(err) res.send(err);
-				// Don't need to update
-				/*role.user = req.decoded.name;
-				role.userID = req.decoded.id;
-				role.projectID = req.params.role_id;*/
-				role.name = req.body.name;
-				role.details = req.body.details;
-				role.resume = req.body.resume;
-				role.HS = req.body.HS;
-				role.coverletter = req.body.coverLetter;
-				role.auditionvideo = req.body.auditionVideo;
-				role.monologue = req.body.monologue;
+
+					role.name = req.body.name;
+				role.description = req.body.description;
+				role.end_date = req.body.end_date;
+				role.end_time = req.body.end_time;
+				role.requirements = req.body.requirements;
+				console.log(role.requirments);
+				role.location = req.body.location;
+				role.payterms =  req.body.payterms;
+				role.age =  req.body.age;
+				role.sex =  req.body.sex;
 				role.save(function(err){
 					if(err){
 						return  res.json({success:false,
