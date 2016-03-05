@@ -118,7 +118,7 @@ app.get('/config', function(req,res){
     */
 app.use('/',publicRoutes); 
 app.use('/api',apiRoutes); 
-app.all('*', function(req, res, next){
+app.all('/*', function(req, res, next){
   res.sendFile(path.join(__dirname+"/public/app/views/index.html"))
 })
 
