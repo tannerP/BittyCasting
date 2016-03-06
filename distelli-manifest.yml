@@ -1,0 +1,20 @@
+tanner/BittyCasting:
+  # This Basic Distelli Manifest assumes the following
+  # has been provisioned on the destination deploy server:
+
+  PkgInclude:
+    - server.js
+    - node_modules/*
+  Build:
+    - npm install
+    - npm test
+  PreInstall:
+    - echo "PreInstall Starting."
+    - sudo apt-get install nodejs -y
+    #- sudo apt-get install npm -y
+  PostInstall:
+    - echo "PostInstall Starting."
+    # - npm install
+  Exec:
+    - echo "Exec Starting."
+    - exec nodejs server.js
