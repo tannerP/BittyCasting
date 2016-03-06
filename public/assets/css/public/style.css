@@ -115,6 +115,31 @@ header {
   left: 0;
   z-index: 10; }
 
+.navbar-toggle {
+  width: 55px;
+  height: 55px;
+  background-color: red;
+  cursor: pointer;
+  margin: 0;
+  background: url("/assets/imgs/ic_list.svg") no-repeat center center;
+  background-size: 20px 20px;
+  -webkit-transition: all 0.2s ease;
+  -moz-transition: all 0.2s ease;
+  -ms-transition: all 0.2s ease;
+  -o-transition: all 0.2s ease;
+  transition: all 0.2s ease; }
+  .navbar-toggle:hover, .navbar-toggle:focus {
+    -ms-transform: rotate(-90deg);
+    /* IE 9 */
+    -webkit-transform: rotate(-90deg);
+    /* Safari */
+    transform: rotate(-90deg);
+    -webkit-transition: all 0.2s ease;
+    -moz-transition: all 0.2s ease;
+    -ms-transition: all 0.2s ease;
+    -o-transition: all 0.2s ease;
+    transition: all 0.2s ease; }
+
 .logoNav {
   fill: #242424;
   height: 55px;
@@ -1146,7 +1171,7 @@ ul.projects li {
               Nav
   ***************************/
   .navbar-nav {
-    margin: 0 -15px 0 0;
+    margin: 0 0 0 0;
     overflow-x: hidden; }
 
   .navbar-collapse {
@@ -1227,6 +1252,14 @@ ul.projects li {
       padding: 0;
       -webkit-box-shadow: 0 0 0 0 0;
       -moz-box-shadow: 0 0 0 0 0;
-      box-shadow: 0 0 0 0 0; } }
+      box-shadow: 0 0 0 0 0; }
+
+  /***************************
+          Landing page
+  ***************************/
+  section.home .brandMessage .brandHeading {
+    font-size: 26px; }
+  section.home .brandMessage .brandSubheading {
+    font-size: 18px; } }
 
 /*# sourceMappingURL=style.css.map */
