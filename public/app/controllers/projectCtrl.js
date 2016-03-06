@@ -1,7 +1,7 @@
 angular.module('projectCtrl',['userService', 'mgcrea.ngStrap']).
 controller('rolePageController', 
 	function(Applicant, Role, $location, $routeParams,
-	 $scope, $aside, $routeParams){
+	 $scope, $aside, $routeParams,$location){
 	 var vm = this;
 		Role.get($routeParams.role_id)
 		.success(function(data){
@@ -32,6 +32,9 @@ controller('rolePageController',
 		vm.editRoleBtn = function(){
 			vm.roleData = {};
 			editRoleAside.$promise.then(editRoleAside.toggle);	
+		}
+		vm.viewBtn = function(){
+			$location.path('/review');
 		}
 }).
 controller('prjDetailController', 
@@ -203,13 +206,33 @@ controller('deleteRoleController',['$scope',
 				})
 	}}).
 
-	controller('addRoleController', function(Role, $location, $routeParams, $route, $scope){
+	controller('addRoleController',
+		function(Role, $location, $routeParams, $route, $scope){
 		var vm = this;
 		vm.edit = false;
 		vm.roleData = {};
 		vm.roleData.requirements=[];
 		vm.newData={};
 		vm.newData.name='',vm.newData.required = true;
+
+	$scope.selectedDate = new Date();
+	$scope.selectedTime = new Date();
+  
+  // $scope.fromDate = new Date();
+  // $scope.untilDate = new Date();
+  $scope.status = {
+    isopen: false
+  };
+
+  $scope.toggled = function(open) {
+    $log.log('Dropdown is now: ', open);
+  };
+
+  $scope.toggleDropdown = function($event) {
+    $event.preventDefault();
+    $event.stopPropagation();
+    $scope.status.isopen = !$scope.status.isopen;
+  };
 
 		vm.addReqt = function(data){
 			console.log("data:" + JSON.stringify(data));
@@ -233,8 +256,11 @@ controller('deleteRoleController',['$scope',
 
 		vm.createRoleBtn = function(){
 			console.log("project ID :" + $routeParams.project_id);
-			
 			vm.projectID = $routeParams.project_id;
+			vm.roleData.end_date = $scope.selectedDate.toJSON();
+			vm.roleData.end_time = $scope.selectedTime.toJSON();
+
+			vm.roleData.end_time;
 			Role.create(vm.projectID, vm.roleData)
 				.success(function(){
 					vm.roleData = {};
