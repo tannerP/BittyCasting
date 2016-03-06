@@ -110,16 +110,11 @@ app.get('/config', function(req,res){
    app.put('/applicant',function(req,res){
 
    });
-
-   /* Project.findById(req.params.project_id, function(err,proj){
-      res.json({success:true, project:proj});
-    })
-    */
-app.use('/',publicRoutes); 
-app.use('/api',apiRoutes); 
-app.all('/*', function(req, res, next){
-  res.sendFile(path.join(__dirname+"/public/app/views/index.html"))
-})
+  app.use('/',publicRoutes); 
+  app.use('/api',apiRoutes); 
+  app.all('*', function(req, res, next){
+    res.sendFile(path.join(__dirname+"/public/app/views/index.html"))
+  })
 
 app.listen(config.port);
 

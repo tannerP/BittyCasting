@@ -1,5 +1,6 @@
 
 angular.module('userApp', [
+	'ui.bootstrap',
 	'xml',
 	'angular-clipboard',
 	'ngFileUpload',
@@ -21,6 +22,12 @@ angular.module('userApp', [
         $rootScope.awsConfig = data.awsConfig;
       });
   })
+  .config(function($datepickerProvider) {
+  angular.extend($datepickerProvider.defaults, {
+    dateFormat: 'dd/MM/yyyy',
+    startWeek: 1
+  	})
+	})
  .config(function($asideProvider) {
   angular.extend($asideProvider.defaults, {
     animation: 'am-slide-right',
