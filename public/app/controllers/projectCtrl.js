@@ -216,7 +216,8 @@ controller('deleteRoleController',['$scope',
 		vm.newData.name='',vm.newData.required = true;
 
 	$scope.selectedDate = new Date();
-  $scope.selectedDateAsNumber = Date.UTC(1986, 1, 22);
+	$scope.selectedTime = new Date();
+  
   // $scope.fromDate = new Date();
   // $scope.untilDate = new Date();
   $scope.status = {
@@ -257,7 +258,8 @@ controller('deleteRoleController',['$scope',
 			console.log("project ID :" + $routeParams.project_id);
 			vm.projectID = $routeParams.project_id;
 			vm.roleData.end_date = $scope.selectedDate.toJSON();
-			
+			vm.roleData.end_time = $scope.selectedTime.toJSON();
+
 			vm.roleData.end_time;
 			Role.create(vm.projectID, vm.roleData)
 				.success(function(){
