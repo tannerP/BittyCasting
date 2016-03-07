@@ -15,7 +15,10 @@ angular.module('userApp', [
 	'mainCtrl',
 	'projectCtrl',
 	'userCtrl',
-	'footer'
+	'footer',
+	'ReviewPage',
+	'Nav'
+
 	])
 	.run(function ($rootScope, $location, $http) {
     $http.get('/config').success(function(data) {

@@ -1,4 +1,4 @@
-<div class="container custom-main"> 
+<div ng-show="!viewApp" class="container custom-main"> 
     <div class="pageHeader">
         <div class='pageTitle'>{{page.role.name || "page Casting"}}</div>
         <div class="custom-back" ng-click="main.backBtn()"></div>
@@ -21,10 +21,8 @@
             </section>
         </div>
         <div class="clear"></div>  
-        
     </div>
-
-  <div class="custom-table table-responsive">
+  <div ng-show="!viewApp" class="custom-table table-responsive">
         <table class = "table table-hover table-page-overview" ng-show="!home.gridView">
           <thead>
               <tr>
@@ -53,10 +51,10 @@
                           </ul>
                       </div>                     
                      </td>
-
               </tr>
               <tr ng-repeat-end></tr>
           </tbody>   
           </table>
     </div>
 </div>
+<div review ng-show="viewApp" ></div>

@@ -22,8 +22,10 @@ angular.module('app.routes', ['ngRoute'])
             controllerAs: 'user'
         })
 /*--------------- Review ---------------*/
-        .when('/review',  {
+        .when('/Review',  {
             templateUrl: 'app/views/pages/review_page.html',
+            controller: 'reviewPageController',
+            controllerAs: 'rvPage'
         })
 /*--------------- Applicants ---------------*/
         .when('/Apply/:role_id',  {
@@ -61,7 +63,7 @@ angular.module('app.routes', ['ngRoute'])
         })
         .when('/applicants/:role_id',  {
             templateUrl: 'app/views/pages/applicants.html',
-            controller: 'rolePageController',
+            controller: 'applicantPageController',
             controllerAs: 'page'
         })
 /*---------------- Users ----------------*/

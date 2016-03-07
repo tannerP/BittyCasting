@@ -1,8 +1,16 @@
 angular.module('projectCtrl',['userService', 'mgcrea.ngStrap']).
-controller('rolePageController', 
+controller('reviewPageController', 
+	function($location, $routeParams,
+	 $scope, $aside, $routeParams,$location){
+	 var vm = this;
+	 		 
+	}).
+
+controller('applicantPageController', 
 	function(Applicant, Role, $location, $routeParams,
 	 $scope, $aside, $routeParams,$location){
 	 var vm = this;
+	 $scope.viewApp = false;
 		Role.get($routeParams.role_id)
 		.success(function(data){
 			vm.processing = false;
@@ -33,8 +41,12 @@ controller('rolePageController',
 			vm.roleData = {};
 			editRoleAside.$promise.then(editRoleAside.toggle);	
 		}
-		vm.viewBtn = function(){
-			$location.path('/review');
+		vm.viewBtn = function(role){
+			vm.currRole = role;
+			console.log("btn pressed");
+			/*$location.path('/Review');*/
+			$scope.viewApp = true;
+
 		}
 }).
 controller('prjDetailController', 

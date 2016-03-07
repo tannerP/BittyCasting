@@ -53,6 +53,8 @@
     <script src="bower_components/x2js/xml2json.min.js"></script>
     <script src="bower_components/angular-xml/angular-xml.min.js"></script>
     <script src="components/footer/footer.directive.js"></script>
+    <script src="components/nav/nav.directive.js"></script>
+    <script src="components/reviewPage/reviewPage.directive.js"></script>
     <script src="bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
 
 	<!-- BOOTSTRAP-->	<!-- controllers -->
@@ -100,7 +102,8 @@
 <body ng-app="userApp" ng-controller="mainController as main">
     <div nav ng-if="main.nav" ng-controller="navCtrl as nav"></div>
     <div ng-view></div>
-   <footer ng-if="!main.loggedIn && main.footer"></footer>
+   
+    <div footer ng-if="!main.loggedIn && main.footer"></div>
     
     <!--Jquery-->
     <script src="http://code.jquery.com/jquery-latest.min.js"></script> 

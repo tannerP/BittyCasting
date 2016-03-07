@@ -78,14 +78,20 @@ app.get('/config', function(req,res){
   });
    app.post('/applicant',function(req,res){
         var applicant = new Applicant();
-        
+        console.log(req.body);
         applicant.projectID = req.body.projectID;
         applicant.roleID = req.body.roleID;
-        if(req.body.name.first){
-        applicant.name.first = req.body.name.first;
+         if(req.body.name){ 
+          if(req.body.name.first){
+          applicant.name.first = req.body.name.first;
+          }
+          if(req.body.name.last){
+          applicant.name.last = req.body.name.last;
+          }
         }
-        if(req.body.name.last){
-        applicant.name.last = req.body.name.last;
+        else{
+          res.json({success:false,
+                message: "Error: No user name"}) 
         }
         if(req.body.email){
         applicant.email = req.body.email;   
@@ -107,9 +113,22 @@ app.get('/config', function(req,res){
         }
       })
     });
-   app.put('/applicant',function(req,res){
-
-   });
+   app.put('/app/:app_id', function(req,res){
+    console.log(res.body);
+    /*  Applicant.findById(req.params.app_id,function(err,app)
+      {
+        if(err) res.send(err);
+        if(req.body.name) user.name = req.body.name;
+        if(req.body.username) user.username = req.body.username;
+        if(req.body.password) user.password = req.body.password;
+        app.suppliments = req.body
+        app.save(function(err){
+         
+        console.log(req.body)
+        app.save(function(err){
+    });*/
+      return res.json({success:true, data:'here there'});
+    })
   app.use('/',publicRoutes); 
   app.use('/api',apiRoutes); 
   app.all('*', function(req, res, next){

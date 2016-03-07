@@ -5,9 +5,9 @@ angular.module('userService', [])
 .factory('Applicant', function($http){
 	var appFactory={};	
 	
-	appFactory.update = function(data)	{
+	appFactory.update = function(id,data)	{
 		console.log(data);
-		return $http.put('/applicant', data);	}	 
+		return $http.put('/app/'+id, data);	}	 
 
 	appFactory.apply = function(data)	{
 		console.log(data);

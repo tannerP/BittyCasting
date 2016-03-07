@@ -6,7 +6,8 @@ controller('mainController',['$scope','$rootScope','Auth','$location',"$sce",
 		vm.footer = true;
 		vm.nav = true;
 
-		if($location.path().match('/Apply/')){
+		if($location.path().match('/Apply/') || $location.path().match('/Review')
+			){
 			vm.footer = false;
 			vm.nav = false;
 		}
@@ -132,11 +133,4 @@ controller('navCtrl', ['$scope','$popover','$aside','Auth',
 			signupAside.toggle();
 		}
 		vm.navCtrl;
-
-	}]).
-directive('nav', function() {
-  return {
-  	restrict:'A',
-    templateUrl: 'components/nav/nav.tmpl.html'
-  };
-});
+	}]);

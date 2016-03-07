@@ -24,7 +24,7 @@ angular.module('applyCtrl',['userService', 'mgcrea.ngStrap']).
       Applicant.apply(vm.appData).then(function(resp){
         vm.applicantID = resp.data.appID;
         vm.appData = "";
-        /*if(vm.roleData) uploadFiles(vm.file);  */
+        if(vm.roleData) uploadFiles(vm.file);  
       })
         /*$http.get('/applicant', vm.appData);*/
     };
@@ -75,8 +75,9 @@ angular.module('applyCtrl',['userService', 'mgcrea.ngStrap']).
                                     key: data.key,
                                     etag: data.etag
                                 };
-                                vm.imageUploads.update(parsedData);
-                                Applicant.update(parsedData);
+                                console.log(data.PostResponse.Location);
+                                /*vm.imageUploads.update(parsedData);*/
+                                /*Applicant.update(vm.applicantID,parsedData).Location;*/
 
                             } else {
                                 alert('Upload Failed');
