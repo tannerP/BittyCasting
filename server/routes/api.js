@@ -84,6 +84,7 @@ apiRouter.route('/createRole/:projectID')
 		.post(function(req,res){
 				var role = new Role();
 				role.userID = req.decoded.id;
+				console.log(req.body);
 				
 				role.projectID = req.params.projectID;
 				role.name = req.body.name;
@@ -97,10 +98,10 @@ apiRouter.route('/createRole/:projectID')
 				role.sex =  req.body.sex;
 				role.requirements = req.body.requirements;
 				
-
+				console.log("role"+ role);
 				role.save(function(err){
 					if(err){
-						return  res.json({success:false,
+						return  res.json({error:true,
 								error: err})	}
 					res.json({message:'Role created.'});
 					})

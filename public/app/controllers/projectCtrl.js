@@ -225,7 +225,7 @@ controller('deleteRoleController',['$scope',
 		vm.roleData = {};
 		vm.roleData.requirements=[];
 		vm.newData={};
-		vm.newData.name='',vm.newData.required = true;
+		vm.newData.name = "New Requirement",vm.newData.required = true,vm.newData.file_type = "Type";
 
 	$scope.selectedDate = new Date();
 	$scope.selectedTime = new Date();
@@ -252,9 +252,9 @@ controller('deleteRoleController',['$scope',
 				console.log("error: input variable");
 				return;
 			}
-			var item = {name:data.name, required:data.required}
+			var item = {name:data.name, file_type:data.file_type, required:data.required}
 			vm.roleData.requirements.push(item)
-			vm.newData.name = "",vm.newData.required = true;
+			vm.newData.name = "New Requirement",vm.newData.required = true,vm.newData.file_type = "Type";
 		}
 		vm.removeReqt = function(item){
 			console.log(item);
@@ -275,6 +275,7 @@ controller('deleteRoleController',['$scope',
 			vm.roleData.end_time = $scope.selectedTime.toJSON();
 
 			vm.roleData.end_time;
+
 			Role.create(vm.projectID, vm.roleData)
 				.success(function(){
 					vm.roleData = {};
@@ -341,7 +342,7 @@ controller('deleteRoleController',['$scope',
 			})
 			
 		}).
-//project.html
+	
 	controller('newProjectController', function(Project, $location,$route, $scope)	{
 		var vm = this;
 		vm.NEW = true;
