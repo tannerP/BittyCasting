@@ -45,6 +45,10 @@ $font-size-small: 10px;
     filter: alpha(opacity=40);
 }
 
+.singInOffset {
+    margin-top: 100px;
+}
+
 @mixin box-shadow($top, $left, $blur, $spread, $color) {
     -webkit-box-shadow: $top $left $blur $spread $color;
     -moz-box-shadow: $top $left $blur $spread $color;
