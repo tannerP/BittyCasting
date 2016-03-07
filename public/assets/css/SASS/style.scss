@@ -643,7 +643,7 @@ ul.projects li {
 
         background-color: white;
         height: 60px;
-        padding-top: 10px;
+        padding-top: 13px;
         position: relative;
         top: 65%;
         @include transition(all, 0.3s, ease);
@@ -656,7 +656,7 @@ ul.projects li {
         .cardTitle {
             font-size: $font-size-regular;
             color: $color-grey-darkest; 
-            margin-bottom: 2px;
+            margin-bottom: 4px;
         }
 
         .cardSubTitle {
@@ -962,7 +962,7 @@ ul.projects li {
         @include border-radius(0);
         border: none;
         border-bottom: 1px solid $color-grey-darkest;
-        background-color: transparent;
+        background-color: white;
         
         &:focus {
             outline: none;
