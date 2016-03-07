@@ -966,7 +966,7 @@ ul.projects li {
         @include border-radius(0);
         border: none;
         border-bottom: 1px solid $color-grey-darkest;
-        background-color: white;
+        background-color: transparent;
         
         &:focus {
             outline: none;

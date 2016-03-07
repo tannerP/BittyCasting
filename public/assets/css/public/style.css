@@ -876,7 +876,7 @@ ul.projects li {
     border-radius: 0;
     border: none;
     border-bottom: 1px solid #242424;
-    background-color: white; }
+    background-color: transparent; }
     .form-group input:focus {
       outline: none;
       border-bottom: 1px solid #06bcc2; }
