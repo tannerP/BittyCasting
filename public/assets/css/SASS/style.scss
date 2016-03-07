@@ -1360,6 +1360,21 @@ ul.projects li {
 
 @media screen and (max-width: 989px) { 
     .pageTitleMobileOffset {padding-top: 120px;}
+    .applyPageLeftBg {display:none;}
+    .applyPage { 
+        .applyLogo {
+            position: relative;
+            top: 0;
+        }
+        .applyPageLeft {
+            position: relative; 
+            border-bottom: 1px solid $color-grey-light;
+            padding: 0 0 60px 0;
+        }
+        .applyPageRight {
+            padding: 0;
+        }
+    }
 }
 
 
