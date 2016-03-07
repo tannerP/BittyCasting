@@ -1,8 +1,13 @@
 <div class="container custom-main"> 
     <div class="pageHeader">
-        <div class='pageTitle'>{{page.role.name || "page Casting"}}</div>
+        <div class='pageTitle pageTitleMobileOffset'>{{page.role.name || "page Casting"}}</div>
         <div class="custom-back" ng-click="main.backBtn()"></div>
-        <div class="custom-edit" ng-click="page.editRoleBtn()"></div>
+        <div class="custom-page-action">
+            <ul>           
+                <li class="custom-btn-secondary-small" ng-click = "prjDetailCtr.shareBtn(role)">Share</li>
+                <li class="custom-btn-secondary-small" ng-click="page.editRoleBtn()">Edit</li>
+            </ul>
+        </div>
         <div class='pageSubtitle'>Application open until {{page.role.end_date}}, {{page.role.end_time}}</div>
         
         <div class="projectDetails col-md-12">
