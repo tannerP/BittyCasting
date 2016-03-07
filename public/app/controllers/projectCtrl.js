@@ -14,7 +14,7 @@ controller('applicantPageController',
 		Role.get($routeParams.role_id)
 		.success(function(data){
 			vm.processing = false;
-			vm.role = data.data;
+			vm.roleData = data.data;
 		})
 		.error(function(error){
 			console.log(error);
@@ -36,7 +36,19 @@ controller('applicantPageController',
 										 	controller:'editRoleController',
 										 	controllerAs:'roleAside',						
 										  templateUrl:'/app/views/pages/role_form.tmpl.html'		
+										})
+		shareRoleAside = $aside({
+											scope:$scope,
+											show: false,
+											keyboard:true,
+											controller:'shareRoleController',
+										 	controllerAs:'roleAside', 
+										  templateUrl:'/app/views/pages/role_share.tmpl.html'		
 										});
+		vm.shareBtn = function(){
+			$scope.roleData = vm.roleData;
+			shareRoleAside.$promise.then(shareRoleAside.toggle);	
+		}
 		vm.editRoleBtn = function(){
 			vm.roleData = {};
 			editRoleAside.$promise.then(editRoleAside.toggle);	
@@ -342,7 +354,7 @@ controller('deleteRoleController',['$scope',
 			})
 			
 		}).
-	
+
 	controller('newProjectController', function(Project, $location,$route, $scope)	{
 		var vm = this;
 		vm.NEW = true;

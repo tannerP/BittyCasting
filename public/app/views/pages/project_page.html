@@ -40,7 +40,7 @@
                     <td ng-click='prjDetailCtr.getRoleBtn(role._id)'>
                     {{role.num_applicants}}</td>
                     <td ng-click='prjDetailCtr.getRoleBtn(role._id)'>{{ role.description }}</td>
-                    <td class="tableHover"><span class="tblDate"> {{role.end_date | date:'MM/dd/yyyy'}}, {{role.end_time | date:'h a'}}</span>
+                    <td class="tableHover"><span class="tblDate"> {{role.end_date | date:mediumDate}} @ {{role.end_time | date:'h a'}}</span>
                         
                         <div class="table-utl">
                             <ul>
