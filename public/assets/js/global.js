@@ -1,7 +1,7 @@
 /*--Scroll It--*/
-    var $j = jQuery.noConflict();
-    $j(function(){
-        $j.scrollIt({
+
+    $(function(){
+        $.scrollIt({
             upKey: 38,             // key code to navigate to the next section
             downKey: 40,           // key code to navigate to the previous section
             easing: 'ease',      // the easing function for animation
@@ -11,3 +11,7 @@
             topOffset: -56           // offset (in px) for fixed top navigation         
         });
     }); 
+
+// $(".navbar-toggle").click(function() {
+//    console.log('click');
+// });

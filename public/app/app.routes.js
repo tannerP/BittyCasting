@@ -64,7 +64,7 @@ angular.module('app.routes', ['ngRoute'])
             controller: 'rolePageController',
             controllerAs: 'page'
         })
-/*---------------- Users ----------------*/
+/*---------------- Static ----------------*/
         .when('/users',  {
             templateUrl: 'app/views/pages/users/all.html',
             controller: 'userController',
@@ -85,6 +85,12 @@ angular.module('app.routes', ['ngRoute'])
             templateUrl : '/app/views/pages/signup.html',
             controller   : 'signupCtrl',
             controllerAs   : 'user'
+        })
+        .when('/privacy_policy',  {
+            templateUrl: 'app/views/pages/privacy_policy.html',
+        })
+        .when('/terms_of_service',  {
+            templateUrl: 'app/views/pages/terms_of_service.html',
         })
         .otherwise({
         redirectTo: '/'
