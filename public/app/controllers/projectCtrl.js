@@ -256,11 +256,13 @@ controller('deleteRoleController',['$scope',
 			vm.roleData.requirements.push(item)
 			vm.newData.name = "",vm.newData.required = true;
 		}
-		vm.removeReqt = function(index){
+		vm.removeReqt = function(item){
+			console.log(item);
  			for( i in vm.roleData.requirements){
- 				if(vm.roleData.requirements[i].value === index.value)
+ 				console.log(vm.roleData.requirements[i])
+ 				if(vm.roleData.requirements[i].name === item)
  				{
- 						delete vm.roleData.requirement[i];
+ 						delete vm.roleData.requirements[i];
  						return;
  				}
  			}

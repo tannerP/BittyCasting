@@ -55,7 +55,7 @@
                         <td ng-show="reqt">                      
                             <input type="checkbox" class="btn btn-default" ng-model="reqt.required">
                         </td>
-                        <td ng-show="reqt"><span class="btn large-btn" ng-click="roleAside.removeReqt(reqt)">Delete</span></td>
+                        <td ng-show="reqt"><span class="btn large-btn" ng-click="roleAside.removeReqt(reqt.name)">Delete</span></td>
                     </tr>
                     <!-- New Requirement -->
                     <tr>
@@ -67,7 +67,7 @@
                               </button>
                               <ul uib-dropdown-menu role="menu" aria-labelledby="single-button">
                                 <li role="menuitem"><a href="#" ng-click="roleAside.newData.name = 'Resume'">Resume</a></li>
-                                <li role="menuitem"><a href="#" ng-click="roleAside.newData.name = 'Headshot'">Headshot</a></li>
+                                <li role="menuitem"><a href="#" ng-click="roleAside.newData.name = 'Headshots'">Headshots</a></li>
                                 <li role="menuitem"><a href="#" ng-click="roleAside.newData.name = 'Auditio Reel'">Audition Reel</a></li>
                               </ul>
                             </div></td>
