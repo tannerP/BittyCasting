@@ -3,4 +3,13 @@
 		<h1>Review Page </h1>
 		<div ng-click="viewApp = !viewApp"><= BACK</div>    
 	</div>
+	<div>Name: {{currApp.name.first}} {{currApp.name.last}}</div>
+	<div>"Email:"{{currApp.email}}</div>
+	<div  ng-if="currApp.phone">Phone number:{{currApp.phone}}</div>
+	<div>
+		<span ng-repeat="req in currApp.requirements">
+			"Requirement:"{{req.name}}
+			"File Type:"{{req.file_type}}
+		</span>
+	</div>
 </div>
