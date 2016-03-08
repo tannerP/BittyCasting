@@ -11,6 +11,7 @@ angular.module('applyCtrl',['userService', 'mgcrea.ngStrap']).
     var vm = this;
     vm.roleData={};
     vm.appData ={};
+    vm.files =[];
     Role.appGetRole($routeParams.role_id).then(function(data){
         vm.roleData = data.data.data;
         if(vm.roleData){
@@ -18,6 +19,14 @@ angular.module('applyCtrl',['userService', 'mgcrea.ngStrap']).
             vm.prjData = data.data.project;
             vm.appData.projectID = data.data.project._id;
             vm.appData.roleID = vm.roleData._id
+
+        console.log("Role Data:");
+
+        vm.files = vm.roleData.requirements.splice();
+        vm.files.forEach(
+            function(item,index, requirements){
+            vm.files[item].index = index;
+        })
         })}
     });
     vm.submit = function() {
@@ -28,13 +37,20 @@ angular.module('applyCtrl',['userService', 'mgcrea.ngStrap']).
       })
         /*$http.get('/applicant', vm.appData);*/
     };
+
+    /* ----------------- Uploader -------------- */
+    $scope.imageUploads = [];
+    $scope.abort = function(index) {
+        $scope.upload[index].abort();
+        $scope.upload[index] = null;
+    };
     var uploadFiles = function (data) {
             console.log($rootScope.awsConfig)
-            vm.file = data;
+            
             vm.upload = [];
-            for (var i = 0; i < 1; i++) {
+            for (var i = 0; i < vm.files.length; i++) {
                 /*var  i = 1; //temp fix for loop above*/
-                var file = vm.file;
+                var file = vm.files[i];
                 /*file.progress = parseInt(0);*/
                 (function (file, i) {
                     $http.get('/s3Policy?mimeType='+ file.type)
@@ -76,8 +92,8 @@ angular.module('applyCtrl',['userService', 'mgcrea.ngStrap']).
                                     etag: data.PostResponse.ETag
                                 };
                                 console.log(parsedData);
-                                /*vm.imageUploads.update(parsedData);*/
-                                Applicant.update(vm.applicantID,parsedData);
+                                vm.imageUploads.update(parsedData);
+                                /*Applicant.update(vm.applicantID,parsedData);*/
 
                             } else {
                                 alert('Upload Failed');

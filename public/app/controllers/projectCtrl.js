@@ -1,13 +1,5 @@
 angular.module('projectCtrl',['userService', 
 	'mgcrea.ngStrap']).
-controller('reviewPageController', 
-	function($scope,$location, $routeParams,
-	  $aside, $routeParams,$location){
-
-
-
-	
-	}).
 
 controller('applicantPageController', 
 	function(Applicant, Role, $location, $routeParams,
@@ -29,13 +21,27 @@ controller('applicantPageController',
             $scope.carouselIndex = 1;
            
             function addSlides(target, style, qty) {
-                for (var i=0; i < qty; i++) {
+                /*for (var i=0; i < qty; i++) {
                     addSlide(target, style);
-                }
+                }*/
+
             }
             // 1st ngRepeat demo
-            $scope.slides = [];
-            addSlides($scope.slides, 'sports', 40);
+            $scope.slides = [{
+                    id: (0 + 1),
+                    label: 'slide #' + (0 + 1),
+                    img: 'https://s3-us-west-2.amazonaws.com/bcpub/upload/6670%24Screen+Shot+2015-11-07+at+7.35.56+PM.jpg?X-Amz-Date=20160308T182303Z&X-Amz-Expires=300&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Signature=3c9e5f6ab98f40cdd33c4c1cbe0eaf53ff829facf9de9765cb6a10872d5b14a9&X-Amz-Credential=ASIAI2Y4DI4CJDBWQ3PA/20160308/us-west-2/s3/aws4_request&X-Amz-SignedHeaders=Host&x-amz-security-token=AQoDYXdzEKz//////////wEakAJpbu9wP14VD%2BiPfAnKhlw5toQajOYKkht17U54cyNKXe/T/QQF2o5v0wF/qqRmRGthIkhx0A5mWzBWGSmoXXnne4ABgvKPG6LqiHGkcjtizrAwqdOxWk0A8RQHP2sMxzHa6hSRfwarWyEOeV8sktCxHe%2BGQRHRRPhMyUzHTEltdJJKWECqI1atzKut3s%2BwxQ%2BekdtpJDsa0%2B5Q20UdNUj5Xr17PczKj4cI9XdMPK0H94z67MeJOIGlXEgdp91KGeSz5z3YdMB9BfUdsS1iNgeha%2BvTZKdkrm4n7NMB6O5Q4oKnNFE5vQUHAWjAyzRMxCs2Clz7l8gAVlZAP1kSfIFh53s6isy/WU0DN/vZgpgOHSDxsPy2BQ%3D%3D',
+                    color: $scope.colors[ (0*10) % $scope.colors.length],
+                    odd: (0 % 2 === 0)
+                },
+                {
+                    id: (0 + 2),
+                    label: 'slide #' + (0 + 1),
+                    img: 'https://s3-us-west-2.amazonaws.com/bcpub/upload/6674%24VSASummit_Dec2015.jpg?X-Amz-Date=20160308T182338Z&X-Amz-Expires=300&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Signature=8a1e32f829838a5481ecca6d324458d1fff47ac6ec05f44c2b9c4a1134034e76&X-Amz-Credential=ASIAI2Y4DI4CJDBWQ3PA/20160308/us-west-2/s3/aws4_request&X-Amz-SignedHeaders=Host&x-amz-security-token=AQoDYXdzEKz//////////wEakAJpbu9wP14VD%2BiPfAnKhlw5toQajOYKkht17U54cyNKXe/T/QQF2o5v0wF/qqRmRGthIkhx0A5mWzBWGSmoXXnne4ABgvKPG6LqiHGkcjtizrAwqdOxWk0A8RQHP2sMxzHa6hSRfwarWyEOeV8sktCxHe%2BGQRHRRPhMyUzHTEltdJJKWECqI1atzKut3s%2BwxQ%2BekdtpJDsa0%2B5Q20UdNUj5Xr17PczKj4cI9XdMPK0H94z67MeJOIGlXEgdp91KGeSz5z3YdMB9BfUdsS1iNgeha%2BvTZKdkrm4n7NMB6O5Q4oKnNFE5vQUHAWjAyzRMxCs2Clz7l8gAVlZAP1kSfIFh53s6isy/WU0DN/vZgpgOHSDxsPy2BQ%3D%3D',
+                    color: $scope.colors[ (1*10) % $scope.colors.length],
+                    odd: (1% 2 === 0)
+                }];
+            /*addSlides($scope.slides, 'sports', 40);*/
 		Role.get($routeParams.role_id)
 		.success(function(data){
 			vm.processing = false;
@@ -78,6 +84,7 @@ controller('applicantPageController',
 			editRoleAside.$promise.then(editRoleAside.toggle);	
 		}
 		vm.viewBtn = function(role){
+			$scope.$emit("hideNavFooter");
 			$scope.currApp = role;
 			/*console.log("btn pressed");*/
 			/*$location.path('/Review');*/

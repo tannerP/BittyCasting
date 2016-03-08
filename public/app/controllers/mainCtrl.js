@@ -6,11 +6,11 @@ controller('mainController',['$scope','$rootScope','Auth','$location',"$sce",
 		vm.footer = true;
 		vm.nav = true;
 
-		if($location.path().match('/Apply/') || $location.path().match('/Review')
-			){
+		$scope.$on('hideNavFooter', function(event,data){
 			vm.footer = false;
 			vm.nav = false;
-		}
+		});
+
 		vm.backBtn = function(){
 			window.history.back();		}
 		
@@ -22,6 +22,12 @@ controller('mainController',['$scope','$rootScope','Auth','$location',"$sce",
 		})
 		$rootScope.$on('$routeChangeStart', function () {
 			vm.loggedIn = Auth.isLoggedIn();
+			vm.footer = true;
+				vm.nav = true;
+
+			if($location.path() === '/' ) vm.publicVw = true;
+			else vm.publicVw = false;
+			
 			if(vm.loggedIn && !vm.name){
 				Auth.getUser()
 						.then(function(data) {
@@ -30,6 +36,11 @@ controller('mainController',['$scope','$rootScope','Auth','$location',"$sce",
 							}
 						 })
 		}
+		else 	if( $location.path().indexOf("/Apply") != -1)
+			{
+				vm.footer = false;
+				vm.nav = false;
+			}
 		});
 		vm.getUsrBtn = function(){
 			$location.path('/profile');
@@ -103,13 +114,14 @@ controller('loginCtrl',['$scope','Auth','$location','$route',
 	}]).
 
 /* NAV */
-controller('navCtrl', ['$scope','$popover','$aside','Auth',
-	function($scope,$popover,$aside,Auth){
+controller('navCtrl', ['$scope','$popover','$aside','Auth','$location',
+	function($scope,$popover,$aside,Auth,$location){
 		var vm = this;
 
 		vm.isActive = function (viewLocation) { 
 	        return viewLocation === $location.path();
 	    };
+	  
 		 var loginAside = $aside({
 		 									scope:$scope,
 											title:"Login",

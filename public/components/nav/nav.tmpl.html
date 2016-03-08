@@ -44,10 +44,17 @@
 <!--                      <li ng-if="main.loggedIn" ng-click="main.doLogout()" ><a href = "#">Logout</a></li>-->
 <!--                      <li ng-if="main.loggedIn" ng-click="main.getUsrBtn()" ><a href ="#">{{main.usrInitial}}</a></li>-->
                     </ul>
-                    </div>               
+                    </div> 
+                     <div class="custom-site-nav-in"> 
+                      <ul ng-if='main.loggedIn' class="nav navbar-nav">
+                          <li ng-if="main.loggedIn" ng-click="main.getUsrBtn()" ><a href ="#">{{main.usrInitial}}</a></li>
+                          <li ><a href="/home">My projects</a></li>
+                          <li ng-if="main.loggedIn" ng-click="main.doLogout()" ><a href = "#">Logout</a></li>
+                      </ul>
+                    </div>                   
                        
-                      <div class="custom-site-nav">      
-                          <ul ng-if = "!main.loggedIn" class="nav navbar-nav">               
+                      <div  ng-if ="main.publicVw" class="custom-site-nav">      
+                          <ul class="nav navbar-nav">               
                             <li><a href="/" class="active" data-scroll-nav="0">Home</a></li>
                             <li><a href="/#features" data-scroll-nav="1">Features</a></li>
                             <li><a href="/#pricing" data-scroll-nav="2">Pricing</a></li>
@@ -55,15 +62,6 @@
                             <!--li><a data-scroll-nav="4">Contact</a></li-->
                           </ul>      
                       </div>   
-                      
-                   <div class="custom-site-nav-in"> 
-                    <ul ng-if='main.loggedIn' class="nav navbar-nav">
-                        <li ng-if="main.loggedIn" ng-click="main.getUsrBtn()" ><a href ="#">{{main.usrInitial}}</a></li>
-                        <li ><a href="/home">My projects</a></li>
-                        <li ng-if="main.loggedIn" ng-click="main.doLogout()" ><a href = "#">Logout</a></li>
-                    </ul>
-                  </div>     
-                      
                       
                   </div><!-- /.navbar-collapse -->
             

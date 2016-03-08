@@ -76,20 +76,33 @@
                                 <input type = "text" class = "custom-form" ng-model="page.appData.link3">
                             </div>   
                             
-                            <!-- <div class = "form-group" ng-repeat="rq in page.roleData.requirements">
-                                <label>{{rq.name}}</label> -->
-                                <div class="drop-box" ngf-drop ng-model="page.file"><p>Drag and drop &nbsp OR &nbsp <a ngf-select ng-model="page.file" name="file" ngf-pattern="'image/*'" ngf-accept="'image/*'" ngf-max-size="10MB" ngf-min-height="100" ngf-resize="{width: 400, height: 400}">upload from computer</a></p></div>
-                                <img ngf-thumbnail="page.file || '/thumb.jpg'">
-                            <!-- </div> -->
+                            <div class = "form-group" ng-repeat="rq in page.roleData.requirements">
+                                <label>{{rq.name}}</label>
+                                <div class="drop-box" ngf-drop ng-model="page.file">
+                                    <p>Drag and drop &nbsp OR &nbsp 
+                                        <a ngf-select ng-model="page.file" name="file" 
+                                        ngf-pattern="'image/*'" ngf-accept="'image/*'" 
+                                        ngf-max-size="10MB" ngf-min-height="100" 
+                                        ngf-resize="{width: 700, height: 700}">
+                                        upload from computer</a>
+                                    </p>
+                                </div>
+                                <img ng-if="page.file" style="width:150px; height:150px;"
+                                    ngf-thumbnail="page.file || '/thumb.jpg'">
+                                <div class="progress-bar" role="progressbar" 
+                                    style="width:{{file.progress}}%;">
+                                        {{file.name}} : {{file.progress}}
+                                </div>
+                            </div>
 
                             <button type="submit" class="custom-btn-primary-large">Submit</button>
                             
                             <div class="poweredBy">
-                                <p>Powered by<a href="/" target="_blank"><img class="powerLogo" ng-src="assets/imgs/logo_BittyCasting.svg"></a></p>
+                                <p>Powered by<a href="/" target="_blank">
+                                    <img class="powerLogo" ng-src="assets/imgs/logo_BittyCasting.svg"></a>
+                                </p>
                             </div>    
-
-
-
+                        </form>
                 </div>  
             </section>    
         </div>

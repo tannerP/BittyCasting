@@ -21,11 +21,6 @@ angular.module('app.routes', ['ngRoute'])
             controller: 'profileCtrl',
             controllerAs: 'user'
         })
-/*--------------- Review ---------------*/
-        .when('/Review',  {
-            templateUrl: 'app/views/pages/review_page.html',
-            controller: 'reviewPageController',
-        })
 /*--------------- Applicants ---------------*/
         .when('/Apply/:role_id',  {
             templateUrl: 'app/views/pages/Apply.html',
