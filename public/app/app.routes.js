@@ -25,7 +25,6 @@ angular.module('app.routes', ['ngRoute'])
         .when('/Review',  {
             templateUrl: 'app/views/pages/review_page.html',
             controller: 'reviewPageController',
-            controllerAs: 'rvPage'
         })
 /*--------------- Applicants ---------------*/
         .when('/Apply/:role_id',  {
