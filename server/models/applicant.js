@@ -21,12 +21,8 @@ var ApplicantSchema = new Schema({
 		required:false,
 	},
 	suppliments:[{
-		name:{
-			type:String, 
-			required:false},
-		content:{
-			type:String,
-			required:false}
+		source:{
+			type:String}
 	}]
 });
 

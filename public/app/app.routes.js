@@ -59,7 +59,6 @@ angular.module('app.routes', ['ngRoute'])
             templateUrl: 'app/views/pages/role.html',
             controller: 'edit_RoleController',
             controllerAs: 'page'
-
         })
         .when('/applicants/:role_id',  {
             templateUrl: 'app/views/pages/applicants.html',
@@ -77,7 +76,6 @@ angular.module('app.routes', ['ngRoute'])
             controller: 'userCreateController',
             controllerAs: 'user'
         })
-        //  page to edit a user
         .when('/users/:user_id', {
             templateUrl: 'app/views/pages/users/single.html',
             controller: 'userEditController',

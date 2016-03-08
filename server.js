@@ -114,20 +114,20 @@ app.get('/config', function(req,res){
       })
     });
    app.put('/app/:app_id', function(req,res){
-    console.log(res.body);
-    /*  Applicant.findById(req.params.app_id,function(err,app)
+    console.log(req.body);
+      Applicant.findById(req.params.app_id,function(err,app)
       {
-        if(err) res.send(err);
-        if(req.body.name) user.name = req.body.name;
+        if(err) res.json({Error:true, error:err});
+        /*if(req.body.name) user.name = req.body.name;
         if(req.body.username) user.username = req.body.username;
         if(req.body.password) user.password = req.body.password;
-        app.suppliments = req.body
+        app.suppliments = req.body.*/
+        app.suppliments.push({source:req.body.location});  
         app.save(function(err){
-         
-        console.log(req.body)
-        app.save(function(err){
-    });*/
-      return res.json({success:true, data:'here there'});
+          return res.json({success:false, error:err});
+        });
+    });
+      /*return res.json({success:true, message:'updated'});*/
     })
   app.use('/',publicRoutes); 
   app.use('/api',apiRoutes); 

@@ -40,10 +40,10 @@
           <tbody> 
           <!-- LOOP OVER THE USERS -->
               <tr ng-repeat = "app in page.applicants">
-                  <td ng-click="page.viewBtn()">
+                  <td ng-click="page.viewBtn(app)">
                     {{app.name.first}} {{app.name.last}}
                   </td>
-                  <td ng-click="page.viewBtn()">
+                  <td ng-click="page.viewBtn(app)">
                   {{ app.email }}
                   </td>
                   </div>

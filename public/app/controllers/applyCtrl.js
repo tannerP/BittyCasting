@@ -35,7 +35,7 @@ angular.module('applyCtrl',['userService', 'mgcrea.ngStrap']).
             for (var i = 0; i < 1; i++) {
                 /*var  i = 1; //temp fix for loop above*/
                 var file = vm.file;
-                file.progress = parseInt(0);
+                /*file.progress = parseInt(0);*/
                 (function (file, i) {
                     $http.get('/s3Policy?mimeType='+ file.type)
                     .success(function(response) {
@@ -70,14 +70,14 @@ angular.module('applyCtrl',['userService', 'mgcrea.ngStrap']).
                                 var data = response.data, parsedData;
                                 console.log(data);
                                 parsedData = {
-                                    location: data.Location,
-                                    bucket: data.bucket,
-                                    key: data.key,
-                                    etag: data.etag
+                                    location: data.PostResponse.Location,
+                                    bucket: data.PostResponse.Bucket,
+                                    key: data.PostResponse.Key,
+                                    etag: data.PostResponse.ETag
                                 };
-                                console.log(data.PostResponse.Location);
+                                console.log(parsedData);
                                 /*vm.imageUploads.update(parsedData);*/
-                                /*Applicant.update(vm.applicantID,parsedData).Location;*/
+                                Applicant.update(vm.applicantID,parsedData);
 
                             } else {
                                 alert('Upload Failed');

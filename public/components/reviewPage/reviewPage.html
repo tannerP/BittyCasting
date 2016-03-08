@@ -7,8 +7,8 @@
 	<div>"Email:"{{currApp.email}}</div>
 	<div  ng-if="currApp.phone">Phone number:{{currApp.phone}}</div>
 	<div>
-		<span ng-repeat="req in currApp.requirements">
-			"Requirement:"{{req.name}}
+		<span ng-repeat="req in currApp.suppliments">
+			"Requirement:"<a ng-href="{{req.source}}">Link</a>
 			"File Type:"{{req.file_type}}
 		</span>
 	</div>

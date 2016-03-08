@@ -46,7 +46,7 @@
         <section class="col-md-6">
             <div class="applyPageRight">
                  <div class='pageTitle'>Apply</div>
-                        <form>
+                        <form ng-submit="page.submit()">
                             <div class = "form-group">
                                 <label>First name</label>
                                 <input type = "text" class = "custom-form" ng-model="page.appData.name.first" required>
@@ -82,7 +82,7 @@
                                 <img ngf-thumbnail="page.file || '/thumb.jpg'">
                             <!-- </div> -->
 
-                            <button type="submit" class="custom-btn-primary-large" ng-click="page.submit()">Submit</button>
+                            <button type="submit" class="custom-btn-primary-large">Submit</button>
                             
                             <div class="poweredBy">
                                 <p>Powered by<a href="/" target="_blank"><img class="powerLogo" ng-src="assets/imgs/logo_BittyCasting.svg"></a></p>

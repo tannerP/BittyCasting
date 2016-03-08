@@ -50,12 +50,11 @@ controller('applicantPageController',
 			shareRoleAside.$promise.then(shareRoleAside.toggle);	
 		}
 		vm.editRoleBtn = function(){
-			vm.roleData = {};
 			editRoleAside.$promise.then(editRoleAside.toggle);	
 		}
 		vm.viewBtn = function(role){
-			vm.currRole = role;
-			console.log("btn pressed");
+			$scope.currApp = role;
+			/*console.log("btn pressed");*/
 			/*$location.path('/Review');*/
 			$scope.viewApp = true;
 
@@ -211,13 +210,17 @@ controller('deleteRoleController',['$scope',
 			.success(function(data){
 				vm.processing = false;
 				vm.roleData = data.data;
+				$scope.selectedTime = data.data.end_time;
+				$scope.selectedDate = data.data.end_date;
 			})
 			.error(function(err){
 				console.log(err);
 			})
 
 		vm.updateRole = function(){
-			console.log(vm.roleData);
+			vm.roleData.end_time = $scope.selectedTime;
+			vm.roleData.end_date = $scope.selectedDate;
+			vm.roleData.updated_date = new Date();
 			Role.update($routeParams.role_id,vm.roleData)
 				.success(function(){
 					$route.reload();
