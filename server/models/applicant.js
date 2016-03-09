@@ -21,8 +21,9 @@ var ApplicantSchema = new Schema({
 		required:false,
 	},
 	suppliments:[{
-		source:{
-			type:String}
+		source:String,
+		name:String,
+		file_type:String,
 	}]
 });
 

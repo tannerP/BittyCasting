@@ -122,19 +122,31 @@ app.get('/config', function(req,res){
         if(req.body.username) user.username = req.body.username;
         if(req.body.password) user.password = req.body.password;
         app.suppliments = req.body.*/
-        app.suppliments.push({source:req.body.location});  
+        app.suppliments
+        .push({
+            source:req.body.location,
+            name: req.body.name,
+            file_type: req.body.file_type
+          });  
         app.save(function(err){
-          return res.json({success:false, error:err});
-        });
-    });
+          if(err){
+            return  res.json({success:false,
+                error: err
+              })  
+          }
+          else{
+            return  res.json({success:true,
+                message: "Added new subppliment"
+            });
+          }
       /*return res.json({success:true, message:'updated'});*/
-    })
+        })
+      })});
   app.use('/',publicRoutes); 
   app.use('/api',apiRoutes); 
   app.all('*', function(req, res, next){
     res.sendFile(path.join(__dirname+"/public/app/views/index.html"))
   })
-
 app.listen(config.port);
 
 /*io.on('connection', function(socket){
@@ -142,7 +154,3 @@ app.listen(config.port);
 })
 */
 console.log("Magic happens on port" + config.port);
-
-
-
-

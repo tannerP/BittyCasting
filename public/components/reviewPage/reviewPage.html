@@ -18,8 +18,8 @@
 	<div  ng-if="currApp.phone">Phone number:{{currApp.phone}}</div>
 	<div>
 		<span ng-repeat="sup in currApp.suppliments">
-			"Requirement:"<a ng-href="{{sup.source}}">Link</a>
-			"Name:"{{req.name}}
+			Requirement: <a ng-href="{{sup.source}}">{{sup.name}} </a>
+			<br>
 		</span>
 	</div>
 </div>

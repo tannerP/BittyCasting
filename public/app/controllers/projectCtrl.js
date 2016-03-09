@@ -82,6 +82,7 @@ controller('applicantPageController',
 			editRoleAside.$promise.then(editRoleAside.toggle);	
 		}
 		vm.viewBtn = function(role){
+			$scope.slides = [];
 			$scope.$emit("hideNavFooter");
 			$scope.currApp = role;
 			addSlides($scope.slides,$scope.currApp.suppliments);

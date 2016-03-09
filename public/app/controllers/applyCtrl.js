@@ -31,8 +31,11 @@ angular.module('applyCtrl',['userService', 'mgcrea.ngStrap']).
       Applicant.apply(vm.appData).then(function(resp){
         vm.applicantID = resp.data.appID;
         vm.appData = "";
-        $scope.imageUploads = [];
-        if(vm.roleData) uploadFiles(vm.files);  
+        if(vm.roleData){
+             uploadFiles(vm.files)    
+            $scope.status = "Submitted"
+            
+        }  
       })
         /*$http.get('/applicant', vm.appData);*/
     };
@@ -88,9 +91,12 @@ angular.module('applyCtrl',['userService', 'mgcrea.ngStrap']).
                                     location: data.PostResponse.Location,
                                     bucket: data.PostResponse.Bucket,
                                     key: data.PostResponse.Key,
-                                    etag: data.PostResponse.ETag
+                                    etag: data.PostResponse.ETag,
+                                    name: vm.roleData.requirements[i].name,
+                                    file_type: vm.roleData.requirements[i].file_type
                                 };
                                 /*vm.imageUploads.update(parsedData);*/
+                                console.log(parsedData);
                                 Applicant.update(vm.applicantID,parsedData);
                             } else {
                                 alert('Upload Failed, please resubmit your application.');

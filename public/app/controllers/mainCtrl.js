@@ -6,15 +6,16 @@ controller('mainController',['$scope','$rootScope','Auth','$location',"$sce","$r
 		vm.footer = true;
 		vm.nav = true;
 
-		$scope.$on('hideNavFooter', function(event,data){
+		vm.loggedIn = Auth.isLoggedIn();
+		/*$scope.$on('hideNavFooter', function(event,data){
 			vm.footer = false;
 			vm.nav = false;
-		});
+		});*/
 
 		vm.backBtn = function(){
 			window.history.back();		}
 		
-	$scope.$on("LoggedIn", function(){
+		$scope.$on("LoggedIn", function(){
 				Auth.getUser()
 						.then(function(data) {
 							vm.usrInitial = (data.name.first[0] + data.name.last[0]).toUpperCase();
@@ -22,10 +23,15 @@ controller('mainController',['$scope','$rootScope','Auth','$location',"$sce","$r
 		})
 		$rootScope.$on('$routeChangeStart', function () {
 			vm.loggedIn = Auth.isLoggedIn();
-			vm.footer = true;
+				vm.footer = true;
 				vm.nav = true;
 
-			if($location.path() === '/' ) vm.publicVw = true;
+			if($location.path() === '/')
+			{vm.publicVw = true;}
+			else if ($location.path().indexOf('/Apply') != 1 ){
+				vm.footer = false;
+				vm.nav = false;				
+			}
 			else vm.publicVw = false;
 			
 			if(vm.loggedIn && !vm.name){
