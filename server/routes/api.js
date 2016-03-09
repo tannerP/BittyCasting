@@ -101,8 +101,8 @@ apiRouter.route('/createRole/:projectID')
 				console.log("role"+ role);
 				role.save(function(err){
 					if(err){
-						return  res.json({error:true,
-								error: err})	}
+						return  res.json({success:false,
+								error:err })	}
 					res.json({message:'Role created.'});
 					})
 				})
