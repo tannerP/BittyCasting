@@ -11,7 +11,7 @@ angular.module('applyCtrl',['userService', 'mgcrea.ngStrap']).
     var vm = this;
     vm.roleData={};
     vm.appData ={};
-    vm.file;
+    vm.files=[];
     Role.appGetRole($routeParams.role_id).then(function(data){
         vm.roleData = data.data.data;
         if(vm.roleData){
@@ -19,8 +19,6 @@ angular.module('applyCtrl',['userService', 'mgcrea.ngStrap']).
             vm.prjData = data.data.project;
             vm.appData.projectID = data.data.project._id;
             vm.appData.roleID = vm.roleData._id
-
-        console.log("Role Data:");
 
         vm.files = vm.roleData.requirements.splice();
         vm.files.forEach(
@@ -47,9 +45,10 @@ angular.module('applyCtrl',['userService', 'mgcrea.ngStrap']).
     var uploadFiles = function (data) {
             
             vm.upload = [];
-            for (var i = 0; i < 1/*vm.files.length*/; i++) {
+            var uploadFiles = data;
+            for (var i = 0; i < data.length; i++) {
                 /*var  i = 1; //temp fix for loop above*/
-                var file = vm.file;
+                var file = uploadFiles[i];
                 console.log(file);
                 /*file.progress = parseInt(0);*/
                 (function (file, i) {
@@ -91,10 +90,8 @@ angular.module('applyCtrl',['userService', 'mgcrea.ngStrap']).
                                     key: data.PostResponse.Key,
                                     etag: data.PostResponse.ETag
                                 };
-                                
                                 /*vm.imageUploads.update(parsedData);*/
-                                /*Applicant.update(vm.applicantID,parsedData);*/
-
+                                Applicant.update(vm.applicantID,parsedData);
                             } else {
                                 alert('Upload Failed, please resubmit your application.');
                             }
