@@ -84,8 +84,8 @@
                                     </p>
                                 </div>
                                 <div class="progress-bar" role="progressbar" 
-                                    style="width:{{page.file.progress}}%;height:5px";>
-                                        <p>{{page.file.name}} : {{page.file.progress}}<p>
+                                    style="width:{{page.files[$index].progress}}%;height:5px";>
+                                        <p>{{page.files[$index].name}} : {{page.file[$index].progress}}<p>
                                 </div>
                             </div>
                             <button type="submit" class="custom-btn-primary-large">Submit</button>
