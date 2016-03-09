@@ -1,6 +1,6 @@
 angular.module('mainCtrl', ['authService','mgcrea.ngStrap']).
 controller('mainController',['$scope','$rootScope','Auth','$location',"$sce","$route",
-		function($scope,$rootScope, Auth, $location, $sce, $route") {
+		function($scope,$rootScope, Auth, $location, $sce, $route) {
 		var vm = this;
 		vm.loggedIn = false;
 		vm.footer = true;
