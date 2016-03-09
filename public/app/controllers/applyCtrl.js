@@ -11,7 +11,7 @@ angular.module('applyCtrl',['userService', 'mgcrea.ngStrap']).
     var vm = this;
     vm.roleData={};
     vm.appData ={};
-    vm.files =[];
+    vm.file;
     Role.appGetRole($routeParams.role_id).then(function(data){
         vm.roleData = data.data.data;
         if(vm.roleData){
@@ -33,24 +33,24 @@ angular.module('applyCtrl',['userService', 'mgcrea.ngStrap']).
       Applicant.apply(vm.appData).then(function(resp){
         vm.applicantID = resp.data.appID;
         vm.appData = "";
-        if(vm.roleData) uploadFiles(vm.file);  
+        $scope.imageUploads = [];
+        if(vm.roleData) uploadFiles(vm.files);  
       })
         /*$http.get('/applicant', vm.appData);*/
     };
 
     /* ----------------- Uploader -------------- */
-    $scope.imageUploads = [];
     $scope.abort = function(index) {
         $scope.upload[index].abort();
         $scope.upload[index] = null;
     };
     var uploadFiles = function (data) {
-            console.log($rootScope.awsConfig)
             
             vm.upload = [];
-            for (var i = 0; i < vm.files.length; i++) {
+            for (var i = 0; i < 1/*vm.files.length*/; i++) {
                 /*var  i = 1; //temp fix for loop above*/
-                var file = vm.files[i];
+                var file = vm.file;
+                console.log(file);
                 /*file.progress = parseInt(0);*/
                 (function (file, i) {
                     $http.get('/s3Policy?mimeType='+ file.type)
@@ -91,12 +91,12 @@ angular.module('applyCtrl',['userService', 'mgcrea.ngStrap']).
                                     key: data.PostResponse.Key,
                                     etag: data.PostResponse.ETag
                                 };
-                                console.log(parsedData);
-                                vm.imageUploads.update(parsedData);
+                                
+                                /*vm.imageUploads.update(parsedData);*/
                                 /*Applicant.update(vm.applicantID,parsedData);*/
 
                             } else {
-                                alert('Upload Failed');
+                                alert('Upload Failed, please resubmit your application.');
                             }
                         }, null, function(evt) {
                             file.progress =  parseInt(100.0 * evt.loaded / evt.total);

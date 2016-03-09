@@ -78,7 +78,8 @@
                             
                             <div class = "form-group" ng-repeat="rq in page.roleData.requirements">
                                 <label>{{rq.name}}</label>
-                                <div class="drop-box" ngf-drop ng-model="page.file">
+                                <input id="photos" type="file" class="btn" ng-file-select="onFileSelect($files)" multiple>
+                                <div class="drop-box" ngf-drop>
                                     <p>Drag and drop &nbsp OR &nbsp 
                                         <a ngf-select ng-model="page.file" name="file" 
                                         ngf-pattern="'image/*'" ngf-accept="'image/*'" 
@@ -87,16 +88,12 @@
                                         upload from computer</a>
                                     </p>
                                 </div>
-                                <img ng-if="page.file" style="width:150px; height:150px;"
-                                    ngf-thumbnail="page.file || '/thumb.jpg'">
                                 <div class="progress-bar" role="progressbar" 
-                                    style="width:{{file.progress}}%;">
-                                        {{file.name}} : {{file.progress}}
+                                    style="width:{{page.file.progress}}%;height:5px";>
+                                        <p>{{page.file.name}} : {{page.file.progress}}<p>
                                 </div>
                             </div>
-
                             <button type="submit" class="custom-btn-primary-large">Submit</button>
-                            
                             <div class="poweredBy">
                                 <p>Powered by<a href="/" target="_blank">
                                     <img class="powerLogo" ng-src="assets/imgs/logo_BittyCasting.svg"></a>
