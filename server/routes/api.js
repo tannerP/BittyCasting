@@ -45,28 +45,35 @@ apiRouter.all('*',function(req,res,next){
 	}
 });
 
-//==============================  Applicant =========================
+//==============================  Applicants =========================
 	apiRouter.route('/applicants/:roleID')
 		.get(function(req, res){
 			Applicant.find({ 'roleID': req.params.roleID},function(err,roles){
 			if(err){ 
 				res.send(err);
-				console.log(err); 
-			}
+				console.log(err); }
 			else{
 			console.log('Applicants:' + roles);
-			res.json({'success':true ,'data':roles});
-		}
-	})
+			res.json({'success':true ,'data':roles});	}
+			})
 		})
-	
+//==============================  Applicant =========================
+	apiRouter.route('/applicant/:appID')
+		.delete(function(req, res){
+			Applicant.remove({
+			_id:req.params.appId,
+				}, function(err,app){
+					if(err) return res.send(err);
+					res.json({success:true,
+						 message: 'Successfully deleted applicant'});
+				})
+			})
 //===============================  Roles ============================
 apiRouter.route('/roles/:projectID')
 	.get(function(req, res) {
 		var output = '';
 		for (var property in req.params) {
   	output += property + ': ' + req.params[property]+'; ';
-}
 
 	/*console.log("Found roles: " + req.params.projectID.toSource());*/
 		Role.find({ 'projectID': req.params.projectID},function(err,roles){
@@ -78,7 +85,7 @@ apiRouter.route('/roles/:projectID')
 			res.json({'success':true ,'data':roles});
 		}
 	})
-});
+}})
 //create role
 apiRouter.route('/createRole/:projectID')
 		.post(function(req,res){

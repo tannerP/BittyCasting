@@ -6,13 +6,17 @@ angular.module('userService', [])
 	var appFactory={};	
 	
 	appFactory.update = function(id,data)	{
-		console.log(data);
-		return $http.put('/app/'+id, data);	}	 
-
+		return $http.put('/app/'+id, data);	
+		}	 
+	
+	appFactory.delete = function(appID)	{
+		console.log(appID);
+		return $http.delete('api/applicant/'+ appID);
+	}	 
 	appFactory.apply = function(data)	{
 		console.log(data);
-		return $http.post('/applicant', data);	}	 
-	
+		return $http.post('/applicant', data);	
+	}	 
 	appFactory.getAll = function(roleID)	{
 		return $http.get('/api/applicants/'+ roleID)
 		} 
