@@ -26,13 +26,20 @@ controller('mainController',['$scope','$rootScope','Auth','$location',"$sce","$r
 				vm.footer = true;
 				vm.nav = true;
 
-			if($location.path() === '/')
-			{vm.publicVw = true;}
-			else if ($location.path().indexOf('/Apply') != 1 ){
+			if($location.path() === '/'){
+				vm.publicVw = true;
+			}
+			else{
+			 vm.publicVw = false;
+			}
+			if ($location.path().indexOf('/Apply') == 1 ){
 				vm.footer = false;
 				vm.nav = false;				
 			}
-			else vm.publicVw = false;
+			else{
+				vm.footer = true;
+				vm.nav = true;					
+			}
 			
 			if(vm.loggedIn && !vm.name){
 				Auth.getUser()
