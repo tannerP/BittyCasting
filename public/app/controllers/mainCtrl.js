@@ -1,6 +1,6 @@
 angular.module('mainCtrl', ['authService','mgcrea.ngStrap']).
-controller('mainController',['$scope','$rootScope','Auth','$location',"$sce",
-		function($scope,$rootScope, Auth, $location, $sce) {
+controller('mainController',['$scope','$rootScope','Auth','$location',"$sce","$route",
+		function($scope,$rootScope, Auth, $location, $sce, $route") {
 		var vm = this;
 		vm.loggedIn = false;
 		vm.footer = true;
@@ -50,7 +50,7 @@ controller('mainController',['$scope','$rootScope','Auth','$location',"$sce",
 			Auth.logout();
 			vm.user = {};
 			vm.usrInitial = '';
-			$location.path('/');
+			$route.reload();
 		}
 	}]).
 controller('signupCtrl', function(User,$scope,$location)	{
