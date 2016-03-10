@@ -26,7 +26,9 @@ controller('mainController',['$scope','$rootScope','Auth','$location',"$sce","$r
 				vm.footer = true;
 				vm.nav = true;
 
-			if($location.path() === '/'){
+			if($location.path() === '/' ||
+				$location.path() === '/login' ||
+				$location.path() === '/signup'){
 				vm.publicVw = true;
 			}
 			else{
@@ -63,6 +65,7 @@ controller('mainController',['$scope','$rootScope','Auth','$location',"$sce","$r
 			Auth.logout();
 			vm.user = {};
 			vm.usrInitial = '';
+			/*$location.path('/');*/
 			$route.reload();
 		}
 	}]).

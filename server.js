@@ -16,6 +16,7 @@ var User = require(__dirname + '/server//models/user.js');
 var config = require('./config'); //get config file
 var S3Config = require('./aws.json');
 var aws = require('./server/lib/aws');
+var extend = require("extend")
 /*var io = require('socket.io')(app);*/
 
 
@@ -65,18 +66,20 @@ app.get('/config', function(req,res){
         }
         })
   });
-  app.get('/appRole/:role_id', function(req,res){
-    Role.findOne({_id:req.params.role_id}, function(err, data){
+  app.get('/applicationRole/:role_id', function(req,res){
+  //find role data, then find project data before returning result
+    Role.findById(req.params.role_id, function(err, role){
       if(!err){
-      res.json({success:true, data:data});
-    }})
-  });
-  app.get('/appPrj/:project_id', function(req,res){
-    Project.findById(req.params.project_id, function(err,proj){
+          res.json({success:true, Application:role});
+        }
+  })})
+
+  app.get('/applicationPrj/:project_id', function(req,res){
+    Project.findById(req.params.project_id,function(err,proj){
       res.json({success:true, project:proj});
     })
   });
-   app.post('/applicant',function(req,res){
+  app.post('/applicant',function(req,res){
         var applicant = new Applicant();
         console.log(req.body);
         applicant.projectID = req.body.projectID;

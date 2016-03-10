@@ -61,9 +61,9 @@ apiRouter.all('*',function(req,res,next){
 	apiRouter.route('/applicant/:appID')
 		.delete(function(req, res){
 			Applicant.remove({
-			_id:req.params.appId,
+			_id:req.params.appID,
 				}, function(err,app){
-					if(err) return res.send(err);
+					if(err) {return res.send(err);}
 					res.json({success:true,
 						 message: 'Successfully deleted applicant'});
 				})

@@ -3,7 +3,7 @@ angular.module('projectCtrl',['userService',
 
 controller('applicantPageController', 
 	function(Applicant, Role, $location, $routeParams,
-	 $scope, $aside, $routeParams,$location){
+	 $scope, $aside, $routeParams,$location,$route){
 	 var vm = this;
 	 $scope.viewApp = false;
 	 $scope.slides =[];
@@ -23,15 +23,16 @@ controller('applicantPageController',
       }
     }
 
-		Role.get($routeParams.role_id)
-		.success(function(data){
-			vm.processing = false;
-			vm.roleData = data.data;
-		})
-		.error(function(error){
-			console.log(error);
-		})
-
+			Role.get($routeParams.role_id)
+			.success(function(data){
+				vm.processing = false;
+				vm.roleData = data.data;
+			})
+			.error(function(error){
+				console.log(error);
+			})
+	
+	function getApps(){
 		Applicant.getAll($routeParams.role_id)
 		.success(function(data){
 			vm.processing = false;
@@ -40,6 +41,8 @@ controller('applicantPageController',
 		.error(function(error){
 			console.log(error);
 		})
+	}
+	getApps();
 
 		var editRoleAside = $aside({
 											scope:$scope,
@@ -69,7 +72,14 @@ controller('applicantPageController',
 		}
 		$scope.deleteAppBtn = function(){
 			console.log("button press");
-			Applicant.delete($scope.currApp._id);
+			Applicant.delete($scope.currApp._id)
+			.success(function(){
+						getApps();
+						deleteAppAside.hide();
+					})
+					.error(function(err){
+						console.log(err.message);
+					})
 		}
 		vm.shareBtn = function(){
 			$scope.roleData = vm.roleData;
@@ -274,8 +284,6 @@ controller('deleteRoleController',['$scope',
 	$scope.selectedDate = new Date();
 	$scope.selectedTime = new Date();
   
-  // $scope.fromDate = new Date();
-  // $scope.untilDate = new Date();
   $scope.status = {
     isopen: false
   };
@@ -331,7 +339,7 @@ controller('deleteRoleController',['$scope',
 				})
 	}}).
 //home.html
-	controller('home_ProjectsController',
+	controller('HomeController',
 	 function(Project, $location, $aside,$scope)	{
 		var vm = this;
 				vm.gridView = true;

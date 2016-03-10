@@ -6,12 +6,12 @@ var ProjectSchema = new Schema ({
 	updated_date: {type:Date, default:Date.now},
 	user_id : String, 
 
-	name : {
+	Project : {
 		type: String, 
 		required : true,
 		index: {unique:true}
 	},
-	description:{
+	Description:{
 		type: String,
 		required:true
 	}
