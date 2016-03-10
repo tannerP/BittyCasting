@@ -14,8 +14,8 @@
   opacity: 0.4;
   filter: alpha(opacity=40); }
 
-.singInOffset {
-  margin-top: 100px; }
+.signInOffset {
+  margin-top: 80px; }
 
 .custom-btn-primary-small {
   border: 0;
@@ -254,10 +254,32 @@ header {
     -ms-transition: all 0.2s ease;
     -o-transition: all 0.2s ease;
     transition: all 0.2s ease; }
-  .custom-site-nav-in li:nth-child(2) {
+  .custom-site-nav-in li:nth-child(1) {
     position: absolute;
     top: 0;
     left: 50px; }
+  .custom-site-nav-in li a.navUserInitial {
+    padding: 12px;
+    background-color: #666666;
+    text-align: center;
+    font-size: 12px;
+    color: white;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    border-radius: 50%;
+    -webkit-transition: all 0.2s ease;
+    -moz-transition: all 0.2s ease;
+    -ms-transition: all 0.2s ease;
+    -o-transition: all 0.2s ease;
+    transition: all 0.2s ease; }
+    .custom-site-nav-in li a.navUserInitial:hover, .custom-site-nav-in li a.navUserInitial:focus {
+      background-color: #444444;
+      -webkit-transition: all 0.2s ease;
+      -moz-transition: all 0.2s ease;
+      -ms-transition: all 0.2s ease;
+      -o-transition: all 0.2s ease;
+      transition: all 0.2s ease; }
 
 .custom-action-nav ul {
   list-style-type: none;
@@ -729,6 +751,23 @@ ul.projects li {
   border-bottom: 2px solid #999999; }
 .custom-table .table-hover > tbody > tr:hover {
   background-color: #cccccc; }
+
+/***************************
+          Profile
+***************************/
+.usrInitial {
+  margin: 0 auto 20px auto;
+  width: 140px;
+  height: 140px;
+  background-color: #666666;
+  color: white;
+  text-align: center;
+  font-size: 36px;
+  padding-top: 44px;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  border-radius: 50%; }
 
 /***************************
           Side panel

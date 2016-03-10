@@ -45,8 +45,8 @@ $font-size-small: 10px;
     filter: alpha(opacity=40);
 }
 
-.singInOffset {
-    margin-top: 100px;
+.signInOffset {
+    margin-top: 80px;
 }
 
 @mixin box-shadow($top, $left, $blur, $spread, $color) {
@@ -265,10 +265,8 @@ nav {
 
 .custom-site-nav-in {
     position: relative;
-    ul {float: right;}
-    
-    li {
-        
+    ul {float: right;}   
+    li {  
         a {             
             display: inline;
             font-size: $font-size-regular;
@@ -283,12 +281,26 @@ nav {
             @include transition(all, 0.2s, ease);
         }  
         
-        &:nth-child(2) {
+        &:nth-child(1) {
             position: absolute;
             top:0;
             left: 50px;
         }
-
+        
+        a.navUserInitial {
+            padding: 12px;
+            background-color: $color-grey-dark;
+            text-align: center;
+            font-size: $font-size-regular;
+            color: white;
+            @include border-radius(50%);
+            @include transition(all, 0.2s, ease);
+            &:hover, &:focus  {
+                background-color: $color-grey-darken;
+                @include transition(all, 0.2s, ease);
+            } 
+            
+        }
     }
 
 }
@@ -824,6 +836,22 @@ ul.projects li {
 }
 
 /***************************
+          Profile
+***************************/
+
+.usrInitial {
+    margin: 0 auto 20px auto;
+    width: 140px;
+    height: 140px;
+    background-color: $color-grey-dark;
+    color: white;
+    text-align: center;
+    font-size: 36px;
+    padding-top: 44px;
+    @include border-radius(50%);
+}
+
+/***************************
           Side panel
 ***************************/
 
@@ -946,8 +974,6 @@ ul.projects li {
     animation-duration: .2s;
     @include transition(all, 0.2s, ease);
 }
-
-
 
 .form-group {
     
