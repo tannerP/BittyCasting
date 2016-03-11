@@ -1,5 +1,9 @@
 <div class="container custom-main"> 
 	<div class="pageHeader">
+			<div>
+					<p>{{currIndex +1}}/{{numApps}}</p>
+			</div>
+		<h1>{{currApp.name.first}} {{currApp.name.last}}</h1>
 		<div>
 		<div style="left:-10px; font-size:40px;" ng-click="backBtn()">X</div>    
 		    <ul style=" margin-left:auto; margin-right:auto; width:800px; height:400px" rn-carousel rn-carousel-control-allow-loop rn-carousel-controls rn-carousel-transition="fadeAndSlide" rn-carousel-index="carouselIndex" rn-carousel-buffered class="carousel2">

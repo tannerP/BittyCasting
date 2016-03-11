@@ -51,6 +51,7 @@ controller('applicantPageController',
 		.success(function(data){
 			vm.processing = false;
 			vm.applicants = data.data;
+			$scope.numApps = data.data.length;
 		})
 		.error(function(error){
 			console.log(error);
@@ -83,6 +84,10 @@ controller('applicantPageController',
 			$scope.currApp = app
 			deleteAppAside.$promise.then(deleteAppAside.toggle);	
 		}
+		$scope.backBtn = function(){
+			$scope.viewApp = false;
+			$scope.$emit("unhideNav");
+		}
 		$scope.deleteAppBtn = function(){
 			console.log("button press");
 			Applicant.delete($scope.currApp._id)
@@ -100,10 +105,6 @@ controller('applicantPageController',
 		}
 		vm.editRoleBtn = function(){
 			editRoleAside.$promise.then(editRoleAside.toggle);	
-		}
-		$scope.backBtn = function(){
-			$scope.viewApp = false;
-			$scope.$emit("unhideNav");
 		}
 		vm.viewBtn = function(index){
 			console.log(index);
@@ -221,20 +222,23 @@ controller('prjDetailController',
 			});
 	}}).
  controller('shareRoleController', ['$scope', '$alert',
- 	'$routeParams',
-  function ($scope,$alert,$routeParams) {
+ 	'$location',
+  function ($scope,$alert,$location) {
         var url_base = "bittycasting.com/Apply/";
         var url_base_dev = "localhost:8080/Apply/" +$scope.roleData._id; 
         $scope.textToCopy = url_base_dev;
+        var previewLink = "/Apply/" +$scope.roleData._id; 
         $scope.toggle = false;
-
          var successAlert = $alert({title: 'Copied!',
          	animation:'am-fade-and-slide-top',duration:'10',
            placement: 'top-right', type: 'success', show: false, type:'success'}),
          errAlert = $alert({title: 'Link:',
           content: 'Copied',
            placement: 'top-right', type: 'info', show: false, type:'success'});           
-
+        $scope.preview = function()	{
+        	$scope.$toggle();
+        	$location.path(previewLink)
+        } 
         $scope.success = function () {
             $scope.toggle = true;
             successAlert.toggle();
