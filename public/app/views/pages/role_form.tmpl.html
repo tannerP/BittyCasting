@@ -25,13 +25,14 @@
                 <label class="control-label"><i class="fa fa-calendar"></i> End Date</label>
                 <input placeholder="Application end date" type='text' 
                     class="custom-form" ng-model = "selectedDate"
-                    required bs-datepicker>
+                    required bs-datepicker autoclose="true">
             </div>
         <div class = "form-group" 
             ng-class="{'has-error': timepickerForm.time.$invalid}">
             <label > End Time </label>
             <input type="text" class="form-control" 
-                    ng-model="selectedTime" name="time" bs-timepicker required>
+                    ng-model="selectedTime" name="time" bs-timepicker 
+                    >
         </div>        
         <div class = "form-group">
             <label ng-show="roleAside.roleData.location">Location</label>

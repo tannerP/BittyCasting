@@ -1,4 +1,23 @@
 /***************************
+     Global Animation
+***************************/
+/* The finishing CSS styles for the enter animation */
+
+.ng-enter,.ng-leave {
+  transition:all cubic-bezier(0.50, 0.50, 0.50, 0.50) .25s;
+}
+
+.ng-enter,
+.ng-leave.ng-leave-active {
+  opacity:0;
+}
+
+.ng-leave,
+.ng-enter.ng-enter-active {
+  opacity:1;
+}
+
+/***************************
           Colors
 ***************************/
 /***************************

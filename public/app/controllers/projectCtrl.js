@@ -1,25 +1,39 @@
 angular.module('projectCtrl',['userService', 
 	'mgcrea.ngStrap']).
-
 controller('applicantPageController', 
 	function(Applicant, Role, $location, $routeParams,
 	 $scope, $aside, $routeParams,$location,$route){
 	 var vm = this;
 	 $scope.viewApp = false;
 	 $scope.slides =[];
-    function addSlide(target,source) {
+    function addSlide(target,data) {
         var i = target.length;
+        var fileTypes=["Video","Photo","Text","Link"];
+
+        for( item in fileTypes){
+        	if(data.file_type.indexOf(fileTypes[item])){
+        		fileTypes[item] = false;
+        	}
+        	else{
+        		fileTypes[item] = true;
+        	}
+        }
+
         target.push({
             id: (i + 1),
-            label: 'slide #' + (i + 1),
-            img: source,
+            label: data.name,
+            source: data.source,
+            video: fileTypes[0],
+            photo: fileTypes[1],
+            document: fileTypes[2],
+            link:fileTypes[3],
             odd: (i % 2 === 0)
         });
     };
     $scope.carouselIndex = 0;
-    function addSlides(target, sourceArr) {
+    function addSlides(target, sourceArr) {;
       for (var i=0; i < sourceArr.length; i++) {
-          addSlide(target, sourceArr[i].source);
+          addSlide(target, sourceArr[i]);
       }
     }
 
@@ -47,7 +61,6 @@ controller('applicantPageController',
 		var editRoleAside = $aside({
 											scope:$scope,
 											show: false,
-											keyboard:true, 
 										 	controller:'editRoleController',
 										 	controllerAs:'roleAside',						
 										  templateUrl:'/app/views/pages/role_form.tmpl.html'		
@@ -88,15 +101,31 @@ controller('applicantPageController',
 		vm.editRoleBtn = function(){
 			editRoleAside.$promise.then(editRoleAside.toggle);	
 		}
-		vm.viewBtn = function(app){
+		$scope.backBtn = function(){
+			$scope.viewApp = false;
+			$scope.$emit("unhideNav");
+		}
+		vm.viewBtn = function(index){
+			console.log(index);
 			$scope.slides = [];
-			$scope.$emit("hideNavFooter");
-			$scope.currApp = app;
+			$scope.$emit("hideNav");
+			$scope.currIndex = index;
+			$scope.currApp = vm.applicants[index];
 			addSlides($scope.slides,$scope.currApp.suppliments);
-			/*console.log("btn pressed");*/
-			/*$location.path('/Review');*/
 			$scope.viewApp = true;
+		}
+		vm.nextApp = function(){
 
+			if($scope.currIndex < vm.applicants.length-1) {
+					$scope.currIndex += 1;
+					vm.viewBtn($scope.currIndex)
+				}
+		}
+			vm.lastApp = function(){
+			if($scope.currIndex > 0) {
+					$scope.currIndex -= 1;
+					vm.viewBtn($scope.currIndex)
+				}
 		}
 }).
 controller('prjDetailController', 
@@ -167,15 +196,18 @@ controller('prjDetailController',
 				vm.message = err;
 			});
 		
-		Role.getAll($routeParams.project_id)
-		.success(function(data){
-			vm.processing = false;
-			vm.Roles = data.data;
-		})
-		.error(function(error){
-			console.log(error);
-		})
+		$scope.load = function(){
+			Role.getAll($routeParams.project_id)
+			.success(function(data){
+				vm.processing = false;
+				vm.Roles = data.data;
+			})
+			.error(function(error){
+				console.log(error);
+			})
+		}
 
+		$scope.load();
 		vm.save = function(){
 			vm.processing = true;
 			vm.message;
@@ -238,106 +270,145 @@ controller('deleteRoleController',['$scope',
 				else errAlert.toggle();
 			}
 }]).
-	controller('editRoleController', 
-		function(Role, $location, $routeParams, $route, $scope){
-		var vm = this;
-		vm.edit = true;
-		vm.processing = true;
-		vm.roleData = {};
-		vm.roleData.requirements=[];
-		Role.get($routeParams.role_id)
-			.success(function(data){
-				vm.processing = false;
-				vm.roleData = data.data;
-				$scope.selectedTime = data.data.end_time;
-				$scope.selectedDate = data.data.end_date;
+controller('editRoleController', 
+	function(Role, $location, $routeParams, $route, $scope){
+	var vm = this;
+	vm.edit = true;
+	vm.processing = true;
+	vm.roleData = {};
+	vm.roleData.requirements=[];
+	Role.get($routeParams.role_id)
+		.success(function(data){
+			vm.processing = false;
+			vm.roleData = data.data;
+			$scope.selectedTime = data.data.end_time;
+			$scope.selectedDate = data.data.end_date;
+		})
+		.error(function(err){
+			console.log(err);
+		})
+	vm.updateRole = function(){
+		vm.roleData.end_time = $scope.selectedTime;
+		vm.roleData.end_date = $scope.selectedDate;
+		vm.roleData.updated_date = new Date();
+		Role.update($routeParams.role_id,vm.roleData)
+			.success(function(){
+				$route.reload();
+				vm.processing  = false;
+				vm.projectData = null;
+				$scope.$toggle();
 			})
 			.error(function(err){
-				console.log(err);
+				console.log(err.message);
 			})
+		}
+	$scope.status = {
+	  isopen: false
+	};
 
-		vm.updateRole = function(){
-			vm.roleData.end_time = $scope.selectedTime;
-			vm.roleData.end_date = $scope.selectedDate;
-			vm.roleData.updated_date = new Date();
-			Role.update($routeParams.role_id,vm.roleData)
-				.success(function(){
-					$route.reload();
-					vm.processing  = false;
-					vm.projectData = null;
-					$scope.$hide();
-				})
-				.error(function(err){
-					console.log(err.message);
-				})
-	}}).
+	$scope.toggled = function(open) {
+	  $log.log('Dropdown is now: ', open);
+	};
 
-	controller('addRoleController',
-		function(Role, $location, $routeParams, $route, $scope){
-		var vm = this;
-		vm.edit = false;
-		vm.roleData = {};
-		vm.roleData.requirements=[];
-		vm.newData={};
-		vm.newData.name = "New Requirement",vm.newData.required = true,vm.newData.file_type = "Type";
+	$scope.toggleDropdown = function($event) {
+	  $event.preventDefault();
+	  $event.stopPropagation();
+	  $scope.status.isopen = !$scope.status.isopen;
+	};
+
+	vm.addReqt = function(data){
+		console.log("data:" + JSON.stringify(data));
+		if(!data){
+			console.log("error: input variable");
+			return;
+		}
+		var item = {name:data.name, file_type:data.file_type,
+		 required:data.required}
+		vm.roleData.requirements.push(item)
+		vm.newData.name = "New Requirement",
+		vm.newData.required = true,
+		vm.newData.file_type = "Type";
+	}
+	vm.removeReqt = function(item){
+		console.log(item);
+			for( i in vm.roleData.requirements){
+				console.log(vm.roleData.requirements[i])
+				if(vm.roleData.requirements[i].name === item)
+				{
+						delete vm.roleData.requirements[i];
+						return;
+				}
+			}
+		}
+
+}).
+
+controller('addRoleController',
+	function(Role, $location, $routeParams, $route, $scope){
+	var vm = this;
+	vm.edit = false;
+	vm.roleData = {};
+	vm.roleData.requirements=[];
+	vm.newData={};
+	vm.newData.name = "New Requirement",vm.newData.required = true,vm.newData.file_type = "Type";
 
 	$scope.selectedDate = new Date();
 	$scope.selectedTime = new Date();
-  
-  $scope.status = {
-    isopen: false
-  };
 
-  $scope.toggled = function(open) {
-    $log.log('Dropdown is now: ', open);
-  };
+	$scope.status = {
+	  isopen: false
+	};
 
-  $scope.toggleDropdown = function($event) {
-    $event.preventDefault();
-    $event.stopPropagation();
-    $scope.status.isopen = !$scope.status.isopen;
-  };
+	$scope.toggled = function(open) {
+	  $log.log('Dropdown is now: ', open);
+	};
 
-		vm.addReqt = function(data){
-			console.log("data:" + JSON.stringify(data));
-			if(!data){
-				console.log("error: input variable");
-				return;
+	$scope.toggleDropdown = function($event) {
+	  $event.preventDefault();
+	  $event.stopPropagation();
+	  $scope.status.isopen = !$scope.status.isopen;
+	};
+
+	vm.addReqt = function(data){
+		console.log("data:" + JSON.stringify(data));
+		if(!data){
+			console.log("error: input variable");
+			return;
+		}
+		var item = {name:data.name, file_type:data.file_type, required:data.required}
+		vm.roleData.requirements.push(item)
+		vm.newData.name = "New Requirement",vm.newData.required = true,vm.newData.file_type = "Type";
+	}
+	vm.removeReqt = function(item){
+		console.log(item);
+			for( i in vm.roleData.requirements){
+				console.log(vm.roleData.requirements[i])
+				if(vm.roleData.requirements[i].name === item)
+				{
+						delete vm.roleData.requirements[i];
+						return;
+				}
 			}
-			var item = {name:data.name, file_type:data.file_type, required:data.required}
-			vm.roleData.requirements.push(item)
-			vm.newData.name = "New Requirement",vm.newData.required = true,vm.newData.file_type = "Type";
-		}
-		vm.removeReqt = function(item){
-			console.log(item);
- 			for( i in vm.roleData.requirements){
- 				console.log(vm.roleData.requirements[i])
- 				if(vm.roleData.requirements[i].name === item)
- 				{
- 						delete vm.roleData.requirements[i];
- 						return;
- 				}
- 			}
-		}
+	}
 
-		vm.createRoleBtn = function(){
-			console.log("project ID :" + $routeParams.project_id);
-			vm.projectID = $routeParams.project_id;
-			vm.roleData.end_date = $scope.selectedDate.toJSON();
-			vm.roleData.end_time = $scope.selectedTime.toJSON();
+	vm.createRoleBtn = function(){
+		console.log("project ID :" + $routeParams.project_id);
+		vm.projectID = $routeParams.project_id;
+		vm.roleData.end_date = $scope.selectedDate.toJSON();
+		vm.roleData.end_time = $scope.selectedTime.toJSON();
 
-			vm.roleData.end_time;
+		vm.roleData.end_time;
 
-			Role.create(vm.projectID, vm.roleData)
-				.success(function(){
-					vm.roleData = {};
-					$route.reload();
-					$scope.$hide()
-				})
-				.error(function(err){
-					console.log(err.message);
-				})
-	}}).
+		Role.create(vm.projectID, vm.roleData)
+			.success(function(){
+				vm.roleData = {};
+				$route.reload();
+				$scope.$hide()
+			})
+			.error(function(err){
+				console.log(err.message);
+			})
+}}).
 //home.html
 	controller('HomeController',
 	 function(Project, $location, $aside,$scope)	{
@@ -437,6 +508,7 @@ controller('deleteRoleController',['$scope',
 		vm.save = function(){
 			vm. processing = true;
 			vm.message;	
+			vm.projectData.updated_date = new Date();
 		Project.update(vm.proj_id, vm.projectData)
 			.success(function(data){
 				$route.reload();
@@ -450,39 +522,39 @@ controller('deleteRoleController',['$scope',
 			});
 
 	}}).
-	//Change to style.flexDirection = 'column-reverse' 
-	controller('deleteProjectController', ['$scope','$alert','Project','$location','$route',
-		function($scope,$alert,Project,$location,$route)	{
-		var vm = this; 
-		vm.process = true;
-		vm.existing = true;
+//Change to style.flexDirection = 'column-reverse' 
+controller('deleteProjectController', ['$scope','$alert','Project','$location','$route',
+	function($scope,$alert,Project,$location,$route)	{
+	var vm = this; 
+	vm.process = true;
+	vm.existing = true;
 
-		var errAlert = $alert({title: 'Whoops', content:'Please check all', animation:'am-fade-and-slide-top',duration:'5',
-           placement: 'top-right', type: 'danger', show: false, type:'success'});
+	var errAlert = $alert({title: 'Whoops', content:'Please check all', animation:'am-fade-and-slide-top',duration:'5',
+         placement: 'top-right', type: 'danger', show: false, type:'success'});
 
-		vm.eval = function(){
-			console.log("eval");
-			if( vm.input1 == true ){
-			vm.agreed = true;
-			}
+	vm.eval = function(){
+		console.log("eval");
+		if( vm.input1 == true ){
+		vm.agreed = true;
 		}
-		
-		vm.delete = function(projID) {
-			if(vm.input1 && vm.input2 && vm.input3){
-				Project.delete(projID)
-				.success(function(){
-					$route.reload();
-					vm.processing = false;
-					vm.projectData = null;
-					$scope.$hide();	
+	}
+	
+	vm.delete = function(projID) {
+		if(vm.input1 && vm.input2 && vm.input3){
+			Project.delete(projID)
+			.success(function(){
+				$route.reload();
+				vm.processing = false;
+				vm.projectData = null;
+				$scope.$hide();	
 
-				})
-				.error(function(err){
-					console.log(err);}
-					)
-			}
-			else{
-					errAlert.toggle();
-			}
+			})
+			.error(function(err){
+				console.log(err);}
+				)
 		}
-	}]);
+		else{
+				errAlert.toggle();
+		}
+	}
+}]);

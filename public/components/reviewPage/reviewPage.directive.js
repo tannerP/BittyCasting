@@ -5,5 +5,18 @@ angular.module('ReviewPage',[])
     return {
       templateUrl: 'components/reviewPage/reviewPage.html',
       restrict: 'A'
-    };
+      }
   });
+/*  .controller('reviewPgCtrl', 
+	function($location, $routeParams,
+	 $scope,$route){
+		var vm = this;
+		vm.nextApp = function(){
+			$scope.currIndex += 1;
+		}
+		console.log($scope.currIndex);
+		$scope.currApp = $scope.applicants[$scope.currIndex];
+		console.log($scope.currApp);
+
+	});
+*/

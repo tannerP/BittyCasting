@@ -13,13 +13,24 @@ controller('mainController',['$scope','$rootScope','Auth','$location',"$sce","$r
 		});*/
 
 		vm.backBtn = function(){
-			window.history.back();		}
-		
+			if(vm.nav === false) vm.nav = true;
+			window.history.back();		
+		}
+	
 		$scope.$on("LoggedIn", function(){
 				Auth.getUser()
 						.then(function(data) {
 							vm.usrInitial = (data.name.first[0] + data.name.last[0]).toUpperCase();
 						 })
+		})
+		$scope.$on("hideNav", function(){
+			vm.nav = false;
+		})
+		$scope.$on("unhideNav", function(){
+			vm.nav = true;
+		})
+		$scope.$on("hideFooter", function(){
+				vm.footer = false;
 		})
 		$rootScope.$on('$routeChangeStart', function () {
 			vm.loggedIn = Auth.isLoggedIn();
@@ -34,15 +45,6 @@ controller('mainController',['$scope','$rootScope','Auth','$location',"$sce","$r
 			else{
 			 vm.publicVw = false;
 			}
-			if ($location.path().indexOf('/Apply') == 1 ){
-				vm.footer = false;
-				vm.nav = false;				
-			}
-			else{
-				vm.footer = true;
-				vm.nav = true;					
-			}
-			
 			if(vm.loggedIn && !vm.name){
 				Auth.getUser()
 						.then(function(data) {
@@ -51,12 +53,7 @@ controller('mainController',['$scope','$rootScope','Auth','$location',"$sce","$r
 							}
 						 })
 		}
-		else 	if( $location.path().indexOf("/Apply") != -1)
-			{
-				vm.footer = false;
-				vm.nav = false;
-			}
-		});
+	})
 		vm.getUsrBtn = function(){
 			$location.path('/profile');
 		}
@@ -116,6 +113,7 @@ controller('loginCtrl',['$scope','Auth','$location','$route',
 					else{
 						$scope.$hide();
 						$location.path('/home');}
+						$scope.$hide();
 					//this.user = 'name:unchanged';
 					Auth.getUser()
 						.then(function(data) {

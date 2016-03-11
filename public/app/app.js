@@ -22,14 +22,17 @@ angular.module('userApp', [
 	'userCtrl',
 	'footer',
 	'ReviewPage',
-	'Nav'
-
+	'Nav',
+	'pdf'
 	])
 	.run(function ($rootScope, $location, $http) {
     $http.get('/config').success(function(data) {
         $rootScope.awsConfig = data.awsConfig;
       });
   })
+  .run(function($animate) {
+  $animate.enabled(true);
+	})
   .config(function($datepickerProvider) {
   angular.extend($datepickerProvider.defaults, {
     dateFormat: 'dd/MM/yyyy',

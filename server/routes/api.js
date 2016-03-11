@@ -205,6 +205,7 @@ apiRouter.route('/project/:project_id')
 			if(err) res.send(err);
 			project.name = req.body.name;
 			project.details = req.body.details;
+			project.updated_date = req.body.updated_date;
 			project.save(function(err){
 				if (err) console.log(err);
 				if (err) res.send(err);
