@@ -9,7 +9,7 @@ controller('CommentBoxCtrl',
 		vm.addComment = function(appID,comment){
 			var cmt = {owner:"tanner",
 								comment:comment}
-			vm.comments.push(cmt);
+					$scope.currApp.comments.push(cmt);
 			Applicant.pushComment(appID,cmt);
 		
 			vm.newComment="";
