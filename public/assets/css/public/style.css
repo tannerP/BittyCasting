@@ -135,6 +135,9 @@ header {
   left: 0;
   z-index: 10; }
 
+.navbar-collapse {
+  padding-right: 0; }
+
 .navbar-toggle {
   width: 55px;
   height: 55px;
@@ -182,7 +185,7 @@ header {
   fill: #242424;
   height: 46px;
   float: left;
-  padding: 10px 0 0 15px;
+  padding: 10px 0 0 0;
   -webkit-transition: all 0.2s ease;
   -moz-transition: all 0.2s ease;
   -ms-transition: all 0.2s ease;
@@ -1336,6 +1339,12 @@ ul.projects li {
     -ms-border-radius: 100%;
     border-radius: 100%; } }
 @media screen and (max-width: 767px) {
+  .container {
+    padding: 0 15px; }
+
+  .custom-main {
+    padding: 80px 0 60px 0; }
+
   /***************************
               Nav
   ***************************/
@@ -1344,8 +1353,10 @@ ul.projects li {
     overflow-x: hidden; }
 
   .navbar-collapse {
-    padding: 0;
     overflow-x: hidden; }
+
+  .logoNav_signin {
+    padding-left: 15px; }
 
   .custom-site-nav ul {
     background-color: white;

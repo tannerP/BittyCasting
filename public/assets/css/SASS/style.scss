@@ -183,6 +183,10 @@ nav {
     
 }
 
+.navbar-collapse {
+    padding-right: 0;
+}
+
 .navbar-toggle {
     width: 55px;
     height: 55px;
@@ -214,7 +218,7 @@ nav {
         fill: $color-grey-darkest;
         height: 46px;
         float: left;
-        padding: 10px 0 0 15px;
+        padding: 10px 0 0 0;
         @include transition(all, 0.2s, ease);
         &:hover {
             fill: $color-blue;
@@ -1449,6 +1453,12 @@ ul.projects li {
 
 
 @media screen and (max-width: 767px) { 
+    
+    .container {
+        padding: 0 15px;
+    }
+    
+    .custom-main {padding: 80px 0 60px 0;}
         
     /***************************
                 Nav
@@ -1460,8 +1470,11 @@ ul.projects li {
     }
     
     .navbar-collapse {
-        padding: 0;
         overflow-x: hidden;
+    }
+    
+    .logoNav_signin {
+        padding-left: 15px;
     }
     
     .custom-site-nav ul {
