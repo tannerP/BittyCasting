@@ -35,7 +35,21 @@
                   </div>
       <!-- Collect the nav links, forms, and other content for toggling -->
                   <div class="collapse navbar-collapse" ng-class="!navCollapsed && 'in'">
- 
+                      
+<!---------------- Log in ---------------->                                            
+                    <div ng-if='main.loggedIn' class="custom-site-nav-in"> 
+                      <ul class="nav navbar-nav">                       
+                          <li ><a href="/home">My projects</a></li>                        
+                      </ul>
+                    </div>      
+                      
+                    <div ng-if='main.loggedIn' class="custom-action-nav-in"> 
+                      <ul class="nav navbar-nav">                         
+                          <li ng-if='main.loggedIn' ng-click="main.doLogout()" ><a href = "#">Logout</a></li>
+                          <div ng-if='main.loggedIn' class ="navUserInitial" ng-click="main.getUsrBtn()">{{main.usrInitial}}</div>
+                      </ul>
+                    </div>  
+                      
 <!---------------- Not Login ---------------->
                    <div ng-if = "!main.loggedIn" class="custom-action-nav">        
                     <ul>
@@ -54,19 +68,7 @@
                           </ul>      
                       </div> 
                       
-<!---------------- Log in ---------------->                                            
-                    <div ng-if='main.loggedIn' class="custom-site-nav-in"> 
-                      <ul class="nav navbar-nav">                       
-                          <li ><a href="/home">My projects</a></li>                        
-                      </ul>
-                    </div>      
                       
-                    <div ng-if='main.loggedIn' class="custom-action-nav-in"> 
-                      <ul class="nav navbar-nav">                         
-                          <li ng-if='main.loggedIn' ng-click="main.doLogout()" ><a href = "#">Logout</a></li>
-                          <div ng-if='main.loggedIn' class ="navUserInitial" ng-click="main.getUsrBtn()">{{main.usrInitial}}</div>
-                      </ul>
-                    </div>  
                       
                   </div><!-- /.navbar-collapse -->
             
