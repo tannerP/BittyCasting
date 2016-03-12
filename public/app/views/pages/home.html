@@ -1,6 +1,6 @@
 
-<div class="container custom-main">
-
+<div class="container">
+<div class="custom-main">
     <div class="pageHeader">
 
         <div class='pageTitle'>My projects</div>
@@ -16,7 +16,6 @@
     </div>
     <div class="cardContainer">
         <ul class='projects' ng-if="home.gridView">
-
             <li class="col-lg-3 col-md-4 col-sm-6" ng-repeat-start="project in home.projects">
                     <div class="card">               
                         <a href="/project/{{project._id}}" class="md-headline">
@@ -78,4 +77,6 @@
             
           </table>
     </div>
-</div>    
+</div>
+</div>  
+
