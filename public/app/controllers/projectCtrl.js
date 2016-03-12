@@ -3,18 +3,23 @@ angular.module('projectCtrl',['userService',
 controller('CommentBoxCtrl', 
 	function($scope, Applicant){
 		var vm = this;
+		vm.comments = $scope.currApp.comments;
 		vm.newComment;
 		vm.comments = $scope.currApp.comments;
-		vm.deleteCmt = function(appID,cmtID){
-			console.log(cmtID);
-			Applicant.deleteComment(appID,cmtID);
+		vm.deleteCmt = function(appID,index,comment){
+			Applicant.deleteComment(appID,comment);
+			/*for( var i in $scope.currApp.comments)
+				{ if( $scope.currApp.comments[i].comment == comment.comment);
+					/*delete $scope.currApp.comments[i];
+					console.log("match found")
+				}*/
+				delete $scope.currApp.comments[index];
 		}
-		vm.addComment = function(appID,comment){
+		vm.addCmt = function(appID,comment){
 			var cmt = {owner:"tanner",
 								comment:comment}
 					$scope.currApp.comments.push(cmt);
 			Applicant.pushComment(appID,cmt);
-		
 			vm.newComment="";
 		}
 
