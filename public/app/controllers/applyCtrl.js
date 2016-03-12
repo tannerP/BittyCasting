@@ -8,6 +8,7 @@ angular.module('applyCtrl',['userService', 'mgcrea.ngStrap']).
         function ($scope, $rootScope, Upload, $http, Project, 
             Role, Applicant, $routeParams, Pub) 
     {
+        $scope.$emit("hideNav");
         var vm = this;
         vm.roleData={};
         vm.appData ={};
