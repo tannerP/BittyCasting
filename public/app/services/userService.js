@@ -33,11 +33,18 @@ angular.module('userService', [])
 		}
 	/*Commenting*/
 	appFactory.pushComment = function(id,data)	{
+		data.state="PUT"
 		return $http.put('api/applicant/comments/'+id, data);	
 		}
 	appFactory.deleteComment = function(id,data)	{
-		console.log(data);
-		return $http.delete('api/applicant/comments/'+id, {data:data});	
+		var newData ={
+			owner:data.owner,
+			comment:data.comment,
+			_id:data._id,
+			state:"DELETE"
+		}
+		console.log(newData);
+		return $http.put('api/applicant/comments/'+id, newData);	
 		}
 	return appFactory;
 })
