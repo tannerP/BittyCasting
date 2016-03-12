@@ -214,7 +214,7 @@ nav {
         fill: $color-grey-darkest;
         height: 46px;
         float: left;
-        padding: 10px 0 0 0;
+        padding: 10px 0 0 15px;
         @include transition(all, 0.2s, ease);
         &:hover {
             fill: $color-blue;
@@ -341,7 +341,7 @@ nav {
             font-size: $font-size-regular;
             color: $color-grey-dark;
             line-height: 56px;
-            margin: 0 0 0 0px;
+            margin: 0 0 0 15px;
             @include transition(all, 0.2s, ease);
         }       
         a:hover, a:focus  {
