@@ -1,35 +1,38 @@
 <div class="contatiner custom-main">
 <div class="col-md-4 col-md-offset-4">
 
-    <div class="pageTitle">User Profile</div>
-    <div class="usrInitial">{{main.usrInitial}}</div>
+    <div class="userProfile">
     
-    <div class="custom-close" ng-click="$hide()"></div>
-    <form class="">          
-            <div class = "form-group">
-                    <label>First name</label>
-                    <input type = "text" class = "custom-form" ng-model = "user.userData.name.first">
-            </div>
-            <div class = "form-group">
-                    <label>Last name</label>
-                    <input type = "text" class = "custom-form" ng-model = "user.userData.name.last">
-            </div>
-            <div class = "form-group">
-                <label>E-mail</label>
-                <input type = "email" class = "custom-form" ng-model = "user.userData.email">
-            </div>    
-            <div class = "form-group">
-                <label>New Password</label>
-                    <input type = "password" class = "custom-form" ng-model = "user.userData.password">
-            </div>
-            <div class = "form-group">
-                <label>Confirm password</label>
-                    <input type = "password" class = "custom-form" ng-model = "user.userData.password">
-            </div>
-            <button ng-if="!user.message" type="submit" class="custom-btn-primary-large" ng-click="user.saveUser()">Update</button>
-            <button type="submit" class="custom-btn-primary-large" ng-if="user.message">{{user.message}}</button>
-    </form>
-    
+        <div class="pageTitle">User Profile</div>
+        <div class="usrInitial">{{main.usrInitial}}</div>
+
+        <div class="custom-close" ng-click="$hide()"></div>
+        <form class="">          
+                <div class = "form-group">
+                        <label>First name</label>
+                        <input type = "text" class = "custom-form" ng-model = "user.userData.name.first">
+                </div>
+                <div class = "form-group">
+                        <label>Last name</label>
+                        <input type = "text" class = "custom-form" ng-model = "user.userData.name.last">
+                </div>
+                <div class = "form-group">
+                    <label>E-mail</label>
+                    <input type = "email" class = "custom-form" ng-model = "user.userData.email">
+                </div>    
+                <div class = "form-group">
+                    <label>New Password</label>
+                        <input type = "password" class = "custom-form" ng-model = "user.userData.password">
+                </div>
+                <div class = "form-group">
+                    <label>Confirm password</label>
+                        <input type = "password" class = "custom-form" ng-model = "user.userData.password">
+                </div>
+                <button ng-if="!user.message" type="submit" class="custom-btn-primary-large" ng-click="user.saveUser()">Update</button>
+                <button type="submit" class="custom-btn-primary-large" ng-if="user.message">{{user.message}}</button>
+        </form>
+        
+    </div>
     
 </div>
 </div>
