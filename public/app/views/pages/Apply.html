@@ -75,7 +75,7 @@
                                         ngf-resize="{width: 700, height: 700}">
                                         upload from computer</a>
                                     </p>
-                                    Image thumbnail:<!--  <img ngf-thumbnail="page.files[$index] || '/thumb.jpg'"> -->
+                                    Image thumbnail: <img ng-if="page.files[$index]" style="width:100px;height:100px;" ngf-thumbnail="page.files[$index] || '/thumb.jpg'">
                                     <video style="width:100px;height:100px;" ng-if="page.files[$index]"
                                     controls
                                     ngf-src="page.files[$index]">

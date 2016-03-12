@@ -37,7 +37,6 @@ controller('applicantPageController',
         		fileTypes[item] = true;
         	}
         }
-
         target.push({
             id: (i + 1),
             label: data.name,
@@ -52,10 +51,13 @@ controller('applicantPageController',
     $scope.carouselIndex = 0;
     function addSlides(target, sourceArr) {;
       for (var i=0; i < sourceArr.length; i++) {
+      	var fType = sourceArr[i].file_type;
+      	if(fType=="Photo" || fType=="Video"){
           addSlide(target, sourceArr[i]);
+      	}
       }
     }
-
+		
 			Role.get($routeParams.role_id)
 			.success(function(data){
 				vm.processing = false;
