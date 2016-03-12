@@ -461,13 +461,14 @@ section.contact {
            Homepage
 ***************************/
 .custom-main {
+  padding-top: 80px;
   padding-bottom: 60px; }
 
 .cardContainer {
   margin: 0 -15px 0 -15px; }
 
 div.pageHeader {
-  margin: 56px 0 28px 0;
+  margin: 0 0 28px 0;
   position: relative; }
   div.pageHeader .utlBar {
     float: right; }
@@ -1289,7 +1290,21 @@ ul.projects li {
     border-bottom: 1px solid #cccccc;
     padding: 0 0 60px 0; }
   .applyPage .applyPageRight {
-    padding: 0; } }
+    padding: 0; }
+
+  .custom-site-nav-in li:nth-child(3) {
+    -webkit-border-radius: 100%;
+    -moz-border-radius: 100%;
+    -ms-border-radius: 100%;
+    border-radius: 100%; }
+  .custom-site-nav-in li a.navUserInitial {
+    padding: 0;
+    color: #666666;
+    background-color: white;
+    -webkit-border-radius: 100%;
+    -moz-border-radius: 100%;
+    -ms-border-radius: 100%;
+    border-radius: 100%; } }
 @media screen and (max-width: 767px) {
   /***************************
               Nav
@@ -1402,7 +1417,7 @@ ul.projects li {
           -ms-transition: all 0.8s ease;
           -o-transition: all 0.8s ease;
           transition: all 0.8s ease; }
-      .custom-site-nav-in ul li:nth-child(2) {
+      .custom-site-nav-in ul li:nth-child(1) {
         position: relative;
         top: 0;
         left: 0; }

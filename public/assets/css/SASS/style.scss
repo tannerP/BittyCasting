@@ -537,6 +537,7 @@ section {
 ***************************/
 
 .custom-main {
+    padding-top: 80px;
     padding-bottom: 60px;}
 
 .cardContainer{
@@ -544,7 +545,7 @@ section {
 }
 
 div.pageHeader{
-    margin: 56px 0 28px 0;
+    margin: 0 0 28px 0;
     position: relative;
     
     .utlBar {
@@ -1401,6 +1402,17 @@ ul.projects li {
             padding: 0;
         }
     }
+    .custom-site-nav-in li {
+            &:nth-child(3) {
+                @include border-radius(100%);
+            }
+            a.navUserInitial {
+                padding: 0;
+                color: $color-grey-dark;
+                background-color: white;
+                @include border-radius(100%);
+            }
+    }
 }
 
 
@@ -1497,10 +1509,10 @@ ul.projects li {
                     @include transition(all, 0.8s, ease);
                 }  
             }
-            &:nth-child(2) {
-            position: relative;
-            top:0;
-            left: 0;
+            &:nth-child(1) {
+                position: relative;
+                top:0;
+                left: 0;
             }
         }
     
