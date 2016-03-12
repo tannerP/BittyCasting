@@ -8,11 +8,6 @@ controller('CommentBoxCtrl',
 		vm.comments = $scope.currApp.comments;
 		vm.deleteCmt = function(appID,index,comment){
 			Applicant.deleteComment(appID,comment);
-			/*for( var i in $scope.currApp.comments)
-				{ if( $scope.currApp.comments[i].comment == comment.comment);
-					/*delete $scope.currApp.comments[i];
-					console.log("match found")
-				}*/
 				delete $scope.currApp.comments[index];
 		}
 		vm.addCmt = function(appID,comment){
