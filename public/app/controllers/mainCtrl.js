@@ -7,16 +7,10 @@ controller('mainController',['$scope','$rootScope','Auth','$location',"$sce","$r
 		vm.nav = true;
 
 		vm.loggedIn = Auth.isLoggedIn();
-		/*$scope.$on('hideNavFooter', function(event,data){
-			vm.footer = false;
-			vm.nav = false;
-		});*/
-
 		vm.backBtn = function(){
 			if(vm.nav === false) vm.nav = true;
 			window.history.back();		
 		}
-	
 		$scope.$on("LoggedIn", function(){
 				Auth.getUser()
 						.then(function(data) {
@@ -50,6 +44,8 @@ controller('mainController',['$scope','$rootScope','Auth','$location',"$sce","$r
 						.then(function(data) {
 							if(data !=null){
 							vm.usrInitial = data.name.first[0] + data.name.last[0];
+							vm.username ={first:data.name.first,
+														last:data.name.last}
 							}
 						 })
 		}

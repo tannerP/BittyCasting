@@ -20,7 +20,6 @@ angular.module('userService', [])
 	appFactory.update = function(id,data)	{
 		return $http.put('/app/'+id, data);	
 		}	 
-	
 	appFactory.delete = function(appID)	{
 		console.log(appID);
 		return $http.delete('api/applicant/'+ appID);
@@ -31,7 +30,11 @@ angular.module('userService', [])
 	}	 
 	appFactory.getAll = function(roleID)	{
 		return $http.get('/api/applicants/'+ roleID)
-		} 
+		}
+	/*Commenting*/
+	appFactory.pushComment = function(id,data)	{
+		return $http.put('api/applicant/newComment/'+id, data);	
+		}
 	return appFactory;
 })
 

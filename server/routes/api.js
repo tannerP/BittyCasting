@@ -46,6 +46,7 @@ apiRouter.all('*',function(req,res,next){
 });
 
 //==============================  Applicants =========================
+	//Get all applicants
 	apiRouter.route('/applicants/:roleID')
 		.get(function(req, res){
 			Applicant.find({ 'roleID': req.params.roleID},function(err,roles){
@@ -57,6 +58,24 @@ apiRouter.all('*',function(req,res,next){
 			res.json({'success':true ,'data':roles});	}
 			})
 		})
+//==============================  Commenting =========================		
+apiRouter.route('/applicant/newComment/:appID')
+		.put(function(req, res){
+			console.log(req.body)
+			Applicant.findById(req.params.appID,function(err,app){
+					if(err) res.json({successful:false,error:err});
+						console.log("before");
+						console.log(app.comments);
+						app.comments.push({owner:req.body.owner,
+														comment:req.body.comment});
+						app.save(function(err){
+							if(err){
+								return  res.json({success:false,
+								error:err })	}
+						res.json({successful:true,message:"Added comment"});
+						})
+				})
+			})
 //==============================  Applicant =========================
 	apiRouter.route('/applicant/:appID')
 		.delete(function(req, res){

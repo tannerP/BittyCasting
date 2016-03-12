@@ -59,7 +59,7 @@ app.route('/register')
 		//create a new instance of the User model
 		var user = new User();
 		//set the users information (comes from the request)
-		user.name.last = req.body.name.first;
+		user.name.last = req.body.name.last;
 		user.name.first = req.body.name.first;
 		user.password = req.body.password;
 		user.email = req.body.email;

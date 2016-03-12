@@ -1,5 +1,21 @@
 angular.module('projectCtrl',['userService', 
 	'mgcrea.ngStrap']).
+controller('CommentBoxCtrl', 
+	function($scope, Applicant){
+		var vm = this;
+		vm.newComment;
+		vm.comments = $scope.currApp.comments;
+
+		vm.addComment = function(appID,comment){
+			var cmt = {owner:"tanner",
+								comment:comment}
+			vm.comments.push(cmt);
+			Applicant.pushComment(appID,cmt);
+		
+			vm.newComment="";
+		}
+
+	}).
 controller('applicantPageController', 
 	function(Applicant, Role, $location, $routeParams,
 	 $scope, $aside, $routeParams,$location,$route){
@@ -472,8 +488,12 @@ controller('addRoleController',
 
 	controller('newProjectController', function(Project, $location,$route, $scope)	{
 		var vm = this;
+		$scope.charRmnd = 220;
 		vm.NEW = true;
-		vm.projectData;
+		vm.projectData = {name:"",description:""};
+		
+		$scope.TAChange = function()
+		{$scope.charRmnd  -=  vm.projectData.description.length;}
 		vm.save = function(){
 			vm. processing = true;
 			vm.message;
@@ -483,7 +503,6 @@ controller('addRoleController',
 					console.log(vm.projectData);
 					$route.reload();
 					vm.processing = false;
-					vm.projectData = {};
 					vm.message = data.message;
 					$scope.$hide()
 				});
