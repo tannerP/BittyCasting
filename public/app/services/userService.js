@@ -33,7 +33,11 @@ angular.module('userService', [])
 		}
 	/*Commenting*/
 	appFactory.pushComment = function(id,data)	{
-		return $http.put('api/applicant/newComment/'+id, data);	
+		return $http.put('api/applicant/comments/'+id, data);	
+		}
+	appFactory.deleteComment = function(id,data)	{
+		console.log(data);
+		return $http.delete('api/applicant/comments/'+id, {data:data});	
 		}
 	return appFactory;
 })
