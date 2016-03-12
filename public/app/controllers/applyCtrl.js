@@ -4,55 +4,57 @@ angular.module('applyCtrl',['userService', 'mgcrea.ngStrap']).
           }).
     controller('applyController',['$scope','$rootScope',
         'Upload','$http', 'Project', 'Role','Applicant',
-        '$routeParams',
+        '$routeParams','Pub',
         function ($scope, $rootScope, Upload, $http, Project, 
-            Role, Applicant, $routeParams) {
-    //upload later on form submit or something similar
-    var vm = this;
-    vm.roleData={};
-    vm.appData ={};
-    vm.files=[];
-    Role.appGetRole($routeParams.role_id).then(function(data){
-        vm.roleData = data.data.data;
-        if(vm.roleData){
-        Project.appGetPrj(vm.roleData.projectID).then(function(data){
-            vm.prjData = data.data.project;
-            vm.appData.projectID = data.data.project._id;
-            vm.appData.roleID = vm.roleData._id
+            Role, Applicant, $routeParams, Pub) 
+    {
+        var vm = this;
+        vm.roleData={};
+        vm.appData ={};
+        vm.files=[];
+        $scope.submitted = false;
+        console.log('here');
+        console.log($routeParams.id)
+        /*TODO: condense when combine project and role schema*/
+            Pub.getAppRole($routeParams.id).then(function(data){
+            console.log(data.data);
+            vm.roleData = data.data.Application;
+            console.log(vm.roleData)
+            if(vm.roleData){
+            Pub.getAppPrj(vm.roleData.projectID).then(function(data){
+                vm.prjData = data.data.project;
+                vm.appData.projectID = data.data.project._id;
+                vm.appData.roleID = vm.roleData._id
+                /*vm.files = vm.roleData.requirements.splice();*/
+                /*vm.files.forEach(
+                function(item,index, requirements){
+                vm.files[item].index = index;
+            })*/
+            })}
+        });
 
-        vm.files = vm.roleData.requirements.splice();
-        vm.files.forEach(
-            function(item,index, requirements){
-            vm.files[item].index = index;
-        })
-        })}
-    });
-    vm.submit = function() {
-      Applicant.apply(vm.appData).then(function(resp){
-        vm.applicantID = resp.data.appID;
-        vm.appData = "";
-        if(vm.roleData){
-             uploadFiles(vm.files)    
-            $scope.status = "Submitted"
-            
-        }  
-      })
-        /*$http.get('/applicant', vm.appData);*/
-    };
-
-    /* ----------------- Uploader -------------- */
+        vm.submit = function() {
+          Applicant.apply(vm.appData).then(function(resp){
+            vm.applicantID = resp.data.appID;
+            vm.appData = "";
+            if(vm.roleData){
+                 uploadFiles(vm.files)    
+                $scope.status = "Submitted"
+                $scope.submitted = true;        
+            }  
+          })
+        };
+/* ----------------- Uploader -------------- */
     $scope.abort = function(index) {
         $scope.upload[index].abort();
         $scope.upload[index] = null;
     };
     var uploadFiles = function (data) {
-            
             vm.upload = [];
             var uploadFiles = data;
             for (var i = 0; i < data.length; i++) {
                 /*var  i = 1; //temp fix for loop above*/
                 var file = uploadFiles[i];
-                console.log(file);
                 /*file.progress = parseInt(0);*/
                 (function (file, i) {
                     $http.get('/s3Policy?mimeType='+ file.type)
@@ -84,9 +86,7 @@ angular.module('applyCtrl',['userService', 'mgcrea.ngStrap']).
                         .then(function(response) {
                             file.progress = parseInt(100);
                             if (response.status === 201) {
-                                console.log(response.data);
                                 var data = response.data, parsedData;
-                                console.log(data);
                                 parsedData = {
                                     location: data.PostResponse.Location,
                                     bucket: data.PostResponse.Bucket,
@@ -95,8 +95,6 @@ angular.module('applyCtrl',['userService', 'mgcrea.ngStrap']).
                                     name: vm.roleData.requirements[i].name,
                                     file_type: vm.roleData.requirements[i].file_type
                                 };
-                                /*vm.imageUploads.update(parsedData);*/
-                                console.log(parsedData);
                                 Applicant.update(vm.applicantID,parsedData);
                             } else {
                                 alert('Upload Failed, please resubmit your application.');

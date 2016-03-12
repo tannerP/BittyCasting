@@ -20,6 +20,10 @@ var ApplicantSchema = new Schema({
 		type:String,
 		required:false,
 	},
+	comments:[{
+		owner:String,
+		comment:String
+	}],
 	suppliments:[{
 		source:String,
 		name:String,

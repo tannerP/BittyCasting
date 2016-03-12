@@ -1,25 +1,40 @@
 <div class="container custom-main"> 
 	<div class="pageHeader">
-		<h1>Review Page </h1>
-		<div >
-		<div ng-click="viewApp = !viewApp "><= BACK</div>    
-		     <ul style=" margin-left:auto; margin-right:auto; width:800px; height:400px" rn-carousel rn-carousel-controls rn-carousel-transition="fadeAndSlide" rn-carousel-index="carouselIndex" rn-carousel-buffered class="carousel1">
-                <li style="width:800px; height:400px" ng-repeat="slide in slides track by slide.id" ng-class="'id-' + slide.id">
-                    <div style="width:800px; height:400px" ng-style="{'background-image': 'url(' + slide.img + ')'}"  class="bgimage">
-                        #{{ slide.id }}
-                    </div>
-                </li>
-            </ul>
-
+			<div>
+					<p>{{currIndex +1}}/{{numApps}}</p>
+			</div>
+		<h1>{{currApp.name.first}} {{currApp.name.last}}</h1>
+		<div>
+		<div style="left:-10px; font-size:40px;" ng-click="backBtn()">X</div>    
+		    <ul style="margin-left:auto; margin-right:auto; width:auto; height:400px" rn-carousel rn-carousel-control-allow-loop rn-carousel-controls rn-carousel-transition="fadeAndSlide" rn-carousel-index="carouselIndex" rn-carousel-buffered class="carousel2">
+                <li ng-repeat="slide in slides track by slide.id" ng-class="'id-' + slide.id">	
+                  <div ng-if="slide.photo" style="width:auto; height:400px" ng-style="{'background-image': 'url(' + slide.source + ')'}"  class="bgimage">
+                      #{{ slide.id }}
+                  </div>
+                  <video style="width:800px; height:400px" ng-if="slide.video"  controls ngf-src='slide.source'>
+                	</video>
+              	</li>
+          </ul>
 		</div>
 	</div>
-	<div>Name: {{currApp.name.first}} {{currApp.name.last}}</div>
-	<div>"Email:"{{currApp.email}}</div>
-	<div  ng-if="currApp.phone">Phone number:{{currApp.phone}}</div>
-	<div>
-		<span ng-repeat="sup in currApp.suppliments">
-			Requirement: <a ng-href="{{sup.source}}">{{sup.name}} </a>
-			<br>
-		</span>
+
+	<div class="info">
+		<div>Name: {{currApp.name.first}} {{currApp.name.last}}</div>
+		<div>"Email:"{{currApp.email}}</div>
+		<div ng-if="currApp.phone">Phone number:{{currApp.phone}}</div>
+		<div>
+			<span ng-repeat="sup in currApp.suppliments">
+				Requirement: <a  target="_blank" ng-href="{{sup.source}}">{{sup.name}} </a>
+				<br>
+			</span>
+		</div>
 	</div>
+</div>
+
+<div  style="width:800px; height:400px" class="commentBox" ng-controller="CommentBoxCtrl as box"> 
+	<div class="comment" ng-repeat="data in currApp.comments track by $index">
+		<span>Owner: {{data.owner}}</span><p>Comment: {{data.comment}}</p>
+		<button class="btn btn-small" ng-click="box.deleteCmt(currApp._id,data._id)">delete</button>
+	</div>
+	<textarea type="text" name="comment" ng-model="box.newComment"></textarea><button ng-click="box.addComment(currApp._id,box.newComment)">Enter</button>
 </div>

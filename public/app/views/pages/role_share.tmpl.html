@@ -5,6 +5,9 @@
         <div class="form-group">
             <input class="custom-form" type="text" 
              ng-model="textToCopy">
+            <button class="btn btn-primary" ng-click="preview()"
+               > Preview
+            </button>
         </div>
         <button clipboard class="custom-btn-primary-large" text="textToCopy" on-copied="success()" on-error="fail(err)"
         >Copy link</button>

@@ -1,3 +1,4 @@
+
 <div ng-show="!viewApp" class="container custom-main"> 
     <div class="pageHeader">
         <div class='pageTitle pageTitleMobileOffset'>{{page.roleData.name || "page Casting"}}</div>
@@ -9,7 +10,6 @@
             </ul>
         </div>
         <div class='pageSubtitle'>Application open until {{page.roleData.end_date | date:mediumDate}} @ {{page.roleData.end_time| date:'h a'}}</div>
-        
         <div class="projectDetails col-md-12">
             <section class="col-md-4">
                 <p class="projectDetailsTitle">Description</p>
@@ -39,11 +39,11 @@
 
           <tbody> 
           <!-- LOOP OVER THE USERS -->
-              <tr ng-repeat = "app in page.applicants">
-                  <td ng-click="page.viewBtn(app)">
+              <tr ng-repeat = "app in page.applicants track by $index">
+                  <td ng-click="page.viewBtn($index)">
                     {{app.name.first}} {{app.name.last}}
                   </td>
-                  <td ng-click="page.viewBtn(app)">
+                  <td ng-click="page.viewBtn($index)">
                   {{ app.email }}
                   </td>
                   </div>
@@ -62,4 +62,11 @@
           </table>
     </div>
 </div>
-<div review ng-show="viewApp" ></div>
+<div ng-if="viewApp" > 
+  <div review></div>
+  <div ng-if="viewApp" style="background-color:orange; height:30px;"> 
+    <button class="btn btn-primary" 
+            ng-click="page.lastApp()">Last</button>
+    <button ng-click="page.nextApp()" class="btn btn-primary">Next</button>
+  </div>
+</div>
