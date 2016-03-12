@@ -32,8 +32,9 @@
 </div>
 
 <div  style="width:800px; height:400px" class="commentBox" ng-controller="CommentBoxCtrl as box"> 
-	<div class="comment" ng-repeat="data in currApp.comments">
+	<div class="comment" ng-repeat="data in currApp.comments track by $index">
 		<span>Owner: {{data.owner}}</span><p>Comment: {{data.comment}}</p>
+		<button class="btn btn-small" ng-click="box.deleteCmt(currApp._id,data._id)">delete</button>
 	</div>
 	<textarea type="text" name="comment" ng-model="box.newComment"></textarea><button ng-click="box.addComment(currApp._id,box.newComment)">Enter</button>
 </div>

@@ -5,7 +5,10 @@ controller('CommentBoxCtrl',
 		var vm = this;
 		vm.newComment;
 		vm.comments = $scope.currApp.comments;
-
+		vm.deleteCmt = function(appID,cmtID){
+			console.log(cmtID);
+			Applicant.deleteComment(appID,cmtID);
+		}
 		vm.addComment = function(appID,comment){
 			var cmt = {owner:"tanner",
 								comment:comment}

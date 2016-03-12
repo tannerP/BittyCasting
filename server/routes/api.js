@@ -59,7 +59,7 @@ apiRouter.all('*',function(req,res,next){
 			})
 		})
 //==============================  Commenting =========================		
-apiRouter.route('/applicant/newComment/:appID')
+apiRouter.route('/applicant/comments/:appID')
 		.put(function(req, res){
 			console.log(req.body)
 			Applicant.findById(req.params.appID,function(err,app){
@@ -75,6 +75,20 @@ apiRouter.route('/applicant/newComment/:appID')
 						res.json({successful:true,message:"Added comment"});
 						})
 				})
+			})
+		.delete(function(req,res){
+			console.log(req.body);
+			Applicant.findById(req.params.appID, function(err,app)
+			{
+				if(err) res.json({successful:false,error:err})
+					for(var i in app.comments)
+					{
+						console.log(app.comments[i]);
+						if(app.comments[i]._id === req.body.data)
+							{console.log("found match")}
+					}
+					res.json({successful:true,message:"Removed comment"});
+					})
 			})
 //==============================  Applicant =========================
 	apiRouter.route('/applicant/:appID')
