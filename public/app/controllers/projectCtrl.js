@@ -309,7 +309,6 @@ controller('editRoleController',
 	$scope.TAChange = function()
 		{$scope.charRmnd  =  MAX_LENGTH - vm.roleData.description.length;}
 
-
 	Role.get($routeParams.role_id)
 		.success(function(data){
 			vm.processing = false;
