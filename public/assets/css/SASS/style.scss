@@ -584,6 +584,83 @@ div.pageHeader{
     margin: 56px 0 28px 0;
     position: relative;
     
+    button {
+        padding-left: 50px;            
+        background: url("/assets/imgs/ic_plus_w.svg") no-repeat left 15px center;
+        background-size: 24px 24px;
+        background-color: $color-grey-dark;
+        @include transition(all, 0.8s, ease);
+        &:hover, &:focus {
+            cursor: pointer;
+            background-color: $color-grey-darken;
+            @include transition(all, 0.8s, ease);
+        }
+    }
+    
+    .custom-page-action {
+        ul {
+            list-style: none;
+            li{
+                display: inline;
+                float: right;
+                margin-left: 10px;
+                padding-left: 50px;            
+                &:nth-child(1){
+                    background: url("/assets/imgs/ic_edit_w.svg") no-repeat left 15px center;
+                    background-size: 24px 24px;
+                    background-color: $color-grey-dark;
+                    @include transition(all, 0.8s, ease);
+                    &:hover, &:focus {
+                        cursor: pointer;
+                        background-color: $color-grey-darken;
+                        @include transition(all, 0.8s, ease);
+                    }
+                }
+                &:nth-child(2){
+                    background: url("/assets/imgs/ic_share_w.svg") no-repeat left 15px center;
+                    background-size: 24px 24px;  
+                    background-color: $color-grey-dark;
+                    @include transition(all, 0.8s, ease);
+                    &:hover, &:focus {
+                        cursor: pointer;
+                        background-color: $color-grey-darken;
+                        @include transition(all, 0.8s, ease);
+                    }
+                }
+                &:last-child {
+                    margin-left: 0;
+                }
+            }
+        }
+    }
+    
+    .custom-page-action-secondary {
+        ul {
+            list-style: none;
+            padding: 0;
+            li{
+                display: inline;
+                float: left;
+                margin-right: 10px;
+                padding-left: 50px;            
+                &:nth-child(1){
+                    background: url("/assets/imgs/ic_plus_w.svg") no-repeat left 15px center;
+                    background-size: 24px 24px;
+                    background-color: $color-grey-dark;
+                    @include transition(all, 0.8s, ease);
+                    &:hover, &:focus {
+                        cursor: pointer;
+                        background-color: $color-grey-darken;
+                        @include transition(all, 0.8s, ease);
+                    }
+                }
+                &:last-child {
+                    margin-right: 0;
+                }
+            }
+        }
+    }
+    
     .utlBar {
         float: right;
         

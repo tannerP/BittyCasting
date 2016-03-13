@@ -503,6 +503,94 @@ section.contact {
 div.pageHeader {
   margin: 56px 0 28px 0;
   position: relative; }
+  div.pageHeader button {
+    padding-left: 50px;
+    background: url("/assets/imgs/ic_plus_w.svg") no-repeat left 15px center;
+    background-size: 24px 24px;
+    background-color: #666666;
+    -webkit-transition: all 0.8s ease;
+    -moz-transition: all 0.8s ease;
+    -ms-transition: all 0.8s ease;
+    -o-transition: all 0.8s ease;
+    transition: all 0.8s ease; }
+    div.pageHeader button:hover, div.pageHeader button:focus {
+      cursor: pointer;
+      background-color: #444444;
+      -webkit-transition: all 0.8s ease;
+      -moz-transition: all 0.8s ease;
+      -ms-transition: all 0.8s ease;
+      -o-transition: all 0.8s ease;
+      transition: all 0.8s ease; }
+  div.pageHeader .custom-page-action ul {
+    list-style: none; }
+    div.pageHeader .custom-page-action ul li {
+      display: inline;
+      float: right;
+      margin-left: 10px;
+      padding-left: 50px; }
+      div.pageHeader .custom-page-action ul li:nth-child(1) {
+        background: url("/assets/imgs/ic_edit_w.svg") no-repeat left 15px center;
+        background-size: 24px 24px;
+        background-color: #666666;
+        -webkit-transition: all 0.8s ease;
+        -moz-transition: all 0.8s ease;
+        -ms-transition: all 0.8s ease;
+        -o-transition: all 0.8s ease;
+        transition: all 0.8s ease; }
+        div.pageHeader .custom-page-action ul li:nth-child(1):hover, div.pageHeader .custom-page-action ul li:nth-child(1):focus {
+          cursor: pointer;
+          background-color: #444444;
+          -webkit-transition: all 0.8s ease;
+          -moz-transition: all 0.8s ease;
+          -ms-transition: all 0.8s ease;
+          -o-transition: all 0.8s ease;
+          transition: all 0.8s ease; }
+      div.pageHeader .custom-page-action ul li:nth-child(2) {
+        background: url("/assets/imgs/ic_share_w.svg") no-repeat left 15px center;
+        background-size: 24px 24px;
+        background-color: #666666;
+        -webkit-transition: all 0.8s ease;
+        -moz-transition: all 0.8s ease;
+        -ms-transition: all 0.8s ease;
+        -o-transition: all 0.8s ease;
+        transition: all 0.8s ease; }
+        div.pageHeader .custom-page-action ul li:nth-child(2):hover, div.pageHeader .custom-page-action ul li:nth-child(2):focus {
+          cursor: pointer;
+          background-color: #444444;
+          -webkit-transition: all 0.8s ease;
+          -moz-transition: all 0.8s ease;
+          -ms-transition: all 0.8s ease;
+          -o-transition: all 0.8s ease;
+          transition: all 0.8s ease; }
+      div.pageHeader .custom-page-action ul li:last-child {
+        margin-left: 0; }
+  div.pageHeader .custom-page-action-secondary ul {
+    list-style: none;
+    padding: 0; }
+    div.pageHeader .custom-page-action-secondary ul li {
+      display: inline;
+      float: left;
+      margin-right: 10px;
+      padding-left: 50px; }
+      div.pageHeader .custom-page-action-secondary ul li:nth-child(1) {
+        background: url("/assets/imgs/ic_plus_w.svg") no-repeat left 15px center;
+        background-size: 24px 24px;
+        background-color: #666666;
+        -webkit-transition: all 0.8s ease;
+        -moz-transition: all 0.8s ease;
+        -ms-transition: all 0.8s ease;
+        -o-transition: all 0.8s ease;
+        transition: all 0.8s ease; }
+        div.pageHeader .custom-page-action-secondary ul li:nth-child(1):hover, div.pageHeader .custom-page-action-secondary ul li:nth-child(1):focus {
+          cursor: pointer;
+          background-color: #444444;
+          -webkit-transition: all 0.8s ease;
+          -moz-transition: all 0.8s ease;
+          -ms-transition: all 0.8s ease;
+          -o-transition: all 0.8s ease;
+          transition: all 0.8s ease; }
+      div.pageHeader .custom-page-action-secondary ul li:last-child {
+        margin-right: 0; }
   div.pageHeader .utlBar {
     float: right; }
     div.pageHeader .utlBar .gridListToggle div {
