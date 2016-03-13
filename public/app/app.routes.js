@@ -27,6 +27,11 @@ angular.module('app.routes', ['ngRoute'])
         	controller   :'loginCtrl',
         	controllerAs   : 'login'
         })
+        .when('/Thankyou', {
+            templateUrl :'/app/views/pages/thankyou.html',
+            controller   :'loginCtrl',
+            controllerAs   : 'login'
+        })
         .when('/Apply/:id',  {
             templateUrl: 'app/views/pages/Apply.html',
             controller: 'applyController',

@@ -47,12 +47,12 @@
         <div class = "form-group">
             <label ng-show="roleAside.roleData.age">Age</label>
             <input placeholder="Age" type = "text"
-                    class = "custom-form" ng-model = "roleAside.roleData.age" required>
+                    class = "custom-form" ng-model = "roleAside.roleData.age">
         </div>
         <div class = "form-group">
             <label ng-show="roleAside.roleData.sex">Gender</label>
             <input placeholder="Gender" type = "text"
-                    class = "custom-form" ng-model = "roleAside.roleData.sex" required>
+                    class = "custom-form" ng-model = "roleAside.roleData.sex">
         </div>      
         <div class = "form-group">
         <section class="custom-table">
@@ -72,13 +72,14 @@
                         placeholder="reqt.name"></td>
                         <td ng-show="reqt">
                             <div class="btn-group" uib-dropdown is-open="false">
-                              <input uib-dropdown-toggle ng-disabled="disabled" ng-model='reqt.file_type'>
-                              </input>
+                              <span uib-dropdown-toggle ng-disabled="disabled" ng-model='reqt.file_type'>
+                              {{reqt.file_type}}
+                              </span>
                               <ul uib-dropdown-menu role="menu" aria-labelledby="single-button">
                                 <li role="menuitem"><a href="#" ng-click="roleAside.file_type = 'Link'">Link</a></li>
                                 <li role="menuitem"><a href="#" ng-click="reqt.file_type = 'Photo'">Photo</a></li>
                                 <li role="menuitem"><a href="#" ng-click="reqt.file_type = 'Video'">Video</a></li>
-                                <li role="menuitem"><a href="#" ng-click="reqt.file_type = 'Text'">Text</a></li>
+                                <li role="menuitem"><a href="#" ng-click="reqt.file_type = 'Text'">Document</a></li>
                               </ul>
                             </div></td>
                         </td>
@@ -96,19 +97,19 @@
                                 </input>
                             <ul uib-dropdown-menu role="menu" aria-labelledby="single-button">
                                 <li role="menuitem"><a href="#" ng-click="roleAside.newData.name = 'Resume'">Resume</a></li>
-                                <li role="menuitem"><a href="#" ng-click="roleAside.newData.name = 'Headshots'">Headshots</a></li>
+                                <li role="menuitem"><a href="#" ng-click="roleAside.newData.name = 'Headshot'">Headshot</a></li>
                                 <li role="menuitem"><a href="#" ng-click="roleAside.newData.name = 'Audition Reel'">Audition Reel</a></li>
                             </ul>
                             </div></td>
                         <td>
                             <div uib-dropdown is-open="false">
-                               <input  type="text" class="form-control"  uib-dropdown-toggle ng-disabled="disabled"
-                                ng-model="roleAside.newData.file_type"></input>
+                               <span  type="text" class="form-control"  uib-dropdown-toggle ng-disabled="disabled"
+                                ng-model="roleAside.newData.file_type">{{roleAside.newData.file_type}}</span>
                               <ul uib-dropdown-menu role="menu" aria-labelledby="single-button">
                                 <li role="menuitem"><a href="#" ng-click="roleAside.newData.file_type = 'Link'">Link</a></li>
                                 <li role="menuitem"><a href="#" ng-click="roleAside.newData.file_type = 'Photo'">Photo</a></li>
                                 <li role="menuitem"><a href="#" ng-click="roleAside.newData.file_type = 'Video'">Video</a></li>
-                                <li role="menuitem"><a href="#" ng-click="roleAside.newData.file_type = 'Text'">Text</a></li>
+                                <li role="menuitem"><a href="#" ng-click="roleAside.newData.file_type = 'Text'">Document</a></li>
                               </ul>
                             </div></td>
                         </td>
