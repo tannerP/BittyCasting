@@ -1,5 +1,5 @@
 
-<div ng-show="!viewApp" class="container custom-main"> 
+<div ng-show="!viewApp" class="container"> 
     <div class="pageHeader">
         <div class='pageTitle pageTitleMobileOffset'>{{page.roleData.name || "page Casting"}}</div>
         <div class="custom-back" ng-click="main.backBtn()"></div>
@@ -27,8 +27,9 @@
         </div>
         <div class="clear"></div>  
     </div>
-  <div ng-show="!viewApp" class="custom-table table-responsive">
-        <table class = "table table-hover table-page-overview" ng-show="!home.gridView">
+
+      <div ng-show="!viewApp" class="custom-table table-responsive">
+        <table class = "table table-hover table-applicants" ng-show="!home.gridView">
           <thead>
               <tr>
                   <th>Name</th>
