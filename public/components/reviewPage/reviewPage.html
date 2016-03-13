@@ -69,26 +69,4 @@
 
 	</div>
 
-
-    <div class="reviewComment col-md-6" ng-controller="CommentBoxCtrl as box"> 
-        <div class="makeComment">
-            <div class="commentThumbnail">KH</div>
-            <div class="commentHeading">Add a comment</div>
-            <textarea class="custom-form-textarea" rows="5" cols="40" type="text" name="comment" ng-model="box.newComment"></textarea> 
-            <button class="custom-btn-secondary-small" ng-click="box.addCmt(currApp._id,box.newComment)">Comment</button>
-        </div>
-        
-        <div class="comments" ng-if="data" ng-repeat="data in currApp.comments track by $index">
-<!--            <span>Owner: {{data.owner}}</span>-->
-            <div class="commentThumbnail">KH</div>
-            <p>{{data.comment}}</p>
-            <p class="timestamp">Posted on 5:34PM, Feb 8, 2016</p>
-            <ul class="comments-action">
-<!--                <li><a>Edit</a></li>-->
-                <li><a ng-click="box.deleteCmt(currApp._id,$index,data)">Delete</a></li>
-            </ul>
-        </div>
-        
-    </div>
-    
 </div>

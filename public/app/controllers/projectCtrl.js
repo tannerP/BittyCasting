@@ -10,8 +10,9 @@ controller('CommentBoxCtrl',
 			Applicant.deleteComment(appID,comment);
 				delete $scope.currApp.comments[index];
 		}
-		vm.addCmt = function(appID,comment){
-			var cmt = {owner:"tanner",
+		vm.addCmt = function(appID,owner,comment){
+			console.log(owner);
+			var cmt = {owner:owner,
 								comment:comment}
 					$scope.currApp.comments.push(cmt);
 			Applicant.pushComment(appID,cmt);
@@ -298,20 +299,29 @@ controller('deleteRoleController',['$scope',
 controller('editRoleController', 
 	function(Role, $location, $routeParams, $route, $scope){
 	var vm = this;
+
 	vm.edit = true;
 	vm.processing = true;
 	vm.roleData = {};
 	vm.roleData.requirements=[];
+
+	var MAX_LENGTH = 220;
+	$scope.TAChange = function()
+		{$scope.charRmnd  =  MAX_LENGTH - vm.roleData.description.length;}
+
+
 	Role.get($routeParams.role_id)
 		.success(function(data){
 			vm.processing = false;
 			vm.roleData = data.data;
 			$scope.selectedTime = data.data.end_time;
 			$scope.selectedDate = data.data.end_date;
+			$scope.TAChange()
 		})
 		.error(function(err){
 			console.log(err);
 		})
+
 	vm.updateRole = function(){
 		vm.roleData.end_time = $scope.selectedTime;
 		vm.roleData.end_date = $scope.selectedDate;
@@ -371,8 +381,6 @@ controller('editRoleController',
 controller('addRoleController',
 	function(Role, $location, $routeParams, $route, $scope){
 	var vm = this;
-	var MAX_LENGTH = 220;
-	$scope.charRmnd = MAX_LENGTH;
 	vm.edit = false;
 	vm.roleData = {};
 	vm.roleData.requirements=[];
@@ -382,6 +390,8 @@ controller('addRoleController',
 	$scope.selectedDate = new Date();
 	$scope.selectedTime = new Date();
 
+	var MAX_LENGTH = 220;
+	$scope.charRmnd = MAX_LENGTH;
 	$scope.TAChange = function()
 		{$scope.charRmnd  =  MAX_LENGTH - vm.roleData.description.length;}
 
@@ -498,11 +508,11 @@ controller('addRoleController',
 
 	controller('newProjectController', function(Project, $location,$route, $scope)	{
 		var vm = this;
-		var MAX_LENGTH = 220;
-		$scope.charRmnd = MAX_LENGTH;
 		vm.NEW = true;
 		vm.projectData = {name:"",description:""};
 		
+		var MAX_LENGTH = 220;
+		$scope.charRmnd = MAX_LENGTH;
 		$scope.TAChange = function()
 		{$scope.charRmnd  =  MAX_LENGTH - vm.projectData.description.length;}
 		vm.save = function(){
@@ -529,10 +539,17 @@ controller('addRoleController',
 		vm.processing = true;
 		vm.projectData;
 		vm.proj_id = $routeParams.project_id;
+
+		var MAX_LENGTH = 220;
+		
+		$scope.TAChange = function()
+		{$scope.charRmnd  =  MAX_LENGTH - vm.projectData.description.length;}
+
 		Project.get(vm.proj_id)
 		.success(function(data){
 			vm.processing = false;
 			vm.projectData = data.project
+			$scope.TAChange()
 				
 		})
 		.error(function(){
