@@ -115,9 +115,11 @@ a {
 
 html, body {
   font-family: "Open Sans", sans-serif;
-  background: #eeeeee;
-  height: 100%;
-  position: relative; }
+  background: #eeeeee; }
+
+html {
+  position: relative;
+  min-height: 100%; }
 
 /***************************
            Header
@@ -472,7 +474,8 @@ section.about {
   section.about p:last-child {
     margin-top: 30px; }
 section.contact {
-  text-align: center; }
+  text-align: center;
+  padding-bottom: 120px; }
   section.contact .contactInfo {
     display: inline-block;
     text-align: left; }
@@ -489,7 +492,10 @@ section.contact {
            Homepage
 ***************************/
 .custom-main {
-  padding: 0 0 60px 0; }
+  padding: 100px 0 60px 0; }
+
+.custom-wrapper {
+  overflow: hidden; }
 
 .cardContainer {
   margin: 0 -15px 0 -15px; }
@@ -1482,12 +1488,15 @@ ul.projects li {
           Footer
 ***************************/
 .footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  clear: both;
   height: 56px;
   line-height: 56px;
   color: white;
   background-color: #06bcc2;
-  font-size: 12px;
-  margin-top: 60px; }
+  font-size: 12px; }
   .footer .container {
     padding: 0 20px; }
   .footer p {
