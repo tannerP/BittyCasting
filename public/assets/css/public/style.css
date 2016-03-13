@@ -1049,7 +1049,7 @@ ul.projects li {
       margin-left: 10px;
       padding-left: 50px; }
       .custom-page-action ul li:nth-child(1) {
-        background: url("/assets/imgs/ic_share_w.svg") no-repeat left 15px center;
+        background: url("/assets/imgs/ic_edit_w.svg") no-repeat left 15px center;
         background-size: 24px 24px;
         background-color: #666666;
         -webkit-transition: all 0.8s ease;
@@ -1066,7 +1066,7 @@ ul.projects li {
           -o-transition: all 0.8s ease;
           transition: all 0.8s ease; }
       .custom-page-action ul li:nth-child(2) {
-        background: url("/assets/imgs/ic_edit_w.svg") no-repeat left 15px center;
+        background: url("/assets/imgs/ic_share_w.svg") no-repeat left 15px center;
         background-size: 24px 24px;
         background-color: #666666;
         -webkit-transition: all 0.8s ease;

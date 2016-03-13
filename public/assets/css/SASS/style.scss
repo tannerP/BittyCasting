@@ -1131,7 +1131,7 @@ ul.projects li {
             margin-left: 10px;
             padding-left: 50px;            
             &:nth-child(1){
-                background: url("/assets/imgs/ic_share_w.svg") no-repeat left 15px center;
+                background: url("/assets/imgs/ic_edit_w.svg") no-repeat left 15px center;
                 background-size: 24px 24px;
                 background-color: $color-grey-dark;
                 @include transition(all, 0.8s, ease);
@@ -1142,7 +1142,7 @@ ul.projects li {
                 }
             }
             &:nth-child(2){
-                background: url("/assets/imgs/ic_edit_w.svg") no-repeat left 15px center;
+                background: url("/assets/imgs/ic_share_w.svg") no-repeat left 15px center;
                 background-size: 24px 24px;  
                 background-color: $color-grey-dark;
                 @include transition(all, 0.8s, ease);
