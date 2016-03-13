@@ -134,9 +134,6 @@ header {
   left: 0;
   z-index: 10; }
 
-.navbar-collapse {
-  padding-right: 0; }
-
 .navbar-toggle {
   width: 55px;
   height: 55px;
