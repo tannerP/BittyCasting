@@ -23,9 +23,7 @@ controller('mainController',['$scope','$rootScope','Auth','$location',"$sce","$r
 		$scope.$on("unhideNav", function(){
 			vm.nav = true;
 		})
-		$scope.$on("hideFooter", function(){
-				vm.footer = false;
-		})
+		
 		$rootScope.$on('$routeChangeStart', function () {
 			vm.loggedIn = Auth.isLoggedIn();
 				vm.footer = true;
@@ -35,9 +33,11 @@ controller('mainController',['$scope','$rootScope','Auth','$location',"$sce","$r
 				$location.path() === '/login' ||
 				$location.path() === '/signup'){
 				vm.publicVw = true;
+				vm.footer = true;
 			}
 			else{
 			 vm.publicVw = false;
+			 vm.footer = false;
 			}
 			if(vm.loggedIn && !vm.name){
 				Auth.getUser()
@@ -48,7 +48,7 @@ controller('mainController',['$scope','$rootScope','Auth','$location',"$sce","$r
 														last:data.name.last}
 							}
 						 })
-		}
+			}
 	})
 		vm.getUsrBtn = function(){
 			$location.path('/profile');

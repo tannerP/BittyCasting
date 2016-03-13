@@ -4,12 +4,13 @@ angular.module('applyCtrl',['userService', 'mgcrea.ngStrap']).
           }).
     controller('applyController',['$scope','$rootScope',
         'Upload','$http', 'Project', 'Role','Applicant',
-        '$routeParams','Pub',
+        '$routeParams','Pub','$location',
         function ($scope, $rootScope, Upload, $http, Project, 
-            Role, Applicant, $routeParams, Pub) 
+            Role, Applicant, $routeParams, Pub, $location) 
         {
         $scope.$emit("hideNav");
         var vm = this;
+        vm.numFileDone = 0;
         vm.roleData={};
         vm.appData ={};
         vm.files=[];
@@ -25,42 +26,15 @@ angular.module('applyCtrl',['userService', 'mgcrea.ngStrap']).
             })}
         });
 
-       vm.checkProgress =  function(){
-            var count = 0;
-            for( var i in vm.files.length){
-                if(vm.files[i].process = 100)count++;
-                
-                if(count == vm.files.length){
-                    console.log("upload completed");
-                    return true;
-                }
-                else return false;
-            }
-        }
         vm.submit = function() {
+            vm.processing = true;
           Applicant.apply(vm.appData).then(function(resp){
             vm.applicantID = resp.data.appID;
             vm.appData = "";
             if(vm.roleData){
                 uploadFiles(vm.files)    
-                $scope.status = "Submitted"
             }  
-            $scope.submitted = false;
-                for( var i in vm.files.length){
-                    if(vm.files[i].process = 100)count++;
-                    else{
-                        console.log(vm.files[i].process);
-                    }
-                    
-                    if(count == vm.files.length){
-                        console.log("upload completed");
-                        $scope.submitted = true;
-                        return true;
-                    }
-                    else return false;
-                }
-          })
-        };
+        })};
 /* ----------------- Uploader -------------- */
     $scope.abort = function(index) {
         $scope.upload[index].abort();
@@ -116,6 +90,15 @@ angular.module('applyCtrl',['userService', 'mgcrea.ngStrap']).
                             }
                         }, null, function(evt) {
                             file.progress =  parseInt(100.0 * evt.loaded / evt.total);
+                            if(file.progress == 100){
+                                vm.numFileDone++;
+                                if(vm.numFileDone == vm.files.length)
+                                {
+                                    $location.path('/Thankyou');
+                                    vm.processing = false;
+                                }
+                            }
+
                         });
                     });
                 }(file, i));

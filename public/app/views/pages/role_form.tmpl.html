@@ -44,14 +44,14 @@
                     ng-model = "roleAside.roleData.payterms">
         </div>
         <div class = "form-group">
-            <label>Age</label>
-            <input type = "text"
-                    class = "custom-form" ng-model = "roleAside.roleData.age" required>
+            <label ng-show="roleAside.roleData.age">Age</label>
+            <input placeholder="Age" type = "text"
+                    class = "custom-form" ng-model = "roleAside.roleData.age">
         </div>
         <div class = "form-group">
-            <label>Gender</label>
-            <input type = "text"
-                    class = "custom-form" ng-model = "roleAside.roleData.sex" required>
+            <label ng-show="roleAside.roleData.sex">Gender</label>
+            <input placeholder="Gender" type = "text"
+                    class = "custom-form" ng-model = "roleAside.roleData.sex">
         </div>      
         
         <div class = "form-group">
@@ -78,7 +78,7 @@
 
                             <td ng-show="reqt">
                                 <div class="custom-form" uib-dropdown is-open="false">
-                                  <input uib-dropdown-toggle ng-disabled="disabled" ng-model='reqt.file_type'></input>
+                                  <span uib-dropdown-toggle ng-disabled="disabled">{{reqt.file_type}}</span>
                                   <ul uib-dropdown-menu role="menu" aria-labelledby="single-button">
                                     <li role="menuitem"><a href="#" ng-click="roleAside.file_type = 'Link'">Link</a></li>
                                     <li role="menuitem"><a href="#" ng-click="reqt.file_type = 'Photo'">Photo</a></li>
@@ -100,7 +100,7 @@
                         <tr>
                             <td>
                                 <div uib-dropdown is-open="false">
-                                    <input type="text" class="custom-form"  uib-dropdown-toggle ng-disabled="disabled" ng-model='roleAside.newData.name'>
+                                    <input type="text" class="custom-form"  uib-dropdown-toggle ng-disabled="disabled" ng-model='roleAside.newData.name' placeholder="New requirement">
                                     </input>
                                     <ul uib-dropdown-menu role="menu" aria-labelledby="single-button">
                                         <li role="menuitem"><a href="#" ng-click="roleAside.newData.name = 'Resume'">Resume</a></li>
@@ -111,8 +111,8 @@
                             </td>
                             <td>
                                 <div uib-dropdown is-open="false">
-                                   <input  type="text" class="custom-form"  uib-dropdown-toggle ng-disabled="disabled"
-                                    ng-model="roleAside.newData.file_type"></input>
+                                   <span  type="text" class="custom-form"  uib-dropdown-toggle ng-disabled="disabled"
+                                    >File</span>
                                   <ul uib-dropdown-menu role="menu" aria-labelledby="single-button">
                                     <li role="menuitem"><a href="#" ng-click="roleAside.newData.file_type = 'Link'">Link</a></li>
                                     <li role="menuitem"><a href="#" ng-click="roleAside.newData.file_type = 'Photo'">Photo</a></li>
@@ -131,7 +131,7 @@
                 </table>    
             </div>
         </div>
-             
+            
         <!-- <button ng-if="!roleAside.edit" type="submit" class="custom-btn-primary-large" ng-submit=".createRoleBtn()">Create role</button> -->
         <button ng-if="!roleAside.edit" type="submit" id="submit" value="Create role" class="custom-btn-primary-large">Create role</button>
         <button ng-if="roleAside.edit" type="submit" class="custom-btn-primary-large" ng-click="roleAside.updateRole()">Save</button>

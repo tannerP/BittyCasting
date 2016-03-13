@@ -80,9 +80,12 @@
                                     controls
                                     ngf-src="page.files[$index]">
                                 </div>
-                                <div class="progress-bar" role="progressbar" 
+                                <!-- <div class="progress-bar" role="progressbar" 
                                     style="width:{{page.files[$index].progress}}%;height:5px";>
                                         <p>{{page.files[$index].name}} : {{page.file[$index].progress}}<p>
+                                </div> -->
+                                <div ng-if="page.processing">
+                                    <h3>Processing</h3>
                                 </div>
                             </div>
                             <button type="submit" class="custom-btn-primary-large">Submit</button>
