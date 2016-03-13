@@ -566,14 +566,14 @@ section {
 ***************************/
 
 .custom-main {
-    padding: 80px 0 60px 0;}
+    padding: 0 0 60px 0;}
 
 .cardContainer{
     margin: 0 -15px 0 -15px;
 }
 
 div.pageHeader{
-    margin: 0 0 28px 0;
+    margin: 56px 0 28px 0;
     position: relative;
     
     .utlBar {
@@ -788,10 +788,26 @@ ul.projects li {
         }
     }
     
+    .table-applicants {       
+        padding: 0 15px;
+        
+        thead tr th:nth-child(1) {width: 30%; cursor: pointer;} //name
+        thead tr th:nth-child(2) {width: 35%;} //email
+        thead tr th:nth-child(3) {width: 35%;} //phone     
+        .table-utl ul li {
+            &:nth-child(1) {
+                background: url("/assets/imgs/ic_trash.svg") no-repeat center center white;
+                background-size: 16px 16px; }
+            &:nth-child(2) {background: url("/assets/imgs/ic_duplicate.svg") no-repeat center center white;
+            background-size: 16px 16px; }
+        }
+    }
+    
     .table-application-requirements {
-        thead tr th:nth-child(1) {width: 40%; cursor: pointer;} //type
-        thead tr th:nth-child(2) {width: 40%;} //format
+        thead tr th:nth-child(1) {width: 35%; cursor: pointer;} //type
+        thead tr th:nth-child(2) {width: 35%;} //format
         thead tr th:nth-child(3) {width: 20%;} //required     
+        thead tr th:nth-child(3) {width: 10%;} //action
     }
     
     .table {

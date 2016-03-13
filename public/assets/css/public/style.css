@@ -489,13 +489,13 @@ section.contact {
            Homepage
 ***************************/
 .custom-main {
-  padding: 80px 0 60px 0; }
+  padding: 0 0 60px 0; }
 
 .cardContainer {
   margin: 0 -15px 0 -15px; }
 
 div.pageHeader {
-  margin: 0 0 28px 0;
+  margin: 56px 0 28px 0;
   position: relative; }
   div.pageHeader .utlBar {
     float: right; }
@@ -694,13 +694,30 @@ ul.projects li {
 .custom-table .table-project-details .table-utl ul li:nth-child(2) {
   background: url("/assets/imgs/ic_share.svg") no-repeat center center white;
   background-size: 16px 16px; }
+.custom-table .table-applicants {
+  padding: 0 15px; }
+  .custom-table .table-applicants thead tr th:nth-child(1) {
+    width: 30%;
+    cursor: pointer; }
+  .custom-table .table-applicants thead tr th:nth-child(2) {
+    width: 35%; }
+  .custom-table .table-applicants thead tr th:nth-child(3) {
+    width: 35%; }
+  .custom-table .table-applicants .table-utl ul li:nth-child(1) {
+    background: url("/assets/imgs/ic_trash.svg") no-repeat center center white;
+    background-size: 16px 16px; }
+  .custom-table .table-applicants .table-utl ul li:nth-child(2) {
+    background: url("/assets/imgs/ic_duplicate.svg") no-repeat center center white;
+    background-size: 16px 16px; }
 .custom-table .table-application-requirements thead tr th:nth-child(1) {
-  width: 40%;
+  width: 35%;
   cursor: pointer; }
 .custom-table .table-application-requirements thead tr th:nth-child(2) {
-  width: 40%; }
+  width: 35%; }
 .custom-table .table-application-requirements thead tr th:nth-child(3) {
   width: 20%; }
+.custom-table .table-application-requirements thead tr th:nth-child(3) {
+  width: 10%; }
 .custom-table .table {
   font-size: 12px; }
   .custom-table .table tbody tr {
