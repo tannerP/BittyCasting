@@ -1,40 +1,93 @@
-<div class="container custom-main"> 
-	<div class="pageHeader">
-			<div>
-					<p>{{currIndex +1}}/{{numApps}}</p>
-			</div>
-		<h1>{{currApp.name.first}} {{currApp.name.last}}</h1>
-		<div>
-		<div style="left:-10px; font-size:40px;" ng-click="backBtn()">X</div>    
-		    <ul style="margin-left:auto; margin-right:auto; width:800px; height:400px" rn-carousel rn-carousel-control-allow-loop rn-carousel-controls rn-carousel-transition="fadeAndSlide" rn-carousel-index="carouselIndex" rn-carousel-buffered class="carousel2">
+
+<div class="reviewHeader">
+    <container>
+        <div class="reviewHeaderContent col-md-4 col-md-offset-4"><p>{{currIndex +1}}/{{numApps}} applicants applying for Role Name</p></div>
+        <div class="custom-close-overlay" ng-click="backBtn()"></div>
+    </container>
+</div>
+<div class="clear"></div>
+
+<div class="container"> 
+	
+    <div class='pageTitle'>{{currApp.name.first}} {{currApp.name.last}}</div>
+
+		<div class="reviewCarousel">  
+            <div class="reviewCarouselImg">
+		    <ul rn-carousel rn-carousel-control-allow-loop rn-carousel-controls rn-carousel-transition="fadeAndSlide" rn-carousel-index="carouselIndex" rn-carousel-buffered class="carousel2">
+
                 <li ng-repeat="slide in slides track by slide.id" ng-class="'id-' + slide.id">	
                   <div ng-if="slide.photo" style="width:700px; height:400px" ng-style="{'background-image': 'url(' + slide.source + ')'}"  class="bgimage">
                       #{{ slide.id }}
                   </div>
-                  <video style="width:700px; height:400px" ng-if="slide.video"  controls ngf-src='slide.source'>
+
+                  <video style="width:100%; height:auto" ng-if="slide.video"  controls ngf-src='slide.source'>
+
+
                 	</video>
               	</li>
-          </ul>
+            </ul>
+            </div>
+            <div class="reviewCarouselPagination">
+                <ul>
+                    <li class="active"></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                </ul>
+            </div>
 		</div>
+
+
+	<div class="reviewInfo col-md-6">
+        
+        <table>
+            <tbody> 
+                <tr>
+                    <td>Name</td>
+                    <td>{{currApp.name.first}} {{currApp.name.last}}</td>
+                </tr>
+
+                <tr>
+                    <td>E-mail</td>
+                    <td>{{currApp.email}}</td>
+                </tr>
+
+                <tr ng-if="currApp.phone">
+                    <td>Phone</td>
+                    <td>{{currApp.phone}}</td>
+                </tr>
+                
+                <tr ng-repeat="sup in currApp.suppliments">
+                    <td>{{sup.name}}</td>
+                    <td><a target="_blank" ng-href="{{sup.source}}">FILE EXTENSIONS</a></td>
+                </tr>
+                
+            </tbody>
+        </table>
+
 	</div>
 
-	<div class="info">
-		<div>Name: {{currApp.name.first}} {{currApp.name.last}}</div>
-		<div>"Email:"{{currApp.email}}</div>
-		<div ng-if="currApp.phone">Phone number:{{currApp.phone}}</div>
-		<div>
-			<span ng-repeat="sup in currApp.suppliments">
-				Requirement: <a  target="_blank" ng-href="{{sup.source}}">{{sup.name}} </a>
-				<br>
-			</span>
-		</div>
-	</div>
-</div>
 
-<div  style="width:800px; height:400px" class="commentBox" ng-controller="CommentBoxCtrl as box"> 
-	<div ng-if="data" class="comment" ng-repeat="data in currApp.comments track by $index">
-		<span>Owner: {{data.owner}}</span><p>Comment: {{data.comment}}</p>
-		<button class="btn btn-small" ng-click="box.deleteCmt(currApp._id,$index,data)">delete</button>
-	</div>
-	<textarea type="text" name="comment" ng-model="box.newComment"></textarea><button ng-click="box.addCmt(currApp._id,box.newComment)">Enter</button>
+    <div class="reviewComment col-md-6" ng-controller="CommentBoxCtrl as box"> 
+        <div class="makeComment">
+            <div class="commentThumbnail">KH</div>
+            <div class="commentHeading">Add a comment</div>
+            <textarea class="custom-form-textarea" rows="5" cols="40" type="text" name="comment" ng-model="box.newComment"></textarea> 
+            <button class="custom-btn-secondary-small" ng-click="box.addCmt(currApp._id,box.newComment)">Comment</button>
+        </div>
+        
+        <div class="comments" ng-if="data" ng-repeat="data in currApp.comments track by $index">
+<!--            <span>Owner: {{data.owner}}</span>-->
+            <div class="commentThumbnail">KH</div>
+            <p>{{data.comment}}</p>
+            <p class="timestamp">Posted on 5:34PM, Feb 8, 2016</p>
+            <ul class="comments-action">
+<!--                <li><a>Edit</a></li>-->
+                <li><a ng-click="box.deleteCmt(currApp._id,$index,data)">Delete</a></li>
+            </ul>
+        </div>
+        
+    </div>
+    
 </div>

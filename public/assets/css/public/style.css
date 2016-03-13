@@ -962,6 +962,7 @@ ul.projects li {
   line-height: 1.42857143; }
 
 .custom-form-textarea {
+  background-color: transparent;
   resize: vertical;
   display: block;
   width: 100%;
@@ -1191,6 +1192,238 @@ ul.projects li {
       /*fix for  buggy browsers*/
       display: table-column;
       padding: 4px 0; }
+
+/***************************
+           Review
+***************************/
+.reviewHeader {
+  text-align: center;
+  background-color: red;
+  border-top: 5px solid #06bcc2;
+  width: 100%; }
+  .reviewHeader .container {
+    position: relative; }
+  .reviewHeader .reviewHeaderContent {
+    padding: 5px 15px;
+    background-color: #06bcc2; }
+    .reviewHeader .reviewHeaderContent p {
+      color: white; }
+  .reviewHeader .custom-close-overlay {
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: url("/assets/imgs/ic_cross_overlay.svg") no-repeat center center;
+    -webkit-transition: all 0.2s ease;
+    -moz-transition: all 0.2s ease;
+    -ms-transition: all 0.2s ease;
+    -o-transition: all 0.2s ease;
+    transition: all 0.2s ease; }
+    .reviewHeader .custom-close-overlay:hover, .reviewHeader .custom-close-overlay:focus {
+      cursor: pointer;
+      -webkit-transition: all 0.2s ease;
+      -moz-transition: all 0.2s ease;
+      -ms-transition: all 0.2s ease;
+      -o-transition: all 0.2s ease;
+      transition: all 0.2s ease;
+      -ms-transform: rotate(180deg);
+      /* IE 9 */
+      -webkit-transform: rotate(180deg);
+      /* Safari */
+      transform: rotate(180deg); }
+
+.reviewCarousel {
+  padding: 0 15px;
+  position: relative; }
+  .reviewCarousel .reviewCarouselImg ul {
+    background-color: #242424;
+    margin-left: auto;
+    margin-right: auto;
+    width: auto;
+    height: 400px; }
+  .reviewCarousel .rn-carousel-control.rn-carousel-control-prev {
+    position: absolute;
+    top: 50%;
+    left: 30px;
+    margin-top: -35px; }
+  .reviewCarousel .rn-carousel-control.rn-carousel-control-next {
+    position: absolute;
+    top: 50%;
+    right: 30px;
+    margin-top: -35px; }
+  .reviewCarousel .rn-carousel-control.rn-carousel-control-prev:before, .reviewCarousel .rn-carousel-control.rn-carousel-control-next:before {
+    content: "";
+    display: block;
+    width: 42px;
+    height: 42px;
+    border: 1px solid white;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    border-radius: 50%; }
+  .reviewCarousel .rn-carousel-control.rn-carousel-control-prev:before {
+    background: url("/assets/imgs/ic_prev.svg") no-repeat center center white;
+    background-size: 20px 20px; }
+  .reviewCarousel .rn-carousel-control.rn-carousel-control-next:before {
+    background: url("/assets/imgs/ic_next.svg") no-repeat center center white;
+    background-size: 20px 20px; }
+  .reviewCarousel .reviewCarouselPagination {
+    text-align: center;
+    margin: 15px 0 25px 0; }
+    .reviewCarousel .reviewCarouselPagination ul {
+      padding: 0; }
+      .reviewCarousel .reviewCarouselPagination ul li {
+        width: 7px;
+        height: 7px;
+        display: inline-block;
+        margin-right: 15px;
+        background-color: #cccccc;
+        -webkit-border-radius: 50%;
+        -moz-border-radius: 50%;
+        -ms-border-radius: 50%;
+        border-radius: 50%; }
+        .reviewCarousel .reviewCarouselPagination ul li:last-child {
+          margin-right: 0px; }
+      .reviewCarousel .reviewCarouselPagination ul li.active {
+        background-color: #666666; }
+
+.reviewInfo {
+  padding-bottom: 100px; }
+  .reviewInfo table {
+    font-size: 12px;
+    width: 100%; }
+    .reviewInfo table tbody tr td {
+      vertical-align: middle;
+      height: 32px; }
+      .reviewInfo table tbody tr td:nth-child(1) {
+        width: 20%; }
+      .reviewInfo table tbody tr td:nth-child(2) {
+        width: 80%; }
+
+.reviewComment {
+  padding-bottom: 100px; }
+  .reviewComment .makeComment {
+    margin-bottom: 72px;
+    padding-left: 52px;
+    position: relative; }
+    .reviewComment .makeComment .commentHeading {
+      position: absolute;
+      top: -29px;
+      left: 52px;
+      font-size: 12px; }
+    .reviewComment .makeComment .commentThumbnail {
+      position: absolute;
+      top: -41px;
+      left: 0;
+      padding: 12px;
+      width: 41px;
+      height: 41px;
+      background-color: #666666;
+      text-align: center;
+      font-size: 12px;
+      color: white;
+      -webkit-border-radius: 50%;
+      -moz-border-radius: 50%;
+      -ms-border-radius: 50%;
+      border-radius: 50%;
+      -webkit-transition: all 0.2s ease;
+      -moz-transition: all 0.2s ease;
+      -ms-transition: all 0.2s ease;
+      -o-transition: all 0.2s ease;
+      transition: all 0.2s ease; }
+      .reviewComment .makeComment .commentThumbnail:hover, .reviewComment .makeComment .commentThumbnail:focus {
+        cursor: pointer;
+        background-color: #444444;
+        -webkit-transition: all 0.2s ease;
+        -moz-transition: all 0.2s ease;
+        -ms-transition: all 0.2s ease;
+        -o-transition: all 0.2s ease;
+        transition: all 0.2s ease; }
+    .reviewComment .makeComment textarea {
+      margin: 41px 0 10px 0; }
+    .reviewComment .makeComment button {
+      float: right; }
+  .reviewComment .comments {
+    position: relative;
+    margin-bottom: 20px; }
+    .reviewComment .comments .commentThumbnail {
+      position: absolute;
+      top: 5px;
+      left: 0;
+      padding: 12px;
+      width: 41px;
+      height: 41px;
+      background-color: #666666;
+      text-align: center;
+      font-size: 12px;
+      color: white;
+      -webkit-border-radius: 50%;
+      -moz-border-radius: 50%;
+      -ms-border-radius: 50%;
+      border-radius: 50%;
+      -webkit-transition: all 0.2s ease;
+      -moz-transition: all 0.2s ease;
+      -ms-transition: all 0.2s ease;
+      -o-transition: all 0.2s ease;
+      transition: all 0.2s ease; }
+      .reviewComment .comments .commentThumbnail:hover, .reviewComment .comments .commentThumbnail:focus {
+        cursor: pointer;
+        background-color: #444444;
+        -webkit-transition: all 0.2s ease;
+        -moz-transition: all 0.2s ease;
+        -ms-transition: all 0.2s ease;
+        -o-transition: all 0.2s ease;
+        transition: all 0.2s ease; }
+    .reviewComment .comments p {
+      padding-left: 52px; }
+    .reviewComment .comments .timestamp {
+      margin-top: -8px;
+      color: #999999;
+      font-size: 10px; }
+    .reviewComment .comments ul.comments-action {
+      float: right;
+      margin-top: -30px;
+      padding: 0;
+      list-style: none; }
+      .reviewComment .comments ul.comments-action li {
+        cursor: pointer;
+        display: inline;
+        margin-left: 10px; }
+        .reviewComment .comments ul.comments-action li:first-child {
+          margin-left: 0; }
+
+.reviewBar {
+  background-color: white;
+  height: 42px;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  text-align: center; }
+  .reviewBar .previous, .reviewBar .next {
+    float: left;
+    display: inline-block;
+    width: 50%;
+    text-align: center;
+    height: 42px;
+    line-height: 42px;
+    cursor: pointer;
+    background-color: #06bcc2;
+    color: white;
+    -webkit-transition: all 0.8s ease;
+    -moz-transition: all 0.8s ease;
+    -ms-transition: all 0.8s ease;
+    -o-transition: all 0.8s ease;
+    transition: all 0.8s ease; }
+    .reviewBar .previous:hover, .reviewBar .previous:focus, .reviewBar .next:hover, .reviewBar .next:focus {
+      background-color: #069A9F;
+      -webkit-transition: all 0.8s ease;
+      -moz-transition: all 0.8s ease;
+      -ms-transition: all 0.8s ease;
+      -o-transition: all 0.8s ease;
+      transition: all 0.8s ease; }
+  .reviewBar .previous {
+    border-right: 1px solid white; }
 
 /***************************
        Privacy policy
