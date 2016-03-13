@@ -7,42 +7,58 @@ angular.module('applyCtrl',['userService', 'mgcrea.ngStrap']).
         '$routeParams','Pub',
         function ($scope, $rootScope, Upload, $http, Project, 
             Role, Applicant, $routeParams, Pub) 
-    {
+        {
         $scope.$emit("hideNav");
         var vm = this;
         vm.roleData={};
         vm.appData ={};
         vm.files=[];
         $scope.submitted = false;
-        console.log('here');
-        console.log($routeParams.id)
         /*TODO: condense when combine project and role schema*/
             Pub.getAppRole($routeParams.id).then(function(data){
-            console.log(data.data);
             vm.roleData = data.data.Application;
-            console.log(vm.roleData)
             if(vm.roleData){
             Pub.getAppPrj(vm.roleData.projectID).then(function(data){
                 vm.prjData = data.data.project;
                 vm.appData.projectID = data.data.project._id;
-                vm.appData.roleID = vm.roleData._id
-                /*vm.files = vm.roleData.requirements.splice();*/
-                /*vm.files.forEach(
-                function(item,index, requirements){
-                vm.files[item].index = index;
-            })*/
+                vm.appData.roleID = vm.roleData._id;
             })}
         });
 
+       vm.checkProgress =  function(){
+            var count = 0;
+            for( var i in vm.files.length){
+                if(vm.files[i].process = 100)count++;
+                
+                if(count == vm.files.length){
+                    console.log("upload completed");
+                    return true;
+                }
+                else return false;
+            }
+        }
         vm.submit = function() {
           Applicant.apply(vm.appData).then(function(resp){
             vm.applicantID = resp.data.appID;
             vm.appData = "";
             if(vm.roleData){
-                 uploadFiles(vm.files)    
+                uploadFiles(vm.files)    
                 $scope.status = "Submitted"
-                $scope.submitted = true;        
             }  
+            $scope.submitted = false;
+                for( var i in vm.files.length){
+                    if(vm.files[i].process = 100)count++;
+                    else{
+                        console.log(vm.files[i].process);
+                    }
+                    
+                    if(count == vm.files.length){
+                        console.log("upload completed");
+                        $scope.submitted = true;
+                        return true;
+                    }
+                    else return false;
+                }
           })
         };
 /* ----------------- Uploader -------------- */
@@ -71,8 +87,6 @@ angular.module('applyCtrl',['userService', 'mgcrea.ngStrap']).
                                 return data;
                             },
                             data: {
-                                /*'key' : toString(vm.roleData._id) + '/' 
-                                + toString(vm.applicantId) + file.name'hey',*/
                                 'key' : 'upload/'+ Math.round(Math.random()*10000) + '$$' + file.name,
                                 'acl' : 'public-read',
                                 'Content-Type' : file.type,

@@ -234,7 +234,7 @@ apiRouter.route('/project/:project_id')
 		Project.findById(req.params.project_id, function(err,project){
 			if(err) res.send(err);
 			project.name = req.body.name;
-			project.details = req.body.details;
+			project.description = req.body.description;
 			project.updated_date = req.body.updated_date;
 			project.save(function(err){
 				if (err) console.log(err);
