@@ -11,11 +11,12 @@
                 >
         </div>
         <div class="form-group">
-            <label>Description (Max 220 characters)</label>
+            <label>Description (Max {{charRmnd}} characters)</label>
             <textarea rows="4" cols="40" maxlength="220" 
+            ng-change="TAChange()"
             class = "custom-form-textarea" 
             ng-model = "roleAside.roleData.description"
-            required></textarea>
+            ></textarea>
         </div>
         
         <div class = "form-group">

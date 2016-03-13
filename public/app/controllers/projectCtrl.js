@@ -371,6 +371,8 @@ controller('editRoleController',
 controller('addRoleController',
 	function(Role, $location, $routeParams, $route, $scope){
 	var vm = this;
+	var MAX_LENGTH = 220;
+	$scope.charRmnd = MAX_LENGTH;
 	vm.edit = false;
 	vm.roleData = {};
 	vm.roleData.requirements=[];
@@ -379,6 +381,9 @@ controller('addRoleController',
 
 	$scope.selectedDate = new Date();
 	$scope.selectedTime = new Date();
+
+	$scope.TAChange = function()
+		{$scope.charRmnd  =  MAX_LENGTH - vm.roleData.description.length;}
 
 	$scope.status = {
 	  isopen: false
@@ -493,12 +498,13 @@ controller('addRoleController',
 
 	controller('newProjectController', function(Project, $location,$route, $scope)	{
 		var vm = this;
-		$scope.charRmnd = 220;
+		var MAX_LENGTH = 220;
+		$scope.charRmnd = MAX_LENGTH;
 		vm.NEW = true;
 		vm.projectData = {name:"",description:""};
 		
 		$scope.TAChange = function()
-		{$scope.charRmnd  -=  vm.projectData.description.length;}
+		{$scope.charRmnd  =  MAX_LENGTH - vm.projectData.description.length;}
 		vm.save = function(){
 			vm. processing = true;
 			vm.message;
