@@ -62,11 +62,11 @@
           </table>
     </div>
 </div>
-<div ng-if="viewApp" > 
+
+<div ng-if="viewApp"> 
   <div review></div>
-  <div ng-if="viewApp" style="background-color:orange; height:30px;"> 
-    <button class="btn btn-primary" 
-            ng-click="page.lastApp()">Last</button>
-    <button ng-click="page.nextApp()" class="btn btn-primary">Next</button>
+  <div class="reviewBar" ng-if="viewApp"> 
+    <div class="previous" ng-click="page.lastApp()">Previous</div>
+    <div class="next" ng-click="page.nextApp()">Next</div>
   </div>
 </div>

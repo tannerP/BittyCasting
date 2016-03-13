@@ -819,7 +819,6 @@ ul.projects li {
                     opacity: 0;
                     @include transition(all, 0.2s, ease);
                     
-
                     ul {
                         height: 36px;
 
@@ -1048,6 +1047,7 @@ ul.projects li {
 }
 
 .custom-form-textarea {
+    background-color: transparent;
     resize: vertical;
     display: block;
     width: 100%;
@@ -1287,6 +1287,240 @@ ul.projects li {
     }
 }
 
+/***************************
+           Review
+***************************/
+
+.reviewHeader {
+    text-align: center;
+    background-color: red;
+    border-top: 5px solid $color-blue;
+    width: 100%;
+    .container {
+        position: relative;
+    }
+    .reviewHeaderContent {
+        padding: 5px 15px;
+        background-color: $color-blue;
+        p {color: white;}
+    }
+    
+    .custom-close-overlay {
+        width: 40px;
+        height: 40px;
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        background: url("/assets/imgs/ic_cross_overlay.svg") no-repeat center center;
+        @include transition(all, 0.2s, ease);
+
+            &:hover, &:focus {
+                cursor: pointer;
+                @include transition(all, 0.2s, ease);
+                @include rotate(180deg);
+            }
+    }
+}
+
+.reviewCarousel {
+    padding: 0 15px;
+    position: relative;
+    .reviewCarouselImg{
+        ul {
+            background-color: $color-grey-darkest;
+            margin-left:auto; 
+            margin-right:auto; 
+            width:auto; 
+            height:400px;
+        }
+    }
+    
+    .rn-carousel-control.rn-carousel-control-prev {
+        position: absolute;
+        top: 50%;
+        left: 30px;
+        margin-top: -35px;
+    }
+    
+    .rn-carousel-control.rn-carousel-control-next {
+        position: absolute;
+        top: 50%;
+        right: 30px;
+        margin-top: -35px;
+    }
+    
+    .rn-carousel-control.rn-carousel-control-prev:before, .rn-carousel-control.rn-carousel-control-next:before {
+        content: "";
+        display: block;
+        width: 42px;
+        height: 42px;
+        border: 1px solid white;
+        @include border-radius(50%);
+    }
+    
+    .rn-carousel-control.rn-carousel-control-prev:before {
+        background: url("/assets/imgs/ic_prev.svg") no-repeat center center white;
+        background-size: 20px 20px;
+    }
+    
+    .rn-carousel-control.rn-carousel-control-next:before {
+        background: url("/assets/imgs/ic_next.svg") no-repeat center center white;
+        background-size: 20px 20px;
+    }
+    
+    .reviewCarouselPagination {
+        text-align: center;
+        margin: 15px 0 25px 0;
+        ul {
+            padding: 0;
+            li {
+                width: 7px;
+                height: 7px;
+                display: inline-block;
+                margin-right: 15px;
+                background-color: $color-grey-light;
+                @include border-radius(50%);
+                &:last-child {
+                    margin-right: 0px;
+                }
+            }
+            li.active {
+                background-color: $color-grey-dark;
+            }
+        }
+    }
+}
+
+.reviewInfo {
+    padding-bottom: 100px;
+    table {
+        font-size: $font-size-regular;
+        width: 100%;
+        tbody tr td{
+            vertical-align: middle;
+            height: 32px;
+            &:nth-child(1) {width: 20%;}   
+            &:nth-child(2) {width: 80%;} 
+        
+        } 
+        
+    }
+}
+
+.reviewComment {
+    padding-bottom: 100px;
+    
+    .makeComment {
+        margin-bottom: 72px;
+        padding-left: 52px;
+        position: relative;
+        .commentHeading {
+            position: absolute;
+            top: -29px;
+            left: 52px;
+            font-size: $font-size-regular;
+        }
+        .commentThumbnail {
+            position: absolute;
+            top: -41px;
+            left: 0;
+            padding: 12px;
+            width: 41px;
+            height: 41px;
+            background-color: $color-grey-dark;
+            text-align: center;
+            font-size: $font-size-regular;
+            color: white;
+            @include border-radius(50%);
+            @include transition(all, 0.2s, ease);
+            &:hover, &:focus  {
+                cursor: pointer;
+                background-color: $color-grey-darken;
+                @include transition(all, 0.2s, ease);
+            }
+        }
+        textarea {
+            margin: 41px 0 10px 0;
+        }
+        button {
+            float: right;
+        }
+    }
+    .comments {
+        position: relative;
+        margin-bottom: 20px;
+        .commentThumbnail {
+            position: absolute;
+            top: 5px;
+            left: 0;
+            padding: 12px;
+            width: 41px;
+            height: 41px;
+            background-color: $color-grey-dark;
+            text-align: center;
+            font-size: $font-size-regular;
+            color: white;
+            @include border-radius(50%);
+            @include transition(all, 0.2s, ease);
+            &:hover, &:focus  {
+                cursor: pointer;
+                background-color: $color-grey-darken;
+                @include transition(all, 0.2s, ease);
+            }
+        }
+        p {
+            padding-left: 52px;
+        }
+        .timestamp {
+            margin-top: -8px;
+            color: $color-grey;
+            font-size: $font-size-small;
+        }
+        ul.comments-action{
+            float: right;
+            margin-top: -30px;
+            padding: 0;
+            list-style: none;
+            li {
+                cursor: pointer;
+                display: inline;
+                margin-left: 10px;
+                &:first-child {
+                margin-left: 0;
+                }
+            }
+        }
+    }
+}
+
+.reviewBar {
+    background-color: white;
+    height: 42px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+//    @include box-shadow(0px, -1px, 2px, 0px, rgba(0,0,0,0.1));
+    .previous, .next {
+        float: left;
+        display: inline-block;
+        width: 50%;
+        text-align: center;
+        height: 42px;
+        line-height: 42px;
+        cursor: pointer;
+        background-color: $color-blue;
+        color: white;
+        @include transition(all, 0.8s, ease);
+        &:hover, &:focus {
+            background-color: $color-blue_darken;
+            @include transition(all, 0.8s, ease);
+        }  
+    }
+    .previous {
+        border-right: 1px solid white;
+    }
+}
 
 /***************************
        Privacy policy
