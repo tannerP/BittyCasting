@@ -1,3 +1,4 @@
+@import "/assets/css/spin.css";
 
 /***************************
           Colors
@@ -160,6 +161,11 @@ a {
 
 .paddingBottom60 {
     padding-bottom: 60px;
+}
+
+.custom-loader {
+    margin: 30px auto;
+    width: 60px;
 }
 
 /***************************
