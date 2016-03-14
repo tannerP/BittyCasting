@@ -1955,5 +1955,31 @@ ul.projects li {
         margin: 0; }
         .footer .social ul li:nth-child(2) {
           margin-left: 20px; } }
+/* Tanner: I added this here, for the close button for when preview application */
+.custom-close-overlay {
+  background-color: black;
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  top: 7px;
+  right: 20px;
+  background: url("/assets/imgs/ic_cross_overlay.svg") no-repeat center center;
+  -webkit-transition: all 0.2s ease;
+  -moz-transition: all 0.2s ease;
+  -ms-transition: all 0.2s ease;
+  -o-transition: all 0.2s ease;
+  transition: all 0.2s ease; }
+  .custom-close-overlay:hover, .custom-close-overlay:focus {
+    cursor: pointer;
+    -webkit-transition: all 0.2s ease;
+    -moz-transition: all 0.2s ease;
+    -ms-transition: all 0.2s ease;
+    -o-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+    -ms-transform: rotate(180deg);
+    /* IE 9 */
+    -webkit-transform: rotate(180deg);
+    /* Safari */
+    transform: rotate(180deg); }
 
 /*# sourceMappingURL=style.css.map */

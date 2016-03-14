@@ -1,3 +1,4 @@
+
 /***************************
           Colors
 ***************************/
@@ -2068,3 +2069,21 @@ text-align: center;
     }
     
 }
+
+/* Tanner: I added this here, for the close button for when preview application */
+.custom-close-overlay {
+        background-color: black;
+        width: 40px;
+        height: 40px;
+        position: absolute;
+        top: 7px;
+        right: 20px;
+        background: url("/assets/imgs/ic_cross_overlay.svg") no-repeat center center;
+        @include transition(all, 0.2s, ease);
+
+            &:hover, &:focus {
+                cursor: pointer;
+                @include transition(all, 0.2s, ease);
+                @include rotate(180deg);
+            }
+    }
