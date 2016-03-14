@@ -72,7 +72,7 @@
                                 <div class="drop-box" ngf-drop ng-model="page.files[$index]">
                                     <p>Drag and drop &nbsp OR &nbsp 
                                         <a ngf-select ng-model="page.files[$index]" name="file" 
-                                        ngf-pattern="'*'" ngf-accept="*" ngf-max-size="1GB" ngf-min-height="100">
+                                        ngf-pattern="'*'" ngf-accept="'*'" ngf-max-size="1GB" ngf-min-height="100">
                                         upload from computer</a>
                                     </p>
                                 </div>
@@ -86,7 +86,7 @@
                                     <h3>Processing</h3>
                                 </div>
 -->
-                                <div ng-if="page.processing" class="custom-loader"><img src='/assets/imgs/spin.gif'></div>
+                                <!-- <div ng-if="page.processing" class="custom-loader"><img src='/assets/imgs/spin.gif'></div> -->
                             </div>
                             <button type="submit" class="custom-btn-primary-large">Submit</button>
                             <div class="poweredBy">

@@ -150,6 +150,11 @@ controller('applicantPageController',
 					vm.viewBtn($scope.currIndex)
 				}
 		}
+		$scope.download  = function(fsource){
+			/*window.location.assign(fsource);*/
+			window.open(fsource,"_blank")
+			console.log("button Press");
+		}
 }).
 controller('prjDetailController', 
 	function(Role, Project ,$location, $routeParams,

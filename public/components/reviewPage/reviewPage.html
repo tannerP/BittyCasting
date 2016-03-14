@@ -61,7 +61,8 @@
                 
                 <tr ng-repeat="sup in currApp.suppliments">
                     <td>{{sup.name}}</td>
-                    <td><a target="_blank" ng-href="{{sup.source}}">{{sup.file_type}}</a></td>
+                    <td><a target="_blank" ng-href="{{sup.source}}" download="{{sup.name}}">{{sup.file_type}}</a></td>
+                    <td><button ng-click="download(sup.source)">download</button></td>
                 </tr>
                 
             </tbody>
