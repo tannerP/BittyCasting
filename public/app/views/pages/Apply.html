@@ -76,7 +76,7 @@
                                         upload from computer</a>
                                     </p>
                                 </div>
-                                Image thumbnail: <img ng-if="page.files[$index]" style="width:100px;height:100px;" ngf-thumbnail="page.files[$index] || '/thumb.jpg'">
+                                <img ng-if="page.files[$index]" style="width:auto;height:80px;" ngf-thumbnail="page.files[$index] || '/thumb.jpg'">
                                     <video style="width:100px;height:100px;" ng-if="page.files[$index]"
                                     controls
                                     ngf-src="page.files[$index]">
