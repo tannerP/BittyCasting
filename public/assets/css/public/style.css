@@ -1329,6 +1329,14 @@ ul.projects li {
       display: table-column;
       padding: 4px 0; }
 
+.thankYouPage {
+  text-align: center; }
+
+.thankYouLogo {
+  width: 54px;
+  height: 54px;
+  margin: 0 auto; }
+
 /***************************
            Review
 ***************************/
