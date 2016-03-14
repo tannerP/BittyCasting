@@ -77,23 +77,25 @@
                                     </p>
                                 </div>
                                 <img ng-if="page.files[$index]" style="width:auto;height:80px;" ngf-thumbnail="page.files[$index] || '/thumb.jpg'">
-                                    <video style="width:100px;height:100px;" ng-if="page.files[$index]"
-                                    controls
-                                    ngf-src="page.files[$index]">
+                                <video style="width:100px;height:100px;" ng-if="page.files[$index]" controls ngf-src="page.files[$index]">
                                 <div class = "custom-alert" ng-if="page.error">
                                     {{page.error}}
-                                  </div>
-                                  <div ng-if="page.processing">
+                                </div>
+<!--
+                                <div ng-if="page.processing">
                                     <h3>Processing</h3>
                                 </div>
+-->
+                                <div ng-if="page.processing" class="custom-loader"><img src='/assets/imgs/spin.gif'></div>
                             </div>
                             <button type="submit" class="custom-btn-primary-large">Submit</button>
                             <div class="poweredBy">
                                 <p>Powered by<a href="/" target="_blank">
                                     <img class="powerLogo" ng-src="assets/imgs/logo_BittyCasting.svg"></a>
                                 </p>
-                            </div>    
+                            </div>   
                         </form>
+                        
                 </div>  
             </section>    
         </div>
