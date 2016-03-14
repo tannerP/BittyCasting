@@ -1,4 +1,3 @@
-
 <div ng-show="!viewApp" class="container"> 
     <div class="pageHeader">
         <div class='pageTitle pageTitleMobileOffset'>{{page.roleData.name || "page Casting"}}</div>
@@ -66,7 +65,7 @@
 
 <div ng-if="viewApp"> 
   <div review></div>
-  <div class="reviewBar" ng-if="viewApp"> 
+  <div class="reviewBar" ng-if="viewApp" style=" z-index:4;"> 
     <div class="previous" ng-click="page.lastApp()">Previous</div>
     <div class="next" ng-click="page.nextApp()">Next</div>
   </div>
@@ -78,9 +77,9 @@
           <div class="commentHeading">Add a comment</div>
           <textarea class="custom-form-textarea" rows="5" cols="40" type="text" name="comment" ng-model="box.newComment"></textarea> 
           <button class="custom-btn-secondary-small" ng-click="box.addCmt(currApp._id, main.usrInitial, box.newComment)">Comment</button>
-      </div>
-      
-      <div class="comments" ng-if="data" ng-repeat="data in currApp.comments track by $index">
+      </div>   
+  </div>
+     <div class="comments" ng-if="data" ng-repeat="data in currApp.comments track by $index">
           <div class="commentThumbnail">{{data.owner}}</div>
           <p>{{data.comment}}</p>
           <p class="timestamp">Posted on 5:34PM, Feb 8, 2016</p>
@@ -88,9 +87,9 @@
 <!--                <li><a>Edit</a></li>-->
               <li><a ng-click="box.deleteCmt(currApp._id,$index,data)">Delete</a></li>
           </ul>
-      </div>
-      
+      </div>      
   </div>
   </div>
+
 
 </div>

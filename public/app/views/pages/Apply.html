@@ -68,24 +68,22 @@
                             </div>   
                             <div class = "form-group" ng-repeat="rq in page.roleData.requirements track by $index">
                             <!-- <div class = "form-group"> -->
-                                <label>{{rq.name}}</label>
+                                <label>{{rq.name}}</label><span ng-if="rq.required">*</span>
                                 <div class="drop-box" ngf-drop ng-model="page.files[$index]">
                                     <p>Drag and drop &nbsp OR &nbsp 
                                         <a ngf-select ng-model="page.files[$index]" name="file" 
-                                        ngf-pattern="'*'" ngf-accept="'*'"ngf-max-size="1GB" ngf-min-height="100"
-                                        ngf-resize="{width: 700, height: 700}">
+                                        ngf-pattern="'*'" ngf-accept="*" ngf-max-size="1GB" ngf-min-height="100">
                                         upload from computer</a>
                                     </p>
-                                    Image thumbnail: <img ng-if="page.files[$index]" style="width:100px;height:100px;" ngf-thumbnail="page.files[$index] || '/thumb.jpg'">
+                                </div>
+                                Image thumbnail: <img ng-if="page.files[$index]" style="width:100px;height:100px;" ngf-thumbnail="page.files[$index] || '/thumb.jpg'">
                                     <video style="width:100px;height:100px;" ng-if="page.files[$index]"
                                     controls
                                     ngf-src="page.files[$index]">
-                                </div>
-                                <!-- <div class="progress-bar" role="progressbar" 
-                                    style="width:{{page.files[$index].progress}}%;height:5px";>
-                                        <p>{{page.files[$index].name}} : {{page.file[$index].progress}}<p>
-                                </div> -->
-                                <div ng-if="page.processing">
+                                <div class = "custom-alert" ng-if="page.error">
+                                    {{page.error}}
+                                  </div>
+                                  <div ng-if="page.processing">
                                     <h3>Processing</h3>
                                 </div>
                             </div>

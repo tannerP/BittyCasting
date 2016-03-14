@@ -59,14 +59,14 @@ controller('applicantPageController',
       }
     }
 		
-			Role.get($routeParams.role_id)
-			.success(function(data){
-				vm.processing = false;
-				vm.roleData = data.data;
-			})
-			.error(function(error){
-				console.log(error);
-			})
+		Role.get($routeParams.role_id)
+		.success(function(data){
+			vm.processing = false;
+			vm.roleData = data.data;
+		})
+		.error(function(error){
+			console.log(error);
+		})
 	
 	function getApps(){
 		Applicant.getAll($routeParams.role_id)
@@ -144,7 +144,7 @@ controller('applicantPageController',
 					vm.viewBtn($scope.currIndex)
 				}
 		}
-			vm.lastApp = function(){
+		vm.lastApp = function(){
 			if($scope.currIndex > 0) {
 					$scope.currIndex -= 1;
 					vm.viewBtn($scope.currIndex)
@@ -257,6 +257,7 @@ controller('prjDetailController',
          errAlert = $alert({title: 'Link:',
           content: 'Copied',
            placement: 'top-right', type: 'info', show: false, type:'success'});           
+        
         $scope.preview = function()	{
         	$scope.$toggle();
         	$location.path(previewLink)

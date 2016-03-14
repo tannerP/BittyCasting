@@ -26,15 +26,34 @@ angular.module('applyCtrl',['userService', 'mgcrea.ngStrap']).
             })}
         });
 
+        vm.error = "";
+        var isValid = function(files){
+            //check if required files are submited
+            for(var i in vm.roleData.requirements.length)
+            {
+                if(vm.roleData.requirements[i].required)
+                {   
+                    
+                }
+                console.log(files[i])
+            }
+
+        }
+        
         vm.submit = function() {
             vm.processing = true;
-          Applicant.apply(vm.appData).then(function(resp){
-            vm.applicantID = resp.data.appID;
-            vm.appData = "";
-            if(vm.roleData){
-                uploadFiles(vm.files)    
-            }  
-        })};
+            /*console.log(vm.files)*/
+            /*isValid(vm.files);*/
+        if(isValid(vm.files)){
+            //Put applicanion data, store media in S3, then save reference to DB. 
+            /*Applicant.apply(vm.appData).then(function(resp){
+                vm.applicantID = resp.data.appID;
+                vm.appData = "";
+                if(vm.roleData){
+                    uploadFiles(vm.files)    
+                }  
+            }*/
+        /*)}};*/ }}
 /* ----------------- Uploader -------------- */
     $scope.abort = function(index) {
         $scope.upload[index].abort();
