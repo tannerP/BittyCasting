@@ -113,6 +113,21 @@ $font-size-small: 10px;
         }  
 }
 
+.custom-btn-secondary-large {  
+        width: 100%;
+        border: 0;
+        color: white;  
+        background-color: $color-grey-dark;  
+        padding: 12px;
+        @include box-shadow(0px, 1px, 1px, 0px, rgba(0,0,0,0.2));
+        @include transition(all, 0.8s, ease);
+        &:hover, &:focus {
+            background-color: $color-grey-darken;
+            color: white; 
+            @include transition(all, 0.8s, ease);
+        }  
+}
+
 .custom-btn-secondary-small {   
         border: 0;
         color: white;  
@@ -1098,7 +1113,9 @@ ul.projects li {
             }
         }
     }
-    
+    .btn-preview {
+        margin: -20px 0 10px 0;
+    }
 }
 
 .aside-backdrop.am-fade, .modal-backdrop.am-fade {

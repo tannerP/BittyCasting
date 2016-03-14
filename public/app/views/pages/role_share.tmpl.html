@@ -3,14 +3,10 @@
         <div class="asideTitle" ng-if="!roleAside.edit">Share Role</div>
         <div class="custom-close" ng-click="$hide()"></div>
         <div class="form-group">
-            <input class="custom-form" type="text" 
-             ng-model="textToCopy">
-            <button class="btn btn-primary" ng-click="preview()"
-               > Preview
-            </button>
+            <input class="custom-form" type="text" ng-model="textToCopy">
         </div>
-        <button clipboard class="custom-btn-primary-large" text="textToCopy" on-copied="success()" on-error="fail(err)"
-        >Copy link</button>
+        <button class="custom-btn-secondary-large btn-preview" ng-click="preview()">Preview</button>
+        <button clipboard class="custom-btn-primary-large" text="textToCopy" on-copied="success()" on-error="fail(err)">Copy link</button>
     </form>
 
 </div>

@@ -59,6 +59,29 @@
     -o-transition: all 0.8s ease;
     transition: all 0.8s ease; }
 
+.custom-btn-secondary-large {
+  width: 100%;
+  border: 0;
+  color: white;
+  background-color: #666666;
+  padding: 12px;
+  -webkit-box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.2);
+  -webkit-transition: all 0.8s ease;
+  -moz-transition: all 0.8s ease;
+  -ms-transition: all 0.8s ease;
+  -o-transition: all 0.8s ease;
+  transition: all 0.8s ease; }
+  .custom-btn-secondary-large:hover, .custom-btn-secondary-large:focus {
+    background-color: #444444;
+    color: white;
+    -webkit-transition: all 0.8s ease;
+    -moz-transition: all 0.8s ease;
+    -ms-transition: all 0.8s ease;
+    -o-transition: all 0.8s ease;
+    transition: all 0.8s ease; }
+
 .custom-btn-secondary-small {
   border: 0;
   color: white;
@@ -1027,6 +1050,8 @@ ul.projects li {
     .aside .checkbox label input:checked + span {
       background: url("/assets/imgs/ic_check.svg") no-repeat center center #cccccc;
       background-size: 12px 12px; }
+  .aside .btn-preview {
+    margin: -20px 0 10px 0; }
 
 .aside-backdrop.am-fade, .modal-backdrop.am-fade {
   background: rgba(0, 0, 0, 0.7);
