@@ -1537,6 +1537,7 @@ ul.projects li {
 }
 
 .reviewComment {
+    margin-top: -300px;
     padding-bottom: 100px;
     
     .makeComment {
@@ -1629,6 +1630,7 @@ ul.projects li {
     bottom: 0;
     width: 100%;
     text-align: center;
+    z-index: 10;
 //    @include box-shadow(0px, -1px, 2px, 0px, rgba(0,0,0,0.1));
     .previous, .next {
         float: left;
@@ -1816,6 +1818,11 @@ ul.projects li {
         background: url("/assets/imgs/ic_cross_overlay_w.svg") no-repeat center center;
         z-index: 10;
         top:3;
+    }
+    .reviewComment {
+        margin-top: -40px;
+        padding-top: 40px;
+        border-top: 1px solid $color-grey-light;
     }
 }
 
