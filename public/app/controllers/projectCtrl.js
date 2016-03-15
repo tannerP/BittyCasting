@@ -392,6 +392,11 @@ controller('addRoleController',
 	vm.newData={};
 	vm.newData.name = "New Requirement",vm.newData.required = true,vm.newData.file_type = "Type";
 
+	/*$scope.$watch(vm.newData.name, function(newVal, oldVal){
+		vm.newData.file_type = "Hey there!"
+		vm.newData.required = true
+	})*/
+
 	$scope.selectedDate = new Date();
 	$scope.selectedTime = new Date();
 
