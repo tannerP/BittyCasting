@@ -26,25 +26,40 @@ angular.module('applyCtrl',['userService', 'mgcrea.ngStrap']).
             })}
         });
 
-        vm.error = "";
-        var isValid = function(files){
-            //check if required files are submited
-            for(var i in vm.roleData.requirements.length)
-            {
-                if(vm.roleData.requirements[i].required)
-                {   
-                    
-                }
-                console.log(files[i])
-            }
-
-        }
-        
+        /* Post application, get applicationID, then store files to S3
+        */
         vm.submit = function() {
+            console.log("button pressed")
             vm.processing = true;
-            /*console.log(vm.files)*/
+            var count = 0;
+            var temp = vm.roleData.requirements;
+                for( var j in temp){
+                    console.log('j: ' + j )
+                    if(temp[j].file_type != "link"){
+                       if(temp[j].required){
+                            if(!vm.files[i])
+                            {
+                                vm.errors.message = "Missing requirement";
+                            }
+                       }
+                /*    } && temp[j].required)
+                    {
+                        for(var i in vm.files){
+                            console.log(temp[j].name);
+                            if( vm.files[i].size < 100)
+                            {   vm.errors.requirements = {};
+                                vm.errors.requirements.message = temp[j].name + " is required."
+                            }
+                            }
+                        }*/
+
+                }
+                vm.processing = false;
+                
+            }
+        }
             /*isValid(vm.files);*/
-        if(isValid(vm.files)){
+        /*if(val(vm.files)){*/
             //Put applicanion data, store media in S3, then save reference to DB. 
             /*Applicant.apply(vm.appData).then(function(resp){
                 vm.applicantID = resp.data.appID;
@@ -53,7 +68,7 @@ angular.module('applyCtrl',['userService', 'mgcrea.ngStrap']).
                     uploadFiles(vm.files)    
                 }  
             }*/
-        /*)}};*/ }}
+        /*)}};*/ 
 /* ----------------- Uploader -------------- */
     $scope.abort = function(index) {
         $scope.upload[index].abort();
@@ -114,7 +129,6 @@ angular.module('applyCtrl',['userService', 'mgcrea.ngStrap']).
                                 if(vm.numFileDone == vm.files.length)
                                 {
                                     $location.path('/Thankyou');
-                                    vm.processing = false;
                                 }
                             }
 

@@ -75,33 +75,35 @@
                     <tbody> 
                         <!-- LOOP OVER THE USERS -->
                          <tr ng-repeat="reqt in roleAside.roleData.requirements track by $index">
-<!--                             <span>{{reqt}}</span>-->
+                             <div><span>{{roleAside.roleData.requirements[$index]}}</span></div>
                              
                             <td>
                             <div uib-dropdown is-open="false">
-                                    <input type="text" class="custom-form"  uib-dropdown-toggle ng-disabled="disabled" ng-model='reqt.name' placeholder="Requirement">
+                                    <input type="text" class="custom-form"  uib-dropdown-toggle ng-disabled="disabled" ng-model='roleAside.roleData.requirements[$index].name' placeholder="New">
                                     </input>
                                     <ul uib-dropdown-menu role="menu" aria-labelledby="single-button">
-                                        <li role="menuitem"><a href="#" ng-click="reqt.name = 'Resume'">Resume</a></li>
-                                        <li role="menuitem"><a href="#" ng-click="reqt.name = 'Headshot'">Headshot</a></li>
-                                        <li role="menuitem"><a href="#" ng-click="reqt.name = 'Audition Reel'">Reel</a></li>
-                                        <li role="menuitem"><a href="#" ng-click="reqt.name = 'Youtube'">Youtube</a></li>
+                                        <li role="menuitem"><a href="#" ng-click="roleAside.roleData.requirements[$index].name='Resume'" >Resume</a></li>
+                                        <li role="menuitem"><a href="#"ng-click="roleAside.roleData.requirements[$index].name = 'Headshot'"
+                                        >Headshot</a></li>
+                                        <li role="menuitem"><a href="#" ng-click=" roleAside.roleData.requirements[$index].name = 'Reel'"
+                                        >Reel</a></li>
+                                        <li role="menuitem"><a href="#" ng-click="roleAside.roleData.requirements[$index].name = 'Youtube'" >Youtube</a></li>
                                     </ul>
                                 </div>
                             </td>
 
                             <td ng-show="reqt">
                                 <div class="custom-form" uib-dropdown is-open="false">
-                                  <span uib-dropdown-toggle ng-disabled="disabled">{{reqt.file_type}}</span>
+                                  <span uib-dropdown-toggle ng-disabled="disabled">{{roleAside.roleData.requirements[$index].file_type}}</span>
                                   <ul uib-dropdown-menu role="menu" aria-labelledby="single-button">
                                     
-                                    <li role="menuitem"><a href="#" ng-click="reqt.file_type = 'Link'">Link</a></li>
+                                    <li role="menuitem"><a href="#" ng-click="roleAside.roleData.requirements[$index].file_type = 'link'">Link</a></li>
 
-                                    <li role="menuitem"><a href="#" ng-click="reqt.file_type = 'Photo'">Photo</a></li>
+                                    <li role="menuitem"><a href="#" ng-click="roleAside.roleData.requirements[$index].file_type = 'image'">Image</a></li>
 
-                                    <li role="menuitem"><a href="#" ng-click="reqt.file_type = 'Video'">Video</a></li>
+                                    <li role="menuitem"><a href="#" ng-click="roleAside.roleData.requirements[$index].file_type = 'video'">Video</a></li>
 
-                                    <li role="menuitem"><a href="#" ng-click="reqt.file_type = 'Document'">Document</a></li>
+                                    <li role="menuitem"><a href="#" ng-click="roleAside.roleData.requirements[$index].file_type = 'document'">Document</a></li>
                                   </ul>
                                 </div>
                             </td>
@@ -110,11 +112,11 @@
                                 <input type="checkbox" class="btn btn-default" ng-model="reqt.required">
                             </td>
 
-                            <td ng-show="reqt"><span class="btn large-btn" ng-click="roleAside.removeReqt(reqt.name)">Delete</span>
+                            <td ng-show="reqt"><span class="btn large-btn" ng-click="roleAside.removeReqt($index)">Delete</span>
                             </td>
                         </tr>
 
-                                                            <!-- New Requirement -->
+                         <!-- New Requirement -->
                         <tr>
                             <td>
                                 <div uib-dropdown is-open="false">
@@ -135,10 +137,10 @@
                                    <span  type="text" class="custom-form"  uib-dropdown-toggle ng-disabled="disabled"
                                     >{{roleAside.newData.file_type || "File"}}</span>
                                   <ul uib-dropdown-menu role="menu" aria-labelledby="single-button">
-                                    <li role="menuitem"><a href="#" ng-click="roleAside.newData.file_type = 'Link'">Link</a></li>
-                                    <li role="menuitem"><a href="#" ng-click="roleAside.newData.file_type = 'Photo'">Photo</a></li>
-                                    <li role="menuitem"><a href="#" ng-click="roleAside.newData.file_type = 'Video'">Video</a></li>
-                                    <li role="menuitem"><a href="#" ng-click="roleAside.newData.file_type = 'Document'">Document</a></li>
+                                    <li role="menuitem"><a href="#" ng-click="roleAside.newData.file_type = 'link'">Link</a></li>
+                                    <li role="menuitem"><a href="#" ng-click="roleAside.newData.file_type = 'image'">Image</a></li>
+                                    <li role="menuitem"><a href="#" ng-click="roleAside.newData.file_type = 'video'">Video</a></li>
+                                    <li role="menuitem"><a href="#" ng-click="roleAside.newData.file_type = 'document'">Document</a></li>
                                   </ul>
                                 </div></td>
                             </td>
