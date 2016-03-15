@@ -77,7 +77,7 @@
                                 <!-- Require Supplements  -->
                                 <!-- Drag & Drop -->
                                 <div ng-if="rq.file_type != 'link' && rq.required" class="drop-box" ngf-drop ng-model="page.files[$index]"  ngf-pattern="'{{rq.file_type}}/*, application/pdf ,application/docs'" ngf-max-size="1GB" ngf-model-invalid="page.errors"
-                                ngf-min-size="10MB"
+                                ngf-min-size="100"
                                 ngf-max-size="1GB" ng-required="true">
                                 <!-- Select File -->
                                     <p>Drag and drop &nbsp OR &nbsp 
@@ -85,7 +85,7 @@
                                             ngf-accept="'{{rq.file_type}}/*, application/pdf ,application/docs'" 
                                             ngf-pattern="'{{rq.file_type}}/*, application/pdf ,application/docs'"
                                             ngf-before-model-change= "page.errors = '' "
-                                            ngf-min-size="1MB"
+                                            ngf-min-size="100"
                                             ngf-max-size="1GB"
                                             ngf-model-invalid="page.errors"
                                             >
