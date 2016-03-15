@@ -11,10 +11,11 @@ var RoleSchema = new Schema({
 	end_time: {type:String, require:false},
 	location: {type:String, require:false},
 	payterms: {type:String},
-	age: {type:Number, min:3, max:90},
+	age: {type:String, min:3, max:90},
 	sex: {type:String},
 	requirements:[{
 		name:String,
+		file_type:String,
 		required:Boolean,
 	}]
 });

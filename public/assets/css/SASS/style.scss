@@ -1,4 +1,3 @@
-
 /***************************
           Colors
 ***************************/
@@ -33,11 +32,6 @@ $font-size-large: 16px;
 $font-size-medium: 14px;
 $font-size-regular: 12px;
 $font-size-small: 10px;
-
-p {
-    font-size: $font-size-regular;
-    line-height: 24px;
-}
 
 /***************************
      Reusable elements
@@ -118,6 +112,21 @@ p {
         }  
 }
 
+.custom-btn-secondary-large {  
+        width: 100%;
+        border: 0;
+        color: white;  
+        background-color: $color-grey-dark;  
+        padding: 12px;
+        @include box-shadow(0px, 1px, 1px, 0px, rgba(0,0,0,0.2));
+        @include transition(all, 0.8s, ease);
+        &:hover, &:focus {
+            background-color: $color-grey-darken;
+            color: white; 
+            @include transition(all, 0.8s, ease);
+        }  
+}
+
 .custom-btn-secondary-small {   
         border: 0;
         color: white;  
@@ -130,6 +139,31 @@ p {
             color: white; 
             @include transition(all, 0.8s, ease);
         }  
+}
+
+p {
+    font-size: $font-size-regular;
+    line-height: 24px;
+}
+
+a {
+    text-decoration: none;
+    color: $color-blue;
+    @include transition(all, 0.2s, ease);
+    &:hover, &:focus {
+        text-decoration: none;
+        color: $color-blue-lighten;
+        @include transition(all, 0.2s, ease);
+    }  
+}
+
+.paddingBottom60 {
+    padding-bottom: 60px;
+}
+
+.custom-loader {
+    margin: 30px auto;
+    width: 60px;
 }
 
 /***************************
@@ -147,8 +181,11 @@ p {
 html, body {
     font-family: $font-primary;
     background: #eeeeee;
-    height: 100%;
+}
+
+html {
     position: relative;
+    min-height: 100%;
 }
 
 /***************************
@@ -166,6 +203,25 @@ header {
 
 nav {
     
+}
+
+.navbar-collapse {
+    
+}
+
+.navbar-toggle {
+    width: 55px;
+    height: 55px;
+    background-color: red;
+    cursor: pointer;
+    margin: 0;
+    background: url("/assets/imgs/ic_list.svg") no-repeat center center;
+    background-size: 20px 20px;
+    @include transition(all, 0.2s, ease);
+    &:hover, &:focus {
+        @include rotate(-90deg);
+        @include transition(all, 0.2s, ease);
+    }
 }
 
 .logoNav {
@@ -234,10 +290,9 @@ nav {
 }
 
 .custom-site-nav-in {
-    
-    ul {float: left;}
-    
-    li {
+    position: relative;
+    ul {float: left;}   
+    li {  
         a {             
             display: inline;
             font-size: $font-size-regular;
@@ -251,7 +306,7 @@ nav {
             color: $color-blue;
             @include transition(all, 0.2s, ease);
         }  
-
+        
     }
 
 }
@@ -295,27 +350,76 @@ nav {
 
 }
 
+.custom-action-nav-in  {
+    
+    ul {
+        list-style-type: none;
+        float: right;
+        margin: 0;
+        padding: 0;
+    }
+    
+    li {           
+        display: inline;
+        
+        a {             
+            display: inline;
+            font-size: $font-size-regular;
+            color: $color-grey-dark;
+            line-height: 56px;
+            margin: 0 0 0 15px;
+            @include transition(all, 0.2s, ease);
+        }       
+        a:hover, a:focus  {
+            background-color: transparent;
+            color: $color-blue;
+            @include transition(all, 0.2s, ease);
+        }  
+    }
+        
+    .navUserInitial {
+        display: inline-block;
+        padding: 12px;
+        width: 41px;
+        height: 41px;
+        margin: 8px 0 0 15px;
+        background-color: $color-grey-dark;
+        text-align: center;
+        font-size: $font-size-regular;
+        color: white;
+        @include border-radius(50%);
+        @include transition(all, 0.2s, ease);
+        &:hover, &:focus  {
+            cursor: pointer;
+            background-color: $color-grey-darken;
+            @include transition(all, 0.2s, ease);
+        } 
+
+    }
+
+}
+
 /***************************
           Landing page
 ***************************/
 
+.sectionTitle {
+    font-weight: 600;
+    font-size: $font-size-page-heading;
+    text-align: center;
+    color: $color-grey-darkest;
+    margin: 60px 0 15px 0;
+    letter-spacing: 4;
+    text-transform: uppercase;
+}
+
+.sectionTitleDivider {
+    margin: 0 auto 60px auto;
+    width: 80px;
+    border-top: 1px solid $color-grey-darkest; 
+}
+
 section {
-    
-    .sectionTitle {
-        font-weight: 600;
-        font-size: $font-size-page-heading;
-        text-align: center;
-        color: $color-grey-darkest;
-        margin: 60px 0 15px 0;
-        letter-spacing: 4;
-        text-transform: uppercase;
-    }
-    
-    .sectionTitleDivider {
-        margin: 0 auto 60px auto;
-        width: 80px;
-        border-top: 1px solid $color-grey-darkest; 
-    }
     
     &.home {
         width: 100%; 
@@ -464,6 +568,7 @@ section {
     
     &.contact {
         text-align: center;
+        padding-bottom: 120px;
         .contactInfo {
             display: inline-block;
             text-align: left;
@@ -488,7 +593,11 @@ section {
 ***************************/
 
 .custom-main {
-    padding-bottom: 60px;}
+    padding: 100px 0 60px 0;}
+
+.custom-wrapper {
+    overflow: hidden;
+}
 
 .cardContainer{
     margin: 0 -15px 0 -15px;
@@ -497,6 +606,83 @@ section {
 div.pageHeader{
     margin: 56px 0 28px 0;
     position: relative;
+    
+    button {
+        padding-left: 50px;            
+        background: url("/assets/imgs/ic_plus_w.svg") no-repeat left 15px center;
+        background-size: 24px 24px;
+        background-color: $color-grey-dark;
+        @include transition(all, 0.8s, ease);
+        &:hover, &:focus {
+            cursor: pointer;
+            background-color: $color-grey-darken;
+            @include transition(all, 0.8s, ease);
+        }
+    }
+    
+    .custom-page-action {
+        ul {
+            list-style: none;
+            li{
+                display: inline;
+                float: right;
+                margin-left: 10px;
+                padding-left: 50px;            
+                &:nth-child(1){
+                    background: url("/assets/imgs/ic_edit_w.svg") no-repeat left 15px center;
+                    background-size: 24px 24px;
+                    background-color: $color-grey-dark;
+                    @include transition(all, 0.8s, ease);
+                    &:hover, &:focus {
+                        cursor: pointer;
+                        background-color: $color-grey-darken;
+                        @include transition(all, 0.8s, ease);
+                    }
+                }
+                &:nth-child(2){
+                    background: url("/assets/imgs/ic_share_w.svg") no-repeat left 15px center;
+                    background-size: 24px 24px;  
+                    background-color: $color-grey-dark;
+                    @include transition(all, 0.8s, ease);
+                    &:hover, &:focus {
+                        cursor: pointer;
+                        background-color: $color-grey-darken;
+                        @include transition(all, 0.8s, ease);
+                    }
+                }
+                &:last-child {
+                    margin-left: 0;
+                }
+            }
+        }
+    }
+    
+    .custom-page-action-secondary {
+        ul {
+            list-style: none;
+            padding: 0;
+            li{
+                display: inline;
+                float: left;
+                margin-right: 10px;
+                padding-left: 50px;            
+                &:nth-child(1){
+                    background: url("/assets/imgs/ic_plus_w.svg") no-repeat left 15px center;
+                    background-size: 24px 24px;
+                    background-color: $color-grey-dark;
+                    @include transition(all, 0.8s, ease);
+                    &:hover, &:focus {
+                        cursor: pointer;
+                        background-color: $color-grey-darken;
+                        @include transition(all, 0.8s, ease);
+                    }
+                }
+                &:last-child {
+                    margin-right: 0;
+                }
+            }
+        }
+    }
     
     .utlBar {
         float: right;
@@ -610,7 +796,7 @@ ul.projects li {
 
         background-color: white;
         height: 60px;
-        padding-top: 10px;
+        padding-top: 13px;
         position: relative;
         top: 65%;
         @include transition(all, 0.3s, ease);
@@ -623,7 +809,7 @@ ul.projects li {
         .cardTitle {
             font-size: $font-size-regular;
             color: $color-grey-darkest; 
-            margin-bottom: 2px;
+            margin-bottom: 4px;
         }
 
         .cardSubTitle {
@@ -710,10 +896,26 @@ ul.projects li {
         }
     }
     
+    .table-applicants {       
+        padding: 0 15px;
+        
+        thead tr th:nth-child(1) {width: 30%; cursor: pointer;} //name
+        thead tr th:nth-child(2) {width: 35%;} //email
+        thead tr th:nth-child(3) {width: 35%;} //phone     
+        .table-utl ul li {
+            &:nth-child(1) {
+                background: url("/assets/imgs/ic_trash.svg") no-repeat center center white;
+                background-size: 16px 16px; }
+            &:nth-child(2) {background: url("/assets/imgs/ic_duplicate.svg") no-repeat center center white;
+            background-size: 16px 16px; }
+        }
+    }
+    
     .table-application-requirements {
-        thead tr th:nth-child(1) {width: 40%; cursor: pointer;} //type
-        thead tr th:nth-child(2) {width: 40%;} //format
+        thead tr th:nth-child(1) {width: 35%; cursor: pointer;} //type
+        thead tr th:nth-child(2) {width: 35%;} //format
         thead tr th:nth-child(3) {width: 20%;} //required     
+        thead tr th:nth-child(3) {width: 10%;} //action
     }
     
     .table {
@@ -741,7 +943,6 @@ ul.projects li {
                     opacity: 0;
                     @include transition(all, 0.2s, ease);
                     
-
                     ul {
                         height: 36px;
 
@@ -784,6 +985,26 @@ ul.projects li {
     .table-hover>tbody>tr:hover {
         background-color: $color-grey-light;
     }
+}
+
+/***************************
+          Profile
+***************************/
+
+.userProfile {
+    padding-bottom: 60px;
+}
+
+.usrInitial {
+    margin: 0 auto 20px auto;
+    width: 140px;
+    height: 140px;
+    background-color: $color-grey-dark;
+    color: white;
+    text-align: center;
+    font-size: 36px;
+    padding-top: 44px;
+    @include border-radius(50%);
 }
 
 /***************************
@@ -900,7 +1121,9 @@ ul.projects li {
             }
         }
     }
-    
+    .btn-preview {
+        margin: -20px 0 10px 0;
+    }
 }
 
 .aside-backdrop.am-fade, .modal-backdrop.am-fade {
@@ -909,8 +1132,6 @@ ul.projects li {
     animation-duration: .2s;
     @include transition(all, 0.2s, ease);
 }
-
-
 
 .form-group {
     
@@ -952,6 +1173,7 @@ ul.projects li {
 }
 
 .custom-form-textarea {
+    background-color: transparent;
     resize: vertical;
     display: block;
     width: 100%;
@@ -999,20 +1221,43 @@ ul.projects li {
     }
 }
 
-.custom-edit {
+.custom-page-action {
     position: absolute;
     top: 42px;
-    right: 0;
-    width: 28px;
-    height: 28px;
-    background: url("/assets/imgs/ic_edit.svg") no-repeat center center;
-    background-size: 24px 24px;
-    @include transition(all, 0.2s, ease);
-    &:hover, &:focus {
-        cursor: pointer;
-        opacity: 0.7;
-        filter: alpha(opacity=70);
-        @include transition(all, 0.2s, ease);
+    right: 0;   
+    ul {
+        list-style: none;
+        li{
+            display: inline;
+            float: right;
+            margin-left: 10px;
+            padding-left: 50px;            
+            &:nth-child(1){
+                background: url("/assets/imgs/ic_edit_w.svg") no-repeat left 15px center;
+                background-size: 24px 24px;
+                background-color: $color-grey-dark;
+                @include transition(all, 0.8s, ease);
+                &:hover, &:focus {
+                    cursor: pointer;
+                    background-color: $color-grey-darken;
+                    @include transition(all, 0.8s, ease);
+                }
+            }
+            &:nth-child(2){
+                background: url("/assets/imgs/ic_share_w.svg") no-repeat left 15px center;
+                background-size: 24px 24px;  
+                background-color: $color-grey-dark;
+                @include transition(all, 0.8s, ease);
+                &:hover, &:focus {
+                    cursor: pointer;
+                    background-color: $color-grey-darken;
+                    @include transition(all, 0.8s, ease);
+                }
+            }
+            &:last-child {
+                margin-left: 0;
+            }
+        }
     }
 }
 
@@ -1168,20 +1413,294 @@ ul.projects li {
     }
 }
 
+.thankYouPage {
+text-align: center;
+}
+
+
+.thankYouLogo {
+    width: 54px;
+    height: 54px;
+    margin: 0 auto;}
+    
+
+/***************************
+           Review
+***************************/
+
+.reviewHeader {
+    text-align: center;
+    background-color: red;
+    border-top: 5px solid $color-blue;
+    width: 100%;
+    .container {
+        position: relative;
+    }
+    .reviewHeaderContent {
+        padding: 5px 15px;
+        background-color: $color-blue;
+        p {color: white;}
+    }
+    
+    .custom-close-overlay {
+        width: 40px;
+        height: 40px;
+        position: absolute;
+        top: 7px;
+        right: 20px;
+        background: url("/assets/imgs/ic_cross_overlay.svg") no-repeat center center;
+        @include transition(all, 0.2s, ease);
+
+            &:hover, &:focus {
+                cursor: pointer;
+                @include transition(all, 0.2s, ease);
+                @include rotate(180deg);
+            }
+    }
+}
+
+.reviewCarousel {
+    padding: 0 15px;
+    position: relative;
+    .reviewCarouselImg{
+        background-color: $color-grey-darkest;
+        ul {
+            width: 100%; 
+            height: 400px;
+            text-align: center;
+        }
+        .reviewCarouselImgBg {
+            height: 400px;
+            width: auto;
+        }
+        .reviewCarouselVideo {
+            height: 400px;
+            width: auto;
+        }
+    }
+    
+    .rn-carousel-control.rn-carousel-control-prev {
+        position: absolute;
+        top: 50%;
+        left: 30px;
+        margin-top: -35px;
+    }
+    
+    .rn-carousel-control.rn-carousel-control-next {
+        position: absolute;
+        top: 50%;
+        right: 30px;
+        margin-top: -35px;
+    }
+    
+    .rn-carousel-control.rn-carousel-control-prev:before, .rn-carousel-control.rn-carousel-control-next:before {
+        content: "";
+        display: block;
+        width: 42px;
+        height: 42px;
+        border: 1px solid white;
+        @include border-radius(50%);
+    }
+    
+    .rn-carousel-control.rn-carousel-control-prev:before {
+        background: url("/assets/imgs/ic_prev.svg") no-repeat center center white;
+        background-size: 20px 20px;
+    }
+    
+    .rn-carousel-control.rn-carousel-control-next:before {
+        background: url("/assets/imgs/ic_next.svg") no-repeat center center white;
+        background-size: 20px 20px;
+    }
+    
+    .reviewCarouselPagination {
+        text-align: center;
+        margin: 15px 0 25px 0;
+        ul {
+            padding: 0;
+            li {
+                width: 7px;
+                height: 7px;
+                display: inline-block;
+                margin-right: 15px;
+                background-color: $color-grey-light;
+                @include border-radius(50%);
+                &:last-child {
+                    margin-right: 0px;
+                }
+            }
+            li.active {
+                background-color: $color-grey-dark;
+            }
+        }
+    }
+}
+
+.reviewInfo {
+    padding-bottom: 100px;
+    table {
+        font-size: $font-size-regular;
+        width: 100%;
+        tbody tr td{
+            vertical-align: middle;
+            height: 32px;
+            &:nth-child(1) {width: 30%;}   
+            &:nth-child(2) {width: 70%;} 
+        
+        } 
+        
+    }
+}
+
+.reviewComment {
+    margin-top: -300px;
+    padding-bottom: 100px;
+    
+    .makeComment {
+        margin-bottom: 72px;
+        padding-left: 52px;
+        position: relative;
+        .commentHeading {
+            position: absolute;
+            top: -29px;
+            left: 52px;
+            font-size: $font-size-regular;
+        }
+        .commentThumbnail {
+            position: absolute;
+            top: -41px;
+            left: 0;
+            padding: 12px;
+            width: 41px;
+            height: 41px;
+            background-color: $color-grey-dark;
+            text-align: center;
+            font-size: $font-size-regular;
+            color: white;
+            @include border-radius(50%);
+            @include transition(all, 0.2s, ease);
+            &:hover, &:focus  {
+                cursor: pointer;
+                background-color: $color-grey-darken;
+                @include transition(all, 0.2s, ease);
+            }
+        }
+        textarea {
+            margin: 41px 0 10px 0;
+        }
+        button {
+            float: right;
+        }
+    }
+    .comments {
+        position: relative;
+        margin-bottom: 20px;
+        .commentThumbnail {
+            position: absolute;
+            top: 5px;
+            left: 0;
+            padding: 12px;
+            width: 41px;
+            height: 41px;
+            background-color: $color-grey-dark;
+            text-align: center;
+            font-size: $font-size-regular;
+            color: white;
+            @include border-radius(50%);
+            @include transition(all, 0.2s, ease);
+            &:hover, &:focus  {
+                cursor: pointer;
+                background-color: $color-grey-darken;
+                @include transition(all, 0.2s, ease);
+            }
+        }
+        p {
+            padding-left: 52px;
+        }
+        .timestamp {
+            margin-top: -8px;
+            color: $color-grey;
+            font-size: $font-size-small;
+        }
+        ul.comments-action{
+            float: right;
+            margin-top: -30px;
+            padding: 0;
+            list-style: none;
+            li {
+                cursor: pointer;
+                display: inline;
+                margin-left: 10px;
+                &:first-child {
+                margin-left: 0;
+                }
+            }
+        }
+    }
+}
+
+.reviewBar {
+    background-color: white;
+    height: 42px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    z-index: 10;
+//    @include box-shadow(0px, -1px, 2px, 0px, rgba(0,0,0,0.1));
+    .previous, .next {
+        float: left;
+        display: inline-block;
+        width: 50%;
+        text-align: center;
+        height: 42px;
+        line-height: 42px;
+        cursor: pointer;
+        background-color: $color-blue;
+        color: white;
+        @include transition(all, 0.8s, ease);
+        &:hover, &:focus {
+            background-color: $color-blue_darken;
+            @include transition(all, 0.8s, ease);
+        }  
+    }
+    .previous {
+        border-right: 1px solid white;
+    }
+}
 
 /***************************
        Privacy policy
 ***************************/
 
+.pageContainer {
+    padding-top: 60px;
+    span {
+        font-weight: 600;
+    }
+    ul {list-style-type: square;}
+}
+
+.pleaseRead {
+    border: 1px solid $color-grey-darkest;
+    padding: 10px 20px 2px 20px;
+    margin-bottom: 30px;
+    p {
+        font-size: 16px;
+        line-height: 28px;
+        margin-bottom: 10px;
+    }
+}
+
 .privacyTitle {
     font-size: 24px;
     color: $color-blue;
-    margin: 20px 0 10px 0;
+    margin: 30px 0 10px 0;
 }
+
 .privacySubtitle {
     font-size: 16px;
     color: $color-grey;
-    line-height: 24px;
+    line-height: 28px;
     margin-bottom: 10px;
 }
 
@@ -1190,12 +1709,16 @@ ul.projects li {
 ***************************/
 
 .footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    clear: both;
+    
     height: 56px;
     line-height: 56px;
     color: white;
     background-color: $color-blue;
     font-size: $font-size-regular;
-    margin-top: 60px;
     
     .container {
         padding: 0 20px;
@@ -1233,7 +1756,7 @@ ul.projects li {
                     color: white;
                     @include transition(all, 0.2s, ease);
 
-                    &:hover, &:focus {
+                    &:hover {
                         cursor: pointer;
                         opacity: 0.7;
                         filter: alpha(opacity=70);
@@ -1278,20 +1801,67 @@ ul.projects li {
                                   Mobile view
 *********************************************************************************/
 
-@media screen and (max-width: 768px) { 
+@media screen and (max-width: 989px) { 
+    .pageTitleMobileOffset {padding-top: 120px;}
+    .applyPageLeftBg {display:none;}
+    .applyPage { 
+        .applyLogo {
+            position: relative;
+            top: 0;
+        }
+        .applyPageLeft {
+            position: relative; 
+            border-bottom: 1px solid $color-grey-light;
+            padding: 0 0 60px 0;
+        }
+        .applyPageRight {
+            padding: 0;
+        }
+    }
+    .custom-site-nav-in li {
+            &:nth-child(3) {
+                @include border-radius(100%);
+            }
+            a.navUserInitial {
+                padding: 0;
+                color: $color-grey-dark;
+                background-color: white;
+                @include border-radius(100%);
+            }
+    }
+    .reviewHeader .custom-close-overlay {
+        background: url("/assets/imgs/ic_cross_overlay_w.svg") no-repeat center center;
+        z-index: 10;
+        top:3;
+    }
+    .reviewComment {
+        margin-top: -40px;
+        padding-top: 40px;
+        border-top: 1px solid $color-grey-light;
+    }
+}
+
+
+@media screen and (max-width: 767px) { 
+
+    .custom-main {padding: 80px 0 60px 0;}
         
     /***************************
                 Nav
     ***************************/
 
     .navbar-nav {
-        margin: 0 -15px 0 0;
+        margin: 0 0 0 0;
         overflow-x: hidden;
     }
     
     .navbar-collapse {
-        padding: 0;
         overflow-x: hidden;
+        padding-left: 0;
+    }
+    
+    .logoNav_signin {
+        padding-left: 15px;
     }
     
     .custom-site-nav ul {
@@ -1349,6 +1919,150 @@ ul.projects li {
             a.custom-btn-primary-small {
                 padding: 0;
                 @include box-shadow (0, 0, 0, 0, 0);
+            }
+        }
+    }
+    
+    .custom-site-nav-in {
+        margin-top: 56px;
+        ul{
+            background-color: white;
+            float: none;      
+            li {
+                text-align: center;
+                a {
+                    padding: 0;
+                    width: 100%;
+                    height: 57px;
+                    display: block;
+                    border-top: 1px solid $color-grey-light;
+                    border-bottom: 1px solid $color-grey-light;
+                    margin: 0 15px 0 0;
+                    @include transition(all, 0.8s, ease);
+                    &:hover, &:focus {
+                        background-color: $color-grey-lightest;
+                        @include transition(all, 0.8s, ease);
+                    }  
+                }
+                &:nth-child(1) {
+                    position: relative;
+                    top:0;
+                    left: 0;
+                }
+            }
+        }
+    }
+        
+    .custom-action-nav-in {
+        ul {
+            background-color: white;
+            float: none;            
+            li {
+                text-align: center;
+                a {
+                    padding: 0;
+                    width: 100%;
+                    height: 57px;
+                    display: block;
+                    margin: 0 15px 0 0;
+                    @include transition(all, 0.8s, ease);
+                    &:hover, &:focus {
+                        background-color: $color-grey-lightest;
+                        @include transition(all, 0.8s, ease);
+                    }  
+                }
+            }
+        }
+        .navUserInitial {
+            position: absolute;
+            top:10px;
+            left: 50%;
+            width: 80px;
+            height: 80px;
+            margin-left: -40px;
+            display: inline-block;
+            padding: 24px;
+            font-size: 24px;
+        }
+    }
+    
+    /***************************
+            Landing page
+    ***************************/
+    
+    section.home {
+        padding-bottom: 80px;
+        .brandMessage {
+            padding-top: 130px;
+            .brandHeading {font-size: 26px;}
+            .brandSubheading {font-size: 18px;}
+        }
+    }
+    
+    /***************************
+               Footer
+    ***************************/
+    
+    .footer {
+        text-align: center;
+        line-height: 40px;
+        height: 130px;
+        .container {
+            padding-top: 20px;
+        }
+        p {
+            text-align: center;
+            padding-right: 0;
+            float: none;
+            line-height: 24px;
+            &:after {
+                content:""; 
+                display: none;
+            } 
+        }
+        .custom-nav-footer {
+            ul {     
+                text-align: center;
+                float: none;
+                li  {
+                    position: relative;
+                    &:after {
+                        content:""; 
+                        background: white; 
+                        position: absolute; 
+                        top: 0px; 
+                        right: -20px; 
+                        height: 19px; 
+                        width: 1px;
+                    } 
+                    &:first-child {
+                        margin-left: 0;                 
+                    }
+                    &:last-child {
+                        &:after {
+                            content:""; 
+                            display: none;
+                        }                 
+                    }
+                }
+            }
+        }
+
+        .social {
+            ul {
+                margin: 0 auto;
+                width: 76px;
+                padding: 0;
+                float: none;   
+                height: 28px;
+
+                li {
+                    float: left;
+                    margin: 0;
+                    &:nth-child(2) {
+                        margin-left: 20px;
+                    }
+                }
             }
         }
     }

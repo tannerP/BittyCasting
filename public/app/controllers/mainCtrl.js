@@ -1,35 +1,55 @@
 angular.module('mainCtrl', ['authService','mgcrea.ngStrap']).
-controller('mainController',['$scope','$rootScope','Auth','$location',"$sce",
-		function($scope,$rootScope, Auth, $location, $sce) {
+controller('mainController',['$scope','$rootScope','Auth','$location',"$sce","$route",
+		function($scope,$rootScope, Auth, $location, $sce, $route) {
 		var vm = this;
 		vm.loggedIn = false;
 		vm.footer = true;
 		vm.nav = true;
 
-		if($location.path().match('/Apply/')){
-			vm.footer = false;
-			vm.nav = false;
-		}
+		vm.loggedIn = Auth.isLoggedIn();
 		vm.backBtn = function(){
-			window.history.back();		}
-		
-	$scope.$on("LoggedIn", function(){
+			if(vm.nav === false) vm.nav = true;
+			window.history.back();		
+		}
+		$scope.$on("LoggedIn", function(){
 				Auth.getUser()
 						.then(function(data) {
 							vm.usrInitial = (data.name.first[0] + data.name.last[0]).toUpperCase();
 						 })
 		})
+		$scope.$on("hideNav", function(){
+			vm.nav = false;
+		})
+		$scope.$on("unhideNav", function(){
+			vm.nav = true;
+		})
+		
 		$rootScope.$on('$routeChangeStart', function () {
 			vm.loggedIn = Auth.isLoggedIn();
+				vm.footer = true;
+				vm.nav = true;
+
+			if($location.path() === '/' ||
+				$location.path() === '/login' ||
+				$location.path() === '/signup'){
+				vm.publicVw = true;
+				vm.footer = true;
+			}
+			else{
+			 vm.publicVw = false;
+			 vm.footer = false;
+			}
 			if(vm.loggedIn && !vm.name){
 				Auth.getUser()
 						.then(function(data) {
 							if(data !=null){
 							vm.usrInitial = data.name.first[0] + data.name.last[0];
+							vm.username ={first:data.name.first,
+														last:data.name.last}
 							}
 						 })
-		}
-		});
+			}
+	})
 		vm.getUsrBtn = function(){
 			$location.path('/profile');
 		}
@@ -38,7 +58,8 @@ controller('mainController',['$scope','$rootScope','Auth','$location',"$sce",
 			Auth.logout();
 			vm.user = {};
 			vm.usrInitial = '';
-			$location.path('/');
+			/*$location.path('/');*/
+			$route.reload();
 		}
 	}]).
 controller('signupCtrl', function(User,$scope,$location)	{
@@ -88,6 +109,7 @@ controller('loginCtrl',['$scope','Auth','$location','$route',
 					else{
 						$scope.$hide();
 						$location.path('/home');}
+						$scope.$hide();
 					//this.user = 'name:unchanged';
 					Auth.getUser()
 						.then(function(data) {
@@ -102,13 +124,14 @@ controller('loginCtrl',['$scope','Auth','$location','$route',
 	}]).
 
 /* NAV */
-controller('navCtrl', ['$scope','$popover','$aside','Auth',
-	function($scope,$popover,$aside,Auth){
+controller('navCtrl', ['$scope','$popover','$aside','Auth','$location',
+	function($scope,$popover,$aside,Auth,$location){
 		var vm = this;
 
 		vm.isActive = function (viewLocation) { 
 	        return viewLocation === $location.path();
 	    };
+	  
 		 var loginAside = $aside({
 		 									scope:$scope,
 											title:"Login",
@@ -132,11 +155,4 @@ controller('navCtrl', ['$scope','$popover','$aside','Auth',
 			signupAside.toggle();
 		}
 		vm.navCtrl;
-
-	}]).
-directive('nav', function() {
-  return {
-  	restrict:'A',
-    templateUrl: 'components/nav/nav.tmpl.html'
-  };
-});
+	}]);

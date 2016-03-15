@@ -1,92 +1,140 @@
 <div class="aside" tabindex="-1" role="dialog">
-    <form class="container-roleAside">
+    <form class="container-roleAside" ng-submit="roleAside.createRoleBtn()">
         <div class="custom-close" ng-click="$hide()"></div>
         <div class="asideTitle" ng-if="!roleAside.edit">Create role</div>
         <div class="asideTitle" ng-if="roleAside.edit">Edit role</div>
+        
         <div class = "form-group">
-            <label ng-show="roleAside.roleData.name">Name</label>
-            <input type = "text" class = "custom-form" ng-model = "roleAside.roleData.name" placeholder="Name">
+            <label>Name</label>
+            <input type = "text" class = "custom-form" 
+                ng-model = "roleAside.roleData.name" Required 
+                >
         </div>
         <div class="form-group">
-            <label ng-show="roleAside.roleData.description">
-            Description (Max 220 characters)</label>
-            <textarea rows="5" cols="40" maxlength="220" placeholder="Description (Max 220 characters)" class = "custom-form-textarea" ng-model = "roleAside.roleData.description"></textarea>
+            <label>Description (Max {{charRmnd}} characters)</label>
+            <textarea rows="4" cols="40" maxlength="220" 
+            ng-change="TAChange()"
+            class = "custom-form-textarea" 
+            ng-model = "roleAside.roleData.description"
+            ></textarea>
         </div>
+        
         <div class = "form-group">
            <div ng-class="{'has-error': datepickerForm.date.$invalid}">
-        <label class="control-label"><i class="fa fa-calendar"></i> End Date</label>
-            <input placeholder="Application end date" type='text' class="custom-form" ng-model = "selectedDate" bs-datepicker>
+                <label class="control-label"><i class="fa fa-calendar"></i>End Date</label>
+                <input type='text' 
+                    class="custom-form" ng-model = "selectedDate"
+                    required bs-datepicker autoclose="true">
+            </div>
         </div>
-        <div class = "form-group" ng-class="{'has-error': timepickerForm.time.$invalid}">
-            <label class="control-label"> End Time </label>
-            <input type="text" class="form-control" size="8" ng-model="selectedTime" name="time" bs-timepicker>
-            <label ng-show="roleAside.roleData.end_time">
-                Application end time</label>
-                
-            <input type='text' class="custom-form" ng-model = "roleAside.roleData.end_time" placeholder="Application end time" />
+        <div class = "form-group">
+            <div ng-class="{'has-error': timepickerForm.time.$invalid}">
+            <label >End Time </label>
+            <input type="text" class="custom-form" 
+                    ng-model="selectedTime" name="time" bs-timepicker>
+            </div>
         </div>        
         <div class = "form-group">
-            <label ng-show="roleAside.roleData.location">Location</label>
-            <input placeholder="Location" type = "text" class = "custom-form" ng-model = "roleAside.roleData.location">
+            <label>Location</label>
+            <input type = "text" class = "custom-form" 
+                    ng-model = "roleAside.roleData.location">
         </div>
         <div class = "form-group">
-            <label ng-show="roleAside.roleData.payterms">Pay terms</label>
-            <input placeholder="Pay terms" type = "text" class = "custom-form" ng-model = "roleAside.roleData.payterms">
+            <label>Pay terms</label>
+            <input type = "text" class = "custom-form"
+                    ng-model = "roleAside.roleData.payterms">
         </div>
         <div class = "form-group">
             <label ng-show="roleAside.roleData.age">Age</label>
-            <input placeholder="Age" type = "text" class = "custom-form" ng-model = "roleAside.roleData.age">
+            <input placeholder="Age" type = "text"
+                    class = "custom-form" ng-model = "roleAside.roleData.age">
         </div>
         <div class = "form-group">
             <label ng-show="roleAside.roleData.sex">Gender</label>
-            <input placeholder="Gender" type = "text" class = "custom-form" ng-model = "roleAside.roleData.sex">
+            <input placeholder="Gender" type = "text"
+                    class = "custom-form" ng-model = "roleAside.roleData.sex">
         </div>      
+        
         <div class = "form-group">
-        <section class="custom-table">
-            <table class = "table table-application-requirements" ng-show="!roleAside.gridView">
-                <thead>
-                    <tr>
-                        <th>Requirement</th>
-                        <th>Required</th>
-                    </tr>
-                </thead>
-                <tbody> 
-                    <!-- LOOP OVER THE USERS -->
-                     <tr ng-repeat="reqt in roleAside.roleData.requirements track by $index">
-                     <span>{{reqt}}</span>
-                        <td ng-show="reqt"><input class="custom-form"  ng-model="reqt.name"
-                        placeholder="reqt.name"></td>
-                        <td ng-show="reqt">                      
-                            <input type="checkbox" class="btn btn-default" ng-model="reqt.required">
-                        </td>
-                        <td ng-show="reqt"><span class="btn large-btn" ng-click="roleAside.removeReqt(reqt)">Delete</span></td>
-                    </tr>
-                    <!-- New Requirement -->
-                    <tr>
-                        <td><input class="custom-form"  ng-model="roleAside.newData.name"
-                        placeholder="New requirement"></td>
-                        <td><input  type="checkbox" ng-model="roleAside.newData.required"
-                           checked></td>
-                        <td><button class="btn btn-default" ng-click="roleAside.addReqt(roleAside.newData)">Add</button></td>
-                    </tr>
-                </tbody>    
-            </table>    
-        </section>
-        </div>      
-    
-        <div class="btn-group" uib-dropdown is-open="false">
-      
-      <button  class="btn" uib-dropdown-toggle ng-disabled="disabled">
-        Button dropdown <span class="caret"></span>
-      </button>
-      <ul uib-dropdown-menu role="menu" aria-labelledby="single-button">
-        <li role="menuitem"><a href="#">Resume</a></li>
-        <li role="menuitem"><a href="#">Headshot</a></li>
-        <li role="menuitem"><a href="#">Audition Reel</a></li>
-      </ul>
-    </div>
+            <label>Requirements</label>
+            <div class="custom-table">
+                <table class = "table table-application-requirements" ng-show="!roleAside.gridView">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Media Type</th>
+                            <th>Required</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody> 
+                        <!-- LOOP OVER THE USERS -->
+                         <tr ng-repeat="reqt in roleAside.roleData.requirements track by $index">
+<!--                             <span>{{reqt}}</span>-->
+                             
+                            <td ng-show="reqt">
+                                <input class="custom-form"  ng-model="reqt.name"
+                            placeholder="reqt.name">
+                            </td>
 
-        <button ng-if="!roleAside.edit" type="submit" class="custom-btn-primary-large" ng-click="roleAside.createRoleBtn()">Create role</button>
+                            <td ng-show="reqt">
+                                <div class="custom-form" uib-dropdown is-open="false">
+                                  <span uib-dropdown-toggle ng-disabled="disabled">{{reqt.file_type}}</span>
+                                  <ul uib-dropdown-menu role="menu" aria-labelledby="single-button">
+                                    <li role="menuitem"><a href="#" ng-click="reqt.file_type = 'Link'">Link</a></li>
+                                    <li role="menuitem"><a href="#" ng-click="reqt.file_type = 'Photo'">Photo</a></li>
+                                    <li role="menuitem"><a href="#" ng-click="reqt.file_type = 'Video'">Video</a></li>
+                                    <li role="menuitem"><a href="#" ng-click="reqt.file_type = 'Document'">Document</a></li>
+                                  </ul>
+                                </div>
+                            </td>
+
+                            <td ng-show="reqt">                      
+                                <input type="checkbox" class="btn btn-default" ng-model="reqt.required">
+                            </td>
+
+                            <td ng-show="reqt"><span class="btn large-btn" ng-click="roleAside.removeReqt(reqt.name)">Delete</span>
+                            </td>
+                        </tr>
+
+                                                            <!-- New Requirement -->
+                        <tr>
+                            <td>
+                                <div uib-dropdown is-open="false">
+                                    <input type="text" class="custom-form"  uib-dropdown-toggle ng-disabled="disabled" ng-model='roleAside.newData.name' placeholder="New requirement">
+                                    </input>
+                                    <ul uib-dropdown-menu role="menu" aria-labelledby="single-button">
+                                        <li role="menuitem"><a href="#" ng-click="roleAside.newData.name = 'Resume'">Resume</a></li>
+                                        <li role="menuitem"><a href="#" ng-click="roleAside.newData.name = 'Headshots'">Headshots</a></li>
+                                        <li role="menuitem"><a href="#" ng-click="roleAside.newData.name = 'Audition Reel'">Audition Reel</a></li>
+                                    </ul>
+                                </div>
+                            </td>
+                            <td>
+                                <div uib-dropdown is-open="false">
+                                   <span  type="text" class="custom-form"  uib-dropdown-toggle ng-disabled="disabled"
+                                    >{{roleAside.newData.file_type || "File"}}</span>
+                                  <ul uib-dropdown-menu role="menu" aria-labelledby="single-button">
+                                    <li role="menuitem"><a href="#" ng-click="roleAside.newData.file_type = 'Link'">Link</a></li>
+                                    <li role="menuitem"><a href="#" ng-click="roleAside.newData.file_type = 'Photo'">Photo</a></li>
+                                    <li role="menuitem"><a href="#" ng-click="roleAside.newData.file_type = 'Video'">Video</a></li>
+                                    <li role="menuitem"><a href="#" ng-click="roleAside.newData.file_type = 'Document'">Document</a></li>
+                                  </ul>
+                                </div></td>
+                            </td>
+                            <td><input  type="checkbox" ng-model="roleAside.newData.required"
+                               checked></td>
+                            <td>
+                                <span ng-click="roleAside.addReqt(roleAside.newData)">Add</span> 
+                            </td>
+                        </tr>
+                    </tbody>    
+                </table>    
+            </div>
+        </div>
+            
+        <!-- <button ng-if="!roleAside.edit" type="submit" class="custom-btn-primary-large" ng-submit=".createRoleBtn()">Create role</button> -->
+        <button ng-if="!roleAside.edit" type="submit" id="submit" value="Create role" class="custom-btn-primary-large">Create role</button>
         <button ng-if="roleAside.edit" type="submit" class="custom-btn-primary-large" ng-click="roleAside.updateRole()">Save</button>
 
     </form>

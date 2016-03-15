@@ -2,23 +2,53 @@
 //Data gets passed into controller directory to get displayed
 angular.module('userService', [])
 
+.factory('Pub', function($http){
+	var pubFactory = [];
+	
+	pubFactory.getAppRole = function(id)	{
+		return $http.get('applicationRole/' + id);
+	}
+	pubFactory.getAppPrj = function(id)	{
+		return $http.get('applicationPrj/' + id);
+	}
+	return pubFactory;
+})
+
 .factory('Applicant', function($http){
 	var appFactory={};	
 	
-	appFactory.update = function(data)	{
-		console.log(data);
-		return $http.put('/applicant', data);	}	 
-
+	appFactory.update = function(id,data)	{
+		return $http.put('/app/'+id, data);	
+		}	 
+	appFactory.delete = function(appID)	{
+		console.log(appID);
+		return $http.delete('api/applicant/'+ appID);
+	}	 
 	appFactory.apply = function(data)	{
 		console.log(data);
-		return $http.post('/applicant', data);	}	 
-	
+		return $http.post('/applicant', data);	
+	}	 
 	appFactory.getAll = function(roleID)	{
 		return $http.get('/api/applicants/'+ roleID)
-		} 
-
+		}
+	/*Commenting*/
+	appFactory.pushComment = function(id,data)	{
+		data.state="PUT"
+		return $http.put('api/applicant/comments/'+id, data);	
+		}
+	appFactory.deleteComment = function(id,data)	{
+		var newData ={
+			owner:data.owner,
+			comment:data.comment,
+			_id:data._id,
+			state:"DELETE"
+		}
+		console.log(newData);
+		return $http.put('api/applicant/comments/'+id, newData);	
+		}
 	return appFactory;
 })
+
 .factory('Role', function($http){
 	var roleFactory={};
 	
@@ -33,9 +63,6 @@ angular.module('userService', [])
 	}
 	roleFactory.get = function(role_id)	{
 		return $http.get('api/role/' + role_id);
-	}
-	roleFactory.appGetRole = function(role_id)	{
-		return $http.get('appRole/' + role_id);
 	}
 	roleFactory.delete  = function(id)	{
 		return $http.delete('/api/role/' + id);

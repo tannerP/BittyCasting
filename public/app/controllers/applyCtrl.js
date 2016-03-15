@@ -4,38 +4,68 @@ angular.module('applyCtrl',['userService', 'mgcrea.ngStrap']).
           }).
     controller('applyController',['$scope','$rootScope',
         'Upload','$http', 'Project', 'Role','Applicant',
-        '$routeParams',
+        '$routeParams','Pub','$location',
         function ($scope, $rootScope, Upload, $http, Project, 
-            Role, Applicant, $routeParams) {
-    //upload later on form submit or something similar
-    var vm = this;
-    vm.roleData={};
-    vm.appData ={};
-    Role.appGetRole($routeParams.role_id).then(function(data){
-        vm.roleData = data.data.data;
-        if(vm.roleData){
-        Project.appGetPrj(vm.roleData.projectID).then(function(data){
-            vm.prjData = data.data.project;
-            vm.appData.projectID = data.data.project._id;
-            vm.appData.roleID = vm.roleData._id
-        })}
-    });
-    vm.submit = function() {
-      Applicant.apply(vm.appData).then(function(resp){
-        vm.applicantID = resp.data.appID;
-        vm.appData = "";
-        /*if(vm.roleData) uploadFiles(vm.file);  */
-      })
-        /*$http.get('/applicant', vm.appData);*/
+            Role, Applicant, $routeParams, Pub, $location) 
+        {
+        $scope.$emit("hideNav");
+        var vm = this;
+        vm.numFileDone = 0;
+        vm.roleData={};
+        vm.appData ={};
+        vm.files=[];
+        $scope.submitted = false;
+        /*TODO: condense when combine project and role schema*/
+            Pub.getAppRole($routeParams.id).then(function(data){
+            vm.roleData = data.data.Application;
+            if(vm.roleData){
+            Pub.getAppPrj(vm.roleData.projectID).then(function(data){
+                vm.prjData = data.data.project;
+                vm.appData.projectID = data.data.project._id;
+                vm.appData.roleID = vm.roleData._id;
+            })}
+        });
+
+        vm.error = "";
+        var isValid = function(files){
+            //check if required files are submited
+            for(var i in vm.roleData.requirements.length)
+            {
+                if(vm.roleData.requirements[i].required)
+                {   
+                    
+                }
+                console.log(files[i])
+            }
+
+        }
+        
+        vm.submit = function() {
+            vm.processing = true;
+            /*console.log(vm.files)*/
+            /*isValid(vm.files);*/
+        if(isValid(vm.files)){
+            //Put applicanion data, store media in S3, then save reference to DB. 
+            /*Applicant.apply(vm.appData).then(function(resp){
+                vm.applicantID = resp.data.appID;
+                vm.appData = "";
+                if(vm.roleData){
+                    uploadFiles(vm.files)    
+                }  
+            }*/
+        /*)}};*/ }}
+/* ----------------- Uploader -------------- */
+    $scope.abort = function(index) {
+        $scope.upload[index].abort();
+        $scope.upload[index] = null;
     };
     var uploadFiles = function (data) {
-            console.log($rootScope.awsConfig)
-            vm.file = data;
             vm.upload = [];
-            for (var i = 0; i < 1; i++) {
+            var uploadFiles = data;
+            for (var i = 0; i < data.length; i++) {
                 /*var  i = 1; //temp fix for loop above*/
-                var file = vm.file;
-                file.progress = parseInt(0);
+                var file = uploadFiles[i];
+                /*file.progress = parseInt(0);*/
                 (function (file, i) {
                     $http.get('/s3Policy?mimeType='+ file.type)
                     .success(function(response) {
@@ -50,8 +80,6 @@ angular.module('applyCtrl',['userService', 'mgcrea.ngStrap']).
                                 return data;
                             },
                             data: {
-                                /*'key' : toString(vm.roleData._id) + '/' 
-                                + toString(vm.applicantId) + file.name'hey',*/
                                 'key' : 'upload/'+ Math.round(Math.random()*10000) + '$$' + file.name,
                                 'acl' : 'public-read',
                                 'Content-Type' : file.type,
@@ -66,23 +94,30 @@ angular.module('applyCtrl',['userService', 'mgcrea.ngStrap']).
                         .then(function(response) {
                             file.progress = parseInt(100);
                             if (response.status === 201) {
-                                console.log(response.data);
                                 var data = response.data, parsedData;
-                                console.log(data);
                                 parsedData = {
-                                    location: data.Location,
-                                    bucket: data.bucket,
-                                    key: data.key,
-                                    etag: data.etag
+                                    location: data.PostResponse.Location,
+                                    bucket: data.PostResponse.Bucket,
+                                    key: data.PostResponse.Key,
+                                    etag: data.PostResponse.ETag,
+                                    name: vm.roleData.requirements[i].name,
+                                    file_type: vm.roleData.requirements[i].file_type
                                 };
-                                vm.imageUploads.update(parsedData);
-                                Applicant.update(parsedData);
-
+                                Applicant.update(vm.applicantID,parsedData);
                             } else {
-                                alert('Upload Failed');
+                                alert('Upload Failed, please resubmit your application.');
                             }
                         }, null, function(evt) {
                             file.progress =  parseInt(100.0 * evt.loaded / evt.total);
+                            if(file.progress == 100){
+                                vm.numFileDone++;
+                                if(vm.numFileDone == vm.files.length)
+                                {
+                                    $location.path('/Thankyou');
+                                    vm.processing = false;
+                                }
+                            }
+
                         });
                     });
                 }(file, i));

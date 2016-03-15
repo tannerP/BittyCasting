@@ -45,28 +45,65 @@ apiRouter.all('*',function(req,res,next){
 	}
 });
 
-//==============================  Applicant =========================
+//==============================  Applicants =========================
+	//Get all applicants
 	apiRouter.route('/applicants/:roleID')
 		.get(function(req, res){
 			Applicant.find({ 'roleID': req.params.roleID},function(err,roles){
 			if(err){ 
 				res.send(err);
-				console.log(err); 
-			}
+				console.log(err); }
 			else{
 			console.log('Applicants:' + roles);
-			res.json({'success':true ,'data':roles});
-		}
-	})
+			res.json({'success':true ,'data':roles});	}
+			})
 		})
-	
+//==============================  Commenting =========================		
+apiRouter.route('/applicant/comments/:appID')
+	.put(function(req, res){
+		Applicant.findById(req.params.appID,function(err,app){
+				if(err) res.json({successful:false,error:err});
+					if(req.body.state == 'PUT'){
+					app.comments.push({owner:req.body.owner,
+													comment:req.body.comment});
+						app.save(function(err){
+							if(err){
+								return  res.json({success:false,
+								error:err })	}
+							res.json({successful:true,message:"Added comment"});
+						})
+					}								 
+					else if(req.body.state =='DELETE'){
+						app.comments.pull({_id:req.body._id})
+						app.save(function(err){
+							if(err){
+								return  res.json({success:false,
+								error:err })	}
+							res.json({successful:true,message:"Removed comment"});
+						})
+					}								 
+					else{
+							console.log("State Error: not delete nor put")
+					}
+		})
+	})
+//==============================  Applicant =========================
+	apiRouter.route('/applicant/:appID')
+		.delete(function(req, res){
+			Applicant.remove({
+			_id:req.params.appID,
+				}, function(err,app){
+					if(err) {return res.send(err);}
+					res.json({success:true,
+						 message: 'Successfully deleted applicant'});
+				})
+			})
 //===============================  Roles ============================
 apiRouter.route('/roles/:projectID')
 	.get(function(req, res) {
 		var output = '';
 		for (var property in req.params) {
   	output += property + ': ' + req.params[property]+'; ';
-}
 
 	/*console.log("Found roles: " + req.params.projectID.toSource());*/
 		Role.find({ 'projectID': req.params.projectID},function(err,roles){
@@ -78,12 +115,13 @@ apiRouter.route('/roles/:projectID')
 			res.json({'success':true ,'data':roles});
 		}
 	})
-});
+}})
 //create role
 apiRouter.route('/createRole/:projectID')
 		.post(function(req,res){
 				var role = new Role();
 				role.userID = req.decoded.id;
+				console.log(req.body);
 				
 				role.projectID = req.params.projectID;
 				role.name = req.body.name;
@@ -96,13 +134,12 @@ apiRouter.route('/createRole/:projectID')
 				role.age =  req.body.age;
 				role.sex =  req.body.sex;
 				role.requirements = req.body.requirements;
-				console.log("role" + role.requirements);
-				console.log("body" +  req.body.requirements.toString());
 				
+				console.log("role"+ role);
 				role.save(function(err){
 					if(err){
 						return  res.json({success:false,
-								error: err})	}
+								error:err })	}
 					res.json({message:'Role created.'});
 					})
 				})
@@ -128,12 +165,11 @@ apiRouter.route('/role/:role_id')
 		Role.findById(req.params.role_id, function(err,role){
 			if(err) res.send(err);
 
-					role.name = req.body.name;
+				role.name = req.body.name;
 				role.description = req.body.description;
 				role.end_date = req.body.end_date;
 				role.end_time = req.body.end_time;
 				role.requirements = req.body.requirements;
-				console.log(role.requirments);
 				role.location = req.body.location;
 				role.payterms =  req.body.payterms;
 				role.age =  req.body.age;
@@ -198,7 +234,8 @@ apiRouter.route('/project/:project_id')
 		Project.findById(req.params.project_id, function(err,project){
 			if(err) res.send(err);
 			project.name = req.body.name;
-			project.details = req.body.details;
+			project.description = req.body.description;
+			project.updated_date = req.body.updated_date;
 			project.save(function(err){
 				if (err) console.log(err);
 				if (err) res.send(err);

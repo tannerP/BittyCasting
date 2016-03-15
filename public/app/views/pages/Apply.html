@@ -1,10 +1,7 @@
-
 <div class="applyPage">
     <div class="applyPageLeftBg"></div>
     <div class="container">
-        
         <img class="applyLogo" ng-src="assets/imgs/logo_BittyCasting_B.svg">
-
         <section class="col-md-6">
             <div class="applyPageLeft">
                 <div class='pageTitle'>About this role</div>
@@ -17,7 +14,8 @@
                     </div>
                     <div class="div-table-row">
                         <div class="div-table-col">Time</div>
-                        <div class="div-table-col">{{page.roleData.end_time}} {{page.roleData.end_date}}</div>
+                        <div class="div-table-col">{{page.roleData.end_time |  date:'h:mm a'}} {{ page.roleData.end_date | date: "M/d/yyyy"
+                        }}</div>
                     </div>
                     <div class="div-table-row">
                         <div class="div-table-col">Pay term</div>
@@ -39,11 +37,11 @@
                 <img ng-src="assets/imgs/img_projectCover01.png" class="img-responsive">
             </div>
         </section>
-
+        <!-- Application Form -->                        
         <section class="col-md-6">
             <div class="applyPageRight">
                  <div class='pageTitle'>Apply</div>
-                        <form>
+                        <form ng-submit="page.submit()">
                             <div class = "form-group">
                                 <label>First name</label>
                                 <input type = "text" class = "custom-form" ng-model="page.appData.name.first" required>
@@ -68,27 +66,37 @@
                                 <label>Vimeo</label>
                                 <input type = "text" class = "custom-form" ng-model="page.appData.link2">
                             </div>   
-                            <div class = "form-group">
-                                <label>Personal site</label>
-                                <input type = "text" class = "custom-form" ng-model="page.appData.link3">
-                            </div>   
-                            
-                            <div class = "form-group" ng-repeat="rq in page.roleData.requirements">
-                                <label>{{rq.name}}</label>
-                                <div class="drop-box" ngf-drop ng-model="page.file"><p>Drag and drop &nbsp OR &nbsp <a ngf-select ng-model="page.file" name="file" ngf-pattern="'image/*'" ngf-accept="'image/*'" ngf-max-size="10MB" ngf-min-height="100" ngf-resize="{width: 400, height: 400}">upload from computer</a></p></div>
-                                <img ngf-thumbnail="page.file || '/thumb.jpg'">
+                            <div class = "form-group" ng-repeat="rq in page.roleData.requirements track by $index">
+                            <!-- <div class = "form-group"> -->
+                                <label>{{rq.name}}</label><span ng-if="rq.required">*</span>
+                                <div class="drop-box" ngf-drop ng-model="page.files[$index]">
+                                    <p>Drag and drop &nbsp OR &nbsp 
+                                        <a ngf-select ng-model="page.files[$index]" name="file" 
+                                        ngf-pattern="'*'" ngf-accept="'*'" ngf-max-size="1GB" ngf-min-height="100">
+                                        upload from computer</a>
+                                    </p>
+                                </div>
+                                <img ng-if="page.files[$index]" style="width:auto;height:80px;" ngf-thumbnail="page.files[$index] || '/thumb.jpg'">
+                                <video style="width:100px;height:100px;" ng-if="page.files[$index]" controls ngf-src="page.files[$index]">
+                                <div class = "custom-alert" ng-if="page.error">
+                                    {{page.error}}
+                                </div>
+<!--
+                                <div ng-if="page.processing">
+                                    <h3>Processing</h3>
+                                </div>
+-->
+                                <!-- <div ng-if="page.processing" class="custom-loader"><img src='/assets/imgs/spin.gif'></div> -->
                             </div>
-
-                            <button type="submit" class="custom-btn-primary-large" ng-click="page.submit()">Submit</button>
-                            
+                            <button type="submit" class="custom-btn-primary-large">Submit</button>
                             <div class="poweredBy">
-                                <p>Powered by<a href="/" target="_blank"><img class="powerLogo" ng-src="assets/imgs/logo_BittyCasting.svg"></a></p>
-                            </div>    
-
-
-
+                                <p>Powered by<a href="/" target="_blank">
+                                    <img class="powerLogo" ng-src="assets/imgs/logo_BittyCasting.svg"></a>
+                                </p>
+                            </div>   
+                        </form>
+                        
                 </div>  
             </section>    
         </div>
-    
 </div>

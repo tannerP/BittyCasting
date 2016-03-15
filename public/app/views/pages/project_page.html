@@ -1,23 +1,35 @@
 
-<div class="container custom-main">
+<div class="container">
 <div class="pageHeader">    
-    <div class='pageTitle'>{{prjDetailCtr.project.name}}</div>
+    <div class='pageTitle pageTitleMobileOffset'>{{prjDetailCtr.project.name}}</div>
     <div class="custom-back" ng-click="main.backBtn()"></div>
-    <div class="custom-edit" ng-click="prjDetailCtr.editPrjBtn()"></div>
-        <div class="projectDetails col-md-12">
-            <section class="col-md-3">
-                <img ng-src="assets/imgs/img_projectCover01.png" class="img-responsive">
-            </section>
-            <section class="col-md-6">
-                <p>{{prjDetailCtr.project.description}}</p>
-            </section>
-            <section class="col-md-3">
-                <p>Thumbnails of collaborators</p>
-            </section>
-        </div>
-        <div class="clear"></div>
-        <button class='custom-btn-secondary-small' ng-click="prjDetailCtr.createBtn()">+ Create role</button>
+    <div class="custom-page-action">
+        <ul>           
+            <li class="custom-btn-secondary-small" ng-click="prjDetailCtr.editPrjBtn()">Edit</li>
+        </ul>
+    </div>    
+    
+    <div class="projectDetails col-md-12">
+        <section class="col-md-3">
+            <img ng-src="assets/imgs/img_projectCover01.png" class="img-responsive">
+        </section>
+        <section class="col-md-6">
+            <p>{{prjDetailCtr.project.description}}</p>
+        </section>
+        <section class="col-md-3">
+            <p>Thumbnails of collaborators</p>
+        </section>
+    </div>
+    <div class="clear"></div>
+    
+    <div class="custom-page-action-secondary">
+        <ul>
+            <li class='custom-btn-secondary-small' ng-click="prjDetailCtr.createBtn()">Create role</li>
+        </ul>
+    </div>
+    <div class="clear"></div>
 </div>
+    
     <div class="custom-table table-responsive">
         <table class = "table table-hover table-project-details" ng-show="!prjDetailCtr.gridView">
             <thead>
@@ -35,7 +47,7 @@
                     <td ng-click='prjDetailCtr.getRoleBtn(role._id)'>
                     {{role.num_applicants}}</td>
                     <td ng-click='prjDetailCtr.getRoleBtn(role._id)'>{{ role.description }}</td>
-                    <td class="tableHover"><span class="tblDate"> {{role.end_date | date:'MM/dd/yyyy'}}, {{role.end_time | date:'h a'}}</span>
+                    <td class="tableHover"><span class="tblDate"> {{role.end_date | date:mediumDate}} @ {{role.end_time | date:'h a'}}</span>
                         
                         <div class="table-utl">
                             <ul>

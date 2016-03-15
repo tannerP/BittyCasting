@@ -28,7 +28,7 @@ angular.module('userCtrl',['userService'])
 						});
 	}})
 
-	.controller('profileCtrl', 
+	.controller('profileController', 
 		function($routeParams,User,Auth)	{	
 			var vm = this;
 			Auth.getUser()

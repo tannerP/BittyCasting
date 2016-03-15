@@ -1,14 +1,18 @@
-<div class="container custom-main"> 
+<div ng-show="!viewApp" class="container"> 
     <div class="pageHeader">
-        <div class='pageTitle'>{{page.role.name || "page Casting"}}</div>
+        <div class='pageTitle pageTitleMobileOffset'>{{page.roleData.name || "page Casting"}}</div>
         <div class="custom-back" ng-click="main.backBtn()"></div>
-        <div class="custom-edit" ng-click="page.editRoleBtn()"></div>
-        <div class='pageSubtitle'>Application open until {{page.role.end_date}}, {{page.role.end_time}}</div>
-        
+        <div class="custom-page-action">
+            <ul>           
+                <li class="custom-btn-secondary-small" ng-click = "page.editRoleBtn()">Edit</li>
+                <li class="custom-btn-secondary-small" ng-click="page.shareBtn()">Share</li>
+            </ul>
+        </div>
+        <div class='pageSubtitle'>Application open until {{page.roleData.end_time| date:'h a'}} {{page.roleData.end_date | date:medium}} </div>
         <div class="projectDetails col-md-12">
             <section class="col-md-4">
                 <p class="projectDetailsTitle">Description</p>
-                <p>{{page.role.description}}</p>
+                <p>{{page.roleData.description}}</p>
             </section>
             <section class="col-md-4">
                 <p class="projectDetailsTitle">Info</p>
@@ -17,15 +21,14 @@
             <section class="col-md-4">
                 <p class="projectDetailsTitle">Requirements</p>
                 <p>This is the requirement</p>
-                <span ng-repeat="rq in page.role.requirements"> {{rq.name}}</span>
+                <span ng-repeat="rq in page.roleData.requirements"> {{rq.name}}</span>
             </section>
         </div>
         <div class="clear"></div>  
-        
     </div>
 
-  <div class="custom-table table-responsive">
-        <table class = "table table-hover table-page-overview" ng-show="!home.gridView">
+      <div ng-show="!viewApp" class="custom-table table-responsive">
+        <table class = "table table-hover table-applicants" ng-show="!home.gridView">
           <thead>
               <tr>
                   <th>Name</th>
@@ -36,11 +39,11 @@
 
           <tbody> 
           <!-- LOOP OVER THE USERS -->
-              <tr ng-repeat = "app in page.applicants">
-                  <td ng-click="page.viewBtn()">
+              <tr ng-repeat = "app in page.applicants track by $index">
+                  <td ng-click="page.viewBtn($index)">
                     {{app.name.first}} {{app.name.last}}
                   </td>
-                  <td ng-click="page.viewBtn()">
+                  <td ng-click="page.viewBtn($index)">
                   {{ app.email }}
                   </td>
                   </div>
@@ -48,15 +51,47 @@
                       {{ app.phone }}
                       <div class="table-utl">
                           <ul>
-                              <li class="trashcan" ng-click='home.deleteBtn(page)'></li>
+                              <li class="trashcan" ng-click='page.deleteAsideBtn(app)'></li>
                               <li class="duplicate"></li>
                           </ul>
                       </div>                     
                      </td>
-
               </tr>
               <tr ng-repeat-end></tr>
           </tbody>   
           </table>
     </div>
+</div>
+
+<div ng-if="viewApp"> 
+  <div review></div>
+  <div class="reviewBar" ng-if="viewApp" style=" z-index:4;"> 
+    <div class="previous" ng-click="page.lastApp()">Previous</div>
+    <div class="next" ng-click="page.nextApp()">Next</div>
+  </div>
+  
+  <div class="container">
+      <div class="reviewComment col-md-6 col-md-offset-6" ng-controller="CommentBoxCtrl as box"> 
+          <div class="makeComment">
+              <div class="commentThumbnail">{{main.usrInitial}}</div>
+              <div class="commentHeading">Add a comment</div>
+              <textarea class="custom-form-textarea" rows="5" cols="40" type="text" name="comment" ng-model="box.newComment"></textarea> 
+              <button class="custom-btn-secondary-small" ng-click="box.addCmt(currApp._id, main.usrInitial, box.newComment)">Comment</button>
+          </div>   
+      
+     <div class="comments" ng-if="data" ng-repeat="data in currApp.comments track by $index">
+          <div class="commentThumbnail">{{data.owner}}</div>
+          <p>{{data.comment}}</p>
+          <p class="timestamp">Posted on 5:34PM, Feb 8, 2016</p>
+          <ul class="comments-action">
+<!--                <li><a>Edit</a></li>-->
+              <li><a ng-click="box.deleteCmt(currApp._id,$index,data)">Delete</a></li>
+          </ul>
+      </div>  
+          
+        </div>
+  </div>
+  </div>
+
+
 </div>

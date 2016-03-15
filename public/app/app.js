@@ -1,5 +1,6 @@
 
 angular.module('userApp', [
+	'angular-carousel',
 	'ui.bootstrap',
 	'xml',
 	'angular-clipboard',
@@ -15,13 +16,20 @@ angular.module('userApp', [
 	'mainCtrl',
 	'projectCtrl',
 	'userCtrl',
-	'footer'
+	'footer',
+	'ReviewPage',
+	'Nav',
+	'pdf',
+	'720kb.downloader,
 	])
 	.run(function ($rootScope, $location, $http) {
     $http.get('/config').success(function(data) {
         $rootScope.awsConfig = data.awsConfig;
       });
   })
+  .run(function($animate) {
+  $animate.enabled(true);
+	})
   .config(function($datepickerProvider) {
   angular.extend($datepickerProvider.defaults, {
     dateFormat: 'dd/MM/yyyy',

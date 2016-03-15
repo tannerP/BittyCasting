@@ -1,7 +1,7 @@
-angular.module('userApp', [])
-	.directive('nav', function(){
-		return{
-			restrict:"E",
-			template:"app/views/pages/nav.tmplt.html"
-		}
-	})
+angular.module('Nav', [])
+directive('nav', function() {
+  return {
+  	restrict:'A',
+    templateUrl:'components/nav/nav.tmpl.html'
+  };
+});

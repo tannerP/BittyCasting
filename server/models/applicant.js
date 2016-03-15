@@ -9,7 +9,7 @@ var ApplicantSchema = new Schema({
 		required:true,
 	},
 	phone:{
-		type:Number,
+		type:String,
 		required:false,
 	},
 	projectID:{
@@ -20,13 +20,14 @@ var ApplicantSchema = new Schema({
 		type:String,
 		required:false,
 	},
+	comments:[{
+		owner:String,
+		comment:String
+	}],
 	suppliments:[{
-		name:{
-			type:String, 
-			required:false},
-		content:{
-			type:String,
-			required:false}
+		source:String,
+		name:String,
+		file_type:String,
 	}]
 });
 
