@@ -28,8 +28,23 @@ angular.module('applyCtrl',['userService', 'mgcrea.ngStrap']).
 
         /* Post application, get applicationID, then store files to S3
         */
+        vm.preview = function(file){
+            vm.currFIle = file;
+        }
         vm.submit = function() {
+            console.log(vm.files)
             console.log("button pressed")
+
+          /*  Applicant.apply(vm.appData).then(function(resp){
+                vm.applicantID = resp.data.appID;
+                vm.appData = "";
+                if(vm.roleData){
+                    uploadFiles(vm.files)    
+                }  
+            })
+        }*/
+    }
+           /* 
             vm.processing = true;
             var count = 0;
             var temp = vm.roleData.requirements;
@@ -41,7 +56,7 @@ angular.module('applyCtrl',['userService', 'mgcrea.ngStrap']).
                             {
                                 vm.errors.message = "Missing requirement";
                             }
-                       }
+                       }*/
                 /*    } && temp[j].required)
                     {
                         for(var i in vm.files){
@@ -52,12 +67,12 @@ angular.module('applyCtrl',['userService', 'mgcrea.ngStrap']).
                             }
                             }
                         }*/
-
+/*
                 }
                 vm.processing = false;
                 
             }
-        }
+        }*/
             /*isValid(vm.files);*/
         /*if(val(vm.files)){*/
             //Put applicanion data, store media in S3, then save reference to DB. 

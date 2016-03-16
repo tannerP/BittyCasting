@@ -253,7 +253,7 @@ controller('prjDetailController',
   function ($scope,$alert,$location) {
         var url_base = "bittycasting.com/Apply/";
         var url_base_dev = "localhost:8080/Apply/" +$scope.roleData._id; 
-        var url_base_beta = "betta.bittycasting.com/Apply/" +$scope.roleData._id; 
+        var url_base_beta = "beta.bittycasting.com/Apply/" +$scope.roleData._id; 
         $scope.textToCopy = url_base_beta;
         
         var previewLink = "/Apply/" +$scope.roleData._id; 
