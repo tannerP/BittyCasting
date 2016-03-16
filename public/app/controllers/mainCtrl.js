@@ -118,7 +118,6 @@ controller('loginCtrl',['$scope','Auth','$location','$route',
 					else{
 						$scope.$hide();
 						$location.path('/home');}
-						$scope.$hide();
 					//this.user = 'name:unchanged';
 					Auth.getUser()
 						.then(function(data) {
