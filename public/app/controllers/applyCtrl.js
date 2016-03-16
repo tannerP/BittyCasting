@@ -28,22 +28,34 @@ angular.module('applyCtrl',['userService', 'mgcrea.ngStrap']).
 
         /* Post application, get applicationID, then store files to S3
         */
-        vm.preview = function(file){
-            vm.currFIle = file;
+        vm.preview = function(){
+              
+            vm.busy = true;
+            console.log(vm.processing);
+            setTimeout(function(){
+             alert("Hello"); vm.busy = false; 
+            }, 3000);
+            
+            console.log(vm.processing);
         }
         vm.submit = function() {
+            vm.busy = true;
+            vm.currfile;
+            vm.busy = true;
             console.log(vm.files)
             console.log("button pressed")
-
-          /*  Applicant.apply(vm.appData).then(function(resp){
+            /*setTimeout(function(){ vm.busy = false;alert("Hello"); }, 3000);*/
+            
+            Applicant.apply(vm.appData).then(function(resp){
                 vm.applicantID = resp.data.appID;
                 vm.appData = "";
                 if(vm.roleData){
                     uploadFiles(vm.files)    
                 }  
             })
-        }*/
-    }
+            
+        }
+    
            /* 
             vm.processing = true;
             var count = 0;
@@ -96,6 +108,7 @@ angular.module('applyCtrl',['userService', 'mgcrea.ngStrap']).
                 /*var  i = 1; //temp fix for loop above*/
                 var file = uploadFiles[i];
                 /*file.progress = parseInt(0);*/
+                if(file)
                 (function (file, i) {
                     $http.get('/s3Policy?mimeType='+ file.type)
                     .success(function(response) {
@@ -142,7 +155,7 @@ angular.module('applyCtrl',['userService', 'mgcrea.ngStrap']).
                             if(file.progress == 100){
                                 vm.numFileDone++;
                                 if(vm.numFileDone == vm.files.length)
-                                {
+                                {   vm.busy = false;
                                     $location.path('/Thankyou');
                                 }
                             }

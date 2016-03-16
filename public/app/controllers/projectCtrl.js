@@ -28,7 +28,7 @@ controller('applicantPageController',
 	 $scope.slides =[];
     function addSlide(target,data) {
         var i = target.length;
-        var fileTypes=["Video","Photo","Text","Link"];
+        var fileTypes=["video","image","document","link"];
 
         for( item in fileTypes){
         	if(data.file_type.indexOf(fileTypes[item])){
@@ -43,7 +43,7 @@ controller('applicantPageController',
             label: data.name,
             source: data.source,
             video: fileTypes[0],
-            photo: fileTypes[1],
+            image: fileTypes[1],
             document: fileTypes[2],
             link:fileTypes[3],
             odd: (i % 2 === 0)
@@ -53,7 +53,7 @@ controller('applicantPageController',
     function addSlides(target, sourceArr) {;
       for (var i=0; i < sourceArr.length; i++) {
       	var fType = sourceArr[i].file_type;
-      	if(fType=="Photo" || fType=="Video"){
+      	if(fType=="image" || fType=="video"){
           addSlide(target, sourceArr[i]);
       	}
       }

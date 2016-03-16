@@ -135,18 +135,19 @@
                                 </div>
                                </div>
 
-                                <div ng-if="page.errors" class = "custom-alert" >
+                                <div ng-if="page.errors" class ="custom-alert" >
                                     <h3>Whoops,</h3>
                                     <p>{{page.errors.$error}}</p>
                                     <p>{{page.errors}}</p>
                                     <p>{{page.files[$index]}}</p>
                                     <p> Selected invalid file format</p>
                                     <p ng-if="page.errors.requirements"> {{page.errors.requirements.message}}</p>
-                                    
-                                    
                                 </div>
+
+                                <div ng-if="page.busy" class="custom-loader"><img ng-src='/assets/imgs/spin.gif'></div>   
                                 
                             <button type="submit" class="custom-btn-primary-large">Submit</button>
+                            <button ng-click="page.preview()" type="submit" class="custom-btn-primary-large">testing</button>
                             <div class="poweredBy">
                                 <p>Powered by<a href="/" target="_blank">
                                     <img class="powerLogo" ng-src="assets/imgs/logo_BittyCasting.svg"></a>
