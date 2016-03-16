@@ -1,3 +1,4 @@
+
 /***************************
           Colors
 ***************************/
@@ -2068,3 +2069,19 @@ text-align: center;
     }
     
 }
+
+ .custom-close-overlay {
+        width: 40px;
+        height: 40px;
+        position: absolute;
+        top: 25px;
+        right: 40px;
+        background: url("/assets/imgs/ic_cross_overlay.svg") no-repeat center center;
+        @include transition(all, 0.2s, ease);
+            &:hover, &:focus {
+                cursor: pointer;
+                @include transition(all, 0.2s, ease);
+                @include rotate(180deg);
+            }
+
+    }

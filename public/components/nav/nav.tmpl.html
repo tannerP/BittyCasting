@@ -44,7 +44,7 @@
                     </div>      
                       
                     <div ng-if='main.loggedIn' class="custom-action-nav-in"> 
-                      <ul class="nav navbar-nav">                         
+                  <ul class="nav navbar-nav">                       
                           <li ng-if='main.loggedIn' ng-click="main.doLogout()" ><a href = "#">Logout</a></li>
                           <div ng-if='main.loggedIn' class ="navUserInitial" ng-click="main.getUsrBtn()">{{main.usrInitial}}</div>
                       </ul>
@@ -60,18 +60,14 @@
                        
                       <div  ng-if ="main.publicVw" class="custom-site-nav">      
                           <ul class="nav navbar-nav">               
-                            <li><a href="/" class="active" data-scroll-nav="0">Home</a></li>
-                            <li><a href="/#features" data-scroll-nav="1">Features</a></li>
-                            <li><a href="/#pricing" data-scroll-nav="2">Pricing</a></li>
-                            <li><a href="/#about" data-scroll-nav="3">About</a></li>
+                            <li><a  class="active" data-scroll-nav="0">Home</a></li>
+                            <li><a  data-scroll-nav="1">Features</a></li>
+                            <li><a  data-scroll-nav="2">Pricing</a></li>
+                            <li><a  data-scroll-nav="3">About</a></li>
                             <!--li><a data-scroll-nav="4">Contact</a></li-->
                           </ul>      
-                      </div> 
-                      
-                      
-                      
+                      </div>                       
                   </div><!-- /.navbar-collapse -->
-            
              </nav>
     </div>       
 </div>   

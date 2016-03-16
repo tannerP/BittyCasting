@@ -26,25 +26,55 @@ angular.module('applyCtrl',['userService', 'mgcrea.ngStrap']).
             })}
         });
 
-        vm.error = "";
-        var isValid = function(files){
-            //check if required files are submited
-            for(var i in vm.roleData.requirements.length)
-            {
-                if(vm.roleData.requirements[i].required)
-                {   
-                    
-                }
-                console.log(files[i])
-            }
-
-        }
-        
         vm.submit = function() {
+            vm.busy = true;
+            vm.currfile;
+            vm.busy = true;
+            console.log(vm.files)
+            console.log("button pressed")
+            /*setTimeout(function(){ vm.busy = false;alert("Hello"); }, 3000);*/
+            
+            Applicant.apply(vm.appData).then(function(resp){
+                vm.applicantID = resp.data.appID;
+                vm.appData = "";
+                if(vm.roleData){
+                    uploadFiles(vm.files)    
+                }  
+            })
+            
+        }
+    
+           /* 
             vm.processing = true;
-            /*console.log(vm.files)*/
+            var count = 0;
+            var temp = vm.roleData.requirements;
+                for( var j in temp){
+                    console.log('j: ' + j )
+                    if(temp[j].file_type != "link"){
+                       if(temp[j].required){
+                            if(!vm.files[i])
+                            {
+                                vm.errors.message = "Missing requirement";
+                            }
+                       }*/
+                /*    } && temp[j].required)
+                    {
+                        for(var i in vm.files){
+                            console.log(temp[j].name);
+                            if( vm.files[i].size < 100)
+                            {   vm.errors.requirements = {};
+                                vm.errors.requirements.message = temp[j].name + " is required."
+                            }
+                            }
+                        }*/
+/*
+                }
+                vm.processing = false;
+                
+            }
+        }*/
             /*isValid(vm.files);*/
-        if(isValid(vm.files)){
+        /*if(val(vm.files)){*/
             //Put applicanion data, store media in S3, then save reference to DB. 
             /*Applicant.apply(vm.appData).then(function(resp){
                 vm.applicantID = resp.data.appID;
@@ -53,7 +83,7 @@ angular.module('applyCtrl',['userService', 'mgcrea.ngStrap']).
                     uploadFiles(vm.files)    
                 }  
             }*/
-        /*)}};*/ }}
+        /*)}};*/ 
 /* ----------------- Uploader -------------- */
     $scope.abort = function(index) {
         $scope.upload[index].abort();
@@ -66,6 +96,7 @@ angular.module('applyCtrl',['userService', 'mgcrea.ngStrap']).
                 /*var  i = 1; //temp fix for loop above*/
                 var file = uploadFiles[i];
                 /*file.progress = parseInt(0);*/
+                if(file)
                 (function (file, i) {
                     $http.get('/s3Policy?mimeType='+ file.type)
                     .success(function(response) {
@@ -112,9 +143,8 @@ angular.module('applyCtrl',['userService', 'mgcrea.ngStrap']).
                             if(file.progress == 100){
                                 vm.numFileDone++;
                                 if(vm.numFileDone == vm.files.length)
-                                {
+                                {   vm.busy = false;
                                     $location.path('/Thankyou');
-                                    vm.processing = false;
                                 }
                             }
 

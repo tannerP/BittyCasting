@@ -101,9 +101,9 @@
     <meta name="theme-color" content="#ffffff">
     
 </head>
-<body ng-app="userApp" ng-controller="mainController as main">
+<body ng-app="userApp" ng-controller="mainController as main" >
     <div nav ng-if="main.nav" ng-controller="navCtrl as nav"></div>
-    <div ng-view></div>
+    <div ng-view autoscroll="true"></div>
     <div footer ng-if="main.footer"></div>
     
     <!--Jquery-->

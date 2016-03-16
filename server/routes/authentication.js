@@ -63,6 +63,7 @@ app.route('/register')
 		user.name.first = req.body.name.first;
 		user.password = req.body.password;
 		user.email = req.body.email;
+		user.role = "user";
 		console.log(user);
 		//save the user and check for errors
 		user.save(function(err){

@@ -1,9 +1,11 @@
-<div class="applyPage">
+ <div class="applyPage">
     <div class="applyPageLeftBg"></div>
     <div class="container">
+
         <img class="applyLogo" ng-src="assets/imgs/logo_BittyCasting_B.svg">
+        <div class="custom-close-overlay" ng-click="main.backBtn()"></div>
         <section class="col-md-6">
-            <div class="applyPageLeft">
+            <div class="applyPageLeft" ng-if="!page.currFile">
                 <div class='pageTitle'>About this role</div>
                 <div class='pageSubtitle'>{{page.roleData.name}}</div>
                 <p>{{page.roleData.description}}</p>
@@ -14,8 +16,7 @@
                     </div>
                     <div class="div-table-row">
                         <div class="div-table-col">Time</div>
-                        <div class="div-table-col">{{page.roleData.end_time |  date:'h:mm a'}} {{ page.roleData.end_date | date: "M/d/yyyy"
-                        }}</div>
+                        <div class="div-table-col"> {{ page.roleData.end_date | date: "M/d/yyyy"}} @ {{page.roleData.end_time |  date:'h:mm a'}}</div>
                     </div>
                     <div class="div-table-row">
                         <div class="div-table-col">Pay term</div>
@@ -34,14 +35,17 @@
                 <div class='pageTitle'>About this project</div>
                 <div class='pageSubtitle'>{{page.prjData.name}}</div>
                 <p>{{page.prjData.description}}</p>
-                <img ng-src="assets/imgs/img_projectCover01.png" class="img-responsive">
+                <img ng-if='!page.currFile' ng-src="assets/imgs/img_projectCover01.png" class="img-responsive">
             </div>
+             <img class="img-responsive" ng-if="page.currFile" ngf-src="page.currFile || '/thumb.jpg'">
+            <video ng-if="page.currFile" class="img-responsive" controls ngf-src="page.currFile">
+            <!-- <audio ng-if="page.currFile" controls ngf-src="page.currFile"> -->
         </section>
         <!-- Application Form -->                        
         <section class="col-md-6">
             <div class="applyPageRight">
                  <div class='pageTitle'>Apply</div>
-                        <form ng-submit="page.submit()">
+                        <form ng-submit="page.submit()" name="form">
                             <div class = "form-group">
                                 <label>First name</label>
                                 <input type = "text" class = "custom-form" ng-model="page.appData.name.first" required>
@@ -58,36 +62,90 @@
                                 <label>Phone number</label>
                                 <input type = "tel" class = "custom-form" ng-model="page.appData.phone">
                             </div>                      
-                            <div class = "form-group">
-                                <label>Youtube</label>
-                                <input type = "text" class = "custom-form" ng-model="page.appData.link1">
-                            </div>                       
-                            <div class = "form-group">
-                                <label>Vimeo</label>
-                                <input type = "text" class = "custom-form" ng-model="page.appData.link2">
-                            </div>   
+
+                            <!-- <div class = "form-group" ng-repeat="rq in page.roleData.requirements track by $index">
+                            
+                                <label ng-if="rq.file_type == 'link'; page.links[$index]">{{rq.name}}<span ng-if="rq.required">*</span></label>
+                            
+                                <input ng-if="rq.file_type == 'link' && rq.required  " type = "text" class = "custom-form" ng-model="page.links[$index]" placeholder="{{rq.name}} link" required>
+                            
+                                <input ng-if="rq.file_type == 'link' && !rq.required" type = "text" class = "custom-form" ng-model="page.links[$index]" placeholder="{{rq.name}} link">
+                            </div> -->
+
+                                  
                             <div class = "form-group" ng-repeat="rq in page.roleData.requirements track by $index">
-                            <!-- <div class = "form-group"> -->
-                                <label>{{rq.name}}</label><span ng-if="rq.required">*</span>
-                                <div class="drop-box" ngf-drop ng-model="page.files[$index]">
-                                    <p>Drag and drop &nbsp OR &nbsp 
-                                        <a ngf-select ng-model="page.files[$index]" name="file" 
-                                        ngf-pattern="'*'" ngf-accept="'*'" ngf-max-size="1GB" ngf-min-height="100">
-                                        upload from computer</a>
-                                    </p>
+                            <!-- label when no file is selected -->
+                            <label ng-if="rq.file_type != 'link' && !page.files[$index]">{{rq.name}} ({{rq.file_type}})<span ng-if="rq.required">*</span></label>
+                            <!-- label when file selected -->
+                            <label ng-if="rq.file_type != 'link' && page.files[$index]">{{page.files[$index].name}}<span ng-if="rq.required">*</span></label>
+                                
+                                <!-- Require Supplements  -->
+                                <!-- Drag & Drop -->
+                                <div ng-if="rq.file_type != 'link' && rq.file_type!='document'" class="drop-box" ngf-drop ng-model="page.files[$index]"  ngf-pattern="'{{rq.file_type}}/*'"  ngf-max-size="500MB" ngf-model-invalid="page.errors" ngf-accept="'{{rq.file_type}}/*'"
+                                ngf-min-size="100"
+                                ngf-max-size="500MB" ng-required="true">
+                                    <div ng-if="!page.files[$index]">
+                                        <p>Drag and drop &nbsp OR &nbsp 
+                                            <a ngf-select ng-model="page.files[$index]" name="file" 
+                                                ngf-pattern="'{{rq.file_type}}/*'"
+                                                ngf-accept="'{{rq.file_type}}/*'"
+                                                ngf-change= "page.currFile = $file"
+                                                ngf-min-size="100"
+                                                ngf-max-size="500MB"
+                                                ngf-model-invalid="page.errors"
+                                                >upload from computer</a>
+                                        </p>
+                                    </div>
+                                    <a ng-if="page.files[$index]"
+                                                ngf-select ng-model="page.files[$index]" name="file" 
+                                                ngf-pattern="'{{rq.file_type}}/*'"
+                                                ngf-accept="'{{rq.file_type}}/*'"
+                                                ngf-change= "page.currFile = $file"
+                                                ngf-min-size="100"
+                                                ngf-max-size="500MB"
+                                                ngf-model-invalid="page.errors"
+                                                >{{rq.name}}</a>
                                 </div>
-                                <img ng-if="page.files[$index]" style="width:auto;height:80px;" ngf-thumbnail="page.files[$index] || '/thumb.jpg'">
-                                <video style="width:100px;height:100px;" ng-if="page.files[$index]" controls ngf-src="page.files[$index]">
-                                <div class = "custom-alert" ng-if="page.error">
-                                    {{page.error}}
+                                <!-- Document -->
+                                <div ng-if="rq.file_type != 'link' && rq.file_type=='document'" class="drop-box" ngf-drop ng-model="page.files[$index]"  ngf-pattern="'application/pdf'"  ngf-max-size="500GB" ngf-model-invalid="page.errors" ngf-accept="'application/pdf'"
+                                ngf-min-size="100"
+                                ngf-max-size="500MB" ng-required="true">
+                                <!-- Select File -->
+                                    <div ng-if="!page.files[$index]">
+                                        <p>Drag and drop &nbsp OR &nbsp 
+                                            <a ngf-select ng-model="page.files[$index]" name="file" 
+                                                ngf-pattern="'application/pdf'"
+                                                ngf-accept="'application/pdf'"
+                                                ngf-before-model-change= "page.errors = '' "
+                                                ngf-min-size="100"
+                                                ngf-max-size="500MB"
+                                                ngf-model-invalid="page.errors"
+                                                >
+                                            upload from computer</a>
+                                        </p>
+                                    </div>
+                                    <a ngf-select ng-model="page.files[$index]" name="file" 
+                                                ngf-pattern="'application/pdf'"
+                                                ngf-accept="'application/pdf'"
+                                                ngf-before-model-change= "page.errors = '' "
+                                                ngf-min-size="100"
+                                                ngf-max-size="500MB"
+                                                ngf-model-invalid="page.errors"
+                                                >{{page.files[$index].name}}</a>
                                 </div>
-<!--
-                                <div ng-if="page.processing">
-                                    <h3>Processing</h3>
+                               </div>
+
+                                <div ng-if="page.errors" class ="custom-alert" >
+                                    <h3>Whoops,</h3>
+                                    <p>{{page.errors.$error}}</p>
+                                    <p>{{page.errors}}</p>
+                                    <p>{{page.files[$index]}}</p>
+                                    <p> Selected invalid file format</p>
+                                    <p ng-if="page.errors.requirements"> {{page.errors.requirements.message}}</p>
                                 </div>
--->
-                                <!-- <div ng-if="page.processing" class="custom-loader"><img src='/assets/imgs/spin.gif'></div> -->
-                            </div>
+
+                                <div ng-if="page.busy" class="custom-loader"><img ng-src='/assets/imgs/spin.gif'></div>   
+                                
                             <button type="submit" class="custom-btn-primary-large">Submit</button>
                             <div class="poweredBy">
                                 <p>Powered by<a href="/" target="_blank">

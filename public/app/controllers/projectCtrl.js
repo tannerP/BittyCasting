@@ -28,7 +28,7 @@ controller('applicantPageController',
 	 $scope.slides =[];
     function addSlide(target,data) {
         var i = target.length;
-        var fileTypes=["Video","Photo","Text","Link"];
+        var fileTypes=["video","image","document","link"];
 
         for( item in fileTypes){
         	if(data.file_type.indexOf(fileTypes[item])){
@@ -43,7 +43,7 @@ controller('applicantPageController',
             label: data.name,
             source: data.source,
             video: fileTypes[0],
-            photo: fileTypes[1],
+            image: fileTypes[1],
             document: fileTypes[2],
             link:fileTypes[3],
             odd: (i % 2 === 0)
@@ -53,7 +53,7 @@ controller('applicantPageController',
     function addSlides(target, sourceArr) {;
       for (var i=0; i < sourceArr.length; i++) {
       	var fType = sourceArr[i].file_type;
-      	if(fType=="Photo" || fType=="Video"){
+      	if(fType=="image" || fType=="video"){
           addSlide(target, sourceArr[i]);
       	}
       }
@@ -253,7 +253,9 @@ controller('prjDetailController',
   function ($scope,$alert,$location) {
         var url_base = "bittycasting.com/Apply/";
         var url_base_dev = "localhost:8080/Apply/" +$scope.roleData._id; 
-        $scope.textToCopy = url_base_dev;
+        var url_base_beta = "beta.bittycasting.com/Apply/" +$scope.roleData._id; 
+        $scope.textToCopy = url_base_beta;
+        
         var previewLink = "/Apply/" +$scope.roleData._id; 
         $scope.toggle = false;
          var successAlert = $alert({title: 'Copied!',
@@ -358,6 +360,7 @@ controller('editRoleController',
 
 	vm.addReqt = function(data){
 		console.log("data:" + JSON.stringify(data));
+		console.log(vm.roleData.requirements.length)
 		if(!data){
 			console.log("error: input variable");
 			return;
@@ -369,15 +372,15 @@ controller('editRoleController',
 		vm.newData.required = true,
 		vm.newData.file_type = "Type";
 	}
-	vm.removeReqt = function(item){
-		console.log(item);
-			for( i in vm.roleData.requirements){
-				console.log(vm.roleData.requirements[i])
-				if(vm.roleData.requirements[i].name === item)
-				{
-						delete vm.roleData.requirements[i];
-						return;
-				}
+	vm.removeReqt = function(index){
+		if(vm.roleData.requirements.length > 1)
+			{
+				if(index === 0) vm.roleData.requirements.shift();
+				else vm.roleData.requirements.splice(index,index);
+				
+			}
+			else if(vm.roleData.requirements.length === 1){
+						vm.roleData.requirements =[]		
 			}
 		}
 
@@ -391,6 +394,11 @@ controller('addRoleController',
 	vm.roleData.requirements=[];
 	vm.newData={};
 	vm.newData.name = "New Requirement",vm.newData.required = true,vm.newData.file_type = "Type";
+
+	/*$scope.$watch(vm.newData.name, function(newVal, oldVal){
+		vm.newData.file_type = "Hey there!"
+		vm.newData.required = true
+	})*/
 
 	$scope.selectedDate = new Date();
 	$scope.selectedTime = new Date();
@@ -424,17 +432,20 @@ controller('addRoleController',
 		vm.roleData.requirements.push(item)
 		vm.newData.name = "New Requirement",vm.newData.required = true,vm.newData.file_type = "Type";
 	}
-	vm.removeReqt = function(item){
-		console.log(item);
-			for( i in vm.roleData.requirements){
-				console.log(vm.roleData.requirements[i])
-				if(vm.roleData.requirements[i].name === item)
-				{
-						delete vm.roleData.requirements[i];
-						return;
-				}
+	vm.removeReqt = function(index){
+		console.log(index);
+		console.log(vm.roleData.requirements[index])
+			if(vm.roleData.requirements.length > 1)
+			{
+					if(index === 0) vm.roleData.requirements.shift();
+				else vm.roleData.requirements.splice(index,index);
 			}
-	}
+			else if(vm.roleData.requirements.length === 1){
+						vm.roleData.requirements =[]		
+			}
+
+		}
+
 
 	vm.createRoleBtn = function(){
 		console.log("project ID :" + $routeParams.project_id);

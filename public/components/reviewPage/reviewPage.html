@@ -14,9 +14,8 @@
 		<div class="reviewCarousel">  
             <div class="reviewCarouselImg">
                 <ul rn-carousel rn-carousel-control-allow-loop rn-carousel-controls rn-carousel-transition="fadeAndSlide" rn-carousel-index="carouselIndex" rn-carousel-buffered>
-
                     <li ng-repeat="slide in slides track by slide.id" ng-class="'id-' + slide.id">	
-                          <div class="reviewCarouselImgBg" ng-if="slide.photo" 
+                          <div class="reviewCarouselImgBg" ng-if="slide.image" 
                                ng-style="{
                                          'background': 'url(' + slide.source + ') no-repeat center center',
                                          'background-size': 'auto 400px'}
@@ -24,7 +23,7 @@
 <!--                              #{{ slide.id }}-->
                           </div>
                           <video class="reviewCarouselVideo" ng-if="slide.video"  controls ngf-src='slide.source'>
-    </video>
+                        </video>
                     </li>
                 </ul>
             </div>
@@ -59,10 +58,23 @@
                     <td>{{currApp.phone}}</td>
                 </tr>
                 
-                <tr ng-repeat="sup in currApp.suppliments">
-                    <td>{{sup.name}}</td>
-                    <td><a target="_blank" ng-href="{{sup.source}}" download="{{sup.name}}">{{sup.file_type}}</a></td>
-                    <td><button ng-click="download(sup.source)">download</button></td>
+                <tr>
+                    <td>Document: </td>
+                    <td ng-repeat="row1 in currApp.suppliments">
+                        <a ng-if="row1.file_type=='document'" target="_blank" ng-href="{{row1.source}}" download={{row1.name}}>{{row.name}}</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Image: </td>
+                    <td ng-repeat="row in currApp.suppliments">
+                        <a ng-if="row.file_type=='image'" target="_blank" ng-href="{{row.source}}" download={{row.name}}>{{row.name}}</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Video</td>
+                    <td ng-repeat="row in currApp.suppliments">
+                        <a ng-if="row.file_type=='video'" target="_blank" ng-href="{{row.source}}" download="{{row.name}}">{{row.name}}</a>
+                    </td>
                 </tr>
                 
             </tbody>

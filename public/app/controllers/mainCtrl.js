@@ -1,7 +1,10 @@
 angular.module('mainCtrl', ['authService','mgcrea.ngStrap']).
-controller('mainController',['$scope','$rootScope','Auth','$location',"$sce","$route",
-		function($scope,$rootScope, Auth, $location, $sce, $route) {
+controller('mainController',['$scope','$rootScope','Auth',
+	'$location',"$sce","$route","$window",
+		function($scope,$rootScope, Auth, $location, $sce, $route, $window) {
 		var vm = this;
+		var FBLink = "https://www.facebook.com/BittyCasting-1053535994667037/"
+		var twitterLink =" https://twitter.com/BittyCasting"
 		vm.loggedIn = false;
 		vm.footer = true;
 		vm.nav = true;
@@ -60,6 +63,12 @@ controller('mainController',['$scope','$rootScope','Auth','$location',"$sce","$r
 			vm.usrInitial = '';
 			/*$location.path('/');*/
 			$route.reload();
+		}
+		vm.twitter = function(){
+			$window.open(twitterLink,'_blank');
+		}
+		vm.facebook = function(){
+			$window.open(FBLink,'_blank');
 		}
 	}]).
 controller('signupCtrl', function(User,$scope,$location)	{
