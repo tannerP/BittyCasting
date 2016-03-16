@@ -91,16 +91,18 @@
                                             >
                                         upload from computer</a>
                                     </p>
-                                    <input ng-if="page.files[$index]" style="display:inline-block; border-style: none" ng-value="page.files[$index].name" placeholder="Name File"></input>
-                                </div>
 
+                                    </div>
+                                            <img ng-if="page.files[$index]" style="width:auto;height:80px;" ngf-thumbnail="page.files[$index] || '/thumb.jpg'">
+                                <video style="width:100px;height:100px;" ng-if="page.files[$index]" controls ngf-src="page.files[$index]">
                                </div>
+
                                 <div ng-if="page.errors" class = "custom-alert" >
                                     <h3>Whoops,</h3>
-
-                                    <p ng-if={{page.errors =="pattern"}}> Selected invalid file format</p>
+                                    <p>{{page.errors.$error}}</p>
+                                    <p> Selected invalid file format</p>
                                     <p ng-if="page.errors.requirements"> {{page.errors.requirements.message}}</p>
-                                    <p>{{page.errors}}</p>
+                                    
                                     
                                 </div>
                                 
