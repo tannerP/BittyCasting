@@ -26,18 +26,6 @@ angular.module('applyCtrl',['userService', 'mgcrea.ngStrap']).
             })}
         });
 
-        /* Post application, get applicationID, then store files to S3
-        */
-        vm.preview = function(){
-              
-            vm.busy = true;
-            console.log(vm.processing);
-            setTimeout(function(){
-             alert("Hello"); vm.busy = false; 
-            }, 3000);
-            
-            console.log(vm.processing);
-        }
         vm.submit = function() {
             vm.busy = true;
             vm.currfile;

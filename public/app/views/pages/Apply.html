@@ -63,14 +63,14 @@
                                 <input type = "tel" class = "custom-form" ng-model="page.appData.phone">
                             </div>                      
 
-                            <div class = "form-group" ng-repeat="rq in page.roleData.requirements track by $index">
-                            <!-- <div class = "form-group"> -->
+                            <!-- <div class = "form-group" ng-repeat="rq in page.roleData.requirements track by $index">
+                            
                                 <label ng-if="rq.file_type == 'link'; page.links[$index]">{{rq.name}}<span ng-if="rq.required">*</span></label>
-                                <!-- Required -->
+                            
                                 <input ng-if="rq.file_type == 'link' && rq.required  " type = "text" class = "custom-form" ng-model="page.links[$index]" placeholder="{{rq.name}} link" required>
-                                <!--Not Required -->
+                            
                                 <input ng-if="rq.file_type == 'link' && !rq.required" type = "text" class = "custom-form" ng-model="page.links[$index]" placeholder="{{rq.name}} link">
-                            </div>
+                            </div> -->
 
                                   
                             <div class = "form-group" ng-repeat="rq in page.roleData.requirements track by $index">
@@ -147,7 +147,6 @@
                                 <div ng-if="page.busy" class="custom-loader"><img ng-src='/assets/imgs/spin.gif'></div>   
                                 
                             <button type="submit" class="custom-btn-primary-large">Submit</button>
-                            <button ng-click="page.preview()" type="submit" class="custom-btn-primary-large">testing</button>
                             <div class="poweredBy">
                                 <p>Powered by<a href="/" target="_blank">
                                     <img class="powerLogo" ng-src="assets/imgs/logo_BittyCasting.svg"></a>
