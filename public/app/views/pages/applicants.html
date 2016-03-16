@@ -16,7 +16,28 @@
             </section>
             <section class="col-md-4">
                 <p class="projectDetailsTitle">Info</p>
-                <p>This is the info</p>
+                <div class="div-table">
+                    <div class="div-table-row">
+                        <div class="div-table-col">Location</div>
+                        <div class="div-table-col">{{page.roleData.location}}</div>
+                    </div>
+                    <div class="div-table-row">
+                        <div class="div-table-col">Time</div>
+                        <div class="div-table-col"> {{ page.roleData.end_date | date: "M/d/yyyy"}} @ {{page.roleData.end_time |  date:'h:mm a'}}</div>
+                    </div>
+                    <div class="div-table-row">
+                        <div class="div-table-col">Pay term</div>
+                        <div class="div-table-col">{{page.roleData.payterms}}</div>
+                    </div>
+                    <div class="div-table-row">
+                        <div class="div-table-col">Gender</div>
+                        <div class="div-table-col">{{page.roleData.sex}}</div>
+                    </div>
+                    <div class="div-table-row">
+                        <div class="div-table-col">Age</div>
+                        <div class="div-table-col">{{page.roleData.age}}</div>
+                    </div>
+                </div>
             </section>
             <section class="col-md-4">
                 <p class="projectDetailsTitle">Requirements</p>
