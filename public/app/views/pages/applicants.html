@@ -1,6 +1,5 @@
 <div ng-show="!viewApp" class="container"> 
     <div class="pageHeader">
-        <div class='pageTitle pageTitleMobileOffset'>{{page.roleData.name || "page Casting"}}</div>
         <div class="custom-back" ng-click="main.backBtn()"></div>
         <div class="custom-page-action">
             <ul>           
@@ -8,7 +7,9 @@
                 <li class="custom-btn-secondary-small" ng-click="page.shareBtn()">Share</li>
             </ul>
         </div>
-        <div class='pageSubtitle'>Application open until {{page.roleData.end_time| date:'h a'}} {{page.roleData.end_date | date:medium}} </div>
+        <div class='pageTitle pageTitleMobileOffset col-md-4 col-md-offset-4'>{{page.roleData.name || "page Casting"}}</div>
+        <div class="clear"></div>
+        <div class='pageSubtitle col-md-12'>Application open until {{page.roleData.end_time| date:'h a'}} {{page.roleData.end_date | date:medium}}</div>
         <div class="projectDetails col-md-12">
             <section class="col-md-4">
                 <p class="projectDetailsTitle">Description</p>

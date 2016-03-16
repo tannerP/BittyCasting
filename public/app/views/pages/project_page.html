@@ -1,14 +1,14 @@
 
 <div class="container">
-<div class="pageHeader">    
-    <div class='pageTitle pageTitleMobileOffset'>{{prjDetailCtr.project.name}}</div>
+<div class="pageHeader"> 
     <div class="custom-back" ng-click="main.backBtn()"></div>
     <div class="custom-page-action">
         <ul>           
             <li class="custom-btn-secondary-small" ng-click="prjDetailCtr.editPrjBtn()">Edit</li>
         </ul>
     </div>    
-    
+    <div class='pageTitle pageTitleMobileOffset col-md-4 col-md-offset-4'>{{prjDetailCtr.project.name}}</div>
+    <div class="clear"></div>
     <div class="projectDetails col-md-12">
         <section class="col-md-3">
             <img ng-src="assets/imgs/img_projectCover01.png" class="img-responsive">
