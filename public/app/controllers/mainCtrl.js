@@ -116,8 +116,8 @@ controller('loginCtrl',['$scope','Auth','$location','$route',
 					//conditional for /login vs aside
 					if($location.path() =='/login') $location.path('/home');
 					else{
-						$scope.$hide();
 						$location.path('/home');}
+                        $scope.$hide();
 					//this.user = 'name:unchanged';
 					Auth.getUser()
 						.then(function(data) {

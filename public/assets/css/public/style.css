@@ -132,6 +132,31 @@ a {
   margin: 30px auto;
   width: 60px; }
 
+.custom-close-overlay {
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  top: 25px;
+  right: 40px;
+  background: url("/assets/imgs/ic_cross_overlay.svg") no-repeat center center;
+  -webkit-transition: all 0.2s ease;
+  -moz-transition: all 0.2s ease;
+  -ms-transition: all 0.2s ease;
+  -o-transition: all 0.2s ease;
+  transition: all 0.2s ease; }
+  .custom-close-overlay:hover, .custom-close-overlay:focus {
+    cursor: pointer;
+    -webkit-transition: all 0.2s ease;
+    -moz-transition: all 0.2s ease;
+    -ms-transition: all 0.2s ease;
+    -o-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+    -ms-transform: rotate(180deg);
+    /* IE 9 */
+    -webkit-transform: rotate(180deg);
+    /* Safari */
+    transform: rotate(180deg); }
+
 /***************************
            Global
 ***************************/
@@ -1216,6 +1241,10 @@ ul.projects li {
       font-weight: 600; }
     .projectDetails section:nth-child(1) img {
       margin-top: -30px; }
+    .projectDetails section ul {
+      list-style-type: square; }
+      .projectDetails section ul li p {
+        margin-bottom: 0; }
 
 /***************************
           Apply
@@ -1955,29 +1984,5 @@ ul.projects li {
         margin: 0; }
         .footer .social ul li:nth-child(2) {
           margin-left: 20px; } }
-.custom-close-overlay {
-  width: 40px;
-  height: 40px;
-  position: absolute;
-  top: 25px;
-  right: 40px;
-  background: url("/assets/imgs/ic_cross_overlay.svg") no-repeat center center;
-  -webkit-transition: all 0.2s ease;
-  -moz-transition: all 0.2s ease;
-  -ms-transition: all 0.2s ease;
-  -o-transition: all 0.2s ease;
-  transition: all 0.2s ease; }
-  .custom-close-overlay:hover, .custom-close-overlay:focus {
-    cursor: pointer;
-    -webkit-transition: all 0.2s ease;
-    -moz-transition: all 0.2s ease;
-    -ms-transition: all 0.2s ease;
-    -o-transition: all 0.2s ease;
-    transition: all 0.2s ease;
-    -ms-transform: rotate(180deg);
-    /* IE 9 */
-    -webkit-transform: rotate(180deg);
-    /* Safari */
-    transform: rotate(180deg); }
 
 /*# sourceMappingURL=style.css.map */

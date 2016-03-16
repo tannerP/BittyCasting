@@ -20,8 +20,9 @@
             </section>
             <section class="col-md-4">
                 <p class="projectDetailsTitle">Requirements</p>
-                <p>This is the requirement</p>
-                <span ng-repeat="rq in page.roleData.requirements"> {{rq.name}}</span>
+                <ul>
+                    <span ng-repeat="rq in page.roleData.requirements"><li><p>{{rq.name}}</p></li></span>
+                </ul>
             </section>
         </div>
         <div class="clear"></div>  
