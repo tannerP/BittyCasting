@@ -1,5 +1,5 @@
 {
-  "name": "components",
+  "name": "bower_components",
   "version": "0.0.0",
   "dependencies": {
     "angular": "1.3.8",
@@ -44,5 +44,19 @@
   },
   "resolutions": {
     "angular": "1.3.8"
-  }
+  },
+  "homepage": "https://github.com/tannerP/bittycasting",
+  "authors": [
+    "Tanner <tannerphan@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "moduleType": [],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "test",
+    "tests"
+  ]
 }
