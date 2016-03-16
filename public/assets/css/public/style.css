@@ -1955,6 +1955,7 @@ ul.projects li {
         margin: 0; }
         .footer .social ul li:nth-child(2) {
           margin-left: 20px; } }
+<<<<<<< HEAD
 /* Tanner: I added this here, for the close button for when preview application */
 .custom-close-overlay {
   background-color: black;
@@ -1963,6 +1964,14 @@ ul.projects li {
   position: absolute;
   top: 7px;
   right: 20px;
+=======
+.custom-close-overlay {
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  top: 25px;
+  right: 40px;
+>>>>>>> master
   background: url("/assets/imgs/ic_cross_overlay.svg") no-repeat center center;
   -webkit-transition: all 0.2s ease;
   -moz-transition: all 0.2s ease;
