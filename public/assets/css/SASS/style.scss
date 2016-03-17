@@ -183,6 +183,64 @@ a {
 
 }
 
+.checkbox-requirements { 
+    label {
+        display: block;
+        font-size: $font-size-regular;
+        line-height: 24px;
+        padding-left: 0;
+        margin: 0 0 10px 24px; 
+        input[type="checkbox"] {
+            display: none;
+        }
+        span {
+            float: left;
+            margin: -10px 3px 0 -24px;
+            display:inline-block;
+            width: 18px;
+            height: 18px;
+            border: none;
+            background-color: $color-grey-light;
+            cursor:pointer;
+            vertical-align: middle;
+
+        }
+        input:checked + span {
+            background: url("/assets/imgs/ic_check.svg") no-repeat center center $color-grey-light;
+            background-size: 12px 12px;
+        }
+    }
+}
+
+.checkbox-delete { 
+    label {
+        display: block;
+        font-size: $font-size-regular;
+        line-height: 24px;
+        padding-left: 0;
+        margin: 0 0 10px 24px; 
+        input[type="checkbox"] {
+            display: none;
+        }
+        span {
+            float: left;
+            margin: 3px 3px 0 -24px;
+            display:inline-block;
+            width: 18px;
+            height: 18px;
+            border: none;
+            background-color: $color-grey-light;
+            cursor:pointer;
+            vertical-align: middle;
+
+        }
+        input:checked + span {
+            background: url("/assets/imgs/ic_check.svg") no-repeat center center $color-grey-light;
+            background-size: 12px 12px;
+        }
+    }
+}
+
 /***************************
            Global
 ***************************/
@@ -940,10 +998,10 @@ ul.projects li {
     }
     
     .table-application-requirements {
-        thead tr th:nth-child(1) {width: 35%; cursor: pointer;} //type
-        thead tr th:nth-child(2) {width: 35%;} //format
-        thead tr th:nth-child(3) {width: 20%;} //required     
-        thead tr th:nth-child(3) {width: 10%;} //action
+        thead tr th:nth-child(1) {width: 40%; cursor: pointer;} //Name
+        thead tr th:nth-child(2) {width: 40%; cursor: pointer;} //Type
+        thead tr th:nth-child(3) {width: 10%;} //required     
+        thead tr th:nth-child(4) {width: 10%;} //action
     }
     
     .table {
@@ -1120,35 +1178,6 @@ ul.projects li {
             @include transition(all, 0.8s, ease);
         }
     }
-    
-    .checkbox { 
-        label {
-            display: block;
-            font-size: $font-size-regular;
-            line-height: 24px;
-            padding-left: 0;
-            margin: 0 0 10px 24px; 
-            input[type="checkbox"] {
-                display: none;
-            }
-            span {
-                float: left;
-                margin: 3px 3px 0 -24px;
-                display:inline-block;
-                width: 18px;
-                height: 18px;
-                border: none;
-                background-color: $color-grey-light;
-                cursor:pointer;
-                vertical-align: middle;
-                
-            }
-            input:checked + span {
-                background: url("/assets/imgs/ic_check.svg") no-repeat center center $color-grey-light;
-                background-size: 12px 12px;
-            }
-        }
-    }
     .btn-preview {
         margin: -20px 0 10px 0;
     }
@@ -1159,6 +1188,13 @@ ul.projects li {
     -webkit-animation-duration: .2s;
     animation-duration: .2s;
     @include transition(all, 0.2s, ease);
+}
+
+.asideRequirementsTitle {
+    font-family: $font-primary;
+    font-size: $font-size-side-formtitle;
+    color:	$color-grey;
+    font-weight: 400;
 }
 
 .form-group {
@@ -1186,6 +1222,10 @@ ul.projects li {
         }
     }
     
+    .dropdown {
+        border-bottom: 1px solid $color-grey-darkest;
+    }
+    
     input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
         -webkit-box-shadow: 0 0 0px 1000px white inset;
     }
@@ -1198,6 +1238,21 @@ ul.projects li {
     padding: 6px 0;
     font-size: $font-size-regular;
     line-height: 1.42857143;
+    
+    input {
+        font-family: $font-primary;
+        font-size: $font-size-regular;
+        @include border-radius(0);
+        border: none;
+        border-bottom: 1px solid $color-grey-darkest;
+        background-color: transparent;
+        padding: 6px 0;
+        margin-top: -5px;
+        &:focus {
+            outline: none;
+            border-bottom: 1px solid $color-blue;
+        }
+    }
 }
 
 .custom-form-textarea {
@@ -1217,6 +1272,12 @@ ul.projects li {
         outline: none;
         border-bottom: 1px solid $color-blue;
     }
+}
+
+.custom-dropdown {
+    border: 0;
+    background: url('/assets/imgs/ic_arrow_dropdown.svg') no-repeat right center;
+    background-size: 10px 10px;
 }
 
 .custom-alert {
@@ -1436,10 +1497,10 @@ ul.projects li {
         
         div {
             &:nth-child(1) {
-                width: 20%;
+                width: 30%;
                 font-weight: 600;
             }
-            &:nth-child(2) {width: 80%;}
+            &:nth-child(2) {width: 70%;}
         }
         
         .div-table-col {
