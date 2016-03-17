@@ -20,7 +20,7 @@ controller('CommentBoxCtrl',
 		}
 
 	}).
-controller('applicantPageController', 
+controller('ApplicantPageController', 
 	function(Applicant, Role, $location, $routeParams,
 	 $scope, $aside, $routeParams,$location,$route){
 	 var vm = this;
@@ -106,11 +106,11 @@ controller('applicantPageController',
 			$scope.currApp = app
 			deleteAppAside.$promise.then(deleteAppAside.toggle);	
 		}
-		$scope.backBtn = function(){
+		vm.backBtn = function(){
 			$scope.viewApp = false;
 			$scope.$emit("unhideNav");
 		}
-		$scope.deleteAppBtn = function(){
+		vm.deleteAppBtn = function(){
 			console.log("button press");
 			Applicant.delete($scope.currApp._id)
 			.success(function(){
@@ -122,6 +122,7 @@ controller('applicantPageController',
 					})
 		}
 		vm.shareBtn = function(){
+			console.log('button pressed');
 			$scope.roleData = vm.roleData;
 			shareRoleAside.$promise.then(shareRoleAside.toggle);	
 		}
@@ -138,7 +139,6 @@ controller('applicantPageController',
 			$scope.viewApp = true;
 		}
 		vm.nextApp = function(){
-
 			if($scope.currIndex < vm.applicants.length-1) {
 					$scope.currIndex += 1;
 					vm.viewBtn($scope.currIndex)
@@ -156,7 +156,7 @@ controller('applicantPageController',
 			console.log("button Press");
 		}
 }).
-controller('prjDetailController', 
+controller('ProjectPageController', 
 	function(Role, Project ,$location, $routeParams,
 	 $scope, $aside, $route){
 		var vm = this;
@@ -466,7 +466,7 @@ controller('addRoleController',
 			})
 }}).
 //home.html
-	controller('HomeController',
+	controller('HomePageController',
 	 function(Project, $location, $aside,$scope)	{
 		var vm = this;
 				vm.gridView = true;

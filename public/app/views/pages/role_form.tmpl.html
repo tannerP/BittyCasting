@@ -50,7 +50,7 @@
                     class = "custom-form" ng-model = "roleAside.roleData.age">
         </div>
         <div class = "form-group">
-            <label>Sex</label>
+            <label>Gender</label>
             <div class="custom-form" uib-dropdown is-open="false">
               <span uib-dropdown-toggle ng-disabled="disabled">{{roleAside.roleData.sex || "Sex"}}</span>
               <ul uib-dropdown-menu role="menu" aria-labelledby="single-button">
@@ -60,8 +60,9 @@
             </div>
         </div>      
         
-        <div class = "form-group">
-            <label>Requirements</label>
+        
+        <label class="asideRequirementsTitle">Requirements</label>
+
             <div class="custom-table">
                 <table class = "table table-application-requirements" ng-show="!roleAside.gridView">
                     <thead>
@@ -75,16 +76,15 @@
                     <tbody> 
                         <!-- LOOP OVER THE USERS -->
                          <tr ng-repeat="reqt in roleAside.roleData.requirements track by $index">
-                             <div><span>{{roleAside.roleData.requirements[$index]}}</span></div>
+                            <div><span>{{roleAside.roleData.requirements[$index]}}</span></div>
                              
                             <td>
                             <div uib-dropdown is-open="false">
-                                    <input type="text" class="custom-form"  uib-dropdown-toggle ng-disabled="disabled" ng-model='roleAside.roleData.requirements[$index].name' placeholder="New">
+                                    <input class="custom-dropdown" type="text" uib-dropdown-toggle ng-disabled="disabled" ng-model='roleAside.roleData.requirements[$index].name' placeholder="New">
                                     </input>
                                     <ul uib-dropdown-menu role="menu" aria-labelledby="single-button">
                                         <li role="menuitem"><a href="#" ng-click="roleAside.roleData.requirements[$index].name='Resume'" >Resume</a></li>
-                                        <li role="menuitem"><a href="#"ng-click="roleAside.roleData.requirements[$index].name = 'Headshot'"
-                                        >Headshot</a></li>
+                                        <li role="menuitem"><a href="#"ng-click="roleAside.roleData.requirements[$index].name = 'Headshot'">Headshot</a></li>
                                         <li role="menuitem"><a href="#" ng-click=" roleAside.roleData.requirements[$index].name = 'Reel'"
                                         >Reel</a></li>
                                         <li role="menuitem"><a href="#" ng-click="roleAside.roleData.requirements[$index].name = 'Youtube'" >Youtube</a></li>
@@ -93,7 +93,7 @@
                             </td>
 
                             <td ng-show="reqt">
-                                <div class="custom-form" uib-dropdown is-open="false">
+                                <div class="custom-dropdown" uib-dropdown is-open="false">
                                   <span uib-dropdown-toggle ng-disabled="disabled">{{roleAside.roleData.requirements[$index].file_type}}</span>
                                   <ul uib-dropdown-menu role="menu" aria-labelledby="single-button">
                                     
@@ -109,11 +109,20 @@
                                 </div>
                             </td>
 
-                            <td ng-show="reqt">                      
-                                <input type="checkbox" class="btn btn-default" ng-model="reqt.required">
+                            <td ng-show="reqt">     
+                                <div class="checkbox-requirements">
+                                    <label><input type="checkbox" ng-model="reqt.required"
+                                                  checked><span></span></label>
+                                </div>
                             </td>
 
+<!--
                             <td ng-show="reqt"><span class="btn large-btn" ng-click="roleAside.removeReqt($index)">Delete</span>
+                            </td>
+-->
+                
+                            <td ng-show="reqt">
+                                <img src="/assets/imgs/ic_trash.svg" width="16px" height="16px" ng-click="roleAside.removeReqt($index)">
                             </td>
                         </tr>
 
@@ -121,7 +130,7 @@
                         <tr>
                             <td>
                                 <div uib-dropdown is-open="false">
-                                    <input type="text" class="custom-form"  uib-dropdown-toggle ng-disabled="disabled" ng-model='roleAside.newData.name' placeholder="New">
+                                    <div class="custom-form"><input type="text" uib-dropdown-toggle ng-disabled="disabled" ng-model='roleAside.newData.name' placeholder="New file"></div>
                                     </input>
                                     <ul uib-dropdown-menu role="menu" aria-labelledby="single-button">
                                         <li role="menuitem"><a href="#" ng-click="roleAside.newData.name='Resume'" >Resume</a></li>
@@ -134,9 +143,8 @@
                                 </div>
                             </td>
                             <td>
-                                <div uib-dropdown is-open="false">
-                                   <span  type="text" class="custom-form"  uib-dropdown-toggle ng-disabled="disabled"
-                                    >{{roleAside.newData.file_type || "File"}}</span>
+                                <div class="custom-dropdown" uib-dropdown is-open="false">
+                                   <span  type="text" class="custom-form"  uib-dropdown-toggle ng-disabled="disabled">{{roleAside.newData.file_type || "File"}}</span>
                                   <ul uib-dropdown-menu role="menu" aria-labelledby="single-button">
                                     <li role="menuitem"><a href="#" ng-click="roleAside.newData.file_type = 'link'">Link</a></li>
                                     <li role="menuitem"><a href="#" ng-click="roleAside.newData.file_type = 'image'">Image</a></li>
@@ -145,16 +153,19 @@
                                   </ul>
                                 </div></td>
                             </td>
-                            <td><input  type="checkbox" ng-model="roleAside.newData.required"
-                               checked></td>
                             <td>
-                                <span ng-click="roleAside.addReqt(roleAside.newData)">Add</span> 
+                                <div class="checkbox-requirements">
+                                    <label><input type="checkbox" ng-model="roleAside.newData.required"
+                                                  checked><span></span></label>
+                                </div>
+                            </td>
+                            <td>
+                                <img src="/assets/imgs/ic_plus.svg" width="16px" height="16px" ng-click="roleAside.addReqt(roleAside.newData)">
                             </td>
                         </tr>
                     </tbody>    
                 </table>    
             </div>
-        </div>
             
         <!-- <button ng-if="!roleAside.edit" type="submit" class="custom-btn-primary-large" ng-submit=".createRoleBtn()">Create role</button> -->
         <button ng-if="!roleAside.edit" type="submit" id="submit" value="Create role" class="custom-btn-primary-large">Create role</button>

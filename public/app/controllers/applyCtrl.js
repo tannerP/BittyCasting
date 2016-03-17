@@ -2,7 +2,7 @@ angular.module('applyCtrl',['userService', 'mgcrea.ngStrap']).
 	config(function ($httpProvider) {
             $httpProvider.interceptors.push('xmlHttpInterceptor');
           }).
-    controller('applyController',['$scope','$rootScope',
+    controller('ApplyController',['$scope','$rootScope',
         'Upload','$http', 'Project', 'Role','Applicant',
         '$routeParams','Pub','$location',
         function ($scope, $rootScope, Upload, $http, Project, 

@@ -8,7 +8,7 @@ angular.module('app.routes', ['ngRoute'])
         })
         .when('/home',  {
             templateUrl: 'app/views/pages/home.html',
-            controller: 'HomeController',
+            controller: 'HomePageController',
             controllerAs: 'home'
         })
         .when('/signup', {
@@ -34,20 +34,20 @@ angular.module('app.routes', ['ngRoute'])
         })
         .when('/Apply/:id',  {
             templateUrl: 'app/views/pages/Apply.html',
-            controller: 'applyController',
+            controller: 'ApplyController',
             controllerAs: 'page'
         })
     /*---------------- Private ----------------*/
     //project    
         .when('/project/:project_id',  {
             templateUrl: 'app/views/pages/project_page.html',
-            controller: 'prjDetailController',
+            controller: 'ProjectPageController',
             controllerAs: 'prjDetailCtr'
         })
     //role    
         .when('/applicants/:role_id',  {
             templateUrl: 'app/views/pages/applicants.html',
-            controller: 'applicantPageController',
+            controller: 'ApplicantPageController',
             controllerAs: 'page'
         })
     //User

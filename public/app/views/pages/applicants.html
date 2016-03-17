@@ -1,14 +1,16 @@
 <div ng-show="!viewApp" class="container"> 
     <div class="pageHeader">
-        <div class='pageTitle pageTitleMobileOffset'>{{page.roleData.name || "page Casting"}}</div>
         <div class="custom-back" ng-click="main.backBtn()"></div>
         <div class="custom-page-action">
             <ul>           
-                <li class="custom-btn-secondary-small" ng-click = "page.editRoleBtn()">Edit</li>
+                <li class="custom-btn-secondary-small" ng-click = "page.editRoleBtn()">Edit</li>          
+                <li class="custom-btn-secondary-small" ng-click="page.deleteBtn()">Delete</li>
                 <li class="custom-btn-secondary-small" ng-click="page.shareBtn()">Share</li>
             </ul>
         </div>
-        <div class='pageSubtitle'>Application open until {{page.roleData.end_time| date:'h a'}} {{page.roleData.end_date | date:medium}} </div>
+        <div class='pageTitle pageTitleMobileOffset col-md-4 col-md-offset-4'>{{page.roleData.name || "page Casting"}}</div>
+        <div class="clear"></div>
+        <div class='pageSubtitle col-md-12'>Application open until {{page.roleData.end_time| date:'h a'}} {{page.roleData.end_date | date:medium}}</div>
         <div class="projectDetails col-md-12">
             <section class="col-md-4">
                 <p class="projectDetailsTitle">Description</p>
@@ -16,12 +18,34 @@
             </section>
             <section class="col-md-4">
                 <p class="projectDetailsTitle">Info</p>
-                <p>This is the info</p>
+                <div class="div-table">
+                    <div class="div-table-row">
+                        <div class="div-table-col">Location</div>
+                        <div class="div-table-col">{{page.roleData.location}}</div>
+                    </div>
+                    <div class="div-table-row">
+                        <div class="div-table-col">Time</div>
+                        <div class="div-table-col"> {{ page.roleData.end_date | date: "M/d/yyyy"}} @ {{page.roleData.end_time |  date:'h:mm a'}}</div>
+                    </div>
+                    <div class="div-table-row">
+                        <div class="div-table-col">Pay term</div>
+                        <div class="div-table-col">{{page.roleData.payterms}}</div>
+                    </div>
+                    <div class="div-table-row">
+                        <div class="div-table-col">Gender</div>
+                        <div class="div-table-col">{{page.roleData.sex}}</div>
+                    </div>
+                    <div class="div-table-row">
+                        <div class="div-table-col">Age</div>
+                        <div class="div-table-col">{{page.roleData.age}}</div>
+                    </div>
+                </div>
             </section>
             <section class="col-md-4">
                 <p class="projectDetailsTitle">Requirements</p>
-                <p><span ng-repeat="rq in page.roleData.requirements"> {{rq.name}} / </span></p>
-                
+                <ul>
+                    <span ng-repeat="rq in page.roleData.requirements"><li><p>{{rq.name}}</p></li></span>
+                </ul>
             </section>
         </div>
         <div class="clear"></div>  
