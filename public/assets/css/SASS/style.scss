@@ -1497,7 +1497,7 @@ text-align: center;
 }
 
 .reviewCarousel {
-    padding: 0 15px;
+    padding: 0 15px 30px 0;
     position: relative;
     .reviewCarouselImg{
         background-color: $color-grey-darkest;
@@ -1589,7 +1589,7 @@ text-align: center;
 }
 
 .reviewComment {
-    margin-top: -300px;
+    margin-top: -297px;
     padding-bottom: 100px;
     
     .makeComment {
@@ -1866,10 +1866,15 @@ text-align: center;
                 @include border-radius(100%);
             }
     }
-    .reviewHeader .custom-close-overlay {
-        background: url("/assets/imgs/ic_cross_overlay_w.svg") no-repeat center center;
-        z-index: 10;
-        top:3;
+    .reviewHeader {
+        .reviewHeaderContent {
+            padding-right: 70px;
+            padding-left: 70px;
+        }
+        .custom-close-overlay {
+            background: url("/assets/imgs/ic_cross_overlay_w.svg") no-repeat center center;
+            z-index: 10;
+            top:3;}
     }
     .reviewComment {
         margin-top: -40px;
@@ -1894,7 +1899,7 @@ text-align: center;
     
     .navbar-collapse {
         overflow-x: hidden;
-        padding-left: 0;
+        padding: 0;
     }
     
     .logoNav_signin {
