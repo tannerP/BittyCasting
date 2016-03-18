@@ -21,7 +21,7 @@ angular.module('userApp', [
 	'Nav',
 	'pdf'
 	])
-	.run(function ($rootScope, $location, $http) {
+  .run(function ($rootScope, $location, $http) {
     $http.get('/config').success(function(data) {
         $rootScope.awsConfig = data.awsConfig;
       });
