@@ -9,20 +9,20 @@
             <div class="utlBar">           
                 <div class="sort"></div>
                 <div class="gridListToggle">
-                    <div style="opacity: 1;" ng-click="home.setGridVw()"></div>
-                    <div ng-click="home.setListVw()"></div>   
+                    <div ng-style="home.gridStyle"  ng-click="home.setGridVw()"></div>
+                    <div ng-style="home.listStyle" ng-click="home.setListVw()"></div>   
                 </div>
             </div>    
     </div>
     <div class="cardContainer">
-        <ul class='projects' ng-if="home.gridView">
+        <ul class='projects' ng-show="home.gridView">
             <li class="col-lg-3 col-md-4 col-sm-6" ng-repeat-start="project in home.projects">
                     <div class="card">               
                         <a href="/project/{{project._id}}" class="md-headline">
                         <div class="cardInfoBg"></div>
                         <div class="cardScrim"></div> 
                             <div class="cardInfo">
-                                <a href="/project/{{project._id}}" class="md-headline"><div class="cardTitle">{{project.name}}</div></a>
+                                <a href="/project/{{project._id}}" class="md-headline"><div class="cardTitle">{{project.name | limitTo:36 }}</div></a>
                                 <div class="cardSubTitle">Number of roles</div>
                                 <div class='actionBar'>
                                     <ul>
@@ -41,7 +41,7 @@
     </div>
 
     <div class="custom-table table-responsive">
-        <table class = "table table-hover table-project-overview" ng-if="home.listView">
+        <table class = "table table-hover table-project-overview" ng-show="home.listView">
           <thead>
               <tr>
                   <th>Name</th>

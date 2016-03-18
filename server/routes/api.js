@@ -9,6 +9,7 @@ var jwt = require('jsonwebtoken');
 var config = require('../../config');
 
 
+
 var superSecret = config.secret;
 
 module.exports = function(app,express){
@@ -93,6 +94,7 @@ apiRouter.route('/applicant/comments/:appID')
 			Applicant.remove({
 			_id:req.params.appID,
 				}, function(err,app){
+
 					if(err) {return res.send(err);}
 					res.json({success:true,
 						 message: 'Successfully deleted applicant'});

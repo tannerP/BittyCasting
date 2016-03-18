@@ -10,23 +10,23 @@
                 <div class='pageSubtitle'>{{page.roleData.name}}</div>
                 <p>{{page.roleData.description}}</p>
                 <div class="div-table">
-                    <div class="div-table-row">
+                    <div ng-if="page.roleData.location" class="div-table-row">
                         <div class="div-table-col">Location</div>
                         <div class="div-table-col">{{page.roleData.location}}</div>
                     </div>
-                    <div class="div-table-row">
+                    <div ng-if="page.roleData.end_time" class="div-table-row">
                         <div class="div-table-col">Time</div>
                         <div class="div-table-col">{{page.roleData.end_time |  date:'h:mm a'}}, {{ page.roleData.end_date | date: "M/d/yyyy"}}</div>
                     </div>
-                    <div class="div-table-row">
+                    <div ng-if="page.roleData.payterms" class="div-table-row">
                         <div class="div-table-col">Pay term</div>
                         <div class="div-table-col">{{page.roleData.payterms}}</div>
                     </div>
-                    <div class="div-table-row">
+                    <div ng-if="page.roleData.sex" class="div-table-row">
                         <div class="div-table-col">Gender</div>
                         <div class="div-table-col">{{page.roleData.sex}}</div>
                     </div>
-                    <div class="div-table-row">
+                    <div ng-if="page.roleData.age" class="div-table-row">
                         <div class="div-table-col">Age</div>
                         <div class="div-table-col">{{page.roleData.age}}</div>
                     </div>
@@ -63,14 +63,14 @@
                                 <input type = "tel" class = "custom-form" ng-model="page.appData.phone">
                             </div>                      
 
-                            <!-- <div class = "form-group" ng-repeat="rq in page.roleData.requirements track by $index">
+                            <div class = "form-group" ng-repeat="rq in page.roleData.requirements track by $index">
                             
                                 <label ng-if="rq.file_type == 'link'; page.links[$index]">{{rq.name}}<span ng-if="rq.required">*</span></label>
                             
-                                <input ng-if="rq.file_type == 'link' && rq.required  " type = "text" class = "custom-form" ng-model="page.links[$index]" placeholder="{{rq.name}} link" required>
+                                <input ng-if="rq.file_type == 'link' " type = "text" class = "custom-form" ng-model="page.files[$index]" placeholder="{{rq.name}} link" required>
                             
-                                <input ng-if="rq.file_type == 'link' && !rq.required" type = "text" class = "custom-form" ng-model="page.links[$index]" placeholder="{{rq.name}} link">
-                            </div> -->
+                                
+                            </div>
 
                                   
                             <div class = "form-group" ng-repeat="rq in page.roleData.requirements track by $index">

@@ -1,4 +1,4 @@
-<div ng-show="!viewApp" class="container"> 
+<div ng-if="!viewApp" class="container"> 
     <div class="pageHeader">
         <div class="custom-back" ng-click="main.backBtn()" style="z-index: 4;"></div>
         <div class="custom-page-action" style="z-index: 4;">
@@ -21,23 +21,23 @@
                 <div class="div-table">
                     <div class="div-table-row">
                         <div class="div-table-col">Location</div>
-                        <div class="div-table-col">{{roleData.location}}</div>
+                        <div class="div-table-col">{{roleData.location || "No Info"}}</div>
                     </div>
                     <div class="div-table-row">
                         <div class="div-table-col">Time</div>
-                        <div class="div-table-col">{{roleData.end_time |  date:'h:mm a'}}, {{ roleData.end_date | date: "M/d/yyyy"}} </div>
+                        <div class="div-table-col">{{roleData.end_time |  date:'h:mm a'}}, {{ roleData.end_date | date: "M/d/yyyy" || "No end time"}} </div>
                     </div>
-                    <div class="div-table-row">
+                    <div ng-if="roleData.payterms" class="div-table-row">
                         <div class="div-table-col">Pay term</div>
                         <div class="div-table-col">{{roleData.payterms}}</div>
                     </div>
                     <div class="div-table-row">
                         <div class="div-table-col">Gender</div>
-                        <div class="div-table-col">{{roleData.sex}}</div>
+                        <div class="div-table-col">{{roleData.sex || "No Info"}}</div>
                     </div>
                     <div class="div-table-row">
                         <div class="div-table-col">Age</div>
-                        <div class="div-table-col">{{roleData.age}}</div>
+                        <div class="div-table-col">{{roleData.age || "No Info"}}</div>
                     </div>
                 </div>
             </section>
@@ -71,8 +71,8 @@
                   {{ app.email }}
                   </td>
                   </div>
-                  <td>
-                      {{ app.phone }}
+                  <td ng-click="page.viewBtn($index)" >
+                      {{ app.phone || "No contact"}}
                       <div class="table-utl">
                           <ul>
                               <li class="trashcan" ng-click='page.deleteAsideBtn(app)'></li>
@@ -89,7 +89,7 @@
 
 <div ng-if="viewApp"> 
   <div review></div>
-  <div class="reviewBar" ng-if="viewApp" style=" z-index:4;"> 
+  <div class="reviewBar" ng-show="viewApp" style=" z-index:4;"> 
     <div class="previous" ng-click="page.lastApp()">Previous</div>
     <div class="next" ng-click="page.nextApp()">Next</div>
   </div>

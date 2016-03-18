@@ -34,6 +34,7 @@ controller('mainController',['$scope','$rootScope','Auth',
 
 			if($location.path() === '/' ||
 				$location.path() === '/login' ||
+				$location.path() === '/Thankyou' ||
 				$location.path() === '/signup'){
 				vm.publicVw = true;
 				vm.footer = true;

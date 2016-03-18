@@ -4,7 +4,15 @@ var AWS = require('aws-sdk'),
     crypto = require('crypto'),
     config = require('../aws.json'),
     createS3Policy,
-    getExpiryTime;
+    getExpiryTime,
+    s3DeleteObject,
+    s3 = new AWS.S3();
+
+
+s3.listBuckets(function(err, data) {
+  if (err) console.log(err, err.stack); // an error occurred
+  else     console.log(data);           // successful response
+});
 
 
 getExpiryTime = function () {
@@ -12,6 +20,18 @@ getExpiryTime = function () {
     return '' + (_date.getFullYear()) + '-' + (_date.getMonth() + 1) + '-' +
         (_date.getDate() + 1) + 'T' + (_date.getHours() + 3) + ':' + '00:00.000Z';
 };
+
+s3DeleteObject = function (object){
+    var params = {
+    Bucket: config.bucket, /* required */
+    Key: object /* required */
+    };
+    s3.deleteObject(params, function(err, data) {
+      if (err) console.log(err, err.stack); // an error occurred
+      else     console.log(data);           // successful response
+        });
+    return;
+}
 
 createS3Policy = function(contentType, callback) {
     var date = new Date();
@@ -44,6 +64,18 @@ createS3Policy = function(contentType, callback) {
     // send it back
     callback(s3Credentials);
 };
+
+ exports.s3DeleteObject = function(object){
+        var params = {
+         Bucket: config.bucket, /* required */
+         Key: object /* required */
+    };
+    s3.deleteObject(params, function(err, data) {
+      if (err) console.log(err, err.stack); // an error occurred
+      else     console.log(data);           // successful response
+    });
+
+    }
 
 exports.getS3Policy = function(req, res) {
     createS3Policy(req.query.mimeType, function (creds, err) {

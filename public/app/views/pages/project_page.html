@@ -47,7 +47,7 @@
                 <tr class="animate-repeat" ng-repeat = "role in projectCtr.Roles">
                     <td ng-click='projectCtr.getRoleBtn(role._id)'>{{ role.name }}</td>
                     <td ng-click='projectCtr.getRoleBtn(role._id)'>
-                    {{role.num_applicants}}</td>
+                    {{role.num_applicants || "0"}} </td>
                     <td ng-click='projectCtr.getRoleBtn(role._id)'>{{ role.description }}</td>
                     <td class="tableHover"><span class="tblDate">{{role.end_time | date:'h a'}}, {{role.end_date | date:mediumDate}}</span>
                         

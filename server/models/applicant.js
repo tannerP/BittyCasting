@@ -31,4 +31,5 @@ var ApplicantSchema = new Schema({
 	}]
 });
 
+
 module.exports = mongoose.model('Applicant',ApplicantSchema);

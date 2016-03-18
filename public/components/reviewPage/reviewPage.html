@@ -60,22 +60,29 @@
                     <td>{{currApp.phone}}</td>
                 </tr>
                 
+                  <tr>
+                    <td ng-if="documents">links: </td>
+                    <td ng-repeat="link in links">
+                        <a target="_blank" ng-href="{{link.source}}" download={{link.name}}>{{doc.name}} / </a>
+                    </td>
+                </tr>
+
                 <tr>
-                    <td>Document: </td>
-                    <td ng-repeat="row1 in currApp.suppliments">
-                        <a ng-if="row1.file_type=='document'" target="_blank" ng-href="{{row1.source}}" download={{row1.name}}>{{row.name}}</a>
+                    <td ng-if="documents">Document: </td>
+                    <td ng-repeat="doc in documents">
+                        <a target="_blank" ng-href="{{doc.source}}" download={{doc.name}}>{{doc.name}} / </a>
                     </td>
                 </tr>
                 <tr>
-                    <td>Image: </td>
-                    <td ng-repeat="row in currApp.suppliments">
-                        <a ng-if="row.file_type=='image'" target="_blank" ng-href="{{row.source}}" download={{row.name}}>{{row.name}}</a>
+                    <td ng-if="images">Image: </td>
+                     <td ng-repeat="image in images">
+                        <a target="_blank" ng-href="{{image.source}}" download={{image.name}}>{{image.name}} / </a>
                     </td>
                 </tr>
                 <tr>
-                    <td>Video</td>
-                    <td ng-repeat="row in currApp.suppliments">
-                        <a ng-if="row.file_type=='video'" target="_blank" ng-href="{{row.source}}" download="{{row.name}}">{{row.name}}</a>
+                    <td ng-if="video">Video</td>
+                    <td >
+                        <a ng-repeat="video in video" target="_blank" ng-href="{{video.source}}" download="{{video.name}}">{{video.name}} / </a>
                     </td>
                 </tr>
                 

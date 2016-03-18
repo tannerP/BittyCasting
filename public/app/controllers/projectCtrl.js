@@ -50,10 +50,26 @@ controller('ApplicantPageController',
         });
     };
     $scope.carouselIndex = 0;
-    function addSlides(target, sourceArr) {;
+    function addSlides(target, sourceArr) {
+    	$scope.video = [], $scope.images = [],
+    	$scope.document = [],$scope.links = [];
       for (var i=0; i < sourceArr.length; i++) {
       	var fType = sourceArr[i].file_type;
-      	if(fType=="image" || fType=="video"){
+      	if(fType=="video"){
+          $scope.video.push(sourceArr[i]);
+          addSlide(target, sourceArr[i]); //carousel 
+      	}
+      	else if(fType=="image"){
+          $scope.images.push(sourceArr[i]);
+          addSlide(target, sourceArr[i]);	//carousel
+      	}
+      	else if(fType=="document"){
+          $scope.documents.push(sourceArr[i]);
+          addSlide(target, sourceArr[i]);
+
+      	}
+      	else if(fType=="link"){
+      		$scope.links.push(sourceArr[i]);
           addSlide(target, sourceArr[i]);
       	}
       }
@@ -474,8 +490,6 @@ controller('addRoleController',
 			}
 
 		}
-
-
 	vm.createRoleBtn = function(){
 		console.log("project ID :" + $routeParams.project_id);
 		vm.projectID = $routeParams.project_id;
@@ -499,14 +513,21 @@ controller('addRoleController',
 	 function(Project, $location, $aside,$scope)	{
 		var vm = this;
 				vm.gridView = true;
-				vm.getProject = function(prjID){
+
+		vm.getProject = function(prjID){
 					$location.path('/projectDetails/'+prjID);
 				}
 		vm.setGridVw = function(){
+				vm.listStyle = {'opacity':0.2};
+				vm.gridStyle = {'opacity':1};
 				vm.listView = false;
 				vm.gridView = true;
 			}
+		vm.setGridVw();
+
 		vm.setListVw = function(){
+			vm.listStyle = {'opacity':1};
+			vm.gridStyle = {'opacity':0.2};
 				vm.gridView = false;
 				vm.listView = true;
 			}	

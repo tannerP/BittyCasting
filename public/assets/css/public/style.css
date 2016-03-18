@@ -7,25 +7,28 @@
   opacity:.6;
 }
  */
-.ng-enter, .ng-leave, .ng-move {
+.ng-enter,
+.ng-leave,
+.ng-move {
   -webkit-transition: 0.3s ease-in-out all;
   -moz-transition: 0.3s ease-in-out all;
   -o-transition: 0.3s ease-in-out all;
-  transition: 0.3s ease-in-out all; }
+  transition: 0.2s ease-in-out all; }
 
 .ng-enter, .ng-move {
-  opacity: .1;
+  opacity: .5;
   overflow: hidden; }
 
-.ng-move.ng-move-active, .ng-enter.ng-enter-active {
+.ng-move.ng-move-active,
+.ng-enter.ng-enter-active {
   opacity: 1; }
 
 .ng-leave {
-  opacity: 1;
+  opacity: .5;
   overflow: hidden; }
 
 .ng-leave.ng-leave-active {
-  opacity: 0;
+  opacity: .5;
   height: 0;
   padding-top: 0;
   padding-bottom: 0; }
