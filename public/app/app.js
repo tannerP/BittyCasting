@@ -19,17 +19,9 @@ angular.module('userApp', [
 	'footer',
 	'ReviewPage',
 	'Nav',
-	'pdf',
-	'stormpath',
-	'stormpath.templates'
+	'pdf'
 	])
-	.run(function($stormpath) {
-	  $stormpath.uiRouter({
-	    loginState: 'main.loggedIn',
-	    defaultPostLoginState: 'main.loggedIn'
-	  });
-	})
-	.run(function ($rootScope, $location, $http) {
+  .run(function ($rootScope, $location, $http) {
     $http.get('/config').success(function(data) {
         $rootScope.awsConfig = data.awsConfig;
       });

@@ -147,6 +147,16 @@ $font-size-small: 10px;
         }  
 }
 
+.custom-btn-play {
+    width: 200px;
+    height: 60px;
+    @include border-radius(30px);
+    background: url("/assets/imgs/ic_play.svg") no-repeat top 20px left 30px $color-blue;
+    background-size: 20px 20px;
+    padding-left: 48px;
+}
+
+
 .custom-btn-secondary-large {  
         width: 100%;
         border: 0;
@@ -273,6 +283,56 @@ a {
             background-size: 12px 12px;
         }
     }
+}
+
+/* Fullscreen Overlay */
+.overlay {
+  width: 100%;
+  height: 100vh;
+  /* 50% opacity black */
+  background: rgba(0,0,0,.5);
+  /* Stays locked on scroll */
+  position: fixed;
+  /* On top of the rest*/
+  z-index: 2;
+  /* Hidden */
+  opacity: 0;
+  /* No interference */
+  left: -100%;
+  /* CSS3 Transition */
+  transition: opacity .5s;
+  -webkit-transition: opacity .5s;
+}
+
+/* 90% width container */
+.video-container {
+  width: 90%;
+  /* Centering */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+}
+
+.close {
+  width: 20px;
+  fill: white;
+  position: absolute;
+  right: 0;
+  /* Bring above video */
+  top: -30px;
+}
+
+.close:hover {
+  /* 50% opacity white */
+  fill: rgba(255,255,255,0.5);
+  cursor: pointer;
+}
+
+/* Class to fade in overlay */
+.show {
+  opacity: 1;
 }
 
 /***************************
