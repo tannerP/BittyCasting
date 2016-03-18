@@ -1,3 +1,35 @@
+/* 
+.ng-leave{
+    -webkit-transition:0.1s  ease-in all;
+  -moz-transition:0.1s  ease-in all;
+  -o-transition:0.1s lin ease-in all;
+  transition:0.1s  ease-in all;
+  opacity:.6;
+}
+ */
+.ng-enter, .ng-leave, .ng-move {
+  -webkit-transition: 0.3s ease-in-out all;
+  -moz-transition: 0.3s ease-in-out all;
+  -o-transition: 0.3s ease-in-out all;
+  transition: 0.3s ease-in-out all; }
+
+.ng-enter, .ng-move {
+  opacity: .1;
+  overflow: hidden; }
+
+.ng-move.ng-move-active, .ng-enter.ng-enter-active {
+  opacity: 1; }
+
+.ng-leave {
+  opacity: 1;
+  overflow: hidden; }
+
+.ng-leave.ng-leave-active {
+  opacity: 0;
+  height: 0;
+  padding-top: 0;
+  padding-bottom: 0; }
+
 /***************************
           Colors
 ***************************/

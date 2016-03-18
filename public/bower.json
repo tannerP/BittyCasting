@@ -26,7 +26,8 @@
     "videogular-angulartics": "^1.4.2",
     "videogular-poster": "^1.4.2",
     "angular-pdf": "^1.3.0",
-    "angular-downloader": "^0.1.1"
+    "angular-downloader": "^0.1.1",
+    "stormpath-sdk-angularjs": "^1.0.0"
   },
   "devDependencies": {
     "angular-mocks": "^1.4.0"

@@ -2,7 +2,7 @@
         <div class="asideTitle">Delete Role</div>
         <section>
             <div class="asideSubtitle">Name</div>
-            <p>{{prjDetailCtr.roleData.name}}</p>
+            <p>{{roleData.name}}</p>
         </section>
 <!--
         <section>
@@ -20,5 +20,5 @@
             </div>
         </section>
         <button type="button" class="custom-btn-primary-large custom-btn-cancel" ng-click="$hide()">Cancel</button>
-        <button type="submit" class = "custom-btn-primary-large custom-btn-delete" ng-if="!roleAside.edit" ng-click="aside.delete(prjDetailCtr.roleData._id)">Delete</button>
+        <button type="submit" class = "custom-btn-primary-large custom-btn-delete" ng-if="!roleAside.edit" ng-click="aside.delete(roleData._id)">Delete</button>
 </div>

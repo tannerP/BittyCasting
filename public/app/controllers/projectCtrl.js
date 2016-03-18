@@ -62,7 +62,7 @@ controller('ApplicantPageController',
 		Role.get($routeParams.role_id)
 		.success(function(data){
 			vm.processing = false;
-			vm.roleData = data.data;
+			$scope.roleData = data.data;
 		})
 		.error(function(error){
 			console.log(error);
@@ -87,7 +87,7 @@ controller('ApplicantPageController',
 										 	controller:'editRoleController',
 										 	controllerAs:'roleAside',						
 										  templateUrl:'/app/views/pages/role_form.tmpl.html'		
-										})
+										}),
 		shareRoleAside = $aside({
 											scope:$scope,
 											show: false,
@@ -95,7 +95,15 @@ controller('ApplicantPageController',
 											controller:'shareRoleController',
 										 	controllerAs:'roleAside', 
 										  templateUrl:'/app/views/pages/role_share.tmpl.html'		
-										});
+										}),
+			deleteRoleAside = $aside({
+											scope:$scope,
+											keyboard:true, 
+											show: false,
+											controller:'deleteRoleController',
+											controllerAs:'aside',
+										  templateUrl:'/app/views/pages/role_delete.tmpl.html'		
+										}),
 		deleteAppAside = $aside({
 											scope:$scope,
 											keyboard:true, 
@@ -105,6 +113,10 @@ controller('ApplicantPageController',
 		vm.deleteAsideBtn = function(app){
 			$scope.currApp = app
 			deleteAppAside.$promise.then(deleteAppAside.toggle);	
+		}
+		vm.deleteRoleBtn = function(){
+			/*$scope.roleData = data;*/
+			deleteRoleAside.$promise.then(deleteRoleAside.toggle);	
 		}
 		vm.backBtn = function(){
 			$scope.viewApp = false;
@@ -123,7 +135,6 @@ controller('ApplicantPageController',
 		}
 		vm.shareBtn = function(){
 			console.log('button pressed');
-			$scope.roleData = vm.roleData;
 			shareRoleAside.$promise.then(shareRoleAside.toggle);	
 		}
 		vm.editRoleBtn = function(){
@@ -194,8 +205,16 @@ controller('ProjectPageController',
 											controllerAs:'aside',
 										  templateUrl:'/app/views/pages/role_delete.tmpl.html'		
 										});
+		deletePrjAside = $aside({
+  										scope:$scope,
+											show: false, 
+											keyboard:true,
+										 	controller:'deleteProjectController',
+										 	controllerAs:'projectAside',
+										 	templateUrl:'/app/views/pages/deleteProject.tmpl.html'		
+										  });
 		vm.deleteBtn = function(data){
-			vm.roleData = data;
+			$scope.roleData = data;
 			deleteRoleAside.$promise.then(deleteRoleAside.toggle);	
 		}
 		vm.shareBtn = function(data){
@@ -212,8 +231,17 @@ controller('ProjectPageController',
 			vm.roleData = {};
 			editPrjAside.$promise.then(editPrjAside.toggle);	
 		}
+		vm.deletePrjBtn = function(data){
+			/*$scope.deletePrjAside.toggle()*/
+			$scope.projectData = data;
+			deletePrjAside.$promise.then(deletePrjAside.toggle);	
+			/*deletePrjAside.toggle();*/
+		}
 		vm.getRoleBtn = function(id){
-			$location.path("/applicants/" + id)		}
+			
+			/*$scope.roleData = role;*/
+			$location.path("/applicants/" + id)		
+		}
 
 		//remove, get data from parent scope
 		Project.get($routeParams.project_id)
@@ -284,7 +312,6 @@ controller('deleteRoleController',['$scope',
  'Role','$location','$routeParams','$route','$alert',
 	function($scope,Role, $location, $routeParams, $route, $alert){
 		var vm = this;
-		vm.roleData = {};
 		vm.input1 = false, vm.input2 = false;
 		var errAlert = $alert({title: 'Whoops', content:'Please check all',
 					 animation:'am-fade-and-slide-top',duration:'5',
@@ -296,6 +323,8 @@ controller('deleteRoleController',['$scope',
 						vm.roleData = {};
 						$route.reload();
 						$scope.$hide()
+						//check if at project page, if not direct to project page. 
+						
 					})
 					.error(function(err){
 						console.log(err.message);
@@ -465,7 +494,7 @@ controller('addRoleController',
 				console.log(err.message);
 			})
 }}).
-//home.html
+//.html
 	controller('HomePageController',
 	 function(Project, $location, $aside,$scope)	{
 		var vm = this;
@@ -496,7 +525,7 @@ controller('addRoleController',
 										 	controller:'deleteProjectController',
 										 	controllerAs:'projectAside',
 										 	templateUrl:'/app/views/pages/deleteProject.tmpl.html'		
-										  })
+										  });
 		vm.processing = true;
 		vm.projects;
 		
@@ -506,7 +535,7 @@ controller('addRoleController',
 			/*console.log(vm.projectData);*/
 		}
 		vm.deleteBtn = function(data){
-			vm.projectData = data;
+			$scope.projectData = data;
 			deletePrjAside.$promise.then(deletePrjAside.toggle);	
 			/*deletePrjAside.toggle();*/
 		}

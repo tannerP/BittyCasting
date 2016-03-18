@@ -42,7 +42,7 @@ angular.module('app.routes', ['ngRoute'])
         .when('/project/:project_id',  {
             templateUrl: 'app/views/pages/project_page.html',
             controller: 'ProjectPageController',
-            controllerAs: 'prjDetailCtr'
+            controllerAs: 'projectCtr'
         })
     //role    
         .when('/applicants/:role_id',  {
