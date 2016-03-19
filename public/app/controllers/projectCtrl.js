@@ -51,7 +51,7 @@ controller('ApplicantPageController',
     $scope.carouselIndex = 0;
     function addSlides(target, sourceArr) {
     	$scope.video = [], $scope.images = [],
-    	$scope.document = [],$scope.links = [];
+    	$scope.documents = [],$scope.links = [];
       for (var i=0; i < sourceArr.length; i++) {
       	var fType = sourceArr[i].file_type;
       	if(fType=="video"){
