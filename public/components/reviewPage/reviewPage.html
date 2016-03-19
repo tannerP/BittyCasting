@@ -70,19 +70,25 @@
                 <tr>
                     <td ng-if="documents">Document: </td>
                     <td ng-repeat="doc in documents">
-                        <a target="_blank" ng-href="{{doc.source}}" download={{doc.name}}>{{doc.name}} / </a>
+                        <ul>
+                            <li><a target="_blank" ng-href="{{doc.source}}" download={{doc.name}}>{{doc.name}}</a></li>
+                        </ul>
                     </td>
                 </tr>
                 <tr>
                     <td ng-if="images">Image: </td>
                      <td ng-repeat="image in images">
-                        <a target="_blank" ng-href="{{image.source}}" download={{image.name}}>{{image.name}} / </a>
+                         <ul>
+                            <li><a target="_blank" ng-href="{{image.source}}" download={{image.name}}>{{image.name}}</a></li>
+                        </ul>
                     </td>
                 </tr>
                 <tr>
                     <td ng-if="video">Video</td>
                     <td >
-                        <a ng-repeat="video in video" target="_blank" ng-href="{{video.source}}" download="{{video.name}}">{{video.name}} / </a>
+                        <ul>
+                        <li><a ng-repeat="video in video" target="_blank" ng-href="{{video.source}}" download="{{video.name}}">{{video.name}}</a></li>
+                        </ul>
                     </td>
                 </tr>
                 
