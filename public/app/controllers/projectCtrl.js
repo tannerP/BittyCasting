@@ -11,7 +11,6 @@ controller('CommentBoxCtrl',
 				delete $scope.currApp.comments[index];
 		}
 		vm.addCmt = function(appID,owner,comment){
-			console.log(owner);
 			var cmt = {owner:owner,
 								comment:comment}
 					$scope.currApp.comments.push(cmt);
@@ -138,26 +137,23 @@ controller('ApplicantPageController',
 			$scope.viewApp = false;
 			$scope.$emit("unhideNav");
 		}
-		vm.deleteAppBtn = function(){
-			console.log("button press");
+		$scope.deleteAppBtn = function(){
 			Applicant.delete($scope.currApp._id)
 			.success(function(){
 						getApps();
 						deleteAppAside.hide();
 					})
 					.error(function(err){
-						console.log(err.message);
+						console.log(err);
 					})
 		}
 		vm.shareBtn = function(){
-			console.log('button pressed');
 			shareRoleAside.$promise.then(shareRoleAside.toggle);	
 		}
 		vm.editRoleBtn = function(){
 			editRoleAside.$promise.then(editRoleAside.toggle);	
 		}
 		vm.viewBtn = function(index){
-			console.log(index);
 			$scope.slides = [];
 			$scope.$emit("hideNav");
 			$scope.currIndex = index;
@@ -176,11 +172,6 @@ controller('ApplicantPageController',
 					$scope.currIndex -= 1;
 					vm.viewBtn($scope.currIndex)
 				}
-		}
-		$scope.download  = function(fsource){
-			/*window.location.assign(fsource);*/
-			window.open(fsource,"_blank")
-			console.log("button Press");
 		}
 }).
 controller('ProjectPageController', 
@@ -240,7 +231,6 @@ controller('ProjectPageController',
 		}
 		vm.createBtn = function(){
 			vm.roleData = {};
-			console.log('createRoleBtn');
 			newRoleAside.$promise.then(newRoleAside.toggle);	
 		}
 		vm.editPrjBtn = function(){
@@ -298,8 +288,8 @@ controller('ProjectPageController',
         var url_base = "bittycasting.com/Apply/";
         var url_base_dev = "localhost:8080/Apply/" +$scope.roleData._id; 
         var url_base_beta = "beta.bittycasting.com/Apply/" +$scope.roleData._id; 
-        $scope.textToCopy = url_base_beta;
         
+        $scope.textToCopy = url_base_dev;
         var previewLink = "/Apply/" +$scope.roleData._id; 
         $scope.toggle = false;
          var successAlert = $alert({title: 'Copied!',
@@ -404,8 +394,6 @@ controller('editRoleController',
 	};
 
 	vm.addReqt = function(data){
-		console.log("data:" + JSON.stringify(data));
-		console.log(vm.roleData.requirements.length)
 		if(!data){
 			console.log("error: input variable");
 			return;
@@ -468,7 +456,6 @@ controller('addRoleController',
 	};
 
 	vm.addReqt = function(data){
-		console.log("data:" + JSON.stringify(data));
 		if(!data){
 			console.log("error: input variable");
 			return;
@@ -478,8 +465,6 @@ controller('addRoleController',
 		vm.newData.name = "New Requirement",vm.newData.required = true,vm.newData.file_type = "Type";
 	}
 	vm.removeReqt = function(index){
-		console.log(index);
-		console.log(vm.roleData.requirements[index])
 			if(vm.roleData.requirements.length > 1)
 			{
 					if(index === 0) vm.roleData.requirements.shift();
@@ -491,7 +476,6 @@ controller('addRoleController',
 
 		}
 	vm.createRoleBtn = function(){
-		console.log("project ID :" + $routeParams.project_id);
 		vm.projectID = $routeParams.project_id;
 		vm.roleData.end_date = $scope.selectedDate.toJSON();
 		vm.roleData.end_time = $scope.selectedTime.toJSON();
@@ -586,8 +570,6 @@ controller('addRoleController',
 			vm.message;
 			Project.create(vm.projectData)
 				.success(function(data)	{
-					console.log(data);
-					console.log(vm.projectData);
 					$route.reload();
 					vm.processing = false;
 					vm.message = data.message;
@@ -650,7 +632,6 @@ controller('deleteProjectController', ['$scope','$alert','Project','$location','
          placement: 'top-right', type: 'danger', show: false, type:'success'});
 
 	vm.eval = function(){
-		console.log("eval");
 		if( vm.input1 == true ){
 		vm.agreed = true;
 		}

@@ -13,10 +13,11 @@ angular.module('applyCtrl',['userService', 'mgcrea.ngStrap']).
         vm.numFileDone = 0;
         vm.roleData={};
         vm.appData ={};
+        vm.appData.links=[];
         vm.files=[];
         $scope.submitted = false;
         /*TODO: condense when combine project and role schema*/
-            Pub.getAppRole($routeParams.id).then(function(data){
+        Pub.getAppRole($routeParams.id).then(function(data){
             vm.roleData = data.data.Application;
             if(vm.roleData){
             Pub.getAppPrj(vm.roleData.projectID).then(function(data){
@@ -24,14 +25,22 @@ angular.module('applyCtrl',['userService', 'mgcrea.ngStrap']).
                 vm.appData.projectID = data.data.project._id;
                 vm.appData.roleID = vm.roleData._id;
             })}
+            for(var i in vm.roleData.requirements){
+                if(vm.roleData.requirements[i].file_type == "link")
+                {
+                    vm.appData.links.push(vm.roleData.requirements[i]);
+                }
+            }
+
         });
+
+        //sort out links vs docs/video/images
+
 
         vm.submit = function() {
             vm.busy = true;
             vm.currfile;
             vm.busy = true;
-            console.log(vm.files)
-            console.log("button pressed")
             /*setTimeout(function(){ vm.busy = false;alert("Hello"); }, 3000);*/
             
             Applicant.apply(vm.appData).then(function(resp){

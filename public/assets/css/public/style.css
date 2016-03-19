@@ -336,18 +336,11 @@ header {
   -moz-transition: all 0.2s ease;
   -ms-transition: all 0.2s ease;
   -o-transition: all 0.2s ease;
-  transition: all 0.2s ease; }
-  .navbar-toggle:hover, .navbar-toggle:focus {
-    -ms-transform: rotate(-90deg);
-    /* IE 9 */
-    -webkit-transform: rotate(-90deg);
-    /* Safari */
-    transform: rotate(-90deg);
-    -webkit-transition: all 0.2s ease;
-    -moz-transition: all 0.2s ease;
-    -ms-transition: all 0.2s ease;
-    -o-transition: all 0.2s ease;
-    transition: all 0.2s ease; }
+  transition: all 0.2s ease;
+  /* &:hover, &:focus {
+      @include rotate(-90deg);
+      @include transition(all, 0.2s, ease); 
+  }*/ }
 
 .logoNav {
   fill: #242424;

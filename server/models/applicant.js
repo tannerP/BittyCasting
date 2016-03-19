@@ -24,9 +24,11 @@ var ApplicantSchema = new Schema({
 		owner:String,
 		comment:String
 	}],
+	links:[{}],
 	suppliments:[{
 		source:String,
 		name:String,
+		key:String,
 		file_type:String,
 	}]
 });

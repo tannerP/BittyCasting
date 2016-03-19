@@ -390,10 +390,10 @@ nav {
     background: url("/assets/imgs/ic_list.svg") no-repeat center center;
     background-size: 20px 20px;
     @include transition(all, 0.2s, ease);
-    &:hover, &:focus {
+    /* &:hover, &:focus {
         @include rotate(-90deg);
-        @include transition(all, 0.2s, ease);
-    }
+        @include transition(all, 0.2s, ease); 
+    }*/
 }
 
 .logoNav {

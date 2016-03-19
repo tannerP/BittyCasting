@@ -61,9 +61,9 @@
                 </tr>
                 
                   <tr>
-                    <td ng-if="documents">links: </td>
-                    <td ng-repeat="link in links">
-                        <a target="_blank" ng-href="{{link.source}}" download={{link.name}}>{{doc.name}} / </a>
+                    <td ng-if="currApp.links.length > 0">links: </td>
+                    <td ng-repeat="link in currApp.links">
+                        <a target="_blank" ng-href="{{link.source}}">{{link.name}} / </a>
                     </td>
                 </tr>
 

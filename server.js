@@ -102,6 +102,11 @@ app.get('/config', function(req,res){
         if(req.body.phone){
         applicant.phone = req.body.phone;
         }
+        if(req.body.links){
+        applicant.links = req.body.links;
+        }
+
+        console.log(applicant);
         
         applicant.save(function(err){
           if(err){
@@ -129,6 +134,7 @@ app.get('/config', function(req,res){
         .push({
             source:req.body.location,
             name: req.body.name,
+            key: req.body.key,
             file_type: req.body.file_type
           });  
         app.save(function(err){

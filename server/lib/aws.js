@@ -65,17 +65,28 @@ createS3Policy = function(contentType, callback) {
     callback(s3Credentials);
 };
 
- exports.s3DeleteObject = function(object){
-        var params = {
-         Bucket: config.bucket, /* required */
-         Key: object /* required */
-    };
-    s3.deleteObject(params, function(err, data) {
-      if (err) console.log(err, err.stack); // an error occurred
-      else     console.log(data);           // successful response
-    });
-
+ exports.removeSup = function(sup){
+    var objects =[];
+    for(var i in sup)
+    {   console.log(i);
+         objects.push({
+            Key:sup[i].key
+         })
     }
+
+    var params = {
+      Bucket: config.bucket, /* required */
+      Delete: { /* required */
+        Objects: objects,
+        Quiet: false
+      }
+    };
+    if(objects.length == sup.length)
+        s3.deleteObjects(params, function(err, data) {
+          if (err) console.log(err, err.stack); // an error occurred
+          else     console.log(data);           // successful response
+        });
+}
 
 exports.getS3Policy = function(req, res) {
     createS3Policy(req.query.mimeType, function (creds, err) {

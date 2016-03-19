@@ -7,10 +7,8 @@ var Role = require('../models/role');
 var Project = require('../models/project');
 var jwt = require('jsonwebtoken');
 var config = require('../../config');
+var aws = require("../lib/aws.js")
 
-
-
-var superSecret = config.secret;
 
 module.exports = function(app,express){
 var apiRouter = express.Router();
@@ -20,7 +18,7 @@ apiRouter.all('*',function(req,res,next){
 	var token = req.body.token || req.param('token') ||req.headers['x-access-token'];
 
 	if(token){
-		jwt.verify(token,superSecret,function(err,decoded){
+		jwt.verify(token,config.secret,function(err,decoded){
 			if(err){
 				return res.status(403).send({
 					success: false,
@@ -91,15 +89,24 @@ apiRouter.route('/applicant/comments/:appID')
 //==============================  Applicant =========================
 	apiRouter.route('/applicant/:appID')
 		.delete(function(req, res){
-			Applicant.remove({
+			Applicant.findOne({
 			_id:req.params.appID,
 				}, function(err,app){
-
 					if(err) {return res.send(err);}
-					res.json({success:true,
-						 message: 'Successfully deleted applicant'});
+					console.log(app)
+					if(app){
+						aws.removeSup(app.suppliments);
+							Applicant.remove({
+								_id:req.params.appID,
+									}, function(err,app){
+										if(err) {return res.send(err);}
+										console.log(app)
+										res.json({success:true,
+											 message: 'Successfully deleted applicant'});
+									})
+								}
+					})
 				})
-			})
 //===============================  Roles ============================
 apiRouter.route('/roles/:projectID')
 	.get(function(req, res) {
@@ -290,7 +297,7 @@ apiRouter.route('/users/:user_id')
 						var token = jwt.sign({
 							name: self.name,
 							username: self.username
-						}, superSecret, {expiresIn: 86400}); //24 hrs
+						}, config.secret, {expiresIn: 86400}); //24 hrs
 						res.json({
 							name: user.name,
 							success: true,
