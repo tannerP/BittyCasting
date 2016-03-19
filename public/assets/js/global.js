@@ -12,6 +12,13 @@
         });
     }); 
 
+/*--page fade--*/
+
+//$(document).ready(function() {
+//       $(".ng-enter").hide(0).delay(100).fadeIn(1500);
+//});
+
+
 // $(".navbar-toggle").click(function() {
 //    console.log('click');
 // });

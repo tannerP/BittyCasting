@@ -10,14 +10,14 @@
 .ng-enter,
 .ng-leave,
 .ng-move {
-  -webkit-transition: 0.3s ease-in-out all;
-  -moz-transition: 0.3s ease-in-out all;
-  -o-transition: 0.3s ease-in-out all;
-  transition: 0.2s ease-in-out all;
+  -webkit-transition: 0.5s ease-in-out all;
+  -moz-transition: 0.5s ease-in-out all;
+  -o-transition: 0.5s ease-in-out all;
+  transition: 0.5s ease-in-out all;
 }
 
 .ng-enter,.ng-move {
-  opacity: .5;
+  opacity: 0;
   overflow: hidden;
 }
 
@@ -26,11 +26,11 @@
   opacity: 1;
 }
 .ng-leave {
-  opacity: .5;
+  opacity: 0;
   overflow: hidden;
 }
 .ng-leave.ng-leave-active {
-  opacity: .5;
+  opacity: 0;
   height: 0;
   padding-top: 0;
   padding-bottom: 0;
