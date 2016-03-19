@@ -1740,8 +1740,20 @@ text-align: center;
             height: 32px;
             &:nth-child(1) {width: 30%;}   
             &:nth-child(2) {width: 70%;} 
-        
         } 
+        ul {
+            list-style: none;
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            
+            li {
+                display: inline;
+                &:after {content: " /"};
+                &:last-child:after {content: ""};
+            }
+        }
+        
         
     }
 }
