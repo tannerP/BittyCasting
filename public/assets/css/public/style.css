@@ -1641,11 +1641,11 @@ ul.projects li {
       list-style-type: none;
       padding: 0;
       margin: 0; }
-      .reviewInfo table ul li {
+      .reviewInfo table ul li a {
         display: inline; }
-        .reviewInfo table ul li:after {
-          content: " /"; }
-        .reviewInfo table ul li:last-child:after {
+        .reviewInfo table ul li a:after {
+          content: " / "; }
+        .reviewInfo table ul li a:last-child:after {
           content: ""; }
 
 .reviewComment {

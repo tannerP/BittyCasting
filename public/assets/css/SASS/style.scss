@@ -1747,9 +1747,9 @@ text-align: center;
             padding: 0;
             margin: 0;
             
-            li {
+            li a {
                 display: inline;
-                &:after {content: " /"};
+                &:after {content: " / "};
                 &:last-child:after {content: ""};
             }
         }

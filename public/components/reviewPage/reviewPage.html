@@ -63,12 +63,12 @@
                   <tr>
                     <td ng-if="currApp.links.length > 0">links: </td>
                     <td ng-repeat="link in currApp.links">
-                        <a target="_blank" ng-href="{{link.source}}">{{link.name}} / </a>
+                        <a target="_blank" ng-href="{{link.source}}">{{link.name}}</a>
                     </td>
                 </tr>
 
                 <tr>
-                    <td ng-if="documents">Document: </td>
+                    <td ng-if="documents.length > 0">Document: </td>
                     <td ng-repeat="doc in documents">
                         <ul>
                             <li><a target="_blank" ng-href="{{doc.source}}" download={{doc.name}}>{{doc.name}}</a></li>
@@ -76,7 +76,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td ng-if="images">Image: </td>
+                    <td ng-if="images.length > 0">Image: </td>
                      <td ng-repeat="image in images">
                          <ul>
                             <li><a target="_blank" ng-href="{{image.source}}" download={{image.name}}>{{image.name}}</a></li>
@@ -84,7 +84,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td ng-if="video">Video</td>
+                    <td ng-if="video.length > 0">Video</td>
                     <td >
                         <ul>
                         <li><a ng-repeat="video in video" target="_blank" ng-href="{{video.source}}" download="{{video.name}}">{{video.name}}</a></li>
