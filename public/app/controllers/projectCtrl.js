@@ -289,7 +289,7 @@ controller('ProjectPageController',
         var url_base_dev = "localhost:8080/Apply/" +$scope.roleData._id; 
         var url_base_beta = "beta.bittycasting.com/Apply/" +$scope.roleData._id; 
         
-        $scope.textToCopy = url_base_dev;
+        $scope.textToCopy = url_base_beta;
         var previewLink = "/Apply/" +$scope.roleData._id; 
         $scope.toggle = false;
          var successAlert = $alert({title: 'Copied!',
