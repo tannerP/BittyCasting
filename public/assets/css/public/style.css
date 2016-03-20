@@ -522,6 +522,13 @@ header {
 /***************************
           Landing page
 ***************************/
+.videoFrameWrapper {
+  position: relative; }
+  .videoFrameWrapper img {
+    position: absolute;
+    top: -15px;
+    left: -15px; }
+
 .sectionTitle {
   font-weight: 600;
   font-size: 24px;
@@ -1641,11 +1648,11 @@ ul.projects li {
       list-style-type: none;
       padding: 0;
       margin: 0; }
-      .reviewInfo table ul li a {
+      .reviewInfo table ul li {
         display: inline; }
-        .reviewInfo table ul li a:after {
-          content: " / "; }
-        .reviewInfo table ul li a:last-child:after {
+        .reviewInfo table ul li:after {
+          content: " /"; }
+        .reviewInfo table ul li:last-child:after {
           content: ""; }
 
 .reviewComment {
@@ -1891,6 +1898,9 @@ ul.projects li {
                                   Mobile view
 *********************************************************************************/
 @media screen and (max-width: 989px) {
+  .videoFrameWrapper img {
+    display: none; }
+
   .pageTitleMobileOffset {
     padding-top: 120px; }
 
