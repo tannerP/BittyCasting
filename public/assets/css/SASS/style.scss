@@ -1495,6 +1495,24 @@ ul.projects li {
           Apply
 ***************************/
 
+.btn_paragraph {
+    font-size: $font-size-small;
+    color: $color-grey;
+    line-height: 18px;
+    margin: 10px 0 8px 0;
+
+    a {
+        color: $color-blue;
+        @include transition(all, 0.2s, ease);
+        &:hover, &:focus {
+            color: $color-blue-lighten;
+            text-decoration: none;
+            @include transition(all, 0.2s, ease);
+        }
+    }
+}
+
+
 .applyPage {
     padding: 56px 0 60px 0;
     position: relative;
