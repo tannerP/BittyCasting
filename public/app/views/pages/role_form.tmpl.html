@@ -11,7 +11,8 @@
                 >
         </div>
         <div class="form-group">
-            <label>Description (Max {{charRmnd}} characters)</label>
+            <!-- <label>Description (Max {{charRmnd}} characters)</label> -->
+            <label>Description</label>
             <textarea rows="4" cols="40" maxlength="220" 
             ng-change="TAChange()"
             class = "custom-form-textarea" 
@@ -27,7 +28,7 @@
                     required bs-datepicker autoclose="true">
             </div>
         </div>
-        <div class = "form-group">
+        <!-- <div class = "form-group">
             <div ng-class="{'has-error': timepickerForm.time.$invalid}">
             <label >End Time </label>
             <input type="text" class="custom-form" 
@@ -58,7 +59,7 @@
                 <li role="menuitem"><a href="#" ng-click="roleAside.roleData.sex = 'Male'">Male</a></li>
               </ul>
             </div>
-        </div>      
+        </div>  -->     
         
         
         <label class="asideRequirementsTitle">Requirements</label>
@@ -79,7 +80,7 @@
                             <div><span>{{roleAside.roleData.requirements[$index]}}</span></div>
                              
                             <td>
-                            <div uib-dropdown is-open="false">
+                                <div uib-dropdown is-open="false">
                                     <input class="custom-dropdown" type="text" uib-dropdown-toggle ng-disabled="disabled" ng-model='roleAside.roleData.requirements[$index].name' placeholder="New">
                                     </input>
                                     <ul uib-dropdown-menu role="menu" aria-labelledby="single-button">
@@ -90,42 +91,40 @@
                                         <li role="menuitem"><a href="#" ng-click="roleAside.roleData.requirements[$index].name = 'Youtube'" >Youtube</a></li>
                                     </ul>
                                 </div>
-                            </td>
+                        </td>
 
-                            <td ng-show="reqt">
-                                <div class="custom-dropdown" uib-dropdown is-open="false">
-                                  <span uib-dropdown-toggle ng-disabled="disabled">{{roleAside.roleData.requirements[$index].file_type}}</span>
-                                  <ul uib-dropdown-menu role="menu" aria-labelledby="single-button">
-                                    
-                                    <li role="menuitem"><a href="#" ng-click="roleAside.roleData.requirements[$index].file_type = 'link'">Link</a></li>
+                        <td ng-show="reqt">
+                            <div class="custom-dropdown" uib-dropdown is-open="false">
+                              <span uib-dropdown-toggle ng-disabled="disabled">{{roleAside.roleData.requirements[$index].file_type}}</span>
+                              <ul uib-dropdown-menu role="menu" aria-labelledby="single-button">
+                                
+                                <li role="menuitem"><a href="#" ng-click="roleAside.roleData.requirements[$index].file_type = 'link'">Link</a></li>
 
-                                    <li role="menuitem"><a href="#" ng-click="roleAside.roleData.requirements[$index].file_type = 'image'">Image</a></li>
+                                <li role="menuitem"><a href="#" ng-click="roleAside.roleData.requirements[$index].file_type = 'image'">Image</a></li>
 
-                                    <li role="menuitem"><a href="#" ng-click="roleAside.roleData.requirements[$index].file_type = 'video'">Video</a></li>
+                                <li role="menuitem"><a href="#" ng-click="roleAside.roleData.requirements[$index].file_type = 'video'">Video</a></li>
 
-                                    <li role="menuitem"><a href="#" ng-click="roleAside.roleData.requirements[$index].file_type = 'document'">Document</a></li>
+                                <li role="menuitem"><a href="#" ng-click="roleAside.roleData.requirements[$index].file_type = 'document'">Document</a></li>
 
-                                  </ul>
-                                </div>
-                            </td>
+                              </ul>
+                            </div>
+                        </td>
 
-                            <td ng-show="reqt">     
-                                <div class="checkbox-requirements">
-                                    <label><input type="checkbox" ng-model="reqt.required"
-                                                  checked><span></span></label>
-                                </div>
-                            </td>
+                        <td ng-show="reqt">     
+                            <div class="checkbox-requirements">
+                                <label><input type="checkbox" ng-model="reqt.required"
+                                              checked><span></span></label>
+                            </div>
+                        </td>
 
 <!--
                             <td ng-show="reqt"><span class="btn large-btn" ng-click="roleAside.removeReqt($index)">Delete</span>
                             </td>
 -->
-                
-                            <td ng-show="reqt">
-                                <img src="/assets/imgs/ic_trash.svg" width="16px" height="16px" ng-click="roleAside.removeReqt($index)">
-                            </td>
+                        <td ng-show="reqt">
+                            <img src="/assets/imgs/ic_trash.svg" width="16px" height="16px" ng-click="roleAside.removeReqt($index)">
+                        </td>
                         </tr>
-
                          <!-- New Requirement -->
                         <tr>
                             <td>

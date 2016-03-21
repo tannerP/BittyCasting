@@ -315,8 +315,8 @@ controller('ProjectPageController',
       }
     ]).
 controller('deleteRoleController',['$scope',
- 'Role','$location','$routeParams','$route','$alert',
-	function($scope,Role, $location, $routeParams, $route, $alert){
+ 'Role','$location','$routeParams','$route','$alert',"$window",
+	function($scope,Role, $location, $routeParams, $route, $alert,$window){
 		var vm = this;
 		vm.input1 = false, vm.input2 = false;
 		var errAlert = $alert({title: 'Whoops', content:'Please check all',
@@ -327,7 +327,12 @@ controller('deleteRoleController',['$scope',
 				Role.delete(id)
 					.success(function(){
 						vm.roleData = {};
-						$route.reload();
+						if( $location.path().indexOf("/applicants") > -1){
+							$window.history.back();
+						}
+						else{
+							$route.reload();
+						}
 						$scope.$hide()
 						//check if at project page, if not direct to project page. 
 						
@@ -436,11 +441,11 @@ controller('addRoleController',
 	$scope.selectedDate = new Date();
 	$scope.selectedTime = new Date();
 
-	var MAX_LENGTH = 220;
+	/*var MAX_LENGTH = 220;
 	$scope.charRmnd = MAX_LENGTH;
 	$scope.TAChange = function()
 		{$scope.charRmnd  =  MAX_LENGTH - vm.roleData.description.length;}
-
+*/
 	$scope.status = {
 	  isopen: false
 	};
@@ -561,10 +566,10 @@ controller('addRoleController',
 		vm.NEW = true;
 		vm.projectData = {name:"",description:""};
 		
-		var MAX_LENGTH = 220;
+		/*var MAX_LENGTH = 220;
 		$scope.charRmnd = MAX_LENGTH;
 		$scope.TAChange = function()
-		{$scope.charRmnd  =  MAX_LENGTH - vm.projectData.description.length;}
+		{$scope.charRmnd  =  MAX_LENGTH - vm.projectData.description.length;}*/
 		vm.save = function(){
 			vm. processing = true;
 			vm.message;
@@ -588,10 +593,9 @@ controller('addRoleController',
 		vm.projectData;
 		vm.proj_id = $routeParams.project_id;
 
-		var MAX_LENGTH = 220;
-		
+		/*var MAX_LENGTH = 220;	
 		$scope.TAChange = function()
-		{$scope.charRmnd  =  MAX_LENGTH - vm.projectData.description.length;}
+		{$scope.charRmnd  =  MAX_LENGTH - vm.projectData.description.length;}*/
 
 		Project.get(vm.proj_id)
 		.success(function(data){

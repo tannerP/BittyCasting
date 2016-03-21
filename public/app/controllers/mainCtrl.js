@@ -53,11 +53,14 @@ controller('mainController',['$scope','$rootScope','Auth',
 							}
 						 })
 			}
-	})
-		vm.getUsrBtn = function(){
+		})
+	/*vm.betaRequestBtn = function()
+	{
+		$http.put
+	}	*/
+	vm.getUsrBtn = function(){
 			$location.path('/profile');
 		}
-
 		vm.doLogout = function () {
 			Auth.logout();
 			vm.user = {};
@@ -72,6 +75,7 @@ controller('mainController',['$scope','$rootScope','Auth',
 			$window.open(FBLink,'_blank');
 		}
 	}]).
+
 controller('signupCtrl', function(User,$scope,$location)	{
 		var vm = this;
 		vm.userData={};
