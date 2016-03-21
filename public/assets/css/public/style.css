@@ -1411,6 +1411,27 @@ ul.projects li {
 /***************************
           Apply
 ***************************/
+.btn_paragraph {
+  font-size: 10px;
+  color: #999999;
+  line-height: 18px;
+  margin: 10px 0 8px 0; }
+  .btn_paragraph a {
+    color: #06bcc2;
+    -webkit-transition: all 0.2s ease;
+    -moz-transition: all 0.2s ease;
+    -ms-transition: all 0.2s ease;
+    -o-transition: all 0.2s ease;
+    transition: all 0.2s ease; }
+    .btn_paragraph a:hover, .btn_paragraph a:focus {
+      color: #48d8d8;
+      text-decoration: none;
+      -webkit-transition: all 0.2s ease;
+      -moz-transition: all 0.2s ease;
+      -ms-transition: all 0.2s ease;
+      -o-transition: all 0.2s ease;
+      transition: all 0.2s ease; }
+
 .applyPage {
   padding: 56px 0 60px 0;
   position: relative; }
