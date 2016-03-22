@@ -658,7 +658,7 @@ section.pricing {
       section.pricing .pricingPlanWrapper .pricingfor p {
         padding-left: 50px; }
 section.about {
-  padding-bottom: 60px;
+  margin-bottom: 60px;
   background-color: white; }
   section.about p:last-child {
     margin-top: 30px; }
