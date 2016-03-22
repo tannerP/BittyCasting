@@ -1,5 +1,5 @@
 <div class="aside" tabindex="-1" role="dialog">
-    
+    <div class="asideBg">
     <div class="asideTitle" ng-if="projectAside.delete">Delete project</div>
     
     <section>
@@ -8,7 +8,7 @@
     </section>
     
     <section>
-        <div class="checkbox">
+        <div class="checkbox-delete">
             <label>
             	<input type="checkbox" ng-model=projectAside.input1 ngChange="projectAside.eval()">
             		<span></span>
@@ -24,13 +24,14 @@
             </label>
         </div>
     </section>    
+        
     
     
     <button type="button" class="custom-btn-primary-large custom-btn-cancel" ng-click="$hide()">Cancel </button>
     
     <button type="submit" class = "custom-btn-primary-large custom-btn-delete" ng-click="projectAside.delete(projectData._id)">Delete</button>
     
-   
+    </div>
 </div>     
     
 

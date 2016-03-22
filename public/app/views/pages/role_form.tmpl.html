@@ -1,4 +1,5 @@
 <div class="aside" tabindex="-1" role="dialog">
+    <div class="asideBg">
     <form class="container-roleAside" ng-submit="roleAside.createRoleBtn()">
         <div class="custom-close" ng-click="$hide()"></div>
         <div class="asideTitle" ng-if="!roleAside.edit">Create role</div>
@@ -171,6 +172,6 @@
         <button ng-if="roleAside.edit" type="submit" class="custom-btn-primary-large" ng-click="roleAside.updateRole()">Save</button>
 
     </form>
-    
+    </div>
 </div>
 

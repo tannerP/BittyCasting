@@ -1,4 +1,5 @@
 <div class="aside" tabindex="-1" role="dialog">
+    <div class="asideBg">
     <form>
         <div class="asideTitle" ng-if="!roleAside.edit">Share Role</div>
         <div class="custom-close" ng-click="$hide()"></div>
@@ -8,5 +9,5 @@
         <button class="custom-btn-secondary-large btn-preview" ng-click="preview()">Preview</button>
         <button clipboard class="custom-btn-primary-large" text="textToCopy" on-copied="success()" on-error="fail(err)">Copy link</button>
     </form>
-
+    </div>
 </div>

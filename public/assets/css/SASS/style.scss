@@ -1221,6 +1221,11 @@ ul.projects li {
     width: 400px;
     padding: 0 20px 20px 20px;
     
+    .asideBg {
+        width: 100%;
+        min-height: 100%;
+    }
+    
     .asideMessage {
         p {
             font-size: $font-size-small;
