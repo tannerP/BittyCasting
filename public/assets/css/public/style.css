@@ -770,6 +770,9 @@ div.pageHeader {
           transition: all 0.8s ease; }
       div.pageHeader .custom-page-action ul li:last-child {
         margin-left: 0; }
+  div.pageHeader .custom-page-action-secondary .custom-page-action-secondary-title {
+    font-size: 16px;
+    float: left; }
   div.pageHeader .custom-page-action-secondary ul {
     list-style: none;
     padding: 0; }
@@ -836,12 +839,19 @@ ul.projects {
 ul.projects li {
   margin: 0 0 30px 0; }
 
+.cardProjects {
+  height: 187px;
+  background: url("/assets/imgs/img_projectCover01.png") no-repeat top center;
+  background-size: 100% auto; }
+
+.cardApplicants {
+  height: 283px;
+  background: url("/assets/imgs/img_projectCover01.png") no-repeat top center;
+  background-size: 100% auto; }
+
 .card {
   color: #fff;
-  height: 187px;
   text-align: center;
-  background: url("/assets/imgs/img_projectCover01.png") no-repeat top center;
-  background-size: 100% auto;
   position: relative;
   -webkit-box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.1);
   -moz-box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.1);

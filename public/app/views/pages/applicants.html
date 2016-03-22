@@ -49,7 +49,54 @@
             </section>
         </div>
         <div class="clear"></div>  
+    
+        <div class="custom-page-action-secondary">
+            <div class="custom-page-action-secondary-title"># applicants</div>
+<!--
+            <ul>
+                <li class='custom-btn-secondary-small' ng-click="">Create role</li>
+            </ul>
+-->
+        </div>
+        <div class="utlBar">           
+            <div class="sort"></div>
+            <div class="gridListToggle">
+                <div ng-style="home.gridStyle"  ng-click="home.setGridVw()"></div>
+                <div ng-style="home.listStyle" ng-click="home.setListVw()"></div>   
+            </div>
+        </div>   
+        <div class="clear"></div>
     </div>
+    
+    
+    
+    <div class="cardContainer">
+        <ul class='applicants'>
+            <li class="col-lg-3 col-md-4 col-sm-6" ng-repeat-start="project in home.projects">
+                    <div class="card cardApplicants">               
+                        <a href="/project/{{project._id}}" class="md-headline">
+                        <div class="cardInfoBg"></div>
+                        <div class="cardScrim"></div> 
+                            <div class="cardInfo">
+                                <a href="/project/{{project._id}}" class="md-headline"><div class="cardTitle">{{project.name | limitTo:36 }}</div></a>
+                                <div class="cardSubTitle">Applied on Feb 12 2016</div>
+                                <div class='actionBar'>
+                                    <ul>
+                                        <li class="trashcan" ng-click='home.deleteBtn(project)'></li>
+<!--                                        <li class="duplicate"></li>-->
+                                    </ul>
+                                </div>
+                            </div>     
+                        </a>
+                    </div>
+            </li>    
+
+            <li ng-repeat-end> </li>
+        </ul>
+
+    </div>
+
+    
 
       <div ng-show="!viewApp" class="custom-table table-responsive">
         <table class = "table table-hover table-applicants" ng-show="!home.gridView">
