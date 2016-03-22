@@ -14,10 +14,7 @@ var mongoose = require('mongoose') //for working with mongoDB
 var path = require('path');
 var User = require(__dirname + '/server//models/user.js');
 var config = require('./config'); //get config file
-var S3Config = require('./aws.json');
-var aws = require('./server/lib/aws');
 var extend = require("extend")
-var Mailgun = require("mailgun-js");
 /*var io = require('socket.io')(app);*/
 
 
@@ -56,139 +53,11 @@ db.once('open', function (callback) {
 });
 
 var apiRoutes = require(__dirname + '/server/routes/api')(app,express);
-var publicRoutes = require(__dirname + '/server/routes/authentication')(app,express);
+var publicRoutes = require(__dirname + '/server/routes/public')(app,express);
 
 app.use(express.static(__dirname + '/public'));
 /* S3 Config*/
 
-app.get('/submit/:mail', function(req,res) {
-  console.log(req.params.mail);
-    //We pass the api_key and domain to the wrapper, or it won't be able to identify + send emails
-    var mailgun = new Mailgun({apiKey: config.api_key, domain: config.domain});
-
-    var data = {
-    //Specify email data
-      from: "internal@bittycasting.com",
-    //The email to contact
-      to: "tanner@bittycasting.com",
-    //Subject and text data  
-      subject: 'New Beta Customer',
-      html: 'Beta Request' + req.params.mail
-    }
-
-    //Invokes the method to send emails given the above data with the helper library
-    mailgun.messages().send(data, function (err, body) {
-        //If there is an error, render the error page
-        if (err) {
-          console.log(err)
-            /*res.json(err);*/
-        }
-        //Else we can greet    and leave
-        else {
-            //Here "submitted.jade" is the view file for this landing page 
-            //We pass the variable "email" from the url parameter in an object rendered by Jade
-          console.log(body)
-          /*res.json(body);*/
-          /*  res.render('submitted', { email : req.params.mail });
-            console.log(body);*/
-        }
-    });
-
-});
-
-
-app.get('/s3Policy',aws.getS3Policy);
-app.get('/config', function(req,res){
-    return res.json({success:true, awsConfig: {
-            bucket: S3Config.bucket
-        }
-        })
-  });
-  app.get('/applicationRole/:role_id', function(req,res){
-  //find role data, then find project data before returning result
-    Role.findById(req.params.role_id, function(err, role){
-      if(!err){
-          res.json({success:true, Application:role});
-        }
-  })})
-
-  app.get('/applicationPrj/:project_id', function(req,res){
-    Project.findById(req.params.project_id,function(err,proj){
-      res.json({success:true, project:proj});
-    })
-  });
-  app.post('/applicant',function(req,res){
-        var applicant = new Applicant();
-        console.log(req.body);
-        applicant.projectID = req.body.projectID;
-        applicant.roleID = req.body.roleID;
-         if(req.body.name){ 
-          if(req.body.name.first){
-          applicant.name.first = req.body.name.first;
-          }
-          if(req.body.name.last){
-          applicant.name.last = req.body.name.last;
-          }
-        }
-        else{
-          res.json({success:false,
-                message: "Error: No user name"}) 
-        }
-        if(req.body.email){
-        applicant.email = req.body.email;   
-        }
-        if(req.body.phone){
-        applicant.phone = req.body.phone;
-        }
-        if(req.body.links){
-        applicant.links = req.body.links;
-        }
-
-        console.log(applicant);
-        
-        applicant.save(function(err){
-          if(err){
-            return  res.json({success:false,
-                error: err})  }
-          else{
-          Applicant.findOne({'email':req.body.email}, function(err, data){
-          if(err) return  res.json({success:false,
-                error: err}) 
-            return res.json({success:true, appID:data._id});
-        });
-        }
-      })
-    });
-   app.put('/app/:app_id', function(req,res){
-    console.log(req.body);
-      Applicant.findById(req.params.app_id,function(err,app)
-      {
-        if(err) res.json({Error:true, error:err});
-        /*if(req.body.name) user.name = req.body.name;
-        if(req.body.username) user.username = req.body.username;
-        if(req.body.password) user.password = req.body.password;
-        app.suppliments = req.body.*/
-        app.suppliments
-        .push({
-            source:req.body.location,
-            name: req.body.name,
-            key: req.body.key,
-            file_type: req.body.file_type
-          });  
-        app.save(function(err){
-          if(err){
-            return  res.json({success:false,
-                error: err
-              })  
-          }
-          else{
-            return  res.json({success:true,
-                message: "Added new subppliment"
-            });
-          }
-      /*return res.json({success:true, message:'updated'});*/
-        })
-      })});
   app.use('/',publicRoutes); 
   app.use('/api',apiRoutes); 
   app.all('*', function(req, res, next){
