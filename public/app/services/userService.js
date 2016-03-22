@@ -2,6 +2,18 @@
 //Data gets passed into controller directory to get displayed
 angular.module('userService', [])
 
+.factory('Mail', function($http){
+	var pubFactory = [];
+	
+	pubFactory.betaUser = function(email)	{
+		return $http.get('submit/:' + email);
+	}
+/*	pubFactory.getAppPrj = function(id)	{
+		return $http.get('applicationPrj/' + id);
+	}*/
+	return pubFactory;
+})
+
 .factory('Pub', function($http){
 	var pubFactory = [];
 	

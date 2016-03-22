@@ -17,6 +17,7 @@ var config = require('./config'); //get config file
 var S3Config = require('./aws.json');
 var aws = require('./server/lib/aws');
 var extend = require("extend")
+var Mailgun = require("mailgun-js");
 /*var io = require('socket.io')(app);*/
 
 
@@ -59,6 +60,43 @@ var publicRoutes = require(__dirname + '/server/routes/authentication')(app,expr
 
 app.use(express.static(__dirname + '/public'));
 /* S3 Config*/
+
+app.get('/submit/:mail', function(req,res) {
+  console.log(req.params.mail);
+    //We pass the api_key and domain to the wrapper, or it won't be able to identify + send emails
+    var mailgun = new Mailgun({apiKey: config.api_key, domain: config.domain});
+
+    var data = {
+    //Specify email data
+      from: "internal@bittycasting.com",
+    //The email to contact
+      to: "tanner@bittycasting.com",
+    //Subject and text data  
+      subject: 'New Beta Customer',
+      html: 'Beta Request' + req.params.mail
+    }
+
+    //Invokes the method to send emails given the above data with the helper library
+    mailgun.messages().send(data, function (err, body) {
+        //If there is an error, render the error page
+        if (err) {
+          console.log(err)
+            /*res.json(err);*/
+        }
+        //Else we can greet    and leave
+        else {
+            //Here "submitted.jade" is the view file for this landing page 
+            //We pass the variable "email" from the url parameter in an object rendered by Jade
+          console.log(body)
+          /*res.json(body);*/
+          /*  res.render('submitted', { email : req.params.mail });
+            console.log(body);*/
+        }
+    });
+
+});
+
+
 app.get('/s3Policy',aws.getS3Policy);
 app.get('/config', function(req,res){
     return res.json({success:true, awsConfig: {
