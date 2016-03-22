@@ -1543,6 +1543,15 @@ ul.projects li {
         padding: 0 15px;
     }
     
+    .applyPageRight label span{
+        margin-left: 5px;
+        width: 12px;
+        height: 12px;
+        display: inline-block;
+        background: url("/assets/imgs/ic_asterisk.svg") no-repeat top right; 
+        background-size: 12px 12px;
+    }
+    
     .applyLogo {
         position: absolute;
         top: 40px;

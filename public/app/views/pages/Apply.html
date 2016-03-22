@@ -47,15 +47,15 @@
                  <div class='pageTitle'>Apply</div>
                         <form ng-submit="page.submit()" name="form">
                             <div class = "form-group">
-                                <label>First name</label>
+                                <label>First name<span></span></label>
                                 <input type = "text" class = "custom-form" ng-model="page.appData.name.first" required>
                             </div>
                             <div class = "form-group">
-                                <label>Last name</label>
+                                <label>Last name<span></span></label>
                                 <input type = "text" class = "custom-form" ng-model="page.appData.name.last" required>
                             </div>
                             <div class = "form-group">
-                                <label>E-mail</label>
+                                <label>E-mail<span></span></label>
                                 <input type = "email" class = "custom-form" ng-model="page.appData.email" required>
                             </div>   
                             <div class = "form-group">
@@ -65,7 +65,7 @@
 
                             <div class = "form-group" ng-repeat="link in page.appData.links">
                             
-                                <label ng-if="link">{{link.name}}<span ng-if="rq.required">*</span></label>
+                                <label ng-if="link">{{link.name}}<span ng-if="rq.required"></span></label>
                             
                                 <input ng-if="link" type = "link" class = "custom-form" ng-model="link.source" prequired>
                             
