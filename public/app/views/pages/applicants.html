@@ -1,4 +1,4 @@
-<div ng-if="!viewApp" class="container">
+<div ng-if="!viewApp" class="container paddingBottom60">
   <div class="pageHeader">
     <div class="custom-back" ng-click="main.backBtn()" style="z-index: 4;"></div>
     <div class="custom-page-action" style="z-index: 4;">
@@ -72,17 +72,16 @@
     <div class="clear"></div>
   </div>
   <!-- GRID VIEW -->
-  <div class="cardContainer" ng-if="page.gridView">
-    <h3>Grid view</h3>
-    <ul class='applicants'>
-      <li class="col-lg-3 col-md-4 col-sm-6" ng-repeat-start="project in home.projects">
+  <div class="cardContainer">
+    <ul class='applicants' ng-if="page.gridView">
+      <li class="col-lg-3 col-md-4 col-sm-6">
         <div class="card cardApplicants">
-          <a href="/project/{{project._id}}" class="md-headline">
+          <a href="" class="md-headline">
             <div class="cardInfoBg"></div>
             <div class="cardScrim"></div>
             <div class="cardInfo">
-              <a href="/project/{{project._id}}" class="md-headline">
-                <div class="cardTitle">{{project.name | limitTo:36 }}</div>
+              <a href="" class="md-headline">
+                <div class="cardTitle">Robert Beam</div>
               </a>
               <div class="cardSubTitle">Applied on Feb 12 2016</div>
               <div class='actionBar'>
@@ -95,7 +94,6 @@
           </a>
         </div>
       </li>
-      <li ng-repeat-end></li>
     </ul>
 
   </div>
