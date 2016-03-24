@@ -1029,6 +1029,11 @@ ul.projects li {
   width: 10%; }
 .custom-table .table-application-requirements thead tr th:nth-child(4) {
   width: 10%; }
+.custom-table .table-application-requirements tr.defaultRequirements:nth-child(1), .custom-table .table-application-requirements tr.defaultRequirements:nth-child(2), .custom-table .table-application-requirements tr.defaultRequirements:nth-child(3) {
+  background-color: #eeeeee; }
+.custom-table .table-application-requirements td span {
+  background: url("/assets/imgs/ic_link.svg") no-repeat center center;
+  background-size: 14px 14px; }
 .custom-table .table {
   font-size: 12px; }
   .custom-table .table tbody tr {

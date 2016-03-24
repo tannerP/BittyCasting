@@ -1122,6 +1122,15 @@ ul.projects li {
         thead tr th:nth-child(2) {width: 40%; cursor: pointer;} //Type
         thead tr th:nth-child(3) {width: 10%;} //required     
         thead tr th:nth-child(4) {width: 10%;} //action
+        
+        tr.defaultRequirements:nth-child(1), tr.defaultRequirements:nth-child(2), tr.defaultRequirements:nth-child(3) {
+            background-color: $color-grey-lightest;
+        }
+        
+        td span {
+            background: url("/assets/imgs/ic_link.svg") no-repeat center center;
+            background-size: 14px 14px;
+        }
     }
     
     .table {

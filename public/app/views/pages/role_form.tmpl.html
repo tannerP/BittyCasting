@@ -71,17 +71,22 @@
           <thead>
           <tr>
             <th>Name</th>
+            <th></th>
             <th>Required</th>
             <th><!--selection checkbox--></th>
-            <th></th>
           </tr>
           </thead>
           <tbody>
-          <tr ng-repeat="req in roleAside.roleData.requirements">
+          <tr class="defaultRequirements" ng-repeat="req in roleAside.roleData.requirements">
             <td>{{req.name}}<span 
             ng-if="req.format.indexOf('link') != -1">link</span></td>
-            <td><input type="checkbox" ng-model="req.required"></td>
-            <td><input type="checkbox" ng-model="req.selected"></td></td>
+            <td></td>
+            <td><input type="checkbox" ng-model="req.required"></td>   
+            <td>
+                <div class="checkbox-requirements">
+                    <label><input type="checkbox" ng-model="req.selected"><span></span></label>
+                </div>   
+            </td>
           </tr>
           <!-- New Requirement -->
           <tr>
@@ -101,9 +106,6 @@
               </div>
             </td>
             <td>
-              <div class="checkbox-requirements">
-                <label><input type="checkbox" ng-model="roleAside.newData.required" checked><span></span></label>
-              </div>
             </td>
             <td>
               <img src="/assets/imgs/ic_plus.svg" width="16px" height="16px" ng-click="roleAside.addReqt(roleAside.newData)">
