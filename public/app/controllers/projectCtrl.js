@@ -390,6 +390,19 @@ angular.module('projectCtrl', ['userService',
       vm.roleData.end_time = $scope.selectedTime;
       vm.roleData.end_date = $scope.selectedDate;
       vm.roleData.updated_date = new Date();
+
+      for(var i in vm.roleData.requirements)
+        {
+          if(!vm.roleData.requirements[i].selected){
+          vm.roleData.requirements.splice(i,i);
+        } 
+        else{
+          for(var j in vm.roleData.requirements[j])
+          {
+
+          }
+        }
+      }
       Role.update($routeParams.role_id, vm.roleData)
         .success(function () {
           $route.reload();
@@ -415,19 +428,21 @@ angular.module('projectCtrl', ['userService',
       $scope.status.isopen = !$scope.status.isopen;
     };
 
-    vm.addReqt = function (data) {
+     vm.addReqt = function (data) {
       if (!data) {
         console.log("error: input variable");
         return;
       }
-      var item = {
-        name: data.name, file_type: data.file_type,
-        required: data.required
+      var item = {name: data.name,
+       format: data.format,
+        required: data.required,
+        selected: true
       }
       vm.roleData.requirements.push(item)
       vm.newData.name = "New Requirement",
         vm.newData.required = true,
-        vm.newData.file_type = "Type";
+        vm.newData.file_type = "Attachment",
+        vm.newData.selected = true;
     }
 
     vm.removeReqt = function (index) {
@@ -452,7 +467,7 @@ angular.module('projectCtrl', ['userService',
         {name:"headshot",
           required:true,
           selected:true,
-          type:"file"
+          file_type:"file"
         },
         {name:"resume",
           required:true,

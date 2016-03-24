@@ -70,17 +70,18 @@
                ng-show="!roleAside.gridView">
           <thead>
           <tr>
-            <th><!--selection checkbox--></th>
             <th>Name</th>
             <th>Required</th>
+            <th><!--selection checkbox--></th>
             <th></th>
           </tr>
           </thead>
           <tbody>
           <tr ng-repeat="req in roleAside.roleData.requirements">
-            <td><input type="checkbox" ng-model="req.selected"></td></td>
-            <td>{{req.name}}</td>
+            <td>{{req.name}}, {{req.file_type}} <span 
+            ng-if="req.file_type.indexOf('link') != -1">link</span></td>
             <td><input type="checkbox" ng-model="req.required"></td>
+            <td><input type="checkbox" ng-model="req.selected"></td></td>
           </tr>
           <!-- New Requirement -->
           <tr>
@@ -95,10 +96,9 @@
                   {{roleAside.newData.file_type || "File"}}</span>
                 <ul uib-dropdown-menu role="menu" aria-labelledby="single-button">
                   <li role="menuitem"><a href="#" ng-click="roleAside.newData.file_type = 'link'">Link</a></li>
-                  <li role="menuitem"><a href="#" ng-click="roleAside.newData.file_type = 'File Attach.'">Attachment</a></li>
+                  <li role="menuitem"><a href="#" ng-click="roleAside.newData.file_type = 'file'">Attachment</a></li>
                 </ul>
               </div>
-            </td>
             </td>
             <td>
               <div class="checkbox-requirements">

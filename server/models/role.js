@@ -17,6 +17,7 @@ var RoleSchema = new Schema({
 		name:String,
 		file_type:String,
 		required:Boolean,
+		selected:Boolean,
 	}]
 });
 
