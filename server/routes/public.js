@@ -1,5 +1,8 @@
 'user strick';
 var User = require("../models/user");
+var Project = require("../models/project");
+var Role = require("../models/role");
+var Applicant = require("../models/applicant");
 var config = require("../../config");
 var path = require('path');
 var jwt = require('jsonwebtoken');
@@ -15,7 +18,8 @@ app.route('/')
 	.get(function(req,res){
 		res.sendFile(path.join(__dirname+ '../../../public/app/views/index.html'));
 	})
-  app.get('/applicationRole/:role_id', function(req,res){
+
+app.get('/applicationRole/:role_id', function(req,res){
   //find role data, then find project data before returning result
     Role.findById(req.params.role_id, function(err, role){
       if(!err){
@@ -37,6 +41,7 @@ app.get('/applicationPrj/:project_id', function(req,res){
 	  res.json({success:true, project:proj});
 	})
 });
+
 app.post('/applicant',function(req,res){
       var applicant = new Applicant();
       console.log(req.body);

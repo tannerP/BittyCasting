@@ -1,66 +1,67 @@
-
 <div class="container">
-<div class="pageHeader"> 
+  <div class="pageHeader">
     <div class="custom-back" ng-click="main.backBtn()" style="z-index: 4;"></div>
     <div class="custom-page-action" style="z-index: 4;">
-        <ul>           
-            <li class="custom-btn-secondary-small" ng-click="projectCtr.editPrjBtn()">Edit</li>
-            <li class="custom-btn-secondary-small" ng-click="projectCtr.deletePrjBtn(projectCtr.project)">Delete</li>
+      <ul>
+        <li class="custom-btn-secondary-small" ng-click="projectCtr.editPrjBtn()">Edit</li>
+        <li class="custom-btn-secondary-small" ng-click="projectCtr.deletePrjBtn(projectCtr.project)">Delete</li>
 
-        </ul>
-    </div>    
+      </ul>
+    </div>
     <div class='pageTitle pageTitleMobileOffset col-md-4 col-md-offset-4'>{{projectCtr.project.name}}</div>
     <div class="clear"></div>
     <div class="projectDetails col-md-12">
-        <section class="col-md-3">
-            <img ng-src="assets/imgs/img_projectCover01.png" class="img-responsive">
-        </section>
-        <section class="col-md-6">
-            <p>{{projectCtr.project.description}}</p>
-        </section>
-        <section class="col-md-3">
-            <!-- <p>Thumbnails of collaborators</p> -->
-        </section>
+      <section class="col-md-3">
+        <img ng-src="assets/imgs/img_projectCover01.png" class="img-responsive">
+      </section>
+      <section class="col-md-6">
+        <p>{{projectCtr.project.description}}</p>
+      </section>
+      <section class="col-md-3">
+        <!-- <p>Thumbnails of collaborators</p> -->
+      </section>
     </div>
     <div class="clear"></div>
-    
+
     <div class="custom-page-action-secondary">
-        <ul>
-            <li class='custom-btn-secondary-small' ng-click="projectCtr.createBtn()">Create role</li>
-        </ul>
+      <ul>
+        <li class='custom-btn-secondary-small' ng-click="projectCtr.createBtn()">Create role</li>
+      </ul>
     </div>
     <div class="clear"></div>
-</div>
-    
-    <div class="custom-table table-responsive">
-        <table class = "table table-hover table-project-details" ng-show="!projectCtr.gridView">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>No. of applicants</th>
-                    <th>Description</th>
-                    <th>Application open until</th>
-                </tr>
-            </thead>
-            <tbody> 
-            <!-- LOOP OVER THE USERS -->
-                <tr class="animate-repeat" ng-repeat = "role in projectCtr.Roles">
-                    <td ng-click='projectCtr.getRoleBtn(role._id)'>{{ role.name }}</td>
-                    <td ng-click='projectCtr.getRoleBtn(role._id)'>
-                    {{role.num_applicants || "0"}} </td>
-                    <td ng-click='projectCtr.getRoleBtn(role._id)'>{{ role.description }}</td>
-                    <td class="tableHover"><span class="tblDate">{{role.end_time | date:'h a'}}, {{role.end_date | date:mediumDate}}</span>
-                        
-                        <div class="table-utl">
-                            <ul>
-                                <li ng-click="projectCtr.deleteBtn(role)"></li>
-                                <li ng-click = "projectCtr.shareBtn(role)"></li>
-                            </ul>
-                        </div>                      
-                    </td>
-                </tr>
-            </tbody>    
-        </table>
-    </div>
+  </div>
+
+  <div class="custom-table table-responsive">
+    <table class="table table-hover table-project-details" ng-show="!projectCtr.gridView">
+      <thead>
+      <tr>
+        <th>Name</th>
+        <th>No. of applicants</th>
+        <th>Description</th>
+        <th>Application open until</th>
+      </tr>
+      </thead>
+      <tbody>
+      <!-- LOOP OVER THE USERS -->
+      <tr class="animate-repeat" ng-repeat="role in projectCtr.Roles">
+        <td ng-click='projectCtr.getRoleBtn(role._id)'>{{ role.name }}</td>
+        <td ng-click='projectCtr.getRoleBtn(role._id)'>
+          {{role.num_applicants || "0"}}
+        </td>
+        <td ng-click='projectCtr.getRoleBtn(role._id)'>{{ role.description }}</td>
+        <td class="tableHover"><span
+          class="tblDate">{{role.end_time | date:'h a'}}, {{role.end_date | date:mediumDate}}</span>
+
+          <div class="table-utl">
+            <ul>
+              <li ng-click="projectCtr.deleteBtn(role)"></li>
+              <li ng-click="projectCtr.shareBtn(role)"></li>
+            </ul>
+          </div>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
 
 </div>

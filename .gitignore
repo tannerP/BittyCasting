@@ -1,2 +1,3 @@
 config.js
 server/aws.json
+.idea/*

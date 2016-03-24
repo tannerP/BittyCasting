@@ -1,41 +1,41 @@
 <div class="custom-main">
-<div class="container">
+  <div class="container">
 
     <div class="col-md-4 col-md-offset-4">
 
-        <div class="pageTitle">Sign in</div>
+      <div class="pageTitle">Sign in</div>
 
-        <form class="paddingBottom60" ng-submit = "login.doLogin()">
+      <form class="paddingBottom60" ng-submit="login.doLogin()">
 
-            <!-- ERROR ICON -->
-            <div class = "custom-alert" ng-if="login.error">
-                {{login.error}}
-            </div>
+        <!-- ERROR ICON -->
+        <div class="custom-alert" ng-if="login.error">
+          {{login.error}}
+        </div>
 
-            <!-- USERNAME INPUT -->
-            <div class = "form-group">
-                <label> Email </label>
-                <input type="email"  name="email" class = "form-control"
-                ng-model="login.loginData.email">
-            </div>
+        <!-- USERNAME INPUT -->
+        <div class="form-group">
+          <label> Email </label>
+          <input type="email" name="email" class="form-control"
+                 ng-model="login.loginData.email">
+        </div>
 
-            <!-- PASSWORD INPUT -->
+        <!-- PASSWORD INPUT -->
 
-            <div class = "form-group">
-                <label> Password </label>
-                <input type = "password" name="password"class = "form-control"
-                    ng-model ="login.loginData.password">
-            </div>
+        <div class="form-group">
+          <label> Password </label>
+          <input type="password" name="password" class="form-control"
+                 ng-model="login.loginData.password">
+        </div>
 
-            <!-- LOGIN BUTTON -->
-            <button type="submit" class = "custom-btn-primary-large">
-                  <span ng-if = "!login.processing">Sign in</span>
-                  <span ng-if = "login.processing" class ="spinner"><span class = "glyphicon glypicon-repeat"></span></span>
-            </button>
+        <!-- LOGIN BUTTON -->
+        <button type="submit" class="custom-btn-primary-large">
+          <span ng-if="!login.processing">Sign in</span>
+          <span ng-if="login.processing" class="spinner"><span class="glyphicon glypicon-repeat"></span></span>
+        </button>
 
-            <div class="custom-loader" ng-if="login.processing"><img src='/assets/imgs/spin.gif'></div>    
-        </form>
+        <div class="custom-loader" ng-if="login.processing"><img src='/assets/imgs/spin.gif'></div>
+      </form>
 
     </div>
-    </div>
+  </div>
 </div>

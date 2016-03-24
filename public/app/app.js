@@ -32,7 +32,7 @@ angular.module('userApp', [
 	})
   .config(function($datepickerProvider) {
   angular.extend($datepickerProvider.defaults, {
-    dateFormat: 'dd/MM/yyyy',
+    dateFormat: 'MM/dd/yyyy',
     startWeek: 1
   	})
 	})

@@ -1,34 +1,35 @@
-
-<div class="aside" tabindex="-1" role="dialog"> 
-    <div class="asideBg">
+<div class="aside" tabindex="-1" role="dialog">
+  <div class="asideBg">
     <div class="asideTitle">Sign up</div>
     <div class="custom-close" ng-click="$hide()"></div>
-    <form class="container-page">  
-            <div class = "form-group">
-                    <label>First name</label>
-                    <input type = "text" name="fname" class = "custom-form" ng-model = "user.userData.name.first">
-            </div>
-            <div class = "form-group">
-                    <label>Last name</label>
-                    <input type = "text" name="lname" class = "custom-form" ng-model = "user.userData.name.last">
-            </div>
-            <div class = "form-group">
-                <label>E-mail</label>
-                <input type = "email" class = "custom-form" ng-model = "user.userData.email">
-            </div>    
-            <div class = "form-group">
-                <label>Create password</label>
-                    <input type = "password" class = "custom-form" ng-model = "user.userData.password">
-            </div>
-            <!-- <div class = "form-group">
-                <label>Confirm password</label>
-                    <input type = "password" class = "custom-form" ng-model = "user.userData.password">
-            </div> -->
-            <button type="submit" class="custom-btn-primary-large" ng-click="user.saveUser()">Sign up for free</button>
+    <form class="container-page">
+      <div class="form-group">
+        <label>First name</label>
+        <input type="text" name="fname" class="custom-form" ng-model="user.userData.name.first">
+      </div>
+      <div class="form-group">
+        <label>Last name</label>
+        <input type="text" name="lname" class="custom-form" ng-model="user.userData.name.last">
+      </div>
+      <div class="form-group">
+        <label>E-mail</label>
+        <input type="email" class="custom-form" ng-model="user.userData.email">
+      </div>
+      <div class="form-group">
+        <label>Create password</label>
+        <input type="password" class="custom-form" ng-model="user.userData.password">
+      </div>
+      <!-- <div class = "form-group">
+          <label>Confirm password</label>
+              <input type = "password" class = "custom-form" ng-model = "user.userData.password">
+      </div> -->
+      <button type="submit" class="custom-btn-primary-large" ng-click="user.saveUser()">Sign up for free</button>
     </form>
     <div class="asideMessage">
-        <p>By clicking on “Sign up for free”, I agree to BittyCasting’s <a href="/terms_of_service">terms of service.</a></p>
-        <p>Already have an account? <a href="/login">Sign in</a></p>
+      <p>By clicking on “Sign up for free”, I agree to BittyCasting’s <a href="/terms_of_service">terms of service.</a>
+      </p>
+
+      <p>Already have an account? <a href="/login">Sign in</a></p>
     </div>
-    </div>
+  </div>
 </div>
