@@ -32,7 +32,7 @@ angular.module('projectCtrl', ['userService',
       var fileTypes = ["video", "image", "document", "link"];
 
       for (item in fileTypes) {
-        if (data.file_type.indexOf(fileTypes[item])) {
+        if (data.format.indexOf(fileTypes[item])) {
           fileTypes[item] = false;
         }
         else {
@@ -57,7 +57,7 @@ angular.module('projectCtrl', ['userService',
         $scope.documents = [], $scope.links = [];
 
       for (var i = 0; i < sourceArr.length; i++) {
-        var fType = sourceArr[i].file_type;
+        var fType = sourceArr[i].format;
         if (fType.indexOf('image') != -1) {
           $scope.video.push(sourceArr[i]);
           addSlide(target, sourceArr[i]); //carousel
@@ -441,7 +441,7 @@ angular.module('projectCtrl', ['userService',
       vm.roleData.requirements.push(item)
       vm.newData.name = "New Requirement",
         vm.newData.required = true,
-        vm.newData.file_type = "Attachment",
+        vm.newData.format = "Attachment",
         vm.newData.selected = true;
     }
 
@@ -467,27 +467,27 @@ angular.module('projectCtrl', ['userService',
         {name:"headshot",
           required:true,
           selected:true,
-          file_type:"file"
+          format:"attachment"
         },
         {name:"resume",
           required:true,
           selected:true,
-          type:"file"
+          format:"attachment"
         },
         {name:"Reel",
           required:true,
           selected:true,
-          type:"file"
+          format:"attachment"
         }
       ],
       vm.newData = {},
 
       vm.newData.name = "New Requirement",
       vm.newData.required = true,
-      vm.newData.file_type = "Type";
+      vm.newData.format = "Type";
 
     /*$scope.$watch(vm.newData.name, function(newVal, oldVal){
-     vm.newData.file_type = "Hey there!"
+     vm.newData.format = "Hey there!"
      vm.newData.required = true
      })*/
 
@@ -526,7 +526,7 @@ angular.module('projectCtrl', ['userService',
       vm.roleData.requirements.push(item)
       vm.newData.name = "New Requirement",
         vm.newData.required = true,
-        vm.newData.file_type = "Attachment",
+        vm.newData.format = "Attachment",
         vm.newData.selected = true;
     }
     vm.removeReqt = function (index) {

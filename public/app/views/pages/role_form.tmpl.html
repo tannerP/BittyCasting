@@ -78,8 +78,8 @@
           </thead>
           <tbody>
           <tr ng-repeat="req in roleAside.roleData.requirements">
-            <td>{{req.name}}, {{req.file_type}} <span 
-            ng-if="req.file_type.indexOf('link') != -1">link</span></td>
+            <td>{{req.name}}<span 
+            ng-if="req.format.indexOf('link') != -1">link</span></td>
             <td><input type="checkbox" ng-model="req.required"></td>
             <td><input type="checkbox" ng-model="req.selected"></td></td>
           </tr>
@@ -93,10 +93,10 @@
             <td>
               <div class="custom-dropdown" uib-dropdown is-open="false">
                 <span type="text" class="custom-form" uib-dropdown-toggle ng-disabled="disabled">
-                  {{roleAside.newData.file_type || "File"}}</span>
+                  {{roleAside.newData.format || "File"}}</span>
                 <ul uib-dropdown-menu role="menu" aria-labelledby="single-button">
-                  <li role="menuitem"><a href="#" ng-click="roleAside.newData.file_type = 'link'">Link</a></li>
-                  <li role="menuitem"><a href="#" ng-click="roleAside.newData.file_type = 'file'">Attachment</a></li>
+                  <li role="menuitem"><a href="#" ng-click="roleAside.newData.format = 'link'">link</a></li>
+                  <li role="menuitem"><a href="#" ng-click="roleAside.newData.format = 'attachment'">attachment</a></li>
                 </ul>
               </div>
             </td>
