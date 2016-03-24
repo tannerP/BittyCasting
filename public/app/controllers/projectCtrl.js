@@ -27,6 +27,24 @@ angular.module('projectCtrl', ['userService',
     var vm = this;
     $scope.viewApp = false;
     $scope.slides = [];
+
+    vm.gridView = false;
+    vm.listView = true;
+    vm.getProject = function (prjID) {
+      $location.path('/projectDetails/' + prjID);
+    }
+    vm.setGridVw = function () {
+      vm.listStyle = {'opacity': 0.2};
+      vm.gridStyle = {'opacity': 1};
+      vm.listView = false;
+      vm.gridView = true;
+    }
+    vm.setListVw = function () {
+      vm.listStyle = {'opacity': 1};
+      vm.gridStyle = {'opacity': 0.2};
+      vm.gridView = false;
+      vm.listView = true;
+    }
     function addSlide(target, data) {
       var i = target.length;
       var fileTypes = ["video", "image", "document", "link"];

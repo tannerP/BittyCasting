@@ -15,7 +15,7 @@ var RoleSchema = new Schema({
 	sex: {type:String},
 	requirements:[{
 		name:String,
-		file_type:String,
+		format:String,
 		required:Boolean,
 		selected:Boolean,
 	}]
