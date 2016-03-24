@@ -1396,6 +1396,9 @@ ul.projects li {
             outline: none;
             border-bottom: 1px solid $color-blue;
         }
+//        &::-webkit-input-placeholder, &:-moz-placeholder, &::-moz-placeholder, &:-ms-input-placeholder , &:placeholder-shown {
+//        color: $color-grey-light;
+//        background-color: red;}
     }
 }
 
