@@ -77,15 +77,15 @@
           </tr>
           </thead>
           <tbody>
-          <tr class="defaultRequirements" ng-repeat="req in roleAside.roleData.requirements">
+          <tr class="defaultRequirements" ng-repeat="req in roleAside.roleData.requirements track by $index">
             <td>{{req.name}}<span class="requirementFormat" ng-if="req.format.indexOf('link') != -1"></span></td>
             <td></td>
-            <td><input type="checkbox" ng-model="req.required"></td>   
+            <td><input bs-switch type="radio" ng-model="req.required"></td>   
             <td>
-                <div class="checkbox-requirements">
-                    <label><input type="checkbox" ng-model="req.selected"><span></span></label>
+                <div ng-if="$index < 3" class="checkbox-requirements">
+                    <labe><input type="checkbox" ng-model="req.selected"><span></span></label>
                 </div>   
-                <img src="/assets/imgs/ic_trash.svg" width="16px" height="16px">
+                <img ng-if="$index > 2" src="/assets/imgs/ic_trash.svg" width="16px" height="16px">
             </td>
           </tr>
           <!-- New Requirement -->
