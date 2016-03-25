@@ -48,7 +48,7 @@
       <section class="col-md-4">
         <p class="projectDetailsTitle">Requirements</p>
         <ul>
-          <span ng-repeat="rq in roleData.requirements"><li><p>{{rq.name}}</p></li></span>
+          <span ng-repeat="rq in roleData.requirements" ng-if="rq.selected" ><li><p>{{rq.name}}</p></li></span>
         </ul>
       </section>
     </div>
@@ -123,7 +123,7 @@
     <div class="table-utl">
       <ul>
         <li class="trashcan" ng-click='page.deleteAsideBtn(app)'></li>
-        <!--                              <li class="duplicate"></li>-->
+        <!--  <li class="duplicate"></li> -->
       </ul>
     </div>
   </td>

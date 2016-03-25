@@ -27,9 +27,9 @@ angular.module('projectCtrl', ['userService',
     var vm = this;
     $scope.viewApp = false;
     $scope.slides = [];
-
     vm.gridView = false;
     vm.listView = true;
+
     vm.getProject = function (prjID) {
       $location.path('/projectDetails/' + prjID);
     }
@@ -47,10 +47,10 @@ angular.module('projectCtrl', ['userService',
     }
     function addSlide(target, data) {
       var i = target.length;
-      var fileTypes = ["video", "image", "document", "link"];
+      var fileTypes = ["video", "image", "applicants/pdf", "link"];
 
       for (item in fileTypes) {
-        if (data.format.indexOf(fileTypes[item])) {
+        if (data.file_type.indexOf(fileTypes[item])) {
           fileTypes[item] = false;
         }
         else {
@@ -75,7 +75,7 @@ angular.module('projectCtrl', ['userService',
         $scope.documents = [], $scope.links = [];
 
       for (var i = 0; i < sourceArr.length; i++) {
-        var fType = sourceArr[i].format;
+        var fType = sourceArr[i].file_type;
         if (fType.indexOf('image') != -1) {
           $scope.video.push(sourceArr[i]);
           addSlide(target, sourceArr[i]); //carousel
@@ -91,7 +91,7 @@ angular.module('projectCtrl', ['userService',
           addSlide(target, sourceArr[i]);
 
         }
-        else if (fType == "link") {
+        else if (fType == "Link") {
           $scope.links.push(sourceArr[i]);
           addSlide(target, sourceArr[i]);
         }
@@ -409,7 +409,7 @@ angular.module('projectCtrl', ['userService',
       vm.roleData.end_date = $scope.selectedDate;
       vm.roleData.updated_date = new Date();
 
-      for(var i in vm.roleData.requirements)
+      /*for(var i in vm.roleData.requirements)
         {
           if(!vm.roleData.requirements[i].selected){
           vm.roleData.requirements.splice(i,i);
@@ -420,7 +420,7 @@ angular.module('projectCtrl', ['userService',
 
           }
         }
-      }
+      }*/
       Role.update($routeParams.role_id, vm.roleData)
         .success(function () {
           $route.reload();
@@ -446,18 +446,21 @@ angular.module('projectCtrl', ['userService',
       $scope.status.isopen = !$scope.status.isopen;
     };
 
+    vm.newData={};
+    vm.newData.format = "Attachment";
      vm.addReqt = function (data) {
-      if (!data) {
+      if (!data.name) {
         console.log("error: input variable");
         return;
       }
-      var item = {name: data.name,
-       format: data.format,
+      var item = {
+        name: data.name,
+        format: data.format,
         required: data.required,
         selected: true
       }
       vm.roleData.requirements.push(item)
-      vm.newData.name = "New Requirement",
+      vm.newData.name = "",
         vm.newData.required = true,
         vm.newData.format = "Attachment",
         vm.newData.selected = true;
@@ -469,7 +472,7 @@ angular.module('projectCtrl', ['userService',
         else vm.roleData.requirements.splice(index, index);
 
       }
-      else if (vm.roleData.requirements.length === 1) {
+      else if (vm.roleData.requirements.length == 1) {
         vm.roleData.requirements = []
       }
     }
@@ -482,27 +485,27 @@ angular.module('projectCtrl', ['userService',
     vm.edit = false,
       vm.roleData = {},
       vm.roleData.requirements = [
-        {name:"headshot",
+        {name:"Headshot",
           required:true,
           selected:true,
-          format:"attachment"
+          format:"Attachment"
         },
-        {name:"resume",
+        {name:"Resume",
           required:true,
           selected:true,
-          format:"attachment"
+          format:"Attachment"
         },
         {name:"Reel",
           required:true,
           selected:true,
-          format:"attachment"
+          format:"Attachment"
         }
       ],
       vm.newData = {},
 
-      vm.newData.name = "New Requirement",
+      vm.newData.name = "",
       vm.newData.required = true,
-      vm.newData.format = "Type";
+      vm.newData.format = "Attachment";
 
     /*$scope.$watch(vm.newData.name, function(newVal, oldVal){
      vm.newData.format = "Hey there!"
@@ -536,18 +539,20 @@ angular.module('projectCtrl', ['userService',
         console.log("error: input variable");
         return;
       }
-      var item = {name: data.name,
-       format: data.format,
+      var item = {
+        name: data.name,
+        format: data.format,
         required: data.required,
         selected: true
       }
       vm.roleData.requirements.push(item)
-      vm.newData.name = "New Requirement",
+      vm.newData.name = "",
         vm.newData.required = true,
         vm.newData.format = "Attachment",
         vm.newData.selected = true;
     }
     vm.removeReqt = function (index) {
+      console.log("button clicked");
       if (vm.roleData.requirements.length > 1) {
         if (index === 0) vm.roleData.requirements.shift();
         else vm.roleData.requirements.splice(index, index);
@@ -566,7 +571,7 @@ angular.module('projectCtrl', ['userService',
 
 
       //only include the files selected
-      for(var i in vm.roleData.requirements)
+   /*   for(var i in vm.roleData.requirements)
       {
         if(!vm.roleData.requirements[i].selected){
           vm.roleData.requirements.splice(i,i);
@@ -577,7 +582,7 @@ angular.module('projectCtrl', ['userService',
 
           }
         }
-      }
+      }*/
 
       Role.create(vm.projectID, vm.roleData)
         .success(function () {

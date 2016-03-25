@@ -86,6 +86,7 @@ app.post('/applicant',function(req,res){
   });
 app.put('/app/:app_id', function(req,res){
 console.log(req.body);
+console.log('Adding attachments to application.')
   Applicant.findById(req.params.app_id,function(err,app)
   {
     if(err) res.json({Error:true, error:err});
