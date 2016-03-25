@@ -20,8 +20,7 @@ angular.module('userApp', [
 	'ReviewPage',
 	'Nav',
 	'pdf',
-	"vimeoEmbed",
-	"frapontillo.bootstrap-switch"
+	"vimeoEmbed"
 	])
   .run(function ($rootScope, $location, $http) {
     $http.get('/config').success(function(data) {
