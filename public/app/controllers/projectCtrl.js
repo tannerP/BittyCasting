@@ -27,8 +27,10 @@ angular.module('projectCtrl', ['userService',
     var vm = this;
     $scope.viewApp = false;
     $scope.slides = [];
-    vm.gridView = false;
-    vm.listView = true;
+    vm.gridView = true;
+    vm.listView = false;
+
+    vm.gridStyle = {'opacity': 1};
 
     vm.getProject = function (prjID) {
       $location.path('/projectDetails/' + prjID);
@@ -113,6 +115,19 @@ angular.module('projectCtrl', ['userService',
           vm.processing = false;
           vm.applicants = data.data;
           $scope.numApps = data.data.length;
+          //get headshot
+          for(var i in vm.applicants){
+            for(var j in  vm.applicants[i].suppliments)
+            {
+              if(vm.applicants[i].suppliments[j].name == "Headshot" ||
+                vm.applicants[i].suppliments[j].name == "headshot")
+              {
+                vm.applicants[i].headshot = vm.applicants[i].suppliments[j].source;
+              }
+              else vm.applicants[i].headshot= "/assets/imgs/img_projectCover02.png";
+            }
+          }
+
         })
         .error(function (error) {
           console.log(error);

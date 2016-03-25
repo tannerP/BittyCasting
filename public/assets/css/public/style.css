@@ -853,7 +853,6 @@ ul.projects li {
 
 .cardApplicants {
   height: 283px;
-  background: url("/assets/imgs/img_headshotExample.png") no-repeat top center;
   background-size: 100% auto; }
   .cardApplicants .cardScrim {
     height: 283px; }

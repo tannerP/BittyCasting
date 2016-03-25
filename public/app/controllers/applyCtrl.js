@@ -194,7 +194,6 @@ angular.module('applyCtrl',['userService', 'mgcrea.ngStrap']).
                           name: vm.roleData.requirements[i].name,
                           file_type: file.type
                         };
-                        console.log("About to update");
                         Applicant.update(vm.applicantID,parsedData);
 
                       } else {
@@ -202,10 +201,8 @@ angular.module('applyCtrl',['userService', 'mgcrea.ngStrap']).
                       }
                     }, null, function(evt) {
                       file.progress =  parseInt(100.0 * evt.loaded / evt.total);
-                      console.log(file.progress);
                       if(file.progress == 100){
                         vm.numFileDone++;
-                        console.log(vm.numFileDone);
                         if(vm.numFileDone == vm.files.length * 2) //hack,because resp 4 times
                         {   vm.busy = false;
                           $location.path('/Thankyou');
