@@ -53,8 +53,17 @@ apiRouter.all('*',function(req,res,next){
 				res.send(err);
 				console.log(err); }
 			else{
-			console.log('Applicants:' + roles);
 			res.json({'success':true ,'data':roles});	}
+			})
+		})
+		apiRouter.route('/AppCount/:roleID')
+		.get(function(req, res){
+			Applicant.count({ 'roleID': req.params.roleID},function(err,count){
+			if(err){ 
+				res.send(err);
+				console.log(err); }
+			else{
+			res.json({'success':true ,'data':count});	}
 			})
 		})
 //==============================  Commenting =========================		
@@ -120,8 +129,16 @@ apiRouter.route('/roles/:projectID')
 				console.log(err); 
 			}
 			else{
-			res.json({'success':true ,'data':roles});
-		}
+				/*for(var i in roles){
+					Applicant.count({roleID:roles[i]._id}, function(err,count){
+						roles[i].num_applicants = count;
+						return;
+					})
+					console.log(i);
+					console.log(roles.length);
+					if(++i == roles.length)*/ res.json({'success':true ,'data':roles});
+				}	
+		
 	})
 }})
 //create role
@@ -143,14 +160,31 @@ apiRouter.route('/createRole/:projectID')
 				role.sex = req.body.sex;
 				role.requirements = req.body.requirements;
 				
-				console.log("role"+ role);
 				role.save(function(err){
 					if(err){
 						return  res.json({success:false,
 								error:err })	}
-					res.json({message:'Role created.'});
+						else{
+						Project.findById(req.params.projectID, function(err, project){
+              if(!err){
+                ++project.num_roles;
+                project.save(function(err){
+                  if(err){
+                    return  res.json({success:false,
+                        error: err
+                      })  
+                  }
+                  else{
+                    return  res.json({success:true,
+                        message: "Success"
+                    });
+                  }
+						})
+						}
 					})
-				})
+				}
+			})
+			})
 
 //===============================  CastingBoard  ============================
 apiRouter.route('/role/:role_id')

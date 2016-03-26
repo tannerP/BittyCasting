@@ -78,6 +78,10 @@ angular.module('projectCtrl', ['userService',
 
       for (var i = 0; i < sourceArr.length; i++) {
         var fType = sourceArr[i].file_type;
+        if (fType == "Link") {
+          $scope.links.push(sourceArr[i]);
+          addSlide(target, sourceArr[i]);
+        }
         if (fType.indexOf('image') != -1) {
           $scope.video.push(sourceArr[i]);
           addSlide(target, sourceArr[i]); //carousel
@@ -93,10 +97,7 @@ angular.module('projectCtrl', ['userService',
           addSlide(target, sourceArr[i]);
 
         }
-        else if (fType == "Link") {
-          $scope.links.push(sourceArr[i]);
-          addSlide(target, sourceArr[i]);
-        }
+      
       }
     }
 
@@ -119,12 +120,13 @@ angular.module('projectCtrl', ['userService',
           for(var i in vm.applicants){
             for(var j in  vm.applicants[i].suppliments)
             {
-              if(vm.applicants[i].suppliments[j].name == "Headshot" ||
-                vm.applicants[i].suppliments[j].name == "headshot")
+              console.log(vm.applicants[i].suppliments[j].name)
+              if(vm.applicants[i].suppliments[j].name === "Headshot")  /*||
+                vm.applicants[i].suppliments[j].name =="headshot"*/
               {
                 vm.applicants[i].headshot = vm.applicants[i].suppliments[j].source;
               }
-              else vm.applicants[i].headshot= "/assets/imgs/img_projectCover02.png";
+              else vm.applicants[i].headshot= "/assets/imgs/img_projectCover01.png";
             }
           }
 
@@ -305,6 +307,19 @@ angular.module('projectCtrl', ['userService',
         .success(function (data) {
           vm.processing = false;
           vm.Roles = data.data;
+        /*  for(var i in vm.Roles){
+            vm.Roles[i].numApps;
+            console.log(i)
+            Role.countApps(vm.Roles[i]._id)
+            .success(function(data){
+              console.log(i)
+              console.log(data)
+              vm.Roles[i].numApps = data.data
+            })
+            .error(function(error){
+              console.log(error);
+            })
+        }*/
         })
         .error(function (error) {
           console.log(error);
