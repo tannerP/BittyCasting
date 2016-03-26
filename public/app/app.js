@@ -19,7 +19,8 @@ angular.module('userApp', [
 	'footer',
 	'ReviewPage',
 	'Nav',
-	'pdf'
+	'pdf',
+	"vimeoEmbed"
 	])
   .run(function ($rootScope, $location, $http) {
     $http.get('/config').success(function(data) {
@@ -31,7 +32,7 @@ angular.module('userApp', [
 	})
   .config(function($datepickerProvider) {
   angular.extend($datepickerProvider.defaults, {
-    dateFormat: 'dd/MM/yyyy',
+    dateFormat: 'MM/dd/yyyy',
     startWeek: 1
   	})
 	})

@@ -1,7 +1,7 @@
 angular.module('mainCtrl', ['authService','mgcrea.ngStrap']).
 controller('mainController',['$scope','$rootScope','Auth',
-	'$location',"$sce","$route","$window",
-		function($scope,$rootScope, Auth, $location, $sce, $route, $window) {
+	'$location',"$sce","$route","$window","Mail",
+		function($scope,$rootScope, Auth, $location, $sce, $route, $window,Mail) {
 		var vm = this;
 		var FBLink = "https://www.facebook.com/BittyCasting-1053535994667037/"
 		var twitterLink =" https://twitter.com/BittyCasting"
@@ -53,11 +53,16 @@ controller('mainController',['$scope','$rootScope','Auth',
 							}
 						 })
 			}
-	})
-		vm.getUsrBtn = function(){
+		})
+		vm.betaEmail;
+	vm.betaRequestBtn = function(email)
+	{
+		console.log(vm.betaEmail)
+		Mail.betaUser(vm.betaEmail);
+	}	
+	vm.getUsrBtn = function(){
 			$location.path('/profile');
 		}
-
 		vm.doLogout = function () {
 			Auth.logout();
 			vm.user = {};
@@ -72,6 +77,7 @@ controller('mainController',['$scope','$rootScope','Auth',
 			$window.open(FBLink,'_blank');
 		}
 	}]).
+
 controller('signupCtrl', function(User,$scope,$location)	{
 		var vm = this;
 		vm.userData={};

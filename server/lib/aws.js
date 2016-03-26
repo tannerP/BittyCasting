@@ -7,13 +7,13 @@ var AWS = require('aws-sdk'),
     getExpiryTime,
     s3DeleteObject,
     s3 = new AWS.S3();
-
-
 /*s3.listBuckets(function(err, data) {
   if (err) console.log(err, err.stack); // an error occurred
   else     console.log(data);           // successful response
 });
 */
+
+
 
 getExpiryTime = function () {
     var _date = new Date();
@@ -21,19 +21,19 @@ getExpiryTime = function () {
         (_date.getDate() + 1) + 'T' + (_date.getHours() + 3) + ':' + '00:00.000Z';
 };
 
-s3DeleteObject = function (object){
+s3DeleteObject = function (object) {
     var params = {
-    Bucket: config.bucket, /* required */
-    Key: object /* required */
+        Bucket: config.bucket, /* required */
+        Key: object /* required */
     };
-    s3.deleteObject(params, function(err, data) {
-      if (err) console.log(err, err.stack); // an error occurred
-      else     console.log(data);           // successful response
-        });
+    s3.deleteObject(params, function (err, data) {
+        if (err) console.log(err, err.stack); // an error occurred
+        else     console.log(data);           // successful response
+    });
     return;
 }
 
-createS3Policy = function(contentType, callback) {
+createS3Policy = function (contentType, callback) {
     var date = new Date();
     var s3Policy = {
         'expiration': getExpiryTime(),
@@ -42,7 +42,7 @@ createS3Policy = function(contentType, callback) {
             {'bucket': config.bucket},
             {'acl': 'public-read'},
             ['starts-with', '$Content-Type', contentType],
-            {'success_action_status' : '201'}
+            {'success_action_status': '201'}
         ]
     };
 
@@ -52,7 +52,7 @@ createS3Policy = function(contentType, callback) {
 
     // sign the base64 encoded policy
     var signature = crypto.createHmac('sha1', config.secretAccessKey)
-                        .update(new Buffer(base64Policy, 'utf-8')).digest('base64');
+        .update(new Buffer(base64Policy, 'utf-8')).digest('base64');
 
     // build the results object
     var s3Credentials = {
@@ -65,30 +65,31 @@ createS3Policy = function(contentType, callback) {
     callback(s3Credentials);
 };
 
- exports.removeSup = function(sup){
-    var objects =[];
-    for(var i in sup)
-    {   console.log(i);
-         objects.push({
-            Key:sup[i].key
-         })
+exports.removeSup = function (sup) {
+    var objects = [];
+    for (var i in sup) {
+        console.log(i);
+        objects.push({
+            Key: sup[i].key
+        })
     }
 
     var params = {
-      Bucket: config.bucket, /* required */
-      Delete: { /* required */
-        Objects: objects,
-        Quiet: false
-      }
+        Bucket: config.bucket, /* required */
+        Delete: {
+            /* required */
+            Objects: objects,
+            Quiet: false
+        }
     };
-    if(objects.length == sup.length)
-        s3.deleteObjects(params, function(err, data) {
-          if (err) console.log(err, err.stack); // an error occurred
-          else     console.log(data);           // successful response
+    if (objects.length == sup.length)
+        s3.deleteObjects(params, function (err, data) {
+            if (err) console.log(err, err.stack); // an error occurred
+            else     console.log(data);           // successful response
         });
 }
 
-exports.getS3Policy = function(req, res) {
+exports.getS3Policy = function (req, res) {
     createS3Policy(req.query.mimeType, function (creds, err) {
         if (!err) {
             return res.send(200, creds);

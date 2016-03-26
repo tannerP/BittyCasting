@@ -53,8 +53,17 @@ apiRouter.all('*',function(req,res,next){
 				res.send(err);
 				console.log(err); }
 			else{
-			console.log('Applicants:' + roles);
 			res.json({'success':true ,'data':roles});	}
+			})
+		})
+		apiRouter.route('/AppCount/:roleID')
+		.get(function(req, res){
+			Applicant.count({ 'roleID': req.params.roleID},function(err,count){
+			if(err){ 
+				res.send(err);
+				console.log(err); }
+			else{
+			res.json({'success':true ,'data':count});	}
 			})
 		})
 //==============================  Commenting =========================		
@@ -63,7 +72,7 @@ apiRouter.route('/applicant/comments/:appID')
 		Applicant.findById(req.params.appID,function(err,app){
 				if(err) res.json({successful:false,error:err});
 					if(req.body.state == 'PUT'){
-					app.comments.push({owner:req.body.owner,
+						app.comments.push({owner:req.body.owner,
 													comment:req.body.comment});
 						app.save(function(err){
 							if(err){
@@ -93,7 +102,6 @@ apiRouter.route('/applicant/comments/:appID')
 			_id:req.params.appID,
 				}, function(err,app){
 					if(err) {return res.send(err);}
-					console.log(app)
 					if(app){
 						aws.removeSup(app.suppliments);
 							Applicant.remove({
@@ -121,8 +129,16 @@ apiRouter.route('/roles/:projectID')
 				console.log(err); 
 			}
 			else{
-			res.json({'success':true ,'data':roles});
-		}
+				/*for(var i in roles){
+					Applicant.count({roleID:roles[i]._id}, function(err,count){
+						roles[i].num_applicants = count;
+						return;
+					})
+					console.log(i);
+					console.log(roles.length);
+					if(++i == roles.length)*/ res.json({'success':true ,'data':roles});
+				}	
+		
 	})
 }})
 //create role
@@ -139,19 +155,36 @@ apiRouter.route('/createRole/:projectID')
 				role.end_time = req.body.end_time;
 				
 				role.location = req.body.location;
-				role.payterms =  req.body.payterms;
-				role.age =  req.body.age;
-				role.sex =  req.body.sex;
+				role.payterms = req.body.payterms;
+				role.age = req.body.age;
+				role.sex = req.body.sex;
 				role.requirements = req.body.requirements;
 				
-				console.log("role"+ role);
 				role.save(function(err){
 					if(err){
 						return  res.json({success:false,
 								error:err })	}
-					res.json({message:'Role created.'});
+						else{
+						Project.findById(req.params.projectID, function(err, project){
+              if(!err){
+                ++project.num_roles;
+                project.save(function(err){
+                  if(err){
+                    return  res.json({success:false,
+                        error: err
+                      })  
+                  }
+                  else{
+                    return  res.json({success:true,
+                        message: "Success"
+                    });
+                  }
+						})
+						}
 					})
-				})
+				}
+			})
+			})
 
 //===============================  CastingBoard  ============================
 apiRouter.route('/role/:role_id')
@@ -162,14 +195,21 @@ apiRouter.route('/role/:role_id')
 		}})
 	})
 	.delete(function(req, res){
-		Role.remove({
-			_id:req.params.role_id
-		}, function(err,user){
-			if(err) return res.send(err);
-			res.json({message: 'Successfully deleted'});
-		})
+		//delete all applications with this roleID
+		Applicant.find({roleID:req.params.role_id}, 
+			function(err, apps){
+				if(err) res.json({success:false, error: err})	
+				for(var i in apps){
+				 		aws.removeSup(apps[i].suppliments);
+					}
+				Role.remove({
+					_id:req.params.role_id}, function(err,user){
+				if(err) console.log(err)
+					res.json({message: 'Successfully deleted'});
+				})
+		});
+		
 	})
-
 	.put(function(req,res){
 		Role.findById(req.params.role_id, function(err,role){
 			if(err) res.send(err);
@@ -258,10 +298,24 @@ apiRouter.route('/project/:project_id')
 		})
 	})
 	.delete(function(req, res){
-		//TODO need to add more security here (i.e query user, then search if user owns project_id  )		
-		Project.remove({
+		//Remove 
+		Role.find({projectID:req.params.project_id}, function(err, roles){
+			for(var i in roles){
+				Applicant.find({roleID:roles[i]._id}, 
+					function(err, apps){
+						if(err) res.json({success:false, error: err})	
+						for(var i in apps){
+					 		aws.removeSup(apps[i].suppliments);
+						}
+				})
+			console.log("removing this role");
+			roles[i].remove();
+		}
+	})
+
+	Project.remove({
 			_id:req.params.project_id
-		}, function(err,user){
+		}, function(err,project){
 			if(err) return res.send(err);
 			res.json({message: 'Successfully deleted'});
 		})

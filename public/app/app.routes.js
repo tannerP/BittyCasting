@@ -19,6 +19,9 @@ angular.module('app.routes', ['ngRoute'])
         .when('/privacy_policy',  {
             templateUrl: 'app/views/pages/privacy_policy.html',
         })
+        .when('/submission_agreement',  {
+            templateUrl: 'app/views/pages/submission_agreement.html',
+        })
         .when('/terms_of_service',  {
             templateUrl: 'app/views/pages/terms_of_service.html',
         })

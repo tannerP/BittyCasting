@@ -247,50 +247,53 @@ a {
     background: url("/assets/imgs/ic_check.svg") no-repeat center center #cccccc;
     background-size: 12px 12px; }
 
-/* Fullscreen Overlay */
-.overlay {
-  width: 100%;
-  height: 100vh;
-  /* 50% opacity black */
-  background: rgba(0, 0, 0, 0.5);
-  /* Stays locked on scroll */
-  position: fixed;
-  /* On top of the rest*/
-  z-index: 2;
-  /* Hidden */
-  opacity: 0;
-  /* No interference */
-  left: -100%;
-  /* CSS3 Transition */
-  transition: opacity .5s;
-  -webkit-transition: opacity .5s; }
-
-/* 90% width container */
-.video-container {
-  width: 90%;
-  /* Centering */
+/* Toggle button */
+.cmn-toggle {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  -webkit-transform: translate(-50%, -50%); }
+  margin-left: -9999px;
+  visibility: hidden; }
 
-.close {
-  width: 20px;
-  fill: white;
+.cmn-toggle + label {
+  display: block;
+  position: relative;
+  cursor: pointer;
+  outline: none;
+  user-select: none; }
+
+input.cmn-toggle-round + label {
+  padding: 2px;
+  width: 40px;
+  height: 20px;
+  background-color: #dddddd;
+  border-radius: 20px; }
+
+input.cmn-toggle-round + label:before,
+input.cmn-toggle-round + label:after {
+  display: block;
   position: absolute;
-  right: 0;
-  /* Bring above video */
-  top: -30px; }
+  top: 1px;
+  left: 1px;
+  bottom: 1px;
+  content: ""; }
 
-.close:hover {
-  /* 50% opacity white */
-  fill: rgba(255, 255, 255, 0.5);
-  cursor: pointer; }
+input.cmn-toggle-round + label:before {
+  right: 1px;
+  background-color: #f1f1f1;
+  border-radius: 20px;
+  transition: background 0.4s; }
 
-/* Class to fade in overlay */
-.show {
-  opacity: 1; }
+input.cmn-toggle-round + label:after {
+  width: 18px;
+  background-color: #fff;
+  border-radius: 100%;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  transition: margin 0.4s; }
+
+input.cmn-toggle-round:checked + label:before {
+  background-color: #06bcc2; }
+
+input.cmn-toggle-round:checked + label:after {
+  margin-left: 20px; }
 
 /***************************
            Global
@@ -522,6 +525,13 @@ header {
 /***************************
           Landing page
 ***************************/
+.videoFrameWrapper {
+  position: relative; }
+  .videoFrameWrapper img {
+    position: absolute;
+    top: -15px;
+    left: -15px; }
+
 .sectionTitle {
   font-weight: 600;
   font-size: 24px;
@@ -558,25 +568,27 @@ section.home {
       color: #666666;
       line-height: 38px;
       margin-bottom: 60px; }
-    section.home .brandMessage .brandRequest input {
-      height: 60px;
-      width: 100%;
-      padding: 12px;
-      border: 1px solid #cccccc;
-      display: inline-block;
-      margin-bottom: 10px; }
-      section.home .brandMessage .brandRequest input:focus {
-        outline: none;
-        border: 1px solid #06bcc2; }
-    section.home .brandMessage .brandRequest button {
-      width: 100%;
-      height: 60px;
-      display: inline-block; }
-    section.home .brandMessage .brandRequest p {
-      font-size: 12px;
-      color: #999999;
-      text-align: left;
-      margin: 10px 0 0 3px; }
+    section.home .brandMessage .brandRequest {
+      margin-top: 40px; }
+      section.home .brandMessage .brandRequest input {
+        height: 60px;
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #cccccc;
+        display: inline-block;
+        margin-bottom: 10px; }
+        section.home .brandMessage .brandRequest input:focus {
+          outline: none;
+          border: 1px solid #06bcc2; }
+      section.home .brandMessage .brandRequest button {
+        width: 100%;
+        height: 60px;
+        display: inline-block; }
+      section.home .brandMessage .brandRequest p {
+        font-size: 12px;
+        color: #999999;
+        text-align: left;
+        margin: 10px 0 0 3px; }
 section.features {
   padding-bottom: 60px;
   background-color: white; }
@@ -761,6 +773,9 @@ div.pageHeader {
           transition: all 0.8s ease; }
       div.pageHeader .custom-page-action ul li:last-child {
         margin-left: 0; }
+  div.pageHeader .custom-page-action-secondary .custom-page-action-secondary-title {
+    font-size: 16px;
+    float: left; }
   div.pageHeader .custom-page-action-secondary ul {
     list-style: none;
     padding: 0; }
@@ -818,7 +833,7 @@ div.pageHeader {
   letter-spacing: 6px;
   padding: 40px 0; }
 
-ul.projects {
+ul.projects, ul.applicants {
   list-style-type: none;
   margin: 0;
   padding: 0;
@@ -827,12 +842,26 @@ ul.projects {
 ul.projects li {
   margin: 0 0 30px 0; }
 
+.cardProjects {
+  height: 187px;
+  background: url("/assets/imgs/img_projectCover01.png") no-repeat top center;
+  background-size: 100% auto; }
+  .cardProjects .cardScrim {
+    height: 187px; }
+  .cardProjects .cardInfo {
+    top: 65%; }
+
+.cardApplicants {
+  height: 283px;
+  background-size: 100% auto; }
+  .cardApplicants .cardScrim {
+    height: 283px; }
+  .cardApplicants .cardInfo {
+    top: 78%; }
+
 .card {
   color: #fff;
-  height: 187px;
   text-align: center;
-  background: url("/assets/imgs/img_projectCover01.png") no-repeat top center;
-  background-size: 100% auto;
   position: relative;
   -webkit-box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.1);
   -moz-box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.1);
@@ -847,7 +876,6 @@ ul.projects li {
     top: 0;
     left: 0;
     width: 100%;
-    height: 187px;
     background-color: transparent;
     -webkit-transition: all 0.3s ease;
     -moz-transition: all 0.3s ease;
@@ -865,9 +893,9 @@ ul.projects li {
     position: absolute;
     bottom: 0;
     width: 100%;
-    height: 60px;
     background-color: white;
-    z-index: 1; }
+    z-index: 1;
+    height: 60px; }
   .card:hover > .cardInfo .actionBar {
     opacity: 1;
     -webkit-transition: all 0.3s ease;
@@ -888,16 +916,15 @@ ul.projects li {
     transition: all 0.3s ease; }
   .card .cardInfo {
     background-color: white;
-    height: 60px;
     padding-top: 13px;
     position: relative;
-    top: 65%;
     -webkit-transition: all 0.3s ease;
     -moz-transition: all 0.3s ease;
     -ms-transition: all 0.3s ease;
     -o-transition: all 0.3s ease;
     transition: all 0.3s ease;
-    z-index: 2; }
+    z-index: 2;
+    height: 60px; }
     .card .cardInfo a {
       text-decoration: none; }
     .card .cardInfo .cardTitle {
@@ -919,7 +946,7 @@ ul.projects li {
       .card .cardInfo .actionBar ul {
         left: 50%;
         position: relative;
-        margin-left: -45px;
+        margin-left: -19px;
         list-style: none;
         padding: 0; }
         .card .cardInfo .actionBar ul li {
@@ -1010,6 +1037,17 @@ ul.projects li {
   width: 10%; }
 .custom-table .table-application-requirements thead tr th:nth-child(4) {
   width: 10%; }
+.custom-table .table-application-requirements tr.defaultRequirements:nth-child(1), .custom-table .table-application-requirements tr.defaultRequirements:nth-child(2), .custom-table .table-application-requirements tr.defaultRequirements:nth-child(3) {
+  background-color: #eeeeee; }
+.custom-table .table-application-requirements td span.requirementFormat {
+  width: 12px;
+  height: 12px;
+  display: inline-block;
+  padding: 0;
+  margin-left: 7px;
+  vertical-align: middle;
+  background: url("/assets/imgs/ic_link.svg") no-repeat center center;
+  background-size: 12px 12px; }
 .custom-table .table {
   font-size: 12px; }
   .custom-table .table tbody tr {
@@ -1115,6 +1153,9 @@ ul.projects li {
 .aside {
   width: 400px;
   padding: 0 20px 20px 20px; }
+  .aside .asideBg {
+    width: 100%;
+    min-height: 100%; }
   .aside .asideMessage p {
     font-size: 10px;
     color: #999999;
@@ -1402,6 +1443,27 @@ ul.projects li {
 /***************************
           Apply
 ***************************/
+.btn_paragraph {
+  font-size: 10px;
+  color: #999999;
+  line-height: 18px;
+  margin: 10px 0 8px 0; }
+  .btn_paragraph a {
+    color: #06bcc2;
+    -webkit-transition: all 0.2s ease;
+    -moz-transition: all 0.2s ease;
+    -ms-transition: all 0.2s ease;
+    -o-transition: all 0.2s ease;
+    transition: all 0.2s ease; }
+    .btn_paragraph a:hover, .btn_paragraph a:focus {
+      color: #48d8d8;
+      text-decoration: none;
+      -webkit-transition: all 0.2s ease;
+      -moz-transition: all 0.2s ease;
+      -ms-transition: all 0.2s ease;
+      -o-transition: all 0.2s ease;
+      transition: all 0.2s ease; }
+
 .applyPage {
   padding: 56px 0 60px 0;
   position: relative; }
@@ -1415,6 +1477,13 @@ ul.projects li {
     background-color: white; }
   .applyPage .applyPageLeft, .applyPage .applyPageRight {
     padding: 0 15px; }
+  .applyPage .applyPageRight label span {
+    margin-left: 5px;
+    width: 12px;
+    height: 12px;
+    display: inline-block;
+    background: url("/assets/imgs/ic_asterisk.svg") no-repeat top right;
+    background-size: 12px 12px; }
   .applyPage .applyLogo {
     position: absolute;
     top: 40px;
@@ -1641,11 +1710,11 @@ ul.projects li {
       list-style-type: none;
       padding: 0;
       margin: 0; }
-      .reviewInfo table ul li a {
+      .reviewInfo table ul li {
         display: inline; }
-        .reviewInfo table ul li a:after {
-          content: " / "; }
-        .reviewInfo table ul li a:last-child:after {
+        .reviewInfo table ul li:after {
+          content: " /"; }
+        .reviewInfo table ul li:last-child:after {
           content: ""; }
 
 .reviewComment {
@@ -1891,6 +1960,9 @@ ul.projects li {
                                   Mobile view
 *********************************************************************************/
 @media screen and (max-width: 989px) {
+  .videoFrameWrapper img {
+    display: none; }
+
   .pageTitleMobileOffset {
     padding-top: 120px; }
 
@@ -1936,6 +2008,9 @@ ul.projects li {
 @media screen and (max-width: 767px) {
   .custom-main {
     padding: 80px 0 60px 0; }
+
+  section.contact {
+    margin-bottom: 60px; }
 
   /***************************
               Nav

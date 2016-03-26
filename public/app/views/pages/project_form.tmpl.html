@@ -1,27 +1,30 @@
-<div class="aside" tabindex="-1" role="dialog">   
-    
+<div class="aside" tabindex="-1" role="dialog">
+  <div class="asideBg">
     <div class="asideTitle" ng-if="projectAside.NEW">Create project</div>
     <div class="asideTitle" ng-if="!projectAside.NEW">Edit project</div>
-    
+
     <div ng-if="!login.processing" type="button" class="custom-close" ng-click="$hide()"></div>
 
-        <form class="container-page" ng-submit="projectAside.save()">
-            <div class = "form-group">
-                <label>Name</label>
-                <input type="text" class = "custom-form" ng-model="projectAside.projectData.name" required>
-            </div>
-            <div class = "form-group">
-                <label>Description (Max {{charRmnd}} characters)</label>
-                <textarea rows="5" cols="40" maxlength="220" class = "custom-form-textarea" ng-model="projectAside.projectData.description" ng-change="TAChange()"></textarea>
-            </div>
-                     
-            <button type="submit" class = "custom-btn-primary-large" ng-if="projectAside.NEW">
-              <span>Create project</span>
-            </button>
-            <button type="submit" class = "custom-btn-primary-large" ng-if="!projectAside.NEW">
-              <span>Save</span>
-            </button>
+    <form class="container-page" ng-submit="projectAside.save()">
+      <div class="form-group">
+        <label>Name</label>
+        <input type="text" class="custom-form" ng-model="projectAside.projectData.name" required>
+      </div>
+      <div class="form-group">
+        <!-- <label>Description (Max {{charRmnd}} characters)</label> -->
+        <label>Description </label>
+        <textarea rows="5" cols="40" class="custom-form-textarea" ng-model="projectAside.projectData.description"
+                  ng-change="TAChange()"></textarea>
+      </div>
 
-        </form>
-        <br>
+      <button type="submit" class="custom-btn-primary-large" ng-if="projectAside.NEW">
+        <span>Create project</span>
+      </button>
+      <button type="submit" class="custom-btn-primary-large" ng-if="!projectAside.NEW">
+        <span>Save</span>
+      </button>
+
+    </form>
+    <br>
+  </div>
 </div>
