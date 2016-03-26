@@ -82,12 +82,12 @@ angular.module('projectCtrl', ['userService',
           $scope.links.push(sourceArr[i]);
           addSlide(target, sourceArr[i]);
         }
-        if (fType.indexOf('image') != -1) {
+        if (fType.indexOf('video') != -1) {
           $scope.video.push(sourceArr[i]);
           addSlide(target, sourceArr[i]); //carousel
           console.log("added");
         }
-        else if (fType.indexOf('video') != -1) {
+        else if (fType.indexOf('image') != -1) {
           $scope.images.push(sourceArr[i]);
           addSlide(target, sourceArr[i]);	//carousel
           console.log("added");
@@ -121,10 +121,11 @@ angular.module('projectCtrl', ['userService',
             for(var j in  vm.applicants[i].suppliments)
             {
               console.log(vm.applicants[i].suppliments[j].name)
-              if(vm.applicants[i].suppliments[j].name === "Headshot")  /*||
+              if(angular.equals(vm.applicants[i].suppliments[j].name, "Headshot")  )/*||
                 vm.applicants[i].suppliments[j].name =="headshot"*/
               {
                 vm.applicants[i].headshot = vm.applicants[i].suppliments[j].source;
+                break;
               }
               else vm.applicants[i].headshot= "/assets/imgs/img_projectCover01.png";
             }

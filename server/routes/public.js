@@ -91,27 +91,29 @@ app.post('/applicant',function(req,res){
                 ++role.new_apps;
                 ++role.total_apps;
                 console.log("Increased app counts");
-                role.save(function(err){
-                  if(err){
+                role.save(function(err,data){
+                  return;
+                  /*if(err){
                     return  res.json({success:false,
                         error: err
                       })  
                   }
                   else{
                     return  res.json({success:true,
-                        message: "Success"
-                    });
-                  }
+                        appID: 
+                    })*/
             })
           }
           /*return res.json({success:true, message:"Success"});*/
       });
-      }
-    })
-  }})})
+          return  res.json({success:true,
+                        appID: data._id})
+  }
+})}})})
 app.put('/app/:app_id', function(req,res){
 console.log(req.body);
 console.log('Adding attachments to application.')
+console.log(req.params)
   Applicant.findById(req.params.app_id,function(err,app)
   {
     if(err) res.json({Error:true, error:err});

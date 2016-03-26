@@ -30,6 +30,7 @@ angular.module('userService', [])
 	var appFactory={};	
 	
 	appFactory.update = function(id,data)	{
+		console.log(id);
 		return $http.put('/app/'+id, data);	
 		}	 
 	appFactory.delete = function(appID)	{
