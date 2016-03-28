@@ -11,11 +11,6 @@ angular.module('app.routes', ['ngRoute'])
             controller: 'HomePageController',
             controllerAs: 'home'
         })
-        .when('/signup', {
-            templateUrl : '/app/views/pages/signup.html',
-            controller   : 'signupCtrl',
-            controllerAs   : 'user'
-        })
         .when('/privacy_policy',  {
             templateUrl: 'app/views/pages/privacy_policy.html',
         })
@@ -60,11 +55,11 @@ angular.module('app.routes', ['ngRoute'])
             controllerAs: 'user'
         })
     /*---------------- Admin ----------------*/
-        .when('/users',  {
+ /*       .when('/users',  {
             templateUrl: 'app/views/pages/users/all.html',
             controller: 'userController',
             controllerAs: 'user'
-        })
+        })*/
         .when('/users/create',  {
             templateUrl: 'app/views/pages/signup.html',
             controller: 'userCreateController',
