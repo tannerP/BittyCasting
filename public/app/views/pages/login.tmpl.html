@@ -16,12 +16,12 @@
       <!-- USERNAME INPUT -->
       <div class="form-group">
         <label>E-mail</label>
-        <input type="text" class="custom-form" placeholder="{{main.email}}" disabled="">
+        <input type="text" class="custom-form" ng-model="login.email">
       </div>
       <!-- PASSWORD INPUT -->
       <div class="form-group">
         <label>Password</label>
-        <input type="text" class="custom-form" placeholder="*********" disabled>
+        <input type="password" class="custom-form" ng-model="login.password" >
       </div>
       <button type="submit" class="custom-btn-primary-large">
         <span>Sign in</span>

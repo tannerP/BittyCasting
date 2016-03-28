@@ -32,6 +32,7 @@ controller('mainController',['$scope','$rootScope','Auth',
 		$rootScope.$on('$routeChangeStart', function () {
 			vm.navCollapsed = true;
 			vm.loggedIn = Auth.isLoggedIn();
+			vm.navCollapsed = true;
 				vm.footer = true;
 				vm.nav = true;
 
@@ -115,7 +116,7 @@ controller('loginCtrl',['$scope','Auth','$location','$route',
 			vm.doLogin = function () {
 				vm.processing = true; //TODO:processing Icon
 				vm.error = '';
-				Auth.login("yc@gmail.com", "yc")
+				Auth.login(vm.email, vm.password)
 					.success(function (data) {
 						vm.processing = false;
 
@@ -168,9 +169,11 @@ controller('navCtrl', ['$scope','$popover','$aside','Auth','$location',
           
 		vm.signin = function(){
 			loginAside.toggle();
+			$scope.navCollapsed = false;
 		}
 		vm.signup = function(){
 			signupAside.toggle();
+			$scope.navCollapsed = false;
 		}
 		vm.navCtrl;
 	}]);

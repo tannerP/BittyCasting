@@ -150,7 +150,7 @@ apiRouter.route('/createRole/:projectID')
 				var role = new Role();
 				role.userID = req.decoded.id;
 				console.log(req.body);
-				var URL = "http://bittycasting.com/";
+				var URL = "http://bittycasting.com/Apply/";
 				
 				role.projectID = req.params.projectID;
 				role.name = req.body.name;
@@ -170,7 +170,7 @@ apiRouter.route('/createRole/:projectID')
 								error:err })	}
 						else{
 							
-						bitly.shortenURL(URL,role._id)
+						bitly.shortenURL(URL+role._id,role._id)
 						Project.findById(req.params.projectID, function(err, project){
               if(!err){
                 ++project.num_roles;
