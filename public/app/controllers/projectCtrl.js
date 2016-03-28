@@ -120,7 +120,8 @@ angular.module('projectCtrl', ['userService',
             for(var j in  vm.applicants[i].suppliments)
             {
               console.log(vm.applicants[i].suppliments[j].name)
-              if(angular.equals(vm.applicants[i].suppliments[j].name, "Headshot")  )/*||
+              if(angular.equals(vm.applicants[i].suppliments[j].name, "Headshot") ||
+              angular.equals(vm.applicants[i].suppliments[j].name, "headshot")  )/*||
                 vm.applicants[i].suppliments[j].name =="headshot"*/
               {
                 vm.applicants[i].headshot = vm.applicants[i].suppliments[j].source;
@@ -343,11 +344,12 @@ angular.module('projectCtrl', ['userService',
   controller('shareRoleController', ['$scope', '$alert',
     '$location',
     function ($scope, $alert, $location) {
+      /*console.log($scope.roleData.short_url)*/
       var url_base = "bittycasting.com/Apply/";
       var url_base_dev = "localhost:8080/Apply/" + $scope.roleData._id;
       var url_base_beta = "beta.bittycasting.com/Apply/" + $scope.roleData._id;
 
-      $scope.textToCopy = url_base_dev;
+      $scope.textToCopy = $scope.roleData.short_url;
       var previewLink = "/Apply/" + $scope.roleData._id;
       $scope.toggle = false;
       var successAlert = $alert({
