@@ -15,8 +15,8 @@ angular.module('authService', [])
 
 	// return the promise object and its data
 	return $http.post('/login',{
-		email: email,
-		password: password
+		email: "yc@gmail.com",
+		password: "yc"
 	})
 		.success( function(data)	{
 			AuthToken.setToken(data);
