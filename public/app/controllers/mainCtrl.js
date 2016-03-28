@@ -9,6 +9,7 @@ controller('mainController',['$scope','$rootScope','Auth',
 		vm.loggedIn = false;
 		vm.footer = true;
 		vm.nav = true;
+		vm.navCollapsed = true;
 
 		vm.loggedIn = Auth.isLoggedIn();
 		vm.backBtn = function(){
@@ -29,6 +30,7 @@ controller('mainController',['$scope','$rootScope','Auth',
 		})
 		
 		$rootScope.$on('$routeChangeStart', function () {
+			vm.navCollapsed = true;
 			vm.loggedIn = Auth.isLoggedIn();
 				vm.footer = true;
 				vm.nav = true;

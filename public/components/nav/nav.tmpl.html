@@ -8,7 +8,7 @@
             <nav role="navigation">
                   <!-- Brand and toggle get grouped for better mobile display -->
                               <!-- The collapsed nav button for mobile -->
-              <div class="navbar-toggle collapsed" ng-init="navCollapsed = true" ng-click="navCollapsed = !navCollapsed">
+              <div class="navbar-toggle collapsed" ng-init="main.navCollapsed" ng-click="main.navCollapsed = !main.navCollapsed">
               </div>
                                  
 <!--         <span class="sr-only">Toggle navigation</span>
@@ -34,7 +34,7 @@
 
                   </div>
       <!-- Collect the nav links, forms, and other content for toggling -->
-                  <div class="collapse navbar-collapse" ng-class="!navCollapsed && 'in'">
+                  <div class="collapse navbar-collapse" ng-class="!main.navCollapsed && 'in'">
                       
 <!---------------- Log in ---------------->                                            
                     <div ng-if='main.loggedIn' class="custom-site-nav-in"> 
