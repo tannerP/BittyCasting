@@ -2,6 +2,20 @@
 <header>
 
 <div class="container">  
+ <style>
+    div.navbar-collapse.collapse {
+        display: block;
+        overflow: hidden;
+        max-height: 0px;
+        -webkit-transition: max-height .3s ease;
+        -moz-transition: max-height .3s ease;
+        -o-transition: max-height .3s ease;
+        transition: max-height .3s ease;
+    }
+    div.navbar-collapse.collapse.in {
+        max-height: 2000px;
+    }
+    </style>
 
     <div class="row">
 
@@ -39,7 +53,7 @@
 <!---------------- Log in ---------------->                                            
                     <div ng-if='main.loggedIn' class="custom-site-nav-in"> 
                       <ul class="nav navbar-nav">                       
-                          <li ><a href="/home">My projects</a></li>                        
+                          <li ng-click="main.navCollapsed = !main.navCollapsed"><a href="/home">My projects</a></li>                        
                       </ul>
                     </div>      
                       
