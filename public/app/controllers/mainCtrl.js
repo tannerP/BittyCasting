@@ -67,8 +67,8 @@ controller('mainController',['$scope','$rootScope','Auth',
 			Auth.logout();
 			vm.user = {};
 			vm.usrInitial = '';
-			/*$location.path('/');*/
-			$route.reload();
+			$location.path('/');
+			/*$route.reload();*/
 		}
 		vm.twitter = function(){
 			$window.open(twitterLink,'_blank');
