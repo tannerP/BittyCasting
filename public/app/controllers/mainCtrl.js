@@ -3,6 +3,7 @@ controller('mainController',['$scope','$rootScope','Auth',
 	'$location',"$sce","$route","$window","Mail",
 		function($scope,$rootScope, Auth, $location, $sce, $route, $window,Mail) {
 		var vm = this;
+		vm.email = "yc@gmail.com"
 		var FBLink = "https://www.facebook.com/BittyCasting-1053535994667037/"
 		var twitterLink =" https://twitter.com/BittyCasting"
 		vm.loggedIn = false;
@@ -29,6 +30,7 @@ controller('mainController',['$scope','$rootScope','Auth',
 		})
 		
 		$rootScope.$on('$routeChangeStart', function () {
+			vm.navCollapsed = true;
 			vm.loggedIn = Auth.isLoggedIn();
 			vm.navCollapsed = true;
 				vm.footer = true;
@@ -112,31 +114,31 @@ controller('loginCtrl',['$scope','Auth','$location','$route',
 			vm.loginData = {};
 			vm.process = false;
 			vm.doLogin = function () {
-			vm.processing = true; //TODO:processing Icon
-			vm.error = '';
-			Auth.login(vm.loginData.email, vm.loginData.password)
-				.success(function (data) {
-					vm.processing = false;
+				vm.processing = true; //TODO:processing Icon
+				vm.error = '';
+				Auth.login("yc@gmail.com", "yc")
+					.success(function (data) {
+						vm.processing = false;
 
-				if (data.success) {
-					//if a user successfully logs in, redirect to users page
-					vm.loginData = {};
-					
-					//conditional for /login vs aside
-					if($location.path() =='/login') $location.path('/home');
-					else{
-						$location.path('/home');}
-						$scope.$hide();
-					//this.user = 'name:unchanged';
-					Auth.getUser()
-						.then(function(data) {
-							$scope.name = data.name;
-							$scope.$emit("LoggedIn", data.name);
-						 })
-					}
-				else vm.error = data.message;
-			});
-		};
+					if (data.success) {
+						//if a user successfully logs in, redirect to users page
+						vm.loginData = {};
+						
+						//conditional for /login vs aside
+						if($location.path() =='/login') $location.path('/home');
+						else{
+							$location.path('/home');}
+							$scope.$hide();
+						//this.user = 'name:unchanged';
+						Auth.getUser()
+							.then(function(data) {
+								$scope.name = data.name;
+								$scope.$emit("LoggedIn", data.name);
+							 })
+						}
+					else vm.error = data.message;
+				});
+			};
 
 	}]).
 
