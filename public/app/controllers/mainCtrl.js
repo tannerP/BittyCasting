@@ -8,6 +8,7 @@ controller('mainController',['$scope','$rootScope','Auth',
 		vm.loggedIn = false;
 		vm.footer = true;
 		vm.nav = true;
+		vm.navCollapsed = true;
 
 		vm.loggedIn = Auth.isLoggedIn();
 		vm.backBtn = function(){
@@ -29,6 +30,7 @@ controller('mainController',['$scope','$rootScope','Auth',
 		
 		$rootScope.$on('$routeChangeStart', function () {
 			vm.loggedIn = Auth.isLoggedIn();
+			vm.navCollapsed = true;
 				vm.footer = true;
 				vm.nav = true;
 
@@ -165,9 +167,11 @@ controller('navCtrl', ['$scope','$popover','$aside','Auth','$location',
           
 		vm.signin = function(){
 			loginAside.toggle();
+			$scope.navCollapsed = false;
 		}
 		vm.signup = function(){
 			signupAside.toggle();
+			$scope.navCollapsed = false;
 		}
 		vm.navCtrl;
 	}]);
