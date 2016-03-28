@@ -11,6 +11,5 @@ module.exports = {
   "from_who" : "tannerphan@gmail.com",
   "bitly_id": "o_27bflsrjct",
   "bitly_secret":"R_f40c4c064d134b43aebe2dd06b7a4028",
-  "bitly_access_token":"27e4610217cc7cefacb2511313a175a8c75fa5ca"
-
+"bitly_access_token":"27e4610217cc7cefacb2511313a175a8c75fa5ca"
 };
