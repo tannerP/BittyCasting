@@ -111,15 +111,16 @@
                                                 >{{rq.name}}</a>
                                 </div> -->
                                 <!-- Document -->
-                                    <div ng-if="rq.file_type != 'link'" class="drop-box" ngf-drop ng-model="page.files[$index]" ngf-pattern="'application/pdf,image/*,video/*'"  ngf-max-size="500GB" ngf-model-invalid="page.errors" ngf-accept="'application/pdf,image/*,video/*'"
+                                    <div ng-if="rq.file_type != 'link'" class="drop-box" ngf-drop ng-model="page.files[$index]" ngf-max-size="500MB" ngf-model-invalid="page.errors" ngf-accept="'application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/pdf,image/*,video/*'"
+                                    ngf-pattern="'application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/pdf,image/*,video/*'"
                                     ngf-min-size="100"
                                     ngf-max-size="500MB" ng-required="true">
                                     <!-- Select File -->
                                      <div ng-if="!page.files[$index]">
                                             <p>Drag and drop &nbsp OR &nbsp 
                                                 <a ngf-select ng-model="page.files[$index]" name="file" 
-                                                    ngf-pattern="'application/pdf,image/*,video/*'"
-                                                    ngf-accept="'application/pdf,image/*,video/*'"
+                                                    ngf-accept="'application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/pdf,image/*,video/*'"
+                                                    ngf-pattern="'application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/pdf,image/*,video/*'"
                                                     ngf-before-model-change= "page.errors = '' "
                                                     ngf-min-size="100"
                                                     ngf-max-size="500MB"
