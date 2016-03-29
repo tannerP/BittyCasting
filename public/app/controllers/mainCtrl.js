@@ -61,8 +61,13 @@ controller('mainController',['$scope','$rootScope','Auth',
 		vm.betaEmail;
 	vm.betaRequestBtn = function(email)
 	{
-		console.log(vm.betaEmail)
-		Mail.betaUser(vm.betaEmail);
+		if(vm.betaEmail){
+			Mail.betaUser(vm.betaEmail);
+			vm.betaEmail = null;
+			vm.betaSubMessage = "Submitted! Thank you for your interest"
+		}
+
+
 	}	
 	vm.getUsrBtn = function(){
 			$location.path('/profile');

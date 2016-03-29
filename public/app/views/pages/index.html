@@ -28,7 +28,7 @@
             <div class="brandRequest">
               <form id="newCustForm">
                 <div class="col-sm-8">
-                  <input class="custom-form-request" type="text" placeholder="Your E-mail" ng-model="main.betaEmail">
+                  <input class="custom-form-request" type="email" placeholder="{{main.betaSubMessage||'Your E-mail'}}" ng-model="main.betaEmail">
                 </div>
                 <div class="col-sm-4">
                   <button class="custom-btn-primary-large" type="submit" value="Send" ng-click="main.betaRequestBtn()">

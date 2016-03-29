@@ -150,7 +150,7 @@ app.get('/submit/:mail', function(req,res) {
     //Specify email data
       from: "internal@bittycasting.com",
     //The email to contact
-      to: "tanner@bittycasting.com",
+      to: "support@bittycasting.com",
     //Subject and text data  
       subject: 'New Beta Customer',
       html: 'Beta Request' + req.params.mail
