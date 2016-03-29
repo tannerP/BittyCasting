@@ -3,6 +3,7 @@ var Schema = mongoose.Schema;
 
 var RoleSchema = new Schema({
 	updated_date: {type:Date, default:Date.now},
+	created_date: {type:Date, default:Date.now},
 	userID: {type: String, required: true },
 	projectID:{type: String, required: true },
 	name: {type:String, required: true},
