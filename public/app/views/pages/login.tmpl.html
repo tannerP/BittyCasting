@@ -8,7 +8,7 @@
          class="custom-close"
          ng-click="$hide()"></div>
 
-    <form ng-submit="login.doLogin()">
+    <form ng-submit="login.doLogin(email,password)">
       <!-- ERROR ICON -->
       <div class="custom-alert" ng-if="login.error">
         {{login.error}}
@@ -16,12 +16,12 @@
       <!-- USERNAME INPUT -->
       <div class="form-group">
         <label>E-mail</label>
-        <input type="text" class="custom-form" ng-model="login.email">
+        <input type="text" class="custom-form" ng-model="email">
       </div>
       <!-- PASSWORD INPUT -->
       <div class="form-group">
         <label>Password</label>
-        <input type="password" class="custom-form" ng-model="login.password" >
+        <input type="password" class="custom-form" ng-model="password" >
       </div>
       <button type="submit" class="custom-btn-primary-large">
         <span>Sign in</span>
@@ -32,7 +32,7 @@
     <div class="asideMessage">
       <p>Forget <a href="#">password?</a></p>
 
-      <p>Don't have an account? <a href="/#/signup">Sign up</a></p>
+      <p>Don't have an account? <a ng-click="nav.signup()">Sign up</a></p>
     </div>
 
     <div class="custom-loader" ng-if="login.processing"><img src='/assets/imgs/spin.gif'></div>

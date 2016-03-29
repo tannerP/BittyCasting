@@ -1,4 +1,4 @@
-var config = require('./../../config.js');
+var config = require('./../../config.js').dev;
 var BitlyAPI = require("node-bitlyapi");
 var Role = require('../models/role');
 var Bitly = new BitlyAPI({

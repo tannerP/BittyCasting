@@ -141,8 +141,10 @@ angular.module('projectCtrl', ['userService',
 
     var editRoleAside = $aside({
         scope: $scope,
+        backdrop:'static',
         show: false,
         controller: 'editRoleController',
+        container:"body",
         controllerAs: 'roleAside',
         templateUrl: '/app/views/pages/role_form.tmpl.html'
       }),
@@ -224,9 +226,11 @@ angular.module('projectCtrl', ['userService',
     vm.processing = true;
     vm.Roles = [];
     vm.project = {};
+    $scope.roleData ={}; 
 
     var newRoleAside = $aside({
         scope: $scope,
+        backdrop:'static',
         show: false,
         keyboard: true,
         controller: 'addRoleController',
@@ -235,6 +239,7 @@ angular.module('projectCtrl', ['userService',
       }),
       editPrjAside = $aside({
         scope: $scope,
+        backdrop:'static',
         keyboard: true,
         show: false,
         controller: 'editProjectController',
@@ -345,24 +350,24 @@ angular.module('projectCtrl', ['userService',
     '$location',
     function ($scope, $alert, $location) {
       /*console.log($scope.roleData.short_url)*/
-      var url_base = "bittycasting.com/Apply/";
+      /*var base_url = config.base_url;
       var url_base_dev = "localhost:8080/Apply/" + $scope.roleData._id;
-      var url_base_beta = "beta.bittycasting.com/Apply/" + $scope.roleData._id;
+      var url_base_beta = "beta.bittycasting.com/Apply/" + $scope.roleData._id;*/
 
       $scope.textToCopy = $scope.roleData.short_url;
-      var previewLink = "/Apply/" + $scope.roleData._id;
       $scope.toggle = false;
       var successAlert = $alert({
           title: 'Copied!',
-          animation: 'am-fade-and-slide-top', duration: '10',
+          animation: 'am-fade-and-slide-top', duration: '1',
           placement: 'top-right', type: 'success', show: false, type: 'success'
         }),
         errAlert = $alert({
-          title: 'Link:',
+          title: '',
           content: 'Copied',
           placement: 'top-right', type: 'info', show: false, type: 'success'
         });
 
+      var previewLink = "/Apply/" + $scope.roleData._id;
       $scope.preview = function () {
         $scope.$toggle();
         $location.path(previewLink)
@@ -597,7 +602,7 @@ angular.module('projectCtrl', ['userService',
     vm.createRoleBtn = function () {
       vm.projectID = $routeParams.project_id;
       vm.roleData.end_date = $scope.selectedDate.toJSON();
-      vm.roleData.end_time = $scope.selectedTime.toJSON();
+      /*vm.roleData.end_time = $scope.selectedTime.toJSON();*/
 
       vm.roleData.end_time;
 
@@ -631,6 +636,8 @@ angular.module('projectCtrl', ['userService',
   controller('HomePageController',
   function (Project, $location, $aside, $scope) {
     var vm = this;
+    $scope.aside = {};
+    $scope.aside.projectData = {}
     vm.gridView = true;
 
     vm.getProject = function (prjID) {
@@ -694,8 +701,7 @@ angular.module('projectCtrl', ['userService',
   controller('newProjectController', function (Project, $location, $route, $scope) {
     var vm = this;
     vm.NEW = true;
-    vm.projectData = {name: "", description: ""};
-
+    
     /*var MAX_LENGTH = 220;
      $scope.charRmnd = MAX_LENGTH;
      $scope.TAChange = function()
@@ -703,15 +709,15 @@ angular.module('projectCtrl', ['userService',
     vm.save = function () {
       vm.processing = true;
       vm.message;
-      Project.create(vm.projectData)
+      Project.create($scope.aside.projectData)
         .success(function (data) {
           $route.reload();
           vm.processing = false;
           vm.message = data.message;
           $scope.$hide()
+          $scope.projectData = {};
         });
       $location.path('/home');
-
     }
   }).
 
@@ -719,6 +725,7 @@ angular.module('projectCtrl', ['userService',
   controller('editProjectController',
   function ($scope, Project, $location, $routeParams, $route) {
     var vm = this;
+    $scope.aside= {};
     vm.NEW = false;
     vm.processing = true;
     vm.projectData;
@@ -731,7 +738,7 @@ angular.module('projectCtrl', ['userService',
     Project.get(vm.proj_id)
       .success(function (data) {
         vm.processing = false;
-        vm.projectData = data.project
+        $scope.aside.projectData = data.project
         $scope.TAChange()
 
       })
@@ -742,8 +749,9 @@ angular.module('projectCtrl', ['userService',
     vm.save = function () {
       vm.processing = true;
       vm.message;
-      vm.projectData.updated_date = new Date();
-      Project.update(vm.proj_id, vm.projectData)
+      $scope.aside.projectData.updated_date = new Date();
+      Project.update($scope.aside.projectData._id,
+       $scope.aside.projectData)
         .success(function (data) {
           $route.reload();
           vm.processing = false;

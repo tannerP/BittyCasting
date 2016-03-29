@@ -10,10 +10,10 @@
 .ng-enter,
 .ng-leave,
 .ng-move {
-  -webkit-transition: 0.5s ease-in-out all;
-  -moz-transition: 0.3s ease-in-out all;
-  -o-transition: 0.3s ease-in-out all;
-  transition: 0.3s ease-in-out all; }
+  -webkit-transition: 0.15s ease-in-out all;
+  -moz-transition: 0.15s ease-in-out all;
+  -o-transition: 0.15s ease-in-out all;
+  transition: 0.15s ease-in-out all; }
 
 .ng-enter, .ng-move {
   opacity: 0;

@@ -6,7 +6,7 @@ var Applicant = require('../models/applicant');
 var Role = require('../models/role');
 var Project = require('../models/project');
 var jwt = require('jsonwebtoken');
-var config = require('../../config');
+var config = require('../../config').dev;
 var aws = require("../lib/aws.js")
 var bitly = require("../lib/bitly.js")
 
@@ -150,7 +150,7 @@ apiRouter.route('/createRole/:projectID')
 				var role = new Role();
 				role.userID = req.decoded.id;
 				console.log(req.body);
-				var URL = "http://bittycasting.com/Apply/";
+				var URL = confirl._baseURL + "/Apply/";
 				
 				role.projectID = req.params.projectID;
 				role.name = req.body.name;

@@ -3,7 +3,7 @@ controller('mainController',['$scope','$rootScope','Auth',
 	'$location',"$sce","$route","$window","Mail",
 		function($scope,$rootScope, Auth, $location, $sce, $route, $window,Mail) {
 		var vm = this;
-		vm.email = "yc@gmail.com"
+
 		var FBLink = "https://www.facebook.com/BittyCasting-1053535994667037/"
 		var twitterLink =" https://twitter.com/BittyCasting"
 		vm.loggedIn = false;
@@ -113,10 +113,10 @@ controller('loginCtrl',['$scope','Auth','$location','$route',
 			vm.message;
 			vm.loginData = {};
 			vm.process = false;
-			vm.doLogin = function () {
+			vm.doLogin = function (email, password) {
 				vm.processing = true; //TODO:processing Icon
 				vm.error = '';
-				Auth.login(vm.email, vm.password)
+				Auth.login(email, password)
 					.success(function (data) {
 						vm.processing = false;
 
@@ -128,13 +128,13 @@ controller('loginCtrl',['$scope','Auth','$location','$route',
 						if($location.path() =='/login') $location.path('/home');
 						else{
 							$location.path('/home');}
-							$scope.$hide();
+							$scope.$toggle();
 						//this.user = 'name:unchanged';
-						Auth.getUser()
+						/*Auth.getUser()
 							.then(function(data) {
 								$scope.name = data.name;
 								$scope.$emit("LoggedIn", data.name);
-							 })
+							 })*/
 						}
 					else vm.error = data.message;
 				});
@@ -146,6 +146,8 @@ controller('loginCtrl',['$scope','Auth','$location','$route',
 controller('navCtrl', ['$scope','$popover','$aside','Auth','$location',
 	function($scope,$popover,$aside,Auth,$location){
 		var vm = this;
+		$scope.email = "";
+		$scope.password = "";
 
 		vm.isActive = function (viewLocation) { 
 	        return viewLocation === $location.path();
@@ -160,6 +162,7 @@ controller('navCtrl', ['$scope','$popover','$aside','Auth','$location',
 										  templateUrl:'/app/views/pages/login.tmpl.html'		
 										});
 		 	var	signupAside =  $aside({
+		 									scope:$scope,
 											title:"Sign up",
 											show: false, 
 										 	controller:'signupCtrl',	
@@ -168,12 +171,20 @@ controller('navCtrl', ['$scope','$popover','$aside','Auth','$location',
 										}) 	
           
 		vm.signin = function(){
+			console.log("btn pressed")	
 			loginAside.toggle();
-			$scope.navCollapsed = false;
+			setTimeout(function(){	//close aside after 1 sec
+				signupAside.hide();
+			},500);
+			$scope.navCollapsed = true; //make sure nav is closed
 		}
-		vm.signup = function(){
+		vm.signup = function(){		
+			console.log("btn 2 pressed")	
 			signupAside.toggle();
-			$scope.navCollapsed = false;
+			setTimeout(function(){	//close aside after 1 sec
+				loginAside.hide();	
+			},500);
+			$scope.navCollapsed = true; //make sure nav is closed
 		}
 		vm.navCtrl;
 	}]);
