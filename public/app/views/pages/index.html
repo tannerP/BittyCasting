@@ -28,7 +28,7 @@
             <div class="brandRequest">
               <form id="newCustForm">
                 <div class="col-sm-8">
-                  <input class="custom-form-request" type="text" placeholder="Your E-mail" ng-model="main.betaEmail">
+                  <input class="custom-form-request" type="text" placeholder="{{main.thankyou||'Your E-mail'}}" ng-model="main.betaEmail">
                 </div>
                 <div class="col-sm-4">
                   <button class="custom-btn-primary-large" type="submit" value="Send" ng-click="main.betaRequestBtn()">
@@ -115,7 +115,7 @@
 </section>
 
 
-<section data-scroll-index="2" class="pricing" id="pricing">
+<!-- <section data-scroll-index="2" class="pricing" id="pricing">
 
   <div class="container">
     <div class="sectionTitle">Pricing</div>
@@ -188,7 +188,7 @@
       </div>
     </div>
     <div class="clear"></div>
-
+ -->
     <!--
                     <div class = "targetCustomer">
                         <div class = "col-md-3">

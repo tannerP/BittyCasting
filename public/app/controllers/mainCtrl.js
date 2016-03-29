@@ -62,6 +62,8 @@ controller('mainController',['$scope','$rootScope','Auth',
 	{
 		console.log(vm.betaEmail)
 		Mail.betaUser(vm.betaEmail);
+		vm.betaEmail = "";
+		vm.thankyou = "Submitted. Thank you for your interest";
 	}	
 	vm.getUsrBtn = function(){
 			$location.path('/profile');
