@@ -10,7 +10,7 @@
                 <div class='pageSubtitle'>{{page.roleData.name}}</div>
                 <p>{{page.roleData.description}}</p>
                 <div class="div-table">
-                    <div ng-if="page.roleData.location" class="div-table-row">
+                     <div ng-if="page.roleData.location" class="div-table-row">
                         <div class="div-table-col">Location</div>
                         <div class="div-table-col">{{page.roleData.location}}</div>
                     </div>
@@ -37,8 +37,6 @@
                 <p>{{page.prjData.description}}</p>
                 <img ng-src="assets/imgs/img_projectCover01.png" class="img-responsive">
             </div>
-            <!--  <img class="img-responsive" ng-if="page.currFile" ngf-src="page.currFile || '/thumb.jpg'">
-            <video ng-if="page.currFile" class="img-responsive" controls ngf-src="page.currFile"> -->
             <!-- <audio ng-if="page.currFile" controls ngf-src="page.currFile"> -->
         </section>
         <!-- Application Form --> 
@@ -79,9 +77,8 @@
                                   
                             <div class = "form-group" ng-repeat="rq in page.roleData.requirements track by $index">
                             <!-- label when no file is selected -->
-                                <label ng-if="rq.file_type != 'link' && !page.files[$index]">{{rq.name}} ({{rq.file_type}})<span ng-if="rq.required">*</span></label>
+                                <label ng-if="rq.file_type != 'link'">{{rq.name}}<span ng-if="rq.required"></span></label>
                                 <!-- label when file selected -->
-                                <label ng-if="rq.file_type != 'link' && page.files[$index]">{{page.files[$index].name}}<span ng-if="rq.required"></span></label>
                                 
                                 <!-- Require Supplements  -->
                                 <!-- Drag & Drop -->
@@ -138,8 +135,10 @@
                                             ngf-min-size="100"
                                             ngf-max-size="500MB"
                                             ngf-model-invalid="page.errors"
-                                            >{{page.files[$index].type}}
+                                            >{{page.files[$index].name}}
                                         </a>
+                                         <img height="50" width="auto" ng-if="page.files[$index]" ngf-thumbnail="page.files[$index] || 'Attachment'">
+                                        <video height="50" width="50" ng-if="page.files[$index]" controls ngf-src="page.files[$index]">
                                 </div>
 
                             </div>
@@ -153,7 +152,8 @@
                                     <p ng-if="page.errors.requirements"> {{page.errors.requirements.message}}</p>
                                 </div>
 
-                                <div ng-if="page.busy" class="custom-loader"><img ng-src='/assets/imgs/spin.gif'></div>   
+                                <div ng-if="page.busy" class="custom-loader"><img style ="height:40px; width:auto"
+                                ng-src='/assets/imgs/spin.gif'></div>   
                                 
                             <button type="submit" class="custom-btn-primary-large">Submit</button>
                             <p class="btn_paragraph">By clicking on “Submit”, I agree to BittyCasting’s <a href="/submission_agreement" target="_blank">submission agreement.</a></p>
