@@ -91,12 +91,12 @@
                       <label for="{{cmn-toggle-$index}}"></label>
                 </div>           
             </td>   
-            <td ng-if="$index < 3">
+            <!-- <td >
                 <div class="checkbox-requirements">
                     <label><input type="checkbox" ng-model="req.selected"><span></span></label>
                 </div>   
-            </td>
-            <td ng-if="$index > 2" ng-click="roleAside.removeReqt($index)">
+            </td> -->
+            <td ng-click="roleAside.removeReqt($index)">
               <img src="/assets/imgs/ic_trash.svg" width="16px" height="16px">
             </td>
           </tr>
@@ -107,7 +107,7 @@
                     <input type="text" ng-model='roleAside.newData.name' placeholder="New requirement"></input>
                 </div>
             </td>
-            <td>
+            <!-- <td>
               <div class="custom-dropdown" uib-dropdown is-open="false">
                 <span type="text" class="custom-form" uib-dropdown-toggle ng-disabled="disabled">
                   {{roleAside.newData.format || "Select"}}</span>
@@ -115,8 +115,8 @@
                   <li role="menuitem"><a href="#" ng-click="roleAside.newData.format = 'Link'">Link</a></li>
                   <li role="menuitem"><a href="#" ng-click="roleAside.newData.format = 'Attachment'">Attachment</a></li>
                 </ul>
-              </div>
-            </td>
+              </div> 
+            </td> -->
             <td>
             </td>
             <td>

@@ -485,6 +485,7 @@ angular.module('projectCtrl', ['userService',
 
     vm.newData={};
     vm.newData.format = "Attachment";
+    vm.newData.required = true,
      vm.addReqt = function (data) {
       if (!data.name) {
         console.log("error: input variable");
@@ -579,7 +580,7 @@ angular.module('projectCtrl', ['userService',
       var item = {
         name: data.name,
         format: data.format,
-        required: data.required,
+        required: true,
         selected: true
       }
       vm.roleData.requirements.push(item)
