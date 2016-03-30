@@ -16,13 +16,9 @@ var User = require(__dirname + '/server//models/user.js');
 var config = require('./config').dev; //get config file
 var extend = require("extend");
 
-
-
 /*var io = require('socket.io')(app);*/
 
-
 //var port = config.port; //PORT
-
 app.use(morgan('dev')); //HTTP logger
 
 //==================================--APP--====================================
@@ -33,7 +29,8 @@ app.use(bodyParser.json());
 app.use(function(req,res,next){
 	res.setHeader('Access-Control-Allow-Orgin','*');
 	res.setHeader('Access-Control-Allow-Method','GET,POST');
-	res.setHeader('Access-Control-Allow-Headers','X-Request-With,content-type,\Authorization');
+	res.setHeader('Access-Control-Allow-Headers',
+    'X-Request-With,content-type,\Authorization');
 /*  res.setHeader('Last-Modified', (new Date()).toUTCString());*/
   /*res.setHeader('Cache-Control', 'public, max-age=3155'); */
 	next();

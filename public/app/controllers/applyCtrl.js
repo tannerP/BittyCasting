@@ -13,7 +13,6 @@ angular.module('applyCtrl',['userService', 'mgcrea.ngStrap']).
       vm.checkFile = function(file){
         console.log(file)
       }
-      vm.numFileDone = 0;
       vm.roleData={};
       vm.appData ={};
       vm.appData.links=[];
@@ -94,10 +93,20 @@ angular.module('applyCtrl',['userService', 'mgcrea.ngStrap']).
               },1500)
 
             }
-            else uploadFiles(vm.files)
-          }
-          else{
+            else{
+             uploadFiles(vm.files)
+             console.log(vm.files)
+             /*for (var i in vm.files) {
+              console.log(vm.files[i].name);
+              console.log(vm.files[i].size);
 
+                if( !vm.files[i]) {
+                  delete vm.files[i]
+                }
+              }*/
+              console.log(vm.files.length)
+
+            }
           }
 
         })
@@ -152,8 +161,13 @@ angular.module('applyCtrl',['userService', 'mgcrea.ngStrap']).
       var uploadFiles = function (data) {
         vm.upload = [];
         var uploadFiles = data;
-        for (var i = 0; i < data.length; i++) {
+        //remove empty files
+
+        var numFiles = 0;
+        var numFilesDone = 0;
+        for (var i in uploadFiles) {
           /*var  i = 1; //temp fix for loop above*/
+          numFiles++;
           var file = uploadFiles[i];
           /*file.progress = parseInt(0);*/
           if(file)
@@ -202,8 +216,8 @@ angular.module('applyCtrl',['userService', 'mgcrea.ngStrap']).
                     }, null, function(evt) {
                       file.progress =  parseInt(100.0 * evt.loaded / evt.total);
                       if(file.progress == 100){
-                        vm.numFileDone++;
-                        if(vm.numFileDone == vm.files.length * 2) //hack,because resp 4 times
+                        numFilesDone++;
+                        if(numFilesDone == numFiles) //hack,because resp 4 times
                         {   vm.busy = false;
                           $location.path('/Thankyou');
                         }
