@@ -14,7 +14,7 @@
       <div class="form-group">
         <!-- <label>Description (Max {{charRmnd}} characters)</label> -->
         <label>Description</label>
-            <textarea rows="4" cols="40" maxlength="220"
+            <textarea rows="4" cols="40"
                       ng-change="TAChange()"
                       class="custom-form-textarea"
                       ng-model="roleAside.roleData.description"
@@ -77,21 +77,27 @@
           </tr>
           </thead>
           <tbody>
-          <tr class="defaultRequirements" ng-repeat="req in roleAside.roleData.requirements track by $index">
-            <td>{{req.name}}<span class="requirementFormat" ng-if="req.format.indexOf('link') != -1"></span></td>
+          <tr class="defaultRequirements" 
+              ng-repeat="req in roleAside.roleData.requirements track by $index">
+            <td>{{req.name}}<span class="requirementFormat" ng-if="req.format.indexOf('Link') != -1"></span>
+            </td>
             <td></td>
             <td>
-<!--                <input type="checkbox" ng-model="req.required">-->
+<!--<input type="checkbox" ng-model="req.required">-->
                 <div class="switch">
-                      <input id="cmn-toggle-1" class="cmn-toggle cmn-toggle-round" type="checkbox" ng-model="req.required">
-                      <label for="cmn-toggle-1"></label>
+                      <input id="{{cmn-toggle-$index}}" 
+                            class="cmn-toggle cmn-toggle-round" 
+                            type="checkbox" ng-model="req.required">
+                      <label for="{{cmn-toggle-$index}}"></label>
                 </div>           
             </td>   
-            <td>
-                <div ng-if="$index < 3" class="checkbox-requirements">
+            <!-- <td >
+                <div class="checkbox-requirements">
                     <label><input type="checkbox" ng-model="req.selected"><span></span></label>
                 </div>   
-                <img ng-if="$index > 2" src="/assets/imgs/ic_trash.svg" width="16px" height="16px">
+            </td> -->
+            <td ng-click="roleAside.removeReqt($index)">
+              <img src="/assets/imgs/ic_trash.svg" width="16px" height="16px">
             </td>
           </tr>
           <!-- New Requirement -->
@@ -101,16 +107,16 @@
                     <input type="text" ng-model='roleAside.newData.name' placeholder="New requirement"></input>
                 </div>
             </td>
-            <td>
+            <!-- <td>
               <div class="custom-dropdown" uib-dropdown is-open="false">
                 <span type="text" class="custom-form" uib-dropdown-toggle ng-disabled="disabled">
-                  {{roleAside.newData.format || "File"}}</span>
+                  {{roleAside.newData.format || "Select"}}</span>
                 <ul uib-dropdown-menu role="menu" aria-labelledby="single-button">
-                  <li role="menuitem"><a href="#" ng-click="roleAside.newData.format = 'link'">link</a></li>
-                  <li role="menuitem"><a href="#" ng-click="roleAside.newData.format = 'attachment'">attachment</a></li>
+                  <li role="menuitem"><a href="#" ng-click="roleAside.newData.format = 'Link'">Link</a></li>
+                  <li role="menuitem"><a href="#" ng-click="roleAside.newData.format = 'Attachment'">Attachment</a></li>
                 </ul>
-              </div>
-            </td>
+              </div> 
+            </td> -->
             <td>
             </td>
             <td>

@@ -27,9 +27,11 @@ angular.module('projectCtrl', ['userService',
     var vm = this;
     $scope.viewApp = false;
     $scope.slides = [];
+    vm.gridView = true;
+    vm.listView = false;
 
-    vm.gridView = false;
-    vm.listView = true;
+    vm.gridStyle = {'opacity': 1};
+
     vm.getProject = function (prjID) {
       $location.path('/projectDetails/' + prjID);
     }
@@ -47,10 +49,10 @@ angular.module('projectCtrl', ['userService',
     }
     function addSlide(target, data) {
       var i = target.length;
-      var fileTypes = ["video", "image", "document", "link"];
+      var fileTypes = ["video", "image", "applicants/pdf", "link"];
 
       for (item in fileTypes) {
-        if (data.format.indexOf(fileTypes[item])) {
+        if (data.file_type.indexOf(fileTypes[item])) {
           fileTypes[item] = false;
         }
         else {
@@ -75,13 +77,17 @@ angular.module('projectCtrl', ['userService',
         $scope.documents = [], $scope.links = [];
 
       for (var i = 0; i < sourceArr.length; i++) {
-        var fType = sourceArr[i].format;
-        if (fType.indexOf('image') != -1) {
+        var fType = sourceArr[i].file_type;
+        if (fType == "Link") {
+          $scope.links.push(sourceArr[i]);
+          addSlide(target, sourceArr[i]);
+        }
+        if (fType.indexOf('video') != -1) {
           $scope.video.push(sourceArr[i]);
           addSlide(target, sourceArr[i]); //carousel
           console.log("added");
         }
-        else if (fType.indexOf('video') != -1) {
+        else if (fType.indexOf('image') != -1) {
           $scope.images.push(sourceArr[i]);
           addSlide(target, sourceArr[i]);	//carousel
           console.log("added");
@@ -91,13 +97,9 @@ angular.module('projectCtrl', ['userService',
           addSlide(target, sourceArr[i]);
 
         }
-        else if (fType == "link") {
-          $scope.links.push(sourceArr[i]);
-          addSlide(target, sourceArr[i]);
-        }
+      
       }
     }
-
     Role.get($routeParams.role_id)
       .success(function (data) {
         vm.processing = false;
@@ -113,6 +115,22 @@ angular.module('projectCtrl', ['userService',
           vm.processing = false;
           vm.applicants = data.data;
           $scope.numApps = data.data.length;
+          //get headshot
+          for(var i in vm.applicants){
+            for(var j in  vm.applicants[i].suppliments)
+            {
+              console.log(vm.applicants[i].suppliments[j].name)
+              if(angular.equals(vm.applicants[i].suppliments[j].name, "Headshot") ||
+              angular.equals(vm.applicants[i].suppliments[j].name, "headshot")  )/*||
+                vm.applicants[i].suppliments[j].name =="headshot"*/
+              {
+                vm.applicants[i].headshot = vm.applicants[i].suppliments[j].source;
+                break;
+              }
+              else vm.applicants[i].headshot= "/assets/imgs/img_projectCover01.png";
+            }
+          }
+
         })
         .error(function (error) {
           console.log(error);
@@ -123,8 +141,10 @@ angular.module('projectCtrl', ['userService',
 
     var editRoleAside = $aside({
         scope: $scope,
+        backdrop:'static',
         show: false,
         controller: 'editRoleController',
+        container:"body",
         controllerAs: 'roleAside',
         templateUrl: '/app/views/pages/role_form.tmpl.html'
       }),
@@ -206,9 +226,11 @@ angular.module('projectCtrl', ['userService',
     vm.processing = true;
     vm.Roles = [];
     vm.project = {};
+    $scope.roleData ={}; 
 
     var newRoleAside = $aside({
         scope: $scope,
+        backdrop:'static',
         show: false,
         keyboard: true,
         controller: 'addRoleController',
@@ -217,6 +239,7 @@ angular.module('projectCtrl', ['userService',
       }),
       editPrjAside = $aside({
         scope: $scope,
+        backdrop:'static',
         keyboard: true,
         show: false,
         controller: 'editProjectController',
@@ -290,6 +313,19 @@ angular.module('projectCtrl', ['userService',
         .success(function (data) {
           vm.processing = false;
           vm.Roles = data.data;
+        /*  for(var i in vm.Roles){
+            vm.Roles[i].numApps;
+            console.log(i)
+            Role.countApps(vm.Roles[i]._id)
+            .success(function(data){
+              console.log(i)
+              console.log(data)
+              vm.Roles[i].numApps = data.data
+            })
+            .error(function(error){
+              console.log(error);
+            })
+        }*/
         })
         .error(function (error) {
           console.log(error);
@@ -313,24 +349,25 @@ angular.module('projectCtrl', ['userService',
   controller('shareRoleController', ['$scope', '$alert',
     '$location',
     function ($scope, $alert, $location) {
-      var url_base = "bittycasting.com/Apply/";
+      /*console.log($scope.roleData.short_url)*/
+      /*var base_url = config.base_url;
       var url_base_dev = "localhost:8080/Apply/" + $scope.roleData._id;
-      var url_base_beta = "beta.bittycasting.com/Apply/" + $scope.roleData._id;
+      var url_base_beta = "beta.bittycasting.com/Apply/" + $scope.roleData._id;*/
 
-      $scope.textToCopy = url_base_dev;
-      var previewLink = "/Apply/" + $scope.roleData._id;
+      $scope.textToCopy = $scope.roleData.short_url;
       $scope.toggle = false;
       var successAlert = $alert({
           title: 'Copied!',
-          animation: 'am-fade-and-slide-top', duration: '10',
+          animation: 'am-fade-and-slide-top', duration: '1',
           placement: 'top-right', type: 'success', show: false, type: 'success'
         }),
         errAlert = $alert({
-          title: 'Link:',
+          title: '',
           content: 'Copied',
           placement: 'top-right', type: 'info', show: false, type: 'success'
         });
 
+      var previewLink = "/Apply/" + $scope.roleData._id;
       $scope.preview = function () {
         $scope.$toggle();
         $location.path(previewLink)
@@ -358,6 +395,7 @@ angular.module('projectCtrl', ['userService',
       });
       vm.delete = function (id) {
         if (vm.input1 && vm.input2) {
+          console.log("delete button pressed")
           Role.delete(id)
             .success(function () {
               vm.roleData = {};
@@ -409,7 +447,7 @@ angular.module('projectCtrl', ['userService',
       vm.roleData.end_date = $scope.selectedDate;
       vm.roleData.updated_date = new Date();
 
-      for(var i in vm.roleData.requirements)
+      /*for(var i in vm.roleData.requirements)
         {
           if(!vm.roleData.requirements[i].selected){
           vm.roleData.requirements.splice(i,i);
@@ -420,7 +458,7 @@ angular.module('projectCtrl', ['userService',
 
           }
         }
-      }
+      }*/
       Role.update($routeParams.role_id, vm.roleData)
         .success(function () {
           $route.reload();
@@ -446,18 +484,22 @@ angular.module('projectCtrl', ['userService',
       $scope.status.isopen = !$scope.status.isopen;
     };
 
+    vm.newData={};
+    vm.newData.format = "Attachment";
+    vm.newData.required = true,
      vm.addReqt = function (data) {
-      if (!data) {
+      if (!data.name) {
         console.log("error: input variable");
         return;
       }
-      var item = {name: data.name,
-       format: data.format,
+      var item = {
+        name: data.name,
+        format: data.format,
         required: data.required,
         selected: true
       }
       vm.roleData.requirements.push(item)
-      vm.newData.name = "New Requirement",
+      vm.newData.name = "",
         vm.newData.required = true,
         vm.newData.format = "Attachment",
         vm.newData.selected = true;
@@ -469,7 +511,7 @@ angular.module('projectCtrl', ['userService',
         else vm.roleData.requirements.splice(index, index);
 
       }
-      else if (vm.roleData.requirements.length === 1) {
+      else if (vm.roleData.requirements.length == 1) {
         vm.roleData.requirements = []
       }
     }
@@ -482,27 +524,27 @@ angular.module('projectCtrl', ['userService',
     vm.edit = false,
       vm.roleData = {},
       vm.roleData.requirements = [
-        {name:"headshot",
+        {name:"Headshot",
           required:true,
           selected:true,
-          format:"attachment"
+          format:"Attachment"
         },
-        {name:"resume",
+        {name:"Resume",
           required:true,
           selected:true,
-          format:"attachment"
+          format:"Attachment"
         },
         {name:"Reel",
           required:true,
           selected:true,
-          format:"attachment"
+          format:"Attachment"
         }
       ],
       vm.newData = {},
 
-      vm.newData.name = "New Requirement",
+      vm.newData.name = "",
       vm.newData.required = true,
-      vm.newData.format = "Type";
+      vm.newData.format = "Attachment";
 
     /*$scope.$watch(vm.newData.name, function(newVal, oldVal){
      vm.newData.format = "Hey there!"
@@ -536,18 +578,20 @@ angular.module('projectCtrl', ['userService',
         console.log("error: input variable");
         return;
       }
-      var item = {name: data.name,
-       format: data.format,
-        required: data.required,
+      var item = {
+        name: data.name,
+        format: data.format,
+        required: true,
         selected: true
       }
       vm.roleData.requirements.push(item)
-      vm.newData.name = "New Requirement",
+      vm.newData.name = "",
         vm.newData.required = true,
         vm.newData.format = "Attachment",
         vm.newData.selected = true;
     }
     vm.removeReqt = function (index) {
+      console.log("button clicked");
       if (vm.roleData.requirements.length > 1) {
         if (index === 0) vm.roleData.requirements.shift();
         else vm.roleData.requirements.splice(index, index);
@@ -560,13 +604,13 @@ angular.module('projectCtrl', ['userService',
     vm.createRoleBtn = function () {
       vm.projectID = $routeParams.project_id;
       vm.roleData.end_date = $scope.selectedDate.toJSON();
-      vm.roleData.end_time = $scope.selectedTime.toJSON();
+      /*vm.roleData.end_time = $scope.selectedTime.toJSON();*/
 
       vm.roleData.end_time;
 
 
       //only include the files selected
-      for(var i in vm.roleData.requirements)
+   /*   for(var i in vm.roleData.requirements)
       {
         if(!vm.roleData.requirements[i].selected){
           vm.roleData.requirements.splice(i,i);
@@ -577,7 +621,7 @@ angular.module('projectCtrl', ['userService',
 
           }
         }
-      }
+      }*/
 
       Role.create(vm.projectID, vm.roleData)
         .success(function () {
@@ -594,6 +638,8 @@ angular.module('projectCtrl', ['userService',
   controller('HomePageController',
   function (Project, $location, $aside, $scope) {
     var vm = this;
+    $scope.aside = {};
+    $scope.aside.projectData = {}
     vm.gridView = true;
 
     vm.getProject = function (prjID) {
@@ -657,8 +703,7 @@ angular.module('projectCtrl', ['userService',
   controller('newProjectController', function (Project, $location, $route, $scope) {
     var vm = this;
     vm.NEW = true;
-    vm.projectData = {name: "", description: ""};
-
+    
     /*var MAX_LENGTH = 220;
      $scope.charRmnd = MAX_LENGTH;
      $scope.TAChange = function()
@@ -666,15 +711,15 @@ angular.module('projectCtrl', ['userService',
     vm.save = function () {
       vm.processing = true;
       vm.message;
-      Project.create(vm.projectData)
+      Project.create($scope.aside.projectData)
         .success(function (data) {
           $route.reload();
           vm.processing = false;
           vm.message = data.message;
           $scope.$hide()
+          $scope.projectData = {};
         });
       $location.path('/home');
-
     }
   }).
 
@@ -682,6 +727,7 @@ angular.module('projectCtrl', ['userService',
   controller('editProjectController',
   function ($scope, Project, $location, $routeParams, $route) {
     var vm = this;
+    $scope.aside= {};
     vm.NEW = false;
     vm.processing = true;
     vm.projectData;
@@ -694,7 +740,7 @@ angular.module('projectCtrl', ['userService',
     Project.get(vm.proj_id)
       .success(function (data) {
         vm.processing = false;
-        vm.projectData = data.project
+        $scope.aside.projectData = data.project
         $scope.TAChange()
 
       })
@@ -705,8 +751,9 @@ angular.module('projectCtrl', ['userService',
     vm.save = function () {
       vm.processing = true;
       vm.message;
-      vm.projectData.updated_date = new Date();
-      Project.update(vm.proj_id, vm.projectData)
+      $scope.aside.projectData.updated_date = new Date();
+      Project.update($scope.aside.projectData._id,
+       $scope.aside.projectData)
         .success(function (data) {
           $route.reload();
           vm.processing = false;

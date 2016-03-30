@@ -13,8 +13,11 @@ var morgan = require('morgan'); //use to see requests
 var mongoose = require('mongoose') //for working with mongoDB
 var path = require('path');
 var User = require(__dirname + '/server//models/user.js');
-var config = require('./config'); //get config file
-var extend = require("extend")
+var config = require('./config').dev; //get config file
+var extend = require("extend");
+
+
+
 /*var io = require('socket.io')(app);*/
 
 
@@ -42,7 +45,7 @@ var dbPath  = "mongodb://" +
     config.HOST + ":"+
     config.PORT + "/"+	
     config.DATABASE;
-
+console.log(dbPath);
 /*mongoose.connect('mongodb://localhost/local');*/
 mongoose.connect(dbPath);
 var db = mongoose.connection;

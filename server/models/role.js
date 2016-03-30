@@ -10,7 +10,9 @@ var RoleSchema = new Schema({
 	end_date: {type:String, required:false},
 	end_time: {type:String, require:false},
 	location: {type:String, require:false},
-	payterms: {type:String},
+	short_url:{type:String},
+	total_apps: {type:Number, default:0},
+	new_apps: {type:Number, default:0},
 	age: {type:String, min:3, max:90},
 	sex: {type:String},
 	requirements:[{

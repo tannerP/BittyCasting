@@ -3,7 +3,7 @@ var User = require("../models/user");
 var Project = require("../models/project");
 var Role = require("../models/role");
 var Applicant = require("../models/applicant");
-var config = require("../../config");
+var config = require("../../config").dev;
 var path = require('path');
 var jwt = require('jsonwebtoken');
 var passport = require('passport');
@@ -47,7 +47,10 @@ app.post('/applicant',function(req,res){
       console.log(req.body);
       applicant.projectID = req.body.projectID;
       applicant.roleID = req.body.roleID;
-       if(req.body.name){ 
+      /*Role.findById(req.body.roleID, function(err,role){
+
+      })*/
+      if(req.body.name){ 
         if(req.body.name.first){
         applicant.name.first = req.body.name.first;
         }
@@ -76,44 +79,67 @@ app.post('/applicant',function(req,res){
           return  res.json({success:false,
               error: err})  }
         else{
-        Applicant.findOne({'email':req.body.email}, function(err, data){
-        if(err) return  res.json({success:false,
-              error: err}) 
-          return res.json({success:true, appID:data._id});
+          Applicant.findOne({'email':req.body.email}, function(err, data){
+          if(err) return  res.json({success:false,
+                error: err}) 
+          else{
+            //Find role and update applicants count
+            Role.findById(req.body.roleID, function(err,role){
+              console.log("Found Role when saving application");
+              console.log(role);
+              if(!err){
+                ++role.new_apps;
+                ++role.total_apps;
+                console.log("Increased app counts");
+                role.save(function(err,data){
+                  return;
+                  /*if(err){
+                    return  res.json({success:false,
+                        error: err
+                      })  
+                  }
+                  else{
+                    return  res.json({success:true,
+                        appID: 
+                    })*/
+            })
+          }
+          /*return res.json({success:true, message:"Success"});*/
       });
-      }
-    })
-  });
+          return  res.json({success:true,
+                        appID: data._id})
+  }
+})}})})
 app.put('/app/:app_id', function(req,res){
 console.log(req.body);
+console.log('Adding attachments to application.')
+console.log(req.params)
   Applicant.findById(req.params.app_id,function(err,app)
   {
     if(err) res.json({Error:true, error:err});
-    /*if(req.body.name) user.name = req.body.name;
-    if(req.body.username) user.username = req.body.username;
-    if(req.body.password) user.password = req.body.password;
-    app.suppliments = req.body.*/
-    app.suppliments
-    .push({
-        source:req.body.location,
-        name: req.body.name,
-        key: req.body.key,
-        file_type: req.body.file_type
-      });  
-    app.save(function(err){
-      if(err){
-        return  res.json({success:false,
-            error: err
-          })  
-      }
-      else{
-        return  res.json({success:true,
-            message: "Added new subppliment"
-        });
+    if(app){
+      app.suppliments.push({
+          source:req.body.location,
+          name: req.body.name,
+          key: req.body.key,
+          file_type: req.body.file_type
+        });  
+      
+      app.save(function(err){
+        if(err){
+          return  res.json({success:false,
+              error: err
+            })  
+        }
+        else{
+          return  res.json({success:true,
+              message: "Added new subppliment"
+          });
       }
   /*return res.json({success:true, message:'updated'});*/
     })
-  })});
+  }
+})});
 
 app.get('/submit/:mail', function(req,res) {
   console.log(req.params.mail);

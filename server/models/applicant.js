@@ -3,6 +3,7 @@ var Schema = mongoose.Schema;
 
 var ApplicantSchema = new Schema({
 	updated_date: {type:Date, default:Date.now},
+	submission_date:{type:Date, default:Date.now},
 	name : { first: String, last: String },
 	email:{
 		type:String,

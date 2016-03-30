@@ -7,12 +7,12 @@ var AWS = require('aws-sdk'),
     getExpiryTime,
     s3DeleteObject,
     s3 = new AWS.S3();
-
-
-s3.listBuckets(function (err, data) {
-    if (err) console.log(err, err.stack); // an error occurred
-    else     console.log(data);           // successful response
+/*s3.listBuckets(function(err, data) {
+  if (err) console.log(err, err.stack); // an error occurred
+  else     console.log(data);           // successful response
 });
+*/
+
 
 
 getExpiryTime = function () {
@@ -68,7 +68,7 @@ createS3Policy = function (contentType, callback) {
 exports.removeSup = function (sup) {
     var objects = [];
     for (var i in sup) {
-        console.log(i);
+        /*console.log(i);*/
         objects.push({
             Key: sup[i].key
         })

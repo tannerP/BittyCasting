@@ -30,6 +30,7 @@ angular.module('userService', [])
 	var appFactory={};	
 	
 	appFactory.update = function(id,data)	{
+		console.log(id);
 		return $http.put('/app/'+id, data);	
 		}	 
 	appFactory.delete = function(appID)	{
@@ -43,6 +44,7 @@ angular.module('userService', [])
 	appFactory.getAll = function(roleID)	{
 		return $http.get('/api/applicants/'+ roleID)
 		}
+
 	/*Commenting*/
 	appFactory.pushComment = function(id,data)	{
 		data.state="PUT"
@@ -78,6 +80,9 @@ angular.module('userService', [])
 	}
 	roleFactory.delete  = function(id)	{
 		return $http.delete('/api/role/' + id);
+	}
+	roleFactory.countApps  = function(id)	{
+		return $http.get('/api/AppCount/' + id);
 	}
 	
 	return roleFactory;

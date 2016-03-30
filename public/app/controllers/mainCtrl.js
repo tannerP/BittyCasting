@@ -3,11 +3,13 @@ controller('mainController',['$scope','$rootScope','Auth',
 	'$location',"$sce","$route","$window","Mail",
 		function($scope,$rootScope, Auth, $location, $sce, $route, $window,Mail) {
 		var vm = this;
+
 		var FBLink = "https://www.facebook.com/BittyCasting-1053535994667037/"
 		var twitterLink =" https://twitter.com/BittyCasting"
 		vm.loggedIn = false;
 		vm.footer = true;
 		vm.nav = true;
+		vm.navCollapsed = true;
 
 		vm.loggedIn = Auth.isLoggedIn();
 		vm.backBtn = function(){
@@ -28,7 +30,9 @@ controller('mainController',['$scope','$rootScope','Auth',
 		})
 		
 		$rootScope.$on('$routeChangeStart', function () {
+			vm.navCollapsed = true;
 			vm.loggedIn = Auth.isLoggedIn();
+			vm.navCollapsed = true;
 				vm.footer = true;
 				vm.nav = true;
 
@@ -67,8 +71,8 @@ controller('mainController',['$scope','$rootScope','Auth',
 			Auth.logout();
 			vm.user = {};
 			vm.usrInitial = '';
-			/*$location.path('/');*/
-			$route.reload();
+			$location.path('/');
+			/*$route.reload();*/
 		}
 		vm.twitter = function(){
 			$window.open(twitterLink,'_blank');
@@ -109,32 +113,32 @@ controller('loginCtrl',['$scope','Auth','$location','$route',
 			vm.message;
 			vm.loginData = {};
 			vm.process = false;
-			vm.doLogin = function () {
-			vm.processing = true; //TODO:processing Icon
-			vm.error = '';
-			Auth.login(vm.loginData.email, vm.loginData.password)
-				.success(function (data) {
-					vm.processing = false;
+			vm.doLogin = function (email, password) {
+				vm.processing = true; //TODO:processing Icon
+				vm.error = '';
+				Auth.login(email, password)
+					.success(function (data) {
+						vm.processing = false;
 
-				if (data.success) {
-					//if a user successfully logs in, redirect to users page
-					vm.loginData = {};
-					
-					//conditional for /login vs aside
-					if($location.path() =='/login') $location.path('/home');
-					else{
-						$location.path('/home');}
-						$scope.$hide();
-					//this.user = 'name:unchanged';
-					Auth.getUser()
-						.then(function(data) {
-							$scope.name = data.name;
-							$scope.$emit("LoggedIn", data.name);
-						 })
-					}
-				else vm.error = data.message;
-			});
-		};
+					if (data.success) {
+						//if a user successfully logs in, redirect to users page
+						vm.loginData = {};
+						
+						//conditional for /login vs aside
+						if($location.path() =='/login') $location.path('/home');
+						else{
+							$location.path('/home');}
+							$scope.$toggle();
+						//this.user = 'name:unchanged';
+						/*Auth.getUser()
+							.then(function(data) {
+								$scope.name = data.name;
+								$scope.$emit("LoggedIn", data.name);
+							 })*/
+						}
+					else vm.error = data.message;
+				});
+			};
 
 	}]).
 
@@ -142,6 +146,8 @@ controller('loginCtrl',['$scope','Auth','$location','$route',
 controller('navCtrl', ['$scope','$popover','$aside','Auth','$location',
 	function($scope,$popover,$aside,Auth,$location){
 		var vm = this;
+		$scope.email = "";
+		$scope.password = "";
 
 		vm.isActive = function (viewLocation) { 
 	        return viewLocation === $location.path();
@@ -156,6 +162,7 @@ controller('navCtrl', ['$scope','$popover','$aside','Auth','$location',
 										  templateUrl:'/app/views/pages/login.tmpl.html'		
 										});
 		 	var	signupAside =  $aside({
+		 									scope:$scope,
 											title:"Sign up",
 											show: false, 
 										 	controller:'signupCtrl',	
@@ -164,10 +171,20 @@ controller('navCtrl', ['$scope','$popover','$aside','Auth','$location',
 										}) 	
           
 		vm.signin = function(){
+			console.log("btn pressed")	
 			loginAside.toggle();
+			setTimeout(function(){	//close aside after 1 sec
+				signupAside.hide();
+			},500);
+			$scope.navCollapsed = true; //make sure nav is closed
 		}
-		vm.signup = function(){
+		vm.signup = function(){		
+			console.log("btn 2 pressed")	
 			signupAside.toggle();
+			setTimeout(function(){	//close aside after 1 sec
+				loginAside.hide();	
+			},500);
+			$scope.navCollapsed = true; //make sure nav is closed
 		}
 		vm.navCtrl;
 	}]);

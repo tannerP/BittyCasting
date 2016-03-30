@@ -10,10 +10,10 @@
 .ng-enter,
 .ng-leave,
 .ng-move {
-  -webkit-transition: 0.5s ease-in-out all;
-  -moz-transition: 0.5s ease-in-out all;
-  -o-transition: 0.5s ease-in-out all;
-  transition: 0.5s ease-in-out all; }
+  -webkit-transition: 0.15s ease-in-out all;
+  -moz-transition: 0.15s ease-in-out all;
+  -o-transition: 0.15s ease-in-out all;
+  transition: 0.15s ease-in-out all; }
 
 .ng-enter, .ng-move {
   opacity: 0;
@@ -854,7 +854,6 @@ ul.projects li {
 
 .cardApplicants {
   height: 283px;
-  background: url("/assets/imgs/img_headshotExample.png") no-repeat top center;
   background-size: 100% auto; }
   .cardApplicants .cardScrim {
     height: 283px; }

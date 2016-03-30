@@ -6,8 +6,9 @@ var Applicant = require('../models/applicant');
 var Role = require('../models/role');
 var Project = require('../models/project');
 var jwt = require('jsonwebtoken');
-var config = require('../../config');
+var config = require('../../config').dev;
 var aws = require("../lib/aws.js")
+var bitly = require("../lib/bitly.js")
 
 
 module.exports = function(app,express){
@@ -53,8 +54,17 @@ apiRouter.all('*',function(req,res,next){
 				res.send(err);
 				console.log(err); }
 			else{
-			console.log('Applicants:' + roles);
 			res.json({'success':true ,'data':roles});	}
+			})
+		})
+		apiRouter.route('/AppCount/:roleID')
+		.get(function(req, res){
+			Applicant.count({ 'roleID': req.params.roleID},function(err,count){
+			if(err){ 
+				res.send(err);
+				console.log(err); }
+			else{
+			res.json({'success':true ,'data':count});	}
 			})
 		})
 //==============================  Commenting =========================		
@@ -95,6 +105,19 @@ apiRouter.route('/applicant/comments/:appID')
 					if(err) {return res.send(err);}
 					if(app){
 						aws.removeSup(app.suppliments);
+						/*Role.findByIdAndUpdate(app.roleID,{$inc:{total_apps:-1}})*/
+						/*Applicant.findById(req.params.appID,function(error,app){
+							if(error) console.log(error)
+							if(app){*/
+							Role.findById(app.roleID, function(err, data){
+									if(err) console.log(err);
+									if(data){
+										console.log(data)
+										--data.total_apps;
+										data.save(function(){})
+									}
+								})
+								/*)}*/
 							Applicant.remove({
 								_id:req.params.appID,
 									}, function(err,app){
@@ -110,6 +133,7 @@ apiRouter.route('/applicant/comments/:appID')
 apiRouter.route('/roles/:projectID')
 	.get(function(req, res) {
 		var output = '';
+				
 		for (var property in req.params) {
   	output += property + ': ' + req.params[property]+'; ';
 
@@ -120,8 +144,16 @@ apiRouter.route('/roles/:projectID')
 				console.log(err); 
 			}
 			else{
-			res.json({'success':true ,'data':roles});
-		}
+				/*for(var i in roles){
+					Applicant.count({roleID:roles[i]._id}, function(err,count){
+						roles[i].num_applicants = count;
+						return;
+					})
+					console.log(i);
+					console.log(roles.length);
+					if(++i == roles.length)*/ res.json({'success':true ,'data':roles});
+				}	
+		
 	})
 }})
 //create role
@@ -129,7 +161,8 @@ apiRouter.route('/createRole/:projectID')
 		.post(function(req,res){
 				var role = new Role();
 				role.userID = req.decoded.id;
-				console.log(req.body);
+				/*console.log(req.body);*/
+				var URL = config.baseURL + "/Apply/";
 				
 				role.projectID = req.params.projectID;
 				role.name = req.body.name;
@@ -143,14 +176,33 @@ apiRouter.route('/createRole/:projectID')
 				role.sex = req.body.sex;
 				role.requirements = req.body.requirements;
 				
-				console.log("role"+ role);
-				role.save(function(err){
+				role.save(function(err,role){
 					if(err){
 						return  res.json({success:false,
 								error:err })	}
-					res.json({message:'Role created.'});
+						else{
+							
+						bitly.shortenURL(URL+role._id,role._id)
+						Project.findById(req.params.projectID, function(err, project){
+              if(!err){
+                ++project.num_roles;
+                project.save(function(err){
+                  if(err){
+                    return  res.json({success:false,
+                        error: err
+                      })  
+                  }
+                  else{
+                    return  res.json({success:true,
+                        message: "Success"
+                    });
+                  }
+						})
+						}
 					})
-				})
+				}
+			})
+			})
 
 //===============================  CastingBoard  ============================
 apiRouter.route('/role/:role_id')
@@ -163,19 +215,33 @@ apiRouter.route('/role/:role_id')
 	.delete(function(req, res){
 		//delete all applications with this roleID
 		Applicant.find({roleID:req.params.role_id}, 
-			function(err, apps){
-				if(err) res.json({success:false, error: err})	
-				for(var i in apps){
-				 		aws.removeSup(apps[i].suppliments);
+			function(err, roles){
+				if(err) console.log(err);	
+				for(var i in roles){
+				 		aws.removeSup(roles[i].suppliments);
+				}
+			Role.findById(req.params.role_id, function(err,role){
+				if(err) console.log(err);
+				if(role){
+					Project.findById(role.projectID,
+					function(err, project){
+          if(!err){
+            --project.num_roles;
+            console.log(project.num_roles);
+            project.save(function(){})
 					}
-				Role.remove({
-					_id:req.params.role_id}, function(err,user){
-				if(err) console.log(err)
-					res.json({message: 'Successfully deleted'});
-				})
-		});
-		
+					})
+					Role.remove({
+						_id:req.params.role_id}, function(err,role){
+					if(err) console.log(err)
+							// --project.num_roles			
+						res.json({message: 'Successfully deleted'});
+					})
+				}
+			})
 	})
+})
+		
 	.put(function(req,res){
 		Role.findById(req.params.role_id, function(err,role){
 			if(err) res.send(err);

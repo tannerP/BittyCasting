@@ -28,12 +28,17 @@ angular.module('applyCtrl',['userService', 'mgcrea.ngStrap']).
             vm.appData.projectID = data.data.project._id;
             vm.appData.roleID = vm.roleData._id;
           })}
+        //clean requirements
         for(var i in vm.roleData.requirements){
-          if(vm.roleData.requirements[i].file_type == "link")
+          if(!vm.roleData.requirements[i].selected){
+            vm.roleData.requirements.splice(i, ++i);
+          }
+          if(vm.roleData.requirements[i].format == "Link")
           {
             vm.appData.links.push(vm.roleData.requirements[i]);
+            vm.roleData.requirements.splice(i, ++i);
           }
-        }
+        }        
 
       });
 
@@ -190,6 +195,7 @@ angular.module('applyCtrl',['userService', 'mgcrea.ngStrap']).
                           file_type: file.type
                         };
                         Applicant.update(vm.applicantID,parsedData);
+
                       } else {
                         alert('Upload Failed, please resubmit your application.');
                       }
@@ -197,7 +203,7 @@ angular.module('applyCtrl',['userService', 'mgcrea.ngStrap']).
                       file.progress =  parseInt(100.0 * evt.loaded / evt.total);
                       if(file.progress == 100){
                         vm.numFileDone++;
-                        if(vm.numFileDone == vm.files.length)
+                        if(vm.numFileDone == vm.files.length * 2) //hack,because resp 4 times
                         {   vm.busy = false;
                           $location.path('/Thankyou');
                         }
