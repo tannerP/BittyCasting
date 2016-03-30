@@ -1555,6 +1555,8 @@ ul.projects li {
   color: #666666;
   line-height: 30px;
   margin: -30px 0 30px 0; }
+  .pageSubtitle span {
+    color: #D84444; }
 
 .button {
   text-align: center;

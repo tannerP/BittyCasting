@@ -1647,6 +1647,9 @@ ul.projects li {
     color: $color-grey-dark;
     line-height: 30px;
     margin: -30px 0 30px 0;
+    span {
+        color: $color-red;
+    }
 }
 
 .button {
