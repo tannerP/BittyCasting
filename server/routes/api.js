@@ -105,7 +105,19 @@ apiRouter.route('/applicant/comments/:appID')
 					if(err) {return res.send(err);}
 					if(app){
 						aws.removeSup(app.suppliments);
-						Role.findByIdAndUpdate(app.roleID,{$inc:{total_apps:-1}})
+						/*Role.findByIdAndUpdate(app.roleID,{$inc:{total_apps:-1}})*/
+						/*Applicant.findById(req.params.appID,function(error,app){
+							if(error) console.log(error)
+							if(app){*/
+							Role.findById(app.roleID, function(err, data){
+									if(err) console.log(err);
+									if(data){
+										console.log(data)
+										--data.total_apps;
+										data.save(function(){})
+									}
+								})
+								/*)}*/
 							Applicant.remove({
 								_id:req.params.appID,
 									}, function(err,app){
@@ -149,8 +161,8 @@ apiRouter.route('/createRole/:projectID')
 		.post(function(req,res){
 				var role = new Role();
 				role.userID = req.decoded.id;
-				console.log(req.body);
-				var URL = confirl._baseURL + "/Apply/";
+				/*console.log(req.body);*/
+				var URL = config.baseURL + "/Apply/";
 				
 				role.projectID = req.params.projectID;
 				role.name = req.body.name;
@@ -204,30 +216,30 @@ apiRouter.route('/role/:role_id')
 		//delete all applications with this roleID
 		Applicant.find({roleID:req.params.role_id}, 
 			function(err, roles){
-				if(err) return;	
-					var projectID = function(){
-						for(var i in roles) {
-							return roles[i].projectID
-						};
-				Project.findById(projectID,
+				if(err) console.log(err);	
+				for(var i in roles){
+				 		aws.removeSup(roles[i].suppliments);
+				}
+			Role.findById(req.params.role_id, function(err,role){
+				if(err) console.log(err);
+				if(role){
+					Project.findById(role.projectID,
 					function(err, project){
           if(!err){
             --project.num_roles;
+            console.log(project.num_roles);
             project.save(function(){})
 					}
-				})	
-				
-				for(var i in roles){
-				 		aws.removeSup(roles[i].suppliments);
-					}
-
-			Role.remove({
-				_id:req.params.role_id}, function(err,role){
-			if(err) console.log(err)
-					// --project.num_roles
-				res.json({message: 'Successfully deleted'});
+					})
+					Role.remove({
+						_id:req.params.role_id}, function(err,role){
+					if(err) console.log(err)
+							// --project.num_roles			
+						res.json({message: 'Successfully deleted'});
+					})
+				}
 			})
-	}})
+	})
 })
 		
 	.put(function(req,res){

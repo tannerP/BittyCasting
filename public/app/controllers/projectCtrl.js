@@ -395,6 +395,7 @@ angular.module('projectCtrl', ['userService',
       });
       vm.delete = function (id) {
         if (vm.input1 && vm.input2) {
+          console.log("delete button pressed")
           Role.delete(id)
             .success(function () {
               vm.roleData = {};
