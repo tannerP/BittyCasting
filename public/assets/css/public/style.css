@@ -526,7 +526,8 @@ header {
           Landing page
 ***************************/
 .videoFrameWrapper {
-  position: relative; }
+  position: relative;
+  margin-top: 60px; }
   .videoFrameWrapper img {
     position: absolute;
     top: -15px;
@@ -555,7 +556,7 @@ section.home {
   -o-background-size: cover;
   background-size: cover; }
   section.home .brandMessage {
-    padding-top: 190px;
+    padding-top: 160px;
     text-align: center;
     width: 100%; }
     section.home .brandMessage .brandHeading {
@@ -567,7 +568,7 @@ section.home {
       font-size: 20px;
       color: #666666;
       line-height: 38px;
-      margin-bottom: 60px; }
+      margin-bottom: 30px; }
     section.home .brandMessage .brandRequest {
       margin-top: 40px; }
       section.home .brandMessage .brandRequest input {
@@ -588,7 +589,7 @@ section.home {
         font-size: 12px;
         color: #999999;
         text-align: left;
-        margin: 10px 0 0 3px; }
+        margin: 0 0 0 3px; }
 section.features {
   padding-bottom: 60px;
   background-color: white; }
