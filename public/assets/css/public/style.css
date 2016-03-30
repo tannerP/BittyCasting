@@ -526,7 +526,8 @@ header {
           Landing page
 ***************************/
 .videoFrameWrapper {
-  position: relative; }
+  position: relative;
+  margin-top: 60px; }
   .videoFrameWrapper img {
     position: absolute;
     top: -15px;
@@ -555,7 +556,7 @@ section.home {
   -o-background-size: cover;
   background-size: cover; }
   section.home .brandMessage {
-    padding-top: 190px;
+    padding-top: 160px;
     text-align: center;
     width: 100%; }
     section.home .brandMessage .brandHeading {
@@ -567,7 +568,7 @@ section.home {
       font-size: 20px;
       color: #666666;
       line-height: 38px;
-      margin-bottom: 60px; }
+      margin-bottom: 30px; }
     section.home .brandMessage .brandRequest {
       margin-top: 40px; }
       section.home .brandMessage .brandRequest input {
@@ -588,7 +589,7 @@ section.home {
         font-size: 12px;
         color: #999999;
         text-align: left;
-        margin: 10px 0 0 3px; }
+        margin: 0 0 0 3px; }
 section.features {
   padding-bottom: 60px;
   background-color: white; }
@@ -871,6 +872,20 @@ ul.projects li {
   -ms-transition: all 0.3s ease;
   -o-transition: all 0.3s ease;
   transition: all 0.3s ease; }
+  .card .alert-new {
+    position: absolute;
+    top: 12px;
+    left: -4px;
+    width: 56px;
+    height: 24px;
+    line-height: 24px;
+    font-size: 10px;
+    background-color: #D84444;
+    color: white;
+    z-index: 1;
+    -webkit-box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.1); }
   .card .cardScrim {
     position: absolute;
     top: 0;
@@ -1027,6 +1042,21 @@ ul.projects li {
   .custom-table .table-applicants .table-utl ul li:nth-child(2) {
     background: url("/assets/imgs/ic_duplicate.svg") no-repeat center center white;
     background-size: 16px 16px; }
+  .custom-table .table-applicants .alert-new {
+    width: 56px;
+    height: 24px;
+    line-height: 24px;
+    font-size: 10px;
+    text-align: center;
+    background-color: #D84444;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 10px;
+    color: white;
+    z-index: 1;
+    -webkit-box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.1); }
 .custom-table .table-application-requirements thead tr th:nth-child(1) {
   width: 40%;
   cursor: pointer; }
@@ -1525,6 +1555,8 @@ ul.projects li {
   color: #666666;
   line-height: 30px;
   margin: -30px 0 30px 0; }
+  .pageSubtitle span {
+    color: #D84444; }
 
 .button {
   text-align: center;

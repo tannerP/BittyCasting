@@ -8,38 +8,37 @@
 
           <div class="col-md-8 col-md-offset-2">
 
-            <div class="brandHeading">Sort talent, not files.</div>
-            <div class="brandSubHeading">BittyCasting is a simple tool for managing your next creative project without
-              rummaging through your inbox.
-            </div>
+                <div class="brandHeading">Sort talent, not files.</div>
+                <div class="brandSubHeading">BittyCasting is a simple tool for managing your next creative project without rummaging through your inbox.</div>
 
-            <!--                     <a href="https://vimeo.com/moogaloop.swf?clip_id=158273984" target="_target"><button class= "custom-btn-primary-large custom-btn-play" type="submit" ang-show ="">Watch the tour</button></a> -->
+                <div class="brandRequest">
+                  <form id="newCustForm">
+                    <div class="col-sm-8">
+                      <input class="custom-form-request" type="text" placeholder="Your E-mail" ng-model="main.betaEmail">
+                    </div>
+                    <div class="col-sm-4">
+                      <button class="custom-btn-primary-large" type="submit" value="Send" ng-click="main.betaRequestBtn()">
+                        Request beta access
+                      </button>
+                    </div>
+                  </form>         
+                <div class="clear"></div>
+                <p class="col-sm-12">We are currently in private beta. Access to the beta is by invitation only. </p>
+                <div class="clear"></div>    
+              </div>
 
+         </div>
+            
+         <div class="col-md-10 col-md-offset-1">   
             <div class="videoFrameWrapper">
               <img ng-src="assets/imgs/img_videoBg.png" class="img-responsive"/>
-
               <div class="embed-responsive embed-responsive-16by9 videoFrame">
-                <!--                            <iframe src="https://player.vimeo.com/video/158273984?loop=1&color=06bcc2&title=0&byline=0&portrait=0" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>-->
                 <iframe width="1280" height="720" src="https://www.youtube.com/embed/Ftgq1Yk5HJI?rel=0&amp;showinfo=0"
                         frameborder="0" allowfullscreen></iframe>
               </div>
             </div>
-
-            <div class="brandRequest">
-              <form id="newCustForm">
-                <div class="col-sm-8">
-                  <input class="custom-form-request" type="text" placeholder="Your E-mail" ng-model="main.betaEmail">
-                </div>
-                <div class="col-sm-4">
-                  <button class="custom-btn-primary-large" type="submit" value="Send" ng-click="main.betaRequestBtn()">
-                    Request beta access
-                  </button>
-              </form>
-            </div>
-            <div class="clear"></div>
-            <p class="col-sm-12">We are currently in private beta. Access to the beta is by invitation only. </p>
-          </div>
         </div>
+   
       </div>
     </div>
 </div>
@@ -101,11 +100,9 @@
 
       </div>
       <div class="col-md-6 col-sm-6">
-        <div class="featureTitle">Store</div>
+        <div class="featureTitle">Save</div>
         <div class="featureSubtitle">Access from anywhere.</div>
-        <p>With our cloud storage solution, you can keep your personal cloud drive safe and separated. Go back to an old
-          project and look for a previous applicant who is now perfect for a role. Access the talent’s files anywhere,
-          regardless of which computer you’re on.</p>
+        <p>We store your project files in the cloud, keeping them safe and separated from your personal files. Access the talent’s files anywhere, anytime, regardless of the computer you’re using.</p>
       </div>
       <div class="clear"></div>
     </div>

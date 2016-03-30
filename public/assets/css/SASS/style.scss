@@ -482,8 +482,6 @@ nav {
 
 }
 
-
-
 .custom-action-nav  {
     
     ul {
@@ -576,6 +574,7 @@ nav {
 
 .videoFrameWrapper {
     position: relative;
+    margin-top: 60px;
     img {
         position: absolute;
         top: -15px;
@@ -611,7 +610,7 @@ section {
         background-size: cover;
     
         .brandMessage {
-            padding-top: 190px;
+            padding-top: 160px;
             text-align: center;   
             width: 100%;
             .brandHeading {
@@ -624,7 +623,7 @@ section {
                 font-size: 20px;
                 color: $color-grey-dark;
                 line-height: 38px;
-                margin-bottom: 60px;
+                margin-bottom: 30px;
             } 
             .brandRequest {   
                 margin-top: 40px;
@@ -648,7 +647,7 @@ section {
                     font-size: $font-size-regular;
                     color: $color-grey;
                     text-align: left;
-                    margin: 10px 0 0 3px;
+                    margin: 0 0 0 3px;
                 }
             }
             
@@ -960,6 +959,20 @@ ul.projects li {
     @include box-shadow(0px, 2px, 2px, 0px, rgba(0,0,0,0.1));
     @include transition(all, 0.3s, ease);
     
+    .alert-new {
+        position: absolute;
+        top: 12px;
+        left: -4px;
+        width: 56px;
+        height: 24px;
+        line-height: 24px;
+        font-size: 10px;
+        background-color: $color-red;
+        color: white;
+        z-index: 1;
+        @include box-shadow(0px, 2px, 2px, 0px, rgba(0,0,0,0.1));
+    }
+    
     .cardScrim {
         position: absolute;
         top: 0;
@@ -1113,6 +1126,20 @@ ul.projects li {
                 background-size: 16px 16px; }
             &:nth-child(2) {background: url("/assets/imgs/ic_duplicate.svg") no-repeat center center white;
             background-size: 16px 16px; }
+        }
+        .alert-new {
+            width: 56px;
+            height: 24px;
+            line-height: 24px;
+            font-size: 10px;
+            text-align: center;
+            background-color: $color-red;
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 10px;
+            color: white;
+            z-index: 1;
+            @include box-shadow(0px, 2px, 2px, 0px, rgba(0,0,0,0.1));
         }
     }
     
@@ -1620,6 +1647,9 @@ ul.projects li {
     color: $color-grey-dark;
     line-height: 30px;
     margin: -30px 0 30px 0;
+    span {
+        color: $color-red;
+    }
 }
 
 .button {
