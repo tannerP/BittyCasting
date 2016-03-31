@@ -1266,6 +1266,11 @@ ul.projects li {
     width: 400px;
     padding: 0 20px 20px 20px;
     
+    ul {
+        padding: 0;
+        list-style: none;
+    }
+    
     .asideBg {
         width: 100%;
         min-height: 100%;
@@ -1462,6 +1467,69 @@ ul.projects li {
     margin-bottom: 20px;
 }
 
+ul.select-coverphoto-wrapper {
+    margin: -18px -3px 20px -3px;
+    overflow: hidden;
+    li {
+        float: left;   
+        margin: 3px;
+        cursor: pointer; 
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        &:nth-child(1) .select-coverphoto {
+            background: url('/assets/imgs/img_projectCover01.png') no-repeat center center $color-grey-light;
+            background-size: 116px auto;
+        }
+        &:nth-child(2) .select-coverphoto {
+            background: url('/assets/imgs/img_projectCover02.png') no-repeat center center $color-grey-light;
+            background-size: 116px auto;
+        }
+        &:nth-child(3) .select-coverphoto {
+            background: url('/assets/imgs/img_projectCover03.png') no-repeat center center $color-grey-light;
+            background-size: 116px auto;
+        }
+        &:nth-child(4) .select-coverphoto {
+            background: url('/assets/imgs/img_projectCover04.png') no-repeat center center $color-grey-light;
+            background-size: 116px auto;
+        }
+        &:nth-child(5) .select-coverphoto {
+            background: url('/assets/imgs/img_projectCover05.png') no-repeat center center $color-grey-light;
+            background-size: 116px auto;
+        }
+        &:last-child .select-coverphoto {
+            box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            border: 1px solid $color-grey;
+            background: url('/assets/imgs/ic_plus.svg') no-repeat center center;
+            background-size: 24px 24px;
+            opacity: 1;
+            @include transition(all, 0.7s, ease);
+                &:hover, &:focus {
+                    background-color: $color-grey-lightest;
+                }        
+        }
+        .select-coverphoto {
+            width: 116px;
+            height: 60px;
+            display: inline-block;
+            opacity: 0.3;
+            @include transition(all, 0.7s, ease);
+            &:hover, &:focus {
+                opacity: 1;
+            }
+        }
+        .select-coverphoto-selected {
+            box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            border: 3px solid $color-blue;
+            opacity: 1;
+        }
+    }
+}
+
 /***************************
       Project overview
 ***************************/
@@ -1638,8 +1706,6 @@ ul.projects li {
         }       
     }
 }
-
-
 
 .pageSubtitle {
     text-align: center;

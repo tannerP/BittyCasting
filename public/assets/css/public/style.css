@@ -1183,6 +1183,9 @@ ul.projects li {
 .aside {
   width: 400px;
   padding: 0 20px 20px 20px; }
+  .aside ul {
+    padding: 0;
+    list-style: none; }
   .aside .asideBg {
     width: 100%;
     min-height: 100%; }
@@ -1376,6 +1379,65 @@ ul.projects li {
   font-size: 12px;
   border: 1px solid #D84444;
   margin-bottom: 20px; }
+
+ul.select-coverphoto-wrapper {
+  margin: -18px -3px 20px -3px;
+  overflow: hidden; }
+  ul.select-coverphoto-wrapper li {
+    float: left;
+    margin: 3px;
+    cursor: pointer;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box; }
+    ul.select-coverphoto-wrapper li:nth-child(1) .select-coverphoto {
+      background: url("/assets/imgs/img_projectCover01.png") no-repeat center center #cccccc;
+      background-size: 116px auto; }
+    ul.select-coverphoto-wrapper li:nth-child(2) .select-coverphoto {
+      background: url("/assets/imgs/img_projectCover02.png") no-repeat center center #cccccc;
+      background-size: 116px auto; }
+    ul.select-coverphoto-wrapper li:nth-child(3) .select-coverphoto {
+      background: url("/assets/imgs/img_projectCover03.png") no-repeat center center #cccccc;
+      background-size: 116px auto; }
+    ul.select-coverphoto-wrapper li:nth-child(4) .select-coverphoto {
+      background: url("/assets/imgs/img_projectCover04.png") no-repeat center center #cccccc;
+      background-size: 116px auto; }
+    ul.select-coverphoto-wrapper li:nth-child(5) .select-coverphoto {
+      background: url("/assets/imgs/img_projectCover05.png") no-repeat center center #cccccc;
+      background-size: 116px auto; }
+    ul.select-coverphoto-wrapper li:last-child .select-coverphoto {
+      box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      -webkit-box-sizing: border-box;
+      border: 1px solid #999999;
+      background: url("/assets/imgs/ic_plus.svg") no-repeat center center;
+      background-size: 24px 24px;
+      opacity: 1;
+      -webkit-transition: all 0.7s ease;
+      -moz-transition: all 0.7s ease;
+      -ms-transition: all 0.7s ease;
+      -o-transition: all 0.7s ease;
+      transition: all 0.7s ease; }
+      ul.select-coverphoto-wrapper li:last-child .select-coverphoto:hover, ul.select-coverphoto-wrapper li:last-child .select-coverphoto:focus {
+        background-color: #eeeeee; }
+    ul.select-coverphoto-wrapper li .select-coverphoto {
+      width: 116px;
+      height: 60px;
+      display: inline-block;
+      opacity: 0.3;
+      -webkit-transition: all 0.7s ease;
+      -moz-transition: all 0.7s ease;
+      -ms-transition: all 0.7s ease;
+      -o-transition: all 0.7s ease;
+      transition: all 0.7s ease; }
+      ul.select-coverphoto-wrapper li .select-coverphoto:hover, ul.select-coverphoto-wrapper li .select-coverphoto:focus {
+        opacity: 1; }
+    ul.select-coverphoto-wrapper li .select-coverphoto-selected {
+      box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      -webkit-box-sizing: border-box;
+      border: 3px solid #06bcc2;
+      opacity: 1; }
 
 /***************************
       Project overview
