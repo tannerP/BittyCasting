@@ -62,7 +62,8 @@
                     <div ng-if='main.loggedIn' class="custom-action-nav-in"> 
                   <ul class="nav navbar-nav">                       
                           <li ng-if='main.loggedIn' ng-click="main.doLogout()"><a href = "#">Logout</a></li>
-                          <div ng-if='main.loggedIn' class ="navUserInitial" ng-click="main.getUsrBtn()">{{main.usrInitial}}</div>
+                          <div ng-if='!main.navCollapsed && main.loggedIn' class ="navUserInitial" ng-cli
+                          ck="main.getUsrBtn()">{{main.usrInitial}}</div>
                       </ul>
                     </div>  
                       
