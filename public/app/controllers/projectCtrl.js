@@ -117,18 +117,22 @@ angular.module('projectCtrl', ['userService',
           $scope.numApps = data.data.length;
           //get headshot
           for(var i in vm.applicants){
-            for(var j in  vm.applicants[i].suppliments)
-            {
-              console.log(vm.applicants[i].suppliments[j].name)
-              if(angular.equals(vm.applicants[i].suppliments[j].name, "Headshot") ||
-              angular.equals(vm.applicants[i].suppliments[j].name, "headshot")  )/*||
-                vm.applicants[i].suppliments[j].name =="headshot"*/
+            console.log(vm.applicants[i].suppliments.length)
+            if(vm.applicants[i].suppliments.length > 0){
+              for(var j in  vm.applicants[i].suppliments)
               {
-                vm.applicants[i].headshot = vm.applicants[i].suppliments[j].source;
-                break;
+                console.log(vm.applicants[i].suppliments[j].name)
+                if(angular.equals(vm.applicants[i].suppliments[j].name, "Headshot") ||
+                angular.equals(vm.applicants[i].suppliments[j].name, "headshot")  )/*||
+                  vm.applicants[i].suppliments[j].name =="headshot"*/
+                {
+                  vm.applicants[i].headshot = vm.applicants[i].suppliments[j].source;
+                  break;
+                }
+                else vm.applicants[i].headshot= "/assets/imgs/img_projectCover01.png";
               }
-              else vm.applicants[i].headshot= "/assets/imgs/img_projectCover01.png";
             }
+            else vm.applicants[i].headshot= "/assets/imgs/img_projectCover01.png";
           }
 
         })
