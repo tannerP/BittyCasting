@@ -15,6 +15,7 @@ angular.module('applyCtrl',['userService', 'mgcrea.ngStrap']).
       }
       vm.roleData={};
       vm.appData ={};
+      vm.link = {"source":""};
       vm.appData.links=[];
       vm.files=[];
       $scope.submitted = false;
@@ -37,12 +38,27 @@ angular.module('applyCtrl',['userService', 'mgcrea.ngStrap']).
             vm.appData.links.push(vm.roleData.requirements[i]);
             vm.roleData.requirements.splice(i, ++i);
           }
-        }        
+       }        
 
       });
 
       //sort out links vs docs/video/images
+      vm.addLink = function(link){
+        vm.appData.links.push(link)
+        vm.link = {}
+      }
+      vm.removeLink = function (index) {
+        console.log("button Press");
+        console.log(index)
+      if (vm.appData.links.length > 1) {
+        if (index === 0) vm.appData.links.shift();
+        else vm.appData.links.splice(index, index);
 
+      }
+      else if (vm.appData.links.length == 1) {
+        vm.appData.links = []
+      }
+    }
 
       vm.submit = function() {
         /*setTimeout(function(){ vm.busy = false;alert("Hello"); }, 3000);*/
