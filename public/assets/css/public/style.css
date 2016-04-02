@@ -527,11 +527,10 @@ header {
 ***************************/
 .videoFrameWrapper {
   position: relative;
-  margin-top: 60px; }
-  .videoFrameWrapper img {
-    position: absolute;
-    top: -15px;
-    left: -15px; }
+  margin-top: 60px;
+  -webkit-box-shadow: -10px -10px 0px 0px #06bcc2;
+  -moz-box-shadow: -10px -10px 0px 0px #06bcc2;
+  box-shadow: -10px -10px 0px 0px #06bcc2; }
 
 .sectionTitle {
   font-weight: 600;
@@ -662,13 +661,13 @@ section.pricing {
       section.pricing .pricingPlanWrapper .pricingfor p {
         padding-left: 50px; }
 section.about {
-  padding-bottom: 60px;
-  background-color: white; }
+  padding-bottom: 60px; }
   section.about p:last-child {
     margin-top: 30px; }
 section.contact {
   text-align: center;
-  padding-bottom: 120px; }
+  padding-bottom: 120px;
+  background-color: white; }
   section.contact .contactInfo {
     display: inline-block;
     text-align: left; }
