@@ -16,6 +16,7 @@ angular.module('userApp', [
 	'mainCtrl',
 	'projectCtrl',
 	'userCtrl',
+	'applicantsCtrl',
 	'footer',
 	'ReviewPage',
 	'Nav',

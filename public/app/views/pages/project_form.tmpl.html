@@ -19,12 +19,16 @@
         <label>Cover photo</label>
       </div>
         <ul class="select-coverphoto-wrapper">
-            <li><div class="select-coverphoto select-coverphoto-selected"></div></li>
+            <li ng-repeat=" photoLink in main.coverPhotos track by $index">
+              <div class="select-coverphoto" 
+                    style="background: url({{photoLink}}); background-size: 116px auto;">
+                </div>
+            </li>
+            <li><div class="select-coverphoto"></div></li>
+            <!-- <li><div class="select-coverphoto"></div></li>
             <li><div class="select-coverphoto"></div></li>
             <li><div class="select-coverphoto"></div></li>
-            <li><div class="select-coverphoto"></div></li>
-            <li><div class="select-coverphoto"></div></li>
-            <li><div class="select-coverphoto"></div></li>
+            <li><div class="select-coverphoto"></div></li> -->
         </ul>
       
 

@@ -19,12 +19,34 @@ angular.module('applicantsCtrl', ['userService',
       Applicant.pushComment(appID, cmt);
       vm.newComment = "";
     }
+
   }).
-  controller('ApplicantsPageController',
+  controller('ApplicantPageController',
   function (Applicant, Role, $location, $routeParams,
             $scope, $aside, $routeParams, $location, $route) {
     var vm = this;
-   
+    $scope.viewApp = false;
+    $scope.slides = [];
+    vm.gridView = true;
+    vm.listView = false;
+
+    vm.gridStyle = {'opacity': 1};
+
+    vm.getProject = function (prjID) {
+      $location.path('/projectDetails/' + prjID);
+    }
+    vm.setGridVw = function () {
+      vm.listStyle = {'opacity': 0.2};
+      vm.gridStyle = {'opacity': 1};
+      vm.listView = false;
+      vm.gridView = true;
+    }
+    vm.setListVw = function () {
+      vm.listStyle = {'opacity': 1};
+      vm.gridStyle = {'opacity': 0.2};
+      vm.gridView = false;
+      vm.listView = true;
+    }
     function addSlide(target, data) {
       var i = target.length;
       var fileTypes = ["video", "image", "applicants/pdf", "link"];
@@ -53,23 +75,21 @@ angular.module('applicantsCtrl', ['userService',
       var _knwnFtypes = ["jpeg", "pdf", "img"]
       $scope.video = [], $scope.images = [],
         $scope.documents = [], $scope.links = [];
+
       for (var i = 0; i < sourceArr.length; i++) {
         var fType = sourceArr[i].file_type;
-        console.log(fType)
         if (fType == "Link") {
           $scope.links.push(sourceArr[i]);
           addSlide(target, sourceArr[i]);
         }
         if (fType.indexOf('video') != -1) {
-          sourceArr[i].name += "." + fType.split("/")[1]; 
           $scope.video.push(sourceArr[i]);
           addSlide(target, sourceArr[i]); //carousel
           console.log("added");
         }
         else if (fType.indexOf('image') != -1) {
-          sourceArr[i].name += "." + fType.split("/")[1]; 
           $scope.images.push(sourceArr[i]);
-          addSlide(target, sourceArr[i]);	//carousel
+          addSlide(target, sourceArr[i]); //carousel
           console.log("added");
         }
         else if (fType == "application/pdf") {
@@ -77,10 +97,10 @@ angular.module('applicantsCtrl', ['userService',
           addSlide(target, sourceArr[i]);
 
         }
-      console.log(sourceArr[i].name)
+      
       }
     }
-    Role.get($routeParams.role_id)
+     Role.get($routeParams.role_id)
       .success(function (data) {
         vm.processing = false;      
         $scope.roleData = data.data;
@@ -90,7 +110,15 @@ angular.module('applicantsCtrl', ['userService',
         var endDate = new Date(data.data.end_date);
         var timeDiff = endDate - now;
         var left = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
-        if(left < 8) vm.remaining = left//less than a wk 
+        if(left < 8) 
+        {
+          if(left > 0 ) {vm.remaining = left; return;}//less than a wk 
+          else if(left === 0 ) {vm.remaining = "Today"; return;}//less than a wk 
+          else {
+             /*vm.remaining = Math.abs(left) + " Past";*/ //TODO: REMOVE
+            vm.remaining = null;
+          }          
+        }
         })
         .error(function (error) {
           console.log(error);
@@ -104,7 +132,7 @@ angular.module('applicantsCtrl', ['userService',
           $scope.numApps = data.data.length;
           //get headshot
           for(var i in vm.applicants){
-            console.log(vm.applicants[i].suppliments.length())
+            console.log(vm.applicants[i].suppliments.length)
             if(vm.applicants[i].suppliments.length > 0){
               for(var j in  vm.applicants[i].suppliments)
               {
@@ -119,8 +147,8 @@ angular.module('applicantsCtrl', ['userService',
                 else vm.applicants[i].headshot= "/assets/imgs/img_projectCover01.png";
               }
             }
-            else vm.applicants[i].headshot= "/assets/imgs/img_projectCover01.png"; 
-        }
+            else vm.applicants[i].headshot= "/assets/imgs/img_projectCover01.png";
+          }
 
         })
         .error(function (error) {
@@ -161,28 +189,6 @@ angular.module('applicantsCtrl', ['userService',
         show: false,
         templateUrl: '/app/views/pages/applicant_delete.tmpl.html'
       });
-     $scope.viewApp = false;
-    $scope.slides = [];
-    vm.gridView = true;
-    vm.listView = false;
-
-    vm.gridStyle = {'opacity': 1};
-
-    vm.getProject = function (prjID) {
-      $location.path('/projectDetails/' + prjID);
-    }
-    vm.setGridVw = function () {
-      vm.listStyle = {'opacity': 0.2};
-      vm.gridStyle = {'opacity': 1};
-      vm.listView = false;
-      vm.gridView = true;
-    }
-    vm.setListVw = function () {
-      vm.listStyle = {'opacity': 1};
-      vm.gridStyle = {'opacity': 0.2};
-      vm.gridView = false;
-      vm.listView = true;
-    }
     vm.deleteAsideBtn = function (app) {
       $scope.currApp = app
       deleteAppAside.$promise.then(deleteAppAside.toggle);

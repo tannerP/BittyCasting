@@ -10,6 +10,13 @@ controller('mainController',['$scope','$rootScope','Auth',
 		vm.footer = true;
 		vm.nav = true;
 		vm.navCollapsed = true;
+		vm.coverPhotos = [
+		'assets/imgs/img_projectCover01.png',
+		'assets/imgs/img_projectCover02.png',
+		'assets/imgs/img_projectCover03.png',
+		'assets/imgs/img_projectCover04.png',
+		'assets/imgs/img_projectCover05.png'
+		];
 
 		vm.loggedIn = Auth.isLoggedIn();
 		vm.backBtn = function(){

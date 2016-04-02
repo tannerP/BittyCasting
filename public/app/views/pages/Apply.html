@@ -3,7 +3,7 @@
     <div class="container">
 
         <img class="applyLogo" ng-src="assets/imgs/logo_BittyCasting_B.svg">
-        <div class="custom-close-overlay" ng-click="main.backBtn()"></div>
+        <div ng-if="main.loggedIn" class="custom-close-overlay" ng-click="main.backBtn()"></div>
         <section class="col-md-6">
             <div class="applyPageLeft">
                 <div class='pageTitle'>About this role</div>
@@ -40,11 +40,10 @@
             <!-- <audio ng-if="page.currFile" controls ngf-src="page.currFile"> -->
         </section>
         <!-- Application Form --> 
-          <style type="text/css">
+        <style type="text/css">
           .css-form input.required{
             background-color: red;
           }
-
         </style>
         <section class="col-md-6">
             <div class="applyPageRight">

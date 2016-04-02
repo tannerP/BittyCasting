@@ -1389,22 +1389,25 @@ ul.select-coverphoto-wrapper {
     cursor: pointer;
     box-sizing: border-box;
     -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box; }
-    ul.select-coverphoto-wrapper li:nth-child(1) .select-coverphoto {
-      background: url("/assets/imgs/img_projectCover01.png") no-repeat center center #cccccc;
-      background-size: 116px auto; }
-    ul.select-coverphoto-wrapper li:nth-child(2) .select-coverphoto {
-      background: url("/assets/imgs/img_projectCover02.png") no-repeat center center #cccccc;
-      background-size: 116px auto; }
-    ul.select-coverphoto-wrapper li:nth-child(3) .select-coverphoto {
-      background: url("/assets/imgs/img_projectCover03.png") no-repeat center center #cccccc;
-      background-size: 116px auto; }
-    ul.select-coverphoto-wrapper li:nth-child(4) .select-coverphoto {
-      background: url("/assets/imgs/img_projectCover04.png") no-repeat center center #cccccc;
-      background-size: 116px auto; }
+    -webkit-box-sizing: border-box;
+    /*     &:nth-child(1) .select-coverphoto {
+            background:  no-repeat center center $color-grey-light;
+            background-size: 116px auto;
+        }
+        &:nth-child(2) .select-coverphoto {
+            background:  no-repeat center center $color-grey-light;
+            background-size: 116px auto;
+        }
+        &:nth-child(3) .select-coverphoto {
+            background:  no-repeat center center $color-grey-light;
+            background-size: 116px auto;
+        }
+        &:nth-child(4) .select-coverphoto {
+            background:  no-repeat center center $color-grey-light;
+            background-size: 116px auto;
+        } */ }
     ul.select-coverphoto-wrapper li:nth-child(5) .select-coverphoto {
-      background: url("/assets/imgs/img_projectCover05.png") no-repeat center center #cccccc;
-      background-size: 116px auto; }
+      background: no-repeat center center #cccccc; }
     ul.select-coverphoto-wrapper li:last-child .select-coverphoto {
       box-sizing: border-box;
       -moz-box-sizing: border-box;
