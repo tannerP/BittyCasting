@@ -11,7 +11,7 @@
     <div class='pageTitle pageTitleMobileOffset col-md-4 col-md-offset-4'>{{roleData.name || "page Casting"}}</div>
     <div class="clear"></div>
 
-      <div class='pageSubtitle col-md-12'>Submission deadline: {{roleData.end_date | date:medium}} <span ng-if="page.remaining">({{page.remaining}})</span></div>
+      <div class='pageSubtitle col-md-12'>Submission deadline: {{roleData.end_date | date:medium}} {{page.prjClosed}}<span ng-if="page.remaining">({{page.remaining}})</span></div>
     <div class="projectDetails col-md-12">
       <section class="col-md-8">
         <p class="projectDetailsTitle">Description</p>

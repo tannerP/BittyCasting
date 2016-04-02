@@ -116,7 +116,7 @@ angular.module('applicantsCtrl', ['userService',
           else if(left === 0 ) {vm.remaining = "Today"; return;}//less than a wk 
           else {
              /*vm.remaining = Math.abs(left) + " Past";*/ //TODO: REMOVE
-            vm.remaining = null;
+            vm.prjClosed = "(Closed)";
           }          
         }
         })
