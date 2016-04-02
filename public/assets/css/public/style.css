@@ -10,7 +10,7 @@
 .ng-enter,
 .ng-leave,
 .ng-move {
-  -webkit-transition: 0.5s ease-in-out all;
+  -webkit-transition: 0.3s ease-in-out all;
   -moz-transition: 0.3s ease-in-out all;
   -o-transition: 0.3s ease-in-out all;
   transition: 0.3s ease-in-out all; }
@@ -526,11 +526,11 @@ header {
           Landing page
 ***************************/
 .videoFrameWrapper {
-  position: relative; }
-  .videoFrameWrapper img {
-    position: absolute;
-    top: -15px;
-    left: -15px; }
+  margin-top: 45px;
+  position: relative;
+  -webkit-box-shadow: -10px -10px 0px 0px #06bcc2;
+  -moz-box-shadow: -10px -10px 0px 0px #06bcc2;
+  box-shadow: -10px -10px 0px 0px #06bcc2; }
 
 .sectionTitle {
   font-weight: 600;
@@ -661,13 +661,13 @@ section.pricing {
       section.pricing .pricingPlanWrapper .pricingfor p {
         padding-left: 50px; }
 section.about {
-  padding-bottom: 60px;
-  background-color: white; }
+  padding-bottom: 60px; }
   section.about p:last-child {
     margin-top: 30px; }
 section.contact {
   text-align: center;
-  padding-bottom: 120px; }
+  padding-bottom: 120px;
+  background-color: white; }
   section.contact .contactInfo {
     display: inline-block;
     text-align: left; }
@@ -1960,8 +1960,10 @@ ul.projects li {
                                   Mobile view
 *********************************************************************************/
 @media screen and (max-width: 989px) {
-  .videoFrameWrapper img {
-    display: none; }
+  .videoFrameWrapper {
+    -webkit-box-shadow: 0px 0px 0px 0px #06bcc2;
+    -moz-box-shadow: 0px 0px 0px 0px #06bcc2;
+    box-shadow: 0px 0px 0px 0px #06bcc2; }
 
   .pageTitleMobileOffset {
     padding-top: 120px; }
