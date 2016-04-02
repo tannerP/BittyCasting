@@ -66,16 +66,18 @@
                                 <label>Phone number</label>
                                 <input type = "tel" class = "custom-form" ng-model="page.appData.phone">
                             </div>                      
-
-                            <div class = "form-group" ng-repeat="link in page.appData.links">
                             
+                            <div class = "form-group" ng-repeat="link in page.appData.links track by $index">
                                 <label ng-if="link">{{link.name}}<span ng-if="rq.required"></span></label>
-                            
-                                <input ng-if="link" type = "link" class = "custom-form" ng-model="link.source" prequired>    
+                                <span>{{link.source}}</span>  <span ng-click="page.removeLink($index)">Remove Btn</span>
                             </div>
 
+                            <div class = "form-group">
+                                <input type = "link" ng-model="page.link.source" placeholder="Instagram">    
+                                <span ng-click="page.addLink(page.link)">Add link Btn</span>
+                            </div>
                                   
-                            <div class = "form-group" ng-repeat="rq in page.roleData.requirements track by $index">
+                            <div class = "form-group" ng-repeat="rq in page.roleData.requirements">
                             <!-- label when no file is selected -->
                                 <label ng-if="rq.file_type != 'link'">{{rq.name}}<span ng-if="rq.required"></span></label>
                                 <!-- label when file selected -->
