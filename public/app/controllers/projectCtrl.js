@@ -333,7 +333,6 @@ angular.module('projectCtrl', ['userService',
      })*/
 
     $scope.selectedDate = new Date();
-    $scope.selectedTime = new Date();
 
     /*var MAX_LENGTH = 220;
      $scope.charRmnd = MAX_LENGTH;
@@ -477,13 +476,32 @@ angular.module('projectCtrl', ['userService',
       .success(function (data) {
         vm.processing = false;
         vm.projects = data.data;
+        for(p in vm.projects){
+          /*if(vm.projects[p].coverphoto)*/
+        }
+        
       })
 
   }).
-
   controller('newProjectController', function (Project, $location, $route, $scope) {
     var vm = this;
+    var DEFAULT_COVERPHOTO = "/assets/imgs/img_projectCover01.png";
     vm.NEW = true;
+
+    vm.CPStyling = "select-coverphoto";
+    vm.CPStylingSelected = "select-coverphoto-selected";
+    vm.selectCP = function(data,index){
+      var id = "#" + vm.CPStyling + '-'+index;
+
+      angular.element( document.querySelector("."+vm.CPStylingSelected))
+      .removeClass(vm.CPStylingSelected)
+      
+      var myEl = angular.element( document.querySelector(id));
+      myEl.addClass(vm.CPStylingSelected); 
+
+      //store to db
+      $scope.aside.projectData.coverphoto = data;
+    }
     
     /*var MAX_LENGTH = 220;
      $scope.charRmnd = MAX_LENGTH;
@@ -492,7 +510,10 @@ angular.module('projectCtrl', ['userService',
     vm.save = function () {
       vm.processing = true;
       vm.message;
-      
+      if($scope.aside.projectData){
+        if(!$scope.aside.projectData.coverphoto){
+          $scope.aside.projectData.coverphoto = DEFAULT_COVERPHOTO;
+        }
       Project.create($scope.aside.projectData)
         .success(function (data) {
           $route.reload();
@@ -503,6 +524,7 @@ angular.module('projectCtrl', ['userService',
         });
       $location.path('/home');
     }
+  }
   }).
 
   //page: project.html
@@ -519,11 +541,26 @@ angular.module('projectCtrl', ['userService',
      $scope.TAChange = function()
      {$scope.charRmnd  =  MAX_LENGTH - vm.projectData.description.length;}*/
 
+    vm.CPStyling = "select-coverphoto";
+    vm.CPStylingSelected = "select-coverphoto-selected";
+    vm.selectCP = function(data,index){
+      var id = "#" + vm.CPStyling + '-'+index;
+
+      angular.element( document.querySelector("."+vm.CPStylingSelected))
+      .removeClass(vm.CPStylingSelected)
+      
+      var myEl = angular.element( document.querySelector(id));
+      myEl.addClass(vm.CPStylingSelected); 
+
+      //store to db
+      $scope.aside.projectData.coverphoto = data;
+    }
+
     Project.get(vm.proj_id)
       .success(function (data) {
         vm.processing = false;
         $scope.aside.projectData = data.project
-        $scope.TAChange()
+        /*$scope.TAChange()*/
 
       })
       .error(function () {

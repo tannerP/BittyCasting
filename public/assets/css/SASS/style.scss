@@ -946,8 +946,7 @@ ul.projects li {
 }
 
 .cardProjects {
-    height: 187px;
-    background: url("/assets/imgs/img_projectCover01.png") no-repeat top center;
+    height: 187px; 
     background-size: 100% auto;
     .cardScrim {height: 187px;}
     .cardInfo {top: 65%;}
@@ -1517,7 +1516,7 @@ ul.select-coverphoto-wrapper {
                     background-color: $color-grey-lightest;
                 }        
         }
-        .select-coverphoto {
+        div[class *= 'select-coverphoto'] {
             width: 116px;
             height: 60px;
             display: inline-block;

@@ -20,7 +20,9 @@
       </div>
         <ul class="select-coverphoto-wrapper">
             <li ng-repeat=" photoLink in main.coverPhotos track by $index">
-              <div class="select-coverphoto" 
+              <div class="{{projectAside.CPStyling}}"
+                    id="{{projectAside.CPStyling + '-' + $index}}" 
+                    ng-click="projectAside.selectCP(photoLink, $index)"
                     style="background: url({{photoLink}}); background-size: 116px auto;">
                 </div>
             </li>

@@ -282,6 +282,7 @@ apiRouter.route('/project')
 		project.user_id = req.decoded.id;
 		project.name = req.body.name;
 		project.description = req.body.description
+		project.coverphoto = req.body.coverphoto
 		
 		project.save(function(err){
 			if(err){
@@ -317,6 +318,7 @@ apiRouter.route('/project/:project_id')
 			project.name = req.body.name;
 			project.description = req.body.description;
 			project.updated_date = req.body.updated_date;
+			project.coverphoto = req.body.coverphoto;
 			project.save(function(err){
 				if (err) console.log(err);
 				if (err) res.send(err);
