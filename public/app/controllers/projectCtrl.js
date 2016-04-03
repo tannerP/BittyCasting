@@ -491,7 +491,9 @@ angular.module('projectCtrl', ['userService',
     vm.CPStyling = "select-coverphoto";
     vm.CPStylingSelected = "select-coverphoto-selected";
     vm.selectCP = function(data,index){
-      var id = "#" + vm.CPStyling + '-'+index;
+      console.log(data)
+      var id = "#" + data.split('/').pop().split('.').shift();
+/*      console.log(id)*/
 
       angular.element( document.querySelector("."+vm.CPStylingSelected))
       .removeClass(vm.CPStylingSelected)
@@ -544,8 +546,8 @@ angular.module('projectCtrl', ['userService',
     vm.CPStyling = "select-coverphoto";
     vm.CPStylingSelected = "select-coverphoto-selected";
     vm.selectCP = function(data,index){
-      var id = "#" + vm.CPStyling + '-'+index;
-
+      var id = "#" + data.split('/').pop().split('.').shift();
+      
       angular.element( document.querySelector("."+vm.CPStylingSelected))
       .removeClass(vm.CPStylingSelected)
       

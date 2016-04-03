@@ -10,7 +10,7 @@ controller('mainController',['$scope','$rootScope','Auth',
 		vm.footer = true;
 		vm.nav = true;
 		vm.navCollapsed = true;
-		vm.coverPhotos = [
+		$scope.coverPhotos = [
 		'assets/imgs/img_projectCover01.png',
 		'assets/imgs/img_projectCover02.png',
 		'assets/imgs/img_projectCover03.png',
@@ -40,14 +40,20 @@ controller('mainController',['$scope','$rootScope','Auth',
 			vm.navCollapsed = true;
 			vm.loggedIn = Auth.isLoggedIn();
 			vm.navCollapsed = true;
-				vm.footer = true;
-				vm.nav = true;
+			vm.footer = true;
+			vm.nav = true;
 
 			if($location.path() === '/' ||
 				$location.path() === '/login' ||
-				$location.path() === '/Thankyou' ||
+				$location.path() === '/privacy_policy' ||
+				$location.path() === '/terms_of_service' ||
+				$location.path() === '/submission_agreement' ||
 				$location.path() === '/signup'){
 				vm.publicVw = true;
+				vm.footer = true;
+			}
+			else if($location.path() === '/Thankyou'){
+				vm.publicVw = false;
 				vm.footer = true;
 			}
 			else{

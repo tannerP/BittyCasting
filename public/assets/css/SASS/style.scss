@@ -555,25 +555,25 @@ div.navbar-collapse.collapse.in {
             color: $color-blue;
             @include transition(all, 0.2s, ease);
         }  
-    }
-        
-    .navUserInitial {
-        display: inline-block;
-        padding: 12px;
-        width: 41px;
-        height: 41px;
-        margin: 8px 0 0 15px;
-        background-color: $color-grey-dark;
-        text-align: center;
-        font-size: $font-size-regular;
-        color: white;
-        @include border-radius(50%);
-        @include transition(all, 0.2s, ease);
-        &:hover, &:focus  {
-            cursor: pointer;
-            background-color: $color-grey-darken;
+        span.navUserInitial {
+            display: inline-block;
+            padding: 12px;
+            width: 41px;
+            height: 41px;
+            margin: 8px 0 0 15px;
+            background-color: $color-grey-dark;
+            text-align: center;
+            font-size: $font-size-regular;
+            color: white;
+            @include border-radius(50%);
             @include transition(all, 0.2s, ease);
-        } 
+            &:hover, &:focus  {
+                cursor: pointer;
+                background-color: $color-grey-darken;
+                @include transition(all, 0.2s, ease);
+            } 
+        }
+        
 
     }
 
@@ -1156,11 +1156,11 @@ ul.projects li {
         thead tr th:nth-child(3) {width: 10%;} //required     
         thead tr th:nth-child(4) {width: 10%;} //action
         
-        tr.defaultRequirements {
+        /* tr.defaultRequirements {
             &:nth-child(1), &:nth-child(2), &:nth-child(3) {
                 background-color: $color-grey-lightest;
             }
-        }
+        } */
         
         td span.requirementFormat {
             width: 12px;

@@ -15,7 +15,6 @@ angular.module('applyCtrl',['userService', 'mgcrea.ngStrap']).
       }
       vm.roleData={};
       vm.appData ={};
-      vm.link = {"source":""};
       vm.appData.links=[];
       vm.files=[];
       $scope.submitted = false;
@@ -43,9 +42,16 @@ angular.module('applyCtrl',['userService', 'mgcrea.ngStrap']).
       });
 
       //sort out links vs docs/video/images
-      vm.addLink = function(link){
+      vm.newLink = '';
+      vm.addLink = function(name){
+        var link = {};
+        console.log(link)
+        console.log(name)
+        link.name = name; link.source = vm.newLink;
+        console.log(link)
+
         vm.appData.links.push(link)
-        vm.link = {}
+        vm.newLink = ""
       }
       vm.removeLink = function (index) {
         console.log("button Press");

@@ -2,6 +2,7 @@
 'use strict';
 
 var User = require('../models/user');
+var Profile = require('../models/profile');
 var Applicant = require('../models/applicant');
 var Role = require('../models/role');
 var Project = require('../models/project');
@@ -28,6 +29,8 @@ apiRouter.all('*',function(req,res,next){
 			}else{
 				req.userData = User.findOne({'_id':decoded.id}, function(err, data){
 					if(data){
+						data.last_active = new Date();
+						data.save();
 						return data;
 					}})
 				/*console.log("req.userData" +req.userData);*/

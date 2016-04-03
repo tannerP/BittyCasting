@@ -65,50 +65,10 @@
                                 <label>Phone number</label>
                                 <input type = "tel" class = "custom-form" ng-model="page.appData.phone">
                             </div>                      
-                            
-                            <div class = "form-group" ng-repeat="link in page.appData.links track by $index">
-                                <label ng-if="link">{{link.name}}<span ng-if="rq.required"></span></label>
-                                <span>{{link.source}}</span>  <span ng-click="page.removeLink($index)">Remove Btn</span>
-                            </div>
-
-                            <div class = "form-group">
-                                <input type = "link" ng-model="page.link.source" placeholder="Instagram">    
-                                <span ng-click="page.addLink(page.link)">Add link Btn</span>
-                            </div>
                                   
                             <div class = "form-group" ng-repeat="rq in page.roleData.requirements">
-                            <!-- label when no file is selected -->
-                                <label ng-if="rq.file_type != 'link'">{{rq.name}}<!-- <span ng-if="rq.required"></span> --></label>
-                                <!-- label when file selected -->
-                                
-                                <!-- Require Supplements  -->
-                                <!-- Drag & Drop -->
-                              <!--   <div ng-if="rq.file_type != 'link' && rq.file_type!='document'" class="drop-box" ngf-drop ng-model="page.files[$index]"  ngf-pattern="'{{rq.file_type}}/*'"  ngf-max-size="500MB" ngf-model-invalid="page.errors" ngf-accept="'{{rq.file_type}}/*'"
-                                ngf-min-size="100"
-                                ngf-max-size="500MB" ng-required="true">
-                                    <div ng-if="!page.files[$index]">
-                                        <p>Drag and drop &nbsp OR &nbsp 
-                                            <a ngf-select ng-model="page.files[$index]" name="file" 
-                                                ngf-pattern="'{{rq.file_type}}/*'"
-                                                ngf-accept="'{{rq.file_type}}/*'"
-                                                ngf-change= "page.currFile = $file"
-                                                ngf-min-size="100"
-                                                ngf-max-size="500MB"
-                                                ngf-model-invalid="page.errors"
-                                                >upload from computer</a>
-                                        </p>
-                                    </div>
-                                    <a ng-if="page.files[$index]"
-                                                ngf-select ng-model="page.files[$index]" name="file" 
-                                                ngf-pattern="'{{rq.file_type}}/*'"
-                                                ngf-accept="'{{rq.file_type}}/*'"
-                                                ngf-change= "page.currFile = $file"
-                                                ngf-min-size="100"
-                                                ngf-max-size="500MB"
-                                                ngf-model-invalid="page.errors"
-                                                >{{rq.name}}</a>
-                                </div> -->
-                                <!-- Document -->
+                            <!-- Fil Uploader -->
+                        
                                     <div ng-if="rq.file_type != 'link'" class="drop-box" ngf-drop ng-model="page.files[$index]" ngf-max-size="500MB" ngf-model-invalid="page.errors" ngf-accept="'application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/pdf,image/*,video/*'"
                                     ngf-pattern="'application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/pdf,image/*,video/*'"
                                     ngf-min-size="100"
@@ -137,18 +97,30 @@
                                             ngf-max-size="500MB"
                                             ngf-model-invalid="page.errors"
                                             >{{page.files[$index].name}}
-                                        </a>
+                                        
                                          <img height="50" width="auto" ng-if="page.files[$index]" ngf-thumbnail="page.files[$index] || 'Attachment'">
                                         <video height="50" width="50" ng-if="page.files[$index]" controls ngf-src="page.files[$index]">
+                                        </a>
+                                </div>
+
+                                <div class = "form-group">
+                                    <span ng-repeat="link in page.appData.links track by $index">
+                                        <span>{{link.source}}
+                                            <span background: url("/assets/imgs/ic_cross_overlay.svg") no-repeat center center;></span>
+                                            <br>
+                                        </span>
+                                    </span>
+                                    <input type = "link" ng-model="name" placeholder="{{rq.name}}">    
+                                    <span ng-click="page.addLink(page.newLink,rq.name)">Add link Btn</span>
                                 </div>
 
                             </div>
 
                                 <div ng-if="page.errors" class ="custom-alert" >
                                     <h3>Whoops,</h3>
-                                    <p>{{page.errors.$error}}</p>
+                                    <!-- <p>{{page.errors.$error}}</p>
                                     <p>{{page.errors}}</p>
-                                    <p>{{page.files[$index]}}</p>
+                                    <p>{{page.files[$index]}}</p> -->
                                     <p> Selected invalid file format</p>
                                     <p ng-if="page.errors.requirements"> {{page.errors.requirements.message}}</p>
                                 </div>
