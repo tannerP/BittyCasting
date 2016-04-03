@@ -174,7 +174,7 @@ angular.module('applyCtrl',['userService', 'mgcrea.ngStrap']).
         $scope.upload[index].abort();
         $scope.upload[index] = null;
       };
-      var uploadFiles = function (data) {
+      var uploadFiles = function(data){
         vm.upload = [];
         var uploadFiles = data;
         //remove empty files

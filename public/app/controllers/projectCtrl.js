@@ -551,7 +551,6 @@ angular.module('projectCtrl', ['userService',
       
       var myEl = angular.element( document.querySelector(id));
       myEl.addClass(vm.CPStylingSelected); 
-
       //store to db
       $scope.aside.projectData.coverphoto = data;
     }
@@ -561,7 +560,6 @@ angular.module('projectCtrl', ['userService',
         vm.processing = false;
         $scope.aside.projectData = data.project
         /*$scope.TAChange()*/
-
       })
       .error(function () {
         console.log(error);
