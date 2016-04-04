@@ -2091,20 +2091,6 @@ ul.select-coverphoto-wrapper {
   .applyPage .applyPageRight {
     padding: 0; }
 
-  .custom-site-nav-in li:nth-child(3) {
-    -webkit-border-radius: 100%;
-    -moz-border-radius: 100%;
-    -ms-border-radius: 100%;
-    border-radius: 100%; }
-  .custom-site-nav-in li a.navUserInitial {
-    padding: 0;
-    color: #666666;
-    background-color: white;
-    -webkit-border-radius: 100%;
-    -moz-border-radius: 100%;
-    -ms-border-radius: 100%;
-    border-radius: 100%; }
-
   .reviewHeader .reviewHeaderContent {
     padding-right: 70px;
     padding-left: 70px; }
@@ -2130,6 +2116,9 @@ ul.select-coverphoto-wrapper {
   .navbar-nav {
     margin: 0 0 0 0;
     overflow-x: hidden; }
+
+  .navbar-header {
+    z-index: 1; }
 
   .navbar-collapse {
     overflow-x: hidden;
@@ -2246,39 +2235,39 @@ ul.select-coverphoto-wrapper {
           top: 0;
           left: 0; }
 
-  .custom-action-nav-in ul {
-    background-color: white;
-    float: none; }
-    .custom-action-nav-in ul li {
-      text-align: center; }
-      .custom-action-nav-in ul li a {
-        padding: 0;
-        width: 100%;
-        height: 57px;
-        display: block;
-        margin: 0 15px 0 0;
-        -webkit-transition: all 0.8s ease;
-        -moz-transition: all 0.8s ease;
-        -ms-transition: all 0.8s ease;
-        -o-transition: all 0.8s ease;
-        transition: all 0.8s ease; }
-        .custom-action-nav-in ul li a:hover, .custom-action-nav-in ul li a:focus {
-          background-color: #eeeeee;
+  .custom-action-nav-in {
+    position: relative; }
+    .custom-action-nav-in ul {
+      background-color: white;
+      float: none;
+      overflow: visible; }
+      .custom-action-nav-in ul li {
+        text-align: center; }
+        .custom-action-nav-in ul li a {
+          padding: 0;
+          width: 100%;
+          height: 57px;
+          display: block;
+          margin: 0 15px 0 0;
           -webkit-transition: all 0.8s ease;
           -moz-transition: all 0.8s ease;
           -ms-transition: all 0.8s ease;
           -o-transition: all 0.8s ease;
           transition: all 0.8s ease; }
-  .custom-action-nav-in .navUserInitial {
-    position: absolute;
-    top: 10px;
-    left: 50%;
-    width: 80px;
-    height: 80px;
-    margin-left: -40px;
-    display: inline-block;
-    padding: 24px;
-    font-size: 24px; }
+          .custom-action-nav-in ul li a:hover, .custom-action-nav-in ul li a:focus {
+            background-color: #eeeeee;
+            -webkit-transition: all 0.8s ease;
+            -moz-transition: all 0.8s ease;
+            -ms-transition: all 0.8s ease;
+            -o-transition: all 0.8s ease;
+            transition: all 0.8s ease; }
+        .custom-action-nav-in ul li.navUserInitial {
+          position: absolute;
+          top: -120px;
+          left: 50%;
+          margin-left: -21px;
+          display: block;
+          z-index: 1000; }
 
   /***************************
           Landing page

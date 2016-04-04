@@ -2205,17 +2205,6 @@ text-align: center;
             padding: 0;
         }
     }
-    .custom-site-nav-in li {
-            &:nth-child(3) {
-                @include border-radius(100%);
-            }
-            a.navUserInitial {
-                padding: 0;
-                color: $color-grey-dark;
-                background-color: white;
-                @include border-radius(100%);
-            }
-    }
     .reviewHeader {
         .reviewHeaderContent {
             padding-right: 70px;
@@ -2249,10 +2238,15 @@ text-align: center;
         overflow-x: hidden;
     }
     
+    .navbar-header {
+        z-index: 1;
+    }
+    
     .navbar-collapse {
         overflow-x: hidden;
         padding: 0;
     }
+    
     
     .logoNav_signin {
         padding-left: 15px;
@@ -2348,9 +2342,11 @@ text-align: center;
     }
         
     .custom-action-nav-in {
+        position: relative;
         ul {
             background-color: white;
-            float: none;            
+            float: none; 
+            overflow: visible;
             li {
                 text-align: center;
                 a {
@@ -2365,19 +2361,17 @@ text-align: center;
                         @include transition(all, 0.8s, ease);
                     }  
                 }
+                &.navUserInitial {
+                    position: absolute;
+                    top:-120px;
+                    left: 50%;
+                    margin-left: -21px;
+                    display: block;
+                    z-index: 1000;
+                }
             }
         }
-        .navUserInitial {
-            position: absolute;
-            top:10px;
-            left: 50%;
-            width: 80px;
-            height: 80px;
-            margin-left: -40px;
-            display: inline-block;
-            padding: 24px;
-            font-size: 24px;
-        }
+
     }
     
     /***************************
