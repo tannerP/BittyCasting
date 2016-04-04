@@ -40,7 +40,7 @@
         <div ng-if='main.loggedIn' class="custom-action-nav-in"> 
            <ul class="nav navbar-nav">                       
                 <li ng-if='main.loggedIn' ng-click="main.doLogout()"><a href = "#">Logout</a></li>
-                <li ng-if='main.loggedIn'><span class ="navUserInitial" ng-click="main.getUsrBtn()">{{main.usrInitial}}</span></li>
+                <div class ="navUserInitial" ng-click="main.getUsrBtn()">{{main.usrInitial}}</div>
             </ul>
         </div>  
             

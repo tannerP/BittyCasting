@@ -554,8 +554,9 @@ div.navbar-collapse.collapse.in {
             background-color: transparent;
             color: $color-blue;
             @include transition(all, 0.2s, ease);
-        }  
-        span.navUserInitial {
+        } 
+        }     
+        .navUserInitial {
             display: inline-block;
             padding: 12px;
             width: 41px;
@@ -572,11 +573,7 @@ div.navbar-collapse.collapse.in {
                 background-color: $color-grey-darken;
                 @include transition(all, 0.2s, ease);
             } 
-        }
-        
-
     }
-
 }
 
 /***************************

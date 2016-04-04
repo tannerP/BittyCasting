@@ -63,8 +63,14 @@
 
       <tr>
         <td ng-if="currApp.links.length > 0">links:</td>
-        <td ng-repeat="link in currApp.links">
-          <a target="_blank" ng-href="{{link.source}}">{{link.source}}</a>
+        <td>
+           <ul>
+            <li ng-repeat="link in currApp.links">
+              <a target="_blank" ng-href="{{link.source}}">{{link.source}}</a>
+            </li><br/>
+            <!-- <li><a target="_blank" ng-href="{{image.source}}" download={{image.name}}>Link 1: http:thisislinkone.com</a></li><br/>
+            <li><a target="_blank" ng-href="{{image.source}}" download={{image.name}}>Link 2: http:thisislinkone.com</a></li> -->
+          </ul>
         </td>
       </tr>
 

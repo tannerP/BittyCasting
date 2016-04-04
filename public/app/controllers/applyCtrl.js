@@ -17,6 +17,7 @@ angular.module('applyCtrl',['userService', 'mgcrea.ngStrap']).
       vm.appData ={};
       vm.appData.links=[];
       vm.files=[];
+      
       $scope.submitted = false;
       /*TODO: condense when combine project and role schema*/
       Pub.getAppRole($routeParams.id).then(function(data){
@@ -42,12 +43,17 @@ angular.module('applyCtrl',['userService', 'mgcrea.ngStrap']).
       });
 
       //sort out links vs docs/video/images
-      vm.newLink = '';
-      vm.addLink = function(name){
+
+      vm.links =""
+      vm.newLinks= [];
+      vm.addLink = function(index,name){
         var link = {};
-        console.log(link)
+        /*console.log(link)*/
+        console.log(vm.newLinks[index])
+        console.log(vm.newLinks)
         console.log(name)
-        link.name = name; link.source = vm.newLink;
+        link.name = name; link.source = vm.newLinks[index];
+        vm.newLinks[index] = "";
         console.log(link)
 
         vm.appData.links.push(link)
