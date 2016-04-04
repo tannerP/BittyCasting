@@ -105,7 +105,7 @@
 
                                 <div class = "form-group">
                                     <span ng-repeat="link in page.appData.links track by $index">
-                                        <span ng-if="link.name == rq.name">{{link.source}}
+                                        <span ng-if="link.name == rq.name">{{link.source}} <span ng-click="page.removeLink($index)">Delete</span>
                                             <!-- <span background: url("/assets/imgs/ic_cross_overlay.svg") no-repeat center center;></span> -->
                                             <br>
                                         </span>

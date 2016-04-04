@@ -49,15 +49,15 @@ angular.module('applyCtrl',['userService', 'mgcrea.ngStrap']).
       vm.addLink = function(index,name){
         var link = {};
         /*console.log(link)*/
-        console.log(vm.newLinks[index])
+        /*console.log(vm.newLinks[index])
         console.log(vm.newLinks)
-        console.log(name)
+        console.log(name)*/
         link.name = name; link.source = vm.newLinks[index];
-        vm.newLinks[index] = "";
-        console.log(link)
 
-        vm.appData.links.push(link)
-        vm.newLink = ""
+        if(link.source.indexOf('.') > -1) {
+          vm.appData.links.push(link)
+          vm.newLinks[index] = "";
+        }
       }
       vm.removeLink = function (index) {
         console.log("button Press");
