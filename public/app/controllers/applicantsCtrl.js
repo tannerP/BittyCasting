@@ -78,6 +78,7 @@ angular.module('applicantsCtrl', ['userService',
 
       for (var i = 0; i < sourceArr.length; i++) {
         var fType = sourceArr[i].file_type;
+        console.log(sourceArr[i]);
         if (fType == "Link") {
           $scope.links.push(sourceArr[i]);
           addSlide(target, sourceArr[i]);
@@ -94,7 +95,7 @@ angular.module('applicantsCtrl', ['userService',
         }
         else if (fType == "application/pdf") {
           $scope.documents.push(sourceArr[i]);
-          addSlide(target, sourceArr[i]);
+          /*addSlide(target, sourceArr[i]);*/
 
         }
       

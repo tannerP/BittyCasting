@@ -186,7 +186,7 @@ app.route('/login')
 			if(!user){
 				res.json({
 					success:false,
-					message:'Authencation failed. User not found.'
+					message:'Authentication failed. User not found.'
 				});
 			}else if (user){
 				
@@ -194,7 +194,7 @@ app.route('/login')
 				if(!validPassword){
 					res.json({
 						success: false,
-						message: 'Authencation failed. Wrong password.'
+						message: 'Authentication failed. Wrong password.'
 					});
 				}else{
 					var token = jwt.sign({
