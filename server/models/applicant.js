@@ -25,8 +25,7 @@ var ApplicantSchema = new Schema({
 		owner:String,
 		comment:String
 	}],
-	links:[{
-	}],
+	links:[{}],
 	suppliments:[{
 		source:String,
 		name:String,

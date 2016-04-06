@@ -45,14 +45,14 @@ controller('mainController',['$scope','$rootScope','Auth',
 
 			if($location.path() === '/' ||
 				$location.path() === '/login' ||
-				$location.path() === '/privacy_policy' ||
-				$location.path() === '/terms_of_service' ||
-				$location.path() === '/submission_agreement' ||
 				$location.path() === '/signup'){
 				vm.publicVw = true;
 				vm.footer = true;
 			}
-			else if($location.path() === '/Thankyou'){
+			else if($location.path() === '/Thankyou' ||
+				$location.path() === '/privacy_policy' ||
+				$location.path() === '/terms_of_service' ||
+				$location.path() === '/submission_agreement'){
 				vm.publicVw = false;
 				vm.footer = true;
 			}

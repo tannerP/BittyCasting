@@ -93,7 +93,8 @@ angular.module('applicantsCtrl', ['userService',
           addSlide(target, sourceArr[i]); //carousel
           console.log("added");
         }
-        else if (fType == "application/pdf") {
+        else if (fType == "application/pdf" ||
+          fType == "application/vnd.openxmlformats-officedocument.wordprocessingml.document") {
           $scope.documents.push(sourceArr[i]);
           /*addSlide(target, sourceArr[i]);*/
 

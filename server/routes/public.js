@@ -69,7 +69,12 @@ app.post('/applicant',function(req,res){
       applicant.phone = req.body.phone;
       }
       if(req.body.links){
-      applicant.links = req.body.links;
+        for(link in req.body.links){
+          console.log(req.body.links[link]);
+          /*var temp = ({"name":link.name,"source":link.source})*/
+          applicant.links.push(req.body.links[link]);
+        }
+      /*applicant.links = req.body.links;*/
       }
 
       console.log(applicant);
@@ -85,8 +90,8 @@ app.post('/applicant',function(req,res){
           else{
             //Find role and update applicants count
             Role.findById(req.body.roleID, function(err,role){
-              console.log("Found Role when saving application");
-              console.log(role);
+              /*console.log("Found Role when saving application");
+              console.log(role);*/
               if(!err){
                 ++role.new_apps;
                 ++role.total_apps;
