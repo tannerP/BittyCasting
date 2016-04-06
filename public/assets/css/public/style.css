@@ -1268,9 +1268,9 @@ ul.projects li {
     margin-bottom: 28px; }
   .aside .custom-btn-cancel {
     background-color: #666666;
-    width: 170px;
+    width: 49%;
     float: left;
-    margin-right: 20px;
+    display: inline-block;
     -webkit-transition: all 0.8s ease;
     -moz-transition: all 0.8s ease;
     -ms-transition: all 0.8s ease;
@@ -1285,8 +1285,9 @@ ul.projects li {
       transition: all 0.8s ease; }
   .aside .custom-btn-delete {
     background-color: #D84444;
-    width: 170px;
-    float: left;
+    width: 49%;
+    float: right;
+    display: inline-block;
     -webkit-transition: all 0.8s ease;
     -moz-transition: all 0.8s ease;
     -ms-transition: all 0.8s ease;

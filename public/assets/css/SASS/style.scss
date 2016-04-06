@@ -1342,9 +1342,9 @@ ul.projects li {
     
     .custom-btn-cancel {
         background-color: $color-grey-dark;
-        width: 170px;
+        width: 49%;
         float: left;
-        margin-right: 20px;
+        display: inline-block;
         @include transition(all, 0.8s, ease);
         &:hover, &:focus {
             background-color: $color-grey-darken;
@@ -1353,8 +1353,9 @@ ul.projects li {
     }
     .custom-btn-delete {
         background-color: $color-red;
-        width: 170px;
-        float: left;
+        width: 49%;
+        float: right;
+        display: inline-block;
         @include transition(all, 0.8s, ease);
         &:hover, &:focus {
             background-color: $color-red-darken;
