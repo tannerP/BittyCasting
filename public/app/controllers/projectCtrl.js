@@ -483,7 +483,7 @@ angular.module('projectCtrl', ['userService',
       })
 
   }).
-  controller('newProjectController', function (Project, $location, $route, $scope) {
+  controller('newProjectController', function (Project, $location, $route, $scope, Upload) {
     var vm = this;
     var DEFAULT_COVERPHOTO = "/assets/imgs/img_projectCover01.png";
     vm.NEW = true;

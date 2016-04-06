@@ -13,8 +13,6 @@ var AWS = require('aws-sdk'),
 });
 */
 
-
-
 getExpiryTime = function () {
     var _date = new Date();
     return '' + (_date.getFullYear()) + '-' + (_date.getMonth() + 1) + '-' +
@@ -73,13 +71,12 @@ exports.removeSup = function (sup) {
             Key: sup[i].key
         })
     }
-
     var params = {
         Bucket: config.bucket, /* required */
         Delete: {
             /* required */
             Objects: objects,
-            Quiet: false
+            Quiet: true
         }
     };
     if (objects.length == sup.length)
@@ -87,6 +84,22 @@ exports.removeSup = function (sup) {
             if (err) console.log(err, err.stack); // an error occurred
             else     console.log(data);           // successful response
         });
+}
+
+exports.removeCP = function (key) {
+    var object = ({"Key":key})
+    var params = {
+        Bucket: config.bucket, /* required */
+        Delete: {
+            /* required */
+            Objects: object,
+            Quiet: true
+        }
+    };    
+    s3.deleteObjects(params, function (err, data) {
+        if (err) console.log(err, err.stack); // an error occurred
+        else     console.log(data);           // successful response
+    });
 }
 
 exports.getS3Policy = function (req, res) {

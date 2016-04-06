@@ -35,6 +35,10 @@ controller('mainController',['$scope','$rootScope','Auth',
 		$scope.$on("unhideNav", function(){
 			vm.nav = true;
 		})
+
+		/*$scope.$on("app-media-submitted", function(){
+			vm.nav = true;
+		})*/
 		
 		$rootScope.$on('$routeChangeStart', function () {
 			vm.navCollapsed = true;

@@ -24,9 +24,19 @@
                     id="{{photoLink.split('/').pop().split('.').shift()}}" 
                     ng-click="projectAside.selectCP(photoLink, $index)"
                     style="background: url({{photoLink}}); background-size: 116px auto;">
-                </div>
+              </div>
             </li>
-            <li><div class="select-coverphoto"></div></li>
+            <li>
+              <div class="select-coverphoto" 
+                      ngf-select ng-model="page.files[$index]" name="file" 
+                      ngf-accept="'image/*'"
+                      ngf-pattern="'image/*'"
+                      ngf-before-model-change= "page.errors = '' "
+                      ngf-min-size="100"
+                      ngf-max-size="500MB"
+                      ngf-model-invalid="page.errors">
+              </div>
+            </li>
             <!-- <li><div class="select-coverphoto"></div></li>
             <li><div class="select-coverphoto"></div></li>
             <li><div class="select-coverphoto"></div></li>

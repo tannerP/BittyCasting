@@ -76,6 +76,7 @@
 	<!-- services -->
 	<script src="app/services/authService.js"></script>
 	<script src="app/services/userService.js"></script>
+    <script src="app/services/awsService.js"></script>
 	
 	<script src="app/app.routes.js"></script>
 	<script src="app/app.js"></script>
@@ -105,10 +106,15 @@
     <meta name="theme-color" content="#ffffff">
 </head>
 
-    <body ng-app="userApp" ng-controller="mainController as main" class='view-animate'>
-    <div nav ng-show="main.nav" ng-controller="navCtrl as nav" class='view-animate'></div>
+    <body ng-app="userApp" 
+        ng-controller="mainController as main"
+        class='view-animate'>
+    <div ng-show="main.nav" nav 
+        ng-controller="navCtrl as nav"
+        class='view-animate'></div>
     <div ng-view autoscroll="true"></div>
-    <div footer ng-if="main.footer" class='view-animate'></div>
+    <div ng-if="main.footer" footer 
+        class='view-animate'></div>
     
     <!--Jquery-->
     <script src="http://code.jquery.com/jquery-latest.min.js"></script> 

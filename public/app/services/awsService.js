@@ -1,15 +1,18 @@
 angular.module('awsService', [])
+.config(function ($httpProvider) {
+    $httpProvider.interceptors.push('xmlHttpInterceptor');
+  })
 
-.factory('AWS', function($http,Applicant,Upload){
+.factory('AWS', function($http,Applicant,Upload,$rootScope){
 	var aws = [];
 	var upload = [];
 	var updateID; //has to be global function
 
     aws.uploadAppMedias = function(data,role,appID,bucket){
-
+      console.log('AppID ' + appID);
     //Note: ID is undefine.
         var uploadFiles = data;
-          updateID = appID;
+            updateID = appID;
         //remove empty files
 
         var numFiles = 0;
@@ -47,6 +50,7 @@ angular.module('awsService', [])
                   upload[i]
                     .then(function(response) {
                       file.progress = parseInt(100);
+                      /*console.log(response);*/
                       if (response.status === 201) {
                         var data = response.data, parsedData;
                         parsedData = {
@@ -68,7 +72,10 @@ angular.module('awsService', [])
                         numFilesDone++;
                         if(numFilesDone == numFiles) //hack,because resp 4 times
                         {   /*vm.busy = false;*/
-                          $location.path('/Thankyou');
+                          /*return true;*/
+                          //send event to main
+                          console.log("Finished uploading files")
+                          $rootScope.$emit('app-media-submitted')
                         }
                       }
 

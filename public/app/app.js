@@ -12,6 +12,7 @@ angular.module('userApp', [
 	'app.routes',
 	'authService',
 	'userService',
+	'awsService',
 	'applyCtrl',
 	'mainCtrl',
 	'projectCtrl',
