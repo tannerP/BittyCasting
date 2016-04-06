@@ -859,8 +859,7 @@ ul.projects li {
   margin: 0 0 30px 0; }
 
 .cardProjects {
-  height: 187px;
-  background-size: 100% auto; }
+  height: 187px; }
   .cardProjects .cardScrim {
     height: 187px; }
   .cardProjects .cardInfo {
