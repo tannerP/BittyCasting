@@ -209,6 +209,10 @@ a {
     padding-bottom: 60px;
 }
 
+.paddingBottom120 {
+    padding-bottom: 120px;
+}
+
 .custom-loader {
     margin: 30px auto;
     width: 60px;
@@ -944,7 +948,7 @@ ul.projects li {
 
 .cardProjects {
     height: 187px; 
-    background-size: 100% auto;
+//    background-size: 100% auto;
     .cardScrim {height: 187px;}
     .cardInfo {top: 65%;}
 }
@@ -1338,9 +1342,9 @@ ul.projects li {
     
     .custom-btn-cancel {
         background-color: $color-grey-dark;
-        width: 170px;
+        width: 49%;
         float: left;
-        margin-right: 20px;
+        display: inline-block;
         @include transition(all, 0.8s, ease);
         &:hover, &:focus {
             background-color: $color-grey-darken;
@@ -1349,8 +1353,9 @@ ul.projects li {
     }
     .custom-btn-delete {
         background-color: $color-red;
-        width: 170px;
-        float: left;
+        width: 49%;
+        float: right;
+        display: inline-block;
         @include transition(all, 0.8s, ease);
         &:hover, &:focus {
             background-color: $color-red-darken;
@@ -1407,6 +1412,11 @@ ul.projects li {
     
     input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
         -webkit-box-shadow: 0 0 0px 1000px white inset;
+    }
+    img {
+        &:hover, &:focus {
+            cursor: pointer;
+        }
     }
 }
 
@@ -1469,6 +1479,7 @@ ul.projects li {
     font-size: $font-size-regular;
     border: 1px solid $color-red;
     margin-bottom: 20px;
+    p {margin-bottom: 0;}
 }
 
 ul.select-coverphoto-wrapper {
@@ -1736,25 +1747,61 @@ ul.select-coverphoto-wrapper {
 .drop-box {
     border: 1px dashed $color-grey-light;;
     width: 100%;
-    height: 50px;
+    height: 100px;
     text-align: center;   
-    margin-bottom: 5px;
+    margin: 10px 0 20px 0;
     p {
-        line-height: 50px;
-        a {
-            color: $color-blue;
+        margin-top: 25px;
+        span{
+            font-size: 20px;
+            color: $color-grey;
+        }
+    }
+    a {
+        color: $color-blue;
+        @include transition(all, 0.2s, ease);
+
+        &:hover, &:focus {
+            cursor: pointer;
+            color: $color-blue-lighten;
+            text-decoration: none;
             @include transition(all, 0.2s, ease);
+        }
+    }
+    img, video {
+        height: 80px;
+        width: auto;
+        margin: 10px;
+        vertical-align: middle;
             &:hover, &:focus {
                 cursor: pointer;
-                color: $color-blue-lighten;
-                text-decoration: none;
-                @include transition(all, 0.2s, ease);
             }
-        }
     }
 }
 .dragover {
     border: 3px dashed $color-blue;
+}
+
+.uploadFileName {
+    font-size: $font-size-regular;
+    line-height: 100px;
+    display: inline;
+}
+
+.applyAddLink {
+    width: 90%;
+    margin: 5px 10px 0 0;
+    height: 34px;
+    padding: 6px 0;
+    font-size: $font-size-regular;
+}
+
+.applyLinkItem {
+    margin: 5px 0 5px 0;
+    font-size: $font-size-regular;
+    img {
+        margin-left: 10px;
+    }
 }
 
 .div-table {
