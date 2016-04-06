@@ -138,17 +138,23 @@ angular.module('applicantsCtrl', ['userService',
             if(vm.applicants[i].suppliments.length > 0){
               for(var j in  vm.applicants[i].suppliments)
               {
-                console.log(vm.applicants[i].suppliments[j].name)
+                
+                //check for headshot labeling
                 if(angular.equals(vm.applicants[i].suppliments[j].name, "Headshot") ||
-                angular.equals(vm.applicants[i].suppliments[j].name, "headshot")  )/*||
-                  vm.applicants[i].suppliments[j].name =="headshot"*/
-                {
-                  vm.applicants[i].headshot = vm.applicants[i].suppliments[j].source;
-                  break;
+                angular.equals(vm.applicants[i].suppliments[j].name, "headshot")  )
+                {   //check it attachment is an image
+                    if(vm.applicants[i].suppliments[j].file_type.indexOf('image') != -1){
+                      console.log(vm.applicants[i].suppliments[j].file_type);
+                      vm.applicants[i].headshot = vm.applicants[i].suppliments[j].source;
+                      break;
+                    }
+                    vm.applicants[i].headshot= "/assets/imgs/img_projectCover01.png";
                 }
+                //if no headshot is attached
                 else vm.applicants[i].headshot= "/assets/imgs/img_projectCover01.png";
               }
             }
+            // no attachment
             else vm.applicants[i].headshot= "/assets/imgs/img_projectCover01.png";
           }
 
