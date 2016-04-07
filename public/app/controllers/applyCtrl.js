@@ -70,7 +70,6 @@ angular.module('applyCtrl',['userService','mgcrea.ngStrap']).
       vm.currfile; 
 
         for (link in vm.newLinks ){
-          console.log(vm.newLinks[link]);
           if(vm.newLinks[link]){
             vm.appData.links.push(vm.newLinks[link])     
           }

@@ -1,7 +1,7 @@
 angular.module('mainCtrl', ['authService','mgcrea.ngStrap']).
 controller('mainController',['$scope','$rootScope','Auth',
-	'$location',"$sce","$route","$window","Mail",
-		function($scope,$rootScope, Auth, $location, $sce, $route, $window,Mail) {
+	'$location',"$sce","$route","$window","Mail","$aside",
+		function($scope,$rootScope, Auth, $location, $sce, $route, $window,Mail,$aside) {
 		var vm = this;
 
 		var FBLink = "https://www.facebook.com/BittyCasting-1053535994667037/"
@@ -81,6 +81,19 @@ controller('mainController',['$scope','$rootScope','Auth',
 		console.log(vm.betaEmail)
 		Mail.betaUser(vm.betaEmail);
 	}	
+
+
+	 var feedbackAside = $aside({
+	 									scope:$scope,
+										title:"Login",
+										show: false, 
+									 	controller:'loginCtrl',
+									 	controllerAs:'login',						
+									  templateUrl:'/app/views/pages/feedback.tmpl.html'		
+									});
+	vm.feedbackBtn = function (){
+		feedbackAside.toggle();
+	}
 	vm.getUsrBtn = function(){
 			$location.path('/profile');
 		}

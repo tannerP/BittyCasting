@@ -108,12 +108,15 @@
     </head>
 
     <body ng-app="userApp" 
-            ng-controller="mainController as main"
-            class='view-animate'>
+        ng-controller="mainController as main">
         <div ng-show="main.nav" nav 
-            ng-controller="navCtrl as nav"
+        ng-controller="navCtrl as nav"
             class='view-animate'></div>
+
         <div ng-view autoscroll="true"></div>
+        <button 
+        ng-click="main.feedbackBtn()"
+            class='custom-btn-secondary-large'>BUTTON</button>
         <div ng-if="main.footer" footer 
             class='view-animate'></div>
         
