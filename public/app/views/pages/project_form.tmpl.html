@@ -9,8 +9,7 @@
 
     <div type="button" class="custom-close" ng-click="$hide()"></div>
 
-    <form class="container-page" 
-          ng-submit="projectAside.save(aside.projectData.name, aside.projectData.description)">
+    <form class="container-page">
       <div class="form-group">
         <label>Name</label>
         <input type="text" class="custom-form" ng-model="aside.projectData.name" required>
@@ -64,10 +63,12 @@
                 ngf-max-size="300MB"
                 ngf-model-invalid="projectAside.errors"> Upload Photo
         </button> -->
-      <button type="submit" class="custom-btn-primary-large" ng-if="projectAside.NEW">
+      <button type="submit" class="custom-btn-primary-large" ng-if="projectAside.NEW"
+       ng-click="projectAside.save(aside.projectData.name, aside.projectData.description)">
         <span>Create project</span>
       </button>
-      <button type="submit" class="custom-btn-primary-large" ng-if="!projectAside.NEW">
+      <button type="submit" class="custom-btn-primary-large" ng-if="!projectAside.NEW"
+      ng-click="projectAside.update(aside.projectData.name, aside.projectData.description)">
         <span>Save</span>
       </button>
 
