@@ -148,14 +148,14 @@ angular.module('applicantsCtrl', ['userService',
                       vm.applicants[i].headshot = vm.applicants[i].suppliments[j].source;
                       break;
                     }
-                    vm.applicants[i].headshot= "/assets/imgs/img_projectCover01.png";
+                    vm.applicants[i].headshot= "/assets/imgs/img_headshot_placeholder.png";
                 }
                 //if no headshot is attached
-                else vm.applicants[i].headshot= "/assets/imgs/img_projectCover01.png";
+                else vm.applicants[i].headshot= "/assets/imgs/img_headshot_placeholder.png";
               }
             }
             // no attachment
-            else vm.applicants[i].headshot= "/assets/imgs/img_projectCover01.png";
+            else vm.applicants[i].headshot= "/assets/imgs/img_headshot_placeholder.png";
           }
 
         })

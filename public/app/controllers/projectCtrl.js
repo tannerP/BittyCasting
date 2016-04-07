@@ -83,6 +83,9 @@ angular.module('projectCtrl', ['userService',
     Project.get($routeParams.project_id)
       .success(function (data) {
         vm.project = data.project;
+        $scope.projectData = data.project;
+
+        console.log($scope.projectData)
       })
       .error(function (err) {
         vm.message = err;
@@ -199,7 +202,7 @@ angular.module('projectCtrl', ['userService',
   controller('editRoleController',
   function (Role, $location, $routeParams, $route, $scope) {
     var vm = this;
-
+    $scope.projectData = $scope.projectData;
     vm.edit = true;
     vm.processing = true;
     vm.roleData = {};
@@ -570,12 +573,12 @@ angular.module('projectCtrl', ['userService',
 
   //page: project.html
   controller('editProjectController',
-  function ($scope, Project, $location, $routeParams, $route,AWS) {
+  function ($scope, Project, $location, $routeParams, $route,AWS,$rootScope) {
     var vm = this;
     $scope.aside= {};
+    /*$scope.aside.projectData = $scope.projectData;*/
     vm.NEW = false;
     vm.processing = true;
-    vm.projectData;
     vm.proj_id = $routeParams.project_id;
     $scope.file = {};
     var CP_cust;
@@ -646,7 +649,8 @@ angular.module('projectCtrl', ['userService',
           console.log(err);
         });
     }*/
-    vm.update = function () {
+    vm.update = function (data) {
+      console.log(data);
       vm.processing = true;
       vm.message;
       $scope.aside.projectData.updated_date = new Date();
@@ -663,10 +667,18 @@ angular.module('projectCtrl', ['userService',
             //update cover photo
             console.log("level 2")
             if(CP_default){ 
-              var temp = ({"source":CP_default,"name":"default"})
-              $scope.aside.projectData.coverphoto = temp;
+              /*var temp = ({"source":CP_default,"name":"default"})*/
+             /* 
+              angular.extend($scope.aside.projectData.coverphoto,
+               temp);*/
+
+              /*$scope.aside.projectData.coverphoto.source = CP_default;
+              $scope.aside.projectData.coverphoto.name = "default";*/
+                /*$scope.aside.projectData.coverphoto = data;*/
               console.log("level 3")
+              console.log($scope.aside.projectData)
               console.log($scope.aside.projectData.coverphoto)
+              console.log("level 4")
               var tempData = $scope.aside.projectData;
               console.log(tempData);
             /*$scope.aside.projectData.coverphoto.name = "default";*/

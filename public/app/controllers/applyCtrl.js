@@ -41,7 +41,7 @@ angular.module('applyCtrl',['userService','mgcrea.ngStrap']).
 
       //sort out links vs docs/video/images
 
-      vm.links =""
+      vm.link =""
       vm.newLinks= [];
       vm.addLink = function(index,name){
         var link = {};
@@ -68,6 +68,13 @@ angular.module('applyCtrl',['userService','mgcrea.ngStrap']).
     vm.submit = function() {
       vm.busy = true; 
       vm.currfile; 
+
+        for (link in vm.newLinks ){
+          console.log(vm.newLinks[link]);
+          if(vm.newLinks[link]){
+            vm.appData.links.push(vm.newLinks[link])     
+          }
+        }
 
       Applicant.apply(vm.appData).then(function(resp){
         vm.applicantID = resp.data.appID;

@@ -117,7 +117,7 @@
                                 </span>
                                 <input class="applyAddLink" type="text" ng-model="page.newLinks[$index]" placeholder="http://">  
                                    <span>{{page.newLink}}</span>                            
-                                <span ng-click="page.addLink($index,rq.name)"><img src="/assets/imgs/ic_plus.svg" width="16px" height="16px"></span>
+                                <span ng-click="page.addLink($index,rq.name,page.newLinks[$index])"><img src="/assets/imgs/ic_plus.svg" width="16px" height="16px"></span>
                             </div>
                         </div>
 
