@@ -286,6 +286,8 @@ apiRouter.route('/project')
 		project.name = req.body.name;
 		project.description = req.body.description
 		project.coverphoto = req.body.coverphoto
+		console.log("project data:");
+		console.log(project);
 		
 		project.save(function(err){
 			if(err){

@@ -1,11 +1,16 @@
-<div class="aside" tabindex="-1" role="dialog">
+<div class="aside" tabindex="-1" role="dialog" flow-prevent-drop
+      flow-init="{target: '/upload', singleFile: true}"
+      flow-file-added="projectAside.prepImg( $file, $event, $flow )"
+      flow-files-submitted="$flow.upload()"
+      flow-file-success="$file.msg = $message">
   <div class="asideBg">
     <div class="asideTitle" ng-if="projectAside.NEW">Create project</div>
     <div class="asideTitle" ng-if="!projectAside.NEW">Edit project</div>
 
-    <div ng-if="!login.processing" type="button" class="custom-close" ng-click="$hide()"></div>
+    <div type="button" class="custom-close" ng-click="$hide()"></div>
 
-    <form class="container-page" ng-submit="projectAside.save(aside.projectData.name, aside.projectData.description)">
+    <form class="container-page" 
+          ng-submit="projectAside.save(aside.projectData.name, aside.projectData.description)">
       <div class="form-group">
         <label>Name</label>
         <input type="text" class="custom-form" ng-model="aside.projectData.name" required>
@@ -26,24 +31,39 @@
                     style="background: url({{photoLink}}); background-size: 116px auto;">
               </div>
             </li>
-            <li>
-              <div class="select-coverphoto" 
-                      ngf-select ng-model="page.files[$index]" name="file" 
-                      ngf-accept="'image/*'"
-                      ngf-pattern="'image/*'"
-                      ngf-before-model-change= "page.errors = '' "
-                      ngf-min-size="100"
-                      ngf-max-size="500MB"
-                      ngf-model-invalid="page.errors">
+            <li flow-btn>
+              <div class="{{projectAside.CPStyling}}"
+                    id="cust-cp" 
+                    ng-click="projectAside.selectCustCP()">
+              <!-- <input type="file" flow-btn/> -->
+              <!-- <span ng-if="!$flow.files[0]" class="btn">Upload File</span> -->
+              <img ng-if="$flow.files[0]" flow-img="$flow.files[0]" 
+              style="width:116px; height:80px;"/>
               </div>
+              
+              <!-- <table>
+                <tr ng-repeat="file in $flow.files">
+                    <td>{{$index+1}}</td>
+                    <td>{{file.name}}</td>
+                    <td>{{file.msg}}</td>
+                </tr>
+              </table> -->
             </li>
-            <!-- <li><div class="select-coverphoto"></div></li>
-            <li><div class="select-coverphoto"></div></li>
-            <li><div class="select-coverphoto"></div></li>
-            <li><div class="select-coverphoto"></div></li> -->
         </ul>
-      
 
+        
+        
+            
+      
+        <!--   <button class="custom-btn-primary-large"
+                ngf-select ng-model="projectAside.file" 
+                name="file" 
+                ngf-accept="'image/*'"
+                ngf-pattern="'image/*'"
+                ngf-min-size="100"
+                ngf-max-size="300MB"
+                ngf-model-invalid="projectAside.errors"> Upload Photo
+        </button> -->
       <button type="submit" class="custom-btn-primary-large" ng-if="projectAside.NEW">
         <span>Create project</span>
       </button>

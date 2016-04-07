@@ -1,6 +1,6 @@
 {
   "name": "videogular-themes-default",
-  "version": "1.4.2",
+  "version": "1.4.3",
   "main": [
     "./videogular.css",
     "./fonts/videogular.woff",
@@ -10,17 +10,16 @@
     "./fonts/videogular.dev.svg"
   ],
   "dependencies": {
-    "videogular": "~1.4.2"
+    "videogular": "~1.4.3"
   },
   "homepage": "https://github.com/2fdevs/bower-videogular-themes-default",
-  "_release": "1.4.2",
+  "_release": "1.4.3",
   "_resolution": {
     "type": "version",
-    "tag": "v1.4.2",
-    "commit": "2569c093ec3a136610716878140d6989cc08e98c"
+    "tag": "v1.4.3",
+    "commit": "7b31bdbfe264bba31f8744eea06614b9a23b1216"
   },
-  "_source": "git://github.com/2fdevs/bower-videogular-themes-default.git",
+  "_source": "https://github.com/2fdevs/bower-videogular-themes-default.git",
   "_target": "^1.4.2",
-  "_originalSource": "videogular-themes-default",
-  "_direct": true
+  "_originalSource": "videogular-themes-default"
 }

@@ -1,6 +1,6 @@
 {
   "name": "angular-file-saver",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "main": "dist/angular-file-saver.bundle.js",
   "authors": [
     "Philipp Alferov <philipp.alferov@gmail.com>"
@@ -27,14 +27,13 @@
     "file-saver.js": "~1.20150507.2"
   },
   "homepage": "https://github.com/alferov/angular-file-saver",
-  "_release": "1.1.0",
+  "_release": "1.1.1",
   "_resolution": {
     "type": "version",
-    "tag": "1.1.0",
-    "commit": "eb5e94dc1460f33f3da11924207d190d817949db"
+    "tag": "1.1.1",
+    "commit": "c30394e5dfb84d0612e04411eec8ae01129f0979"
   },
-  "_source": "git://github.com/alferov/angular-file-saver.git",
+  "_source": "https://github.com/alferov/angular-file-saver.git",
   "_target": "^1.1.0",
-  "_originalSource": "angular-file-saver",
-  "_direct": true
+  "_originalSource": "angular-file-saver"
 }

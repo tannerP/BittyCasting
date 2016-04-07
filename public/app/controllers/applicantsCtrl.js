@@ -144,7 +144,7 @@ angular.module('applicantsCtrl', ['userService',
                 angular.equals(vm.applicants[i].suppliments[j].name, "headshot")  )
                 {   //check it attachment is an image
                     if(vm.applicants[i].suppliments[j].file_type.indexOf('image') != -1){
-                      console.log(vm.applicants[i].suppliments[j].file_type);
+                      /*console.log(vm.applicants[i].suppliments[j].file_type);*/
                       vm.applicants[i].headshot = vm.applicants[i].suppliments[j].source;
                       break;
                     }

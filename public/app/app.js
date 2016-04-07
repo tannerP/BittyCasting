@@ -22,7 +22,7 @@ angular.module('userApp', [
 	'ReviewPage',
 	'Nav',
 	'pdf',
-	"vimeoEmbed"
+	'flow'
 	])
   .run(function ($rootScope, $location, $http) {
     $http.get('/config').success(function(data) {

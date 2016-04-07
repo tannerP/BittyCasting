@@ -20,7 +20,6 @@ angular.module('projectCtrl', ['userService',
       }),
       editPrjAside = $aside({
         scope: $scope,
-        backdrop:'static',
         keyboard: true,
         show: false,
         controller: 'editProjectController',
@@ -460,12 +459,14 @@ angular.module('projectCtrl', ['userService',
 
     vm.newPrjBtn = function () {
       vm.projectData = {};
-      newPrjAside.$promise.then(newPrjAside.toggle);
+      /*newPrjAside.$promise.then(newPrjAside.toggle);*/
+      newPrjAside.show();
       /*console.log(vm.projectData);*/
     }
     vm.deleteBtn = function (data) {
       $scope.projectData = data;
-      deletePrjAside.$promise.then(deletePrjAside.toggle);
+      /*deletePrjAside.$promise.then(deletePrjAside.toggle);*/
+      deletePrjAside.toggle();
       /*deletePrjAside.toggle();*/
     }
     vm.getProjectBtn = function (id) {
@@ -483,13 +484,16 @@ angular.module('projectCtrl', ['userService',
       })
 
   }).
-  controller('newProjectController', function (Project, $location, $route, $scope, Upload) {
+  controller('newProjectController', 
+    function (Project, $location, $route, $rootScope, $scope, Upload, AWS, $q) {
     var vm = this;
     var DEFAULT_COVERPHOTO = "/assets/imgs/img_projectCover01.png";
     vm.NEW = true;
-
+    $scope.file = {};
     vm.CPStyling = "select-coverphoto";
     vm.CPStylingSelected = "select-coverphoto-selected";
+    vm.custCP;
+
     vm.selectCP = function(data,index){
       console.log(data)
       var id = "#" + data.split('/').pop().split('.').shift();
@@ -504,17 +508,29 @@ angular.module('projectCtrl', ['userService',
       //store to db
       $scope.aside.projectData.coverphoto = data;
     }
-    
-    /*var MAX_LENGTH = 220;
-     $scope.charRmnd = MAX_LENGTH;
-     $scope.TAChange = function()
-     {$scope.charRmnd  =  MAX_LENGTH - vm.projectData.description.length;}*/
+    vm.selectCustCP = function(){
+      var id = "#cust-cp";
+/*      console.log(id)*/
+      angular.element( document.querySelector("."+vm.CPStylingSelected))
+      .removeClass(vm.CPStylingSelected)
+      var myEl = angular.element( document.querySelector(id));
+      myEl.addClass(vm.CPStylingSelected); 
+      //store to db
+      /*$scope.aside.projectData.coverphoto = data;*/
+    }
+
+    vm.prepImg = function(file, event, flow){
+      var data = new Array().push(file);
+      custCP = file;
+    }
     vm.save = function () {
       vm.processing = true;
       vm.message;
       if($scope.aside.projectData){
-        if(!$scope.aside.projectData.coverphoto){
-          $scope.aside.projectData.coverphoto = DEFAULT_COVERPHOTO;
+        if(custCP){}
+        else{
+          $scope.aside.projectData.coverphoto.source = DEFAULT_COVERPHOTO;
+          $scope.aside.projectData.coverphoto.name = "default";
         }
       Project.create($scope.aside.projectData)
         .success(function (data) {
@@ -538,6 +554,7 @@ angular.module('projectCtrl', ['userService',
     vm.processing = true;
     vm.projectData;
     vm.proj_id = $routeParams.project_id;
+    $scope.file = {};
 
     /*var MAX_LENGTH = 220;
      $scope.TAChange = function()
@@ -556,16 +573,16 @@ angular.module('projectCtrl', ['userService',
       //store to db
       $scope.aside.projectData.coverphoto = data;
     }
-
-    Project.get(vm.proj_id)
-      .success(function (data) {
-        vm.processing = false;
-        $scope.aside.projectData = data.project
-        /*$scope.TAChange()*/
-      })
-      .error(function () {
-        console.log(error);
-      })
+    if(!$scope.aside.projectData)
+    {Project.get(vm.proj_id)
+          .success(function (data) {
+            vm.processing = false;
+            $scope.aside.projectData = data.project
+            /*$scope.TAChange()*/
+          })
+          .error(function () {
+            console.log(error);
+          })}
 
     vm.save = function () {
       vm.processing = true;
@@ -605,7 +622,7 @@ angular.module('projectCtrl', ['userService',
       }
 
       vm.delete = function (projID) {
-        if (vm.input1 && vm.input2 && vm.input3) {
+        if (vm.input1 && vm.input2) {
           Project.delete(projID)
             .success(function () {
               $route.reload();
