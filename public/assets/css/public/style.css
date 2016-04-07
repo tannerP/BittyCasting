@@ -874,6 +874,7 @@ ul.projects li {
     top: 78%; }
 
 .card {
+  margin-bottom: 20px;
   color: #fff;
   text-align: center;
   position: relative;
