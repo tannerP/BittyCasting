@@ -215,6 +215,9 @@ angular.module('projectCtrl', ['userService',
       .success(function (data) {
         vm.processing = false;
         vm.roleData = data.data;
+        vm.D_Row = data.data.description.length/45;
+        vm.D_Row = Math.round(vm.D_Row);
+        console.log(vm.D_Row);
         $scope.selectedTime = data.data.end_time;
         $scope.selectedDate = data.data.end_date;
         $scope.TAChange()
@@ -413,9 +416,8 @@ angular.module('projectCtrl', ['userService',
           console.log(err.message);
         })
     }
-  }).
-//.html
-  controller('HomePageController',
+  })
+  .controller('HomePageController',
   function (Project, $location, $aside, $scope) {
     var vm = this;
     $scope.aside = {};
@@ -489,7 +491,6 @@ angular.module('projectCtrl', ['userService',
     var vm = this;
     var DEFAULT_COVERPHOTO = "/assets/imgs/img_projectCover01.png";
     vm.NEW = true;
-
     vm.CPStyling = "select-coverphoto";
     vm.CPStylingSelected = "select-coverphoto-selected";
     var CP_cust;
@@ -497,37 +498,20 @@ angular.module('projectCtrl', ['userService',
 
     vm.selectCP = function(source,index){
       var id = "#" + source.split('/').pop().split('.').shift();
-/*      console.log(id)*/
-
-      angular.element( document.querySelector("."+vm.CPStylingSelected))
-      .removeClass(vm.CPStylingSelected)
-      
-      var myEl = angular.element( document.querySelector(id));
-      myEl.addClass(vm.CPStylingSelected); 
+      select(id);
       CP_cust;
       CP_default = source;
-      //store to db
-      /*$scope.aside.projectData.coverphoto.source = data;
-      $scope.aside.projectData.coverphoto.name = "default";*/
-
+      
     }
     vm.selectCustCP = function(){
       var id = "#cust-cp";
-/*      console.log(id)*/
-      angular.element( document.querySelector("."+vm.CPStylingSelected))
-      .removeClass(vm.CPStylingSelected)
-      var myEl = angular.element( document.querySelector(id));
-      myEl.addClass(vm.CPStylingSelected); 
+      select(id);
       CP_default;
-      console.log(CP_default);
-      //store to db
-      /*$scope.aside.projectData.coverphoto = data;*/
     }
 
     vm.prepImg = function(file, event, flow){
       var data = new Array().push(file);
       CP_cust = file;
-      console.log(CP_cust);
     }
     vm.save = function () {
       vm.processing = true;
@@ -562,8 +546,7 @@ angular.module('projectCtrl', ['userService',
             });
         });    
       }
-    }
-  }
+    }}
   }).
 
   //page: project.html
@@ -579,72 +562,48 @@ angular.module('projectCtrl', ['userService',
     $scope.file = {};
     var CP_cust;
     var CP_default;
-    /*var MAX_LENGTH = 220;
-     $scope.TAChange = function()
-     {$scope.charRmnd  =  MAX_LENGTH - vm.projectData.description.length;}*/
-
+  
+    //default settings & value
     vm.CPStyling = "select-coverphoto";
     vm.CPStylingSelected = "select-coverphoto-selected";
 
-      vm.selectCP = function(source,index){
-      var id = "#" + source.split('/').pop().split('.').shift();
 
-      angular.element( document.querySelector("."+vm.CPStylingSelected))
-      .removeClass(vm.CPStylingSelected)
-      
-      var myEl = angular.element( document.querySelector(id));
-      myEl.addClass(vm.CPStylingSelected); 
-      CP_cust = null;
-      CP_default = source;
-      console.log(CP_default);
-      console.log(CP_cust);
-    }
-    vm.selectCustCP = function(){
-      var id = "#cust-cp";
-      angular.element( document.querySelector("."+vm.CPStylingSelected))
-      .removeClass(vm.CPStylingSelected)
-      var myEl = angular.element( document.querySelector(id));
-      myEl.addClass(vm.CPStylingSelected); 
-      CP_default = null;
-      console.log(CP_default);
-      //store to db
-      /*$scope.aside.projectData.coverphoto = data;*/
-    }
-
-    vm.prepImg = function(file, event, flow){
-      var data = new Array().push(file);
-      CP_cust = file;
-      console.log(CP_cust);
-    }
-
-    /*if(!$scope.aside.projectData)*/
     Project.get(vm.proj_id)
       .success(function (data) {
         vm.processing = false;
         $scope.aside.projectData = data.project
-        /*$scope.TAChange()*/
+        vm.D_Row = data.project.description.length/45;
+        vm.D_Row = Math.round(vm.D_Row);
       })
       .error(function () {
         console.log(error);
       })
 
-  /*  vm.save = function () {
-      vm.processing = true;
-      vm.message;
-      $scope.aside.projectData.updated_date = new Date();
-      Project.update($scope.aside.projectData._id,
-       $scope.aside.projectData)
-        .success(function (data) {
-          $route.reload();
-          vm.processing = false;
-          vm.projectData = null;
-          $scope.$hide();
+    var select =  function(id){
+      angular.element( document.querySelector("."+vm.CPStylingSelected))
+      .removeClass(vm.CPStylingSelected)
+      var myEl = angular.element( document.querySelector(id));
+      myEl.addClass(vm.CPStylingSelected); 
+    }
 
-        })
-        .error(function (err) {
-          console.log(err);
-        });
-    }*/
+      vm.selectCP = function(source,index){
+      var id = "#" + source.split('/').pop().split('.').shift();
+      select(id);
+      CP_cust = null;
+      CP_default = source;
+    }
+
+    vm.selectCustCP = function(){
+      var id = "#cust-cp";
+      select(id);
+      CP_default = null;
+    }
+
+    vm.prepImg = function(file, event, flow){
+      var data = new Array().push(file);
+      CP_cust = file;
+    }
+
     vm.update = function (data) {
       console.log(data);
       console.log($scope.aside.projectData)
@@ -683,6 +642,7 @@ angular.module('projectCtrl', ['userService',
                   $route.reload();
                   $scope.$hide()
             })
+  
   }
 }).
 //Change to style.flexDirection = 'column-reverse'
@@ -693,7 +653,7 @@ angular.module('projectCtrl', ['userService',
       vm.existing = true;
 
       var errAlert = $alert({
-        title: 'Whoops', content: 'Please check all', animation: 'am-fade-and-slide-top', duration: '5',
+        title: 'Whoops', content: 'Please check all', animation: 'am-fade-and-`sl`ide-top', duration: '5',
         placement: 'top-right', type: 'danger', show: false, type: 'success'
       });
 
@@ -717,8 +677,10 @@ angular.module('projectCtrl', ['userService',
                 /*$window.history.back();*/
                 $location.path("/home")
               }
-              else $scope.$hide();
-              
+              else {
+                $route.reload();
+                $scope.$hide();
+              }
             })
             .error(function (err) {
               console.log(err);
