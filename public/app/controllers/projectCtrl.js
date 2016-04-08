@@ -84,8 +84,6 @@ angular.module('projectCtrl', ['userService',
       .success(function (data) {
         vm.project = data.project;
         $scope.projectData = data.project;
-
-        console.log($scope.projectData)
       })
       .error(function (err) {
         vm.message = err;
@@ -508,8 +506,6 @@ angular.module('projectCtrl', ['userService',
       myEl.addClass(vm.CPStylingSelected); 
       CP_cust;
       CP_default = source;
-      console.log(CP_default);
-      console.log(CP_cust);
       //store to db
       /*$scope.aside.projectData.coverphoto.source = data;
       $scope.aside.projectData.coverphoto.name = "default";*/
@@ -626,7 +622,6 @@ angular.module('projectCtrl', ['userService',
       .success(function (data) {
         vm.processing = false;
         $scope.aside.projectData = data.project
-        console.log($scope.aside.projectData);
         /*$scope.TAChange()*/
       })
       .error(function () {
@@ -658,13 +653,13 @@ angular.module('projectCtrl', ['userService',
 
       $scope.aside.projectData.updated_date = new Date();
 
-      if(!$scope.aside.projectData.coverphoto || CP_default){ 
+      //TODO: check if 
+      if(CP_default || !$scope.aside.projectData.coverphoto){ 
        $scope.aside.projectData.coverphoto = {}; //TODO: need to remove once seems stable
        if(!CP_default) CP_default = DEFAULT_COVERPHOTO; //if no stock photo selected
        $scope.aside.projectData.coverphoto.source = CP_default;
        $scope.aside.projectData.coverphoto.name = "default";
       }
-
       else if(CP_cust){
           AWS.uploadCP(CP_cust, $rootScope.awsConfig.bucket, function(data){
             $scope.aside.projectData.coverphoto = data;
@@ -679,8 +674,6 @@ angular.module('projectCtrl', ['userService',
               });
           });    
         }
-      //if didn't upload new cover photo
-      /*$scope.aside.projectData.coverphoto = {};*/
       Project.update($scope.aside.projectData._id,
               $scope.aside.projectData)
                 .success(function (data) {
@@ -690,7 +683,6 @@ angular.module('projectCtrl', ['userService',
                   $route.reload();
                   $scope.$hide()
             })
-  
   }
 }).
 //Change to style.flexDirection = 'column-reverse'
@@ -718,8 +710,15 @@ angular.module('projectCtrl', ['userService',
               $route.reload();
               vm.processing = false;
               vm.projectData = null;
-              $scope.$hide();
-
+              /*console.log($location.path().indexOf("project"))*/
+              if($location.path().indexOf("project") != -1 ){
+                console.log("project");
+                $scope.$hide();
+                /*$window.history.back();*/
+                $location.path("/home")
+              }
+              else $scope.$hide();
+              
             })
             .error(function (err) {
               console.log(err);
