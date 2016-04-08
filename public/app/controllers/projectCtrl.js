@@ -485,7 +485,6 @@ angular.module('projectCtrl', ['userService',
         }
         
       })
-
   }).
   controller('newProjectController', 
     function (Project, $location, $route, $rootScope, $scope, Upload, AWS) {
@@ -576,6 +575,7 @@ angular.module('projectCtrl', ['userService',
   function ($scope, Project, $location, $routeParams, $route,AWS,$rootScope) {
     var vm = this;
     $scope.aside= {};
+    var DEFAULT_COVERPHOTO = "/assets/imgs/img_projectCover01.png";
     /*$scope.aside.projectData = $scope.projectData;*/
     vm.NEW = false;
     vm.processing = true;
@@ -621,16 +621,17 @@ angular.module('projectCtrl', ['userService',
       console.log(CP_cust);
     }
 
-    if(!$scope.aside.projectData)
-    {Project.get(vm.proj_id)
+    /*if(!$scope.aside.projectData)*/
+    Project.get(vm.proj_id)
       .success(function (data) {
         vm.processing = false;
         $scope.aside.projectData = data.project
+        console.log($scope.aside.projectData);
         /*$scope.TAChange()*/
       })
       .error(function () {
         console.log(error);
-      })}
+      })
 
   /*  vm.save = function () {
       vm.processing = true;
@@ -651,78 +652,47 @@ angular.module('projectCtrl', ['userService',
     }*/
     vm.update = function (data) {
       console.log(data);
+      console.log($scope.aside.projectData)
       vm.processing = true;
-      vm.message;
-      $scope.aside.projectData.updated_date = new Date();
-      if($scope.aside.projectData){ // TODO: need to check if there were changes
-        /*console.log($scope.aside.projectData.coverphoto.name);*/
-        /*if($scope.aside.projectData.coverphoto.name.indexOf("default") ){
-          console.log("this is a default cover");
-        }*/
-        console.log(CP_cust)
-        console.log(CP_default)
-        if(CP_cust || CP_default){
-          console.log("level 1")
-          if(!CP_cust){
-            //update cover photo
-            console.log("level 2")
-            if(CP_default){ 
-              /*var temp = ({"source":CP_default,"name":"default"})*/
-             /* 
-              angular.extend($scope.aside.projectData.coverphoto,
-               temp);*/
+      var pj = data;
 
-              /*$scope.aside.projectData.coverphoto.source = CP_default;
-              $scope.aside.projectData.coverphoto.name = "default";*/
-                /*$scope.aside.projectData.coverphoto = data;*/
-              console.log("level 3")
-              console.log($scope.aside.projectData)
-              console.log($scope.aside.projectData.coverphoto)
-              console.log("level 4")
-              var tempData = $scope.aside.projectData;
-              console.log(tempData);
-            /*$scope.aside.projectData.coverphoto.name = "default";*/
-            console.log($scope.aside.projectData)
-            }
-            Project.update($scope.aside.projectData._id,
-              $scope.aside.projectData)
-                .success(function (data) {
-                  $route.reload();
-                  vm.processing = false;
-                  vm.message = data.message;
-                  $scope.$hide()
-                  $scope.projectData = {};
-            })
-          }
-        else{
+      $scope.aside.projectData.updated_date = new Date();
+
+      if(!$scope.aside.projectData.coverphoto || CP_default){ 
+       $scope.aside.projectData.coverphoto = {}; //TODO: need to remove once seems stable
+       if(!CP_default) CP_default = DEFAULT_COVERPHOTO; //if no stock photo selected
+       $scope.aside.projectData.coverphoto.source = CP_default;
+       $scope.aside.projectData.coverphoto.name = "default";
+      }
+
+      else if(CP_cust){
           AWS.uploadCP(CP_cust, $rootScope.awsConfig.bucket, function(data){
             $scope.aside.projectData.coverphoto = data;
             Project.update($scope.aside.projectData._id,
               $scope.aside.projectData)
               .success(function (data) {
-                $route.reload();
                 vm.processing = false;
                 vm.message = data.message;
-                $scope.$hide()
                 $scope.projectData = {};
+                $route.reload();
+                $scope.$hide()
               });
           });    
         }
-      }
       //if didn't upload new cover photo
-      $scope.aside.projectData.coverphoto = {};
+      /*$scope.aside.projectData.coverphoto = {};*/
       Project.update($scope.aside.projectData._id,
               $scope.aside.projectData)
                 .success(function (data) {
-                  $route.reload();
+                  $scope.projectData = {};
                   vm.processing = false;
                   vm.message = data.message;
+                  $route.reload();
                   $scope.$hide()
-                  $scope.projectData = {};
             })
-    }
+  
   }
-  }).
+}).
 //Change to style.flexDirection = 'column-reverse'
   controller('deleteProjectController', ['$scope', '$alert', 'Project', '$location', '$route',
     function ($scope, $alert, Project, $location, $route) {

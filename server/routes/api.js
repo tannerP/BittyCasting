@@ -319,11 +319,13 @@ apiRouter.route('/project/:project_id')
 	})
 	.put(function(req,res){
 		Project.findById(req.params.project_id, function(err,project){
+			console.log(req.body);
 			if(err) res.send(err);
 			if(req.body.name) project.name = req.body.name;
 			if(req.body.description) project.description = req.body.description;
 			if(req.body.updated_date) project.updated_date = req.body.updated_date;
 			if(req.body.coverphoto) project.coverphoto = req.body.coverphoto;
+			console.log(req.body);
 			project.save(function(err){
 				if (err) console.log(err);
 				if (err) res.send(err);
