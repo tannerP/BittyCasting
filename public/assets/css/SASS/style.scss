@@ -1525,7 +1525,7 @@ ul.select-coverphoto-wrapper {
                     background-color: $color-grey-lightest;
                 }        
         }
-        div[class *= 'select-coverphoto'] {
+        .select-coverphoto {
             width: 116px;
             height: 60px;
             display: inline-block;

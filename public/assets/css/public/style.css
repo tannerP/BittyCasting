@@ -1446,7 +1446,7 @@ ul.select-coverphoto-wrapper {
       transition: all 0.7s ease; }
       ul.select-coverphoto-wrapper li:last-child .select-coverphoto:hover, ul.select-coverphoto-wrapper li:last-child .select-coverphoto:focus {
         background-color: #eeeeee; }
-    ul.select-coverphoto-wrapper li div[class*='select-coverphoto'] {
+    ul.select-coverphoto-wrapper li .select-coverphoto {
       width: 116px;
       height: 60px;
       display: inline-block;
@@ -1456,7 +1456,7 @@ ul.select-coverphoto-wrapper {
       -ms-transition: all 0.7s ease;
       -o-transition: all 0.7s ease;
       transition: all 0.7s ease; }
-      ul.select-coverphoto-wrapper li div[class*='select-coverphoto']:hover, ul.select-coverphoto-wrapper li div[class*='select-coverphoto']:focus {
+      ul.select-coverphoto-wrapper li .select-coverphoto:hover, ul.select-coverphoto-wrapper li .select-coverphoto:focus {
         opacity: 1; }
     ul.select-coverphoto-wrapper li .select-coverphoto-selected {
       box-sizing: border-box;
