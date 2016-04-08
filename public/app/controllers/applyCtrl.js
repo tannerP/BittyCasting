@@ -45,7 +45,8 @@ angular.module('applyCtrl',['userService','mgcrea.ngStrap']).
       vm.newLinks= [];
       vm.addLink = function(index,name){
         var link = {};
-        link.name = name; link.source = vm.newLinks[index];
+        link.name = name; 
+        link.source = vm.newLinks[index];
 
         if(link.source.indexOf('.') > -1) {
           vm.appData.links.push(link)
@@ -69,9 +70,16 @@ angular.module('applyCtrl',['userService','mgcrea.ngStrap']).
       vm.busy = true; 
       vm.currfile; 
 
-        for (link in vm.newLinks ){
-          if(vm.newLinks[link]){
-            vm.appData.links.push(vm.newLinks[link])     
+        for (i in vm.newLinks ){
+          if(vm.newLinks[i]){
+            var link = {};
+            link.name = name; 
+            link.source = vm.newLinks[i];
+            if(link.source.indexOf('.') > -1) {
+              vm.appData.links.push(link)
+              vm.newLinks[i] = "";
+            }
+            
           }
         }
 
