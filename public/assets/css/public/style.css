@@ -1209,6 +1209,8 @@ ul.projects li {
   .aside .asideBg {
     width: 100%;
     min-height: 100%; }
+  .aside .asideDesMessage {
+    margin-bottom: 29px; }
   .aside .asideMessage p {
     font-size: 10px;
     color: #999999;
