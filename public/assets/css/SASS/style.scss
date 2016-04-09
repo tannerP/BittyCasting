@@ -51,6 +51,10 @@ $color-blue-darken: #069A9F;
 $color-blue: #06bcc2;
 $color-blue-lighten: #48d8d8;
 
+$color-coral-darken: #b26659;
+$color-coral: #d87b68;
+$color-coral-lighten: #e59689;
+
 $color-red-darken: #ba3a3a;
 $color-red: #D84444;
 
@@ -187,6 +191,28 @@ $font-size-small: 10px;
             color: white; 
             @include transition(all, 0.8s, ease);
         }  
+}
+
+.custom-btn-feedback {
+    position: fixed;
+    right: 0;
+    top: 50%;
+    width: 28px;
+    height: 100px;
+    background-color: $color-coral;
+    border: 0;
+    @include transition(all, 0.8s, ease);
+    z-index: 100;
+    .verticalText {
+        @include rotate(270deg);
+        color: white;
+        font-weight: 300;
+        font-size: 11px;
+        margin-top: 36px;
+    }
+    &:hover, &:focus {
+        background-color: $color-coral-darken;
+    }
 }
 
 p {
@@ -2283,6 +2309,7 @@ text-align: center;
 
     .custom-main {padding: 80px 0 60px 0;}
     section.contact {margin-bottom: 60px;}
+    .custom-btn-feedback {top: 75%;}
         
     /***************************
                 Nav

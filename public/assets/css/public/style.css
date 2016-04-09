@@ -152,6 +152,33 @@
     -o-transition: all 0.8s ease;
     transition: all 0.8s ease; }
 
+.custom-btn-feedback {
+  position: fixed;
+  right: 0;
+  top: 50%;
+  width: 28px;
+  height: 100px;
+  background-color: #d87b68;
+  border: 0;
+  -webkit-transition: all 0.8s ease;
+  -moz-transition: all 0.8s ease;
+  -ms-transition: all 0.8s ease;
+  -o-transition: all 0.8s ease;
+  transition: all 0.8s ease;
+  z-index: 100; }
+  .custom-btn-feedback .verticalText {
+    -ms-transform: rotate(270deg);
+    /* IE 9 */
+    -webkit-transform: rotate(270deg);
+    /* Safari */
+    transform: rotate(270deg);
+    color: white;
+    font-weight: 300;
+    font-size: 11px;
+    margin-top: 36px; }
+  .custom-btn-feedback:hover, .custom-btn-feedback:focus {
+    background-color: #b26659; }
+
 p {
   font-size: 12px;
   line-height: 24px; }
@@ -2151,6 +2178,9 @@ ul.select-coverphoto-wrapper {
 
   section.contact {
     margin-bottom: 60px; }
+
+  .custom-btn-feedback {
+    top: 75%; }
 
   /***************************
               Nav
