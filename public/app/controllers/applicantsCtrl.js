@@ -101,9 +101,7 @@ angular.module('applicantsCtrl', ['userService',
       .success(function (data) {
         vm.processing = false;      
         $scope.roleData = data.data;
-        console.log("$scope.roleData ");
-        console.log($scope.roleData );
-        
+      
         //calculate remaining days
         var now = new Date()
         var endDate = new Date(data.data.end_date);
@@ -132,7 +130,6 @@ angular.module('applicantsCtrl', ['userService',
           $scope.numApps = data.data.length;
           //get headshot
           for(var i in vm.applicants){
-            console.log(vm.applicants[i].suppliments.length)
             if(vm.applicants[i].suppliments.length > 0){
               for(var j in  vm.applicants[i].suppliments)
               {

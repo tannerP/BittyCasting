@@ -11,7 +11,6 @@ angular.module('projectCtrl', ['userService',
 
     var newRoleAside = $aside({
         scope: $scope,
-        backdrop:'static',
         show: false,
         keyboard: true,
         controller: 'addRoleController',
@@ -20,7 +19,6 @@ angular.module('projectCtrl', ['userService',
       }),
       editPrjAside = $aside({
         scope: $scope,
-        keyboard: true,
         show: false,
         controller: 'editProjectController',
         controllerAs: 'projectAside',
@@ -183,19 +181,16 @@ angular.module('projectCtrl', ['userService',
       }
     }])
 .controller('editRoleController',
-  function (Role, $location, $routeParams, $route, $scope) {
+  function (Role, $location, $routeParams, $route, $scope,$timeout) {
     var vm = this;
     vm.edit = true;
     vm.processing = true;
+    vm.roleData = {};
     angular.copy($scope.roleData,vm.roleData)
     
-    $scope.selectedDate = $scope.roleData.end_date;
+    $scope.selectedDate = vm.roleData.end_date;
     vm.D_Row = $scope.roleData.description.length/55;
     vm.D_Row = Math.round(vm.D_Row);
-
-    console.log(vm.roleData)
-    console.log($scope.roleData)
-  
 
     var MAX_LENGTH = 220;
     $scope.TAChange = function () {
@@ -207,9 +202,15 @@ angular.module('projectCtrl', ['userService',
       vm.roleData.updated_date = new Date();
       Role.update($routeParams.role_id, vm.roleData)
         .success(function () {
-          vm.processing = false;
+          $route.reload();
+          $timeout(function(){
+            vm.processing = false;
+            vm.projectData = null;
+            $scope.$hide();
+           }, 150);
+          /*vm.processing = false;
           vm.projectData = null;
-          $scope.$toggle();
+          $scope.$hide();*/
         })
         .error(function (err) {
           console.log(err.message);
@@ -552,8 +553,8 @@ angular.module('projectCtrl', ['userService',
     }
 
     vm.update = function (data) {
-      console.log(data);
-      console.log($scope.aside.projectData)
+      /*console.log(data);
+      console.log($scope.aside.projectData)*/
       vm.processing = true;
       var pj = data;
 
