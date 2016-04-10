@@ -11,6 +11,8 @@
 
     <form class="container-page">
       <div class="form-group">
+      <img ng-if="$flow.files[0]" flow-img="$flow.files[0]" 
+              style="width:400px; height:200px;"/>
         <label>Name</label>
         <input type="text" class="custom-form" ng-model="aside.projectData.name" required>
       </div>
@@ -27,26 +29,17 @@
               <div class="{{projectAside.CPStyling}}"
                     id="{{photoLink.split('/').pop().split('.').shift()}}" 
                     ng-click="projectAside.selectCP(photoLink, $index)"
-                    style="background: url({{photoLink}}); background-size: 116px auto;">
+                    style="background: url({{photoLink}});
+                     background-size: 116px auto;">
               </div>
             </li>
             <li flow-btn>
               <div class="{{projectAside.CPStyling}}"
                     id="cust-cp" 
                     ng-click="projectAside.selectCustCP()">
-              <!-- <input type="file" flow-btn/> -->
-              <!-- <span ng-if="!$flow.files[0]" class="btn">Upload File</span> -->
               <img ng-if="$flow.files[0]" flow-img="$flow.files[0]" 
               style="width:116px; height:80px;"/>
               </div>
-              
-              <!-- <table>
-                <tr ng-repeat="file in $flow.files">
-                    <td>{{$index+1}}</td>
-                    <td>{{file.name}}</td>
-                    <td>{{file.msg}}</td>
-                </tr>
-              </table> -->
             </li>
         </ul>
       <button type="submit" class="custom-btn-primary-large" ng-if="projectAside.NEW"

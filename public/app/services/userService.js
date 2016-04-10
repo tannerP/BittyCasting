@@ -3,19 +3,19 @@
 angular.module('userService', [])
 
 .factory('Mail', function($http){
-	var pubFactory = [];
+	var mailFactory = {};
 	
-	pubFactory.betaUser = function(email)	{
+	mailFactory.betaUser = function(email)	{
 		return $http.get('submit/:' + email);
 	}
 /*	pubFactory.getAppPrj = function(id)	{
 		return $http.get('applicationPrj/' + id);
 	}*/
-	return pubFactory;
+	return mailFactory;
 })
 
 .factory('Pub', function($http){
-	var pubFactory = [];
+	var pubFactory = {};
 	
 	pubFactory.getAppRole = function(id)	{
 		return $http.get('applicationRole/' + id);

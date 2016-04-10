@@ -78,7 +78,6 @@ angular.module('applicantsCtrl', ['userService',
 
       for (var i = 0; i < sourceArr.length; i++) {
         var fType = sourceArr[i].file_type;
-        console.log(sourceArr[i]);
         if (fType == "Link") {
           $scope.links.push(sourceArr[i]);
           addSlide(target, sourceArr[i]);
@@ -86,32 +85,31 @@ angular.module('applicantsCtrl', ['userService',
         if (fType.indexOf('video') != -1) {
           $scope.video.push(sourceArr[i]);
           addSlide(target, sourceArr[i]); //carousel
-          console.log("added");
         }
         else if (fType.indexOf('image') != -1) {
           $scope.images.push(sourceArr[i]);
           addSlide(target, sourceArr[i]); //carousel
-          console.log("added");
         }
         else if (fType == "application/pdf" ||
           fType == "application/vnd.openxmlformats-officedocument.wordprocessingml.document") {
           $scope.documents.push(sourceArr[i]);
           /*addSlide(target, sourceArr[i]);*/
-
         }
-      
       }
     }
-     Role.get($routeParams.role_id)
+    Role.get($routeParams.role_id)
       .success(function (data) {
         vm.processing = false;      
         $scope.roleData = data.data;
+        console.log("$scope.roleData ");
+        console.log($scope.roleData );
         
         //calculate remaining days
         var now = new Date()
         var endDate = new Date(data.data.end_date);
         var timeDiff = endDate - now;
         var left = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
+        //calculate 
         if(left < 8) 
         {
           if(left > 0 ) {vm.remaining = left; return;}//less than a wk 
