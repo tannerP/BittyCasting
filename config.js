@@ -1,5 +1,5 @@
 exports.dev = {
-	'port': process.env.PORT || 8000,
+	'port': process.env.PORT || 8443,
   "baseURL":"http://bittycasting.com",
 	secret: "Hello 2016",
   "USER"    : "",           
