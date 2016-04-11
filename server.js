@@ -3,10 +3,19 @@
 //==================================--BASE SETUP--============================
 //LOAD PACKAGES-------------------------------
 //var jwt = require('jsonwebtoken');//TOKEN Package
+var fs = require('fs');
+var https = require("https");
+var privateKey = fs.readFileSync('key.pem');
+var certificate = fs.readFileSync('key-cert.pem');
+
+var options = { key:privateKey,
+                cert: certificate
+              };
+
 var Role = require('./server/models/role');
 var Project = require('./server/models/project');
 var Applicant = require('./server/models/applicant');
-var express = require ('express'); //EXPRESS Package
+var express = require('express'); //EXPRESS Package
 var app = express();	//define our app using express
 var bodyParser = require('body-parser');// get body-parser
 var morgan = require('morgan'); //use to see requests
@@ -63,10 +72,18 @@ app.use(express.static(__dirname + '/public'));
   app.all('*', function(req, res, next){
     res.sendFile(path.join(__dirname+"/public/app/views/index.html"))
   })
-app.listen(config.port);
+  /*app.listen(config.port);*/
+  
+var server = https.createServer(options, app);
+    server.listen(config.port, function(){
+      console.log(config.port);
+    });
+
+  /*console.log(server);*/
+/*});*/
 
 /*io.on('connection', function(socket){
 	console.log('a user connected');
 })
 */
-console.log("Magic happens on port" + config.port);
+
