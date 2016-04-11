@@ -75,9 +75,7 @@ app.use(express.static(__dirname + '/public'));
 /*  app.listen(config.port);*/
   
 var server = https.createServer(options, app);
-    server.listen(config.port, function(){
-      console.log(config.port);
-    });
+    server.listen(config.port, "0.0.0.0");
 
   /*console.log(server);*/
 /*});*/
