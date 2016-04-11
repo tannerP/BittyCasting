@@ -8,6 +8,10 @@ angular.module('userService', [])
 	mailFactory.betaUser = function(email)	{
 		return $http.get('submit/:' + email);
 	}
+	mailFactory.sendFB = function(data)	{
+		/*console.log(feedback);*/
+		return $http.put('feedback' ,data);
+	}
 /*	pubFactory.getAppPrj = function(id)	{
 		return $http.get('applicationPrj/' + id);
 	}*/

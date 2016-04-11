@@ -155,7 +155,7 @@ app.get('/submit/:mail', function(req,res) {
     //Specify email data
       from: "internal@bittycasting.com",
     //The email to contact
-      to: "tanner@bittycasting.com",
+      to: "support@bittycasting.com",
     //Subject and text data  
       subject: 'New Beta Customer',
       html: 'Beta Request' + req.params.mail
@@ -166,9 +166,7 @@ app.get('/submit/:mail', function(req,res) {
         //If there is an error, render the error page
         if (err) {
           console.log(err)
-            /*res.json(err);*/
         }
-        //Else we can greet    and leave
         else {
             //Here "submitted.jade" is the view file for this landing page 
             //We pass the variable "email" from the url parameter in an object rendered by Jade
@@ -176,6 +174,41 @@ app.get('/submit/:mail', function(req,res) {
           /*res.json(body);*/
           /*  res.render('submitted', { email : req.params.mail });
             console.log(body);*/
+        }
+    });
+
+});
+app.put('/feedback', function(req,res) {
+  var data = {
+      from: "internal@bittycasting.com",
+      to: "support@bittycasting.com",
+      subject: "Beta User Feedback - " + req.body.title,
+      html: 'New user feedback: ' + req.body.message + " " + "User Information: " + " " 
+      + req.body.user.first + " "
+      + req.body.user.last + " "
+      + req.body.user.emmail + "."
+      + "Timestamp: " + req.body.timestamp
+    }
+    /*console.log(data);*/
+    /*console.log("This is a Get feedback");*/
+    /*console.log(req.body);*/
+    //We pass the api_key and domain to the wrapper, or it won't be able to identify + send emails
+    var mailgun = new Mailgun({apiKey: config.api_key, domain: config.domain});
+
+/*    var data = {
+      from: "internal@bittycasting.com",
+      to: "tannerphan@gmail.com",
+      subject: "Beta User Feedback - " + req.body.title,
+      html: 'New user feedback: ' + req.body.message + "User Info:" + req.body.user.email 
+      + " " + req.body.user.first + " " + req.body.user.last + "." + " " + req.body.timestamp
+    }*/
+    mailgun.messages().send(data, function (err, body) {
+        if (err) {
+          console.log(err)
+        }
+        else {
+          console.log(body)
+          return res
         }
     });
 

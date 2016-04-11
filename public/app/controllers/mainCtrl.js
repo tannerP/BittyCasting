@@ -1,5 +1,5 @@
-angular.module('mainCtrl', ['authService','mgcrea.ngStrap']).
-controller('mainController',['$scope','$rootScope','Auth',
+angular.module('mainCtrl', ['authService','mgcrea.ngStrap'])
+.controller('mainController',['$scope','$rootScope','Auth',
 	'$location',"$sce","$route","$window","Mail","$aside",
 		function($scope,$rootScope, Auth, $location, $sce, $route, $window,Mail,$aside) {
 		var vm = this;
@@ -35,10 +35,6 @@ controller('mainController',['$scope','$rootScope','Auth',
 		$scope.$on("unhideNav", function(){
 			vm.nav = true;
 		})
-
-		/*$scope.$on("app-media-submitted", function(){
-			vm.nav = true;
-		})*/
 		
 		$rootScope.$on('$routeChangeStart', function () {
 			vm.navCollapsed = true;
@@ -67,10 +63,13 @@ controller('mainController',['$scope','$rootScope','Auth',
 			if(vm.loggedIn && !vm.name){
 				Auth.getUser()
 						.then(function(data) {
-							if(data !=null){
+							if(data){
 							vm.usrInitial = data.name.first[0] + data.name.last[0];
-							vm.username ={first:data.name.first,
-														last:data.name.last}
+							$rootScope.user ={first:data.name.first,
+																last:data.name.last,
+																email:data.email,
+
+													}
 							}
 						 })
 			}
@@ -81,14 +80,12 @@ controller('mainController',['$scope','$rootScope','Auth',
 		console.log(vm.betaEmail)
 		Mail.betaUser(vm.betaEmail);
 	}	
-
-
-	 var feedbackAside = $aside({
+	var feedbackAside = $aside({
 	 									scope:$scope,
 										title:"Login",
 										show: false, 
-									 	controller:'loginCtrl',
-									 	controllerAs:'login',						
+									 	controller:'feedbackCtrl',
+									 	controllerAs:'aside',						
 									  templateUrl:'/app/views/pages/feedback.tmpl.html'		
 									});
 	vm.feedbackBtn = function (){
@@ -135,8 +132,7 @@ controller('signupCtrl', function(User,$scope,$location)	{
 					}, 2000)
 					
 				});
-
-	}}).
+}}).
 controller('loginCtrl',['$scope','Auth','$location','$route',
 	function($scope,Auth,$location,$route){
 			var vm = this;
@@ -153,7 +149,6 @@ controller('loginCtrl',['$scope','Auth','$location','$route',
 					if (data.success) {
 						//if a user successfully logs in, redirect to users page
 						vm.loginData = {};
-						
 						//conditional for /login vs aside
 						if($location.path() =='/login') $location.path('/home');
 						else{
@@ -170,10 +165,33 @@ controller('loginCtrl',['$scope','Auth','$location','$route',
 				});
 			};
 
-	}]).
+	}])
+
+.controller("feedbackCtrl", ['$rootScope','$scope','Mail',
+	'$location',function($rootScope, $scope, Mail, $location){
+	var vm = this;
+	$scope.feedback = {};
+	vm.fb_master = {};
+	vm.fb_master.user = {};
+	/*console.log($location.path());*/
+	/*console.log($rootScope.user);*/
+
+	vm.submit = function(feedback){
+		angular.copy(feedback,vm.fb_master);
+		vm.fb_master.location = $location.path();
+		vm.fb_master.timestamp = new Date();
+		vm.fb_master.user = $rootScope.user;
+		
+		Mail.sendFB(vm.fb_master);
+
+		$scope.feedback = {};		
+		$scope.$hide()
+	}
+
+}])
 
 /* NAV */
-controller('navCtrl', ['$scope','$popover','$aside','Auth','$location',
+.controller('navCtrl', ['$scope','$popover','$aside','Auth','$location',
 	function($scope,$popover,$aside,Auth,$location){
 		var vm = this;
 		$scope.email = "";
@@ -201,7 +219,6 @@ controller('navCtrl', ['$scope','$popover','$aside','Auth','$location',
 										}) 	
           
 		vm.signin = function(){
-			console.log("btn pressed")	
 			loginAside.toggle();
 			setTimeout(function(){	//close aside after 1 sec
 				signupAside.hide();
@@ -209,7 +226,6 @@ controller('navCtrl', ['$scope','$popover','$aside','Auth','$location',
 			$scope.navCollapsed = true; //make sure nav is closed
 		}
 		vm.signup = function(){		
-			console.log("btn 2 pressed")	
 			signupAside.toggle();
 			setTimeout(function(){	//close aside after 1 sec
 				loginAside.hide();	

@@ -114,7 +114,7 @@
             class='view-animate'></div>
 
         <div ng-view autoscroll="true"></div>
-        <button class='custom-btn-feedback' ng-click="main.feedbackBtn()" ><div class="verticalText">feedback</div></button>
+        <button  ng-show="main.loggedIn" class='custom-btn-feedback' ng-click="main.feedbackBtn()" ><div class="verticalText">feedback</div></button>
         <div ng-if="main.footer" footer 
             class='view-animate'></div>
         
