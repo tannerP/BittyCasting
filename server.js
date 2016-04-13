@@ -5,12 +5,12 @@
 //var jwt = require('jsonwebtoken');//TOKEN Package
 var fs = require('fs');
 var https = require("https");
-var privateKey = fs.readFileSync('key.pem');
-var certificate = fs.readFileSync('key-cert.pem');
+/*var privateKey = fs.readFileSync('key.pem');
+var certificate = fs.readFileSync('key-cert.pem');*/
 
-var options = { key:privateKey,
+/*var options = { key:privateKey,
                 cert: certificate
-              };
+              };*/
 
 var Role = require('./server/models/role');
 var Project = require('./server/models/project');
@@ -72,7 +72,7 @@ app.use(express.static(__dirname + '/public'));
   app.all('*', function(req, res, next){
     res.sendFile(path.join(__dirname+"/public/app/views/index.html"))
   })
-  app.listen(config.port);
+  app.listen(config.port,"0.0.0.0");
   
 /*var server = https.createServer(options, app);
     server.listen(config.port, "0.0.0.0");*/
