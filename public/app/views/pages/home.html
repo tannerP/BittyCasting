@@ -1,10 +1,7 @@
 <div class="container paddingBottom60">
   <div class="pageHeader">
-
     <div class='pageTitle'>My projects</div>
-
     <button class='custom-btn-secondary-small' ng-click="home.newPrjBtn()">Create project</button>
-
     <div class="utlBar">
       <div class="sort"></div>
       <div class="gridListToggle">
@@ -16,7 +13,7 @@
   <div class="cardContainer">
     <ul class='projects' ng-show="home.gridView">
       <li class="col-lg-3 col-md-4 col-sm-6" ng-repeat-start="project in home.projects">
-        <div class="card cardProjects">
+        <div class="card cardProjects" style='background: url({{project.coverphoto.source || "/assets/imgs/img_projectCover01.png"}}) no-repeat top center; background-size: 100% auto;'>
           <a href="/project/{{project._id}}" class="md-headline">
             <div class="cardInfoBg"></div>
             <div class="cardScrim"></div>
@@ -36,12 +33,9 @@
           </a>
         </div>
       </li>
-
       <li ng-repeat-end></li>
     </ul>
-
   </div>
-
   <div class="custom-table table-responsive">
     <table class="table table-hover table-project-overview" ng-show="home.listView">
       <thead>
@@ -51,7 +45,6 @@
         <th>Last Updated</th>
       </tr>
       </thead>
-
       <tbody>
       <!-- LOOP OVER THE USERS -->
       <tr ng-repeat="project in home.projects">
@@ -61,10 +54,8 @@
         <td ng-click="home.getProjectBtn(project._id)">
           {{ project.description }}
         </td>
-
         <td>
-          <div class="tableHover">{{ project.updated_date | date:'medium'}}</div>
-
+          <div class="tableHover">{{ project.updated_date | date:'short'}}</div>
           <div class="table-utl">
             <ul>
               <li class="trashcan" ng-click='home.deleteBtn(project)'></li>
@@ -75,7 +66,6 @@
       </tr>
       <tr ng-repeat-end></tr>
       </tbody>
-
     </table>
   </div>
 </div>

@@ -8,13 +8,12 @@
       <div class="form-group">
         <label>Name</label>
         <input type="text" class="custom-form"
-               ng-model="roleAside.roleData.name" Required
-          >
+               ng-model="roleAside.roleData.name" Required autofocus>
       </div>
       <div class="form-group">
         <!-- <label>Description (Max {{charRmnd}} characters)</label> -->
         <label>Description</label>
-            <textarea rows="4" cols="40"
+            <textarea rows="{{roleAside.D_Row||4}}" cols="40"
                       ng-change="TAChange()"
                       class="custom-form-textarea"
                       ng-model="roleAside.roleData.description"
@@ -23,7 +22,7 @@
 
       <div class="form-group">
         <div ng-class="{'has-error': datepickerForm.date.$invalid}">
-          <label class="control-label"><i class="fa fa-calendar"></i>End Date</label>
+          <label class="control-label"><i class="fa fa-calendar"></i>Submission deadline</label>
           <input type='text'
                  class="custom-form" ng-model="selectedDate"
                  required bs-datepicker autoclose="true">
@@ -72,34 +71,33 @@
           <tr>
             <th>Name</th>
             <th></th>
-            <th>Required</th>
+            <!-- <th>Required</th> -->
             <th>Add</th>
           </tr>
           </thead>
           <tbody>
-          <tr class="defaultRequirements" 
-              ng-repeat="req in roleAside.roleData.requirements track by $index">
-            <td>{{req.name}}<span class="requirementFormat" ng-if="req.format.indexOf('Link') != -1"></span>
-            </td>
-            <td></td>
-            <td>
-<!--<input type="checkbox" ng-model="req.required">-->
-                <div class="switch">
-                      <input id="{{cmn-toggle-$index}}" 
-                            class="cmn-toggle cmn-toggle-round" 
-                            type="checkbox" ng-model="req.required">
-                      <label for="{{cmn-toggle-$index}}"></label>
-                </div>           
-            </td>   
-            <td ng-if="$index < 3">
-                <div class="checkbox-requirements">
-                    <label><input type="checkbox" ng-model="req.selected"><span></span></label>
-                </div>   
-            </td>
-            <td ng-if="$index > 2" ng-click="roleAside.removeReqt($index)">
-              <img src="/assets/imgs/ic_trash.svg" width="16px" height="16px">
-            </td>
-          </tr>
+            <tr class="defaultRequirements" 
+                ng-repeat="req in roleAside.roleData.requirements track by $index">
+              <td>{{req.name}}<span class="requirementFormat" ng-if="req.format.indexOf('Link') != -1"></span>
+              </td>
+              <td></td>
+              <!-- <td>
+                  <div class="switch">
+                        <input id="{{cmn-toggle-$index}}" 
+                              class="cmn-toggle cmn-toggle-round" 
+                              type="checkbox" ng-model="req.required">
+                        <label for="{{cmn-toggle-$index}}"></label>
+                  </div>           
+              </td>    -->
+              <!-- <td >
+                  <div class="checkbox-requirements">
+                      <label><input type="checkbox" ng-model="req.selected"><span></span></label>
+                  </div>   
+              </td> -->
+              <td ng-click="roleAside.removeReqt($index)">
+                <img src="/assets/imgs/ic_trash.svg" width="16px" height="16px">
+              </td>
+            </tr>
           <!-- New Requirement -->
           <tr>
             <td>
@@ -107,7 +105,7 @@
                     <input type="text" ng-model='roleAside.newData.name' placeholder="New requirement"></input>
                 </div>
             </td>
-            <td>
+            <!-- <td>
               <div class="custom-dropdown" uib-dropdown is-open="false">
                 <span type="text" class="custom-form" uib-dropdown-toggle ng-disabled="disabled">
                   {{roleAside.newData.format || "Select"}}</span>
@@ -115,8 +113,8 @@
                   <li role="menuitem"><a href="#" ng-click="roleAside.newData.format = 'Link'">Link</a></li>
                   <li role="menuitem"><a href="#" ng-click="roleAside.newData.format = 'Attachment'">Attachment</a></li>
                 </ul>
-              </div>
-            </td>
+              </div> 
+            </td> -->
             <td>
             </td>
             <td>

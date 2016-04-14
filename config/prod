@@ -1,0 +1,7 @@
+	 {
+  // Customer module configs
+  "DB": {
+	  "DATABASE" : "beta"
+    },
+  }
+}

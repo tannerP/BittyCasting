@@ -9,28 +9,27 @@
 
     <section>
       <div class="checkbox-delete">
+<!--
         <label>
           <input type="checkbox" ng-model=projectAside.input1 ngChange="projectAside.eval()">
           <span></span>
           All roles associated with this project will be deleted.
         </label>
+-->
         <label>
-          <input type="checkbox" ng-model=projectAside.input2><span></span>
+          <input type="checkbox" ng-model=projectAside.input1><span></span>
           All applicants and their files associated with roles in this project will be deleted.
         </label>
         <label>
-          <input type="checkbox" ng-model=projectAside.input3><span></span>
+          <input type="checkbox" ng-model=projectAside.input2><span></span>
           This action is irreversible.
         </label>
       </div>
     </section>
 
-
     <button type="button" class="custom-btn-primary-large custom-btn-cancel" ng-click="$hide()">Cancel</button>
 
-    <button type="submit" class="custom-btn-primary-large custom-btn-delete"
-            ng-click="projectAside.delete(projectData._id)">Delete
-    </button>
+    <button type="submit" class="custom-btn-primary-large custom-btn-delete" ng-click="projectAside.delete(projectData._id)">Delete</button>
 
   </div>
 </div>

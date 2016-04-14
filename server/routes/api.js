@@ -2,11 +2,12 @@
 'use strict';
 
 var User = require('../models/user');
+var Profile = require('../models/profile');
 var Applicant = require('../models/applicant');
 var Role = require('../models/role');
 var Project = require('../models/project');
 var jwt = require('jsonwebtoken');
-var config = require('../../config');
+var config = require('../../config').dev;
 var aws = require("../lib/aws.js")
 var bitly = require("../lib/bitly.js")
 
@@ -28,6 +29,8 @@ apiRouter.all('*',function(req,res,next){
 			}else{
 				req.userData = User.findOne({'_id':decoded.id}, function(err, data){
 					if(data){
+						data.last_active = new Date();
+						data.save();
 						return data;
 					}})
 				/*console.log("req.userData" +req.userData);*/
@@ -105,7 +108,19 @@ apiRouter.route('/applicant/comments/:appID')
 					if(err) {return res.send(err);}
 					if(app){
 						aws.removeSup(app.suppliments);
-						Role.findByIdAndUpdate(app.roleID,{$inc:{total_apps:-1}})
+						/*Role.findByIdAndUpdate(app.roleID,{$inc:{total_apps:-1}})*/
+						/*Applicant.findById(req.params.appID,function(error,app){
+							if(error) console.log(error)
+							if(app){*/
+							Role.findById(app.roleID, function(err, data){
+									if(err) console.log(err);
+									if(data){
+										console.log(data)
+										--data.total_apps;
+										data.save(function(){})
+									}
+								})
+								/*)}*/
 							Applicant.remove({
 								_id:req.params.appID,
 									}, function(err,app){
@@ -149,8 +164,8 @@ apiRouter.route('/createRole/:projectID')
 		.post(function(req,res){
 				var role = new Role();
 				role.userID = req.decoded.id;
-				console.log(req.body);
-				var URL = "http://bittycasting.com/Apply/";
+				/*console.log(req.body);*/
+				var URL = config.baseURL + "/Apply/";
 				
 				role.projectID = req.params.projectID;
 				role.name = req.body.name;
@@ -204,30 +219,30 @@ apiRouter.route('/role/:role_id')
 		//delete all applications with this roleID
 		Applicant.find({roleID:req.params.role_id}, 
 			function(err, roles){
-				if(err) return;	
-					var projectID = function(){
-						for(var i in roles) {
-							return roles[i].projectID
-						};
-				Project.findById(projectID,
+				if(err) console.log(err);	
+				for(var i in roles){
+				 		aws.removeSup(roles[i].suppliments);
+				}
+			Role.findById(req.params.role_id, function(err,role){
+				if(err) console.log(err);
+				if(role){
+					Project.findById(role.projectID,
 					function(err, project){
           if(!err){
             --project.num_roles;
+            console.log(project.num_roles);
             project.save(function(){})
 					}
-				})	
-				
-				for(var i in roles){
-				 		aws.removeSup(roles[i].suppliments);
-					}
-
-			Role.remove({
-				_id:req.params.role_id}, function(err,role){
-			if(err) console.log(err)
-					// --project.num_roles
-				res.json({message: 'Successfully deleted'});
+					})
+					Role.remove({
+						_id:req.params.role_id}, function(err,role){
+					if(err) console.log(err)
+							// --project.num_roles			
+						res.json({message: 'Successfully deleted'});
+					})
+				}
 			})
-	}})
+	})
 })
 		
 	.put(function(req,res){
@@ -270,6 +285,9 @@ apiRouter.route('/project')
 		project.user_id = req.decoded.id;
 		project.name = req.body.name;
 		project.description = req.body.description
+		project.coverphoto = req.body.coverphoto
+		console.log("project data:");
+		console.log(project);
 		
 		project.save(function(err){
 			if(err){
@@ -301,10 +319,13 @@ apiRouter.route('/project/:project_id')
 	})
 	.put(function(req,res){
 		Project.findById(req.params.project_id, function(err,project){
+			console.log(req.body);
 			if(err) res.send(err);
-			project.name = req.body.name;
-			project.description = req.body.description;
-			project.updated_date = req.body.updated_date;
+			if(req.body.name) project.name = req.body.name;
+			if(req.body.description) project.description = req.body.description;
+			if(req.body.updated_date) project.updated_date = req.body.updated_date;
+			if(req.body.coverphoto) project.coverphoto = req.body.coverphoto;
+			console.log(req.body);
 			project.save(function(err){
 				if (err) console.log(err);
 				if (err) res.send(err);

@@ -1,26 +1,53 @@
-<div class="aside" tabindex="-1" role="dialog">
+<div class="aside" tabindex="-1" role="dialog" flow-prevent-drop
+      flow-init="{target: '/upload', singleFile: true}"
+      flow-file-added="projectAside.prepImg( $file, $event, $flow )"
+      flow-files-submitted="$flow.upload()"
+      flow-file-success="$file.msg = $message">
   <div class="asideBg">
     <div class="asideTitle" ng-if="projectAside.NEW">Create project</div>
     <div class="asideTitle" ng-if="!projectAside.NEW">Edit project</div>
 
-    <div ng-if="!login.processing" type="button" class="custom-close" ng-click="$hide()"></div>
+    <div type="button" class="custom-close" ng-click="$hide()"></div>
 
-    <form class="container-page" ng-submit="projectAside.save()">
+    <form class="container-page">
       <div class="form-group">
+      <img ng-if="$flow.files[0]" flow-img="$flow.files[0]" 
+              style="width:400px; height:200px;"/>
         <label>Name</label>
-        <input type="text" class="custom-form" ng-model="projectAside.projectData.name" required>
+        <input type="text" class="custom-form" ng-model="aside.projectData.name" required autofocus>
       </div>
       <div class="form-group">
         <!-- <label>Description (Max {{charRmnd}} characters)</label> -->
-        <label>Description </label>
-        <textarea rows="5" cols="40" class="custom-form-textarea" ng-model="projectAside.projectData.description"
-                  ng-change="TAChange()"></textarea>
+        <label>Description</label>
+        <textarea rows="{{projectAside.D_Row||5}}" cols="40" class="custom-form-textarea" ng-model="aside.projectData.description"></textarea>
+      </div>        
+      <div class="form-group">
+        <label>Cover photo</label>
       </div>
-
-      <button type="submit" class="custom-btn-primary-large" ng-if="projectAside.NEW">
+        <ul class="select-coverphoto-wrapper">
+            <li ng-repeat=" photoLink in coverPhotos track by $index">
+              <div class="{{projectAside.CPStyling}}"
+                    id="{{photoLink.split('/').pop().split('.').shift()}}" 
+                    ng-click="projectAside.selectCP(photoLink, $index)"
+                    style="background: url({{photoLink}});
+                     background-size: 116px auto;">
+              </div>
+            </li>
+            <li flow-btn>
+              <div class="{{projectAside.CPStyling}}"
+                    id="cust-cp" 
+                    ng-click="projectAside.selectCustCP()">
+              <img ng-if="$flow.files[0]" flow-img="$flow.files[0]" 
+              style="width:116px; height:80px;"/>
+              </div>
+            </li>
+        </ul>
+      <button type="submit" class="custom-btn-primary-large" ng-if="projectAside.NEW"
+       ng-click="projectAside.save(aside.projectData.name, aside.projectData.description)">
         <span>Create project</span>
       </button>
-      <button type="submit" class="custom-btn-primary-large" ng-if="!projectAside.NEW">
+      <button type="submit" class="custom-btn-primary-large" ng-if="!projectAside.NEW"
+      ng-click="projectAside.update(aside.projectData)">
         <span>Save</span>
       </button>
 

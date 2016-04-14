@@ -1,15 +1,22 @@
-angular.module('mainCtrl', ['authService','mgcrea.ngStrap']).
-controller('mainController',['$scope','$rootScope','Auth',
-	'$location',"$sce","$route","$window","Mail",
-		function($scope,$rootScope, Auth, $location, $sce, $route, $window,Mail) {
+angular.module('mainCtrl', ['authService','mgcrea.ngStrap'])
+.controller('mainController',['$scope','$rootScope','Auth',
+	'$location',"$sce","$route","$window","Mail","$aside",
+		function($scope,$rootScope, Auth, $location, $sce, $route, $window,Mail,$aside) {
 		var vm = this;
-		vm.email = "yc@gmail.com"
+
 		var FBLink = "https://www.facebook.com/BittyCasting-1053535994667037/"
 		var twitterLink =" https://twitter.com/BittyCasting"
 		vm.loggedIn = false;
 		vm.footer = true;
 		vm.nav = true;
 		vm.navCollapsed = true;
+		$scope.coverPhotos = [
+		'assets/imgs/img_projectCover01.png',
+		'assets/imgs/img_projectCover02.png',
+		'assets/imgs/img_projectCover03.png',
+		'assets/imgs/img_projectCover04.png',
+		'assets/imgs/img_projectCover05.png'
+		];
 
 		vm.loggedIn = Auth.isLoggedIn();
 		vm.backBtn = function(){
@@ -33,14 +40,20 @@ controller('mainController',['$scope','$rootScope','Auth',
 			vm.navCollapsed = true;
 			vm.loggedIn = Auth.isLoggedIn();
 			vm.navCollapsed = true;
-				vm.footer = true;
-				vm.nav = true;
+			vm.footer = true;
+			vm.nav = true;
 
 			if($location.path() === '/' ||
 				$location.path() === '/login' ||
-				$location.path() === '/Thankyou' ||
 				$location.path() === '/signup'){
 				vm.publicVw = true;
+				vm.footer = true;
+			}
+			else if($location.path() === '/Thankyou' ||
+				$location.path() === '/privacy_policy' ||
+				$location.path() === '/terms_of_service' ||
+				$location.path() === '/submission_agreement'){
+				vm.publicVw = false;
 				vm.footer = true;
 			}
 			else{
@@ -50,10 +63,13 @@ controller('mainController',['$scope','$rootScope','Auth',
 			if(vm.loggedIn && !vm.name){
 				Auth.getUser()
 						.then(function(data) {
-							if(data !=null){
+							if(data){
 							vm.usrInitial = data.name.first[0] + data.name.last[0];
-							vm.username ={first:data.name.first,
-														last:data.name.last}
+							$rootScope.user ={first:data.name.first,
+																last:data.name.last,
+																email:data.email,
+
+													}
 							}
 						 })
 			}
@@ -69,6 +85,17 @@ controller('mainController',['$scope','$rootScope','Auth',
 
 
 	}	
+	var feedbackAside = $aside({
+	 									scope:$scope,
+										title:"Login",
+										show: false, 
+									 	controller:'feedbackCtrl',
+									 	controllerAs:'aside',						
+									  templateUrl:'/app/views/pages/feedback.tmpl.html'		
+									});
+	vm.feedbackBtn = function (){
+		feedbackAside.toggle();
+	}
 	vm.getUsrBtn = function(){
 			$location.path('/profile');
 		}
@@ -110,47 +137,70 @@ controller('signupCtrl', function(User,$scope,$location)	{
 					}, 2000)
 					
 				});
-
-	}}).
+}}).
 controller('loginCtrl',['$scope','Auth','$location','$route',
 	function($scope,Auth,$location,$route){
 			var vm = this;
 			vm.message;
 			vm.loginData = {};
 			vm.process = false;
-			vm.doLogin = function () {
+			vm.doLogin = function (email, password) {
 				vm.processing = true; //TODO:processing Icon
 				vm.error = '';
-				Auth.login(vm.email, vm.password)
+				Auth.login(email, password)
 					.success(function (data) {
 						vm.processing = false;
 
 					if (data.success) {
 						//if a user successfully logs in, redirect to users page
 						vm.loginData = {};
-						
 						//conditional for /login vs aside
 						if($location.path() =='/login') $location.path('/home');
 						else{
 							$location.path('/home');}
-							$scope.$hide();
+							$scope.$toggle();
 						//this.user = 'name:unchanged';
-						Auth.getUser()
+						/*Auth.getUser()
 							.then(function(data) {
 								$scope.name = data.name;
 								$scope.$emit("LoggedIn", data.name);
-							 })
+							 })*/
 						}
 					else vm.error = data.message;
 				});
 			};
 
-	}]).
+	}])
+
+.controller("feedbackCtrl", ['$rootScope','$scope','Mail',
+	'$location',function($rootScope, $scope, Mail, $location){
+	var vm = this;
+	$scope.feedback = {};
+	vm.fb_master = {};
+	vm.fb_master.user = {};
+	/*console.log($location.path());*/
+	/*console.log($rootScope.user);*/
+
+	vm.submit = function(feedback){
+		angular.copy(feedback,vm.fb_master);
+		vm.fb_master.location = $location.path();
+		vm.fb_master.timestamp = new Date();
+		vm.fb_master.user = $rootScope.user;
+		
+		Mail.sendFB(vm.fb_master);
+
+		$scope.feedback = {};		
+		$scope.$hide()
+	}
+
+}])
 
 /* NAV */
-controller('navCtrl', ['$scope','$popover','$aside','Auth','$location',
+.controller('navCtrl', ['$scope','$popover','$aside','Auth','$location',
 	function($scope,$popover,$aside,Auth,$location){
 		var vm = this;
+		$scope.email = "";
+		$scope.password = "";
 
 		vm.isActive = function (viewLocation) { 
 	        return viewLocation === $location.path();
@@ -165,6 +215,7 @@ controller('navCtrl', ['$scope','$popover','$aside','Auth','$location',
 										  templateUrl:'/app/views/pages/login.tmpl.html'		
 										});
 		 	var	signupAside =  $aside({
+		 									scope:$scope,
 											title:"Sign up",
 											show: false, 
 										 	controller:'signupCtrl',	
@@ -174,11 +225,17 @@ controller('navCtrl', ['$scope','$popover','$aside','Auth','$location',
           
 		vm.signin = function(){
 			loginAside.toggle();
-			$scope.navCollapsed = false;
+			setTimeout(function(){	//close aside after 1 sec
+				signupAside.hide();
+			},500);
+			$scope.navCollapsed = true; //make sure nav is closed
 		}
-		vm.signup = function(){
+		vm.signup = function(){		
 			signupAside.toggle();
-			$scope.navCollapsed = false;
+			setTimeout(function(){	//close aside after 1 sec
+				loginAside.hide();	
+			},500);
+			$scope.navCollapsed = true; //make sure nav is closed
 		}
 		vm.navCtrl;
 	}]);

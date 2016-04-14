@@ -6,9 +6,17 @@ var Schema = mongoose.Schema;
 
 //user Schema by mongoose
 var UserSchema = new Schema({
-	updated_date: {type:Date, default:Date.now},
+	//meta
+	create_date: {type:Date, default:Date.now},
+	last_active: {type:Date, default:Date.now},
 	name : {first:String,last:String},
 	role: String,
+	
+	//content
+	ui_settings:{},
+	alerts:{},
+	
+
 	password: {
 		type:String, 
 		required:true, 

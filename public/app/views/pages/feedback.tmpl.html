@@ -1,0 +1,61 @@
+<div class="aside" tabindex="-1" role="dialog">
+  <div class="asideBg">
+
+    <div class="asideTitle">Feedback</div>
+
+    <div ng-if="!login.processing"
+         type="button"
+         class="custom-close"
+         ng-click="$hide()">
+    </div>  
+    
+    <div class="asideDesMessage">  
+      <p>We strive for providing the best experience for you. Please share with us your thoughts about our site by filling out the following form or email <a href="mailto:support@bittycasting.com">support@bittycasting.com</a>. Every message will be carefully reviewed. Thank you!</p>
+    </div>
+    
+    <form>
+      <!-- ERROR ICON -->
+      <div class="custom-alert" ng-if="login.error">
+        {{login.error}}
+      </div>
+
+      <div class="form-group">
+        <label>Title</label>
+        <div class="custom-dropdown" uib-dropdown is-open="false">
+                <input type="text" class="custom-form" uib-dropdown-toggle ng-disabled="disabled"
+                placeholder="Select the type of the message"
+                ng-model="feedback.title"> </input>
+                <ul uib-dropdown-menu role="menu" aria-labelledby="single-button">
+                  <li ng-click="feedback.title = 'Bug' "role="menuitem">Bug</li>
+                  <li ng-click="feedback.title = 'Feature Suggestions'" 
+                      role="menuitem">Feature suggestion</li>
+                  <li ng-click="feedback.title = 'Feature Suggestions'" 
+                  role="menuitem">Other</li>
+                </ul>
+        </div> 
+      </div>
+        
+      <!-- <div class="form-group">
+        <label>Follow-up contact</label>
+        <input class="custom-form" ng-model="feedback.contact" placeholder="Email" autofocus="">
+      </div> -->
+
+      <div class="form-group">
+        <label>Message</label>
+            <textarea rows="6" cols="40"
+                      class="custom-form-textarea"
+                      ng-model="feedback.message">
+            </textarea>
+      </div>
+
+        
+      <button type="submit" class="custom-btn-primary-large" ng-click="aside.submit(feedback)">
+        <span>Submit</span>
+      </button>
+
+    </form>
+
+    <div class="custom-loader" ng-if="login.processing"><img src='/assets/imgs/spin.gif'></div>
+
+  </div>
+</div>

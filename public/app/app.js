@@ -12,15 +12,17 @@ angular.module('userApp', [
 	'app.routes',
 	'authService',
 	'userService',
+	'awsService',
 	'applyCtrl',
 	'mainCtrl',
 	'projectCtrl',
 	'userCtrl',
+	'applicantsCtrl',
 	'footer',
 	'ReviewPage',
 	'Nav',
 	'pdf',
-	"vimeoEmbed"
+	'flow'
 	])
   .run(function ($rootScope, $location, $http) {
     $http.get('/config').success(function(data) {

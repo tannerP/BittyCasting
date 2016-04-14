@@ -12,7 +12,7 @@
     <div class="clear"></div>
     <div class="projectDetails col-md-12">
       <section class="col-md-3">
-        <img ng-src="assets/imgs/img_projectCover01.png" class="img-responsive">
+        <img ng-src="{{projectCtr.project.coverphoto.source || '/assets/imgs/img_projectCover01.png'}}" class="img-responsive">
       </section>
       <section class="col-md-6">
         <p>{{projectCtr.project.description}}</p>
@@ -50,7 +50,7 @@
         </td>
         <td ng-click='projectCtr.getRoleBtn(role._id)'>{{ role.description }}</td>
         <td class="tableHover"><span
-          class="tblDate">{{role.end_time | date:'h a'}}, {{role.end_date | date:mediumDate}}</span>
+          class="tblDate">{{role.end_date | date:mediumDate}}</span>
 
           <div class="table-utl">
             <ul>

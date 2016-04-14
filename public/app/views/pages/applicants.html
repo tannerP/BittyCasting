@@ -10,14 +10,14 @@
     </div>
     <div class='pageTitle pageTitleMobileOffset col-md-4 col-md-offset-4'>{{roleData.name || "page Casting"}}</div>
     <div class="clear"></div>
-    <div class='pageSubtitle col-md-12'>Application open until {{roleData.end_date
-      | date:medium}}
-    </div>
+
+      <div class='pageSubtitle col-md-12'>Submission deadline: {{roleData.end_date | date:medium}} {{page.prjClosed}}<span ng-if="page.remaining">({{page.remaining}})</span></div>
     <div class="projectDetails col-md-12">
-      <section class="col-md-4">
+      <section class="col-md-8">
         <p class="projectDetailsTitle">Description</p>
         <p>{{roleData.description}}</p>
       </section>
+<!--
       <section class="col-md-4">
         <p class="projectDetailsTitle">Info</p>
         <div class="div-table">
@@ -43,8 +43,8 @@
             <div class="div-table-col">Age</div>
             <div class="div-table-col">{{roleData.age || "No Info"}}</div>
           </div>
-        </div> -->
-      </section>
+        </div> 
+      </section>-->
       <section class="col-md-4">
         <p class="projectDetailsTitle">Requirements</p>
         <ul>
@@ -75,11 +75,13 @@
   <div class="cardContainer" ng-if="page.gridView">
     <ul class='applicants' ng-repeat="app in page.applicants track by $index">
       <li class="col-lg-3 col-md-4 col-sm-6">
+        <div class="card cardApplicants">
+          <a href="" class="md-headline">
+            <div class="alert-new">New</div>
         <div ng-if="app.headshot" class="card cardApplicants" ng-style="{
-          'background':'url('+ app.headshot+ ') no-repeat top center',
-           'background-size': '100% auto'}">
-           <!-- <video  controls ngf-src='app.headshot'> -->
-          </video>
+          'background':'url('+ app.headshot+ ') no-repeat center center',
+           'background-size': 'auto 100%', 'background-color': '#242424'}">
+        <!-- <video  controls ngf-src='app.headshot'></video>-->
         <!-- <div ng-show="!app.headshot" class="card cardApplicants" ng-style="{
           'background': 'url(/assets/imgs/img_projectCover01.png) no-repeat top center','background-size': '100% auto'}"> -->
           <a href="" class="md-headline" ng-click="page.viewBtn($index)">
@@ -89,10 +91,10 @@
               <a href="" class="md-headline">
                 <div class="cardTitle">{{app.name.first}} {{app.name.last}}</div>
               </a>
-              <div class="cardSubTitle">-{{ app.updated_date|date:medium}}-</div>
+              <div class="cardSubTitle">{{ app.updated_date|date:medium}}</div>
               <div class='actionBar'>
                 <ul>
-                  <li class="trashcan"></li>
+                  <li class="trashcan" ng-click='page.deleteAsideBtn(app)'></li>
                   <!--                                        <li class="duplicate"></li>-->
                 </ul>
               </div>
@@ -118,7 +120,9 @@
       <!-- LOOP OVER THE USERS -->
       <tr ng-repeat="app in page.applicants track by $index">
         <td ng-click="page.viewBtn($index)">
+          <div class="alert-new">New</div>
           {{app.name.first}} {{app.name.last}}
+            
         </td>
         <td ng-click="page.viewBtn($index)">
           {{ app.email }}
