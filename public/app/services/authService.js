@@ -38,7 +38,7 @@ angular.module('authService', [])
 		else
 			return false;
 	};
-	//	get the logged in user
+	
 	authFactory.getUser = function() {
 		var _user = null;
 		if(_user) return _user;
