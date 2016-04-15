@@ -19,22 +19,14 @@ angular.module('mainCtrl', ['authService','mgcrea.ngStrap'])
 		];
 
 		vm.loggedIn = Auth.isLoggedIn();
-		vm.backBtn = function(){
-			if(vm.nav === false) vm.nav = true;
-			window.history.back();		
-		}
-		$scope.$on("LoggedIn", function(){
-				Auth.getUser()
-						.then(function(data) {
-							vm.usrInitial = (data.name.first[0] + data.name.last[0]).toUpperCase();
-						 })
-		})
-		$scope.$on("hideNav", function(){
-			vm.nav = false;
-		})
-		$scope.$on("unhideNav", function(){
-			vm.nav = true;
-		})
+		vm.founder = (function(){
+					console.log($rootScope.user.role)
+						if ($rootScope.user.role === "founder")
+							/*return true;*/
+							console.log('Founder!!')
+						else
+							return false;
+					});
 		
 		$rootScope.$on('$routeChangeStart', function () {
 			vm.navCollapsed = true;
@@ -65,10 +57,12 @@ angular.module('mainCtrl', ['authService','mgcrea.ngStrap'])
 						.then(function(data) {
 							if(data){
 							vm.usrInitial = data.name.first[0] + data.name.last[0];
+							console.log(data);
+							if(data.role === 'founder') vm.admin = true;
 							$rootScope.user ={first:data.name.first,
 																last:data.name.last,
 																email:data.email,
-
+																role:data.role,
 													}
 							}
 						 })
@@ -94,17 +88,17 @@ angular.module('mainCtrl', ['authService','mgcrea.ngStrap'])
 	vm.getUsrBtn = function(){
 			$location.path('/profile');
 		}
-		vm.doLogout = function () {
+	vm.doLogout = function () {
 			Auth.logout();
 			vm.user = {};
 			vm.usrInitial = '';
 			$location.path('/');
 			/*$route.reload();*/
 		}
-		vm.twitter = function(){
+	vm.twitter = function(){
 			$window.open(twitterLink,'_blank');
 		}
-		vm.facebook = function(){
+	vm.facebook = function(){
 			$window.open(FBLink,'_blank');
 		}
 	}]).

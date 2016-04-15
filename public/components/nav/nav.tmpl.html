@@ -41,6 +41,7 @@
            <ul class="nav navbar-nav">                       
                <li ng-if='main.loggedIn' ng-click="main.doLogout()"><a href = "#">Logout</a></li>
                <li ng-if='main.loggedIn' ng-click='main.getUsrBtn()' class='navUserInitial'>{{main.usrInitial}}</li>
+               <li ng-if="main.admin" ng-click='nav.signup()'><a href="#" class="custom-btn-primary-small">Sign up</a></li>
             </ul>
         </div>  
             
@@ -48,7 +49,6 @@
          <div ng-if = "!main.loggedIn" class="custom-action-nav">        
           <ul>
             <li><a href="#" ng-click='nav.signin()'>Sign in</a></li>
-            <!-- <li ng-if="!main.loggedIn" ng-click='nav.signup()'><a href="#" class="custom-btn-primary-small">Sign up</a></li> -->
           </ul>
           </div> 
               <div  ng-if ="main.publicVw" class="custom-site-nav">      
