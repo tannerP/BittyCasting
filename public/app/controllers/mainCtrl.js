@@ -41,6 +41,9 @@ angular.module('mainCtrl', ['authService','mgcrea.ngStrap'])
 				vm.publicVw = true;
 				vm.footer = true;
 			}
+			else if($location.path().indexOf('/Apply') != -1){
+						vm.nav = false;				
+			}
 			else if($location.path() === '/Thankyou' ||
 				$location.path() === '/privacy_policy' ||
 				$location.path() === '/terms_of_service' ||
@@ -90,6 +93,9 @@ angular.module('mainCtrl', ['authService','mgcrea.ngStrap'])
 									});
 	vm.feedbackBtn = function (){
 		feedbackAside.toggle();
+	}
+	vm.backBtn = function (){
+		  $window.history.back();
 	}
 	vm.getUsrBtn = function(){
 			$location.path('/profile');
