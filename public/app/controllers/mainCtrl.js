@@ -41,7 +41,9 @@ angular.module('mainCtrl', ['authService','mgcrea.ngStrap'])
 				vm.publicVw = true;
 				vm.footer = true;
 			}
-			else if($location.path().indexOf('/Apply') != -1){
+			else if($location.path().indexOf('/Apply') != -1 ||
+							$location.path().indexOf('/applicants') != -1
+				){
 						vm.nav = false;				
 			}
 			else if($location.path() === '/Thankyou' ||
