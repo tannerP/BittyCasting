@@ -31,11 +31,11 @@
                         <div class="div-table-col">{{page.roleData.age}}</div>
                     </div>
                 </div>
-
                 <div class='pageTitle'>About this project</div>
                 <div class='pageSubtitle'>{{page.prjData.name}}</div>
                 <p>{{page.prjData.description}}</p>
-                <img ng-src="assets/imgs/img_projectCover01.png" class="img-responsive">
+                <p>{{page.prjData.coverphoto.source}}</p>
+                <img ng-src="{{page.prjData.coverphoto.source||assets/imgs/img_projectCover01.png}}" class="img-responsive">
             </div>
             <!-- <audio ng-if="page.currFile" controls ngf-src="page.currFile"> -->
         </section>
