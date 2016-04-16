@@ -28,6 +28,13 @@ angular.module('mainCtrl', ['authService','mgcrea.ngStrap'])
 							return false;
 					});
 		
+		$scope.$on('hideNav', function(){
+			vm.nav = false;
+		})
+		$scope.$on('unhideNav', function(){
+			vm.nav = true;
+		})
+
 		$rootScope.$on('$routeChangeStart', function () {
 			vm.navCollapsed = true;
 			vm.loggedIn = Auth.isLoggedIn();
@@ -41,8 +48,7 @@ angular.module('mainCtrl', ['authService','mgcrea.ngStrap'])
 				vm.publicVw = true;
 				vm.footer = true;
 			}
-			else if($location.path().indexOf('/Apply') != -1 ||
-							$location.path().indexOf('/applicants') != -1
+			else if($location.path().indexOf('/Apply') != -1
 				){
 						vm.nav = false;				
 			}
