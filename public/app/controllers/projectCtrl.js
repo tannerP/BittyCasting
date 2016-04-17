@@ -266,7 +266,12 @@ angular.module('projectCtrl', ['userService',
 .controller('addRoleController',
   function (Role, $location, $routeParams, $route, $scope) {
     var vm = this;
-    vm.edit = false,
+    vm.edit = false;
+    var SD = new Date()
+    SD.setDate(SD.getDate() + 30);
+    
+    $scope.selectedDate = SD;
+    console.log(vm.startDate);
       vm.roleData = {},
       vm.roleData.requirements = [
         {name:"Headshot",
@@ -286,12 +291,11 @@ angular.module('projectCtrl', ['userService',
         }
       ],
       vm.newData = {},
-
       vm.newData.name = "",
       vm.newData.required = true,
       vm.newData.format = "Attachment";
 
-    $scope.selectedDate = new Date();
+    /*$scope.selectedDate = new Date();*/
 
     $scope.status = {
       isopen: false
@@ -320,9 +324,9 @@ angular.module('projectCtrl', ['userService',
       }
       vm.roleData.requirements.push(item)
       vm.newData.name = "",
-        vm.newData.required = true,
-        vm.newData.format = "Attachment",
-        vm.newData.selected = true;
+      vm.newData.required = true,
+      vm.newData.format = "Attachment",
+      vm.newData.selected = true;
     }
     vm.removeReqt = function (index) {
       console.log("button clicked");
