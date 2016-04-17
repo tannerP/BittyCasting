@@ -22,7 +22,8 @@ angular.module('userApp', [
 	'ReviewPage',
 	'Nav',
 	'pdf',
-	'flow'
+	'flow',
+	'720kb.socialshare'
 	])
   .run(function ($rootScope, $location, $http) {
     $http.get('/config').success(function(data) {
