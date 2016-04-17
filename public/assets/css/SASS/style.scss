@@ -1394,7 +1394,58 @@ ul.projects li {
         }
     }
     .btn-preview {
-        margin: -20px 0 10px 0;
+        margin: 0 0 29px 0;
+    }
+    .btn-copyLink {
+        margin: 10px 0 29px 0;
+    }
+    .btn-shareFB {
+        width: 49%;
+        float: left;
+        margin-top: 10px;
+        background: url("/assets/imgs/ic_social_fb.svg") no-repeat left 15px center #3b5998;
+        background-size: 16px 16px;
+        padding-left: 30px;
+        @include transition(all, 0.8s, ease);      
+        &:hover, &:focus {
+            background-color: #2a406d;
+        }    
+    }
+    .btn-shareTwitter {
+        width: 49%;
+        float: right;
+        margin-top: 10px;
+        background: url("/assets/imgs/ic_social_twitter.svg") no-repeat left 15px center #00aced;
+        background-size: 16px 16px;
+        padding-left: 30px;
+        @include transition(all, 0.8s, ease);      
+        &:hover, &:focus {
+            background-color: #0084b4;
+        }   
+    }
+    .btn-shareLinkedIn {
+        width: 49%;
+        float: left;
+        margin-top: 10px;
+        background: url("/assets/imgs/ic_social_linkedin.svg") no-repeat left 15px center #4875B4;
+        background-size: 16px 16px;
+        padding-left: 30px;
+        @include transition(all, 0.8s, ease);      
+        &:hover, &:focus {
+            background-color: #345684;
+        }   
+    }
+    .btn-shareEmail {
+        width: 49%;
+        float: right;
+        margin-top: 10px;
+        background: url("/assets/imgs/ic_social_email.svg") no-repeat left 15px center #31a357;
+        background-size: 16px 16px;
+        padding-left: 30px;
+        @include transition(all, 0.8s, ease);      
+        &:hover, &:focus {
+            background-color: #22733d;
+        }   
     }
 }
 
