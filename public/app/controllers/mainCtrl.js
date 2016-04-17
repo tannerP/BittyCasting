@@ -113,7 +113,8 @@ angular.module('mainCtrl', ['authService','mgcrea.ngStrap'])
 			vm.user = {};
 			vm.usrInitial = '';
 			$location.path('/');
-			/*$route.reload();*/
+			if($location.path() === "/") console.log("were home!");
+			$route.reload();
 		}
 	vm.twitter = function(){
 			$window.open(twitterLink,'_blank');
