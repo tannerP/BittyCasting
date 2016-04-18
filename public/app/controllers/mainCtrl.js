@@ -68,7 +68,6 @@ angular.module('mainCtrl', ['authService','mgcrea.ngStrap'])
 						.then(function(data) {
 							if(data){
 							vm.usrInitial = data.name.first[0] + data.name.last[0];
-							console.log(data);
 							if(data.role.indexOf("founder") != -1){vm.admin = true;}
 							else vm.admin = false;
 							$rootScope.user ={first:data.name.first,

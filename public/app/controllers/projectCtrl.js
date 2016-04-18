@@ -12,7 +12,8 @@ angular.module('projectCtrl', ['userService',
     var newRoleAside = $aside({
         scope: $scope,
         show: false,
-        keyboard: true,
+        static: false,
+        backdrop:"static",
         controller: 'addRoleController',
         controllerAs: 'roleAside',
         templateUrl: '/app/views/pages/role_form.tmpl.html'
