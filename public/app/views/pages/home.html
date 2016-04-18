@@ -19,7 +19,7 @@
             <div class="cardScrim"></div>
             <div class="cardInfo">
               <a href="/project/{{project._id}}" class="md-headline">
-                <div class="cardTitle" data-ng-bind="project.name"></div>
+                <div class="cardTitle" >{{project.name | words:7}}</div>
               </a>
 
               <div class="cardSubTitle">{{project.num_roles}}</div>

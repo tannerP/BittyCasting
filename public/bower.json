@@ -28,7 +28,8 @@
     "angular-pdf": "^1.3.0",
     "angular-downloader": "^0.1.1",
     "angular-vimeo-embed": "^0.1.2",
-    "angular-ellipsis": "^0.1.6"
+    "angular-ellipsis": "^0.1.6",
+    "angular-truncate": "*"
   },
   "devDependencies": {
     "angular-mocks": "^1.4.0"
