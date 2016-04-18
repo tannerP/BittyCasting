@@ -19,7 +19,7 @@
             <div class="cardScrim"></div>
             <div class="cardInfo">
               <a href="/project/{{project._id}}" class="md-headline">
-                <div class="cardTitle">{{project.name | limitTo:36 }}</div>
+                <div class="cardTitle" data-ng-bind="project.name"></div>
               </a>
 
               <div class="cardSubTitle">{{project.num_roles}}</div>
