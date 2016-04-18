@@ -511,8 +511,11 @@ angular.module('projectCtrl', ['userService',
     $scope.aside.projectData= {};
     angular.copy($scope.projectData,$scope.aside.projectData);
     
-    vm.D_Row = $scope.aside.projectData.description.length/60;
-    vm.D_Row = Math.round(vm.D_Row);
+    //calculate number of row for textarea
+    if($scope.aside.projectData.description){
+      vm.D_Row = $scope.aside.projectData.description.length/60;
+      vm.D_Row = Math.round(vm.D_Row);
+    }
     
     vm.CP_cust;
     vm.CP_default;
