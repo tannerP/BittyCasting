@@ -190,13 +190,15 @@ angular.module('projectCtrl', ['userService',
     angular.copy($scope.roleData,vm.roleData)
     
     $scope.selectedDate = vm.roleData.end_date;
-    vm.D_Row = $scope.roleData.description.length/55;
-    vm.D_Row = Math.round(vm.D_Row);
+    if($scope.roleData.description){
+     vm.D_Row = $scope.roleData.description.length/55;
+      vm.D_Row = Math.round(vm.D_Row);
+    }
 
-    var MAX_LENGTH = 220;
+    /*var MAX_LENGTH = 220;
     $scope.TAChange = function () {
       $scope.charRmnd = MAX_LENGTH - vm.roleData.description.length;
-    }
+    }*/
 
     vm.updateRole = function () {
       vm.roleData.end_date = $scope.selectedDate;
