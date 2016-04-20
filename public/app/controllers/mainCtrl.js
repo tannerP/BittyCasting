@@ -68,7 +68,6 @@ angular.module('mainCtrl', ['authService','mgcrea.ngStrap'])
 						.then(function(data) {
 							if(data){
 							vm.usrInitial = data.name.first[0] + data.name.last[0];
-							console.log(data);
 							if(data.role.indexOf("founder") != -1){vm.admin = true;}
 							else vm.admin = false;
 							$rootScope.user ={first:data.name.first,
@@ -83,8 +82,13 @@ angular.module('mainCtrl', ['authService','mgcrea.ngStrap'])
 		vm.betaEmail;
 	vm.betaRequestBtn = function(email)
 	{
-		console.log(vm.betaEmail)
-		Mail.betaUser(vm.betaEmail);
+		if(vm.betaEmail){
+			Mail.betaUser(vm.betaEmail);
+			vm.betaEmail = null;
+			vm.betaSubMessage = "Submitted! Thank you for your interest"
+		}
+
+
 	}	
 	var feedbackAside = $aside({
 	 									scope:$scope,
@@ -108,7 +112,7 @@ angular.module('mainCtrl', ['authService','mgcrea.ngStrap'])
 			vm.user = {};
 			vm.usrInitial = '';
 			$location.path('/');
-			/*$route.reload();*/
+			if($location.path() === "/") $route.reload();
 		}
 	vm.twitter = function(){
 			$window.open(twitterLink,'_blank');

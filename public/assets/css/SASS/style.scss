@@ -611,8 +611,12 @@ div.navbar-collapse.collapse.in {
 ***************************/
 
 .videoFrameWrapper {
+    margin-top: 45px;
     position: relative;
+<<<<<<< HEAD
+=======
     margin-top: 60px;
+>>>>>>> dev
     @include box-shadow(-10px, -10px, 0px, 0px, rgba(6,188,194,1));
 }
 
@@ -2317,8 +2321,8 @@ text-align: center;
 @media screen and (max-width: 989px) { 
     
         
-    .videoFrameWrapper img {
-        display: none;
+    .videoFrameWrapper {
+        @include box-shadow(0px, 0px, 0px, 0px, rgba(6,188,194,1));
     }
     
     .pageTitleMobileOffset {padding-top: 120px;}

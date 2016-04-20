@@ -22,7 +22,8 @@ angular.module('userApp', [
 	'ReviewPage',
 	'Nav',
 	'pdf',
-	'flow'
+	'flow',
+	'truncate'
 	])
   .run(function ($rootScope, $location, $http) {
     $http.get('/config').success(function(data) {
@@ -35,7 +36,7 @@ angular.module('userApp', [
   .config(function($datepickerProvider) {
   angular.extend($datepickerProvider.defaults, {
     dateFormat: 'MM/dd/yyyy',
-    startWeek: 1
+    startWeek: 4
   	})
 	})
  .config(function($asideProvider) {
