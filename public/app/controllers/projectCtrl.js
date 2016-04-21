@@ -190,10 +190,12 @@ angular.module('projectCtrl', ['userService',
     angular.copy($scope.roleData,vm.roleData)
     
     $scope.selectedDate = vm.roleData.end_date;
-    if($scope.roleData.description){
+    
+    //TODO: remove. sing angular-elastic 
+    /*if($scope.roleData.description){
      vm.D_Row = $scope.roleData.description.length/55;
       vm.D_Row = Math.round(vm.D_Row);
-    }
+    }*/
 
     /*var MAX_LENGTH = 220;
     $scope.TAChange = function () {
@@ -514,11 +516,11 @@ angular.module('projectCtrl', ['userService',
     $scope.aside.projectData= {};
     angular.copy($scope.projectData,$scope.aside.projectData);
     
-    //calculate number of row for textarea
-    if($scope.aside.projectData.description){
+    //TODO: remove. Using angular-elastic 
+    /*if($scope.aside.projectData.description){
       vm.D_Row = $scope.aside.projectData.description.length/60;
       vm.D_Row = Math.round(vm.D_Row);
-    }
+    }*/
     
     vm.CP_cust;
     vm.CP_default;

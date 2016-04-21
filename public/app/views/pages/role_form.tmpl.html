@@ -13,8 +13,7 @@
       <div class="form-group">
         <!-- <label>Description (Max {{charRmnd}} characters)</label> -->
         <label>Description</label>
-            <textarea rows="{{roleAside.D_Row||4}}" cols="40"
-                      ng-change="TAChange()"
+            <textarea  ng-trim="0" textarea-fit cols="40"
                       class="custom-form-textarea"
                       ng-model="roleAside.roleData.description"
               ></textarea>

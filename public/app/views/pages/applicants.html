@@ -15,7 +15,7 @@
     <div class="projectDetails col-md-12">
       <section class="col-md-8">
         <p class="projectDetailsTitle">Description</p>
-        <pre>{{roleData.description}}</pre>
+        <div style="white-space: pre-wrap" ng-bind-html="roleData.description | linky"></div>
       </section>
 <!--
       <section class="col-md-4">

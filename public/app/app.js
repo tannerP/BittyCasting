@@ -23,7 +23,8 @@ angular.module('userApp', [
 	'pdf',
 	'flow',
 	'truncate',
-	'app.routes'
+	'app.routes',
+	'textarea-fit'
 	])
 	/*.service('MetaService', function() {
        var title = 'Web App';
