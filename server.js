@@ -54,7 +54,7 @@ var dbPath  = "mongodb://" +
     config.HOST + ":"+
     config.PORT + "/"+	
     config.DATABASE;
-console.log(dbPath);
+/*console.log(dbPath);*/
 /*mongoose.connect('mongodb://localhost/local');*/
 mongoose.connect(dbPath);
 var db = mongoose.connection;
