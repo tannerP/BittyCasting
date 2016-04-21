@@ -24,6 +24,8 @@ var path = require('path');
 var User = require(__dirname + '/server//models/user.js');
 var config = require('./config').dev; //get config file
 var extend = require("extend");
+app.use(require('prerender-node').set('prerenderToken', 'QyDUvf8RhPXGiwzgHUS4'));
+
 
 /*var io = require('socket.io')(app);*/
 
