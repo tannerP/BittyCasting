@@ -19,16 +19,19 @@ angular.module('applyCtrl',['userService','mgcrea.ngStrap']).
       /*TODO: condense when combine project and role schema*/
       Pub.getAppRole($routeParams.id).then(function(data){
         vm.roleData = data.data.Application;
-        if(vm.roleData){
+        if(vm.roleData){  //TODO:remove? 
           Pub.getAppPrj(vm.roleData.projectID).then(function(data){
-            if(data.data){
-              console.log(data.data.project);
-            $rootScope.meta.image = data.data.project.coverphoto.source;
-            $rootScope.meta.title = data.data.project.name;
-            $rootScope.meta.description = data.data.project.description;
-            $rootScope.meta.url = data.data.project.short_url;
+              var project = data.data.project.project;
+              var roles = data.data.project.roles;
+            if(project){
+            $rootScope.meta.image = project.coverphoto.source;
+            $rootScope.meta.title = project.name;
+            $rootScope.meta.description = project.description;
+            $rootScope.meta.url = project.short_url;
 
-            vm.prjData = data.data.project;
+            vm.prjData = project;
+            vm.prjData.roles = roles;
+            console.log(vm.prjData.roles);
             vm.appData.projectID = data.data.project._id;
             vm.appData.roleID = vm.roleData._id;
           }

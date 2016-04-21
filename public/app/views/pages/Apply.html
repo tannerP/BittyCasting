@@ -6,8 +6,12 @@
         <div ng-if="main.loggedIn" class="custom-close-overlay" ng-click="main.backBtn()"></div>
         <section class="col-md-6">
             <div class="applyPageLeft">
-                <div class='pageTitle'>About this role</div>
-                <div class='pageSubtitle'>{{page.roleData.name}}</div>
+                <div class='pageTitle'></div> <!-- Remove tag causes displaying bug -->
+                <div class='pageSubtitle'>{{page.prjData.name}}</div>
+                <div style="white-space: pre-wrap" ng-bind-html="page.prjData.description | linky"> </div>
+                <img ng-src="{{page.prjData.coverphoto.source||assets/imgs/img_projectCover01.png}}" class="img-responsive">
+                <div class='pageTitle'>Role<span>s</span></div>
+                <button class='pageSubtitle'>{{page.roleData.name}}</button>
                 <!-- <pre>{{page.roleData.description}}</pre> -->
                 <div style="white-space: pre-wrap" ng-bind-html="page.roleData.description | linky"></div>
                 <div class="div-table">
@@ -32,10 +36,6 @@
                         <div class="div-table-col">{{page.roleData.age}}</div>
                     </div>
                 </div>
-                <div class='pageTitle'>About this project</div>
-                <div class='pageSubtitle'>{{page.prjData.name}}</div>
-                <div style="white-space: pre-wrap" ng-bind-html="page.prjData.description | linky"> </div>
-                <img ng-src="{{page.prjData.coverphoto.source||assets/imgs/img_projectCover01.png}}" class="img-responsive">
             </div>
             <!-- <audio ng-if="page.currFile" controls ngf-src="page.currFile"> -->
         </section>
@@ -136,7 +136,12 @@
 
                         <div ng-if="page.busy" class="custom-loader"><img style ="height:40px; width:auto"
                         ng-src='/assets/imgs/spin.gif'></div>   
-                            
+                        <table>
+                            <th>{{page.roleData.name}}</th>
+                            <tbody>
+                            <td><input type="checkbox"></input></td>
+                            </tbody>
+                        </table>    
                         <button type="submit" class="custom-btn-primary-large">Submit</button>
                         <p class="btn_paragraph">By clicking on “Submit”, I agree to BittyCasting’s <a href="/submission_agreement" target="_blank">submission agreement.</a></p>
                         <div class="poweredBy">

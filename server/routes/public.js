@@ -38,7 +38,13 @@ app.get('/config', function(req,res){
 
 app.get('/applicationPrj/:project_id', function(req,res){
 	Project.findById(req.params.project_id,function(err,proj){
-	  res.json({success:true, project:proj});
+      Role.find({projectID:proj._id},function(err,roles){
+          var money = {};
+          money.roles = roles; 
+          money.project = proj;
+          console.log(money);
+          res.json({success:true, project:money});        
+      });
 	})
 });
 
