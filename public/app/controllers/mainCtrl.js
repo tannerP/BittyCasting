@@ -3,6 +3,8 @@ angular.module('mainCtrl', ['authService','mgcrea.ngStrap'])
 	'$location',"$sce","$route","$window","Mail","$aside",
 		function($scope,$rootScope, Auth, $location, $sce, $route, $window,Mail,$aside) {
 		var vm = this;
+		$rootScope.meta = {}
+
 
 		var FBLink = "https://www.facebook.com/BittyCasting-1053535994667037/"
 		var twitterLink =" https://twitter.com/BittyCasting"

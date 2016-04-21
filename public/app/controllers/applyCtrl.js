@@ -21,9 +21,17 @@ angular.module('applyCtrl',['userService','mgcrea.ngStrap']).
         vm.roleData = data.data.Application;
         if(vm.roleData){
           Pub.getAppPrj(vm.roleData.projectID).then(function(data){
+            if(data.data){
+              console.log(data.data.project);
+            $rootScope.meta.image = data.data.project.coverphoto.source;
+            $rootScope.meta.title = data.data.project.name;
+            $rootScope.meta.description = data.data.project.description;
+            $rootScope.meta.url = data.data.project.short_url;
+
             vm.prjData = data.data.project;
             vm.appData.projectID = data.data.project._id;
             vm.appData.roleID = vm.roleData._id;
+          }
           })}
         //clean requirements
         for(var i in vm.roleData.requirements){

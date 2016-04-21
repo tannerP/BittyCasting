@@ -27,11 +27,7 @@ var extend = require("extend");
 
 /*app.use(require('prerender-node')
     .set('prerenderToken', 'QyDUvf8RhPXGiwzgHUS4'));*/
-app.use(require('prerender-node')
-  .set('prerenderServiceUrl', 'http://localhost:3000/')
-  .set('prerenderToken', 'QyDUvf8RhPXGiwzgHUS4'));
-
-
+ 
 /*var io = require('socket.io')(app);*/
 
 //var port = config.port; //PORT
