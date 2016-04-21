@@ -8,11 +8,12 @@
             <div class="applyPageLeft">
                 <div class='pageTitle'>About this role</div>
                 <div class='pageSubtitle'>{{page.roleData.name}}</div>
-                <p>{{page.roleData.description}}</p>
+                <!-- <pre>{{page.roleData.description}}</pre> -->
+                <div style="white-space: pre-wrap" ng-bind-html="page.roleData.description | linky"></div>
                 <div class="div-table">
                      <div ng-if="page.roleData.location" class="div-table-row">
                         <div class="div-table-col">Location</div>
-                        <div class="div-table-col">{{page.roleData.location}}</div>
+                        <p style="white-space: pre-wrap" class="div-table-col">{{page.roleData.location}}</p>
                     </div>
                     <div ng-if="page.roleData.end_time" class="div-table-row">
                         <div class="div-table-col">Time</div>
@@ -33,7 +34,7 @@
                 </div>
                 <div class='pageTitle'>About this project</div>
                 <div class='pageSubtitle'>{{page.prjData.name}}</div>
-                <p>{{page.prjData.description}}</p>
+                <div style="white-space: pre-wrap" ng-bind-html="page.prjData.description | linky"> </div>
                 <img ng-src="{{page.prjData.coverphoto.source||assets/imgs/img_projectCover01.png}}" class="img-responsive">
             </div>
             <!-- <audio ng-if="page.currFile" controls ngf-src="page.currFile"> -->

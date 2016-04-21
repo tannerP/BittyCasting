@@ -3,41 +3,52 @@
     <form>
       <div class="asideTitle" ng-if="!roleAside.edit">Share Role</div>
       <div class="custom-close" ng-click="$hide()"></div>
+        
+      <div class="asideDesMessage">  
+          <p>People will be able to apply this role after you share it.</p>
+          <button class="custom-btn-secondary-large btn-preview" ng-click="preview()">Preview</button>
+      </div>   
+    
       <div class="form-group">
-        <input class="custom-form" type="text" ng-model="textToCopy">
+          <label>URL</label>
+          <input class="custom-form" type="text" ng-model="textToCopy">     
+          <button clipboard class="custom-btn-primary-large btn-copyLink" text="textToCopy" on-copied="success()" on-error="fail(err)">Copy link</button>
       </div>
-      <button class="custom-btn-secondary-large btn-preview" ng-click="preview()">Preview</button>
-      <button clipboard class="custom-btn-primary-large" text="textToCopy" on-copied="success()" on-error="fail(err)">
-        Copy link
-      </button>
+        
+      <div class="form-group">
+          <label>Social media &amp; E-mail</label>    
+              <a class="custom-btn-primary-large btn-shareTwitter" 
+          href="#"
+          socialshare
+          socialshare-provider="twitter"
+          socialshare-url="{{textToCopy}}">
+          Twitter
+          </a>
+          <a class="custom-btn-primary-large btn-shareFB"
+          href="#"
+          socialshare
+          socialshare-provider="facebook"
+          socialshare-url="{{textToCopy}}">
+          Facebook
+          </a>
+          <a class="custom-btn-primary-large btn-shareEmail"
+            href="#"
+            socialshare
+            socialshare-provider="email"
+            socialshare-trigger="click"
+            socialshare-to="support@bittycasting.com" 
+            >
+            Email
+          </a>
+          <!-- <div class="clear"></div>
+          <button clipboard class="custom-btn-primary-large btn-shareFB" text="textToCopy" on-copied="success()" on-error="fail(err)">Facebook</button>
+          <button clipboard class="custom-btn-primary-large btn-shareTwitter" text="textToCopy" on-copied="success()" on-error="fail(err)">Twitter</button>
+          <div class="clear"></div>
+          <button clipboard class="custom-btn-primary-large btn-shareLinkedIn" text="textToCopy" on-copied="success()" on-error="fail(err)">LinkedIn</button>
+          <button clipboard class="custom-btn-primary-large btn-shareEmail" text="textToCopy" on-copied="success()" on-error="fail(err)">E-mail</button> -->
+          <div class="clear"></div>
+      </div>
+        
     </form>
-    <a href="#"
-      socialshare
-      socialshare-provider="twitter"
-      socialshare-url="{{textToCopy}}">
-      Twitter
-      </a>
-      <a href="#"
-      socialshare
-      socialshare-provider="facebook"
-      socialshare-url="{{textToCopy}}">
-      Facebook
-      </a>
-      <a href="#"
-      socialshare
-      socialshare-provider="linkedin"
-      socialshare-url="{{textToCopy}}"
-      socialshare-caption="Powered by BittyCasting wwq"
-      >
-      LinkedIn
-      </a>
-      <a href="#"
-        socialshare
-        socialshare-provider="email"
-        socialshare-trigger="click"
-        socialshare-to="support@bittycasting.com" 
-        >
-        Email
-      </a>
   </div>
 </div>

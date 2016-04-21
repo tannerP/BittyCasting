@@ -3,6 +3,8 @@ angular.module('mainCtrl', ['authService','mgcrea.ngStrap'])
 	'$location',"$sce","$route","$window","Mail","$aside",
 		function($scope,$rootScope, Auth, $location, $sce, $route, $window,Mail,$aside) {
 		var vm = this;
+		$rootScope.meta = {}
+
 
 		var FBLink = "https://www.facebook.com/BittyCasting-1053535994667037/"
 		var twitterLink =" https://twitter.com/BittyCasting"
@@ -82,8 +84,13 @@ angular.module('mainCtrl', ['authService','mgcrea.ngStrap'])
 		vm.betaEmail;
 	vm.betaRequestBtn = function(email)
 	{
-		console.log(vm.betaEmail)
-		Mail.betaUser(vm.betaEmail);
+		if(vm.betaEmail){
+			Mail.betaUser(vm.betaEmail);
+			vm.betaEmail = null;
+			vm.betaSubMessage = "Submitted! Thank you for your interest"
+		}
+
+
 	}	
 	var feedbackAside = $aside({
 	 									scope:$scope,
@@ -107,7 +114,7 @@ angular.module('mainCtrl', ['authService','mgcrea.ngStrap'])
 			vm.user = {};
 			vm.usrInitial = '';
 			$location.path('/');
-			/*$route.reload();*/
+			if($location.path() === "/") $route.reload();
 		}
 	vm.twitter = function(){
 			$window.open(twitterLink,'_blank');

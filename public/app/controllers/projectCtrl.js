@@ -12,7 +12,8 @@ angular.module('projectCtrl', ['userService',
     var newRoleAside = $aside({
         scope: $scope,
         show: false,
-        keyboard: true,
+        static: false,
+        backdrop:"static",
         controller: 'addRoleController',
         controllerAs: 'roleAside',
         templateUrl: '/app/views/pages/role_form.tmpl.html'
@@ -189,13 +190,17 @@ angular.module('projectCtrl', ['userService',
     angular.copy($scope.roleData,vm.roleData)
     
     $scope.selectedDate = vm.roleData.end_date;
-    vm.D_Row = $scope.roleData.description.length/55;
-    vm.D_Row = Math.round(vm.D_Row);
+    
+    //TODO: remove. sing angular-elastic 
+    /*if($scope.roleData.description){
+     vm.D_Row = $scope.roleData.description.length/55;
+      vm.D_Row = Math.round(vm.D_Row);
+    }*/
 
-    var MAX_LENGTH = 220;
+    /*var MAX_LENGTH = 220;
     $scope.TAChange = function () {
       $scope.charRmnd = MAX_LENGTH - vm.roleData.description.length;
-    }
+    }*/
 
     vm.updateRole = function () {
       vm.roleData.end_date = $scope.selectedDate;
@@ -266,7 +271,12 @@ angular.module('projectCtrl', ['userService',
 .controller('addRoleController',
   function (Role, $location, $routeParams, $route, $scope) {
     var vm = this;
-    vm.edit = false,
+    vm.edit = false;
+    var SD = new Date()
+    SD.setDate(SD.getDate() + 30);
+    
+    $scope.selectedDate = SD;
+    console.log(vm.startDate);
       vm.roleData = {},
       vm.roleData.requirements = [
         {name:"Headshot",
@@ -286,12 +296,11 @@ angular.module('projectCtrl', ['userService',
         }
       ],
       vm.newData = {},
-
       vm.newData.name = "",
       vm.newData.required = true,
       vm.newData.format = "Attachment";
 
-    $scope.selectedDate = new Date();
+    /*$scope.selectedDate = new Date();*/
 
     $scope.status = {
       isopen: false
@@ -320,9 +329,9 @@ angular.module('projectCtrl', ['userService',
       }
       vm.roleData.requirements.push(item)
       vm.newData.name = "",
-        vm.newData.required = true,
-        vm.newData.format = "Attachment",
-        vm.newData.selected = true;
+      vm.newData.required = true,
+      vm.newData.format = "Attachment",
+      vm.newData.selected = true;
     }
     vm.removeReqt = function (index) {
       console.log("button clicked");
@@ -507,8 +516,11 @@ angular.module('projectCtrl', ['userService',
     $scope.aside.projectData= {};
     angular.copy($scope.projectData,$scope.aside.projectData);
     
-    vm.D_Row = $scope.aside.projectData.description.length/60;
-    vm.D_Row = Math.round(vm.D_Row);
+    //TODO: remove. Using angular-elastic 
+    /*if($scope.aside.projectData.description){
+      vm.D_Row = $scope.aside.projectData.description.length/60;
+      vm.D_Row = Math.round(vm.D_Row);
+    }*/
     
     vm.CP_cust;
     vm.CP_default;
