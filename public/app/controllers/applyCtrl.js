@@ -19,6 +19,9 @@ angular.module('applyCtrl',['userService','mgcrea.ngStrap']).
       /*TODO: condense when combine project and role schema*/
       Pub.getAppRole($routeParams.id).then(function(data){
         vm.roleData = data.data.Application;
+
+        $rootScope.meta.url = vm.roleData.short_url;
+        console.log($rootScope.meta.url);
         if(vm.roleData){  //TODO:remove? 
           Pub.getAppPrj(vm.roleData.projectID).then(function(data){
               var project = data.data.project.project;
@@ -27,7 +30,6 @@ angular.module('applyCtrl',['userService','mgcrea.ngStrap']).
             $rootScope.meta.image = project.coverphoto.source;
             $rootScope.meta.title = project.name;
             $rootScope.meta.description = project.description;
-            $rootScope.meta.url = project.short_url;
 
             vm.prjData = project;
             vm.prjData.roles = roles;
@@ -36,6 +38,7 @@ angular.module('applyCtrl',['userService','mgcrea.ngStrap']).
             vm.appData.roleID = vm.roleData._id;
           }
           })}
+          console.log($rootScope.meta)
         //clean requirements
         for(var i in vm.roleData.requirements){
           if(!vm.roleData.requirements[i].selected){
