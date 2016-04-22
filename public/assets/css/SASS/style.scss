@@ -613,10 +613,7 @@ div.navbar-collapse.collapse.in {
 .videoFrameWrapper {
     margin-top: 45px;
     position: relative;
-<<<<<<< HEAD
-=======
     margin-top: 60px;
->>>>>>> dev
     @include box-shadow(-10px, -10px, 0px, 0px, rgba(6,188,194,1));
 }
 
@@ -1403,6 +1400,7 @@ ul.projects li {
         margin: 10px 0 29px 0;
     }
     .btn-shareFB {
+        text-align: center;
         width: 49%;
         float: left;
         margin-top: 10px;
@@ -1415,6 +1413,7 @@ ul.projects li {
         }    
     }
     .btn-shareTwitter {
+        text-align: center;
         width: 49%;
         float: right;
         margin-top: 10px;
@@ -1426,21 +1425,10 @@ ul.projects li {
             background-color: #0084b4;
         }   
     }
-    .btn-shareLinkedIn {
+    .btn-shareEmail {
+        text-align: center;
         width: 49%;
         float: left;
-        margin-top: 10px;
-        background: url("/assets/imgs/ic_social_linkedin.svg") no-repeat left 15px center #4875B4;
-        background-size: 16px 16px;
-        padding-left: 30px;
-        @include transition(all, 0.8s, ease);      
-        &:hover, &:focus {
-            background-color: #345684;
-        }   
-    }
-    .btn-shareEmail {
-        width: 49%;
-        float: right;
         margin-top: 10px;
         background: url("/assets/imgs/ic_social_email.svg") no-repeat left 15px center #31a357;
         background-size: 16px 16px;
