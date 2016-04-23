@@ -17,7 +17,8 @@ angular.module('userService', [])
 		console.log(role);
 		meta.type = "website";
 		meta.title= role.name
-		meta.url = "https://bittycasting.com";
+		meta.site_name = "https://bittycasting.com";
+		meta.url = role.short_url;
 		meta.description = role.description;
 		meta.image_secure = project.coverphoto.source
 		return meta;

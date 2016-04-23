@@ -30,6 +30,7 @@ angular.module('applyCtrl',['userService','mgcrea.ngStrap']).
             $rootScope.meta.description = project.description;*/
 
             $rootScope.meta = Meta.roleMeta(vm.roleData, project);
+            console.log($rootScope.meta)
 
             vm.prjData = project;
             vm.prjData.roles = roles;
@@ -38,7 +39,6 @@ angular.module('applyCtrl',['userService','mgcrea.ngStrap']).
             vm.appData.roleID = vm.roleData._id;
           }
           })}
-          console.log($rootScope.meta)
         //clean requirements
         for(var i in vm.roleData.requirements){
           if(!vm.roleData.requirements[i].selected){
