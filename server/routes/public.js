@@ -74,9 +74,9 @@ app.post('/applicant',function(req,res){
       if(req.body.phone){
       applicant.phone = req.body.phone;
       }
-      if(req.body.age){
+      /*if(req.body.age){
       applicant.age = req.body.age;
-      }
+      }*/
       if(req.body.gender){
       applicant.gender = req.body.gender;
       }
