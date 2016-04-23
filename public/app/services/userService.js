@@ -4,6 +4,13 @@ angular.module('userService', [])
 
 .service("Meta",function(){
 	var meta = new Object();
+	meta.site_name = "http://bittycasting.com";
+	meta.type = "website";
+	meta.title= "BittyCasting";
+	meta.url = "https://bittycasting.com";
+	meta.description = "A casting tool for independents";
+	meta.image = "http://bittycasting.com/";
+	meta.logo =  "http://bittycasting.com/assets/imgs/favicon/apple-icon-114x114.png";
 
 	this.default = function(){
 		meta.type = "website";
@@ -13,8 +20,6 @@ angular.module('userService', [])
 		return meta;
 	}
 	this.roleMeta = function(role, project){
-		console.log(project);
-		console.log(role);
 		meta.type = "website";
 		meta.title= role.name
 		meta.site_name = "http://bittycasting.com";
@@ -22,7 +27,6 @@ angular.module('userService', [])
 		meta.description = role.description;
 		meta.image = project.coverphoto.source.replace(/.*?:\/\//g, "");
 		meta.image_secure = project.coverphoto.source;
-		console.log(meta);
 		return meta;
 	}
 
