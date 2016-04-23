@@ -17,10 +17,12 @@ angular.module('userService', [])
 		console.log(role);
 		meta.type = "website";
 		meta.title= role.name
-		meta.site_name = "https://bittycasting.com";
+		meta.site_name = "http://bittycasting.com";
 		meta.url = role.short_url;
 		meta.description = role.description;
-		meta.image_secure = project.coverphoto.source
+		meta.image = project.coverphoto.source.replace(/.*?:\/\//g, "");
+		meta.image_secure = project.coverphoto.source;
+		console.log(meta);
 		return meta;
 	}
 
