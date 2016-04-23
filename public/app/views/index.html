@@ -6,10 +6,10 @@
         <title>{{meta.title || 'BittyCasting'}}</title>
         <meta charset = "UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta property="og:type" content="website" />
-        <meta property="og:site_name" content="staging.bittycasting.com"/>
+        <meta property="og:type" content="{meta.type || website}" />
+        <meta property="og:site_name" content="Bittycasting.com"/>
         <meta property="og:image" content="meta.image" />
-        <meta property="og:image:secure_url" content="meta.image" />
+        <meta property="og:image:secure_url" content="meta.image_secure" />
         <meta property="og:url" content="{{meta.url}}" />
         <meta property="og:title" content="{{meta.title || 'BittyCasting'}}" />
         <meta property="og:description" content="{{meta.description}}" />
@@ -92,7 +92,7 @@
         <script src="bower_components/ng-flow/dist/ng-flow-standalone.min.js"></script>
         <script src="bower_components/angular-socialshare/dist/angular-socialshare.js"></script>
         <script src="bower_components/angular-truncate/src/truncate.js"></script>
-        <script src="bower_components/angular-elastic/elastic.js"></script>
+        <!-- <script src="bower_components/angular-elastic/elastic.js"></script> -->
         <script src="bower_components/angular-textarea-fit/angular-textarea-fit.js"></script>
 
         <!-- <script src="bower_components/angular-vimeo-embed/dist/angular-vimeo-embed.min.js"></script> -->
@@ -100,7 +100,6 @@
         <script src="components/footer/footer.directive.js"></script>
         <script src="components/nav/nav.directive.js"></script>
         <script src="components/reviewPage/reviewPage.directive.js"></script>
-        
 
     	<!-- controllers -->
     	<script src="app/controllers/mainCtrl.js"></script>

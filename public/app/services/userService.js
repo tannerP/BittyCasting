@@ -2,6 +2,31 @@
 //Data gets passed into controller directory to get displayed
 angular.module('userService', [])
 
+.service("Meta",function(){
+	var meta = new Object();
+
+	this.default = function(){
+		meta.type = "website";
+		meta.title= "BittyCasting";
+		meta.url = "https://bittycasting.com";
+		meta.description = "A casting tool for independents";
+		return meta;
+	}
+	this.roleMeta = function(role, project){
+		console.log(project);
+		console.log(role);
+		meta.type = "website";
+		meta.title= role.name
+		meta.url = "https://bittycasting.com";
+		meta.description = role.description;
+		meta.image_secure = project.coverphoto.source
+		return meta;
+	}
+
+
+	/*return meta;*/
+})
+
 .factory('Mail', function($http){
 	var mailFactory = {};
 	

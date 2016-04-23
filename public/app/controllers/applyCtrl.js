@@ -1,19 +1,17 @@
 angular.module('applyCtrl',['userService','mgcrea.ngStrap']).
   controller('ApplyController',['$scope','$rootScope',
     'Upload','$http', 'Project', 'Role','Applicant',
-    '$routeParams','Pub','$location','$timeout','AWS',
+    '$routeParams','Pub','$location','$timeout','AWS','Meta',
     function ($scope, $rootScope, Upload, $http, Project,
-              Role, Applicant, $routeParams, Pub, $location,$timeout,AWS)
+              Role, Applicant, $routeParams, Pub, $location,$timeout,AWS,Meta)
     {
       $scope.$emit("hideNav");
       var vm = this;
-      /*vm.checkFile = function(file){
-        console.log(file)
-      }*/
       vm.roleData={};
       vm.appData ={};
       vm.appData.links=[];
       vm.files=[];
+
       
       $scope.submitted = false;
       /*TODO: condense when combine project and role schema*/
@@ -27,9 +25,11 @@ angular.module('applyCtrl',['userService','mgcrea.ngStrap']).
               var project = data.data.project.project;
               var roles = data.data.project.roles;
             if(project){
-            $rootScope.meta.image = project.coverphoto.source;
+            /*$rootScope.meta.image = project.coverphoto.source;
             $rootScope.meta.title = project.name;
-            $rootScope.meta.description = project.description;
+            $rootScope.meta.description = project.description;*/
+
+            $rootScope.meta = Meta.roleMeta(vm.roleData, project);
 
             vm.prjData = project;
             vm.prjData.roles = roles;
