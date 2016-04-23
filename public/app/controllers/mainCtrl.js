@@ -37,7 +37,7 @@ angular.module('mainCtrl', ['authService','mgcrea.ngStrap'])
 
 		$rootScope.$on('$routeChangeStart', function () {
 			//reset var. should only on applyCtrl. 
-			if($rootScope.meta) $rootScope.meta = {}; 
+			if($rootScope.meta) $rootScope.meta = Meta.default();
 
 			vm.navCollapsed = true;
 			vm.loggedIn = Auth.isLoggedIn();

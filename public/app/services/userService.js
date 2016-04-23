@@ -8,14 +8,10 @@ angular.module('userService', [])
 	meta.type = "website";
 	meta.title= "BittyCasting";
 	meta.url = "http://bittycasting.com";
-	meta.description = "A casting tool for independents";
+	meta.description ="A free online casting tool for managing and organizing your next film, theater, or performance project.";        
 	meta.logo =  "http://bittycasting.com/assets/imgs/favicon/apple-icon-114x114.png";
 
 	this.default = function(){
-		meta.type = "website";
-		meta.title= "BittyCasting";
-		meta.url = "https://bittycasting.com";
-		meta.description = "A casting tool for independents";
 		return meta;
 	}
 	this.roleMeta = function(role, project){
