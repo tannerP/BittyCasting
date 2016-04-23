@@ -7,9 +7,8 @@ angular.module('userService', [])
 	meta.site_name = "http://bittycasting.com";
 	meta.type = "website";
 	meta.title= "BittyCasting";
-	meta.url = "https://bittycasting.com";
+	meta.url = "http://bittycasting.com";
 	meta.description = "A casting tool for independents";
-	meta.image = "http://bittycasting.com/";
 	meta.logo =  "http://bittycasting.com/assets/imgs/favicon/apple-icon-114x114.png";
 
 	this.default = function(){
@@ -25,8 +24,12 @@ angular.module('userService', [])
 		meta.site_name = "http://bittycasting.com";
 		meta.url = role.short_url;
 		meta.description = role.description;
-		meta.image = project.coverphoto.source.replace(/.*?:\/\//g, "");
-		meta.image_secure = project.coverphoto.source;
+		if(project.coverphoto.name === "default"){
+			console.log("this is default photo");
+			meta.image = meta.site_name + '/'+project.coverphoto.source;
+			console.log(meta.image);}
+		else{ meta.image = project.coverphoto.source.replace(/.*?:\/\//g, "");}
+		/*meta.image_secure = project.coverphoto.source;*/
 		return meta;
 	}
 
