@@ -51,6 +51,15 @@
         <td>{{currApp.name.first}} {{currApp.name.last}}</td>
       </tr>
 
+      <tr ng-if="currApp.age">
+        <td>Age</td>
+        <td>{{currApp.age}}</td>
+      </tr>
+      <tr ng-if="currApp.gender">
+        <td>Gender</td>
+        <td>{{currApp.gender}}</td>
+      </tr>
+
       <tr>
         <td>E-mail</td>
         <td>{{currApp.email}}</td>
