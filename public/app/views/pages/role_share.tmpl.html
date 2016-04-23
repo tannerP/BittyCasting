@@ -16,7 +16,7 @@
       </div>
         
       <div class="form-group">
-        <!--   <label>Social media &amp; E-mail</label>   
+          <label>Social media &amp; E-mail</label>   
           <div class="clear"></div>
           <a class="custom-btn-primary-large btn-shareFB"
           href="#"
@@ -38,10 +38,15 @@
             socialshare
             socialshare-provider="email"
             socialshare-trigger="click"
-            socialshare-to="support@bittycasting.com" 
-            >
-            Email
-          </a> -->
+            socialshare-to="Example@gmail.com" 
+            socialshare-body="
+            Hey,
+
+            I just created an acting role in BittyCasting that I thought might interest you. Check out the project and role by clicking the link: {{textToCopy}}
+
+            Thanks!
+            " 
+            > Email</a>
           
           <!-- <button clipboard class="custom-btn-primary-large btn-shareFB" text="textToCopy" on-copied="success()" on-error="fail(err)">Facebook</button>
           <button clipboard class="custom-btn-primary-large btn-shareTwitter" text="textToCopy" on-copied="success()" on-error="fail(err)">Twitter</button>
