@@ -66,4 +66,8 @@ angular.module('userApp', [
 .config(function($httpProvider)	{	
 	//attach our auth inteceptor to the http requests
 	$httpProvider.interceptors.push('AuthInterceptor');
+	/*$httpProvider.defaults.useXDomain = true;
+	delete $httpProvider.defaults.headers.common['X-Requested-With'];*/
+
+
 });

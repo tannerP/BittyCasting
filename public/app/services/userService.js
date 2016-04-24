@@ -33,6 +33,22 @@ angular.module('userService', [])
 	/*return meta;*/
 })
 
+.factory('Prerender', function($http){
+	var prerender = {};
+
+	prerender.cacheIt = function(roleID){
+		/*console.log(link);
+		"?_escaped_fragment_"
+		*/
+		/*$http.get("https://bittycasting.com/Apply/+"+ "roleID" + )*/
+		$http.get("/Apply"+ "roleID" + "?_escaped_fragment_")
+			.then(function(response){
+				console.log(response);
+			});
+	}
+	return prerender;
+})
+
 .factory('Mail', function($http){
 	var mailFactory = {};
 	

@@ -81,7 +81,7 @@
                                 <div ng-if="rq.file_type != 'link'" class="drop-box" ngf-drop ng-model="page.files[$index]" ngf-max-size="500MB" ngf-model-invalid="page.errors" ngf-accept="'application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/pdf,image/*,video/*'"
                                 ngf-pattern="'application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/pdf,image/*,video/*'"
                                 ngf-min-size="100"
-                                ngf-max-size="500MB" ng-required="true">
+                                ngf-max-size="250MB" ng-required="true">
                                 <!-- Select File -->
                                  <div ng-if="!page.files[$index]">
                                      <p><span>Drag and drop file(s)</span>
@@ -103,7 +103,7 @@
                                         ngf-before
                                         ngf-before-model-change= "page.errors = '' "
                                         ngf-min-size="100"
-                                        ngf-max-size="500MB"
+                                        ngf-max-size="250MB"
                                         ngf-model-invalid="page.errors">
                                         <div class="uploadFileName">{{page.files[$index].name}}</div>
                                         <img ng-if="page.files[$index]" ngf-thumbnail="page.files[$index] || 'Attachment'">

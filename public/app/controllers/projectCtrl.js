@@ -120,6 +120,19 @@ angular.module('projectCtrl', ['userService',
       var url_base_beta = "beta.bittycasting.com/Apply/" + $scope.roleData._id;*/
 
       $scope.textToCopy = $scope.roleData.short_url;
+      $scope.FB_text = "Casting Call: " + $scope.roleData.name 
+                        + " \ " 
+                        + $scope.roleData.description;
+
+      $scope.Email_text = "Hey, \n \n \t I just created an acting role in BittyCasting that I thought might interest you. Check out the project and role by clicking the link:" 
+      + $scope.textToCopy 
+      + "\n \n Thanks!";
+
+      $scope.Twitter_text = "CASTING CALL: " + $scope.roleData.name 
+                            + " " + $scope.roleData.short_url 
+                            + " " + "@BittyCasting " ;
+
+                        
       $scope.toggle = false;
       var successAlert = $alert({
           title: 'Copied!',
@@ -269,14 +282,14 @@ angular.module('projectCtrl', ['userService',
 
   })
 .controller('addRoleController',
-  function (Role, $location, $routeParams, $route, $scope) {
+  function (Role, $location, $routeParams, $route, $scope, Prerender) {
     var vm = this;
     vm.edit = false;
+    vm.processing = false;
     var SD = new Date()
     SD.setDate(SD.getDate() + 30);
-    
+     
     $scope.selectedDate = SD;
-    console.log(vm.startDate);
       vm.roleData = {},
       vm.roleData.requirements = [
         {name:"Headshot",
@@ -302,7 +315,7 @@ angular.module('projectCtrl', ['userService',
 
     /*$scope.selectedDate = new Date();*/
 
-    $scope.status = {
+    /*$scope.status = {
       isopen: false
     };
 
@@ -314,7 +327,7 @@ angular.module('projectCtrl', ['userService',
       $event.preventDefault();
       $event.stopPropagation();
       $scope.status.isopen = !$scope.status.isopen;
-    };
+    };*/
 
     vm.addReqt = function (data) {
       if (!data) {
@@ -344,6 +357,7 @@ angular.module('projectCtrl', ['userService',
       }
 
     }
+    vm.processing = true;
     vm.createRoleBtn = function () {
       vm.projectID = $routeParams.project_id;
       vm.roleData.end_date = $scope.selectedDate.toJSON();
@@ -351,10 +365,15 @@ angular.module('projectCtrl', ['userService',
       vm.roleData.end_time;
 
       Role.create(vm.projectID, vm.roleData)
-        .success(function () {
+        .success(function (data) {
+          console.log(data);
           vm.roleData = {};
           $route.reload();
+          Prerender.cacheIt($location.host() + "/Apply/" +data.role._id);   
+          vm.processing = false;
+          
           $scope.$hide()
+
         })
         .error(function (err) {
           console.log(err.message);

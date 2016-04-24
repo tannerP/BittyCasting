@@ -131,6 +131,7 @@
       <button ng-if="roleAside.edit" type="submit" class="custom-btn-primary-large" ng-click="roleAside.updateRole()">
         Save
       </button>
+      <span ng-if="roleAside.processing" class="spinner"><span class="glyphicon glypicon-repeat"></span></span>
 
     </form>
   </div>

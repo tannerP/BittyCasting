@@ -19,7 +19,7 @@ angular.module('applyCtrl',['userService','mgcrea.ngStrap']).
         vm.roleData = data.data.Application;
 
         $rootScope.meta.url = vm.roleData.short_url;
-        console.log($rootScope.meta.url);
+        /*console.log($rootScope.meta.url);*/
         if(vm.roleData){  //TODO:remove? 
           Pub.getAppPrj(vm.roleData.projectID).then(function(data){
               var project = data.data.project.project;
@@ -30,11 +30,10 @@ angular.module('applyCtrl',['userService','mgcrea.ngStrap']).
             $rootScope.meta.description = project.description;*/
 
             $rootScope.meta = Meta.roleMeta(vm.roleData, project);
-            console.log($rootScope.meta)
-
+            /*console.log($rootScope.meta)*/
             vm.prjData = project;
             vm.prjData.roles = roles;
-            console.log(vm.prjData.roles);
+            /*console.log(vm.prjData.roles);*/
             vm.appData.projectID = data.data.project._id;
             vm.appData.roleID = vm.roleData._id;
           }
