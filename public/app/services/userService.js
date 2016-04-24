@@ -4,14 +4,15 @@ angular.module('userService', [])
 
 .service("Meta",function(){
 	var meta = new Object();
-	meta.site_name = "http://bittycasting.com";
-	meta.type = "website";
-	meta.title= "BittyCasting";
-	meta.url = "http://bittycasting.com";
-	meta.description ="A free online casting tool for managing and organizing your next film, theater, or performance project.";        
-	meta.logo =  "http://bittycasting.com/assets/imgs/favicon/apple-icon-114x114.png";
 
 	this.default = function(){
+		meta.site_name = "http://bittycasting.com";
+		meta.type = "website";
+		meta.title= "BittyCasting";
+		meta.url = "http://bittycasting.com";
+		meta.description ="A free online casting tool for managing and organizing your next film, theater, or performance project.";        
+		meta.logo =  "http://bittycasting.com/assets/imgs/favicon/apple-icon-114x114.png";
+
 		return meta;
 	}
 	this.roleMeta = function(role, project){
