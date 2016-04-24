@@ -6,13 +6,18 @@
         <div ng-if="main.loggedIn" class="custom-close-overlay" ng-click="main.backBtn()"></div>
         <section class="col-md-6">
             <div class="applyPageLeft">
-                <div class='pageTitle'>About this role</div>
-                <div class='pageSubtitle'>{{page.roleData.name}}</div>
-                <p>{{page.roleData.description}}</p>
+                <div class='pageTitle'></div> <!-- Remove tag causes displaying bug -->
+                <div class='pageSubtitle'>{{page.prjData.name}}</div>
+                <div style="white-space: pre-wrap" ng-bind-html="page.prjData.description | linky"> </div>
+                <img ng-src="{{page.prjData.coverphoto.source||assets/imgs/img_projectCover01.png}}" class="img-responsive">
+                <div class='pageTitle'>Role<span>s</span></div>
+                <!-- <button class='pageSubtitle'>{{page.roleData.name}}</button> -->
+                <!-- <pre>{{page.roleData.description}}</pre> -->
+                <div style="white-space: pre-wrap" ng-bind-html="page.roleData.description | linky"></div>
                 <div class="div-table">
                      <div ng-if="page.roleData.location" class="div-table-row">
                         <div class="div-table-col">Location</div>
-                        <div class="div-table-col">{{page.roleData.location}}</div>
+                        <p style="white-space: pre-wrap" class="div-table-col">{{page.roleData.location}}</p>
                     </div>
                     <div ng-if="page.roleData.end_time" class="div-table-row">
                         <div class="div-table-col">Time</div>
@@ -24,17 +29,13 @@
                     </div>
                     <div ng-if="page.roleData.sex" class="div-table-row">
                         <div class="div-table-col">Gender</div>
-                        <div class="div-table-col">{{page.roleData.sex}}</div>
+                        <div class="div-table-col">{{page.roleData.gender}}</div>
                     </div>
-                    <div ng-if="page.roleData.age" class="div-table-row">
+                    <!-- <div ng-if="page.roleData.age" class="div-table-row">
                         <div class="div-table-col">Age</div>
                         <div class="div-table-col">{{page.roleData.age}}</div>
-                    </div>
+                    </div> -->
                 </div>
-                <div class='pageTitle'>About this project</div>
-                <div class='pageSubtitle'>{{page.prjData.name}}</div>
-                <p>{{page.prjData.description}}</p>
-                <img ng-src="{{page.prjData.coverphoto.source||assets/imgs/img_projectCover01.png}}" class="img-responsive">
             </div>
             <!-- <audio ng-if="page.currFile" controls ngf-src="page.currFile"> -->
         </section>
@@ -62,8 +63,16 @@
                             </div>   
                             <div class = "form-group">
                                 <label>Phone number</label>
-                                <input type = "tel" class = "custom-form" ng-model="page.appData.phone">
-                            </div>                      
+                                <input type = "tel" class = "custom-form" ng-model="page.appData.phone" maxlength="15">
+                            </div>
+                            <div class = "form-group">
+                                <label>Age</label>
+                                <input type = "tel" class = "custom-form" ng-model="page.appData.age" maxlength="10">
+                            </div>
+                            <div class = "form-group">
+                                <label>Gender</label>
+                                <input type = "tel" class = "custom-form" ng-model="page.appData.gender" maxlength="10">
+                            </div>                                            
                                   
                             <div class = "form-group" ng-repeat="rq in page.roleData.requirements">
 <!-- NEED STYLING -->       <label>{{rq.name}}</label>
@@ -72,7 +81,7 @@
                                 <div ng-if="rq.file_type != 'link'" class="drop-box" ngf-drop ng-model="page.files[$index]" ngf-max-size="500MB" ngf-model-invalid="page.errors" ngf-accept="'application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/pdf,image/*,video/*'"
                                 ngf-pattern="'application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/pdf,image/*,video/*'"
                                 ngf-min-size="100"
-                                ngf-max-size="500MB" ng-required="true">
+                                ngf-max-size="250MB" ng-required="true">
                                 <!-- Select File -->
                                  <div ng-if="!page.files[$index]">
                                      <p><span>Drag and drop file(s)</span>
@@ -94,7 +103,7 @@
                                         ngf-before
                                         ngf-before-model-change= "page.errors = '' "
                                         ngf-min-size="100"
-                                        ngf-max-size="500MB"
+                                        ngf-max-size="250MB"
                                         ngf-model-invalid="page.errors">
                                         <div class="uploadFileName">{{page.files[$index].name}}</div>
                                         <img ng-if="page.files[$index]" ngf-thumbnail="page.files[$index] || 'Attachment'">
@@ -135,7 +144,12 @@
 
                         <div ng-if="page.busy" class="custom-loader"><img style ="height:40px; width:auto"
                         ng-src='/assets/imgs/spin.gif'></div>   
-                            
+                        <!-- <table>
+                            <th>{{page.roleData.name}}</th>
+                            <tbody>
+                            <td><input type="checkbox"></input></td>
+                            </tbody>
+                        </table>     -->
                         <button type="submit" class="custom-btn-primary-large">Submit</button>
                         <p class="btn_paragraph">By clicking on “Submit”, I agree to BittyCasting’s <a href="/submission_agreement" target="_blank">submission agreement.</a></p>
                         <div class="poweredBy">

@@ -1,11 +1,14 @@
 angular.module('mainCtrl', ['authService','mgcrea.ngStrap'])
 .controller('mainController',['$scope','$rootScope','Auth',
-	'$location',"$sce","$route","$window","Mail","$aside",
-		function($scope,$rootScope, Auth, $location, $sce, $route, $window,Mail,$aside) {
+	'$location',"$sce","$route","$window","Mail","$aside","Meta",
+		function($scope,$rootScope, Auth, $location, $sce,
+		 $route, $window,Mail,$aside, Meta) {
 		var vm = this;
+		$rootScope.meta = {};
 
 		var FBLink = "https://www.facebook.com/BittyCasting-1053535994667037/"
 		var twitterLink =" https://twitter.com/BittyCasting"
+
 		vm.loggedIn = false;
 		vm.footer = true;
 		vm.nav = true;
@@ -19,13 +22,10 @@ angular.module('mainCtrl', ['authService','mgcrea.ngStrap'])
 		];
 
 		vm.loggedIn = Auth.isLoggedIn();
+		
 		vm.founder = (function(){
-					console.log($rootScope.user.role)
-						if ($rootScope.user.role === "founder")
-							/*return true;*/
-							console.log('Founder!!')
-						else
-							return false;
+						if ($rootScope.user.role === "founder") return true;
+						else return false;
 					});
 		
 		$scope.$on('hideNav', function(){
@@ -36,22 +36,27 @@ angular.module('mainCtrl', ['authService','mgcrea.ngStrap'])
 		})
 
 		$rootScope.$on('$routeChangeStart', function () {
+			//reset var. should only on applyCtrl. 
+			if($rootScope.meta) $rootScope.meta = Meta.default();
+
 			vm.navCollapsed = true;
 			vm.loggedIn = Auth.isLoggedIn();
 			vm.navCollapsed = true;
 			vm.footer = true;
 			vm.nav = true;
 
+			//show footer & nav
 			if($location.path() === '/' ||
 				$location.path() === '/login' ||
 				$location.path() === '/signup'){
 				vm.publicVw = true;
 				vm.footer = true;
 			}
-			else if($location.path().indexOf('/Apply') != -1
-				){
-						vm.nav = false;				
+			//show hide nav
+			else if($location.path().indexOf('/Apply') != -1){
+					vm.nav = false;
 			}
+			//show header public view along with footer
 			else if($location.path() === '/Thankyou' ||
 				$location.path() === '/privacy_policy' ||
 				$location.path() === '/terms_of_service' ||
@@ -59,7 +64,7 @@ angular.module('mainCtrl', ['authService','mgcrea.ngStrap'])
 				vm.publicVw = false;
 				vm.footer = true;
 			}
-			else{
+			else{ //hide nav public view & footer
 			 vm.publicVw = false;
 			 vm.footer = false;
 			}

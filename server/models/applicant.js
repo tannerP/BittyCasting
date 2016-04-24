@@ -5,6 +5,8 @@ var ApplicantSchema = new Schema({
 	updated_date: {type:Date, default:Date.now},
 	submission_date:{type:Date, default:Date.now},
 	name : { first: String, last: String },
+	age : String,
+	gender : String,
 	email:{
 		type:String,
 		required:true,

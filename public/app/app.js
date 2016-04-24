@@ -9,7 +9,6 @@ angular.module('userApp', [
 	'ui.bootstrap',
 	'mgcrea.ngStrap',
 	'ngAnimate',
-	'app.routes',
 	'authService',
 	'userService',
 	'awsService',
@@ -23,12 +22,31 @@ angular.module('userApp', [
 	'Nav',
 	'pdf',
 	'flow',
-	'truncate'
+	'720kb.socialshare',
+	'truncate',
+	'app.routes',
+	'textarea-fit'
 	])
+	/*.service('MetaService', function() {
+       var title = 'Web App';
+       var metaDescription = '';
+       var metaKeywords = '';
+       return {
+          set: function(newTitle, newMetaDescription, newKeywords) {
+              metaKeywords = newKeywords;
+              metaDescription = newMetaDescription;
+              title = newTitle; 
+          },
+          metaTitle: function(){ return title; },
+          metaDescription: function() { return metaDescription; },
+          metaKeywords: function() { return metaKeywords; }
+       }
+    })*/
   .run(function ($rootScope, $location, $http) {
     $http.get('/config').success(function(data) {
         $rootScope.awsConfig = data.awsConfig;
       });
+    
   })
   .run(function($animate) {
   $animate.enabled(true);
@@ -48,4 +66,8 @@ angular.module('userApp', [
 .config(function($httpProvider)	{	
 	//attach our auth inteceptor to the http requests
 	$httpProvider.interceptors.push('AuthInterceptor');
+	/*$httpProvider.defaults.useXDomain = true;
+	delete $httpProvider.defaults.headers.common['X-Requested-With'];*/
+
+
 });

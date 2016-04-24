@@ -175,7 +175,7 @@ apiRouter.route('/createRole/:projectID')
 				
 				role.location = req.body.location;
 				role.payterms = req.body.payterms;
-				role.age = req.body.age;
+				/*role.age = req.body.age;*/
 				role.sex = req.body.sex;
 				role.requirements = req.body.requirements;
 				
@@ -185,7 +185,6 @@ apiRouter.route('/createRole/:projectID')
 								error:err })	}
 						else{
 							
-						bitly.shortenURL(URL+role._id,role._id)
 						Project.findById(req.params.projectID, function(err, project){
               if(!err){
                 ++project.num_roles;
@@ -195,14 +194,19 @@ apiRouter.route('/createRole/:projectID')
                         error: err
                       })  
                   }
-                  else{
+                  /*else{
                     return  res.json({success:true,
-                        message: "Success"
+                        role: role
                     });
-                  }
+                  }*/
 						})
 						}
 					})
+					return bitly.shortenURL(URL+role._id,role._id,function(data){
+						return  res.json({success:true,
+                        role: data
+                    });
+					});
 				}
 			})
 			})
@@ -325,7 +329,6 @@ apiRouter.route('/project/:project_id')
 			if(req.body.description) project.description = req.body.description;
 			if(req.body.updated_date) project.updated_date = req.body.updated_date;
 			if(req.body.coverphoto) project.coverphoto = req.body.coverphoto;
-			console.log(req.body);
 			project.save(function(err){
 				if (err) console.log(err);
 				if (err) res.send(err);

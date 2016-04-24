@@ -38,7 +38,13 @@ app.get('/config', function(req,res){
 
 app.get('/applicationPrj/:project_id', function(req,res){
 	Project.findById(req.params.project_id,function(err,proj){
-	  res.json({success:true, project:proj});
+      Role.find({projectID:proj._id},function(err,roles){
+          var money = {};
+          money.roles = roles; 
+          money.project = proj;
+          console.log(money);
+          res.json({success:true, project:money});        
+      });
 	})
 });
 
@@ -68,16 +74,22 @@ app.post('/applicant',function(req,res){
       if(req.body.phone){
       applicant.phone = req.body.phone;
       }
+      /*if(req.body.age){
+      applicant.age = req.body.age;
+      }*/
+      if(req.body.gender){
+      applicant.gender = req.body.gender;
+      }
       if(req.body.links){
         for(link in req.body.links){
-          console.log(req.body.links[link]);
+          /*console.log(req.body.links[link]);*/
           /*var temp = ({"name":link.name,"source":link.source})*/
           applicant.links.push(req.body.links[link]);
         }
       /*applicant.links = req.body.links;*/
       }
 
-      console.log(applicant);
+      /*console.log(applicant);*/
       
       applicant.save(function(err){
         if(err){

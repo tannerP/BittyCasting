@@ -15,7 +15,7 @@
     <div class="projectDetails col-md-12">
       <section class="col-md-8">
         <p class="projectDetailsTitle">Description</p>
-        <p>{{roleData.description}}</p>
+        <div style="white-space: pre-wrap" ng-bind-html="roleData.description | linky"></div>
       </section>
 <!--
       <section class="col-md-4">
@@ -123,6 +123,7 @@
       <tr ng-repeat="app in page.applicants track by $index">
         <td ng-click="page.viewBtn($index)">
           <!-- <div class="alert-new">New</div> -->
+        
           {{app.name.first}} {{app.name.last}}
             
         </td>

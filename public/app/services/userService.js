@@ -2,6 +2,54 @@
 //Data gets passed into controller directory to get displayed
 angular.module('userService', [])
 
+.service("Meta",function(){
+	var meta = new Object();
+
+	this.default = function(){
+		meta.site_name = "http://bittycasting.com";
+		meta.type = "website";
+		meta.title= "BittyCasting";
+		meta.url = "http://bittycasting.com";
+		meta.description ="A free online casting tool for managing and organizing your next film, theater, or performance project.";        
+		meta.logo =  "http://bittycasting.com/assets/imgs/favicon/apple-icon-114x114.png";
+
+		return meta;
+	}
+	this.roleMeta = function(role, project){
+		meta.type = "website";
+		meta.title= role.name
+		meta.site_name = "http://bittycasting.com";
+		meta.url = role.short_url;
+		meta.description = role.description;
+		if(project.coverphoto.name === "default"){
+			console.log("this is default photo");
+			meta.image = meta.site_name + '/'+project.coverphoto.source;
+			console.log(meta.image);}
+		else{ meta.image = project.coverphoto.source.replace(/.*?:\/\//g, "");}
+		/*meta.image_secure = project.coverphoto.source;*/
+		return meta;
+	}
+
+
+	/*return meta;*/
+})
+
+.factory('Prerender', function($http){
+	var prerender = {};
+
+	prerender.cacheIt = function(roleID){
+		/*console.log(link);
+		"?_escaped_fragment_"
+		*/
+		/*$http.get("https://bittycasting.com/Apply/+"+ "roleID" + )*/
+		$http.get("/Apply/"+ roleID + "?_escaped_fragment_")
+			.then(function(response){
+				console.log(response);
+			});
+	}
+	return prerender;
+})
+
 .factory('Mail', function($http){
 	var mailFactory = {};
 	

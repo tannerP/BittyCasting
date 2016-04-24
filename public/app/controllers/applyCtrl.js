@@ -1,29 +1,42 @@
 angular.module('applyCtrl',['userService','mgcrea.ngStrap']).
   controller('ApplyController',['$scope','$rootScope',
     'Upload','$http', 'Project', 'Role','Applicant',
-    '$routeParams','Pub','$location','$timeout','AWS',
+    '$routeParams','Pub','$location','$timeout','AWS','Meta',
     function ($scope, $rootScope, Upload, $http, Project,
-              Role, Applicant, $routeParams, Pub, $location,$timeout,AWS)
+              Role, Applicant, $routeParams, Pub, $location,$timeout,AWS,Meta)
     {
       $scope.$emit("hideNav");
       var vm = this;
-      /*vm.checkFile = function(file){
-        console.log(file)
-      }*/
       vm.roleData={};
       vm.appData ={};
       vm.appData.links=[];
       vm.files=[];
+
       
       $scope.submitted = false;
       /*TODO: condense when combine project and role schema*/
       Pub.getAppRole($routeParams.id).then(function(data){
         vm.roleData = data.data.Application;
-        if(vm.roleData){
+
+        $rootScope.meta.url = vm.roleData.short_url;
+        /*console.log($rootScope.meta.url);*/
+        if(vm.roleData){  //TODO:remove? 
           Pub.getAppPrj(vm.roleData.projectID).then(function(data){
-            vm.prjData = data.data.project;
+              var project = data.data.project.project;
+              var roles = data.data.project.roles;
+            if(project){
+            /*$rootScope.meta.image = project.coverphoto.source;
+            $rootScope.meta.title = project.name;
+            $rootScope.meta.description = project.description;*/
+
+            $rootScope.meta = Meta.roleMeta(vm.roleData, project);
+            /*console.log($rootScope.meta)*/
+            vm.prjData = project;
+            vm.prjData.roles = roles;
+            /*console.log(vm.prjData.roles);*/
             vm.appData.projectID = data.data.project._id;
             vm.appData.roleID = vm.roleData._id;
+          }
           })}
         //clean requirements
         for(var i in vm.roleData.requirements){

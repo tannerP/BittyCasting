@@ -11,26 +11,25 @@ Bitly.setAccessToken(config.bitly_access_token);
 /*var Bitly = require('bitly');
 var bitly = new Bitly(config.bitly_access_token);*/
 
-exports.shortenURL = function(url, RoleID){
+exports.shortenURL = function(url, RoleID, callback){
 	/*console.log(config.bitly_access_token)*/
 	if(RoleID){
 		Bitly.shortenLink(url,function(err,res){
 			if(res){
-				/*console.log(JSON.parse(res).data.url);*/
-				//putting short url to role
-				Role.update({_id:RoleID},{
-					short_url:JSON.parse(res).data.url
-				},function(err,data){
-				if(!err)console.log("successful added short link")/*does nothing*/})
-				return res;	}
-			else{
-				throw err;		
+				//find and add url to role
+				Role.findById(RoleID,function(err, role){
+					if(!err){
+						role.short_url = JSON.parse(res).data.url;
+						role.save(function(err,data){
+							if(!err) callback(data);
+						})
+					}
+				})
 			}
-		})
-}
-else(
-	console.log("No role id")
-	)
+					/*short_url:JSON.parse(res).data.url*/			
+	else console.log("No role id")
+
+})}}
 	/*bitly.shorten(url)
 	  .then(function(response) {
 	    console.log(response)
@@ -40,4 +39,3 @@ else(
 	  }, function(error) {
 	    throw error;
 	  });*/
-}

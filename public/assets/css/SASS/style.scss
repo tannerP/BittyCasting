@@ -613,10 +613,7 @@ div.navbar-collapse.collapse.in {
 .videoFrameWrapper {
     margin-top: 45px;
     position: relative;
-<<<<<<< HEAD
-=======
     margin-top: 60px;
->>>>>>> dev
     @include box-shadow(-10px, -10px, 0px, 0px, rgba(6,188,194,1));
 }
 
@@ -985,7 +982,6 @@ ul.projects li {
 
 .cardApplicants {
     height: 283px;
-    background-size: 100% auto;
     .cardScrim {height: 283px;}
     .cardInfo {top: 78%;}
 }
@@ -1398,7 +1394,49 @@ ul.projects li {
         }
     }
     .btn-preview {
-        margin: -20px 0 10px 0;
+        margin: 0 0 29px 0;
+    }
+    .btn-copyLink {
+        margin: 10px 0 29px 0;
+    }
+    .btn-shareFB {
+        text-align: center;
+        width: 49%;
+        float: left;
+        margin-top: 10px;
+        background: url("/assets/imgs/ic_social_fb.svg") no-repeat left 15px center #3b5998;
+        background-size: 16px 16px;
+        padding-left: 30px;
+        @include transition(all, 0.8s, ease);      
+        &:hover, &:focus {
+            background-color: #2a406d;
+        }    
+    }
+    .btn-shareTwitter {
+        text-align: center;
+        width: 49%;
+        float: right;
+        margin-top: 10px;
+        background: url("/assets/imgs/ic_social_twitter.svg") no-repeat left 15px center #00aced;
+        background-size: 16px 16px;
+        padding-left: 30px;
+        @include transition(all, 0.8s, ease);      
+        &:hover, &:focus {
+            background-color: #0084b4;
+        }   
+    }
+    .btn-shareEmail {
+        text-align: center;
+        width: 49%;
+        float: left;
+        margin-top: 10px;
+        background: url("/assets/imgs/ic_social_email.svg") no-repeat left 15px center #31a357;
+        background-size: 16px 16px;
+        padding-left: 30px;
+        @include transition(all, 0.8s, ease);      
+        &:hover, &:focus {
+            background-color: #22733d;
+        }   
     }
 }
 
