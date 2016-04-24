@@ -41,7 +41,7 @@ angular.module('userService', [])
 		"?_escaped_fragment_"
 		*/
 		/*$http.get("https://bittycasting.com/Apply/+"+ "roleID" + )*/
-		$http.get("/Apply"+ "roleID" + "?_escaped_fragment_")
+		$http.get("/Apply/"+ roleID + "?_escaped_fragment_")
 			.then(function(response){
 				console.log(response);
 			});

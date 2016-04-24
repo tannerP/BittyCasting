@@ -369,7 +369,7 @@ angular.module('projectCtrl', ['userService',
           console.log(data);
           vm.roleData = {};
           $route.reload();
-          Prerender.cacheIt($location.host() + "/Apply/" +data.role._id);   
+          Prerender.cacheIt(data.role._id);   
           vm.processing = false;
           
           $scope.$hide()
