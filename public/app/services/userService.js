@@ -25,7 +25,7 @@ angular.module('userService', [])
 			console.log("this is default photo");
 			meta.image = meta.site_name + '/'+project.coverphoto.source;
 			console.log(meta.image);}
-		else{ meta.image = project.coverphoto.source.replace(/.*?:\/\//g, "");}
+		else{ meta.image = "http" + project.coverphoto.source.replace(/.*?:\/\//g, "");}
 		/*meta.image_secure = project.coverphoto.source;*/
 		return meta;
 	}
