@@ -19,6 +19,7 @@ angular.module('userService', [])
 		meta.type = "website";
 		meta.title= role.name
 		meta.site_name = "http://bittycasting.com";
+		meta.url= "";
 		meta.url += meta.site_name + "/Apply/" + role._id;
 		meta.description = role.description;
 		if(project.coverphoto.name === "default"){
