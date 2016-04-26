@@ -33,7 +33,7 @@ app.use(require('prerender-node')
 /*var io = require('socket.io')(app);*/
 
 //var port = config.port; //PORT
-app.use(morgan('dev')); //HTTP logger
+/*app.use(morgan('dev'));*/ //HTTP logger
 
 //==================================--APP--====================================
 app.use(bodyParser.urlencoded({ extended:true}));
@@ -72,12 +72,12 @@ var publicRoutes = require(__dirname + '/server/routes/public')(app,express);
 app.use(express.static(__dirname + '/public'));
 /* S3 Config*/
 
-  app.use('/',publicRoutes); 
-  app.use('/api',apiRoutes); 
-  app.all('*', function(req, res, next){
-    res.sendFile(path.join(__dirname+"/public/app/views/index.html"))
-  })
-  app.listen(config.port,"0.0.0.0");
+app.use('/',publicRoutes); 
+app.use('/api',apiRoutes); 
+app.all('*', function(req, res, next){
+  res.sendFile(path.join(__dirname+"/public/app/views/index.html"))
+})
+app.listen(config.port,"0.0.0.0");
   
 /*var server = https.createServer(options, app);
     server.listen(config.port, "0.0.0.0");*/
