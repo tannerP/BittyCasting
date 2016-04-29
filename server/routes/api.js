@@ -279,12 +279,12 @@ apiRouter.route('/project')
 
 //===============================  Project:project_id  ============================
 apiRouter.route('/project/:project_id')
-	.get(function(req,res){
+	/*.get(function(req,res){
 		Project.findById(req.params.project_id, function(err,proj){
 			//ACL
 			res.json({success:true, project:proj});
 		})
-	})
+	})*/
 	.put(function(req,res){
 		Project.findById(req.params.project_id, function(err,project){
 			if(err) res.send(err);

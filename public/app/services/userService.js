@@ -150,6 +150,7 @@ angular.module('userService', [])
 		return $http.get('api/project');
 	}
 	projectFactory.get  = function(projID)	{
+		console.log(projID);
 		return $http.get('/public/project/' + projID);
 	}
 	projectFactory.appGetPrj  = function(proj_id)	{

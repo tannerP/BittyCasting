@@ -1,23 +1,25 @@
 <div class="container paddingBottom60">
   <div class="pageHeader">
-    <div class="custom-back" ng-click="main.backBtn()" style="z-index: 4;"></div>
+    <div class="custom-back" ng-click="vm.back()" style="z-index: 4;"></div>
     <div class="custom-page-action" style="z-index: 4;">
       <ul>
-        <li class="custom-btn-secondary-small" ng-click="editPrjBtn()">Edit</li>
-        <li class="custom-btn-secondary-small" ng-click="deletePrjBtn(page.project)">Delete</li>
-        <li class="custom-btn-secondary-small" ng-click="page.togView()">Share</li>
+        <li class="custom-btn-secondary-small" ng-click="vm.editPrjBtn()">Edit</li>
+        <li class="custom-btn-secondary-small" ng-click="vm.deletePrjBtn(vm.project)">Delete</li>
+        <!-- <li class="custom-btn-secondary-small" ng-click="togView()">toggle</li> -->
+        <li class="custom-btn-secondary-small" ng-click="vm.sharePrjBtn(vm.project)">Share</li>
+
       </ul>
       <!-- {{page}} -->
     </div>
     <div class='pageTitle pageTitleMobileOffset col-md-4 col-md-offset-4'
-    data-ng-bind="page.project.name"></div>
+    data-ng-bind="vm.project.name">{{vm}}</div>
     <div class="clear"></div>
     <div class="projectDetails col-md-12">
       <section class="col-md-3">
-        <img ng-src="{{page.project.coverphoto.source || '/assets/imgs/img_projectCover01.png'}}" class="img-responsive">
+        <img ng-src="{{vm.project.coverphoto.source || '/assets/imgs/img_projectCover01.png'}}" class="img-responsive">
       </section>
       <section class="col-md-6">
-        <p style="white-space: pre-wrap">{{page.project.description}}</p>
+        <p style="white-space: pre-wrap">{{vm.project.description}}</p>
       </section>
       <section class="col-md-3">
         <!-- <p>Thumbnails of collaborators</p> -->
@@ -27,7 +29,7 @@
 
     <div class="custom-page-action-secondary">
       <ul>
-        <li class='custom-btn-secondary-small' ng-click="projectCtr.createBtn()">Create role</li>
+        <li class='custom-btn-secondary-small' ng-click="vm.createBtn()">Create role</li>
       </ul>
     </div>
     <div class="clear"></div>
@@ -45,19 +47,19 @@
       </thead>
       <tbody>
       <!-- LOOP OVER THE USERS -->
-      <tr class="animate-repeat" ng-repeat="role in page.roles">
-        <td ng-click='projectCtr.getRoleBtn(role._id)'>{{ role.name }}</td>
-        <td ng-click='projectCtr.getRoleBtn(role._id)'>
+      <tr class="animate-repeat" ng-repeat="role in vm.Roles">
+        <td ng-click='vm.getRoleBtn(role._id)'>{{ role.name }}</td>
+        <td ng-click='vm.getRoleBtn(role._id)'>
           {{role.total_apps || "0"}}
         </td>
-        <td ng-click='projectCtr.getRoleBtn(role._id)'>{{ role.description }}</td>
+        <td ng-click='vm.getRoleBtn(role._id)'>{{ role.description }}</td>
         <td class="tableHover"><span
           class="tblDate">{{role.end_date | date:mediumDate}}</span>
 
           <div class="table-utl">
             <ul>
-              <li ng-click="projectCtr.deleteBtn(role)"></li>
-              <li ng-click="projectCtr.shareBtn(role)"></li>
+              <li ng-click="vm.deleteBtn(role)"></li>
+              <li ng-click="vm.shareRoleBtn(role)"></li>
             </ul>
           </div>
         </td>

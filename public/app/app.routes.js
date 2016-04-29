@@ -22,7 +22,7 @@ angular.module('app.routes', ['ngRoute'])
         })
         .when('/login', {
             templateUrl :'/app/views/pages/login.html',
-        	controller   :'loginCtrl',
+        	controller   :'loginCztrl',
         	controllerAs   : 'login'
         })
         .when('/Thankyou', {
@@ -43,12 +43,7 @@ angular.module('app.routes', ['ngRoute'])
         })
     /*---------------- Private ----------------*/
     //role
-        .when('/:username/:project_id',  {
-            templateUrl: 'app/views/pages/project_page.html',
-            controller: 'ProjectPageController',
-            controllerAs: 'projectCtr'
-        })    
-        .when('/applicants/:role_id',  {
+        .when('/role/:role_id',  {
             templateUrl: 'app/views/pages/applicants.html',
             controller: 'ApplicantPageController',
             controllerAs: 'page'

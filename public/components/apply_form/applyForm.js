@@ -1,8 +1,8 @@
-angular.module('applyCtrl',['userService','mgcrea.ngStrap']).
-  controller('ApplyController',['$scope','$rootScope',
+angular.module('applyCtrl',['userService','mgcrea.ngStrap'])
+	.directive('ApplyController',['$scope','$rootScope',
     'Upload','$http', 'Project', 'Role','Applicant',
     '$routeParams','Pub','$location','$timeout','AWS','Meta',
-    function ($scope, $rootScope, Upload, $http, Project,
+		var controller = function ($scope, $rootScope, Upload, $http, Project,
               Role, Applicant, $routeParams, Pub, $location,$timeout,AWS,Meta)
     {
       $scope.$emit("hideNav");
@@ -92,6 +92,7 @@ angular.module('applyCtrl',['userService','mgcrea.ngStrap']).
               vm.appData.links.push(link)
               vm.newLinks[i] = "";
             }
+            
           }
         }
 
@@ -121,5 +122,22 @@ angular.module('applyCtrl',['userService','mgcrea.ngStrap']).
         }
 
       })
+
     }
-    }]);
+  }
+
+     return {
+      /*templateUrl: 'components/project_view/project_view.html',*/
+      /*templateUrl: 'components/review_page/reviewPage.html',*/
+      restrict: 'E',
+      scope:{
+        inputData: '=ctrl',
+      },
+      templateUrl: 'components/project_view/project_npublic_view.html',
+      controller: controller,
+      controllerAs:'vm',
+      bindToController: true //required in 1.3+ with controllerAs
+
+    }
+  })
+  

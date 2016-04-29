@@ -48,7 +48,7 @@ angular.module('applicantsCtrl', ['userService',
     }
     function addSlide(target, data) {
       var i = target.length;
-      var fileTypes = ["video", "image", "applicants/pdf", "link"];
+      var fileTypes = ["video", "image", "`applicant`s/pdf", "link"];
 
       for (item in fileTypes) {
         if (data.file_type.indexOf(fileTypes[item])) {
@@ -100,6 +100,7 @@ angular.module('applicantsCtrl', ['userService',
       .success(function (data) {
         vm.processing = false;      
         $scope.roleData = data.data;
+        $scope.role= data.data;
       
         //calculate remaining days
         var now = new Date()
@@ -130,8 +131,7 @@ angular.module('applicantsCtrl', ['userService',
           for(var i in vm.applicants){
             if(vm.applicants[i].suppliments.length > 0){
               for(var j in  vm.applicants[i].suppliments)
-              {
-                
+              { 
                 //check for headshot labeling
                 if(angular.equals(vm.applicants[i].suppliments[j].name, "Headshot") ||
                 angular.equals(vm.applicants[i].suppliments[j].name, "headshot")  )

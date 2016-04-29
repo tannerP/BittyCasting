@@ -11,12 +11,20 @@ angular.module('projectCtrl', ['userService',
       vm.pView = false;
       vm.prView = true;
       Project.get($routeParams.project_id)
-        .success(function (data) {
-          vm.project = data.project.project;
-          vm.roles = data.project.roles;
-          /*$scope.projectData = data.project;*/
+        .success(function(data) {
+          vm.project = data.project;
+          if(data.client === "public")
+          {
+            vm.pView = true;
+            vm.prView = false;
+          }
+          else if(data.client === "owner"){
+            vm.pView = false;
+            vm.prView = true; 
+          }
         })
         .error(function (err) {
+          console.log(err)
           vm.message = err;
       });
     })();
@@ -26,125 +34,14 @@ angular.module('projectCtrl', ['userService',
     //signal view to render the right view 
     //according to project's ownership (ownner,. 
     
-    vm.togView = function(){
+    $scope.togView = function(){
+      console.log("toggle clicked")
       vm.pView = !vm.pView;
       vm.prView  = !vm.prView;
       if(vm.pView === true) $scope.$emit("hideNav");
       else $scope.$emit("unhideNav");
     }
 })
-
-.controller('PrivateProjectController',
-  function (Role, Project, $location, $routeParams,
-            $scope, $aside, $route) {
-    var vm = this;
-    vm.processing = true;
-    vm.Roles = [];
-    vm.project = {};
-    $scope.roleData ={}; 
-
-    var newRoleAside = $aside({
-        scope: $scope,
-        show: false,
-        static: false,
-        backdrop:"static",
-        controller: 'addRoleController',
-        controllerAs: 'roleAside',
-        templateUrl: '/app/views/pages/role_form.tmpl.html'
-      }),
-      editPrjAside = $aside({
-        scope: $scope,
-        show: false,
-        controller: 'editProjectController',
-        controllerAs: 'projectAside',
-        templateUrl: '/app/views/pages/project_form.tmpl.html'
-      }),
-      shareRoleAside = $aside({
-        scope: $scope,
-        show: false,
-        keyboard: true,
-        controller: 'shareRoleController',
-        controllerAs: 'roleAside',
-        templateUrl: '/app/views/pages/role_share.tmpl.html'
-      });
-    deleteRoleAside = $aside({
-      scope: $scope,
-      keyboard: true,
-      show: false,
-      controller: 'deleteRoleController',
-      controllerAs: 'aside',
-      templateUrl: '/app/views/pages/role_delete.tmpl.html'
-    });
-    deletePrjAside = $aside({
-      scope: $scope,
-      show: false,
-      keyboard: true,
-      controller: 'deleteProjectController',
-      controllerAs: 'projectAside',
-      templateUrl: '/app/views/pages/deleteProject.tmpl.html'
-    });
-    vm.deleteBtn = function (data) {
-      $scope.roleData = data;
-      deleteRoleAside.$promise.then(deleteRoleAside.toggle);
-    }
-    vm.shareBtn = function (data) {
-      vm.roleData = data;
-      $scope.roleData = data;
-      shareRoleAside.$promise.then(shareRoleAside.toggle);
-    }
-    vm.createBtn = function () {
-      vm.roleData = {};
-      newRoleAside.$promise.then(newRoleAside.toggle);
-    }
-    vm.editPrjBtn = function () {
-      vm.roleData = {};
-      editPrjAside.$promise.then(editPrjAside.toggle);
-    }
-    vm.deletePrjBtn = function (data) {
-      /*$scope.deletePrjAside.toggle()*/
-      $scope.projectData = data;
-      deletePrjAside.$promise.then(deletePrjAside.toggle);
-      /*deletePrjAside.toggle();*/
-    }
-    vm.getRoleBtn = function (id) {
-      $location.path("/applicants/" + id)
-    }
-
-    //remove, get data from parent scope
-    Project.get($routeParams.project_id)
-      .success(function (data) {
-        vm.project = data.project;
-        $scope.projectData = data.project;
-      })
-      .error(function (err) {
-        vm.message = err;
-      });
-
-    $scope.load = function () {
-      Role.getAll($routeParams.project_id)
-        .success(function (data) {
-          vm.processing = false;
-          vm.Roles = data.data;
-        })
-        .error(function (error) {
-          console.log(error);
-        })
-    }
-
-    $scope.load();
-    vm.save = function () {
-      vm.processing = true;
-      vm.message;
-      Character.save(vm.charData)
-        .success(function (data) {
-          vm.processing = false;
-          vm.projectData = {};
-          vm.message = data.message;
-          $location.path('/project/' + $routeParams.project_id);
-
-        });
-    }
-  })
 .controller('shareRoleController', 
   ['$scope', '$alert', '$location',
     function ($scope, $alert, $location) {
@@ -153,7 +50,7 @@ angular.module('projectCtrl', ['userService',
       var url_base_dev = "localhost:8080/Apply/" + $scope.roleData._id;
       var url_base_beta = "beta.bittycasting.com/Apply/" + $scope.roleData._id;*/
 
-      $scope.textToCopy = $scope.roleData.short_url;
+      $scope.textToCopy = $scope.role.short_url;
       $scope.FB_text = "Casting Call: " + $scope.roleData.name 
                         + " \ " 
                         + $scope.roleData.description;
@@ -164,6 +61,7 @@ angular.module('projectCtrl', ['userService',
 
       $scope.Twitter_text = "CASTING CALL: " + $scope.roleData.name 
                             + " " + $scope.roleData.short_url 
+                            + " " + "via " ;
                             + " " + "@BittyCasting " ;
 
                         
@@ -180,6 +78,52 @@ angular.module('projectCtrl', ['userService',
         });
 
       var previewLink = "/Apply/" + $scope.roleData._id;
+      $scope.preview = function () {
+        $scope.$toggle();
+        $location.path(previewLink)
+      } 
+      $scope.success = function () {
+        $scope.toggle = true;
+        successAlert.toggle();
+      };
+
+      $scope.fail = function (err) {
+        console.error('Error!', err);
+        errAlert.toggle();
+      }
+    }
+  ])
+.controller('shareProjectController', 
+  ['$scope', '$alert', '$location',
+    function ($scope, $alert, $location) {
+      
+      $scope.textToCopy = $scope.project.short_url;
+      $scope.FB_text = "Casting Call: " + $scope.roleData.name 
+                        + " \ " 
+                        + $scope.roleData.description;
+
+      $scope.Email_text = "Hey, \n \n \t I just created an acting role in BittyCasting that I thought might interest you. Check out the project and role by clicking the link:" 
+      + $scope.textToCopy 
+      + "\n \n Thanks!";
+
+      $scope.Twitter_text = "CASTING CALL: " + $scope.roleData.name 
+                            + " " + $scope.textToCopy
+                            + " " + "via " ;
+                            + " " + "@BittyCasting " ;
+
+      $scope.toggle = false;
+      var successAlert = $alert({
+          title: 'Copied!',
+          animation: 'am-fade-and-slide-top', duration: '1',
+          placement: 'top-right', type: 'success', show: false, type: 'success'
+        }),
+        errAlert = $alert({
+          title: '',
+          content: 'Copied',
+          placement: 'top-right', type: 'info', show: false, type: 'success'
+        });
+
+      var previewLink = "/project/" + $scope.roleData._id;
       $scope.preview = function () {
         $scope.$toggle();
         $location.path(previewLink)

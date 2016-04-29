@@ -10,9 +10,45 @@ var passport = require('passport');
 var Mailgun = require("mailgun-js");
 var S3Config = require('./../aws.json');
 var aws = require('../../server/lib/aws');
+var bitly = require("../lib/bitly.js")
 
 module.exports = function(app,express){
 var app = express.Router();
+
+app.all('*',function(req,res,next){
+  var token = req.body.token || req.param('token') ||req.headers['x-access-token'];
+  if(token){
+    jwt.verify(token,config.secret,function(err,decoded){
+      if(err){
+        return res.status(403).send({
+          success: false,
+          message: 'Failed to authenticate token.'
+        });
+      }else{
+        req.userData = User.findOne({'_id':decoded.id}, function(err, data){
+          if(data){
+            data.last_active = new Date();
+            console.log("updating last active");
+            console.log(data);
+            data.save();
+            return data;
+          }})
+        /*console.log("req.userData" +req.userData);*/
+        /*req.userData = user.select('_id username email');
+        console.log(req.userData);*/
+        req.decoded = decoded;
+        next();
+      }
+    });
+  }else{
+/*    return res.status(403).send({
+      success:false,
+      message: 'No token provided.'
+    });*/
+    req.decoded = false;
+    next();
+  }
+});
 
 app.route('/')
 	.get(function(req,res){
@@ -30,13 +66,34 @@ app.get('/applicationRole/:role_id', function(req,res){
 
 app.get('/public/project/:project_id', function(req,res){
   Project.findById(req.params.project_id,function(err,proj){
+    if(!proj) return res.json({success:false, error:err});  
+    else{      
+      
+      var checkClientship = function(prj, decoded){
+      if(!decoded) return "public";
+      else{
+          //check if requester is owner
+          if(prj.user_id === decoded.id){
+            return "owner"
+          }
+        }
+      }
+      //make sure there's a short_link
+      if(!proj.short_url){
+          var URL = config.baseURL + "/project/";
+          bitly.shortenProjectURL(URL+proj._id, proj._id,
+            function(data){});
+      }
+
       Role.find({projectID:proj._id},function(err,roles){
           var money = {};
+          var client = checkClientship(proj,req.decoded);
+          money.client = client;
           money.roles = roles; 
           money.project = proj;
-          console.log(money);
-          res.json({success:true, project:money});        
+          return res.json({success:true,client:client ,project:money});        
       });
+    }
   })
 })
 app.get('/applicationPrj/:project_id', function(req,res){
