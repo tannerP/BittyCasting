@@ -22,7 +22,7 @@ angular.module('applicantsCtrl', ['userService',
   }).
   controller('ApplicantPageController',
   function (Applicant, Role, $location, $routeParams,
-            $scope, $aside, $routeParams, $location, $route) {
+            $scope, $aside, $routeParams, $location, $route, $window) {
     var vm = this;
     $scope.viewApp = false;
     $scope.slides = [];
@@ -45,6 +45,15 @@ angular.module('applicantsCtrl', ['userService',
       vm.gridStyle = {'opacity': 0.2};
       vm.gridView = false;
       vm.listView = true;
+    }
+    $scope.goToLink = function (url){
+      var tmp = url.spli
+      if(url.indexOf('http') != -1){
+        $window.open(url);
+      }
+      else{
+        $window.open("http://"+ url);
+      }
     }
     function addSlide(target, data) {
       var i = target.length;
@@ -77,9 +86,10 @@ angular.module('applicantsCtrl', ['userService',
 
       for (var i = 0; i < sourceArr.length; i++) {
         var fType = sourceArr[i].file_type;
+        console.log(sourceArr[i].source);
         if (fType == "Link") {
           $scope.links.push(sourceArr[i]);
-          addSlide(target, sourceArr[i]);
+          /*addSlide(target, sourceArr[i]);*/
         }
         if (fType.indexOf('video') != -1) {
           $scope.video.push(sourceArr[i]);
