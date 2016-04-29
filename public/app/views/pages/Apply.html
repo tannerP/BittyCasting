@@ -6,8 +6,8 @@
         <div ng-if="main.loggedIn" class="custom-close-overlay" ng-click="main.backBtn()"></div>
         <section class="col-md-6">
             <div class="applyPageLeft">
-                <div class='pageTitle'></div> <!-- Remove tag causes displaying bug -->
-                <div class='pageSubtitle'>{{page.prjData.name}}</div>
+                <div class='pageTitle'>{{page.prjData.name}}</div> <!-- Remove tag causes displaying bug -->
+                <!-- <div class='pageSubtitle'>{{page.prjData.name}}</div> -->
                 <div style="white-space: pre-wrap" ng-bind-html="page.prjData.description | linky"> </div>
                 <img ng-src="{{page.prjData.coverphoto.source||assets/imgs/img_projectCover01.png}}" class="img-responsive">
                 <div class='pageTitle'>Role<span>s</span></div>
