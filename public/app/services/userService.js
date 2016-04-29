@@ -4,7 +4,6 @@ angular.module('userService', [])
 
 .service("Meta",function(){
 	var meta = new Object();
-
 	this.default = function(){
 		meta.site_name = "http://bittycasting.com";
 		meta.type = "website";
@@ -84,6 +83,12 @@ angular.module('userService', [])
 	appFactory.update = function(id,data)	{
 		console.log(id);
 		return $http.put('/app/'+id, data);	
+		}	 
+	appFactory.viewedUpdate = function(id)	{
+		var money = {};
+		money.status = "new"
+		money.new = false;
+		return $http.put('/app/'+id, money);	
 		}	 
 	appFactory.delete = function(appID)	{
 		console.log(appID);

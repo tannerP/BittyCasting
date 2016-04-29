@@ -164,6 +164,33 @@ app.post('/applicant',function(req,res){
 })
 //route for adding new requirement. 
 app.put('/app/:app_id', function(req,res){
+<<<<<<< e556ab669210db12876e5c403b2c31636d07515f
+=======
+/*console.log(req.body);
+console.log('Adding attachments to application.')
+console.log(req.params)*/
+  /*console.log(req.body)*/
+  if(req.body.status === "new"){
+    /*console.log(req.body);*/
+    Applicant.findById(req.params.app_id,function(err,app){
+      app.new = false
+      app.save(function(err,data){
+        if(err){
+          return  res.json({success:false,
+              error: err
+            })  }
+        else{
+          console.log(data);
+          return  res.json({success:true,
+              message: "Added new subppliment"
+          });
+      }
+  return res.json({success:true, message:'updated'});
+    })
+    }); 
+  }
+  else{
+>>>>>>> added temp fix for new applicant alert
   Applicant.findById(req.params.app_id,function(err,app)
   {
     if(err) res.json({Error:true, error:err});
@@ -184,6 +211,45 @@ app.put('/app/:app_id', function(req,res){
           return  res.json({success:true,
                             message: "Added new subppliment"
           });
+<<<<<<< e556ab669210db12876e5c403b2c31636d07515f
+=======
+      }
+  return res.json({success:true, message:'updated'});
+    })
+  }
+}
+)}
+});
+
+app.get('/submit/:mail', function(req,res) {
+  console.log(req.params.mail);
+    //We pass the api_key and domain to the wrapper, or it won't be able to identify + send emails
+    var mailgun = new Mailgun({apiKey: config.api_key, domain: config.domain});
+
+    var data = {
+    //Specify email data
+      from: "internal@bittycasting.com",
+    //The email to contact
+      to: "support@bittycasting.com",
+    //Subject and text data  
+      subject: 'New Beta Customer',
+      html: 'Beta Request' + req.params.mail
+    }
+
+    //Invokes the method to send emails given the above data with the helper library
+    mailgun.messages().send(data, function (err, body) {
+        //If there is an error, render the error page
+        if (err) {
+          console.log(err)
+        }
+        else {
+            //Here "submitted.jade" is the view file for this landing page 
+            //We pass the variable "email" from the url parameter in an object rendered by Jade
+          console.log(body)
+          /*res.json(body);*/
+          /*  res.render('submitted', { email : req.params.mail });
+            console.log(body);*/
+>>>>>>> added temp fix for new applicant alert
         }
       })
     }

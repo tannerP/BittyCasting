@@ -2,18 +2,11 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var ApplicantSchema = new Schema({
-	updated_date: {
-		type:Date,
-		default:Date.now
-	},
-	submission_date:{
-		type:Date,
-		default:Date.now
-	},
-	name : {
-		first: String,
-		last: String 
-	},
+
+	updated_date: {type:Date, default:Date.now},
+	submission_date:{type:Date, default:Date.now},
+	name : { first: String, last: String },
+	new : {type:Boolean, default:true},
 	age : String,
 	gender : String,
 	email:{
