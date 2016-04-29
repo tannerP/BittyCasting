@@ -28,6 +28,17 @@ app.get('/applicationRole/:role_id', function(req,res){
     })
   })
 
+app.get('/public/project/:project_id', function(req,res){
+  Project.findById(req.params.project_id,function(err,proj){
+      Role.find({projectID:proj._id},function(err,roles){
+          var money = {};
+          money.roles = roles; 
+          money.project = proj;
+          console.log(money);
+          res.json({success:true, project:money});        
+      });
+  })
+})
 app.get('/applicationPrj/:project_id', function(req,res){
   //if logged in. 
 	Project.findById(req.params.project_id,function(err,proj){

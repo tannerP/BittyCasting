@@ -19,10 +19,18 @@
           rn-carousel-index="carouselIndex">
         <li ng-repeat="slide in slides track by slide.id" ng-class="'id-' + slide.id">
           <div class="reviewCarouselImgBg" ng-if="slide.image"
+<<<<<<< Updated upstream:public/components/review_page/reviewPage.html
                ng-style="{ 'background': 'url(' + slide.source + ') no-repeat center center',
                             'background-size': 'auto 400px'}">
           </div>
           <video class="reviewCarouselVideo" ng-if="slide.video" controls ngf-src='slide.source'></video>
+=======
+               ng-style="{
+                           'background': 'url(' + slide.source + ') no-repeat center center',
+                           'background-size': 'auto 400px'}"></div>
+          <video class="reviewCarouselVideo" ng-if="slide.video" controls ngf-src='slide.source'>
+          </video>
+>>>>>>> Stashed changes:public/components/reviewPage/reviewPage.html
         </li>
         </ul>
     </div>
@@ -81,7 +89,12 @@
             </li>
           </ul>
         </td>
+<<<<<<< Updated upstream:public/components/review_page/reviewPage.html
       </tr>
+=======
+      </tr>dcsds
+
+>>>>>>> Stashed changes:public/components/reviewPage/reviewPage.html
       </tbody>
     </table>
   </div>

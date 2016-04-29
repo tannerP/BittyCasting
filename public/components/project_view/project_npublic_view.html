@@ -45,7 +45,7 @@
       </thead>
       <tbody>
       <!-- LOOP OVER THE USERS -->
-      <tr class="animate-repeat" ng-repeat="role in projectCtr.Roles">
+      <tr class="animate-repeat" ng-repeat="role in page.roles">
         <td ng-click='projectCtr.getRoleBtn(role._id)'>{{ role.name }}</td>
         <td ng-click='projectCtr.getRoleBtn(role._id)'>
           {{role.total_apps || "0"}}

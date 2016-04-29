@@ -12,8 +12,9 @@ angular.module('projectCtrl', ['userService',
       vm.prView = true;
       Project.get($routeParams.project_id)
         .success(function (data) {
-          vm.project = data.project;
-          $scope.projectData = data.project;
+          vm.project = data.project.project;
+          vm.roles = data.project.roles;
+          /*$scope.projectData = data.project;*/
         })
         .error(function (err) {
           vm.message = err;

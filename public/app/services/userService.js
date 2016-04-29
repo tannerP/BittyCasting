@@ -149,8 +149,8 @@ angular.module('userService', [])
 	projectFactory.getAll = function()	{
 		return $http.get('api/project');
 	}
-	projectFactory.get  = function(proj_id)	{
-		return $http.get('/api/project/' + proj_id);
+	projectFactory.get  = function(projID)	{
+		return $http.get('/public/project/' + projID);
 	}
 	projectFactory.appGetPrj  = function(proj_id)	{
 		return $http.get('/appPrj/' + proj_id);

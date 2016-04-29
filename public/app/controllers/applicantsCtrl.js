@@ -19,7 +19,6 @@ angular.module('applicantsCtrl', ['userService',
       Applicant.pushComment(appID, cmt);
       vm.newComment = "";
     }
-
   }).
   controller('ApplicantPageController',
   function (Applicant, Role, $location, $routeParams,
@@ -121,7 +120,6 @@ angular.module('applicantsCtrl', ['userService',
         .error(function (error) {
           console.log(error);
         })
-
     function getApps() {
       Applicant.getAll($routeParams.role_id)
         .success(function (data) {

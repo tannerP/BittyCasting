@@ -5,16 +5,15 @@
         <div class="custom-close-overlay" ng-click="page.togView()"></div>
         <section class="col-md-6">
             <div class="applyPageLeft">
-                <div class='pageTitle'></div> <!-- Remove tag causes displaying bug -->
-                <div class='pageSubtitle'>{{page.project.name}}</div>
-                <div style="white-space: pre-wrap" ng-bind-html="page.prjDatadescription | linky"> </div>
-                <img ng-src="{{page.project.photoCover.source||assets/imgs/img_projectCover01.png}}" class="img-responsive">
+                <div class='pageTitle'>{{page.project.name}}</div> <!-- Remove tag causes displaying bug -->
+                
+                <div style="white-space: pre-wrap" ng-bind-html="page.project.description | linky"> </div>
+                <img ng-src="{{page.project.coverphoto.source ||'assets/imgs/img_projectCover01.png'}}" class="img-responsive">
                 <div class='pageTitle'>Role<span>s</span></div>
 
-                <div style="white-space: pre-wrap" ng-repeat="roleData in roles"> 
-                {{roles}}
-                  <div ng-bind-html="roleData.description | linky"></div>
-                    
+                <div style="white-space: pre-wrap" ng-repeat="roleData in page.roles"> 
+                <div class='pageSubtitle'>{{roleData.name}}</div>                  
+                <div ng-bind-html="roleData.description | linky"></div>  
                   </div>
                 <div class="div-table">
                      <div ng-if="roleData.location" class="div-table-row">
