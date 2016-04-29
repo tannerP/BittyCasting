@@ -94,6 +94,7 @@ angular.module('applicantsCtrl', ['userService',
         }
         if (fType.indexOf('video') != -1) {
           $scope.video.push(sourceArr[i]);
+
           addSlide(target, sourceArr[i]); //carousel
         }
         else if (fType.indexOf('image') != -1) {
@@ -143,7 +144,6 @@ angular.module('applicantsCtrl', ['userService',
             if(vm.applicants[i].suppliments.length > 0){
               for(var j in  vm.applicants[i].suppliments)
               {
-                
                 //check for headshot labeling
                 if(angular.equals(vm.applicants[i].suppliments[j].name, "Headshot") ||
                 angular.equals(vm.applicants[i].suppliments[j].name, "headshot")  )
@@ -213,6 +213,10 @@ angular.module('applicantsCtrl', ['userService',
     vm.backBtn = function () {
       $scope.viewApp = false;
       $scope.$emit("unhideNav");
+      if($scope.currApp.new){
+        Applicant.viewedUpdate($scope.currApp._id);
+        $route.reload();
+      }
     }
     $scope.deleteAppBtn = function () {
       Applicant.delete($scope.currApp._id)
@@ -237,6 +241,10 @@ angular.module('applicantsCtrl', ['userService',
       $scope.currApp = vm.applicants[index];
       addSlides($scope.slides, $scope.currApp.suppliments);
       $scope.viewApp = true;
+      if($scope.currApp.new){
+        Applicant.viewedUpdate($scope.currApp._id);
+      }
+      //application update app.new = false; 
     }
     vm.nextApp = function () {
       if ($scope.currIndex < vm.applicants.length - 1) {

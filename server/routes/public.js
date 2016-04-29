@@ -128,9 +128,30 @@ app.post('/applicant',function(req,res){
   }
 })}})})
 app.put('/app/:app_id', function(req,res){
-console.log(req.body);
+/*console.log(req.body);
 console.log('Adding attachments to application.')
-console.log(req.params)
+console.log(req.params)*/
+  /*console.log(req.body)*/
+  if(req.body.status === "new"){
+    /*console.log(req.body);*/
+    Applicant.findById(req.params.app_id,function(err,app){
+      app.new = false
+      app.save(function(err,data){
+        if(err){
+          return  res.json({success:false,
+              error: err
+            })  }
+        else{
+          console.log(data);
+          return  res.json({success:true,
+              message: "Added new subppliment"
+          });
+      }
+  return res.json({success:true, message:'updated'});
+    })
+    }); 
+  }
+  else{
   Applicant.findById(req.params.app_id,function(err,app)
   {
     if(err) res.json({Error:true, error:err});
@@ -153,10 +174,12 @@ console.log(req.params)
               message: "Added new subppliment"
           });
       }
-  /*return res.json({success:true, message:'updated'});*/
+  return res.json({success:true, message:'updated'});
     })
   }
-})});
+}
+)}
+});
 
 app.get('/submit/:mail', function(req,res) {
   console.log(req.params.mail);
