@@ -1686,6 +1686,10 @@ ul.select-coverphoto-wrapper {
     
     section {
         padding: 15px;
+        
+        p {
+            white-space: pre-wrap;}
+        
         .projectDetailsTitle {
             text-transform: uppercase;
             font-weight: 600;
@@ -1881,6 +1885,8 @@ ul.select-coverphoto-wrapper {
     display:table;         
     width:100%;
     font-size: $font-size-regular;
+    
+    p {white-space: pre-wrap;}
  
     .div-table-row {
         display:table-row;
