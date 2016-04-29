@@ -21,7 +21,7 @@ angular.module('mainCtrl', ['authService','mgcrea.ngStrap'])
 		'assets/imgs/img_projectCover05.png'
 		];
 
-		vm.loggedIn = Auth.isLoggedIn();
+		vm.loggedIn = Auth.isLoggedIn(),
 		
 		vm.founder = (function(){
 						if ($rootScope.user.role === "founder") return true;
@@ -72,16 +72,16 @@ angular.module('mainCtrl', ['authService','mgcrea.ngStrap'])
 				Auth.getUser()
 						.then(function(data) {
 							if(data){
-							vm.usrInitial = data.name.first[0] + data.name.last[0];
-							if(data.role.indexOf("founder") != -1){vm.admin = true;}
-							else vm.admin = false;
-							$rootScope.user ={first:data.name.first,
-																last:data.name.last,
-																email:data.email,
-																role:data.role,
-													}
+								vm.usrInitial = data.name.first[0] + data.name.last[0];
+								if(data.role.indexOf("founder") != -1){vm.admin = true;}
+								else vm.admin = false;
+								$rootScope.user ={first:data.name.first,
+																	last:data.name.last,
+																	email:data.email,
+																	role:data.role,
+								}
 							}
-						 })
+						})
 			}
 		})
 		vm.betaEmail;
@@ -92,8 +92,6 @@ angular.module('mainCtrl', ['authService','mgcrea.ngStrap'])
 			vm.betaEmail = null;
 			vm.betaSubMessage = "Submitted! Thank you for your interest"
 		}
-
-
 	}	
 	var feedbackAside = $aside({
 	 									scope:$scope,

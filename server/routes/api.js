@@ -18,7 +18,6 @@ var apiRouter = express.Router();
 //===============================  Token Middleware  =========================
 apiRouter.all('*',function(req,res,next){
 	var token = req.body.token || req.param('token') ||req.headers['x-access-token'];
-
 	if(token){
 		jwt.verify(token,config.secret,function(err,decoded){
 			if(err){
@@ -60,9 +59,9 @@ apiRouter.all('*',function(req,res,next){
 			res.json({'success':true ,'data':roles});	}
 			})
 		})
-		apiRouter.route('/AppCount/:roleID')
+		apiRouter.route('/AppCount/:ID')
 		.get(function(req, res){
-			Applicant.count({ 'roleID': req.params.roleID},function(err,count){
+			Applicant.count({ 'roleID': req.params.ID},function(err,count){
 			if(err){ 
 				res.send(err);
 				console.log(err); }
@@ -78,7 +77,7 @@ apiRouter.route('/applicant/comments/:appID')
 					if(req.body.state == 'PUT'){
 						app.comments.push({owner:req.body.owner,
 													comment:req.body.comment});
-						app.save(function(err){
+						app.save(function(err){1
 							if(err){
 								return  res.json({success:false,
 								error:err })	}
@@ -105,38 +104,33 @@ apiRouter.route('/applicant/comments/:appID')
 			Applicant.findOne({
 			_id:req.params.appID,
 				}, function(err,app){
-					if(err) {return res.send(err);}
+					if(err) return res.send(err);
 					if(app){
 						aws.removeSup(app.suppliments);
-						/*Role.findByIdAndUpdate(app.roleID,{$inc:{total_apps:-1}})*/
-						/*Applicant.findById(req.params.appID,function(error,app){
-							if(error) console.log(error)
-							if(app){*/
-							Role.findById(app.roleID, function(err, data){
-									if(err) console.log(err);
-									if(data){
-										console.log(data)
-										--data.total_apps;
-										data.save(function(){})
-									}
-								})
-								/*)}*/
-							Applicant.remove({
-								_id:req.params.appID,
-									}, function(err,app){
-										if(err) {return res.send(err);}
-										console.log(app)
-										res.json({success:true,
-											 message: 'Successfully deleted applicant'});
-									})
-								}
+						Role.findById(app.roleID, function(err, data){
+							if(err) console.log(err);
+							if(data){
+								console.log(data)
+								--data.total_apps;
+								data.save(function(){})
+							}
+						})
+						Applicant.remove({
+						_id:req.params.appID,
+							}, function(err,app){
+								if(err) {return res.send(err);}
+								console.log(app)
+								res.json({success:true,
+									 message: 'Successfully deleted applicant'});
+							})
+						}
 					})
 				})
 //===============================  Roles ============================
 apiRouter.route('/roles/:projectID')
 	.get(function(req, res) {
 		var output = '';
-				
+	//TODO:remove the for-loop 
 		for (var property in req.params) {
   	output += property + ': ' + req.params[property]+'; ';
 
@@ -146,72 +140,56 @@ apiRouter.route('/roles/:projectID')
 				res.send(err);
 				console.log(err); 
 			}
-			else{
-				/*for(var i in roles){
-					Applicant.count({roleID:roles[i]._id}, function(err,count){
-						roles[i].num_applicants = count;
-						return;
-					})
-					console.log(i);
-					console.log(roles.length);
-					if(++i == roles.length)*/ res.json({'success':true ,'data':roles});
-				}	
-		
-	})
-}})
+			else res.json({'success':true ,'data':roles}); 	
+		})
+	}})
 //create role
 apiRouter.route('/createRole/:projectID')
-		.post(function(req,res){
-				var role = new Role();
-				role.userID = req.decoded.id;
-				/*console.log(req.body);*/
-				var URL = config.baseURL + "/Apply/";
-				
-				role.projectID = req.params.projectID;
-				role.name = req.body.name;
-				role.description = req.body.description;
-				role.end_date = req.body.end_date;
-				role.end_time = req.body.end_time;
-				
-				role.location = req.body.location;
-				role.payterms = req.body.payterms;
-				/*role.age = req.body.age;*/
-				role.sex = req.body.sex;
-				role.requirements = req.body.requirements;
-				
-				role.save(function(err,role){
-					if(err){
-						return  res.json({success:false,
-								error:err })	}
-						else{
-							
-						Project.findById(req.params.projectID, function(err, project){
-              if(!err){
-                ++project.num_roles;
-                project.save(function(err){
-                  if(err){
-                    return  res.json({success:false,
-                        error: err
-                      })  
-                  }
-                  /*else{
-                    return  res.json({success:true,
-                        role: role
-                    });
-                  }*/
-						})
+	.post(function(req,res){
+			var role = new Role();
+			role.userID = req.decoded.id;
+			/*console.log(req.body);*/
+			var URL = config.baseURL + "/Apply/";
+			
+			role.projectID = req.params.projectID;
+			role.name = req.body.name;
+			role.description = req.body.description;
+			role.end_date = req.body.end_date;
+			role.end_time = req.body.end_time;
+			
+			role.location = req.body.location;
+			role.payterms = req.body.payterms;
+			/*role.age = req.body.age;*/
+			role.sex = req.body.sex;
+			role.requirements = req.body.requirements;
+			
+			role.save(function(err,role){
+				if(err){
+					return  res.json({success:false,
+							error:err })	}
+					else{
+						
+					Project.findById(req.params.projectID, function(err, project){
+            if(!err){
+              ++project.num_roles;
+              project.save(function(err){
+                if(err){
+                  return  res.json({success:false,
+                      error: err
+                })}
+							})
 						}
 					})
-					return bitly.shortenURL(URL+role._id,role._id,function(data){
-						return  res.json({success:true,
-                        role: data
-                    });
-					});
-				}
-			})
-			})
+				return bitly.shortenURL(URL+role._id,role._id,function(data){
+					return  res.json({success:true,
+                      role: data
+                  });
+				});
+			}
+		})
+	})
 
-//===============================  CastingBoard  ============================
+//===============================  Role  ============================
 apiRouter.route('/role/:role_id')
 	.get(function(req,res){
 		Role.findOne({_id:req.params.role_id}, function(err, data){
@@ -227,28 +205,26 @@ apiRouter.route('/role/:role_id')
 				for(var i in roles){
 				 		aws.removeSup(roles[i].suppliments);
 				}
-			Role.findById(req.params.role_id, function(err,role){
-				if(err) console.log(err);
-				if(role){
-					Project.findById(role.projectID,
-					function(err, project){
-          if(!err){
-            --project.num_roles;
-            console.log(project.num_roles);
-            project.save(function(){})
-					}
-					})
-					Role.remove({
-						_id:req.params.role_id}, function(err,role){
-					if(err) console.log(err)
-							// --project.num_roles			
-						res.json({message: 'Successfully deleted'});
-					})
+		Role.findById(req.params.role_id, function(err,role){
+			if(err) console.log(err);
+			if(role){
+				Project.findById(role.projectID,
+				function(err, project){
+        if(!err){
+          --project.num_roles;
+          console.log(project.num_roles);
+          project.save(function(){})
 				}
-			})
+				})
+				Role.remove({
+					_id:req.params.role_id}, function(err,role){
+				if(err) console.log(err)
+						// --project.num_roles			
+					res.json({message: 'Successfully deleted'});
+				})
+			}
+		})})
 	})
-})
-		
 	.put(function(req,res){
 		Role.findById(req.params.role_id, function(err,role){
 			if(err) res.send(err);
@@ -268,15 +244,6 @@ apiRouter.route('/role/:role_id')
 								error: err})	}
 					res.json({message:'Role saved.'});
 				})
-				/*role.save(function(err){
-				if (err) console.log(err);
-				if (err) res.send(err);
-				else{
-						res.json({
-						success: true,
-						message:'Project updated!',
-					});	
-				}*/
 			})
 		})
 
@@ -284,14 +251,12 @@ apiRouter.route('/role/:role_id')
 //===============================  Project  ============================
 apiRouter.route('/project')
 	.post(function(req,res){
-		/*console.log(req.userData);*/
+		
 		var project = new Project();
 		project.user_id = req.decoded.id;
 		project.name = req.body.name;
 		project.description = req.body.description
 		project.coverphoto = req.body.coverphoto
-		console.log("project data:");
-		console.log(project);
 		
 		project.save(function(err){
 			if(err){
@@ -299,31 +264,29 @@ apiRouter.route('/project')
 						error: err})
 			}
 			res.json({message:'Project created.'});
-
 		})
 	})
 	//get all projects belong to user
 	.get(function(req, res) {
 		Project.find({ user_id: req.decoded.id},function(err,projects){
-		if(err){ 
-			res.send(err);
-			console.log(err); 
-		}
-		else{
-		res.json({'success':true ,'data':projects});
-	}})
+			if(err){ 
+				res.send(err);
+			}
+			else{
+			res.json({'success':true ,'data':projects});
+		}});
 	})
 
 //===============================  Project:project_id  ============================
 apiRouter.route('/project/:project_id')
 	.get(function(req,res){
 		Project.findById(req.params.project_id, function(err,proj){
+			//ACL
 			res.json({success:true, project:proj});
 		})
 	})
 	.put(function(req,res){
 		Project.findById(req.params.project_id, function(err,project){
-			console.log(req.body);
 			if(err) res.send(err);
 			if(req.body.name) project.name = req.body.name;
 			if(req.body.description) project.description = req.body.description;
@@ -341,12 +304,11 @@ apiRouter.route('/project/:project_id')
 			})
 		})
 	})
+
 	.delete(function(req, res){
-		//Remove 
 		Role.find({projectID:req.params.project_id}, function(err, roles){
 			for(var i in roles){
-				Applicant.find({roleID:roles[i]._id}, 
-					function(err, apps){
+				Applicant.find({roleID:roles[i]._id}, function(err, apps){
 						if(err) res.json({success:false, error: err})	
 						for(var i in apps){
 					 		aws.removeSup(apps[i].suppliments);
@@ -356,7 +318,6 @@ apiRouter.route('/project/:project_id')
 			roles[i].remove();
 		}
 	})
-
 	Project.remove({
 			_id:req.params.project_id
 		}, function(err,project){
@@ -371,7 +332,7 @@ apiRouter.route('/project/:project_id')
 			if(err) res.send(err);
 			res.json(user);
 		})
-		});
+	});
 //===============================  USERS  ============================
 apiRouter.route('/users/:user_id')
 	.get(function(req,res){
@@ -407,7 +368,6 @@ apiRouter.route('/users/:user_id')
 				});
 			});
 		})
-
 	.delete(function(req, res){
 		User.remove({
 				_id:req.decoded.id
@@ -416,7 +376,6 @@ apiRouter.route('/users/:user_id')
 				res.json({message: 'Successfully deleted'});
 		});
 	});
-
 //===================================  /Admin  ================================
 apiRouter.route('/admin')
 	// get all the users (accessed at GET http://localhost::8080/api/users)
@@ -439,9 +398,10 @@ apiRouter.route('/users')
 				}
 				//res: return list of users
 				else{
-				console.log("Found Users" + users)
+				/*console.log("Found Users" + users)*/
 				res.json(users);
-				}});
+				}
+			});
 		});
 	return apiRouter;
 }

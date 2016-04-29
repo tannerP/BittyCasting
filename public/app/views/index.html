@@ -62,7 +62,6 @@
               version    : 'v2.6'
             });
           };
-
           (function(d, s, id){
              var js, fjs = d.getElementsByTagName(s)[0];
              if (d.getElementById(id)) {return;}
@@ -112,7 +111,8 @@
         
         <script src="components/footer/footer.directive.js"></script>
         <script src="components/nav/nav.directive.js"></script>
-        <script src="components/reviewPage/reviewPage.directive.js"></script>
+        <script src="components/review_page/reviewPage.directive.js"></script>
+        <script src="components/project_view/projectView.js"></script>
 
     	<!-- controllers -->
     	<script src="app/controllers/mainCtrl.js"></script>
@@ -162,7 +162,7 @@
         <div ng-view autoscroll="true"></div>
         <button  ng-show="main.loggedIn" class='custom-btn-feedback'
                  ng-click="main.feedbackBtn()">
-                 <div class="verticalText">feedback</div>
+            <div class="verticalText">feedback</div>
         </button>
         <div ng-if="main.footer" footer 
             class='view-animate'></div>

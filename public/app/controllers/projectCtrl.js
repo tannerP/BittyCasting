@@ -1,6 +1,39 @@
 angular.module('projectCtrl', ['userService',
   'mgcrea.ngStrap'])
+
 .controller('ProjectPageController',
+  function (Role, Project, $location, $routeParams,
+            $scope, $aside, $route) {
+
+    var vm = this;
+    vm.pView, vm.prView;
+    (function init(){ //start engines
+      vm.pView = false;
+      vm.prView = true;
+      Project.get($routeParams.project_id)
+        .success(function (data) {
+          vm.project = data.project;
+          $scope.projectData = data.project;
+        })
+        .error(function (err) {
+          vm.message = err;
+      });
+    })();
+    
+    //get project data. 
+    
+    //signal view to render the right view 
+    //according to project's ownership (ownner,. 
+    
+    vm.togView = function(){
+      vm.pView = !vm.pView;
+      vm.prView  = !vm.prView;
+      if(vm.pView === true) $scope.$emit("hideNav");
+      else $scope.$emit("unhideNav");
+    }
+})
+
+.controller('PrivateProjectController',
   function (Role, Project, $location, $routeParams,
             $scope, $aside, $route) {
     var vm = this;

@@ -2,9 +2,18 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var ApplicantSchema = new Schema({
-	updated_date: {type:Date, default:Date.now},
-	submission_date:{type:Date, default:Date.now},
-	name : { first: String, last: String },
+	updated_date: {
+		type:Date,
+		default:Date.now
+	},
+	submission_date:{
+		type:Date,
+		default:Date.now
+	},
+	name : {
+		first: String,
+		last: String 
+	},
 	age : String,
 	gender : String,
 	email:{
@@ -35,6 +44,4 @@ var ApplicantSchema = new Schema({
 		file_type:String,
 	}]
 });
-
-
 module.exports = mongoose.model('Applicant',ApplicantSchema);

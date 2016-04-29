@@ -35,14 +35,19 @@ angular.module('app.routes', ['ngRoute'])
             controller: 'ApplyController',
             controllerAs: 'page'
         })
-    /*---------------- Private ----------------*/
-    //project    
+        //project    
         .when('/project/:project_id',  {
             templateUrl: 'app/views/pages/project_page.html',
             controller: 'ProjectPageController',
-            controllerAs: 'projectCtr'
+            controllerAs: 'page'
         })
-    //role    
+    /*---------------- Private ----------------*/
+    //role
+        .when('/:username/:project_id',  {
+            templateUrl: 'app/views/pages/project_page.html',
+            controller: 'ProjectPageController',
+            controllerAs: 'projectCtr'
+        })    
         .when('/applicants/:role_id',  {
             templateUrl: 'app/views/pages/applicants.html',
             controller: 'ApplicantPageController',

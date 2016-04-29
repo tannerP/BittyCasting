@@ -5,71 +5,48 @@
     <div class="custom-close-overlay" ng-click="page.backBtn()"></div>
   </container>
 </div>
+
 <div class="clear"></div>
 
 <div class="container">
-
+  
   <div class='pageTitle'>{{currApp.name.first}} {{currApp.name.last}}</div>
-
+  
   <div class="reviewCarousel">
     <div class="reviewCarouselImg">
-      <ul rn-carousel rn-carousel-control-allow-loop rn-carousel-controls rn-carousel-transition="fadeAndSlide"
-          rn-carousel-index="carouselIndex" rn-carousel-buffered>
+      <ul rn-carousel rn-carousel-control-allow-loop rn-carousel-controls rn-carousel-buffered
+          rn-carousel-transition="fadeAndSlide"
+          rn-carousel-index="carouselIndex">
         <li ng-repeat="slide in slides track by slide.id" ng-class="'id-' + slide.id">
           <div class="reviewCarouselImgBg" ng-if="slide.image"
-               ng-style="{
-                                         'background': 'url(' + slide.source + ') no-repeat center center',
-                                         'background-size': 'auto 400px'}
-                               ">
-            <!--                              #{{ slide.id }}-->
+               ng-style="{ 'background': 'url(' + slide.source + ') no-repeat center center',
+                            'background-size': 'auto 400px'}">
           </div>
-          <video class="reviewCarouselVideo" ng-if="slide.video" controls ngf-src='slide.source'>
-          </video>
+          <video class="reviewCarouselVideo" ng-if="slide.video" controls ngf-src='slide.source'></video>
         </li>
-
+        </ul>
     </div>
-    <!--
-                <div class="reviewCarouselPagination">
-                    <ul>
-                        <li class="active"></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                    </ul>
-                </div>
-    -->
   </div>
 
-
   <div class="reviewInfo col-md-6">
-
     <table>
       <tbody>
       <tr>
         <td>Name</td>
         <td>{{currApp.name.first}} {{currApp.name.last}}</td>
       </tr>
-      <!-- 
-      <tr ng-if="currApp.age">
-        <td>Age</td>
-        <td>{{currApp.age}}</td>
-      </tr> -->
       <tr ng-if="currApp.gender">
         <td>Gender</td>
         <td>{{currApp.gender}}</td>
       </tr>
-
       <tr>
         <td>E-mail</td>
         <td>{{currApp.email}}</td>
       </tr>
-
       <tr ng-if="currApp.phone">
         <td>Phone</td>
         <td>{{currApp.phone}}</td>
       </tr>
-
       <tr>
         <td ng-if="currApp.links.length > 0">Links:</td>
         <td>
@@ -77,12 +54,9 @@
             <li ng-repeat="link in currApp.links">
               <a target="_blank" ng-href="{{link.source}}">{{link.source}}</a>
             <br/></li>
-            <!-- <li><a target="_blank" ng-href="{{image.source}}" download={{image.name}}>Link 1: http:thisislinkone.com</a></li><br/>
-            <li><a target="_blank" ng-href="{{image.source}}" download={{image.name}}>Link 2: http:thisislinkone.com</a></li> -->
           </ul>
         </td>
       </tr>
-
       <tr>
         <td ng-if="documents.length > 0">Document:</td>
         <td ng-repeat="doc in documents">
@@ -96,8 +70,6 @@
         <td ng-repeat="image in images">
           <ul>
             <li class = "attch"><a target="_blank" ng-href="{{image.source}}" download={{image.name}}>{{image.name}}</a></li><br/>
-            <!-- <li class = "attch" ><a target="_blank" ng-href="{{image.source}}" download={{image.name}}>Link 1: http:thisislinkone.com</a></li><br/>
-            <li class = "attch" ><a target="_blank" ng-href="{{image.source}}" download={{image.name}}>Link 2: http:thisislinkone.com</a></li> -->
           </ul>
         </td>
       </tr>
@@ -110,10 +82,7 @@
           </ul>
         </td>
       </tr>
-
       </tbody>
     </table>
-
   </div>
-
 </div>
