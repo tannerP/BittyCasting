@@ -8,7 +8,7 @@ var ApplicantSchema = new Schema({
 	new : {type:Boolean, default:true},
 	favorited : {type:Boolean, default:false},
 	age : String,
-
+	message : {type:String, max:220},
 	gender : String,
 	email:{
 		type:String,
