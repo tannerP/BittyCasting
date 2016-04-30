@@ -35,6 +35,7 @@
                         <div class="div-table-col">Age</div>
                         <div class="div-table-col">{{page.roleData.age}}</div>
                     </div> -->
+                    
                 </div>
             </div>
             <!-- <audio ng-if="page.currFile" controls ngf-src="page.currFile"> -->
@@ -72,7 +73,14 @@
                             <div class = "form-group">
                                 <label>Gender</label>
                                 <input type = "tel" class = "custom-form" ng-model="page.appData.gender" maxlength="10">
-                            </div>                                            
+                            </div>     
+                            <div class = "form-group">
+                                <label>Message</label>
+                                <textarea  ng-model="roleAside.roleData.description"
+                                          ng-trim="1" rows="4"
+                                          class="custom-form-textarea"
+                                ></textarea>
+                            </div>   
                                   
                             <div class = "form-group" ng-repeat="rq in page.roleData.requirements">
 <!-- NEED STYLING -->       <label>{{rq.name}}</label>
