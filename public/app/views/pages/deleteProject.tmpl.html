@@ -1,11 +1,11 @@
 <div class="aside" tabindex="-1" role="dialog">
   <div class="asideBg">
-    <div class="asideTitle" ng-if="projectAside.delete">Delete project</div>
+    <div class="asideTitle" ng-if="projectAside.delete">Deleting project: <br><span>{{projectData.name}}</span></div>
 
-    <section>
+    <!-- <section>
       <div class="asideSubtitle">Name</div>
       <h3>{{projectData.name}}</h3>
-    </section>
+    </section> -->
 
     <section>
       <div class="checkbox-delete">
@@ -21,15 +21,16 @@
           You are about to delete this item. All information and files associated with the item will also be deleted.
         </p>
         <br>
-        <label>
-          There is no undo. This deletion is permanent.
-        </label>
       </div>
     </section>
 
     <button type="button" class="custom-btn-primary-large custom-btn-cancel" ng-click="$hide()">Cancel</button>
 
     <button type="submit" class="custom-btn-primary-large custom-btn-delete" ng-click="projectAside.delete(projectData._id)">Delete</button>
+
+    <label>
+      There is no undo. This deletion is permanent.
+    </label>
 
   </div>
 </div>

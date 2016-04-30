@@ -1,9 +1,11 @@
 <div class="aside" tabindex="-1" role="dialog">
   <div class="asideBg">
-    <div class="asideTitle">Delete Role</div>
+    <div class="asideTitle">Deletign role:
+      <span>{{roleData.name}}</span>
+    </div>
     <section>
-      <div class="asideSubtitle">Name</div>
-      <h3>{{roleData.name}}</h3>
+      <!-- <div class="asideSubtitle">Name</div> -->
+      <!-- <h3>{{roleData.name}}</h3> -->
     </section>
     <!--
             <section>
@@ -18,15 +20,16 @@
           You are about to delete this item. All information and files associated with the item will also be deleted.
         </p>
         <br>
-        <label>
-          There is no undo. This deletion is permanent.
-        </label>
       </div>
     </section>
     <button type="button" class="custom-btn-primary-large custom-btn-cancel" ng-click="$hide()">Cancel</button>
     <button type="submit" class="custom-btn-primary-large custom-btn-delete" ng-if="!roleAside.edit"
             ng-click="aside.delete(roleData._id)">Delete
     </button>
+    <br>
+    <label>
+          There is no undo. This deletion is permanent.
+    </label>
 
   </div>
 </div>
