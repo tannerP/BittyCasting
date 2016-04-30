@@ -142,14 +142,13 @@ console.log(req.params)*/
               error: err
             })  }
         else{
-          console.log(data);
           return  res.json({success:true,
               message: "Added new subppliment"
           });
-      }
-  return res.json({success:true, message:'updated'});
+        }
+      return res.json({success:true, message:'updated'});
     })
-    }); 
+  }); 
   }
   else{
   Applicant.findById(req.params.app_id,function(err,app)

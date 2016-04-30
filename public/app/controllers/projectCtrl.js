@@ -172,26 +172,22 @@ angular.module('projectCtrl', ['userService',
         placement: 'top-right', type: 'danger', show: false, type: 'success'
       });
       vm.delete = function (id) {
-        if (vm.input1 && vm.input2) {
-          console.log("delete button pressed")
-          Role.delete(id)
-            .success(function () {
-              vm.roleData = {};
-              if ($location.path().indexOf("/applicants") > -1) {
-                $window.history.back();
-              }
-              else {
-                $route.reload();
-              }
-              $scope.$hide()
-              //check if at project page, if not direct to project page.
+        Role.delete(id)
+          .success(function () {
+            vm.roleData = {};
+            if ($location.path().indexOf("/applicants") > -1) {
+              $window.history.back();
+            }
+            else {
+              $route.reload();
+            }
+            $scope.$hide()
+            //check if at project page, if not direct to project page.
 
-            })
-            .error(function (err) {
-              console.log(err.message);
-            })
-        }
-        else errAlert.toggle();
+          })
+          .error(function (err) {
+            console.log(err.message);
+          })
       }
     }])
 .controller('editRoleController',
@@ -644,7 +640,6 @@ angular.module('projectCtrl', ['userService',
       }
 
       vm.delete = function (projID) {
-        if (vm.input1 && vm.input2) {
           Project.delete(projID)
             .success(function () {
               $route.reload();
@@ -662,13 +657,5 @@ angular.module('projectCtrl', ['userService',
                 $scope.$hide();
               }
             })
-            .error(function (err) {
-              console.log(err);
-            }
-          )
-        }
-        else {
-          errAlert.toggle();
-        }
-      }
-    }]);
+          }
+}]);

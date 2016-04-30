@@ -4,7 +4,7 @@
 
     <section>
       <div class="asideSubtitle">Name</div>
-      <p>{{projectData.name}}</p>
+      <h3>{{projectData.name}}</h3>
     </section>
 
     <section>
@@ -16,13 +16,13 @@
           All roles associated with this project will be deleted.
         </label>
 -->
-        <label>
-          <input type="checkbox" ng-model=projectAside.input1><span></span>
+        <p>
           All applicants and their files associated with roles in this project will be deleted.
-        </label>
+          You are about to delete this item. All information and files associated with the item will also be deleted.
+        </p>
+        <br>
         <label>
-          <input type="checkbox" ng-model=projectAside.input2><span></span>
-          This action is irreversible.
+          There is no undo. This deletion is permanent.
         </label>
       </div>
     </section>
