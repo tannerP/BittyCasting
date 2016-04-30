@@ -82,7 +82,7 @@ angular.module('userService', [])
 	
 	appFactory.update = function(id,data)	{
 		console.log(id);
-		return $http.put('/app/'+id, data);	
+		return $http.put('/suppliment/'+id, data);	
 		}	 
 	appFactory.viewedUpdate = function(id)	{
 		var money = {};

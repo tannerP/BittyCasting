@@ -98,7 +98,7 @@
                                                 ngf-pattern="'application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/pdf,image/*,video/*'"
                                                 ngf-before-model-change= "page.errors = '' "
                                                 ngf-min-size="100"
-                                                ngf-max-size="500MB"
+                                                ngf-max-size="250MB"
                                                 ngf-model-invalid="page.errors"
                                                 ng-select="page.checkFile(page.files[$index])"
                                                 >
@@ -158,7 +158,7 @@
                             <td><input type="checkbox"></input></td>
                             </tbody>
                         </table>     -->
-                        <button type="submit" class="custom-btn-primary-large">Submit</button>
+                        <button type="submit" class="custom-btn-primary-large" ng-disabled="page.processing">Submit</button>
                         <p class="btn_paragraph">By clicking on “Submit”, I agree to BittyCasting’s <a href="/submission_agreement" target="_blank">submission agreement.</a></p>
                         <div class="poweredBy">
                             <p>Powered by<a href="/" target="_blank">
