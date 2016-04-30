@@ -1152,9 +1152,11 @@ ul.projects li {
     .table-applicants {       
         padding: 0 15px;
         
-        thead tr th:nth-child(1) {width: 30%; cursor: pointer;} //name
-        thead tr th:nth-child(2) {width: 35%;} //email
-        thead tr th:nth-child(3) {width: 35%;} //phone     
+        thead tr th:nth-child(1) {width: 10%; cursor: pointer;} //cover
+        thead tr th:nth-child(2) {width: 20%;} //name
+        thead tr th:nth-child(3) {width: 20%;} //favorite
+        thead tr th:nth-child(4) {width: 20%;} //email
+        thead tr th:nth-child(5) {width: 30%;} //phone
         .table-utl ul li {
             &:nth-child(1) {
                 background: url("/assets/imgs/ic_trash.svg") no-repeat center center white;
