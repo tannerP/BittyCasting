@@ -2,13 +2,6 @@
   <div class="asideBg">
     <div class="asideTitle" ng-if="projectAside.delete">Deleting project: <br><span>{{projectData.name}}</span></div>
 
-    <!-- <section>
-      <div class="asideSubtitle">Name</div>
-      <h3>{{projectData.name}}</h3>
-    </section> -->
-
-    <section>
-      <div class="checkbox-delete">
 <!--
         <label>
           <input type="checkbox" ng-model=projectAside.input1 ngChange="projectAside.eval()">
@@ -16,21 +9,11 @@
           All roles associated with this project will be deleted.
         </label>
 -->
-        <p>
-          All applicants and their files associated with roles in this project will be deleted.
-          You are about to delete this item. All information and files associated with the item will also be deleted.
-        </p>
-        <br>
-      </div>
-    </section>
+        <p>All applicants and their files associated with roles in this project will be deleted.This action is irreversible.</p>
 
     <button type="button" class="custom-btn-primary-large custom-btn-cancel" ng-click="$hide()">Cancel</button>
 
     <button type="submit" class="custom-btn-primary-large custom-btn-delete" ng-click="projectAside.delete(projectData._id)">Delete</button>
-
-    <label>
-      There is no undo. This deletion is permanent.
-    </label>
 
   </div>
 </div>
