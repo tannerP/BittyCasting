@@ -878,8 +878,6 @@ div.pageHeader {
   text-transform: uppercase;
   letter-spacing: 6px;
   padding: 40px 0; }
-  .pageTitle span {
-    float: left; }
 
 ul.projects, ul.applicants {
   list-style-type: none;
@@ -1867,6 +1865,8 @@ ul.select-coverphoto-wrapper {
 
 .pageHeader .pageHeader-review {
   margin-top: -63px; }
+  .pageHeader .pageHeader-review .pageTitle span {
+    float: left; }
   .pageHeader .pageHeader-review .custom-page-action ul li {
     padding-left: 38px; }
     .pageHeader .pageHeader-review .custom-page-action ul li:nth-child(1) {
@@ -2231,6 +2231,18 @@ ul.select-coverphoto-wrapper {
     padding: 0 0 60px 0; }
   .applyPage .applyPageRight {
     padding: 0; }
+
+  .pageHeader .pageHeader-review .pageTitle span {
+    float: none; }
+  .pageHeader .pageHeader-review .custom-page-action {
+    position: relative;
+    top: -25px;
+    right: auto;
+    left: -20px; }
+    .pageHeader .pageHeader-review .custom-page-action ul {
+      width: 360px;
+      margin-right: auto;
+      margin-left: auto; }
 
   .reviewHeader .reviewHeaderContent {
     padding-right: 70px;

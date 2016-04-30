@@ -959,10 +959,6 @@ div.pageHeader{
     text-transform: uppercase;
     letter-spacing: 6px;
     padding: 40px 0;
-    span {
-        float: left;
-        
-    }
 }
 
 ul.projects, ul.applicants{
@@ -1963,6 +1959,9 @@ text-align: center;
 .pageHeader{
     .pageHeader-review {
         margin-top: -63px;
+        .pageTitle span{
+            float: left;
+        }
         .custom-page-action {
             ul {
                 li{
@@ -2363,6 +2362,26 @@ text-align: center;
             padding: 0;
         }
     }
+    .pageHeader{
+        .pageHeader-review {
+            .pageTitle span{
+                float: none;
+            }
+            .custom-page-action {
+                position: relative;
+                top: -25px;
+                right: auto;
+                left: -20px;
+
+                ul {
+                    width: 360px;
+                    margin-right: auto;
+                    margin-left: auto;
+                }
+            }
+        
+        }
+    }    
     .reviewHeader {
         .reviewHeaderContent {
             padding-right: 70px;
@@ -2531,7 +2550,7 @@ text-align: center;
             }
         }
 
-    }
+    }  
     
     /***************************
             Landing page
