@@ -204,8 +204,8 @@ app.put('/app/:app_id', function(req,res){
       return res.json({success:true, message:'updated'});
       })
     }); 
+    })
   }
-
 });
 
   app.put('/suppliment/:app_id', function(req,res){
@@ -233,7 +233,7 @@ app.put('/app/:app_id', function(req,res){
   return res.json({success:true, message:'updated'});
     })
   }
-})
+  })
 });
 
 
@@ -267,9 +267,9 @@ app.get('/submit/:mail', function(req,res) {
             console.log(body);*/
         }
       })
-    }
-  })
-});
+    })
+/*  })
+});*/
 /* Authentication */
 app.route('/login')
 	.post(function(req, res){

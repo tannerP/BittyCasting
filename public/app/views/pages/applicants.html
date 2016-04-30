@@ -159,10 +159,11 @@
   <div review></div>
   <div class="reviewBar" ng-show="viewApp" style=" z-index:4;">
     <div class="previous" ng-click="page.lastApp()">Previous</div>
-    <input type="checkbox" ng-model="currApp.favorited" ng-change="page.updateFav(currApp)"></input>
+<!--    <input type="checkbox" ng-model="currApp.favorited" ng-change="page.updateFav(currApp)"></input>-->
     <div class="next" ng-click="page.nextApp()">Next</div>
   </div>
 
+<!--
   <div class="container">
     <div class="reviewComment col-md-6 col-md-offset-6" ng-controller="CommentBoxCtrl as box">
       <div class="makeComment">
@@ -174,19 +175,20 @@
           Comment
         </button>
       </div>
-      <!-- Comment Box -->
+      
       <div class="comments" ng-if="data" ng-repeat="data in currApp.comments track by $index">
         <div class="commentThumbnail">{{data.owner}}</div>
         <p>{{data.comment}}</p>
         <p class="timestamp">Posted on 5:34PM, Feb 8, 2016</p>
         <ul class="comments-action">
-          <!--                <li><a>Edit</a></li>-->
+                          <li><a>Edit</a></li>
           <li><a ng-click="box.deleteCmt(currApp._id,$index,data)">Delete</a></li>
         </ul>
       </div>
 
     </div>
   </div>
+-->
 </div>
 
 
