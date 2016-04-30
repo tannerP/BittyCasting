@@ -929,6 +929,17 @@ ul.projects li {
     -webkit-box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.1);
     -moz-box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.1);
     box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.1); }
+  .card .fav-applicant {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    z-index: 1;
+    width: 40px;
+    height: 20px;
+    padding-left: 25px;
+    color: white;
+    background: url("/assets/imgs/ic_fav_w_fill.svg") no-repeat left center;
+    background-size: 20px 20px; }
   .card .cardScrim {
     position: absolute;
     top: 0;
