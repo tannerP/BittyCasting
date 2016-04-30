@@ -9,7 +9,6 @@ angular.module('awsService', [])
 	var updateID; //has to be global function
 
     aws.uploadAppMedias = function(data,role,appID,bucket){ 
-      console.log('AppID ' + appID);
     //Note: ID is undefine.
         var uploadFiles = data;
             updateID = appID;
@@ -74,7 +73,7 @@ angular.module('awsService', [])
                         {   /*vm.busy = false;*/
                           /*return true;*/
                           //send event to main
-                          console.log("Finished uploading files")
+                          /*console.log("Finished uploading files")*/
                           $rootScope.$emit('app-media-submitted')
                         }
                       }

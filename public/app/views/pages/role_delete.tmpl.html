@@ -3,7 +3,7 @@
     <div class="asideTitle">Delete Role</div>
     <section>
       <div class="asideSubtitle">Name</div>
-      <p>{{roleData.name}}</p>
+      <h3>{{roleData.name}}</h3>
     </section>
     <!--
             <section>
@@ -12,12 +12,15 @@
             </section>
     -->
     <section>
-      <div class="checkbox-delete">
+    <div>
+        <p>
+          All applicants and their files associated will be deleted.
+          You are about to delete this item. All information and files associated with the item will also be deleted.
+        </p>
+        <br>
         <label>
-          <input type="checkbox" ng-model='aside.input1'>
-          <span></span> All applicants and their files associated with roles in this project will be deleted.</label>
-        <label>
-          <input type="checkbox" ng-model='aside.input2'><span></span> This action is irreversible.</label>
+          There is no undo. This deletion is permanent.
+        </label>
       </div>
     </section>
     <button type="button" class="custom-btn-primary-large custom-btn-cancel" ng-click="$hide()">Cancel</button>
