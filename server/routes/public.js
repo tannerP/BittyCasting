@@ -82,24 +82,18 @@ app.post('/applicant',function(req,res){
       }
       if(req.body.links){
         for(link in req.body.links){
-          /*console.log(req.body.links[link]);*/
-          /*var temp = ({"name":link.name,"source":link.source})*/
           applicant.links.push(req.body.links[link]);
         }
       /*applicant.links = req.body.links;*/
       }
-
-      /*console.log(applicant);*/
-      
-      applicant.save(function(err){
+      applicant.save(function(err,data){
         if(err){
           return  res.json({success:false,
               error: err})  }
         else{
-          Applicant.findOne({'email':req.body.email}, function(err, data){
+          /*Applicant.findOne({'email':req.body.email}, function(err, data){
           if(err) return  res.json({success:false,
-                error: err}) 
-          else{
+                error: err}) */
             //Find role and update applicants count
             Role.findById(req.body.roleID, function(err,role){
               /*console.log("Found Role when saving application");
@@ -108,25 +102,16 @@ app.post('/applicant',function(req,res){
                 ++role.new_apps;
                 ++role.total_apps;
                 console.log("Increased app counts");
-                role.save(function(err,data){
-                  return;
-                  /*if(err){
-                    return  res.json({success:false,
-                        error: err
-                      })  
-                  }
-                  else{
-                    return  res.json({success:true,
-                        appID: 
-                    })*/
-            })
-          }
-          /*return res.json({success:true, message:"Success"});*/
-      });
-          return  res.json({success:true,
-                        appID: data._id})
-  }
-})}})})
+                role.save(function(err){})
+              }
+            });
+            console.log("about to return app id:")
+            console.log(data._id);
+            return  res.json({success:true,
+                        appID: applicant._id})
+              }
+})})
+    /*})})*/
 app.put('/app/:app_id', function(req,res){
 console.log(req.body);
 console.log('Adding attachments to application.')
@@ -142,21 +127,23 @@ console.log(req.params)
           file_type: req.body.file_type
         });  
       
-      app.save(function(err){
+      app.save(function(err,data){
         if(err){
           return  res.json({success:false,
               error: err
             })  
         }
         else{
+          console.ll
           return  res.json({success:true,
-              message: "Added new subppliment"
+              message: "Added new subppliment",
+              applicant: data
           });
       }
   /*return res.json({success:true, message:'updated'});*/
-    })
-  }
-})});
+    })}
+  } 
+)});
 
 app.get('/submit/:mail', function(req,res) {
   console.log(req.params.mail);

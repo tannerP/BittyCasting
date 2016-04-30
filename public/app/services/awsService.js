@@ -145,11 +145,6 @@ angular.module('awsService', [])
                           file_type: file.type
                         };
                         callback(parsedData);
-                        //return data
-                        /*console.log(parsedData);
-                        deferred.resolve(parsedData);*/
-                        
-
                       } else {
                         reject(alert('Upload Failed, please resubmit your application.') );
                       }

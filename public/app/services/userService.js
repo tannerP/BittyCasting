@@ -83,7 +83,6 @@ angular.module('userService', [])
 	var appFactory={};	
 	
 	appFactory.update = function(id,data)	{
-		console.log(id);
 		return $http.put('/app/'+id, data);	
 		}	 
 	appFactory.delete = function(appID)	{
@@ -110,7 +109,6 @@ angular.module('userService', [])
 			_id:data._id,
 			state:"DELETE"
 		}
-		console.log(newData);
 		return $http.put('api/applicant/comments/'+id, newData);	
 		}
 	return appFactory;

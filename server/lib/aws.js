@@ -105,9 +105,9 @@ exports.removeCP = function (key) {
 exports.getS3Policy = function (req, res) {
     createS3Policy(req.query.mimeType, function (creds, err) {
         if (!err) {
-            return res.send(200, creds);
+            return res.status(200).send(creds);
         } else {
-            return res.send(500, err);
+            return res.status(200).send(err);
         }
     });
 };
