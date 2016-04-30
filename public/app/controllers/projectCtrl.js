@@ -130,6 +130,7 @@ angular.module('projectCtrl', ['userService',
 
       $scope.Twitter_text = "CASTING CALL: " + $scope.roleData.name 
                             + " " + $scope.roleData.short_url 
+                            + " " + "via" ;
                             + " " + "@BittyCasting " ;
 
                         
