@@ -20,8 +20,15 @@
                 <input type="checkbox" ng-model='aside.input2'><span></span> This action is irreversible.</label>
         </div>
     </section> -->
+
+    <p>
+      You are about to delete this item. All information and files associated with the item will also be deleted.
+    </p>
     <button type="button" class="custom-btn-primary-large custom-btn-cancel" ng-click="$hide()">Cancel</button>
     <button type="submit" class = "custom-btn-primary-large custom-btn-delete" ng-if="!roleAside.edit" ng-click="deleteAppBtn()">Delete</button>
-
+    <br>
+    <label>
+      There is no undo. This deletion is permanent.
+    </label>
   </div>
 </div>
