@@ -87,7 +87,6 @@ angular.module('applicantsCtrl', ['userService',
 
       for (var i = 0; i < sourceArr.length; i++) {
         var fType = sourceArr[i].file_type;
-        console.log(sourceArr[i].source);
         if (fType == "Link") {
           $scope.links.push(sourceArr[i]);
           /*addSlide(target, sourceArr[i]);*/

@@ -81,7 +81,6 @@ angular.module('applyCtrl',['userService','mgcrea.ngStrap']).
     vm.submit = function() {
       vm.processing = true; 
       vm.currfile; 
-
         for (i in vm.newLinks ){
           if(vm.newLinks[i]){
             var link = {};
@@ -93,7 +92,6 @@ angular.module('applyCtrl',['userService','mgcrea.ngStrap']).
             }
           }
         }
-
       Applicant.apply(vm.appData).then(function(resp){
         vm.processing = true;
         vm.applicantID = resp.data.appID;
