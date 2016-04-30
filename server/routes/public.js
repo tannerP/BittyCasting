@@ -150,7 +150,9 @@ app.put('/app/:app_id', function(req,res){
   else if(req.body.status="fav"){
     Applicant.findById(req.params.app_id,function(err,app){
       app.favorited = req.body.favorited;
-      app.favorite.userID = req.decoded.
+/*
+      app.favorite.userID = req.decoded.id;
+*/
       app.save(function(err,data){
         if(err){
           return  res.json({success:false,
