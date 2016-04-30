@@ -12,7 +12,6 @@ angular.module('applyCtrl',['userService','mgcrea.ngStrap']).
       vm.appData.links=[];
       vm.files=[];
 
-      
       $scope.submitted = false;
       /*TODO: condense when combine project and role schema*/
       Pub.getAppRole($routeParams.id).then(function(data){
@@ -72,15 +71,15 @@ angular.module('applyCtrl',['userService','mgcrea.ngStrap']).
       if (vm.appData.links.length > 1) {
         if (index === 0) vm.appData.links.shift();
         else vm.appData.links.splice(index, index);
-
       }
       else if (vm.appData.links.length == 1) {
         vm.appData.links = []
       }
     }
 
+    vm.processing = false;
     vm.submit = function() {
-      vm.busy = true; 
+      vm.processing = true; 
       vm.currfile; 
 
         for (i in vm.newLinks ){
@@ -96,6 +95,7 @@ angular.module('applyCtrl',['userService','mgcrea.ngStrap']).
         }
 
       Applicant.apply(vm.appData).then(function(resp){
+        vm.processing = true;
         vm.applicantID = resp.data.appID;
         vm.appData = "";
         if(vm.roleData){
@@ -105,7 +105,7 @@ angular.module('applyCtrl',['userService','mgcrea.ngStrap']).
           if(vm.files.length == 0)
           {
             $timeout(function(){
-              vm.busy = false;
+              vm.processing = false; 
               $location.path('/Thankyou');
             },1500)
 
@@ -114,7 +114,7 @@ angular.module('applyCtrl',['userService','mgcrea.ngStrap']).
             AWS.uploadAppMedias(vm.files, vm.roleData, vm.applicantID,
             $rootScope.awsConfig.bucket);
             $rootScope.$on("app-media-submitted", function(){
-              vm.busy =false;
+              vm.processing =false;
               $location.path('/Thankyou');
             })
           }

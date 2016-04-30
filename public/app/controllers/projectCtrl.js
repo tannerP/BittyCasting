@@ -172,7 +172,7 @@ angular.module('projectCtrl', ['userService',
   function (Role, $location, $routeParams, $route, $scope,$timeout) {
     var vm = this;
     vm.edit = true;
-    vm.processing = true;
+    vm.processing = false;
     vm.roleData = {};
     angular.copy($scope.roleData,vm.roleData)
     
@@ -188,8 +188,9 @@ angular.module('projectCtrl', ['userService',
     $scope.TAChange = function () {
       $scope.charRmnd = MAX_LENGTH - vm.roleData.description.length;
     }*/
-
+    vm.processing = false;
     vm.updateRole = function () {
+      vm.processing = true;
       vm.roleData.end_date = $scope.selectedDate;
       vm.roleData.updated_date = new Date();
       Role.update($routeParams.role_id, vm.roleData)
@@ -331,8 +332,9 @@ angular.module('projectCtrl', ['userService',
       }
 
     }
-    vm.processing = true;
+    vm.processing = false;
     vm.createRoleBtn = function () {
+    vm.processing = true;
       vm.projectID = $routeParams.project_id;
       vm.roleData.end_date = $scope.selectedDate.toJSON();
       /*vm.roleData.end_time = $scope.selectedTime.toJSON();*/
@@ -340,12 +342,10 @@ angular.module('projectCtrl', ['userService',
 
       Role.create(vm.projectID, vm.roleData)
         .success(function (data) {
-          console.log(data);
           vm.roleData = {};
           $route.reload();
           Prerender.cacheIt(data.role._id);   
           vm.processing = false;
-          
           $scope.$hide()
 
         })

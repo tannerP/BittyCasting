@@ -164,16 +164,7 @@ app.post('/applicant',function(req,res){
 })
 //route for adding new requirement. 
 app.put('/app/:app_id', function(req,res){
-<<<<<<< 93ce7580721d7cd775edb28e0c57051503270477
-<<<<<<< e556ab669210db12876e5c403b2c31636d07515f
-=======
-/*console.log(req.body);
-console.log('Adding attachments to application.')
-console.log(req.params)*/
-  /*console.log(req.body)*/
-=======
 
->>>>>>> added favoriting
   if(req.body.status === "new"){
     /*console.log(req.body);*/
     Applicant.findById(req.params.app_id,function(err,app){
@@ -195,10 +186,10 @@ console.log(req.params)*/
   else if(req.body.status="fav"){
     Applicant.findById(req.params.app_id,function(err,app){
       app.favorited = req.body.favorited;
-/*
       app.favorite.userID = req.decoded.id;
-*/
       app.save(function(err,data){
+/*      app.favorite.userID = req.decoded.id;
+*/      app.save(function(err,data){
         if(err){
           return  res.json({success:false,
               error: err
@@ -214,8 +205,10 @@ console.log(req.params)*/
       })
     }); 
   }
-  else{
->>>>>>> added temp fix for new applicant alert
+
+});
+
+  app.put('/suppliment/:app_id', function(req,res){
   Applicant.findById(req.params.app_id,function(err,app)
   {
     if(err) res.json({Error:true, error:err});
@@ -236,15 +229,13 @@ console.log(req.params)*/
           return  res.json({success:true,
                             message: "Added new subppliment"
           });
-<<<<<<< e556ab669210db12876e5c403b2c31636d07515f
-=======
       }
   return res.json({success:true, message:'updated'});
     })
   }
-}
-)}
+})
 });
+
 
 app.get('/submit/:mail', function(req,res) {
   console.log(req.params.mail);
@@ -274,7 +265,6 @@ app.get('/submit/:mail', function(req,res) {
           /*res.json(body);*/
           /*  res.render('submitted', { email : req.params.mail });
             console.log(body);*/
->>>>>>> added temp fix for new applicant alert
         }
       })
     }
