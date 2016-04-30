@@ -1626,9 +1626,12 @@ ul.select-coverphoto-wrapper {
   box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.1); }
   .projectDetails section {
     padding: 15px; }
+    .projectDetails section p {
+      white-space: pre-wrap; }
     .projectDetails section .projectDetailsTitle {
       text-transform: uppercase;
-      font-weight: 600; }
+      font-weight: 600;
+      margin-bottom: 10px; }
     .projectDetails section:nth-child(1) img {
       margin-top: -30px; }
     .projectDetails section ul {
@@ -1795,6 +1798,8 @@ ul.select-coverphoto-wrapper {
   display: table;
   width: 100%;
   font-size: 12px; }
+  .div-table p {
+    white-space: pre-wrap; }
   .div-table .div-table-row {
     display: table-row;
     width: auto;
