@@ -92,14 +92,12 @@ angular.module('applyCtrl',['userService','mgcrea.ngStrap']).
             }
           }
         }
+        console.log(vm.appData);
       Applicant.apply(vm.appData).then(function(resp){
         vm.processing = true;
         vm.applicantID = resp.data.appID;
         vm.appData = "";
         if(vm.roleData){
-          /*console.log("role data" + vm.roleData);
-          console.log("file length" + vm.files.length);*/
-          /*console.log(vm.applicantID);*/
           if(vm.files.length == 0)
           {
             $timeout(function(){
@@ -117,7 +115,6 @@ angular.module('applyCtrl',['userService','mgcrea.ngStrap']).
             })
           }
         }
-
       })
     }
     }]);

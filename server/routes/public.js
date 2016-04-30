@@ -110,32 +110,42 @@ app.get('/applicationPrj/:project_id', function(req,res){
 
 app.post('/applicant',function(req,res){
   var applicant = new Applicant();
-
-  applicant.projectID = req.body.projectID;
-  applicant.roleID = req.body.roleID;
-  
-  if(req.body.name){ 
-    if(req.body.name.first){
-    applicant.name.first = req.body.name.first;
-    }
-    if(req.body.name.last){
-    applicant.name.last = req.body.name.last;
-    }
-  }
-  if(req.body.email){
-    applicant.email = req.body.email;   
-  }
-  if(req.body.phone){
-    applicant.phone = req.body.phone;
-  }
-  if(req.body.gender){
-    applicant.gender = req.body.gender;
-  }
-  if(req.body.links){
-    for(link in req.body.links){
-      applicant.links.push(req.body.links[link]);
-    }
-  }
+      })*/
+      if(req.body.name){ 
+        if(req.body.name.first){
+        applicant.name.first = req.body.name.first;
+        }
+        if(req.body.name.last){
+        applicant.name.last = req.body.name.last;
+        }
+      }
+      else{
+        res.json({success:false,
+              message: "Error: No user name"}) 
+      }
+      if(req.body.email){
+        applicant.email = req.body.email;   
+      }
+      if(req.body.phone){
+        applicant.phone = req.body.phone;
+      }
+      /*if(req.body.age){
+      applicant.age = req.body.age;
+      }*/
+      if(req.body.gender){
+        applicant.gender = req.body.gender;
+      }
+      if(req.body.message){
+        applicant.message = req.body.message;
+      }
+      if(req.body.links){
+        for(link in req.body.links){
+          /*console.log(req.body.links[link]);*/
+          /*var temp = ({"name":link.name,"source":link.source})*/
+          applicant.links.push(req.body.links[link]);
+        }
+      /*applicant.links = req.body.links;*/
+      }
 
   applicant.save(function(err){
     if(err){
