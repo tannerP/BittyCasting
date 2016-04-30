@@ -128,10 +128,7 @@ app.post('/applicant',function(req,res){
   }
 })}})})
 app.put('/app/:app_id', function(req,res){
-/*console.log(req.body);
-console.log('Adding attachments to application.')
-console.log(req.params)*/
-  /*console.log(req.body)*/
+
   if(req.body.status === "new"){
     /*console.log(req.body);*/
     Applicant.findById(req.params.app_id,function(err,app){
@@ -143,12 +140,32 @@ console.log(req.params)*/
             })  }
         else{
           return  res.json({success:true,
-              message: "Added new subppliment"
+              message: "Updated Role new attr"
           });
         }
       return res.json({success:true, message:'updated'});
-    })
-  }); 
+      })
+    }); 
+  }
+  else if(req.body.status="fav"){
+    Applicant.findById(req.params.app_id,function(err,app){
+      app.favorited = req.body.favorited;
+      app.favorite.userID = req.decoded.
+      app.save(function(err,data){
+        if(err){
+          return  res.json({success:false,
+              error: err
+            })  }
+        else{
+          console.log("Success updating favorited");
+          console.log(data);
+          return  res.json({success:true,
+              message: "Updated Role fav. attr"
+          });
+        }
+      return res.json({success:true, message:'updated'});
+      })
+    }); 
   }
   else{
   Applicant.findById(req.params.app_id,function(err,app)

@@ -258,4 +258,9 @@ angular.module('applicantsCtrl', ['userService',
         vm.viewBtn($scope.currIndex)
       }
     }
+    vm.updateFav = function(aplnt){
+      console.log(aplnt);
+      //update
+      Applicant.favUpdate(aplnt);
+    }
   })
