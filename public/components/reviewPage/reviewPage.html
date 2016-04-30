@@ -9,8 +9,20 @@
 
 <div class="container">
 
-  <div class='pageTitle'>{{currApp.name.first}} {{currApp.name.last}}</div>
-
+    <div class="pageHeader">
+        <div class="pageHeader-review">
+            <div class='pageTitle'><span>{{currApp.name.first}} {{currApp.name.last}}</span></div>
+            <div class="custom-page-action" style="z-index: 4;">
+                <ul>
+                    <li class="custom-btn-secondary-small" ng-click="">Favorite</li>
+<!--                    <input type="checkbox" ng-model="currApp.favorited" ng-change="page.updateFav(currApp)"></input>-->
+                    <li class="custom-btn-secondary-small" ng-click="">E-mail</li>
+                    <li class="custom-btn-secondary-small" ng-click="">Delete</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
   <div class="reviewCarousel">
     <div class="reviewCarouselImg">
       <ul rn-carousel rn-carousel-control-allow-loop rn-carousel-controls rn-carousel-transition="fadeAndSlide"
@@ -41,6 +53,7 @@
     -->
   </div>
 
+  <div class="clear"></div>
 
   <div class="reviewInfo col-md-6">
 
@@ -110,10 +123,45 @@
           </ul>
         </td>
       </tr>
+          
+      <tr>
+        <td>Message</td>
+          <td>
+              <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.</p>
+              <p>Lorem ipsum: dolor sit amet</p>
+              <p>Lorem ipsum: Donec quam feli</p>
+              <p>Lorem ipsum: is natoque penatibus et ma</p>
+          
+          </td>
+      </tr>
 
       </tbody>
     </table>
 
+  </div>
+      
+  <div class="reviewComment col-md-6" ng-controller="CommentBoxCtrl as box">
+      <div class="makeComment">
+        <div class="commentThumbnail">{{main.usrInitial}}</div>
+        <div class="commentHeading">Add a comment</div>
+        <textarea class="custom-form-textarea" rows="5" cols="40" type="text" name="comment"
+                  ng-model="box.newComment"></textarea>
+        <button class="custom-btn-secondary-small" ng-click="box.addCmt(currApp._id, main.usrInitial, box.newComment)">
+          Comment
+        </button>
+      </div>
+      <!-- Comment Box -->
+      <div class="comments" ng-if="data" ng-repeat="data in currApp.comments track by $index">
+        <div class="commentThumbnail">{{data.owner}}</div>
+        <p>{{data.comment}}</p>
+        <p class="timestamp">Posted on 5:34PM, Feb 8, 2016</p>
+        <ul class="comments-action">
+          <!--                <li><a>Edit</a></li>-->
+          <li><a ng-click="box.deleteCmt(currApp._id,$index,data)">Delete</a></li>
+        </ul>
+      </div>
+    </div>
+      
   </div>
 
 </div>

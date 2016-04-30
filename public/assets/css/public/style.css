@@ -878,6 +878,8 @@ div.pageHeader {
   text-transform: uppercase;
   letter-spacing: 6px;
   padding: 40px 0; }
+  .pageTitle span {
+    float: left; }
 
 ul.projects, ul.applicants {
   list-style-type: none;
@@ -1626,9 +1628,12 @@ ul.select-coverphoto-wrapper {
   box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.1); }
   .projectDetails section {
     padding: 15px; }
+    .projectDetails section p {
+      white-space: pre-wrap; }
     .projectDetails section .projectDetailsTitle {
       text-transform: uppercase;
-      font-weight: 600; }
+      font-weight: 600;
+      margin-bottom: 10px; }
     .projectDetails section:nth-child(1) img {
       margin-top: -30px; }
     .projectDetails section ul {
@@ -1795,6 +1800,8 @@ ul.select-coverphoto-wrapper {
   display: table;
   width: 100%;
   font-size: 12px; }
+  .div-table p {
+    white-space: pre-wrap; }
   .div-table .div-table-row {
     display: table-row;
     width: auto;
@@ -1858,8 +1865,25 @@ ul.select-coverphoto-wrapper {
       /* Safari */
       transform: rotate(180deg); }
 
+.pageHeader .pageHeader-review {
+  margin-top: -63px; }
+  .pageHeader .pageHeader-review .custom-page-action ul li {
+    padding-left: 38px; }
+    .pageHeader .pageHeader-review .custom-page-action ul li:nth-child(1) {
+      background: url("/assets/imgs/ic_fav_w.svg") no-repeat left 15px center;
+      background-size: 16px 16px;
+      background-color: #666666; }
+    .pageHeader .pageHeader-review .custom-page-action ul li:nth-child(2) {
+      background: url("/assets/imgs/ic_email_w.svg") no-repeat left 15px center;
+      background-size: 16px 16px;
+      background-color: #666666; }
+    .pageHeader .pageHeader-review .custom-page-action ul li:nth-child(3) {
+      background: url("/assets/imgs/ic_trash_w.svg") no-repeat left 15px center;
+      background-size: 16px 16px;
+      background-color: #666666; }
+
 .reviewCarousel {
-  padding: 0 15px 30px 0;
+  padding: 0 0 30px 0;
   position: relative; }
   .reviewCarousel .reviewCarouselImg {
     background-color: #242424; }
@@ -1925,7 +1949,7 @@ ul.select-coverphoto-wrapper {
     font-size: 12px;
     width: 100%; }
     .reviewInfo table tbody tr td {
-      vertical-align: middle;
+      vertical-align: text-top;
       height: 32px; }
       .reviewInfo table tbody tr td:nth-child(1) {
         width: 30%; }
@@ -1946,7 +1970,6 @@ ul.select-coverphoto-wrapper {
           content: ""; }
 
 .reviewComment {
-  margin-top: -297px;
   padding-bottom: 100px; }
   .reviewComment .makeComment {
     margin-bottom: 72px;
