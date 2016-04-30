@@ -1008,6 +1008,19 @@ ul.projects li {
         @include box-shadow(0px, 2px, 2px, 0px, rgba(0,0,0,0.1));
     }
     
+    .fav-applicant {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        z-index: 1;
+        width: 40px;
+        height: 20px;
+        padding-left: 25px;
+        color: white;
+        background: url("/assets/imgs/ic_fav_w_fill.svg") no-repeat left center;
+        background-size: 20px 20px;
+    }
+    
     .cardScrim {
         position: absolute;
         top: 0;
@@ -1152,9 +1165,11 @@ ul.projects li {
     .table-applicants {       
         padding: 0 15px;
         
-        thead tr th:nth-child(1) {width: 30%; cursor: pointer;} //name
-        thead tr th:nth-child(2) {width: 35%;} //email
-        thead tr th:nth-child(3) {width: 35%;} //phone     
+        thead tr th:nth-child(1) {width: 10%; cursor: pointer;} //cover
+        thead tr th:nth-child(2) {width: 20%;} //name
+        thead tr th:nth-child(3) {width: 20%;} //favorite
+        thead tr th:nth-child(4) {width: 20%;} //email
+        thead tr th:nth-child(5) {width: 30%;} //phone
         .table-utl ul li {
             &:nth-child(1) {
                 background: url("/assets/imgs/ic_trash.svg") no-repeat center center white;
