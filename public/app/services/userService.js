@@ -90,8 +90,13 @@ angular.module('userService', [])
 		money.new = false;
 		return $http.put('/app/'+id, money);	
 		}	 
+	appFactory.favUpdate = function(app)	{
+		var money = {};
+		money.status = "fav"
+		money.favorited = app.favorited;
+		return $http.put('/app/'+app._id, money);	
+		}	 
 	appFactory.delete = function(appID)	{
-		console.log(appID);
 		return $http.delete('api/applicant/'+ appID);
 	}	 
 	appFactory.apply = function(data)	{

@@ -142,11 +142,7 @@ angular.module('applicantsCtrl', ['userService',
           for(var i in vm.applicants){
             if(vm.applicants[i].suppliments.length > 0){
               for(var j in  vm.applicants[i].suppliments)
-<<<<<<< e556ab669210db12876e5c403b2c31636d07515f
-              { 
-=======
               {
->>>>>>> added temp fix for new applicant alert
                 //check for headshot labeling
                 if(angular.equals(vm.applicants[i].suppliments[j].name, "Headshot") ||
                 angular.equals(vm.applicants[i].suppliments[j].name, "headshot")  )
@@ -260,5 +256,10 @@ angular.module('applicantsCtrl', ['userService',
         $scope.currIndex -= 1;
         vm.viewBtn($scope.currIndex)
       }
+    }
+    vm.updateFav = function(aplnt){
+      console.log(aplnt);
+      //update
+      Applicant.favUpdate(aplnt);
     }
   })
