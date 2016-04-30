@@ -12,16 +12,24 @@
     <div class="pageHeader">
         <div class="pageHeader-review">
             <div class='pageTitle'><span>{{currApp.name.first}} {{currApp.name.last}}</span></div>
-            <div class="custom-page-action" style="z-index: 4;">
-                <ul>
-                    <li class="custom-btn-secondary-small" ng-click="">Favorite</li>
-<!--                    <input type="checkbox" ng-model="currApp.favorited" ng-change="page.updateFav(currApp)"></input>-->
-                    <li class="custom-btn-secondary-small" ng-click="">E-mail</li>
-                    <li class="custom-btn-secondary-small" ng-click="">Delete</li>
-                </ul>
+               
+            <div class="center-by-table-wrapper">
+                <div class="center-by-table">
+                    <div class="custom-page-action">
+                        <ul>
+                            <li class="custom-btn-secondary-small" ng-click="">Favorite</li>
+        <!--                    <input type="checkbox" ng-model="currApp.favorited" ng-change="page.updateFav(currApp)"></input>-->
+                            <li class="custom-btn-secondary-small" ng-click="">E-mail</li>
+                            <li class="custom-btn-secondary-small" ng-click="">Delete</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
+            
         </div>
     </div>
+    
+    <div class="clear"></div>
     
   <div class="reviewCarousel">
     <div class="reviewCarouselImg">
