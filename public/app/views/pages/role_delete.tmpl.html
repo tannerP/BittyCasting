@@ -3,33 +3,13 @@
     <div class="asideTitle">Deletign role:
       <span>{{roleData.name}}</span>
     </div>
-    <section>
-      <!-- <div class="asideSubtitle">Name</div> -->
-      <!-- <h3>{{roleData.name}}</h3> -->
-    </section>
-    <!--
-            <section>
-                <div class="asideSubtitle">Description</div>
-                <p>{{prjDetailCtr.roleData.details}}</p>
-            </section>
-    -->
-    <section>
-    <div>
-        <p>
-          All applicants and their files associated will be deleted.
-          You are about to delete this item. All information and files associated with the item will also be deleted.
-        </p>
-        <br>
-      </div>
-    </section>
+
+    <p>All applicants and their files associated will be deleted. This action is irreversible.</p>
+
     <button type="button" class="custom-btn-primary-large custom-btn-cancel" ng-click="$hide()">Cancel</button>
     <button type="submit" class="custom-btn-primary-large custom-btn-delete" ng-if="!roleAside.edit"
             ng-click="aside.delete(roleData._id)">Delete
     </button>
-    <br>
-    <label>
-          There is no undo. This deletion is permanent.
-    </label>
 
   </div>
 </div>
