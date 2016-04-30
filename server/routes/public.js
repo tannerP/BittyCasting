@@ -170,15 +170,14 @@ app.put('/app/:app_id', function(req,res){
     Applicant.findById(req.params.app_id,function(err,app){
       app.new = false
       app.save(function(err,data){
-        if(err){
-          return  res.json({success:false,
-              error: err
-            })  }
-        else{
-          return  res.json({success:true,
-              message: "Updated Role new attr"
-          });
-        }
+    if(err){
+      return  res.json({success:false,
+          error: err});
+            }
+    else{
+      return  res.json({success:true,
+          message: "Updated Role new attr"});
+      }
       return res.json({success:true, message:'updated'});
       })
     }); 
@@ -186,10 +185,13 @@ app.put('/app/:app_id', function(req,res){
   else if(req.body.status="fav"){
     Applicant.findById(req.params.app_id,function(err,app){
       app.favorited = req.body.favorited;
+/*
+>>>>>>> Resolved merge conflict
       app.favorite.userID = req.decoded.id;
       app.save(function(err,data){
+<<<<<<< 7daaaefa91cdf0696e1bcd0774631da7b21bd78e
 /*      app.favorite.userID = req.decoded.id;
-*/      app.save(function(err,data){
+*/     app.save(function(err,data){
         if(err){
           return  res.json({success:false,
               error: err
@@ -204,9 +206,9 @@ app.put('/app/:app_id', function(req,res){
       return res.json({success:true, message:'updated'});
       })
     }); 
-    })
-  }
-});
+    }
+  });
+
 
   app.put('/suppliment/:app_id', function(req,res){
   Applicant.findById(req.params.app_id,function(err,app)
