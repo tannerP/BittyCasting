@@ -150,8 +150,8 @@ app.put('/app/:app_id', function(req,res){
   else if(req.body.status="fav"){
     Applicant.findById(req.params.app_id,function(err,app){
       app.favorited = req.body.favorited;
-      app.favorite.userID = req.decoded.
-      app.save(function(err,data){
+/*      app.favorite.userID = req.decoded.id;
+*/      app.save(function(err,data){
         if(err){
           return  res.json({success:false,
               error: err
@@ -167,7 +167,9 @@ app.put('/app/:app_id', function(req,res){
       })
     }); 
   }
-  else{
+});
+
+  app.put('/suppliment/:app_id', function(req,res){
   Applicant.findById(req.params.app_id,function(err,app)
   {
     if(err) res.json({Error:true, error:err});
@@ -193,9 +195,9 @@ app.put('/app/:app_id', function(req,res){
   return res.json({success:true, message:'updated'});
     })
   }
-}
-)}
+})
 });
+
 
 app.get('/submit/:mail', function(req,res) {
   console.log(req.params.mail);

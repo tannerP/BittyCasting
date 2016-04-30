@@ -125,10 +125,10 @@
         </table>
 
       <!-- <button ng-if="!roleAside.edit" type="submit" class="custom-btn-primary-large" ng-submit=".createRoleBtn()">Create role</button> -->
-      <button ng-if="!roleAside.edit" type="submit" id="submit" value="Create role" class="custom-btn-primary-large">
+      <button ng-if="!roleAside.edit" type="submit" id="submit" value="Create role" class="custom-btn-primary-large" ng-disabled="roleAside.processing">
         Create role
       </button>
-      <button ng-if="roleAside.edit" type="submit" class="custom-btn-primary-large" ng-click="roleAside.updateRole()">
+      <button ng-if="roleAside.edit" type="submit" class="custom-btn-primary-large" ng-click="roleAside.updateRole()" ng-disabled="roleAside.processing">
         Save
       </button>
       <span ng-if="roleAside.processing" class="spinner"><span class="glyphicon glypicon-repeat"></span></span>
