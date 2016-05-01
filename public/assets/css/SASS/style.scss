@@ -1136,9 +1136,10 @@ ul.projects li {
     .table-project-overview {       
         padding: 0 15px;
         
-        thead tr th:nth-child(1) {width: 20%; cursor: pointer;} //name
-        thead tr th:nth-child(2) {width: 60%;} //details
-        thead tr th:nth-child(3) {width: 20%;} //date      
+        thead tr th:nth-child(1) {width: 20%; cursor: pointer;} //cover
+        thead tr th:nth-child(2) {width: 30%; cursor: pointer;} //name
+        thead tr th:nth-child(3) {width: 30%;} //details
+        thead tr th:nth-child(4) {width: 20%;} //date      
         .table-utl ul li {
             &:nth-child(1) {
                 background: url("/assets/imgs/ic_trash.svg") no-repeat center center white;
@@ -1165,7 +1166,7 @@ ul.projects li {
     .table-applicants {       
         padding: 0 15px;
         
-        thead tr th:nth-child(1) {width: 10%; cursor: pointer;} //cover
+        thead tr th:nth-child(1) {width: 10%; cursor: pointer;} //headshot
         thead tr th:nth-child(2) {width: 20%;} //name
         thead tr th:nth-child(3) {width: 20%;} //favorite
         thead tr th:nth-child(4) {width: 20%;} //email
