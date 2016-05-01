@@ -50,7 +50,7 @@ angular.module('ProjectView',['userService',
         show: false,
         static: false,
         backdrop:"static",
-        controller: 'addRoleController',
+        controller: 'newRoleController',
         controllerAs: 'roleAside',
         templateUrl: '/app/views/pages/role_form.tmpl.html'
       }),
@@ -111,8 +111,8 @@ angular.module('ProjectView',['userService',
       vm.roleData = {};
       newRoleAside.$promise.then(newRoleAside.toggle);
     }
-    vm.editPrjBtn = function () {
-      vm.roleData = {};
+    vm.editPrjBtn = function (project) {
+      $scope.project = project;
       editPrjAside.$promise.then(editPrjAside.toggle);
     }
     vm.deletePrjBtn = function (data) {
@@ -128,8 +128,6 @@ angular.module('ProjectView',['userService',
       $location.path('/home');
     }
 
-    //remove, get data from parent scope
-    console.log(this.project)
     
 
     $scope.load = function () {

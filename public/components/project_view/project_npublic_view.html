@@ -3,7 +3,7 @@
     <div class="custom-back" ng-click="vm.back()" style="z-index: 4;"></div>
     <div class="custom-page-action" style="z-index: 4;">
       <ul>
-        <li class="custom-btn-secondary-small" ng-click="vm.editPrjBtn()">Edit</li>
+        <li class="custom-btn-secondary-small" ng-click="vm.editPrjBtn(vm.project)">Edit</li>
         <li class="custom-btn-secondary-small" ng-click="vm.deletePrjBtn(vm.project)">Delete</li>
         <!-- <li class="custom-btn-secondary-small" ng-click="togView()">toggle</li> -->
         <li class="custom-btn-secondary-small" ng-click="vm.sharePrjBtn(vm.project)">Share</li>
@@ -12,7 +12,7 @@
       <!-- {{page}} -->
     </div>
     <div class='pageTitle pageTitleMobileOffset col-md-4 col-md-offset-4'
-    data-ng-bind="vm.project.name">{{vm}}</div>
+    data-ng-bind="vm.project.name">{{vm.project.name}}</div>
     <div class="clear"></div>
     <div class="projectDetails col-md-12">
       <section class="col-md-3">

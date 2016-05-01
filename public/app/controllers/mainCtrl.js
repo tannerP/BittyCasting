@@ -13,13 +13,6 @@ angular.module('mainCtrl', ['authService','mgcrea.ngStrap'])
 		vm.footer = true;
 		vm.nav = true;
 		vm.navCollapsed = true;
-		$scope.coverPhotos = [
-		'assets/imgs/img_projectCover01.png',
-		'assets/imgs/img_projectCover02.png',
-		'assets/imgs/img_projectCover03.png',
-		'assets/imgs/img_projectCover04.png',
-		'assets/imgs/img_projectCover05.png'
-		];
 
 		vm.loggedIn = Auth.isLoggedIn(),
 		

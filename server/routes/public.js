@@ -136,10 +136,6 @@ app.post('/applicant',function(req,res){
       }
       if(req.body.message){
         applicant.message = req.body.message;
-<<<<<<< HEAD
-=======
-        console.log(applicant.message);
->>>>>>> 049fbd9733f17edccd57d3f82d14344c4a37b1b6
       }
       if(req.body.links){
         for(link in req.body.links){
@@ -213,95 +209,42 @@ app.put('/app/:app_id', function(req,res){
           console.log("Success updating favorited");
           console.log(data);
           return  res.json({success:true,
-<<<<<<< HEAD
-              message: "Updated Role fav. attr"
-=======
-                        appID: data._id})
-  }
-})}})})
-app.put('/app/:app_id', function(req,res){
 
-  if(req.body.status === "new"){
-    /*console.log(req.body);*/
-    Applicant.findById(req.params.app_id,function(err,app){
-      app.new = false
-      app.save(function(err,data){
-        if(err){
-          return  res.json({success:false,
-              error: err
-            })  }
-        else{
-          return  res.json({success:true,
-              message: "Updated Role new attr"
->>>>>>> 049fbd9733f17edccd57d3f82d14344c4a37b1b6
-          });
-        }
-      return res.json({success:true, message:'updated'});
-      })
-    }); 
-<<<<<<< HEAD
-    }
-  });
-
-=======
-  }
-  else if(req.body.status="fav"){
-    Applicant.findById(req.params.app_id,function(err,app){
-      app.favorited = req.body.favorited;
-
-/*
-      app.favorite.userID = req.decoded.id;
-*/
-      app.save(function(err,data){
-        if(err){
-          return  res.json({success:false,
-              error: err
-            })  }
-        else{
-          console.log("Success updating favorited");
-          console.log(data);
-          return  res.json({success:true,
-              message: "Updated Role fav. attr"
           });
         }
       return res.json({success:true, message:'updated'});
       })
     }); 
   }
-});
->>>>>>> 049fbd9733f17edccd57d3f82d14344c4a37b1b6
+})
 
   app.put('/suppliment/:app_id', function(req,res){
-  Applicant.findById(req.params.app_id,function(err,app)
-  {
-    if(err) res.json({Error:true, error:err});
-    if(app){
-      app.suppliments.push({
-          source:req.body.location,
-          name: req.body.name,
-          key: req.body.key,
-          file_type: req.body.file_type
-        });    
-      app.save(function(err){
-        if(err){
-          return  res.json({success:false,
-                              error: err
-            })  
+    Applicant.findById(req.params.app_id,function(err,app)
+    {
+      if(err) res.json({Error:true, error:err});
+      if(app){
+        app.suppliments.push({
+            source:req.body.location,
+            name: req.body.name,
+            key: req.body.key,
+            file_type: req.body.file_type
+          });    
+        app.save(function(err){
+          if(err){
+            return  res.json({success:false,
+                                error: err
+              })  
+          }
+          else{
+            return  res.json({success:true,
+                              message: "Added new subppliment"
+            });
         }
-        else{
-          return  res.json({success:true,
-                            message: "Added new subppliment"
-          });
-      }
-  return res.json({success:true, message:'updated'});
-    })
-  }
-<<<<<<< HEAD
-  })
-=======
+    return res.json({success:true, message:'updated'});
+      })
+    }
+  });
 })
->>>>>>> 049fbd9733f17edccd57d3f82d14344c4a37b1b6
-});
 
 
 app.get('/submit/:mail', function(req,res) {
@@ -334,7 +277,7 @@ app.get('/submit/:mail', function(req,res) {
             console.log(body);*/
         }
       })
-    })
+  })
 /*  })
 });*/
 /* Authentication */

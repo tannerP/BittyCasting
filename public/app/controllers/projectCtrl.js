@@ -63,7 +63,8 @@ angular.module('projectCtrl', ['userService',
       vm.roleData = {};
       newRoleAside.$promise.then(newRoleAside.toggle);
     }
-    vm.editPrjBtn = function () {
+    vm.editPrjBtn = function (project) {
+      console.log(project)
       vm.roleData = {};
       editPrjAside.$promise.then(editPrjAside.toggle);
     }
@@ -143,11 +144,7 @@ angular.module('projectCtrl', ['userService',
 
       $scope.Twitter_text = "CASTING CALL: " + $scope.roleData.name 
                             + " " + $scope.roleData.short_url 
-<<<<<<< HEAD
-                            + " " + "via "
-=======
                             + " " + "via " ;
->>>>>>> 049fbd9733f17edccd57d3f82d14344c4a37b1b6
                             + " " + "@BittyCasting " ;
 
                         
@@ -276,13 +273,9 @@ angular.module('projectCtrl', ['userService',
     }*/
     vm.processing = false;
     vm.updateRole = function () {
-<<<<<<< HEAD
       if(vm.newData.name){
         vm.addReqt(vm.newData);
       }
-
-=======
->>>>>>> 049fbd9733f17edccd57d3f82d14344c4a37b1b6
       vm.processing = true;
       vm.roleData.end_date = $scope.selectedDate;
       vm.roleData.updated_date = new Date();
@@ -302,19 +295,6 @@ angular.module('projectCtrl', ['userService',
           console.log(err.message);
         })
     }
-/*    $scope.status = {
-      isopen: false
-    };
-
-    $scope.toggled = function (open) {
-      $log.log('Dropdown is now: ', open);
-    };*/
-
-    /*$scope.toggleDropdown = function ($event) {
-      $event.preventDefault();
-      $event.stopPropagation();
-      $scope.status.isopen = !$scope.status.isopen;
-    };*/
 
     vm.newData={};
     vm.newData.format = "Attachment";
@@ -380,22 +360,6 @@ angular.module('projectCtrl', ['userService',
       vm.newData.name = "",
       vm.newData.required = true,
       vm.newData.format = "Attachment";
-
-    /*$scope.selectedDate = new Date();*/
-
-    /*$scope.status = {
-      isopen: false
-    };
-
-    $scope.toggled = function (open) {
-      $log.log('Dropdown is now: ', open);
-    };
-
-    $scope.toggleDropdown = function ($event) {
-      $event.preventDefault();
-      $event.stopPropagation();
-      $scope.status.isopen = !$scope.status.isopen;
-    };*/
 
     vm.addReqt = function (data) {
       if (!data) {
@@ -523,6 +487,13 @@ angular.module('projectCtrl', ['userService',
     function (Project, $location, $route, $rootScope, $scope, Upload, AWS) {
     var DEFAULT_COVERPHOTO = "/assets/imgs/img_projectCover01.png";
     var vm = this;
+    vm.coverphotos = [
+    'assets/imgs/img_projectCover01.png',
+    'assets/imgs/img_projectCover02.png',
+    'assets/imgs/img_projectCover03.png',
+    'assets/imgs/img_projectCover04.png',
+    'assets/imgs/img_projectCover05.png'
+    ];
     vm.NEW = true;
     vm.CPStyling = "select-coverphoto";
     vm.CPStylingSelected = "select-coverphoto-selected";
@@ -602,15 +573,21 @@ angular.module('projectCtrl', ['userService',
     var vm = this;
     var DEFAULT_COVERPHOTO = "/assets/imgs/img_projectCover01.png";
     $scope.aside= {};
-    $scope.aside.projectData= {};
-    angular.copy($scope.projectData,$scope.aside.projectData);
-    
+    vm.projectData= {};
+    angular.copy($scope.project,vm.projectData)
+    vm.coverphotos = [
+    'assets/imgs/img_projectCover01.png',
+    'assets/imgs/img_projectCover02.png',
+    'assets/imgs/img_projectCover03.png',
+    'assets/imgs/img_projectCover04.png',
+    'assets/imgs/img_projectCover05.png'
+    ];
+    /*angular.copy($scope.projectData,$scope.projectData);*/
     //TODO: remove. Using angular-elastic 
     /*if($scope.aside.projectData.description){
       vm.D_Row = $scope.aside.projectData.description.length/60;
       vm.D_Row = Math.round(vm.D_Row);
     }*/
-    
     vm.CP_cust;
     vm.CP_default;
     vm.NEW = false;
@@ -625,9 +602,8 @@ angular.module('projectCtrl', ['userService',
     var init = function(){
       //check if coverphot.name == default
       if(vm.NEW) select(DEFAULT_COVERPHOTO);
-
       }();
-    var select =  function(id){
+    var changeClass =  function(id){
       angular.element( document.querySelector("."+vm.CPStylingSelected))
       .removeClass(vm.CPStylingSelected)
       var myEl = angular.element( document.querySelector(id));
@@ -644,7 +620,7 @@ angular.module('projectCtrl', ['userService',
 
     vm.selectCustCP = function(){
       var id = "#cust-cp";
-      select(id);
+      changeClass(id);
       vm.CP_default = null;
     }
 
@@ -659,16 +635,16 @@ angular.module('projectCtrl', ['userService',
       vm.processing = true;
       var pj = data;
 
-      $scope.aside.projectData.updated_date = new Date();
+      vm.projectData.updated_date = new Date();
 
       //TODO: check if 
       if(vm.CP_default || !$scope.aside.projectData.coverphoto){ 
-        $scope.aside.projectData.coverphoto = {}; 
+        vm.projectData.coverphoto = {}; 
         //TODO: need to remove once seems stable
         if(!vm.CP_default) vm.CP_default = DEFAULT_COVERPHOTO;
         //if no stock photo selected
-        $scope.aside.projectData.coverphoto.source = vm.CP_default;
-        $scope.aside.projectData.coverphoto.name = "default";
+        vm.projectData.coverphoto.source = vm.CP_default;
+        vm.projectData.coverphoto.name = "default";
       }
       else if(vm.CP_cust){
           AWS.uploadCP(vm.CP_cust, $rootScope.awsConfig.bucket, function(data){

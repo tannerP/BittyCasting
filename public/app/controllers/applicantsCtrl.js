@@ -206,9 +206,6 @@ angular.module('applicantsCtrl', ['userService',
       $scope.currApp = app
       deleteAppAside.$promise.then(deleteAppAside.toggle);
     }
-<<<<<<< HEAD
-    //delete btn func. 
-=======
     vm.deleteRoleBtn = function () {
       /*$scope.roleData = data;*/
       deleteRoleAside.$promise.then(deleteRoleAside.toggle);
@@ -221,7 +218,6 @@ angular.module('applicantsCtrl', ['userService',
         $route.reload();
       }
     }
->>>>>>> 049fbd9733f17edccd57d3f82d14344c4a37b1b6
     $scope.deleteAppBtn = function () {
       Applicant.delete($scope.currApp._id)
         .success(function () {
