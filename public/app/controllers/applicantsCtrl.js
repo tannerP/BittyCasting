@@ -275,6 +275,9 @@ angular.module('applicantsCtrl', ['userService',
       }
     }
     vm.updateFav = function(aplnt){
+      aplnt.favorited = !aplnt.favorited;
+      console.log(aplnt);
       Applicant.favUpdate(aplnt);
+      /*aplnt.favorite.true;*/
     }
   })
