@@ -110,16 +110,15 @@ app.get('/applicationPrj/:project_id', function(req,res){
 
 app.post('/applicant',function(req,res){
   var applicant = new Applicant();
-      })*/
-      if(req.body.name){ 
-        if(req.body.name.first){
+    if(req.body.name){ 
+      if(req.body.name.first){
         applicant.name.first = req.body.name.first;
-        }
-        if(req.body.name.last){
+      }
+      if(req.body.name.last){
         applicant.name.last = req.body.name.last;
         }
       }
-      else{
+    else{
         res.json({success:false,
               message: "Error: No user name"}) 
       }

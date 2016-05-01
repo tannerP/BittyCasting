@@ -4,8 +4,6 @@ angular.module('projectCtrl', ['userService',
 .controller('ProjectPageController',
   function (Role, Project, $location, $routeParams,
             $scope, $aside, $route) {
-<<<<<<< 78edf7d1ba956f81232328cd181f6b676713f879
-=======
     var vm = this;
     vm.processing = true;
     vm.Roles = [];
@@ -88,7 +86,6 @@ angular.module('projectCtrl', ['userService',
       .error(function (err) {
         vm.message = err;
       });
->>>>>>> Added emailing applicant
 
     var vm = this;
     vm.pView, vm.prView;

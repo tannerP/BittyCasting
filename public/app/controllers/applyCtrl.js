@@ -26,7 +26,7 @@ angular.module('applyCtrl',['userService','mgcrea.ngStrap']).
             if(project){
             /*$rootScope.meta.image = project.coverphoto.source;
             $rootScope.meta.title = project.name;
-            $rootScope.meta.description = project.description;*/
+          $rootScope.meta.description = project.description;*/
 
             $rootScope.meta = Meta.roleMeta(vm.roleData, project);
             /*console.log($rootScope.meta)*/
