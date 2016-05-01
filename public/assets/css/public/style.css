@@ -1057,8 +1057,11 @@ ul.projects li {
     width: 20%;
     cursor: pointer; }
   .custom-table .table-project-overview thead tr th:nth-child(2) {
-    width: 60%; }
+    width: 30%;
+    cursor: pointer; }
   .custom-table .table-project-overview thead tr th:nth-child(3) {
+    width: 30%; }
+  .custom-table .table-project-overview thead tr th:nth-child(4) {
     width: 20%; }
   .custom-table .table-project-overview .table-utl ul li:nth-child(1) {
     background: url("/assets/imgs/ic_trash.svg") no-repeat center center white;

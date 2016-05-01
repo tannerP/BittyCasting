@@ -37,37 +37,42 @@
     </ul>
   </div>
   <div class="custom-table table-responsive">
-    <table class="table table-hover table-project-overview" ng-show="home.listView">
-      <thead>
-      <tr>
-        <th>Name</th>
-        <th>Details</th>
-        <th>Last Updated</th>
-      </tr>
-      </thead>
-      <tbody>
-      <!-- LOOP OVER THE USERS -->
-      <tr ng-repeat="project in home.projects">
-        <td ng-click="home.getProjectBtn(project._id)">
-        <div class="card cardProjects" style='background: url({{project.coverphoto.source || "/assets/imgs/img_projectCover01.png"}}) no-repeat top center; background-size: 100% auto;'>
-          {{ project.name }}
-        </td>
-        <td ng-click="home.getProjectBtn(project._id)">
-          {{ project.description }}
-        </td>
-        <td>
-          <div class="tableHover">{{ project.updated_date | date:'short'}}</div>
-          <div class="table-utl">
-            <ul>
-              <li class="trashcan" ng-click='home.deleteBtn(project)'></li>
-              <!--                              <li class="duplicate"></li>-->
-            </ul>
-          </div>
-        </td>
-      </tr>
-      <tr ng-repeat-end></tr>
-      </tbody>
-    </table>
+        <table class="table table-hover table-project-overview" ng-show="home.listView">
+              <thead>
+              <tr>
+                <th>Cover</th>
+                <th>Name</th>
+                <th>Details</th>
+                <th>Last Updated</th>
+              </tr>
+              </thead>
+            
+              <tbody>
+              <!-- LOOP OVER THE USERS -->
+              <tr ng-repeat="project in home.projects">
+                <td ng-click="home.getProjectBtn(project._id)">
+                     <div style='background: url({{project.coverphoto.source || "/assets/imgs/img_projectCover01.png"}}) no-repeat center center; background-size: 100% auto; height: 60px; width: auto;'>
+
+                </td>          
+                <td>
+                    {{ project.name }}
+                </td>
+                <td ng-click="home.getProjectBtn(project._id)">
+                  {{ project.description }}
+                </td>
+                <td>
+                  <div class="tableHover">{{ project.updated_date | date:'short'}}</div>
+                  <div class="table-utl">
+                    <ul>
+                      <li class="trashcan" ng-click='home.deleteBtn(project)'></li>
+                      <!--                              <li class="duplicate"></li>-->
+                    </ul>
+                  </div>
+                </td>
+              </tr>
+              <tr ng-repeat-end></tr>
+              </tbody>
+        </table>
   </div>
 </div>
 
