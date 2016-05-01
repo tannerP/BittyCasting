@@ -940,6 +940,11 @@ ul.projects li {
     color: white;
     background: url("/assets/imgs/ic_fav_w_fill.svg") no-repeat left center;
     background-size: 20px 20px; }
+  .card .fav-applicant-toggle {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    z-index: 1; }
   .card .cardScrim {
     position: absolute;
     top: 0;

@@ -1021,6 +1021,13 @@ ul.projects li {
         background-size: 20px 20px;
     }
     
+    .fav-applicant-toggle {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        z-index: 1;
+    }
+    
     .cardScrim {
         position: absolute;
         top: 0;
