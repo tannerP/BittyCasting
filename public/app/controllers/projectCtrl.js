@@ -143,7 +143,11 @@ angular.module('projectCtrl', ['userService',
 
       $scope.Twitter_text = "CASTING CALL: " + $scope.roleData.name 
                             + " " + $scope.roleData.short_url 
+<<<<<<< HEAD
                             + " " + "via "
+=======
+                            + " " + "via " ;
+>>>>>>> 049fbd9733f17edccd57d3f82d14344c4a37b1b6
                             + " " + "@BittyCasting " ;
 
                         
@@ -272,10 +276,13 @@ angular.module('projectCtrl', ['userService',
     }*/
     vm.processing = false;
     vm.updateRole = function () {
+<<<<<<< HEAD
       if(vm.newData.name){
         vm.addReqt(vm.newData);
       }
 
+=======
+>>>>>>> 049fbd9733f17edccd57d3f82d14344c4a37b1b6
       vm.processing = true;
       vm.roleData.end_date = $scope.selectedDate;
       vm.roleData.updated_date = new Date();

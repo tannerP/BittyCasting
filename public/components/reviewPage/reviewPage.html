@@ -1,0 +1,175 @@
+<div class="reviewHeader">
+  <container>
+    <div class="reviewHeaderContent col-md-4 col-md-offset-4"><p>{{currIndex +1}}/{{numApps}} applicants for
+      {{roleData.name}}</p></div>
+    <div class="custom-close-overlay" ng-click="page.backBtn()"></div>
+  </container>
+</div>
+<div class="clear"></div>
+
+<div class="container">
+
+    <div class="pageHeader">
+        <div class="pageHeader-review">
+            <div class='pageTitle'><span>{{currApp.name.first}} {{currApp.name.last}}</span></div>
+               
+            <div class="center-by-table-wrapper">
+                <div class="center-by-table">
+                    <div class="custom-page-action">
+                        <ul>
+                            <li class="custom-btn-secondary-small" ng-click="">Favorite</li>
+        <!--                    <input type="checkbox" ng-model="currApp.favorited" ng-change="page.updateFav(currApp)"></input>-->
+                            <li class="custom-btn-secondary-small" ng-click="">E-mail</li>
+                            <li class="custom-btn-secondary-small" ng-click="">Delete</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    
+    <div class="clear"></div>
+    
+  <div class="reviewCarousel">
+    <div class="reviewCarouselImg">
+      <ul rn-carousel rn-carousel-control-allow-loop rn-carousel-controls rn-carousel-transition="fadeAndSlide"
+          rn-carousel-index="carouselIndex" rn-carousel-buffered>
+        <li ng-repeat="slide in slides track by slide.id" ng-class="'id-' + slide.id">
+          <div class="reviewCarouselImgBg" ng-if="slide.image"
+               ng-style="{
+                                         'background': 'url(' + slide.source + ') no-repeat center center',
+                                         'background-size': 'auto 400px'}
+                               ">
+            <!--                              #{{ slide.id }}-->
+          </div>
+          <video class="reviewCarouselVideo" ng-if="slide.video" controls ngf-src='slide.source'>
+          </video>
+        </li>
+
+    </div>
+    <!--
+                <div class="reviewCarouselPagination">
+                    <ul>
+                        <li class="active"></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                    </ul>
+                </div>
+    -->
+  </div>
+
+  <div class="clear"></div>
+
+  <div class="reviewInfo col-md-6">
+
+    <table>
+      <tbody>
+      <tr>
+        <td>Name</td>
+        <td>{{currApp.name.first}} {{currApp.name.last}}</td>
+      </tr>
+      <!-- 
+      <tr ng-if="currApp.age">
+        <td>Age</td>
+        <td>{{currApp.age}}</td>
+      </tr> -->
+      <tr ng-if="currApp.gender">
+        <td>Gender</td>
+        <td>{{currApp.gender}}</td>
+      </tr>
+
+      <tr>
+        <td>E-mail</td>
+        <td>{{currApp.email}}</td>
+      </tr>
+
+      <tr ng-if="currApp.phone">
+        <td>Phone</td>
+        <td>{{currApp.phone}}</td>
+      </tr>
+
+      <tr>
+        <td ng-if="currApp.links.length > 0">Links:</td>
+        <td>
+           <ul>
+            <li ng-repeat="link in currApp.links">
+              <a target="_blank" ng-href="#" ng-click="goToLink(link.source)" >{{link.source}}</a>
+            <br/></li>
+            <!-- <li><a target="_blank" ng-href="{{image.source}}" download={{image.name}}>Link 1: http:thisislinkone.com</a></li><br/>
+            <li><a target="_blank" ng-href="{{image.source}}" download={{image.name}}>Link 2: http:thisislinkone.com</a></li> -->
+          </ul>
+        </td>
+      </tr>
+
+      <tr>
+        <td ng-if="documents.length > 0">Document:</td>
+        <td ng-repeat="doc in documents">
+          <ul>
+            <li><a target="_blank" ng-href="{{doc.source}}" download={{doc.name}}>{{doc.name}}</a></li>
+          </ul>
+        </td>
+      </tr>
+      <tr>
+        <td ng-if="images.length > 0">Image:</td>
+        <td ng-repeat="image in images">
+          <ul>
+            <li class = "attch"><a target="_blank" ng-href="{{image.source}}" download={{image.name}}>{{image.name}}</a></li><br/>
+            <!-- <li class = "attch" ><a target="_blank" ng-href="{{image.source}}" download={{image.name}}>Link 1: http:thisislinkone.com</a></li><br/>
+            <li class = "attch" ><a target="_blank" ng-href="{{image.source}}" download={{image.name}}>Link 2: http:thisislinkone.com</a></li> -->
+          </ul>
+        </td>
+      </tr>
+      <tr>
+        <td ng-if="video.length > 0">Video</td>
+        <td>
+          <ul>
+            <li class = "attch"><a ng-repeat="video in video" target="_blank" ng-href="{{video.source}}" download="{{video.name}}">{{video.name}}</a>
+            </li>
+          </ul>
+        </td>
+      </tr>
+          
+      <tr>
+        <td>Message</td>
+          <td>
+              <!-- <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.</p>
+              <p>Lorem ipsum: dolor sit amet</p>
+              <p>Lorem ipsum: Donec quam feli</p>
+              <p>Lorem ipsum: is natoque penatibus et ma</p> -->
+              <p>{{currApp.message}}</p>
+          </td>
+      </tr>
+
+      </tbody>
+    </table>
+
+  </div>
+      
+  <div class="reviewComment col-md-6" ng-controller="CommentBoxCtrl as box">
+      <div class="makeComment">
+        <div class="commentThumbnail">{{main.usrInitial}}</div>
+        <div class="commentHeading">Add a comment</div>
+        <textarea class="custom-form-textarea" rows="5" cols="40" type="text" name="comment"
+                  ng-model="box.newComment"></textarea>
+        <button class="custom-btn-secondary-small" ng-click="box.addCmt(currApp._id, main.usrInitial, box.newComment)">
+          Comment
+        </button>
+      </div>
+      <!-- Comment Box -->
+      <div class="comments" ng-if="data" ng-repeat="data in currApp.comments track by $index">
+        <div class="commentThumbnail">{{data.owner}}</div>
+        <p>{{data.comment}}</p>
+        <p class="timestamp">Posted on 5:34PM, Feb 8, 2016</p>
+        <ul class="comments-action">
+          <!--                <li><a>Edit</a></li>-->
+          <li><a ng-click="box.deleteCmt(currApp._id,$index,data)">Delete</a></li>
+        </ul>
+      </div>
+    </div>
+      
+  </div>
+
+</div>
