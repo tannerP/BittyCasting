@@ -4,6 +4,91 @@ angular.module('projectCtrl', ['userService',
 .controller('ProjectPageController',
   function (Role, Project, $location, $routeParams,
             $scope, $aside, $route) {
+<<<<<<< 78edf7d1ba956f81232328cd181f6b676713f879
+=======
+    var vm = this;
+    vm.processing = true;
+    vm.Roles = [];
+    vm.project = {};
+    $scope.roleData ={}; 
+
+    var newRoleAside = $aside({
+        scope: $scope,
+        show: false,
+        static: false,
+        backdrop:"static",
+        controller: 'newRoleController',
+        controllerAs: 'roleAside',
+        templateUrl: '/app/views/pages/role_form.tmpl.html'
+      }),
+      editPrjAside = $aside({
+        scope: $scope,
+        show: false,
+        controller: 'editProjectController',
+        controllerAs: 'projectAside',
+        templateUrl: '/app/views/pages/project_form.tmpl.html'
+      }),
+      shareRoleAside = $aside({
+        scope: $scope,
+        show: false,
+        keyboard: true,
+        controller: 'shareRoleController',
+        controllerAs: 'roleAside',
+        templateUrl: '/app/views/pages/role_share.tmpl.html'
+      });
+    deleteRoleAside = $aside({
+      scope: $scope,
+      keyboard: true,
+      show: false,
+      controller: 'deleteRoleController',
+      controllerAs: 'aside',
+      templateUrl: '/app/views/pages/role_delete.tmpl.html'
+    });
+    deletePrjAside = $aside({
+      scope: $scope,
+      show: false,
+      keyboard: true,
+      controller: 'deleteProjectController',
+      controllerAs: 'projectAside',
+      templateUrl: '/app/views/pages/deleteProject.tmpl.html'
+    });
+    vm.deleteBtn = function (data) {
+      $scope.roleData = data;
+      deleteRoleAside.$promise.then(deleteRoleAside.toggle);
+    }
+    vm.shareBtn = function (data) {
+      vm.roleData = data;
+      $scope.roleData = data;
+      shareRoleAside.$promise.then(shareRoleAside.toggle);
+    }
+    vm.createBtn = function () {
+      vm.roleData = {};
+      newRoleAside.$promise.then(newRoleAside.toggle);
+    }
+    vm.editPrjBtn = function () {
+      vm.roleData = {};
+      editPrjAside.$promise.then(editPrjAside.toggle);
+    }
+    vm.deletePrjBtn = function (data) {
+      /*$scope.deletePrjAside.toggle()*/
+      $scope.projectData = data;
+      deletePrjAside.$promise.then(deletePrjAside.toggle);
+      /*deletePrjAside.toggle();*/
+    }
+    vm.getRoleBtn = function (id) {
+      $location.path("/applicants/" + id)
+    }
+
+    //remove, get data from parent scope
+    Project.get($routeParams.project_id)
+      .success(function (data) {
+        vm.project = data.project;
+        $scope.projectData = data.project;
+      })
+      .error(function (err) {
+        vm.message = err;
+      });
+>>>>>>> Added emailing applicant
 
     var vm = this;
     vm.pView, vm.prView;
@@ -61,7 +146,7 @@ angular.module('projectCtrl', ['userService',
 
       $scope.Twitter_text = "CASTING CALL: " + $scope.roleData.name 
                             + " " + $scope.roleData.short_url 
-                            + " " + "via " ;
+                            + " " + "via "
                             + " " + "@BittyCasting " ;
 
                         
@@ -190,6 +275,10 @@ angular.module('projectCtrl', ['userService',
     }*/
     vm.processing = false;
     vm.updateRole = function () {
+      if(vm.newData.name){
+        vm.addReqt(vm.newData);
+      }
+
       vm.processing = true;
       vm.roleData.end_date = $scope.selectedDate;
       vm.roleData.updated_date = new Date();
@@ -256,7 +345,7 @@ angular.module('projectCtrl', ['userService',
     }
 
   })
-.controller('addRoleController',
+.controller('newRoleController',
   function (Role, $location, $routeParams, $route, $scope, Prerender) {
     var vm = this;
     vm.edit = false;
@@ -322,7 +411,6 @@ angular.module('projectCtrl', ['userService',
       vm.newData.selected = true;
     }
     vm.removeReqt = function (index) {
-      console.log("button clicked");
       if (vm.roleData.requirements.length > 1) {
         if (index === 0) vm.roleData.requirements.shift();
         else vm.roleData.requirements.splice(index, index);
@@ -339,6 +427,10 @@ angular.module('projectCtrl', ['userService',
       vm.roleData.end_date = $scope.selectedDate.toJSON();
       /*vm.roleData.end_time = $scope.selectedTime.toJSON();*/
       vm.roleData.end_time;
+      if(vm.newData.name){
+        console.log("adding role name in createRoleBtn")
+        vm.addReqt(vm.newData);
+      }
 
       Role.create(vm.projectID, vm.roleData)
         .success(function (data) {

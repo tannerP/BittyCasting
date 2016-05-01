@@ -12,15 +12,21 @@
     <div class="pageHeader">
         <div class="pageHeader-review">
             <div class='pageTitle'><span>{{currApp.name.first}} {{currApp.name.last}}</span></div>
-               
             <div class="center-by-table-wrapper">
                 <div class="center-by-table">
                     <div class="custom-page-action">
                         <ul>
                             <li class="custom-btn-secondary-small" ng-click="">Favorite</li>
         <!--                    <input type="checkbox" ng-model="currApp.favorited" ng-change="page.updateFav(currApp)"></input>-->
-                            <li class="custom-btn-secondary-small" ng-click="">E-mail</li>
-                            <li class="custom-btn-secondary-small" ng-click="">Delete</li>
+                            <li class="custom-btn-secondary-small"
+                                 href="#"
+                                socialshare
+                                socialshare-provider="email"
+                                socialshare-trigger="click"
+                                socialshare-to="{{currApp.email}}" 
+                                socialshare-body="{{Email_text}}">E-mail</li>
+                                
+                            <li class="custom-btn-secondary-small" ng-click="page.deleteAsideBtn(currApp)">Delete</li>
                         </ul>
                     </div>
                 </div>
@@ -108,7 +114,7 @@
       </tr>
       </tr>
           
-      <tr>
+      <tr ng-if="currApp.message">
         <td>Message</td>
           <td>
               <!-- <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.</p>

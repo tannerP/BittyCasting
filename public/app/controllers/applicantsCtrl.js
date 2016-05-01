@@ -200,9 +200,26 @@ angular.module('applicantsCtrl', ['userService',
         show: false,
         templateUrl: '/app/views/pages/applicant_delete.tmpl.html'
       });
+
+    //delete aside btn  
     vm.deleteAsideBtn = function (app) {
       $scope.currApp = app
       deleteAppAside.$promise.then(deleteAppAside.toggle);
+    }
+    //delete btn func. 
+    $scope.deleteAppBtn = function () {
+      Applicant.delete($scope.currApp._id)
+        .success(function () {
+          getApps();
+          if($scope.viewApp === true){
+            $scope.$emit("unhideNav");
+            $scope.viewApp  = false;
+          }
+          deleteAppAside.hide();
+        })
+        .error(function (err) {
+          console.log(err);
+        })
     }
     vm.deleteRoleBtn = function () {
       /*$scope.roleData = data;*/
@@ -215,16 +232,6 @@ angular.module('applicantsCtrl', ['userService',
         Applicant.viewedUpdate($scope.currApp._id);
         $route.reload();
       }
-    }
-    $scope.deleteAppBtn = function () {
-      Applicant.delete($scope.currApp._id)
-        .success(function () {
-          getApps();
-          deleteAppAside.hide();
-        })
-        .error(function (err) {
-          console.log(err);
-        })
     }
     vm.shareBtn = function () {
       shareRoleAside.$promise.then(shareRoleAside.toggle);
@@ -257,8 +264,6 @@ angular.module('applicantsCtrl', ['userService',
       }
     }
     vm.updateFav = function(aplnt){
-      console.log(aplnt);
-      //update
       Applicant.favUpdate(aplnt);
     }
   })
