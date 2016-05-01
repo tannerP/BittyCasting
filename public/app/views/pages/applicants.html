@@ -80,10 +80,10 @@
         <div class="card cardApplicants">
             <div ng-if="app.new" class="alert-new">New</div>
             <!-- <div class="fav-applicant">(0)</div> -->
-              <img ng-if="app.favorited" ng-src="/assets/imgs/ic_fav_b_fill.svg" width="20px" vertical-align="middle">
+              <img ng-if="app.favorited" ng-src="/assets/imgs/ic_fav_b_fill.svg" width="20px" vertical-align="middle" ng-click="page.updateFav(app)">
 
-              <img ng-if="!app.favorited" ng-src="/assets/imgs/ic_fav_b.svg" width="20px" vertical-align="middle">
-              
+              <img ng-if="!app.favorited" ng-src="/assets/imgs/ic_fav_b.svg" width="20px" vertical-align="middle" ng-click="page.updateFav(app)">
+
                 <div ng-if="app.headshot" class="card cardApplicants" ng-style="{
                   'background':'url('+ app.headshot+ ') no-repeat center center',
                    'background-size': 'auto 100%', 'background-color': '#242424'}">
@@ -141,10 +141,10 @@
                     <div ng-if="app.new" class="alert-new">New</div>
                     {{app.name.first}} {{app.name.last}}
                 </td>
-                <td>
+                <td >
                   <!-- <img ng-src="/assets/imgs/ic_fav_b_fill.svg" width="20px" vertical-align="middle"> --> <!-- <span>(0)</span> -->
-                  <img ng-if="app.favorited" ng-src="/assets/imgs/ic_fav_b_fill.svg" width="20px" vertical-align="middle">
-                  <img ng-if="!app.favorited" ng-src="/assets/imgs/ic_fav_b.svg" width="20px" vertical-align="middle">
+                  <img ng-if="app.favorited" ng-src="/assets/imgs/ic_fav_b_fill.svg" width="20px" vertical-align="middle" ng-click="page.updateFav(app)">
+                  <img ng-if="!app.favorited" ng-src="/assets/imgs/ic_fav_b.svg" width="20px" vertical-align="middle" ng-click="page.updateFav(app)">
                   <!-- <input type="checkbox" ng-model="app.favorited"
                          ng-change="page.updateFav(app)">
                   </input> -->
