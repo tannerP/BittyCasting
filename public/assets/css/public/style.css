@@ -2443,6 +2443,9 @@ ul.select-coverphoto-wrapper {
           display: block;
           z-index: 1000; }
 
+  .aside {
+    width: 100%; }
+
   /***************************
           Landing page
   ***************************/
