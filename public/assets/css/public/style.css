@@ -1888,8 +1888,7 @@ ul.select-coverphoto-wrapper {
   .pageHeader .pageHeader-review .custom-page-action ul li {
     padding-left: 38px; }
     .pageHeader .pageHeader-review .custom-page-action ul li:nth-child(1) {
-      background: url("/assets/imgs/ic_fav_w.svg") no-repeat left 15px center;
-      background-size: 16px 16px;
+      background: none;
       background-color: #666666; }
     .pageHeader .pageHeader-review .custom-page-action ul li:nth-child(2) {
       background: url("/assets/imgs/ic_email_w.svg") no-repeat left 15px center;

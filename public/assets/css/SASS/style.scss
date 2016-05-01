@@ -1983,9 +1983,12 @@ text-align: center;
                 li{
                     padding-left: 38px;
                     &:nth-child(1){
-                        background: url("/assets/imgs/ic_fav_w.svg") no-repeat left 15px center;
-                        background-size: 16px 16px;
+                        background: none;
                         background-color: $color-grey-dark;}
+//                    &:nth-child(1){
+//                        background: url("/assets/imgs/ic_fav_w.svg") no-repeat left 15px center;
+//                        background-size: 16px 16px;
+//                        background-color: $color-grey-dark;}
                     &:nth-child(2){
                         background: url("/assets/imgs/ic_email_w.svg") no-repeat left 15px center;
                         background-size: 16px 16px;

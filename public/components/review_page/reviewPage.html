@@ -16,10 +16,9 @@
                 <div class="center-by-table">
                     <div class="custom-page-action">
                         <ul>
-                            <li class="custom-btn-secondary-small" ng-click="page.updateFav(currApp)">Favorite
-                                <img ng-if="currApp.favorited" ng-src="/assets/imgs/ic_fav_b_fill.svg" width="20px" vertical-align="middle">
-
-                                <img ng-if="!currApp.favorited" ng-src="/assets/imgs/ic_fav_b.svg" width="20px" vertical-align="middle">
+                            <li class="custom-btn-secondary-small" ng-click="page.updateFav(currApp)">
+                                <img ng-if="currApp.favorited" ng-src="/assets/imgs/ic_fav_w_fill.svg" width="16px" vertical-align="middle" style="margin-right: 10px; margin-left: -20px;">
+                                <img ng-if="!currApp.favorited" ng-src="/assets/imgs/ic_fav_w.svg" width="16px" vertical-align="middle" style="margin-right: 13px; margin-left: -20px;">Favorite
                             </li>
         <!--                    <input type="checkbox" ng-model="currApp.favorited" ng-change="page.updateFav(currApp)"></input>-->
                             <li class="custom-btn-secondary-small"
@@ -60,7 +59,7 @@
         </li>
         </ul>
     </div>
-  </div>
+  
   <div class="clear"></div>
   <div class="reviewInfo col-md-6">
     <table>
@@ -156,3 +155,5 @@
       
   </div>
 </div>
+
+
