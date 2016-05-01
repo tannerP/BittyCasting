@@ -79,29 +79,33 @@
       <li class="col-lg-3 col-md-4 col-sm-6">
         <div class="card cardApplicants">
             <div ng-if="app.new" class="alert-new">New</div>
-            <div class="fav-applicant">(0)</div>
+            <!-- <div class="fav-applicant">(0)</div> -->
+              <img ng-if="app.favorited" ng-src="/assets/imgs/ic_fav_b_fill.svg" width="20px" vertical-align="middle">
+
+              <img ng-if="!app.favorited" ng-src="/assets/imgs/ic_fav_b.svg" width="20px" vertical-align="middle">
+              
                 <div ng-if="app.headshot" class="card cardApplicants" ng-style="{
                   'background':'url('+ app.headshot+ ') no-repeat center center',
                    'background-size': 'auto 100%', 'background-color': '#242424'}">
                     <!-- <video  controls ngf-src='app.headshot'></video>-->
                     <!-- <div ng-show="!app.headshot" class="card cardApplicants" ng-style="{
                       'background': 'url(/assets/imgs/img_projectCover01.png) no-repeat top center','background-size': '100% auto'}"> -->
-                      <a href="" class="md-headline" ng-click="page.viewBtn($index)">
-                            <div class="cardInfoBg"></div>
-                            <div class="cardScrim"></div>
-                            <div class="cardInfo">
-                                  <a href="" class="md-headline" ng-click="page.viewBtn($index)">
-                                    <div class="cardTitle">{{app.name.first}} {{app.name.last}}</div>
-                                  </a>
-                                  <div class="cardSubTitle">{{ app.updated_date|date:medium}}</div>
-                                  <div class='actionBar'>
-                                    <ul>
-                                      <li class="trashcan" ng-click='page.deleteAsideBtn(app)'></li>
-                                      <!--                                        <li class="duplicate"></li>-->
-                                    </ul>
-                                  </div>
+                    <a href="" class="md-headline" ng-click="page.viewBtn($index)">
+                      <div class="cardInfoBg"></div>
+                      <div class="cardScrim"></div>
+                      <div class="cardInfo">
+                            <a href="" class="md-headline" ng-click="page.viewBtn($index)">
+                              <div class="cardTitle">{{app.name.first}} {{app.name.last}}</div>
+                            </a>
+                            <div class="cardSubTitle">{{ app.updated_date|date:medium}}</div>
+                            <div class='actionBar'>
+                              <ul>
+                                <li class="trashcan" ng-click='page.deleteAsideBtn(app)'></li>
+                                <!--                                        <li class="duplicate"></li>-->
+                              </ul>
                             </div>
-                      </a>
+                      </div>
+                    </a>
                 </div>
             </div>
       </li>
@@ -125,23 +129,25 @@
               <!-- LOOP OVER THE USERS -->
               <tr ng-repeat="app in page.applicants track by $index" ng-click="page.viewBtn($index)">
                 <td>
-                      <div ng-if="app.headshot" ng-style="{
-                      'background':'url('+ app.headshot+ ') no-repeat center center', 
-                      'background-size': 'auto 100%', 
-                      'background-color': '#242424',
-                      'width': '60px',
-                      'height': '60px'}">
-                      </div>
+                    <div ng-if="app.headshot" ng-style="{
+                    'background':'url('+ app.headshot+ ') no-repeat center center', 
+                    'background-size': 'auto 100%', 
+                    'background-color': '#242424',
+                    'width': '60px',
+                    'height': '60px'}">
+                    </div>
                 </td>
                 <td>
                     <div ng-if="app.new" class="alert-new">New</div>
                     {{app.name.first}} {{app.name.last}}
                 </td>
                 <td>
-                  <img ng-src="/assets/imgs/ic_fav_b_fill.svg" width="20px" vertical-align="middle"> (0)
-                  <input type="checkbox" ng-model="app.favorited"
+                  <!-- <img ng-src="/assets/imgs/ic_fav_b_fill.svg" width="20px" vertical-align="middle"> --> <!-- <span>(0)</span> -->
+                  <img ng-if="app.favorited" ng-src="/assets/imgs/ic_fav_b_fill.svg" width="20px" vertical-align="middle">
+                  <img ng-if="!app.favorited" ng-src="/assets/imgs/ic_fav_b.svg" width="20px" vertical-align="middle">
+                  <!-- <input type="checkbox" ng-model="app.favorited"
                          ng-change="page.updateFav(app)">
-                  </input>
+                  </input> -->
                 </td>
                 <td ng-click="page.viewBtn($index)">
                   {{ app.email }}

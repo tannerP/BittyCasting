@@ -533,13 +533,13 @@ angular.module('projectCtrl', ['userService',
     vm.save = function () {
       vm.processing = true;
       vm.message;
-      $scope.aside.projectData.coverphoto = {};
-      if($scope.aside.projectData){
+      vm.projectData.coverphoto = {};
+      if(vm.projectData){
         if(!vm.CP_cust){
           if(!vm.CP_default) vm.CP_default = DEFAULT_COVERPHOTO;
-            $scope.aside.projectData.coverphoto.source = vm.CP_default;
-            $scope.aside.projectData.coverphoto.name = "default";
-            Project.create($scope.aside.projectData)
+            vm.projectData.coverphoto.source = vm.CP_default;
+            vm.projectData.coverphoto.name = "default";
+            Project.create(vm.projectData)
               .success(function (data) {
                 $route.reload();
                 vm.processing = false;
@@ -551,8 +551,8 @@ angular.module('projectCtrl', ['userService',
         }
       else{
         AWS.uploadCP(vm.CP_cust, $rootScope.awsConfig.bucket, function(data){
-          $scope.aside.projectData.coverphoto = data;
-          Project.create($scope.aside.projectData)
+          vm.projectData.coverphoto = data;
+          Project.create(vm.projectData)
             .success(function (data) {
               $route.reload();
               vm.processing = false;
@@ -572,7 +572,6 @@ angular.module('projectCtrl', ['userService',
     $route,AWS,$rootScope) {
     var vm = this;
     var DEFAULT_COVERPHOTO = "/assets/imgs/img_projectCover01.png";
-    $scope.aside= {};
     vm.projectData= {};
     angular.copy($scope.project,vm.projectData)
     vm.coverphotos = [
@@ -603,7 +602,8 @@ angular.module('projectCtrl', ['userService',
       //check if coverphot.name == default
       if(vm.NEW) select(DEFAULT_COVERPHOTO);
       }();
-    var changeClass =  function(id){
+
+    var select =  function(id){
       angular.element( document.querySelector("."+vm.CPStylingSelected))
       .removeClass(vm.CPStylingSelected)
       var myEl = angular.element( document.querySelector(id));
@@ -620,7 +620,7 @@ angular.module('projectCtrl', ['userService',
 
     vm.selectCustCP = function(){
       var id = "#cust-cp";
-      changeClass(id);
+      select(id);
       vm.CP_default = null;
     }
 
@@ -638,7 +638,7 @@ angular.module('projectCtrl', ['userService',
       vm.projectData.updated_date = new Date();
 
       //TODO: check if 
-      if(vm.CP_default || !$scope.aside.projectData.coverphoto){ 
+      if(vm.CP_default || !vm.projectData.coverphoto){ 
         vm.projectData.coverphoto = {}; 
         //TODO: need to remove once seems stable
         if(!vm.CP_default) vm.CP_default = DEFAULT_COVERPHOTO;
@@ -649,8 +649,8 @@ angular.module('projectCtrl', ['userService',
       else if(vm.CP_cust){
           AWS.uploadCP(vm.CP_cust, $rootScope.awsConfig.bucket, function(data){
             $scope.aside.projectData.coverphoto = data;
-            Project.update($scope.aside.projectData._id,
-              $scope.aside.projectData)
+            Project.update(vm.projectData._id,
+              vm.projectData)
               .success(function (data) {
                 vm.processing = false;
                 vm.message = data.message;
@@ -660,8 +660,8 @@ angular.module('projectCtrl', ['userService',
               });
           });    
         }
-      Project.update($scope.aside.projectData._id,
-              $scope.aside.projectData)
+      Project.update(vm.projectData._id,
+              vm.projectData)
                 .success(function (data) {
                   $scope.projectData = {};
                   vm.processing = false;

@@ -28,8 +28,6 @@ app.all('*',function(req,res,next){
         req.userData = User.findOne({'_id':decoded.id}, function(err, data){
           if(data){
             data.last_active = new Date();
-            console.log("updating last active");
-            console.log(data);
             data.save();
             return data;
           }})
@@ -54,6 +52,14 @@ app.route('/')
 	.get(function(req,res){
 		res.sendFile(path.join(__dirname+ '../../../public/app/views/index.html'));
 	})
+app.get('/config', function(req,res){
+  console.log("Getting config");
+  console.log(S3Config);
+  return res.json({success:true, awsConfig: {
+          bucket: S3Config.bucket }
+        })
+  });
+app.get('/s3Policy',aws.getS3Policy);
   
 app.get('/applicationRole/:role_id', function(req,res){
   //find role data, then find project data before returning result
@@ -194,13 +200,7 @@ app.put('/app/:app_id', function(req,res){
   else if(req.body.status="fav"){
     Applicant.findById(req.params.app_id,function(err,app){
       app.favorited = req.body.favorited;
-/*
->>>>>>> Resolved merge conflict
-      app.favorite.userID = req.decoded.id;
       app.save(function(err,data){
-<<<<<<< 7daaaefa91cdf0696e1bcd0774631da7b21bd78e
-/*      app.favorite.userID = req.decoded.id;
-*/     app.save(function(err,data){
         if(err){
           return  res.json({success:false,
               error: err
@@ -218,29 +218,29 @@ app.put('/app/:app_id', function(req,res){
   }
 })
 
-  app.put('/suppliment/:app_id', function(req,res){
-    Applicant.findById(req.params.app_id,function(err,app)
-    {
-      if(err) res.json({Error:true, error:err});
-      if(app){
-        app.suppliments.push({
-            source:req.body.location,
-            name: req.body.name,
-            key: req.body.key,
-            file_type: req.body.file_type
-          });    
-        app.save(function(err){
-          if(err){
-            return  res.json({success:false,
-                                error: err
-              })  
-          }
-          else{
-            return  res.json({success:true,
-                              message: "Added new subppliment"
-            });
+app.put('/suppliment/:app_id', function(req,res){
+  Applicant.findById(req.params.app_id,function(err,app)
+  {
+    if(err) res.json({Error:true, error:err});
+    if(app){
+      app.suppliments.push({
+          source:req.body.location,
+          name: req.body.name,
+          key: req.body.key,
+          file_type: req.body.file_type
+        });    
+      app.save(function(err){
+        if(err){
+          return  res.json({success:false,
+                              error: err
+            })  
         }
-    return res.json({success:true, message:'updated'});
+        else{
+          return  res.json({success:true,
+                            message: "Added new subppliment"
+          });
+        }
+      return res.json({success:true, message:'updated'});
       })
     }
   });
@@ -347,14 +347,7 @@ app.route('/register')
 		});
 	});
 
-	return app;
   /*Others*/
-app.get('/s3Policy',aws.getS3Policy);
-app.get('/config', function(req,res){
-  return res.json({success:true, awsConfig: {
-          bucket: S3Config.bucket
-      }
-  })});
 app.get('/submit/:mail', function(req,res) {
   console.log(req.params.mail);
     //We pass the api_key and domain to the wrapper, or it won't be able to identify + send emails
@@ -384,13 +377,11 @@ app.get('/submit/:mail', function(req,res) {
         }
     });});
 app.put('/feedback', function(req,res) {
-
   var hours = req.body.timestamp.getHours()
       minutes = "0" + req.body.timestamp.getMinutes(),
       seconds = "0" + req.body.timestamp.getSeconds(),
       formattedTime = hours + ':' + minutes.substr(-2)
                             + ':' + seconds.substr(-2);
-
   var tStamp = req.body.timestamp
   var data = {
       from: "internal@bittycasting.com",
@@ -408,5 +399,7 @@ app.put('/feedback', function(req,res) {
     .send(data, function (err, body) {
       if (err) { console.log(err) }
       else { return res; }
-  });});
+    });
+});
+  return app;
 }
