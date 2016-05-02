@@ -11,7 +11,7 @@ angular.module('projectCtrl', ['userService',
       vm.project = {};
       $scope.roleData = {};
 
-      var newRoleAside = $aside({
+    /*  var newRoleAside = $aside({
           scope: $scope,
           show: false,
           static: false,
@@ -70,17 +70,15 @@ angular.module('projectCtrl', ['userService',
         editPrjAside.$promise.then(editPrjAside.toggle);
       }
       vm.deletePrjBtn = function(data) {
-        /*$scope.deletePrjAside.toggle()*/
         $scope.projectData = data;
         deletePrjAside.$promise.then(deletePrjAside.toggle);
-        /*deletePrjAside.toggle();*/
       }
       vm.getRoleBtn = function(id) {
         $location.path("/applicants/" + id)
-      }
+      }*/
 
       //remove, get data from parent scope
-      Project.get($routeParams.project_id)
+/*      Project.get($routeParams.project_id)
         .success(function(data) {
           vm.project = data.project;
           $scope.projectData = data.project;
@@ -88,7 +86,7 @@ angular.module('projectCtrl', ['userService',
         .error(function(err) {
           vm.message = err;
         });
-
+*/
       var vm = this;
       vm.pView, vm.prView;
       (function init() { //start engines
@@ -484,10 +482,7 @@ angular.module('projectCtrl', ['userService',
         .success(function(data) {
           vm.processing = false;
           vm.projects = data.data;
-          for (p in vm.projects) {
             /*if(vm.projects[p].coverphoto)*/
-          }
-
         })
     })
   .controller('newProjectController',

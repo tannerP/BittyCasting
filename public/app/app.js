@@ -30,9 +30,7 @@ angular.module('userApp', [
 	])
   .run(function ($rootScope, $location, $http) {
     $http.get('/config').success(function(data) {
-    	console.log(data.aws);
         $rootScope.awsConfig = data.awsConfig;
-        console.log($rootScope.awsConfig);
       });
   })
   .run(function($animate) {
