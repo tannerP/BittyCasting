@@ -7,7 +7,7 @@ angular.module('projectCtrl', ['userService',
       $scope, $aside, $route) {
       var vm = this;
       vm.processing = true;
-      vm.Roles = [];
+      vm.roles = [];
       vm.project = {};
       $scope.roleData = {};
 
@@ -90,16 +90,15 @@ angular.module('projectCtrl', ['userService',
       var vm = this;
       vm.pView, vm.prView;
       (function init() { //start engines
-        vm.pView = false;
         vm.prView = true;
         Project.get($routeParams.project_id)
           .success(function(data) {
             vm.project = data.project;
+            vm.roles = data.project.roles;
+            console.log(vm.roles);
             if (data.client === "public") {
-              vm.pView = true;
               vm.prView = false;
             } else if (data.client === "owner") {
-              vm.pView = false;
               vm.prView = true;
             }
           })
@@ -108,19 +107,13 @@ angular.module('projectCtrl', ['userService',
             vm.message = err;
           });
       })();
-
-      //get project data. 
-
-      //signal view to render the right view 
-      //according to project's ownership (ownner,. 
-
-      $scope.togView = function() {
-        console.log("toggle clicked")
-        vm.pView = !vm.pView;
+      vm.togView = function() {
         vm.prView = !vm.prView;
-        if (vm.pView === true) $scope.$emit("hideNav");
+        if (vm.pfView === false) $scope.$emit("hideNav");
         else $scope.$emit("unhideNav");
       }
+
+      //according to project's ownership (ownner,. 
     })
   .controller('shareRoleController', ['$scope', '$alert', '$location',
     function($scope, $alert, $location) {
@@ -136,8 +129,6 @@ angular.module('projectCtrl', ['userService',
 
       $scope.Twitter_text = "CASTING CALL: " + $scope.roleData.name + " " + $scope.roleData.short_url + " " + "via "; + " " + "@BittyCasting ";
 
-
-      $scope.toggle = false;
       var successAlert = $alert({
           title: 'Copied!',
           animation: 'am-fade-and-slide-top',
@@ -174,15 +165,16 @@ angular.module('projectCtrl', ['userService',
   ])
   .controller('shareProjectController', ['$scope', '$alert', '$location',
     function($scope, $alert, $location) {
+      console.log("Share project controller");
 
       $scope.textToCopy = $scope.project.short_url;
-      $scope.FB_text = "Casting Call: " + $scope.roleData.name + " \ " + $scope.roleData.description;
+
+      $scope.FB_text = "Casting Call: " + $scope.project.name + " \ " + $scope.project.description;
 
       $scope.Email_text = "Hey, \n \n \t I just created an acting role in BittyCasting that I thought might interest you. Check out the project and role by clicking the link:" + $scope.textToCopy + "\n \n Thanks!";
 
-      $scope.Twitter_text = "CASTING CALL: " + $scope.roleData.name + " " + $scope.textToCopy + " " + "via "; + " " + "@BittyCasting ";
+      $scope.Twitter_text = "CASTING CALL: " + $scope.project.name + " " + $scope.textToCopy + " " + "via "; + " " + "@BittyCasting ";
 
-      $scope.toggle = false;
       var successAlert = $alert({
           title: 'Copied!',
           animation: 'am-fade-and-slide-top',
@@ -201,11 +193,6 @@ angular.module('projectCtrl', ['userService',
           type: 'success'
         });
 
-      var previewLink = "/project/" + $scope.roleData._id;
-      $scope.preview = function() {
-        $scope.$toggle();
-        $location.path(previewLink)
-      }
       $scope.success = function() {
         $scope.toggle = true;
         successAlert.toggle();
@@ -243,7 +230,6 @@ angular.module('projectCtrl', ['userService',
             }
             $scope.$hide()
               //check if at project page, if not direct to project page.
-
           })
           .error(function(err) {
             console.log(err.message);

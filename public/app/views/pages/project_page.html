@@ -22,8 +22,6 @@
     <div class="clear"></div> -->
 <!-- </div> -->
 <!-- <pre ng-value= "page">{{page}}</pre> -->
+<ppublicview  ng-if="!page.prView" project="page.project" roles="page.roles" toggle='page.togView()'></ppublicview>
 
-
-<ppublicview ng-if="page.pView" ctrl="page.project" toggleFunc='togView()'></ppublicview>
-
-<prpublicview  ng-if="page.prView" ctrl="page.project"></ppublicview>
+<prpublicview  ng-if="page.prView" project="page.project" toggle='page.togView()'></ppublicview>

@@ -1,58 +1,15 @@
 'use strict';
-angular.module('ProjectView', ['userService',
+angular.module('ProjectViewCtrl', ['userService',
     'mgcrea.ngStrap'
   ])
-  /*notice ppublicview vs prpublicview and, their assiociated html-page differences*/
-  .directive('ppublicview', function() {
-    var publicController = function(Role, Project, $location, $routeParams,
-      $scope, $aside, $route) {
-      var vm = this;
-      $scope.$emit("hideNav");
-
-      /*console.log(vm.project)*/
-
-      vm.project = vm.project;
-      /*vm.roles = vm.roles*/
-      console.log(vm);
-
-      vm.back = function(){
-        vm.toggle();        
-      }
-
-      /*if (vm.inputData.client === "public") {
-        vm.public = true;
-      }*/
-      return vm;
-    }
-    return {
-      restrict: 'E',
-      scope: {
-        toggle: '&',
-        roles: '=',
-        project: '=',
-      },
-      templateUrl: 'components/project_view/project_public_view.html',
-      controller: publicController,
-      controllerAs: 'vm',
-      bindToController: true, //required in 1.3+ with controllerAs
-    }
-  })
-  .directive('prpublicview', function(Role, Project, $location, $routeParams,
-    $aside, $route) {
-    var controller = ['$scope','Role','Project',"$location",
-    '$routeParams','$aside','$route',
-    function($scope,Role, Project, $location, $routeParams,
-       $aside, $route) {
+  .controller('privateViewCtrl', ['$scope', '$alert', '$location',
+ 	 function(Role, Project, $location, $routeParams,
+      $scope, $aside, $route){
       var vm = this;
       vm.processing = true;
       vm.Roles = [];
       vm.project = {};
-
-      //function is used in project sharing aside. 
-      $scope.preview = function(){
-        vm.toggle();
-        shareProjectAside.toggle();
-      }
+      $scope.roleData = {};
 
       var newRoleAside = $aside({
           scope: $scope,
@@ -75,7 +32,7 @@ angular.module('ProjectView', ['userService',
           show: false,
           keyboard: true,
           controller: 'shareRoleController',
-          controllerAs: 'roleAside',
+          controllerAs: 'vm',
           templateUrl: '/app/views/pages/role_share.tmpl.html'
         }),
         shareProjectAside = $aside({
@@ -83,7 +40,7 @@ angular.module('ProjectView', ['userService',
           show: false,
           keyboard: true,
           controller: 'shareProjectController',
-          controllerAs: 'roleAside',
+          controllerAs: 'vm',
           templateUrl: '/app/views/pages/project_share.tmpl.html'
         }),
         deleteRoleAside = $aside({
@@ -106,14 +63,19 @@ angular.module('ProjectView', ['userService',
         $scope.roleData = data;
         deleteRoleAside.$promise.then(deleteRoleAside.toggle);
       }
+
       vm.sharePrjBtn = function(data) {
         $scope.project = data;
         shareProjectAside.$promise.then(shareProjectAside.toggle);
       }
+
       vm.shareRoleBtn = function(data) {
+        console.log(data)
+        console.log("Btn pressed")
         $scope.role = data;
         shareRoleAside.$promise.then(shareRoleAside.toggle);
       }
+
       vm.createBtn = function() {
         vm.roleData = {};
         newRoleAside.$promise.then(newRoleAside.toggle);
@@ -144,10 +106,9 @@ angular.module('ProjectView', ['userService',
             console.log(err);
             vm.message = err;
           });
-      }
+      }();
 
-      $scope.load();
-      vm.save = function() {
+      vm.save = function(){
         vm.processing = true;
         vm.message;
         Character.save(vm.charData)
@@ -156,19 +117,6 @@ angular.module('ProjectView', ['userService',
             vm.projectData = {};
             vm.message = data.message;
             $location.path('/project/' + $routeParams.project_id);
-          });
+        });
       }
-    }]
-    return {
-      restrict: 'E',
-      scope: {
-        project: '=',
-        toggle: '&',
-      },
-      templateUrl: 'components/project_view/project_npublic_view.html',
-      controller: controller,
-      controllerAs: 'vm',
-      bindToController: true //required in 1.3+ with controllerAs
-
-    }
-  })
+  }]);

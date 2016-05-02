@@ -1,18 +1,23 @@
- <div class="applyPage">
-    <div class="applyPageLeftBg"></div>
+ <div class="applyvm">
+    <div class="applyvmLeftBg"></div>
     <div class="container">
         <img class="applyLogo" ng-src="assets/imgs/logo_BittyCasting_B.svg">
-        <div class="custom-close-overlay" ng-click="page.togView()"></div>
+        <div class="custom-close-overlay" ng-click="vm.back()"></div>
         <section class="col-md-6">
-            <div class="applyPageLeft">
-                <div class='pageTitle'>{{page.project.name}}</div> <!-- Remove tag causes displaying bug -->
-                
-                <div style="white-space: pre-wrap" ng-bind-html="page.project.description | linky"> </div>
-                <img ng-src="{{page.project.coverphoto.source ||'assets/imgs/img_projectCover01.png'}}" class="img-responsive">
-                <div class='pageTitle'>Role<span>s</span></div>
+            <div class="applyvmLeft">
+                <div class='vmTitle'>{{vm.project.name}}</div> <!-- Remove tag causes displaying bug -->
+                <div style="white-space: pre-wrap" ng-bind-html="vm.project.description | linky"> </div>
+                <img ng-src="{{vm.project.coverphoto.source ||'assets/imgs/img_projectCover01.png'}}" class="img-responsive">
+                <div class='vmTitle'>Role<span>s</span></div><ul>
+                    <li ng-repeat="role in vm.roles">
+                        <div class="custom-btn-secondary-small" ng-click="vm.updateCurRole(role)">{{role.name}}</div>
+                    </li>
+                    <!-- <p>{{vm.curRole}}</p> -->
+                    <div style="white-space: pre-wrap" ng-bind-html="vm.curRole.description | linky"></div>
+                </ul>
 
-                <div style="white-space: pre-wrap" ng-repeat="roleData in page.roles"> 
-                <div class='pageSubtitle'>{{roleData.name}}</div>                  
+                <!-- <div style="white-space: pre-wrap" ng-repeat="roleData in vm.roles"> 
+                <div class='vmSubtitle'>{{roleData.name}}</div> -->                  
                 <div ng-bind-html="roleData.description | linky"></div>  
                   </div>
                 <div class="div-table">
@@ -43,8 +48,8 @@
           }
         </style>
         <section class="col-md-6">
-            <div class="applyPageRight">
-                 <div class='pageTitle'>Apply</div>
+            <div class="applyvmRight">
+                 <div class='vmTitle'>Apply</div>
                         <form ng-submit="submit()" name="form" class="css-form">
                             <div class = "form-group">
                                 <label>First name<span></span></label>
