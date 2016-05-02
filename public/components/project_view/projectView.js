@@ -3,38 +3,38 @@ angular.module('ProjectView',['userService',
   'mgcrea.ngStrap'])
 /*notice ppublicview vs prpublicview and, their assiociated html-page differences*/
 .directive('ppublicview', function() {
-    var publicController = function (Role, Project, $location, $routeParams,
-            $scope, $aside, $route) {
-      var vm = this;
-      $scope.$emit("hideNav");
-      vm.project = vm.inputData.project
-      vm.role = vm.inputData.roles
-      
-      if(vm.inputData.client === "public"){
-        vm.public = true;
-      }
-      return vm;
+  var publicController = function (Role, Project, $location, $routeParams,
+          $scope, $aside, $route) {
+    var vm = this;
+    $scope.$emit("hideNav");
+    vm.project = vm.inputData.project
+    vm.role = vm.inputData.roles
+    
+    if(vm.inputData.client === "public"){
+      vm.public = true;
     }
-    return {
-      restrict: 'E',
-      scope:{
-      	toggle: '&toggleFunc',
-        inputData: '=ctrl'
-      },
-      link:function(scope, element, attrs){
-        console.log(attrs);
-        console.log(scope);
-        var num = scope.$eval(attrs.toggle);
-        console.log('number=',num);
-        scope.page.toggle();
-        /*scope.callback(); */ // calls exampleCallback()
-      },
-      templateUrl: 'components/project_view/project_public_view.html',
-      controller: publicController,
-      controllerAs:'page',
-      bindToController: true, //required in 1.3+ with controllerAs
-    }
-  })
+    return vm;
+  }
+  return {
+    restrict: 'E',
+    scope:{
+    	toggle: '&toggleFunc',
+      inputData: '=ctrl'
+    },
+    link:function(scope, element, attrs){
+      console.log(attrs);
+      console.log(scope);
+      var num = scope.$eval(attrs.toggle);
+      console.log('number=',num);
+      scope.page.toggle();
+      /*scope.callback(); */ // calls exampleCallback()
+    },
+    templateUrl: 'components/project_view/project_public_view.html',
+    controller: publicController,
+    controllerAs:'page',
+    bindToController: true, //required in 1.3+ with controllerAs
+  }
+})
 .directive('prpublicview', function (Role, Project, $location, $routeParams,
              $aside, $route) {
      var controller = function (Role, Project, $location, $routeParams,

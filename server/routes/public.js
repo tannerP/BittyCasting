@@ -116,6 +116,7 @@ app.get('/applicationPrj/:project_id', function(req,res){
 
 app.post('/applicant',function(req,res){
   var applicant = new Applicant();
+      //check for correct name;
     if(req.body.name){ 
       if(req.body.name.first){
         applicant.name.first = req.body.name.first;
@@ -124,59 +125,58 @@ app.post('/applicant',function(req,res){
         applicant.name.last = req.body.name.last;
         }
       }
-    else{
-        res.json({success:false,
+    else res.json({success:false,
               message: "Error: No user name"}) 
+    
+    //check for Role ID
+    if(req.body.roleID) applicant.roleID = req.body.roleID;
+    else res.json({success:false,
+              message: "Error: No user name"}) 
+      
+    if(req.body.email){
+      applicant.email = req.body.email;   
+    }
+    if(req.body.phone){
+      applicant.phone = req.body.phone;
+    }
+    /*if(req.body.age){
+    applicant.age = req.body.age;
+    }*/
+    if(req.body.gender){
+      applicant.gender = req.body.gender;
+    }
+    if(req.body.message){
+      applicant.message = req.body.message;
+    }
+    if(req.body.links){
+      for(link in req.body.links){
+        /*console.log(req.body.links[link]);*/
+        /*var temp = ({"name":link.name,"source":link.source})*/
+        applicant.links.push(req.body.links[link]);
       }
-      if(req.body.email){
-        applicant.email = req.body.email;   
-      }
-      if(req.body.phone){
-        applicant.phone = req.body.phone;
-      }
-      /*if(req.body.age){
-      applicant.age = req.body.age;
-      }*/
-      if(req.body.gender){
-        applicant.gender = req.body.gender;
-      }
-      if(req.body.message){
-        applicant.message = req.body.message;
-      }
-      if(req.body.links){
-        for(link in req.body.links){
-          /*console.log(req.body.links[link]);*/
-          /*var temp = ({"name":link.name,"source":link.source})*/
-          applicant.links.push(req.body.links[link]);
-        }
-      /*applicant.links = req.body.links;*/
-      }
+    /*applicant.links = req.body.links;*/
+    }
 
   applicant.save(function(err){
     if(err){
       return  res.json({success:false,
           error: err})  }
     else{
-      Applicant.findOne({'email':req.body.email}, function(err, data){
+/*      Applicant.findOne({'email':req.body.email}, function(err, data){
         if(err) return  res.json({success:false,
-              error: err}) 
-        else{
+              error: err}) */
           Role.findById(req.body.roleID, function(err,role){
             if(!err){
               ++role.new_apps;
               ++role.total_apps;
-              role.save(function(err,data){
-                return ;
-              })
+              role.save(function(err,data){});
             }
           });
         return  res.json({success:true,
-                      appID: data._id})
+                      appID: applicant._id})
         }
       })
-    }
   })
-})
 //route for adding new requirement. 
 app.put('/app/:app_id', function(req,res){
 
