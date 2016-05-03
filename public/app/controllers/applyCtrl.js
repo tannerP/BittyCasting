@@ -79,22 +79,25 @@ angular.module('applyCtrl',['userService','mgcrea.ngStrap']).
       }
     }
 
+
+    vm.processing = false;
     vm.submit = function() {
-      vm.busy = true; 
+      vm.processing = true; 
+      console.log(vm.processing);
       vm.currfile; 
 
-        for (i in vm.newLinks ){
-          if(vm.newLinks[i]){
-            var link = {};
-            link.name = name; 
-            link.source = vm.newLinks[i];
-            if(link.source.indexOf('.') > -1) {
-              vm.appData.links.push(link)
-              vm.newLinks[i] = "";
-            }
-            
+      for (i in vm.newLinks ){
+        if(vm.newLinks[i]){
+          var link = {};
+          link.name = name; 
+          link.source = vm.newLinks[i];
+          if(link.source.indexOf('.') > -1) {
+            vm.appData.links.push(link)
+            vm.newLinks[i] = "";
           }
+          
         }
+      }
 
       Applicant.apply(vm.appData).then(function(resp){
         vm.applicantID = resp.data.appID;
@@ -103,10 +106,9 @@ angular.module('applyCtrl',['userService','mgcrea.ngStrap']).
           /*console.log("role data" + vm.roleData);
           console.log("file length" + vm.files.length);*/
           /*console.log(vm.applicantID);*/
-          if(vm.files.length == 0)
-          {
+          if(vm.files.length == 0){
             $timeout(function(){
-              vm.busy = false;
+              vm.processing = false;
               $location.path('/Thankyou');
             },1500)
 
@@ -115,13 +117,12 @@ angular.module('applyCtrl',['userService','mgcrea.ngStrap']).
             AWS.uploadAppMedias(vm.files, vm.roleData, vm.applicantID,
             $rootScope.awsConfig.bucket);
             $rootScope.$on("app-media-submitted", function(){
-              vm.busy =false;
+              vm.processing = false;
               $location.path('/Thankyou');
             })
           }
+          console.log(vm.processing);
         }
-
       })
-
     }
-    }]);
+  }]);
