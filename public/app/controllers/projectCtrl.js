@@ -92,14 +92,12 @@ angular.module('projectCtrl', ['userService',
       (function init() { //start engines
         vm.prView = true;
         Project.get($routeParams.project_id)
-          .success(function(data) {
+          .success(function(data){
             vm.project = data.project;
             vm.roles = data.project.roles;
-            console.log(vm.roles);
-            if (data.client === "public") {
-              vm.prView = false;
-            } else if (data.client === "owner") {
-              vm.prView = true;
+            switch(data.client){
+            case "public": vm.prView = false;
+            case "owner": vm.prView = true;
             }
           })
           .error(function(err) {
@@ -107,6 +105,7 @@ angular.module('projectCtrl', ['userService',
             vm.message = err;
           });
       })();
+      
       vm.togView = function() {
         vm.prView = !vm.prView;
         if (vm.pfView === false) $scope.$emit("hideNav");

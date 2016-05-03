@@ -14,7 +14,8 @@ angular.module('mainCtrl', ['authService','mgcrea.ngStrap'])
 		vm.nav = true;
 		vm.navCollapsed = true;
 
-		vm.loggedIn = Auth.isLoggedIn(),
+		vm.loggedIn = Auth.isLoggedIn();
+		$rootScope.loggedIn = Auth.isLoggedIn(),
 		
 		vm.founder = (function(){
 						if ($rootScope.user.role === "founder") return true;

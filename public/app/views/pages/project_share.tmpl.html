@@ -3,7 +3,6 @@
     <form>
       <div class="asideTitle" ng-if="!roleAside.edit">Share Project</div>
       <div class="custom-close" ng-click="$hide()"></div>
-        
       <div class="asideDesMessage">  
           <p>People will be able to apply to this role after you share it.</p>
           <button class="custom-btn-secondary-large btn-preview" ng-click="preview()">Preview</button>
@@ -14,7 +13,6 @@
           <p class="custom-form" type="text"> {{textToCopy}}</p>    
           <button clipboard class="custom-btn-primary-large btn-copyLink" text="textToCopy" on-copied="success()" on-error="fail(err)">Copy link</button>
       </div>
-        
       <div class="form-group">
           <label>Social media &amp; E-mail</label>   
           <div class="clear"></div>

@@ -2,7 +2,7 @@
     <div class="applyvmLeftBg"></div>
     <div class="container">
         <img class="applyLogo" ng-src="assets/imgs/logo_BittyCasting_B.svg">
-        <div class="custom-close-overlay" ng-click="vm.back()"></div>
+        <div ng-if="vm.loggedIn" class="custom-close-overlay" ng-click="vm.back()"></div>
         <section class="col-md-6">
             <div class="applyvmLeft">
                 <div class='vmTitle'>{{vm.project.name}}</div> <!-- Remove tag causes displaying bug -->
@@ -118,7 +118,7 @@
                                         <span ng-if="link.name == rq.name">{{link.source}} <span ng-click="removeLink($index)"><img src="/assets/imgs/ic_trash.svg" width="16px" height="16px"></span>
                                             <br>
                                         </span>
-                                    </div>                                    
+                                    </div>                                   
                                 </span>
                                 <input class="applyAddLink" type="text" ng-model="newLinks[$index]" placeholder="http://">  
                                    <span>{{newLink}}</span>                            

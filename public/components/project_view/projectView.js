@@ -4,26 +4,37 @@ angular.module('ProjectView', ['userService',
   ])
   /*notice ppublicview vs prpublicview and, their assiociated html-page differences*/
   .directive('ppublicview', function() {
+    
     var publicController = function(Role, Project, $location, $routeParams,
-      $scope, $aside, $route) {
-      var vm = this;
+      $scope, $rootScope, $aside, $route) {
       $scope.$emit("hideNav");
+      var vm = this;
+      (function init(){
+        if(vm.roles)
+        {
+          vm.curRole = vm.roles[0];
+        }
+        else console.log("No roles")
+      })();
 
-      /*console.log(vm.project)*/
-
-      vm.project = vm.project;
-      /*vm.roles = vm.roles*/
-      console.log(vm);
-
-      vm.back = function(){
-        vm.toggle();        
+      vm.updateCurRole = function(role) {
+      vm.curRole = role;
       }
 
-      /*if (vm.inputData.client === "public") {
-        vm.public = true;
-      }*/
+      //check if logged
+      vm.loggedIn = $rootScope.loggedIn; 
+      vm.back = function(){
+        if($rootScope.loggedIn){
+          vm.toggle();    
+        }
+        else{
+          $location.path("/");
+        }
+      }
+
       return vm;
     }
+
     return {
       restrict: 'E',
       scope: {
