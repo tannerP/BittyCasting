@@ -4,16 +4,12 @@ angular.module('ProjectView', ['userService',
   ])
   /*notice ppublicview vs prpublicview and, their assiociated html-page differences*/
   .directive('ppublicview', function() {
-    
     var publicController = function(Role, Project, $location, $routeParams,
       $scope, $rootScope, $aside, $route) {
-      $scope.$emit("hideNav");
       var vm = this;
+      
       (function init(){
-        if(vm.roles)
-        {
-          vm.curRole = vm.roles[0];
-        }
+        if(vm.roles)  vm.curRole = vm.roles[0];
         else console.log("No roles")
       })();
 
@@ -31,7 +27,6 @@ angular.module('ProjectView', ['userService',
           $location.path("/");
         }
       }
-
       return vm;
     }
 
@@ -48,6 +43,7 @@ angular.module('ProjectView', ['userService',
       bindToController: true, //required in 1.3+ with controllerAs
     }
   })
+  
   .directive('prpublicview', function(Role, Project, $location, $routeParams,
     $aside, $route) {
     var controller = ['$scope','Role','Project',"$location",

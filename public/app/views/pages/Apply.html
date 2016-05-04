@@ -100,16 +100,16 @@
                                     <!-- Select File -->
                                      <div ng-if="!page.files[$index]">
                                          <p><span>Drag and drop file(s)</span>
-                                                <br/><a ngf-select ng-model="page.files[$index]" name="file" 
-                                                    ngf-accept="'application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/pdf,image/*,video/*'"
-                                                    ngf-pattern="'application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/pdf,image/*,video/*'"
-                                                    ngf-before-model-change= "page.errors = '' "
-                                                    ngf-min-size="100"
-                                                    ngf-max-size="250MB"
-                                                    ngf-model-invalid="page.errors"
-                                                    ng-select="page.checkFile(page.files[$index])"
-                                                    >
-                                                upload from computer</a>
+                                            <br/>
+                                            <a ngf-select ng-model="page.files[$index]" name="file" 
+                                            ngf-accept="'application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/pdf,image/*,video/*'"
+                                            ngf-pattern="'application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/pdf,image/*,video/*'"
+                                            ngf-before-model-change= "page.errors = '' "
+                                            ngf-min-size="100"
+                                            ngf-max-size="250MB"
+                                            ngf-model-invalid="page.errors"
+                                            ng-select="page.checkFile(page.files[$index])">
+                                            upload from computer</a>
                                             </p>
                                         </div>
                                         <a ngf-select ng-model="page.files[$index]" name="file" 
@@ -122,8 +122,7 @@
                                             ngf-model-invalid="page.errors">
                                             <div class="uploadFileName">{{page.files[$index].name}}</div>
                                             <img ng-if="page.files[$index]" ngf-thumbnail="page.files[$index] || 'Attachment'">
-                                            <video ng-if="page.files[$index]" controls ngf-src="page.files[$index]">
-                                                                
+                                            <video ng-if="page.files[$index]" controls ngf-src="page.files[$index]">     
                                         </a>
                                 </div>
 
@@ -131,11 +130,9 @@
                                     <span ng-repeat="link in page.appData.links track by $index">
                                         <div class="applyLinkItem">
                                             <span ng-if="link.name == rq.name">{{link.source}} <span ng-click="page.removeLink($index)"><img src="/assets/imgs/ic_trash.svg" width="16px" height="16px"></span>
-                                                <!-- <span background: url("/assets/imgs/ic_cross_overlay.svg") no-repeat center center;></span> -->
-                                                <br>
+                                            <br>
                                             </span>
-                                        </div>
-                                        
+                                        </div>  
                                     </span>
                                     <input class="applyAddLink" type="text" ng-model="page.newLinks[$index]" placeholder="http://">  
                                        <span>{{page.newLink}}</span>                            

@@ -45,8 +45,8 @@ controller('ApplyController', ['$scope', '$rootScope',
       }
     });
     vm.updateCurRole = function(role) {
-      console.log(role);
-      console.log("button pressed")
+      /*console.log(role);
+      console.log("button pressed")*/
       vm.curRole = role;
     }
 
@@ -90,28 +90,28 @@ controller('ApplyController', ['$scope', '$rootScope',
           }
         }
       }
-      console.log(vm.appData);
-      Applicant.apply(vm.appData).then(function(resp) {
-        vm.processing = true;
-        vm.applicantID = resp.data.appID;
-        vm.appData = "";
-        if (vm.roleData) {
-          if (vm.files.length == 0) {
-            $timeout(function() {
-              vm.processing = false;
-              $location.path('/Thankyou');
-            }, 1500)
+      Applicant.apply(vm.appData)
+        .then(function(resp) {
+          vm.processing = true;
+          vm.applicantID = resp.data.appID;
+          vm.appData = "";
+          if (vm.roleData) {
+            if (vm.files.length == 0) {
+              $timeout(function() {
+                vm.processing = false;
+                $location.path('/Thankyou');
+              }, 1500)
 
-          } else {
-            AWS.uploadAppMedias(vm.files, vm.roleData, vm.applicantID,
-              $rootScope.awsConfig.bucket);
-            $rootScope.$on("app-media-submitted", function() {
-              vm.processing = false;
-              $location.path('/Thankyou');
-            })
+            } else {
+              AWS.uploadAppMedias(vm.files, vm.roleData, vm.applicantID,
+                $rootScope.awsConfig.bucket);
+                $rootScope.$on("app-media-submitted", function() {
+                vm.processing = false;
+                $location.path('/Thankyou');
+              })
+            }
           }
-        }
-      })
+        })
     }
   }
 ]);

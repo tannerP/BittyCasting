@@ -1,27 +1,8 @@
 
-<!--  -->
-<!-- <div ng-controller=""> -->
-<!-- <prpublicview></ppublicview> -->
-<!-- 
-      </ul>
-    </div>
-    <div class='pageTitle pageTitleMobileOffset col-md-4 col-md-offset-4'
-    data-ng-bind="projectCtr.project.name"></div>
-    <div class="clear"></div>
-    <div class="projectDetails col-md-12">
-      <section class="col-md-3">
-        <img ng-src="{{projectCtr.project.coverphoto.source || '/assets/imgs/img_projectCover01.png'}}" class="img-responsive">
-      </section>
-      <section class="col-md-6">
-        <p>{{projectCtr.project.description}}</p>
-      </section>
-      <section class="col-md-3">
-        
-      </section>
-    </div>
-    <div class="clear"></div> -->
-<!-- </div> -->
-<!-- <pre ng-value= "page">{{page}}</pre> -->
-<ppublicview  ng-if="!page.prView" project="page.project" roles="page.roles" toggle='page.togView()'></ppublicview>
+<ppublicview ng-show="page.pView" project="page.project"
+             roles="page.roles" toggle='page.togView()'>
+</ppublicview>
 
-<prpublicview  ng-if="page.prView" project="page.project" toggle='page.togView()'></ppublicview>
+<prpublicview ng-show="page.prView" project="page.project" 
+              toggle='page.togView()'>
+</ppublicview>
