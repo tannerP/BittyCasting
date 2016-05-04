@@ -2,10 +2,9 @@ angular.module('applicantsCtrl', ['userService',
   'mgcrea.ngStrap']).
   controller('CommentBoxCtrl',
   function ($scope, Applicant) {
-    var vm = this;
-    vm.comments = $scope.currApp.comments;
+    var vm = this;  
     vm.newComment;
-    vm.comments = $scope.currApp.comments;
+  
     vm.deleteCmt = function (appID, index, comment) {
       Applicant.deleteComment(appID, comment);
       delete $scope.currApp.comments[index];
@@ -15,12 +14,14 @@ angular.module('applicantsCtrl', ['userService',
         owner: owner,
         comment: comment
       }
+
       $scope.currApp.comments.push(cmt);
       Applicant.pushComment(appID, cmt);
       vm.newComment = "";
     }
-  }).
-  controller('ApplicantPageController',
+  })
+  
+  .controller('ApplicantPageController',
   function (Applicant, Role, $location, $routeParams,
             $scope, $aside, $routeParams, $location, $route, $window) {
     var vm = this;
