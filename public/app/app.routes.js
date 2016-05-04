@@ -49,11 +49,11 @@ angular.module('app.routes', ['ngRoute'])
             controllerAs: 'page'
         })
     //User
-    .when('/profile',  {
-            templateUrl: 'app/views/pages/profile.html',
-             controller: 'profileController',
-            controllerAs: 'user'
-        })
+        .when('/profile',  {
+                templateUrl: 'app/views/pages/profile.html',
+                 controller: 'profileController',
+                controllerAs: 'user'
+            })
     /*---------------- Admin ----------------*/
  /*       .when('/users',  {
             templateUrl: 'app/views/pages/users/all.html',

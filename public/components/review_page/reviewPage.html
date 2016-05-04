@@ -51,12 +51,18 @@
                ng-style="{ 'background': 'url(' + slide.source + ') no-repeat center center',
                             'background-size': 'auto 400px'}">
           </div>
-          <video class="reviewCarouselVideo" ng-if="slide.video" controls ngf-src='slide.source'></video>
-               ng-style="{
-                           'background': 'url(' + slide.source + ') no-repeat center center',
-                           'background-size': 'auto 400px'}"></div>
-          <video class="reviewCarouselVideo" ng-if="slide.video" controls ngf-src='slide.source'>
+          <!-- <video class="reviewCarouselVideo" ng-if="slide.video"
+                 controls ngf-src='slide.source' > -->
+              <video class="reviewCarouselVideo" ng-if="slide.video"
+                 controls ngf-src='slide.source' >
+                   <source src="{{slide.source}}" type="video/mp4">
+                  <source src="{{slide.source}}" type="video/ogg">
           </video>
+               <!-- ng-style="{
+                           'background': 'url(' + slide.source + ') no-repeat center center',
+                           'background-size': 'auto 400px'}"></div> -->
+          <!-- <video class="reviewCarouselVideo" ng-if="slide.video" controls ngf-src='slide.source'>
+          </video> -->
         </li>
         </ul>
     </div>
