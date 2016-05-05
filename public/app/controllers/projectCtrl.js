@@ -11,6 +11,7 @@ angular.module('projectCtrl', ['userService',
       vm.processing = true;
       vm.roles = [];
       vm.project = {};
+      vm.curRole = {};
       $scope.roleData = {};
 
       (function init() { //start engines
@@ -18,6 +19,9 @@ angular.module('projectCtrl', ['userService',
           .success(function(data){
             vm.project = data.project;
             vm.roles = data.project.roles;
+            vm.curRole = data.project.roles[0];
+            console.log(vm.curRole);
+
             switch(data.client){
             case "public": {
               vm.prView = false;

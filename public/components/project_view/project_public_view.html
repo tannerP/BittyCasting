@@ -2,21 +2,21 @@
     <div class="applyvmLeftBg"></div>
     <div class="container">
         <img class="applyLogo" ng-src="assets/imgs/logo_BittyCasting_B.svg">
-        <div ng-if="vm.loggedIn" class="custom-close-overlay" ng-click="vm.back()"></div>
+        <div ng-if="ppv.loggedIn" class="custom-close-overlay" ng-click="ppv.back()"></div>
         <section class="col-md-6">
             <div class="applyvmLeft">
-                <div class='vmTitle'>{{vm.project.name}}</div> <!-- Remove tag causes displaying bug -->
-                <div style="white-space: pre-wrap" ng-bind-html="vm.project.description | linky"> </div>
-                <img ng-src="{{vm.project.coverphoto.source ||'assets/imgs/img_projectCover01.png'}}" class="img-responsive">
+                <div class='vmTitle'>{{ppv.project.name}}</div> <!-- Remove tag causes displaying bug -->
+                <div style="white-space: pre-wrap" ng-bind-html="ppv.project.description | linky"> </div>
+                <img ng-src="{{ppv.project.coverphoto.source ||'assets/imgs/img_projectCover01.png'}}" class="img-responsive">
                 <div class='vmTitle'>Role<span>s</span></div><ul>
-                    <li ng-repeat="role in vm.roles">
-                        <div class="custom-btn-secondary-small" ng-click="vm.updateCurRole(role)">{{role.name}}</div>
+                    <li ng-repeat="role in ppv.roles">
+                        <div class="custom-btn-secondary-small" ng-click="ppv.update_CurRole(role)">{{role.name}}</div>
                     </li>
-                    <!-- <p>{{vm.curRole}}</p> -->
-                    <div style="white-space: pre-wrap" ng-bind-html="vm.curRole.description | linky"></div>
+                    <!-- <p>{{ppv.curRole}}</p> -->
+                    <div style="white-space: pre-wrap" ng-bind-html="ppv.currole.description | linky"></div>
                 </ul>
 
-                <!-- <div style="white-space: pre-wrap" ng-repeat="roleData in vm.roles"> 
+                <!-- <div style="white-space: pre-wrap" ng-repeat="roleData in ppv.roles"> 
                 <div class='vmSubtitle'>{{roleData.name}}</div> -->                  
                 <div ng-bind-html="roleData.description | linky"></div>  
                   </div>
@@ -76,7 +76,7 @@
                                 <input type = "tel" class = "custom-form" ng-model="appData.gender" maxlength="10">
                             </div>                                            
 
-                            <div class = "form-group" ng-repeat="rq in roleData.requirements">
+                            <div class = "form-group" ng-repeat="rq in ppv.curRole.requirements">
                             <label>{{rq.name}}</label>
                             <!-- Fil Uploader -->
                                 <div ng-if="rq.file_type != 'link'" class="drop-box" ngf-drop ng-model="files[$index]" ngf-max-size="500MB" ngf-model-invalid="errors" ngf-accept="'application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/pdf,image/*,video/*'"

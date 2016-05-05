@@ -4,17 +4,30 @@ angular.module('ProjectView', ['userService',
   ])
   /*notice ppublicview vs prpublicview and, their assiociated html-page differences*/
   .directive('ppublicview', function() {
+    var link = function($scope,element, attrs){
+      var vm = this;
+      console.log(vm);
+      console.log($scope);
+      
+      console.log(element);
+      console.log(attrs);
+    }
+
     var publicController = function(Role, Project, $location, $routeParams,
       $scope, $rootScope, $aside, $route) {
       var vm = this;
       
       (function init(){
-        if(vm.roles)  vm.curRole = vm.roles[0];
+        if(vm.roles) {
+          /*console.log( vm.roles[0]);
+          vm.curRole = vm.roles[0];
+          console.log(vm.curRole);*/
+        }
         else console.log("No roles")
       })();
 
-      vm.updateCurRole = function(role) {
-      vm.curRole = role;
+      vm.update_CurRole = function(new_currRole) {
+        vm.currole = new_currRole;
       }
 
       //check if logged
@@ -34,12 +47,14 @@ angular.module('ProjectView', ['userService',
       restrict: 'E',
       scope: {
         toggle: '&',
+        currole: '=',
         roles: '=',
         project: '=',
       },
+      link: link,
       templateUrl: 'components/project_view/project_public_view.html',
       controller: publicController,
-      controllerAs: 'vm',
+      controllerAs: 'ppv',
       bindToController: true, //required in 1.3+ with controllerAs
     }
   })
