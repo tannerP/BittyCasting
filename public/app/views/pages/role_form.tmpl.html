@@ -78,7 +78,10 @@
           <tbody>
             <tr class="defaultRequirements" 
                 ng-repeat="req in roleAside.roleData.requirements track by $index">
-              <td>{{req.name}}<span class="requirementFormat" ng-if="req.format.indexOf('Link') != -1"></span>
+              <td><input ng-model="req.name">
+                  </input>
+                    <!-- <span class="requirementFormat" ng-if="req.format.indexOf('Link') != -1">
+                    </span> -->
               </td>
               <td></td>
               <!-- <td>

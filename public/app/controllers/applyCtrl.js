@@ -47,14 +47,14 @@ controller('ApplyController', ['$scope', '$rootScope',
     vm.updateCurRole = function(role) {
       vm.curRole = role;
     }
-
+/*-------------------------------------------*/
     vm.link = ""
     vm.newLinks = [];
     
-    vm.addLink = function(index, name) {
+    vm.addLink = function(arr_indx, name) {
       var link = {};
       link.name = name;
-      link.source = vm.newLinks[index];
+      link.source = vm.newLinks[arr_indx];
 
       if (link.source.indexOf('.') > -1) {
         vm.appData.links.push(link)
@@ -63,8 +63,6 @@ controller('ApplyController', ['$scope', '$rootScope',
     }
 
     vm.removeLink = function(index) {
-      console.log("button Press");
-      console.log(index)
       if (vm.appData.links.length > 1) {
         if (index === 0) vm.appData.links.shift();
         else vm.appData.links.splice(index, index);

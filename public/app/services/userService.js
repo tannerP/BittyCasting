@@ -40,7 +40,6 @@ angular.module('userService', [])
 		/*$http.get("https://bittycasting.com/Apply/+"+ "roleID" + )*/
 		$http.get("/Apply/"+ roleID + "?_escaped_fragment_")
 			.then(function(response){
-				console.log(response);
 			});
 	}
 	return prerender;

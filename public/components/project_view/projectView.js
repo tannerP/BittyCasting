@@ -4,25 +4,23 @@ angular.module('ProjectView', ['userService',
   ])
   /*notice ppublicview vs prpublicview and, their assiociated html-page differences*/
   .directive('ppublicview', function() {
-    var link = function($scope,element, attrs){
+    /*var link = function($scope,element, attrs){
       var vm = this;
       console.log(vm);
       console.log($scope);
       
       console.log(element);
       console.log(attrs);
-    }
+    }*/
 
     var publicController = function(Role, Project, $location, $routeParams,
       $scope, $rootScope, $aside, $route) {
       var vm = this;
-      //check if logged
       vm.loggedIn = $rootScope.loggedIn;       
 
       vm.update_CurRole = function(new_currRole) {
         vm.currole = new_currRole;
       }
-
       //TODO: this doesn't scale for collabs.
       vm.back = function(){
         if($rootScope.loggedIn){
@@ -32,9 +30,70 @@ angular.module('ProjectView', ['userService',
           $location.path("/");
         }
       }
-      return vm;
+         vm.link = ""
+    vm.newLinks = [];
+    
+    vm.addLink = function(arr_indx, name) {
+      var link = {};
+      link.name = name;
+      link.source = vm.newLinks[arr_indx];
+
+      if (link.source.indexOf('.') > -1) {
+        vm.appData.links.push(link)
+        vm.newLinks[index] = "";
+      }
     }
 
+    vm.removeLink = function(index) {
+      if (vm.appData.links.length > 1) {
+        if (index === 0) vm.appData.links.shift();
+        else vm.appData.links.splice(index, index);
+      } else if (vm.appData.links.length == 1) {
+        vm.appData.links = []
+      }
+    }
+
+    vm.processing = false;
+    vm.submit = function() {
+      vm.processing = true;
+      vm.currfile;
+      for (i in vm.newLinks) {
+        if (vm.newLinks[i]) {
+          var link = {};
+          link.name = name;
+          link.source = vm.newLinks[i];
+          if (link.source.indexOf('.') > -1) {
+            vm.appData.links.push(link)
+            vm.newLinks[i] = "";
+          }
+        }
+      }
+      Applicant.apply(vm.appData)
+        .then(function(resp) {
+          vm.processing = true;
+          vm.applicantID = resp.data.appID;
+          vm.appData = "";
+          if (vm.roleData) {
+            if (vm.files.length == 0) {
+              $timeout(function() {
+                vm.processing = false;
+                $location.path('/Thankyou');
+              }, 1500)
+
+            } else { 
+              AWS.uploadAppMedias(vm.files, vm.roleData, vm.applicantID,
+                $rootScope.awsConfig.bucket);
+                //broacast from AWS
+                $rootScope.$on("app-media-submitted", function() {
+                vm.processing = false;
+                $location.path('/Thankyou');
+              })
+            }
+          }
+        })
+      return vm;
+    }
+  }
     return {
       restrict: 'E',
       scope: {
@@ -43,11 +102,11 @@ angular.module('ProjectView', ['userService',
         roles: '=',
         project: '=',
       },
-      link: link,
       templateUrl: 'components/project_view/project_public_view.html',
       controller: publicController,
       controllerAs: 'ppv',
-      bindToController: true, //required in 1.3+ with controllerAs
+      bindToController: true,
+      //required Angular V1.3 and above to associate scope to value "ppv"
     }
   })
   

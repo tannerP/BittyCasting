@@ -61,20 +61,21 @@ module.exports = function(app, express) {
 					res.send(err);
 					console.log(err);
 				} else {
-//interate through roles
-					for(var role in roles){
-						var tempRole = roles[role];
-						tempRole.roleIDs = [];
-//transfer roleID value to roleIDs array. 
-						tempRole.roleIDs.push(tempRole.roleID)
-						tempRole.save(function(err,data){
-							if(err)(console.log(err))
+	//TODO: remove when fully transfer to roleIDS					
+	//interate through roles
+						for(var role in roles){
+							var tempRole = roles[role];
+							tempRole.roleIDs = [];
+	//transfer roleID value to roleIDs array. 
+							tempRole.roleIDs.push(tempRole.roleID)
+							tempRole.save(function(err,data){
+								if(err)(console.log(err))
+							});
+						}
+						res.json({
+							'success': true,
+							'data': roles
 						});
-					}
-					res.json({
-						'success': true,
-						'data': roles
-					});
 				}
 			})
 		}
