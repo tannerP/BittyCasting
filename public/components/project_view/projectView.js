@@ -16,22 +16,14 @@ angular.module('ProjectView', ['userService',
     var publicController = function(Role, Project, $location, $routeParams,
       $scope, $rootScope, $aside, $route) {
       var vm = this;
-      
-      (function init(){
-        if(vm.roles) {
-          /*console.log( vm.roles[0]);
-          vm.curRole = vm.roles[0];
-          console.log(vm.curRole);*/
-        }
-        else console.log("No roles")
-      })();
+      //check if logged
+      vm.loggedIn = $rootScope.loggedIn;       
 
       vm.update_CurRole = function(new_currRole) {
         vm.currole = new_currRole;
       }
 
-      //check if logged
-      vm.loggedIn = $rootScope.loggedIn; 
+      //TODO: this doesn't scale for collabs.
       vm.back = function(){
         if($rootScope.loggedIn){
           vm.toggle();    

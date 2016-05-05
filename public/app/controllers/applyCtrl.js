@@ -54,6 +54,7 @@ controller('ApplyController', ['$scope', '$rootScope',
 
     vm.link = ""
     vm.newLinks = [];
+    
     vm.addLink = function(index, name) {
       var link = {};
       link.name = name;
@@ -64,6 +65,7 @@ controller('ApplyController', ['$scope', '$rootScope',
         vm.newLinks[index] = "";
       }
     }
+
     vm.removeLink = function(index) {
       console.log("button Press");
       console.log(index)
