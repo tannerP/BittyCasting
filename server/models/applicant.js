@@ -27,6 +27,10 @@ var ApplicantSchema = new Schema({
 		type:String,
 		required:false,
 	},
+	roleIDs:[{
+		type:String,
+		required:false,
+	}],
 	comments:[{
 		owner:String,
 		comment:String

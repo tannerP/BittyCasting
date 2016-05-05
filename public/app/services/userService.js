@@ -21,15 +21,12 @@ angular.module('userService', [])
 		meta.url += meta.site_name + "/Apply/" + role._id;
 		meta.description = role.description;
 		if(project.coverphoto.name === "default"){
-			console.log("this is default photo");
 			meta.image = meta.site_name + '/'+project.coverphoto.source;
-			console.log(meta.image);}
+		}
 		else{ meta.image = "http://" + project.coverphoto.source.replace(/.*?:\/\//g, "");}
 		/*meta.image_secure = project.coverphoto.source;*/
 		return meta;
 	}
-
-
 	/*return meta;*/
 })
 
@@ -100,7 +97,6 @@ angular.module('userService', [])
 		return $http.delete('api/applicant/'+ appID);
 	}	 
 	appFactory.apply = function(data)	{
-		console.log(data);
 		return $http.post('/applicant', data);	
 	}	 
 	appFactory.getAll = function(roleID)	{
@@ -160,7 +156,6 @@ angular.module('userService', [])
 		return $http.get('api/project');
 	}
 	projectFactory.get  = function(projID)	{
-		console.log(projID);
 		return $http.get('/public/project/' + projID);
 	}
 	projectFactory.appGetPrj  = function(proj_id)	{

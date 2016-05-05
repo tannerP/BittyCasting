@@ -56,8 +56,6 @@ module.exports = function(app, express) {
       res.sendFile(path.join(__dirname + '../../../public/app/views/index.html'));
     })
   app.get('/config', function(req, res) {
-    console.log("Getting config");
-    console.log(S3Config);
     return res.json({
       success: true,
       awsConfig: {
@@ -137,66 +135,67 @@ module.exports = function(app, express) {
   });
 
   app.post('/applicant', function(req, res) {
-      var applicant = new Applicant();
-      //check for correct name;
-      if (req.body.name) {
-        if (req.body.name.first) {
-          applicant.name.first = req.body.name.first;
-        }
-        if (req.body.name.last) {
-          applicant.name.last = req.body.name.last;
-        }
-      } else res.json({
-        success: false,
-        message: "Error: No user name"
-      })
-
-      //check for Role ID
-      if (req.body.roleID) applicant.roleID = req.body.roleID;
-      else res.json({
-        success: false,
-        message: "Error: No user name"
-      })
-
-      if (req.body.email) {
-        applicant.email = req.body.email;
+    var applicant = new Applicant();
+    //check for correct name;
+    if (req.body.name) {
+      if (req.body.name.first) {
+        applicant.name.first = req.body.name.first;
       }
-      if (req.body.phone) {
-        applicant.phone = req.body.phone;
+      if (req.body.name.last) {
+        applicant.name.last = req.body.name.last;
       }
-      if (req.body.gender) {
-        applicant.gender = req.body.gender;
-      }
-      if (req.body.message) {
-        applicant.message = req.body.message;
-      }
-      if (req.body.links) {
-        for (link in req.body.links) {
-          applicant.links.push(req.body.links[link]);
-        }
-      }
-
-      applicant.save(function(err) {
-        if (err) {
-          return res.json({
-            success: false,
-            error: err
-          })
-        } else {
-          Role.findById(req.body.roleID, function(err, role) {
-            if (!err) {
-              ++role.new_apps;
-              ++role.total_apps;
-              role.save(function(err, data) {});
-            }
-          });
-          return res.json({
-            success: true,
-            appID: applicant._id
-          })
-        }
-      })
+    } else res.json({
+      success: false,
+      message: "Error: No user name"
     })
+
+    //check for Role ID
+    if (req.body.roleID) applicant.roleID = req.body.roleID;
+    else res.json({
+      success: false,
+      message: "Error: No user name"
+    })
+
+    if (req.body.email) {
+      applicant.email = req.body.email;
+    }
+    if (req.body.phone) {
+      applicant.phone = req.body.phone;
+    }
+    if (req.body.gender) {
+      applicant.gender = req.body.gender;
+    }
+    if (req.body.message) {
+      applicant.message = req.body.message;
+    }
+    if (req.body.links) {
+      for (link in req.body.links) {
+        applicant.links.push(req.body.links[link]);
+      }
+    }
+
+    applicant.save(function(err) {
+      if (err) {
+        return res.json({
+          success: false,
+          error: err
+        })
+      } else {
+        Role.findById(req.body.roleID, function(err, role) {
+          if (!err) {
+            ++role.new_apps;
+            ++role.total_apps;
+            role.save(function(err, data) {});
+          }
+        });
+        return res.json({
+          success: true,
+          appID: applicant._id
+        })
+      }
+    })
+    
+  })
     //route for adding new requirement. 
   app.put('/app/:app_id', function(req, res) {
     if (req.body.status === "new") {
@@ -231,8 +230,8 @@ module.exports = function(app, express) {
               error: err
             })
           } else {
-            console.log("Success updating favorited");
-            console.log(data);
+            /*console.log("Success updating favorited");
+            console.log(data);*/
             return res.json({
               success: true,
 
@@ -283,7 +282,7 @@ module.exports = function(app, express) {
 
 
   app.get('/submit/:mail', function(req, res) {
-      console.log(req.params.mail);
+      /*console.log(req.params.mail);*/
       //We pass the api_key and domain to the wrapper, or it won't be able to identify + send emails
       var mailgun = new Mailgun({
         apiKey: config.api_key,
@@ -308,7 +307,7 @@ module.exports = function(app, express) {
         } else {
           //Here "submitted.jade" is the view file for this landing page 
           //We pass the variable "email" from the url parameter in an object rendered by Jade
-          console.log(body)
+          /*console.log(body)*/
             /*res.json(body);*/
             /*  res.render('submitted', { email : req.params.mail });
               console.log(body);*/
@@ -320,7 +319,7 @@ module.exports = function(app, express) {
     /* Authentication */
   app.route('/login')
     .post(function(req, res) {
-      console.log(req.body);
+      /*console.log(req.body);*/
       User.findOne({
         email: req.body.email
       }).select('name email password').exec(function(err, user) {
@@ -368,7 +367,7 @@ module.exports = function(app, express) {
       user.password = req.body.password;
       user.email = req.body.email;
       user.role = "user";
-      console.log(user);
+      /*console.log(user);*/
       //save the user and check for errors
       user.save(function(err) {
         if (err) {
@@ -390,7 +389,7 @@ module.exports = function(app, express) {
 
   /*Others*/
   app.get('/submit/:mail', function(req, res) {
-    console.log(req.params.mail);
+    /*console.log(req.params.mail);*/
     //We pass the api_key and domain to the wrapper, or it won't be able to identify + send emails
     var mailgun = new Mailgun({
       apiKey: config.api_key,

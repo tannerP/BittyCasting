@@ -55,19 +55,30 @@ module.exports = function(app, express) {
 	apiRouter.route('/applicants/:roleID')
 		.get(function(req, res) {
 			Applicant.find({
-				'roleID': req.params.roleID
+				'roleIDs':{ $in:[req.params.roleID] }
 			}, function(err, roles) {
 				if (err) {
 					res.send(err);
 					console.log(err);
 				} else {
+//interate through roles
+					for(var role in roles){
+						var tempRole = roles[role];
+						tempRole.roleIDs = [];
+//transfer roleID value to roleIDs array. 
+						tempRole.roleIDs.push(tempRole.roleID)
+						tempRole.save(function(err,data){
+							if(err)(console.log(err))
+						});
+					}
 					res.json({
 						'success': true,
 						'data': roles
 					});
 				}
 			})
-		})
+		}
+	)
 	apiRouter.route('/AppCount/:ID')
 		.get(function(req, res) {
 			Applicant.count({

@@ -16,7 +16,6 @@ controller('ApplyController', ['$scope', '$rootScope',
     /*TODO: condense when combine project and role schema*/
     Pub.getAppRole($routeParams.id).then(function(data) {
       vm.roleData = data.data.Application;
-
       $rootScope.meta.url = vm.roleData.short_url;
       /*console.log($rootScope.meta.url);*/
       if (vm.roleData) { //TODO:remove? 
@@ -44,13 +43,10 @@ controller('ApplyController', ['$scope', '$rootScope',
         }
       }
     });
+
     vm.updateCurRole = function(role) {
-      /*console.log(role);
-      console.log("button pressed")*/
       vm.curRole = role;
     }
-
-    //sort out links vs docs/video/images
 
     vm.link = ""
     vm.newLinks = [];
@@ -104,9 +100,10 @@ controller('ApplyController', ['$scope', '$rootScope',
                 $location.path('/Thankyou');
               }, 1500)
 
-            } else {
+            } else { 
               AWS.uploadAppMedias(vm.files, vm.roleData, vm.applicantID,
                 $rootScope.awsConfig.bucket);
+                //broacast from AWS
                 $rootScope.$on("app-media-submitted", function() {
                 vm.processing = false;
                 $location.path('/Thankyou');
