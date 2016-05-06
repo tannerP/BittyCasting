@@ -87,7 +87,7 @@
             <!-- <div class="fav-applicant">(0)</div> -->
               <img class="fav-applicant-toggle" ng-if="app.favorited" ng-src="/assets/imgs/ic_fav_w_fill.svg" width="20px" vertical-align="middle" ng-click="page.updateFav(app)">
 
-              <img class="fav-applicant-toggle" ng-if="!app.favorited" ng-src="/assets/imgs/ic_fav_w.svg" width="20px" vertical-align="middle" ng-click="page.updateFav(app)">
+              <img class="fav-applicant-toggle" ng-if="!app.favs.indexOf" ng-src="/assets/imgs/ic_fav_w.svg" width="20px" vertical-align="middle" ng-click="page.updateFav(app)">
 
                 <div ng-if="app.headshot" class="card cardApplicants" ng-style="{
                   'background':'url('+ app.headshot+ ') no-repeat center center',

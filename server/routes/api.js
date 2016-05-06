@@ -74,6 +74,17 @@ module.exports = function(app, express) {
 								});
 							}
 						}
+//check if user is in favs. return the appropriate boolean.
+						for(var role in roles){
+							var index = roles[role].favs.indexOf(req.decoded.id)
+							if(index != -1){
+								roles[role].favorited = true;
+							}
+							else{
+								roles[role].favorited = false;	
+							}
+							roles[role].favs = null;
+						}
 						res.json({
 							'success': true,
 							'data': roles

@@ -137,6 +137,10 @@ angular.module('applicantsCtrl', ['userService',
         .success(function (data) {
           vm.processing = false;
           vm.applicants = data.data;
+          /*for(var app in vm.applicants){
+            if{vm.applicants.favs.indexOf()}
+              vm.applicants.favorited = true;
+          }*/
           $scope.numApps = data.data.length;
           //get headshot
           for(var i in vm.applicants){

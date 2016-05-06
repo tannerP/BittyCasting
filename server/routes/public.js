@@ -230,10 +230,22 @@ module.exports = function(app, express) {
           });
         })
       });
+  //TODO: move to /api
     } else if (req.body.status = "fav") {
       //role favoriting for. 
       Applicant.findById(req.params.app_id, function(err, app) {
         app.favorited = req.body.favorited;
+        /*console.log(req.decoded.id);
+        console.log(app.favs.indexOf(req.decoded.id));*/
+        var index = app.favs.indexOf(req.decoded.id);
+        if(index == -1){
+          app.favs.push(req.decoded.id);
+        }
+        else
+        {
+         app.favs.splice(index,++index); 
+        }
+        
         /*app.favorited = req.body.favorited;
         console.log()*/
         app.save(function(err, data) {
