@@ -6,7 +6,7 @@
         <li class="custom-btn-secondary-small" ng-click="vm.editPrjBtn(vm.project)">Edit</li>
         <li class="custom-btn-secondary-small" ng-click="vm.deletePrjBtn(vm.project)">Delete</li>
         <!-- <li class="custom-btn-secondary-small" ng-click="togView()">toggle</li> -->
-        <li class="custom-btn-secondary-small" ng-click="vm.sharePrjBtn(vm.project)">Share</li>
+        <li ng-show="vm.roles.length > 0" class="custom-btn-secondary-small" ng-click="vm.sharePrjBtn(vm.project)">Share</li>
 
       </ul>
       <!-- {{page}} -->
@@ -47,7 +47,7 @@
       </thead>
       <tbody>
       <!-- LOOP OVER THE USERS -->
-      <tr class="animate-repeat" ng-repeat="role in vm.Roles">
+      <tr class="animate-repeat" ng-repeat="role in vm.roles">
         <td ng-click='vm.getRoleBtn(role._id)'>{{ role.name }}</td>
         <td ng-click='vm.getRoleBtn(role._id)'>
           {{role.total_apps || "0"}}

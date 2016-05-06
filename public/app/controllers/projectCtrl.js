@@ -17,15 +17,14 @@ angular.module('projectCtrl', ['userService',
       (function init() { //start engines
         Project.get($routeParams.project_id)
           .success(function(data){
-            vm.project = data.project;
-            $rootScope.meta = Meta.prjMeta(vm.project.project);
+            vm.project = data.project.project;
+            $rootScope.meta = Meta.prjMeta(vm.project);
             vm.roles = data.project.roles;
             vm.curRole = data.project.roles[0];
 
             switch(data.client){
             case "public": {
               $scope.$emit("hideNav")
-              /*$rootScope.meta = Meta.prjMeta()*/
               vm.prView = false;
               vm.pView = true;;
               break;

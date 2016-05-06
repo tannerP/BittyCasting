@@ -154,9 +154,7 @@ angular.module('ProjectView', ['userService',
        $aside, $route) {
       var vm = this;
       vm.processing = true;
-      vm.Roles = [];
-      vm.project = {};
-
+      vm.project = vm.project;
       //function is used in project sharing aside. 
       $scope.preview = function(){
         vm.toggle();
@@ -256,7 +254,7 @@ angular.module('ProjectView', ['userService',
           });
       }
 
-      vm.load();
+      /*vm.load();*/
 
       vm.save = function() {
         vm.processing = true;
@@ -274,6 +272,7 @@ angular.module('ProjectView', ['userService',
       restrict: 'E',
       scope: {
         project: '=',
+        roles: '=',
         toggle: '&',
       },
       templateUrl: 'components/project_view/project_npublic_view.html',
