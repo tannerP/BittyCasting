@@ -85,8 +85,8 @@ angular.module('awsService', [])
       };
 
   aws.uploadCP = function(data,bucket, callback){
-    console.log(data.file)
-    console.log(bucket)
+    /*console.log(data.file)
+    console.log(bucket)*/
     var deferred = $q.defer();
 
       /*console.log('AppID ' + appID);*/
@@ -130,7 +130,7 @@ angular.module('awsService', [])
                   });
                   upload[i]
                     .then(function(response) {
-                      console.log(response);
+                      /*console.log(response);*/
                       file.progress = parseInt(100);
                       /*console.log(response);*/
                       if (response.status === 201) {

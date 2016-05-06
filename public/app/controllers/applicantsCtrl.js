@@ -277,6 +277,8 @@ angular.module('applicantsCtrl', ['userService',
     }
     vm.updateFav = function(aplnt){
       aplnt.favorited = !aplnt.favorited;
+      aplnt.roleID = $scope.roleData._id;
+      console.log(aplnt)
       Applicant.favUpdate(aplnt);
 
     }

@@ -231,8 +231,11 @@ module.exports = function(app, express) {
         })
       });
     } else if (req.body.status = "fav") {
+      //role favoriting for. 
       Applicant.findById(req.params.app_id, function(err, app) {
         app.favorited = req.body.favorited;
+        /*app.favorited = req.body.favorited;
+        console.log()*/
         app.save(function(err, data) {
           if (err) {
             return res.json({

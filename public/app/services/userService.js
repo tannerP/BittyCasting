@@ -100,7 +100,7 @@ angular.module('userService', [])
 		money.new = false;
 		return $http.put('/app/'+id, money);	
 		}	 
-	appFactory.favUpdate = function(app)	{
+	appFactory.favUpdate = function(app,role)	{
 		var money = {};
 		money.status = "fav"
 		money.favorited = app.favorited;
