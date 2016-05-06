@@ -5,10 +5,16 @@ var ApplicantSchema = new Schema({
 
 	updated_date: {type:Date, default:Date.now},
 	submission_date:{type:Date, default:Date.now},
+	/*new : [{
+		:Boolean
+	}],*/
 	name : { first: String, last: String },
-	new : {type:Boolean, default:true},
 	favorited :{type:Boolean, default:false},
-	favs : [],
+	favs : [{
+			roleID:String,
+			type:false,
+			userID:String,
+	}],
 	age : String,
 	message : {type:String, max:220},
 	gender : String,

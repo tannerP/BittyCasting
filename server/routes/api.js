@@ -76,9 +76,12 @@ module.exports = function(app, express) {
 						}
 //check if user is in favs. return the appropriate boolean.
 						for(var role in roles){
+							//check if user is in favs arr. 
 							var index = roles[role].favs.indexOf(req.decoded.id)
 							if(index != -1){
 								roles[role].favorited = true;
+								console.log(roles[role].name);
+								console.log(roles[role].new);
 							}
 							else{
 								roles[role].favorited = false;	

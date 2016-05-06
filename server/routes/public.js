@@ -272,6 +272,7 @@ module.exports = function(app, express) {
   })
 
   app.put('/suppliment/:app_id', function(req, res) {
+    
     Applicant.findById(req.params.app_id, function(err, app) {
       if (err) res.json({
         Error: true,
@@ -303,6 +304,7 @@ module.exports = function(app, express) {
         })
       }
     });
+
   })
 
 
@@ -363,6 +365,7 @@ module.exports = function(app, express) {
               message: 'Authentication failed. Wrong password.'
             });
           } else {
+            
             var token = jwt.sign({
               id: user.id,
               name: user.name,
