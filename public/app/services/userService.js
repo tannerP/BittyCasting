@@ -16,10 +16,24 @@ angular.module('userService', [])
 	}
 	this.roleMeta = function(role, project){
 		meta.type = "website";
-		meta.title= role.name
+		meta.title= "CASTING CALL:"+ role.name
 		meta.site_name = "http://bittycasting.com";
 		meta.url += meta.site_name + "/Apply/" + role._id;
 		meta.description = role.description;
+		if(project.coverphoto.name === "default"){
+			meta.image = meta.site_name + '/'+project.coverphoto.source;
+		}
+		else{ meta.image = "http://" + project.coverphoto.source.replace(/.*?:\/\//g, "");}
+		/*meta.image_secure = project.coverphoto.source;*/
+		return meta;
+	}
+	this.prjMeta = function(project){
+		meta.type = "website";
+		meta.title= "CASTING CALL:"+ project.name
+		meta.site_name = "http://bittycasting.com";
+		meta.url += meta.site_name + "/project/" + project._id;
+		meta.description = project.description;
+
 		if(project.coverphoto.name === "default"){
 			meta.image = meta.site_name + '/'+project.coverphoto.source;
 		}

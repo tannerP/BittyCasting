@@ -3,8 +3,8 @@ angular.module('projectCtrl', ['userService',
 ])
 
 .controller('ProjectPageController',
-    function(Role, Project, $location, $routeParams,
-      $scope, $aside, $route) {
+    function(Role, Project, Meta, $location, $routeParams,
+      $scope, $aside, $route, $rootScope) {
       var vm = this;
       vm.prView = false;
       vm.pView = false;;
@@ -18,13 +18,14 @@ angular.module('projectCtrl', ['userService',
         Project.get($routeParams.project_id)
           .success(function(data){
             vm.project = data.project;
+            $rootScope.meta = Meta.prjMeta(vm.project.project);
             vm.roles = data.project.roles;
             vm.curRole = data.project.roles[0];
-            console.log(vm.curRole);
 
             switch(data.client){
             case "public": {
               $scope.$emit("hideNav")
+              /*$rootScope.meta = Meta.prjMeta()*/
               vm.prView = false;
               vm.pView = true;;
               break;
@@ -57,7 +58,7 @@ angular.module('projectCtrl', ['userService',
 
       $scope.Twitter_text = "CASTING CALL: " + $scope.roleData.name 
                             + " " + $scope.roleData.short_url + " "
-                            + "via "; + " " + "@BittyCasting ";
+                            + "via " + " " + "@BittyCasting ";
 
       var successAlert = $alert({
           title: 'Copied!',
@@ -103,7 +104,9 @@ angular.module('projectCtrl', ['userService',
 
       $scope.Email_text = "Hey, \n \n \t I just created an acting role in BittyCasting that I thought might interest you. Check out the project and role by clicking the link:" + $scope.textToCopy + "\n \n Thanks!";
 
-      $scope.Twitter_text = "CASTING CALL: " + $scope.project.name + " " + $scope.textToCopy + " " + "via "; + " " + "@BittyCasting ";
+      $scope.Twitter_text = "CASTING CALL: " + $scope.project.name 
+                          + " " + $scope.textToCopy + " " + "via " + " " 
+                          + "@BittyCasting ";
 
       var successAlert = $alert({
           title: 'Copied!',
