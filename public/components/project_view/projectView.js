@@ -2,7 +2,8 @@
 angular.module('ProjectView', ['userService',
     'mgcrea.ngStrap'
   ])
-  /*notice ppublicview vs prpublicview and, their assiociated html-page differences*/
+  /*notice ppublicview vs prpublicview and,
+   their assiociated html-page differences*/
   .directive('ppublicview', function() {
     /*var link = function($scope,element, attrs){
       var vm = this;
@@ -13,8 +14,9 @@ angular.module('ProjectView', ['userService',
       console.log(attrs);
     }*/
 
-    var publicController = function(Role, Project, $location, $routeParams,
-      $scope, $rootScope, $aside, $route) {
+    var publicController = function(Applicant, AWS,
+      $location, $routeParams, $scope,
+      $rootScope, $aside, $route) {
       var vm = this;
       vm.loggedIn = $rootScope.loggedIn;       
 
@@ -30,18 +32,49 @@ angular.module('ProjectView', ['userService',
           $location.path("/");
         }
       }
-         vm.link = ""
+    vm.link = ""
     vm.newLinks = [];
+    vm.appData = {};
+    vm.appData.links = [];
+    vm.appData.roleIDs = [];
+    vm.files= [];
     
-    vm.addLink = function(arr_indx, name) {
-      var link = {};
-      link.name = name;
-      link.source = vm.newLinks[arr_indx];
+    vm.isSelected = function(roleID){
+      console.log(roleID)
+      var index = vm.appData.roleIDs.indexOf(roleID);
+      console.log(index)
+        if (index === -1 ){
+          console.log("false")
+          return false;
+        }
+        else return true;
+        /*console.log("true")*/
+    }
 
-      if (link.source.indexOf('.') > -1) {
-        vm.appData.links.push(link)
-        vm.newLinks[index] = "";
+    vm.toggleRole = function(roleID){
+  /*    console.log(roleID);*/
+      if(roleID){
+        var index = vm.appData.roleIDs.indexOf(roleID);
+        if (index === -1 ){
+          vm.appData.roleIDs.push(roleID);
+        }
+        else{
+          /*console.log("removing")*/
+          vm.appData.roleIDs.splice(index,++index); 
+        }
       }
+      else console.log("error including role in applicantion")
+    }
+  
+  /*---------------------------------------*/
+
+    vm.addLink = function(arr_index, name) {
+      var link = {};
+      
+      link.name = name;
+      link.source = vm.newLinks[arr_index];
+      vm.appData.links.push(link)
+      vm.newLinks[arr_index] = "";
     }
 
     vm.removeLink = function(index) {
@@ -55,6 +88,7 @@ angular.module('ProjectView', ['userService',
 
     vm.processing = false;
     vm.submit = function() {
+      console.log(vm.appData)
       vm.processing = true;
       vm.currfile;
       for (i in vm.newLinks) {
@@ -70,10 +104,11 @@ angular.module('ProjectView', ['userService',
       }
       Applicant.apply(vm.appData)
         .then(function(resp) {
+          console.log(resp)
           vm.processing = true;
           vm.applicantID = resp.data.appID;
-          vm.appData = "";
-          if (vm.roleData) {
+          /*if (vm.roleData) {*/
+            /*if (vm.rqmnts) {*/
             if (vm.files.length == 0) {
               $timeout(function() {
                 vm.processing = false;
@@ -81,15 +116,16 @@ angular.module('ProjectView', ['userService',
               }, 1500)
 
             } else { 
-              AWS.uploadAppMedias(vm.files, vm.roleData, vm.applicantID,
-                $rootScope.awsConfig.bucket);
+              AWS.uploadAppMedias(vm.files, vm.roles[0],
+                vm.applicantID, $rootScope.awsConfig.bucket);
                 //broacast from AWS
-                $rootScope.$on("app-media-submitted", function() {
-                vm.processing = false;
-                $location.path('/Thankyou');
-              })
+                $rootScope.$on("app-media-submitted",
+                  function() {
+                  vm.processing = false;
+                  $location.path('/Thankyou');
+                })
             }
-          }
+          /*}*/
         })
       return vm;
     }
@@ -110,8 +146,8 @@ angular.module('ProjectView', ['userService',
     }
   })
   
-  .directive('prpublicview', function(Role, Project, $location, $routeParams,
-    $aside, $route) {
+  .directive('prpublicview', 
+    function(Role, Project, $location, $routeParams, $aside, $route) {
     var controller = ['$scope','Role','Project',"$location",
     '$routeParams','$aside','$route',
     function($scope,Role, Project, $location, $routeParams,
@@ -207,7 +243,8 @@ angular.module('ProjectView', ['userService',
       vm.back = function() {
         $location.path('/home');
       }
-      $scope.load = function() {
+
+      vm.load = function() {
         Project.get($routeParams.project_id)
           .success(function(data) {
             vm.project = data.project.project;
@@ -219,7 +256,8 @@ angular.module('ProjectView', ['userService',
           });
       }
 
-      $scope.load();
+      vm.load();
+
       vm.save = function() {
         vm.processing = true;
         vm.message;

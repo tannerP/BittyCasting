@@ -24,9 +24,9 @@ angular.module('projectCtrl', ['userService',
 
             switch(data.client){
             case "public": {
+              $scope.$emit("hideNav")
               vm.prView = false;
               vm.pView = true;;
-              $scope.$emit("hideNav")
               break;
             }
             case "owner": {vm.prView = true; break;}
