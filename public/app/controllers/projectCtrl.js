@@ -153,7 +153,7 @@ angular.module('projectCtrl', ['userService',
         Role.delete(id)
           .success(function() {
             
-            if ($location.path().indexOf("/applicants") > -1)
+            if ($location.path().indexOf("/role") > -1)
             { $window.history.back(); } 
             else{ $route.reload(); }
             

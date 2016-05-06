@@ -255,16 +255,18 @@ module.exports = function(app, express) {
 				_id: req.params.role_id,
 			}, function(err, role) {
 				if (!err) {
-					if (role.userID != req.decoded.id) {
-						res.status("403").send({
-							success: false,
-							message: 'No token provided.'
-						})
-					} else {
-						res.json({
-							success: true,
-							data: role
-						});
+					if( role && role.userID){
+						if (role.userID != req.decoded.id) {
+							res.status("403").send({
+								success: false,
+								message: 'No token provided.'
+							})
+						} else {
+							res.json({
+								success: true,
+								data: role
+							});
+						}
 					}
 				}
 			})
