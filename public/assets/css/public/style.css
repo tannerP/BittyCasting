@@ -786,66 +786,32 @@ div.pageHeader {
       -ms-transition: all 0.8s ease;
       -o-transition: all 0.8s ease;
       transition: all 0.8s ease; }
-  div.pageHeader .custom-page-action ul {
-    list-style: none; }
-    div.pageHeader .custom-page-action ul li {
-      display: inline;
-      float: right;
-      margin-left: 5px;
-      padding-left: 38px; }
-      div.pageHeader .custom-page-action ul li:nth-child(1) {
-        background: url("/assets/imgs/ic_edit_w.svg") no-repeat left 15px center;
-        background-size: 16px 16px;
-        background-color: #666666;
-        -webkit-transition: all 0.8s ease;
-        -moz-transition: all 0.8s ease;
-        -ms-transition: all 0.8s ease;
-        -o-transition: all 0.8s ease;
-        transition: all 0.8s ease; }
-        div.pageHeader .custom-page-action ul li:nth-child(1):hover, div.pageHeader .custom-page-action ul li:nth-child(1):focus {
-          cursor: pointer;
-          background-color: #444444;
-          -webkit-transition: all 0.8s ease;
-          -moz-transition: all 0.8s ease;
-          -ms-transition: all 0.8s ease;
-          -o-transition: all 0.8s ease;
-          transition: all 0.8s ease; }
-      div.pageHeader .custom-page-action ul li:nth-child(2) {
-        background: url("/assets/imgs/ic_trash_w.svg") no-repeat left 15px center;
-        background-size: 16px 16px;
-        background-color: #666666;
-        -webkit-transition: all 0.8s ease;
-        -moz-transition: all 0.8s ease;
-        -ms-transition: all 0.8s ease;
-        -o-transition: all 0.8s ease;
-        transition: all 0.8s ease; }
-        div.pageHeader .custom-page-action ul li:nth-child(2):hover, div.pageHeader .custom-page-action ul li:nth-child(2):focus {
-          cursor: pointer;
-          background-color: #444444;
-          -webkit-transition: all 0.8s ease;
-          -moz-transition: all 0.8s ease;
-          -ms-transition: all 0.8s ease;
-          -o-transition: all 0.8s ease;
-          transition: all 0.8s ease; }
-      div.pageHeader .custom-page-action ul li:nth-child(3) {
-        background: url("/assets/imgs/ic_share_w.svg") no-repeat left 15px center;
-        background-size: 16px 16px;
-        background-color: #666666;
-        -webkit-transition: all 0.8s ease;
-        -moz-transition: all 0.8s ease;
-        -ms-transition: all 0.8s ease;
-        -o-transition: all 0.8s ease;
-        transition: all 0.8s ease; }
-        div.pageHeader .custom-page-action ul li:nth-child(3):hover, div.pageHeader .custom-page-action ul li:nth-child(3):focus {
-          cursor: pointer;
-          background-color: #444444;
-          -webkit-transition: all 0.8s ease;
-          -moz-transition: all 0.8s ease;
-          -ms-transition: all 0.8s ease;
-          -o-transition: all 0.8s ease;
-          transition: all 0.8s ease; }
-      div.pageHeader .custom-page-action ul li:last-child {
-        margin-left: 0; }
+  div.pageHeader .custom-page-action .btn-edit, div.pageHeader .custom-page-action .btn-delete, div.pageHeader .custom-page-action .btn-share {
+    display: inline;
+    float: right;
+    margin-left: 5px;
+    padding-left: 38px;
+    background-color: #666666;
+    -webkit-transition: all 0.8s ease;
+    -moz-transition: all 0.8s ease;
+    -ms-transition: all 0.8s ease;
+    -o-transition: all 0.8s ease;
+    transition: all 0.8s ease; }
+    div.pageHeader .custom-page-action .btn-edit:hover, div.pageHeader .custom-page-action .btn-edit:focus, div.pageHeader .custom-page-action .btn-delete:hover, div.pageHeader .custom-page-action .btn-delete:focus, div.pageHeader .custom-page-action .btn-share:hover, div.pageHeader .custom-page-action .btn-share:focus {
+      cursor: pointer;
+      background-color: #444444; }
+  div.pageHeader .custom-page-action .btn-share {
+    background: url("/assets/imgs/ic_share_w.svg") no-repeat left 15px center #06bcc2;
+    background-size: 16px 16px; }
+    div.pageHeader .custom-page-action .btn-share:hover, div.pageHeader .custom-page-action .btn-share:focus {
+      background-color: #069A9F; }
+  div.pageHeader .custom-page-action .btn-edit {
+    background: url("/assets/imgs/ic_edit_w.svg") no-repeat left 15px center #666666;
+    background-size: 16px 16px; }
+  div.pageHeader .custom-page-action .btn-delete {
+    background: url("/assets/imgs/ic_trash_w.svg") no-repeat left 15px center #666666;
+    background-size: 16px 16px;
+    margin-left: 0px; }
   div.pageHeader .custom-page-action-secondary .custom-page-action-secondary-title {
     font-size: 16px;
     float: left; }

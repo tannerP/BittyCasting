@@ -869,50 +869,38 @@ div.pageHeader{
     }
     
     .custom-page-action {
-        ul {
-            list-style: none;
-            li{
-                display: inline;
-                float: right;
-                margin-left: 5px;
-                padding-left: 38px;            
-                &:nth-child(1){
-                    background: url("/assets/imgs/ic_edit_w.svg") no-repeat left 15px center;
-                    background-size: 16px 16px;
-                    background-color: $color-grey-dark;
-                    @include transition(all, 0.8s, ease);
-                    &:hover, &:focus {
-                        cursor: pointer;
-                        background-color: $color-grey-darken;
-                        @include transition(all, 0.8s, ease);
-                    }
-                }
-                &:nth-child(2){
-                    background: url("/assets/imgs/ic_trash_w.svg") no-repeat left 15px center;
-                    background-size: 16px 16px;  
-                    background-color: $color-grey-dark;
-                    @include transition(all, 0.8s, ease);
-                    &:hover, &:focus {
-                        cursor: pointer;
-                        background-color: $color-grey-darken;
-                        @include transition(all, 0.8s, ease);
-                    }
-                }
-                &:nth-child(3){
-                    background: url("/assets/imgs/ic_share_w.svg") no-repeat left 15px center;
-                    background-size: 16px 16px;  
-                    background-color: $color-grey-dark;
-                    @include transition(all, 0.8s, ease);
-                    &:hover, &:focus {
-                        cursor: pointer;
-                        background-color: $color-grey-darken;
-                        @include transition(all, 0.8s, ease);
-                    }
-                }
-                &:last-child {
-                    margin-left: 0;
-                }
+        
+        .btn-edit, .btn-delete, .btn-share {
+            display: inline;
+            float: right;
+            margin-left: 5px;
+            padding-left: 38px; 
+            background-color: $color-grey-dark;
+            @include transition(all, 0.8s, ease);
+            &:hover, &:focus {
+                cursor: pointer;
+                background-color: $color-grey-darken;
             }
+        }
+        
+        .btn-share {            
+            background: url("/assets/imgs/ic_share_w.svg") no-repeat left 15px center $color-blue;
+            background-size: 16px 16px; 
+            &:hover, &:focus {
+                background-color: $color-blue-darken;
+            }
+            
+        }
+        
+        .btn-edit {            
+            background: url("/assets/imgs/ic_edit_w.svg") no-repeat left 15px center $color-grey-dark;
+            background-size: 16px 16px;          
+        }
+        
+        .btn-delete {            
+            background: url("/assets/imgs/ic_trash_w.svg") no-repeat left 15px center $color-grey-dark;
+            background-size: 16px 16px;    
+            margin-left: 0px;
         }
     }
     
