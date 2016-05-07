@@ -27,7 +27,7 @@ angular.module('ProjectView', ['userService',
       //TODO: this doesn't scale for collabs.
       vm.back = function(){
         if($rootScope.loggedIn){
-          vm.toggle();    
+          vm.toggle();   
         }
         else{
           $location.path("/");

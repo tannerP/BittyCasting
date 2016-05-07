@@ -11,9 +11,9 @@
                 <div class='pageTitle'>Role<span>s</span></div>
                 <ul>
                     <li ng-repeat="role in ppv.roles">
-                        <label >{{role.name}}</label>
-                        <div style="white-space: pre-wrap" ng-bind-html="role.description | linky"></div>
+                        <label ng-click="ppv.update_CurRole(role)" >{{role.name}}</label>
                     </li>
+                    <div style="white-space: pre-wrap" ng-bind-html="ppv.currole.description | linky"></div>
                 </ul>
 
                 <!-- <div style="white-space: pre-wrap" ng-repeat="roleData in ppv.roles"> 
