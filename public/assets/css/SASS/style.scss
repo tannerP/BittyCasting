@@ -994,6 +994,8 @@ ul.projects li {
     @include box-shadow(0px, 2px, 2px, 0px, rgba(0,0,0,0.1));
     @include transition(all, 0.3s, ease);
     
+    img {cursor: pointer;}
+    
     .alert-new {
         position: absolute;
         top: 12px;
