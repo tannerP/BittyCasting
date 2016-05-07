@@ -81,11 +81,6 @@ $font-size-small: 10px;
 
 .clear {clear: both;}
 
-ul {
-    list-style: none;
-    padding: 0;
-}
-
 .custom-disable {
     opacity: 0.4;
     filter: alpha(opacity=40);
@@ -1769,7 +1764,7 @@ ul.select-coverphoto-wrapper {
 
 
 .applyPage {
-    padding: 56px 0 60px 0;
+    padding: 56px 0 120px 0;
     position: relative;
 //    margin-bottom: -60px;
     
@@ -1809,6 +1804,8 @@ ul.select-coverphoto-wrapper {
     
     .applyPageLeft {
         ul {
+            list-style: none;
+            padding: 0;
             padding-bottom: 10px;
             text-align: center;
             li {
@@ -1847,6 +1844,11 @@ ul.select-coverphoto-wrapper {
         p {
             color: $color-grey;
         }
+        
+        a {
+            vertical-align: middle;
+        }
+        
         .powerLogo {
             width: 136px;
             height: auto;

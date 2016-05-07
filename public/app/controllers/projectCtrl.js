@@ -20,8 +20,9 @@ angular.module('projectCtrl', ['userService',
             vm.project = data.project.project;
             $rootScope.meta = Meta.prjMeta(vm.project);
             vm.roles = data.project.roles;
-            vm.curRole = data.project.roles[0];
-
+            if(data.project.length < 1){
+              vm.curRole = data.project.roles[0];
+            }
             //filter requirements 
             vm.curRole.requirements =[];
             for(var r in vm.roles){
