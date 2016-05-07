@@ -22,8 +22,7 @@ var RoleSchema = new Schema({
 	requirements:[{
 		name:String,
 		format:String,
-		required:Boolean,
-		selected:Boolean,
+		required:Boolean
 	}]
 });
 

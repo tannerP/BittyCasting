@@ -22,6 +22,15 @@ angular.module('projectCtrl', ['userService',
             vm.roles = data.project.roles;
             vm.curRole = data.project.roles[0];
 
+            //filter requirements 
+            vm.curRole.requirements =[];
+            for(var r in vm.roles){
+              var rqmnt = vm.roles[r].requirements;
+              if(vm.curRole.requirements.indexOf(rqmnt.name))
+
+              console.log(rqmnt)
+            }
+
             switch(data.client){
             case "public": {
               $scope.$emit("hideNav")

@@ -40,15 +40,11 @@ angular.module('ProjectView', ['userService',
     vm.files= [];
     
     vm.isSelected = function(roleID){
-      console.log(roleID)
       var index = vm.appData.roleIDs.indexOf(roleID);
-      console.log(index)
         if (index === -1 ){
-          console.log("false")
           return false;
         }
-        else return true;
-        /*console.log("true")*/
+          else return true;
     }
 
     vm.toggleRole = function(roleID){
