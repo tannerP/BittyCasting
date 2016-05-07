@@ -101,19 +101,17 @@
                                     ngf-max-size="250MB" ng-required="true">
                                     <!-- Select File -->
                                      <div ng-if="!page.files[$index]">
-                                         <p><span>Drag and drop file(s)</span>
-                                            <br/>
-                                            <a ngf-select ng-model="page.files[$index]" name="file" 
+                                         <p><span>Drag and drop file(s)</span><br/><a ngf-select ng-model="page.files[$index]" name="file" 
                                             ngf-accept="'application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/pdf,image/*,video/*'"
                                             ngf-pattern="'application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/pdf,image/*,video/*'"
                                             ngf-before-model-change= "page.errors = '' "
                                             ngf-min-size="100"
                                             ngf-max-size="250MB"
                                             ngf-model-invalid="page.errors"
-                                            ng-select="page.checkFile(page.files[$index])">
-                                            upload from computer</a>
-                                            </p>
-                                        </div>
+                                            ng-select="page.checkFile(page.files[$index])">upload from computer</a>
+                                         </p>
+                                    </div>
+                                       
                                         <a ngf-select ng-model="page.files[$index]" name="file" 
                                             ngf-pattern="'application/pdf,image/*,video/*'"
                                             ngf-accept="'application/pdf,image/*,video/*'"
