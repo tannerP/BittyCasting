@@ -183,6 +183,9 @@ p {
   font-size: 12px;
   line-height: 24px; }
 
+label {
+  font-weight: 400; }
+
 a {
   text-decoration: none;
   color: #06bcc2;
@@ -276,6 +279,30 @@ a {
     cursor: pointer;
     vertical-align: middle; }
   .checkbox-delete label input:checked + span {
+    background: url("/assets/imgs/ic_check.svg") no-repeat center center #cccccc;
+    background-size: 12px 12px; }
+
+.custom-checkbox label {
+  display: block;
+  font-size: 12px;
+  line-height: 24px;
+  padding-left: 0;
+  margin: 0 0 10px 24px; }
+  .custom-checkbox label input[type="checkbox"] {
+    display: none; }
+  .custom-checkbox label span {
+    float: left;
+    margin: 3px 3px 0 -24px;
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    display: block;
+    border: none;
+    background-image: none;
+    background-color: #cccccc;
+    cursor: pointer;
+    vertical-align: middle; }
+  .custom-checkbox label input:checked + span {
     background: url("/assets/imgs/ic_check.svg") no-repeat center center #cccccc;
     background-size: 12px 12px; }
 
@@ -1424,11 +1451,21 @@ ul.projects li {
 
 .form-group {
   margin-bottom: 28px; }
+  .form-group ul {
+    list-style: none;
+    padding: 0; }
   .form-group label {
     font-family: "Open Sans", sans-serif;
     font-size: 10px;
     color: #999999;
     font-weight: 400; }
+    .form-group label span {
+      margin-left: 5px;
+      width: 12px;
+      height: 12px;
+      display: inline-block;
+      background: url("/assets/imgs/ic_asterisk.svg") no-repeat top right;
+      background-size: 12px 12px; }
   .form-group input {
     font-family: "Open Sans", sans-serif;
     font-size: 12px;
@@ -1691,12 +1728,17 @@ ul.select-coverphoto-wrapper {
 .applyPage {
   padding: 56px 0 120px 0;
   position: relative; }
+  .applyPage ul {
+    list-style: none;
+    padding: 0; }
   .applyPage .pageTitle {
     padding-bottom: 20px; }
   .applyPage .pageSubtitle {
     margin-top: -10px; }
   .applyPage p {
     white-space: pre-wrap; }
+  .applyPage .custom-checkbox {
+    margin: -20px 0 29px 0; }
   .applyPage .applyPageLeftBg {
     width: 50%;
     position: absolute;
@@ -1707,13 +1749,6 @@ ul.select-coverphoto-wrapper {
     background-color: white; }
   .applyPage .applyPageLeft, .applyPage .applyPageRight {
     padding: 0 15px; }
-  .applyPage .applyPageRight label span {
-    margin-left: 5px;
-    width: 12px;
-    height: 12px;
-    display: inline-block;
-    background: url("/assets/imgs/ic_asterisk.svg") no-repeat top right;
-    background-size: 12px 12px; }
   .applyPage .applyPageLeft ul {
     list-style: none;
     padding: 0;

@@ -6,24 +6,21 @@
         <section class="col-md-6">
             <div class="applyPageLeft">
                 <div class='pageTitle'>{{ppv.project.name}}</div> <!-- Remove tag causes displaying bug -->
-                <div style="white-space: pre-wrap" ng-bind-html="ppv.project.description | linky"> </div>
+                <p ng-bind-html="ppv.project.description | linky"></p>
                 <img ng-src="{{ppv.project.coverphoto.source ||'assets/imgs/img_projectCover01.png'}}" class="img-responsive">
                 <div class='pageTitle'>Role<span>s</span></div>
                 <ul>
-                    <li ng-repeat="role in ppv.roles">
-                        <label ng-click="ppv.update_CurRole(role)" >{{role.name}}</label>
-                    </li>
-                    <div style="white-space: pre-wrap" ng-bind-html="ppv.currole.description | linky"></div>
+                    <li class="roles-dynamics roles-dynamics-active" ng-click="ppv.update_CurRole(role)" ng-repeat="role in ppv.roles" >
+                        {{role.name}}
+                    </li>                 
                 </ul>
-
-                <!-- <div style="white-space: pre-wrap" ng-repeat="roleData in ppv.roles"> 
-                <div class='PageSubtitle'>{{roleData.name}}</div> -->                  
-                <div ng-bind-html="roleData.description | linky"></div>  
-                  </div>
+                <p ng-bind-html="ppv.currole.description | linky"></p>
+                
+<!--
                 <div class="div-table">
                      <div ng-if="roleData.location" class="div-table-row">
                         <div class="div-table-col">Location</div>
-                        <p style="white-space: pre-wrap" class="div-table-col">{{roleData.location}}</p>
+                        <div style="white-space: pre-wrap" class="div-table-col">{{roleData.location}}</div>
                     </div>
                     <div ng-if="roleData.end_time" class="div-table-row">
                         <div class="div-table-col">Time</div>
@@ -38,6 +35,8 @@
                         <div class="div-table-col">{{roleData.gender}}</div>
                     </div>
                 </div>
+-->
+                
             </div>
             <!-- <audio ng-if="currFile" controls ngf-src="currFile"> -->
         </section>
@@ -47,21 +46,24 @@
             background-color: red;
           }
         </style>
+     
         <section class="col-md-6">
             <div class="applyPageRight">
                  <div class='pageTitle'>Apply</div>
-                 <ul>
-                    <li ng-repeat="role in ppv.roles">
-                        <button ng-click="ppv.toggleRole(role._id);"
-                                ng-class="{'btn':ppv.isSelected(role._id)}">
-                        {{role.name}}
-                        </button>
-
-                    </li>
-                    <div class="custom-btn-secondary-small" ng-click="ppv.update_CurRole(role)">{{role.name}}</div>
-                 </ul>
                  
                         <form ng-submit="ppv.submit()" name="form" class="css-form">
+                            <div class = "form-group">
+                                <label>Which role(s) are you applying?<span></span></label>    
+                            </div>
+                            <ul class="custom-checkbox">
+                                <li ng-repeat="role in ppv.roles">
+                                        <label>
+                                            <input type="checkbox">
+                                            <span ng-click="ppv.toggleRole(role._id);" ng-class="{'btn':ppv.isSelected(role._id)}"></span> {{role.name}}
+                                        </label>
+                                </li>
+                            </ul>            
+                            
                             <div class = "form-group">
                                 <label>First name<span></span></label>
                                 <input type = "text" class="custom-form"  ng-model="ppv.appData.name.first" required>
@@ -96,8 +98,7 @@
                                 ngf-max-size="250MB" ng-required="true">
                                 <!-- Select File -->
                                  <div ng-if="!files[$index]">
-                                     <p><span>Drag and drop file(s)</span>
-                                            <br/><a ngf-select ng-model="ppv.files[$index]" name="file" 
+                                     <p><span>Drag and drop file(s)</span><br/><a ngf-select ng-model="ppv.files[$index]" name="file" 
                                                 ngf-accept="'application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/pdf,image/*,video/*'"
                                                 ngf-pattern="'application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/pdf,image/*,video/*'"
                                                 ngf-before-model-change= "errors = '' "
@@ -105,8 +106,7 @@
                                                 ngf-max-size="500MB"
                                                 ngf-model-invalid="errors"
                                                 ng-select="checkFile(files[$index])"
-                                                >
-                                            upload from computer</a>
+                                                >upload from computer</a>
                                         </p>
                                     </div>
                                     <a ngf-select ng-model="ppv.files[$index]" name="file" 
@@ -151,11 +151,9 @@
 
                         <button type="submit"  ng-show="!ppv.processing" class="custom-btn-primary-large">Submit</button>
                         <p class="btn_paragraph">By clicking on “Submit”, I agree to BittyCasting’s <a href="/submission_agreement" target="_blank">submission agreement.</a></p>
-                        <div class="poweredBy">
-                            <p>Powered by<a href="/" target="_blank">
-                                <img class="powerLogo" ng-src="assets/imgs/logo_BittyCasting.svg"></a>
-                            </p>
-                        </div>   
+                            <div class="poweredBy">
+                                <p>Powered by<a href="/" target="_blank"><img class="powerLogo" ng-src="assets/imgs/logo_BittyCasting.svg"></a></p>
+                            </div>  
                     </form>
                         
                 </div>  
