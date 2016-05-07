@@ -65,6 +65,7 @@ createS3Policy = function (contentType, callback) {
 
 exports.removeSup = function (sup) {
     var objects = [];
+    console.log("deleting from S3")
     for (var i in sup) {
         /*console.log(i);*/
         objects.push({

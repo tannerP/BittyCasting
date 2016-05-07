@@ -55,10 +55,14 @@ module.exports = function(app, express) {
 	apiRouter.route('/applicants/:roleID')
 		.get(function(req, res) {
 			Applicant.find({
-				'roleIDs': {
-					$in: [req.params.roleID]
+				$or:[
+				{'roleID':req.params.roleID},
+				{'roleIDs': {
+					$in: [req.params.roleID]}
 				}
+				]
 			}, function(err, apps) {
+				console.log(apps)
 				if (err) {
 					res.send(err);
 					console.log(err);
@@ -66,15 +70,21 @@ module.exports = function(app, express) {
 					//TODO: remove when fully transfer to roleIDS					
 					//interate through roles
 					for (var app in apps) {
-						var tempRole = apps[app];
-						if (tempRole.roleIDs.length < 1) {
-							tempRole.roleIDs = [];
-							//transfer roleID value to roleIDs array. 
-							tempRole.roleIDs.push(tempRole.roleID)
-							tempRole.save(function(err, data) {
+						var tempApp = apps[app];
+						console.log(tempApp);
+						if(tempApp.roleID){
+						/*if (tempRole.roleIDs.length < 1) {*/
+							/*tempRole.roleIDs = [];*/
+							//transfer roleID value to roleIDs array.
+
+
+							tempApp.roleIDs.push(tempApp.roleID)
+							tempApp.roleID = null;
+							tempApp.save(function(err, data) {
 								if (err)(console.log(err))
 							});
 						}
+						/*}*/
 					}
 
 					var tempArr = [];
@@ -114,13 +124,13 @@ module.exports = function(app, express) {
 
 								if (app.roleIDs.length > 1) {
 									var index = app.roleIDs.indexOf(roleID);
-									console.log(index);
+									/*console.log(index);*/
 									app.roleIDs.splice(index, ++index);
 									app.save();
 								} else {
-									console.log("before removing supps")
+									/*console.log("before removing supps")*/
 									aws.removeSup(app.suppliments);
-									console.log("after removing supps")
+									/*console.log("after removing supps")*/
 									Applicant.remove({
 										_id: req.params.appID,
 									}, function() {})
@@ -128,7 +138,7 @@ module.exports = function(app, express) {
 								Role.findById(roleID, function(err, data) {
 									if (err) return res.json({'error':err});
 									if (data) {
-										console.log("decremented totalapps")
+										/*console.log("decremented totalapps")*/
 											--data.total_apps;
 										data.save(function() {
 													return res.json({
@@ -220,6 +230,7 @@ module.exports = function(app, express) {
 			Role.find({
 					'projectID': req.params.projectID
 				}, function(err, roles) {
+					console.log(roles)
 					if (err) {
 						res.send(err);
 						console.log(err);
