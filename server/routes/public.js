@@ -234,21 +234,47 @@ module.exports = function(app, express) {
     } else if (req.body.status = "fav") {
       //role favoriting for. 
       Applicant.findById(req.params.app_id, function(err, app) {
-        app.favorited = req.body.favorited;
-        /*console.log(req.decoded.id);
-        console.log(app.favs.indexOf(req.decoded.id));*/
-        var index = app.favs.indexOf(req.decoded.id);
-        if(index == -1){
-          app.favs.push(req.decoded.id);
+         /*= req.body.favorited;*/
+
+        /*console.log(tempFav);*/
+        var usrInx = -1;
+        console.log(app.favs)
+        //check if user ever favorited applicant for this role
+        for(var i in app.favs){
+          var curr = {};
+              curr.roleID = app.favs[i].roleID,
+              curr.userID = app.favs[i].userID;
+
+          // if applicant has been favorited for spec. role. 
+          if(curr.userID === req.decoded.id 
+            && curr.roleID === req.body.roleID){
+              usrInx = i;
+          }
+        }
+
+        console.log(usrInx);
+        /*var index = app.favs.indexOf(req.decoded.id);*/
+        if(usrInx === -1){
+          console.log("adding for the first time");
+          var reqData = {
+              roleID:req.body.roleID,
+              userID:req.decoded.id,
+              favorited:true
+          };  
+          app.favs.push(reqData);
+          console.log(app.favs)
         }
         else
         {
-         app.favs.splice(index,++index); 
+          console.log("toggle favorite")
+          app.favs[usrInx].favorited  = !app.favs[usrInx].favorited;
+          console.log(app.favs[usrInx].favorited);
         }
-        
-        /*app.favorited = req.body.favorited;
-        console.log()*/
+        /*app.favorited = req.body.favorited;*/
+        /*console.log()*/
+        /*app.favs=[];*/
         app.save(function(err, data) {
+          console.log(data.favs);
           if (err) {
             return res.json({
               success: false,
@@ -259,7 +285,6 @@ module.exports = function(app, express) {
             console.log(data);*/
             return res.json({
               success: true,
-
             });
           }
           return res.json({

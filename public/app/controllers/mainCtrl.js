@@ -72,6 +72,7 @@ angular.module('mainCtrl', ['authService','mgcrea.ngStrap'])
 																	last:data.name.last,
 																	email:data.email,
 																	role:data.role,
+																	_id:data._id,
 								}
 							}
 						})

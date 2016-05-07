@@ -22,7 +22,7 @@ angular.module('applicantsCtrl', ['userService',
   })
   
   .controller('ApplicantPageController',
-  function (Applicant, Role, $location, $routeParams,
+  function (Applicant, Role, $location, $routeParams,$rootScope,
             $scope, $aside, $routeParams, $location, $route, $window) {
     var vm = this;
     $scope.viewApp = false;
@@ -110,8 +110,9 @@ angular.module('applicantsCtrl', ['userService',
     Role.get($routeParams.role_id)
       .success(function (data) {
         vm.processing = false;      
-        $scope.roleData = data.data;
-        $scope.role= data.data;
+        $scope.roleData = data.data;        
+        getApps();
+        /*$scope.role= data.data;*/
       
         //calculate remaining days
         var now = new Date()
@@ -141,9 +142,19 @@ angular.module('applicantsCtrl', ['userService',
             if{vm.applicants.favs.indexOf()}
               vm.applicants.favorited = true;
           }*/
+          /*console.log(vm.applicants.favs)*/
           $scope.numApps = data.data.length;
           //get headshot
           for(var i in vm.applicants){
+
+
+            for(var app in vm.applicants[i].favs){
+              if( $rootScope.user._id ===  vm.applicants[i].favs[app].userID
+                && $scope.roleData._id === vm.applicants[i].favs[app].roleID) {
+                vm.applicants[i].favorited = vm.applicants[i].favs[app].favorited;
+              }
+            }
+
             if(vm.applicants[i].suppliments.length > 0){
               for(var j in  vm.applicants[i].suppliments)
               {
@@ -151,7 +162,6 @@ angular.module('applicantsCtrl', ['userService',
                 if(angular.equals(vm.applicants[i].suppliments[j].name, "Headshot") ||
                 angular.equals(vm.applicants[i].suppliments[j].name, "headshot")  )
                 {   //check it attachment is an image
-                  console.log(vm.applicants[i].suppliments[j]);
                   if(vm.applicants[i].suppliments[j].file_type.indexOf('image') != -1){
                     /*console.log(vm.applicants[i].suppliments[j].file_type);*/
                     vm.applicants[i].headshot = vm.applicants[i].suppliments[j].source;
@@ -170,14 +180,12 @@ angular.module('applicantsCtrl', ['userService',
             // no attachment
             else vm.applicants[i].headshot= "/assets/imgs/img_headshot_placeholder.png";
           }
-
         })
         .error(function (error) {
           console.log(error);
         })
     }
 
-    getApps();
 
     var editRoleAside = $aside({
         scope: $scope,
@@ -229,7 +237,7 @@ angular.module('applicantsCtrl', ['userService',
       }
     }
     $scope.deleteAppBtn = function () {
-      Applicant.delete($scope.currApp._id)
+      Applicant.delete($scope.currApp._id, $scope.roleData._id)
         .success(function () {
           getApps();
           if($scope.viewApp === true){
@@ -284,11 +292,11 @@ angular.module('applicantsCtrl', ['userService',
         vm.viewBtn($scope.currIndex)
       }
     }
-    vm.updateFav = function(aplnt){
+    vm.updateFav = function(aplnt,roleID){
       aplnt.favorited = !aplnt.favorited;
-      aplnt.roleID = $scope.roleData._id;
-      console.log(aplnt)
-      Applicant.favUpdate(aplnt);
+      /*console.log(aplnt)*/
+      /*console.log(roleID);*/
+      Applicant.favUpdate(aplnt,roleID);
 
     }
   })

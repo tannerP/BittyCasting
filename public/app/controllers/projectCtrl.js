@@ -3,8 +3,8 @@ angular.module('projectCtrl', ['userService',
 ])
 
 .controller('ProjectPageController',
-    function(Role, Project, Meta, $location, $routeParams,
-      $scope, $aside, $route, $rootScope) {
+    function(Role, Project, Meta, $location, 
+      $routeParams, $scope, $aside, $route, $rootScope) {
       var vm = this;
       vm.prView = false;
       vm.pView = false;;

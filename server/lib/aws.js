@@ -81,8 +81,9 @@ exports.removeSup = function (sup) {
     };
     if (objects.length == sup.length)
         s3.deleteObjects(params, function (err, data) {
+            /*console.log(data)*/
             if (err) console.log(err, err.stack); // an error occurred
-            else     console.log(data);           // successful response
+            else     console.log("successfully removed");           // successful response
         });
 }
 
@@ -98,7 +99,7 @@ exports.removeCP = function (key) {
     };    
     s3.deleteObjects(params, function (err, data) {
         if (err) console.log(err, err.stack); // an error occurred
-        else     console.log(data);           // successful response
+        else     console.log("successful removed from s3");           // successful response
     });
 }
 

@@ -100,14 +100,24 @@ angular.module('userService', [])
 		money.new = false;
 		return $http.put('/app/'+id, money);	
 		}	 
-	appFactory.favUpdate = function(app,role)	{
+	appFactory.favUpdate = function(app,roleID)	{
+		console.log(roleID);
 		var money = {};
 		money.status = "fav"
-		money.favorited = app.favorited;
+		money.roleID = roleID;
+		/*console.log(money);*/
+
 		return $http.put('/app/'+app._id, money);	
 		}	 
-	appFactory.delete = function(appID)	{
-		return $http.delete('api/applicant/'+ appID);
+	/*appFactory.delete = function(appID, roleID)	{
+		return $http.delete('api/applicant/'+ appID, roleID);
+	}	 */
+	appFactory.delete = function(appID, roleID)	{
+		var data = {};
+		data.status = "delete";
+		data.roleID = roleID;
+		console.log(data);
+		return $http.put('api/applicant/'+appID, data);
 	}	 
 	appFactory.apply = function(data)	{
 		return $http.post('/applicant', data);	

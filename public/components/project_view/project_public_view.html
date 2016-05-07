@@ -13,10 +13,8 @@
                     <li ng-repeat="role in ppv.roles">
                         <!-- <div class="custom-btn-secondary-small" ng-click="ppv.update_CurRole(role)">{{role.name}}</div> -->
                         <label >{{role.name}}</label>
-                        <div style="white-space: pre-wrap" ng-bind-html="ppv.currole.description | linky"></div>
+                        <div style="white-space: pre-wrap" ng-bind-html="role.description | linky"></div>
                     </li>
-                    <!-- <p>{{ppv.curRole}}</p> -->
-                    <div style="white-space: pre-wrap" ng-bind-html="ppv.currole.description | linky"></div>
                 </ul>
 
                 <!-- <div style="white-space: pre-wrap" ng-repeat="roleData in ppv.roles"> 
@@ -145,7 +143,11 @@
                         </div>
 
                         <div ng-if="busy" class="custom-loader"><img style ="height:40px; width:auto"
-                        ng-src='/assets/imgs/spin.gif'></div>   
+                        ng-src='/assets/imgs/spin.gif'></div>
+                          <div ng-if="ppv.message" class="custom-loader">
+                            {{ppv.message}}
+                          </div>   
+   
                         <button type="submit" class="custom-btn-primary-large">Submit</button>
                         <p class="btn_paragraph">By clicking on “Submit”, I agree to BittyCasting’s <a href="/submission_agreement" target="_blank">submission agreement.</a></p>
                         <div class="poweredBy">

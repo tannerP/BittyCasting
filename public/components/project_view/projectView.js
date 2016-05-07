@@ -52,7 +52,7 @@ angular.module('ProjectView', ['userService',
     }
 
     vm.toggleRole = function(roleID){
-  /*    console.log(roleID);*/
+      vm.message = "";
       if(roleID){
         var index = vm.appData.roleIDs.indexOf(roleID);
         if (index === -1 ){
@@ -88,20 +88,24 @@ angular.module('ProjectView', ['userService',
 
     vm.processing = false;
     vm.submit = function() {
-      console.log(vm.appData)
+      if(vm.appData.roleIDs.length < 1)
+      {
+        vm.message = "Please select roles you're apply for."
+        return;
+      }
       vm.processing = true;
       vm.currfile;
-      for (i in vm.newLinks) {
-        if (vm.newLinks[i]) {
-          var link = {};
-          link.name = name;
-          link.source = vm.newLinks[i];
-          if (link.source.indexOf('.') > -1) {
-            vm.appData.links.push(link)
-            vm.newLinks[i] = "";
+        for (i in vm.newLinks) {
+          if (vm.newLinks[i]) {
+            var link = {};
+            link.name = name;
+            link.source = vm.newLinks[i];
+            if (link.source.indexOf('.') > -1) {
+              vm.appData.links.push(link)
+              vm.newLinks[i] = "";
+            }
           }
         }
-      }
       Applicant.apply(vm.appData)
         .then(function(resp) {
           console.log(resp)

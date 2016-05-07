@@ -55,47 +55,94 @@ module.exports = function(app, express) {
 	apiRouter.route('/applicants/:roleID')
 		.get(function(req, res) {
 			Applicant.find({
-				'roleIDs':{ $in:[req.params.roleID] }
-			}, function(err, roles) {
+				'roleIDs': {
+					$in: [req.params.roleID]
+				}
+			}, function(err, apps) {
 				if (err) {
 					res.send(err);
 					console.log(err);
 				} else {
-	//TODO: remove when fully transfer to roleIDS					
-	//interate through roles
-						for(var role in roles){
-							var tempRole = roles[role];
-							if(tempRole.roleIDs.length < 1){
-								tempRole.roleIDs = [];
-		//transfer roleID value to roleIDs array. 
-								tempRole.roleIDs.push(tempRole.roleID)
-								tempRole.save(function(err,data){
-									if(err)(console.log(err))
-								});
-							}
+					//TODO: remove when fully transfer to roleIDS					
+					//interate through roles
+					for (var app in apps) {
+						var tempRole = apps[app];
+						if (tempRole.roleIDs.length < 1) {
+							tempRole.roleIDs = [];
+							//transfer roleID value to roleIDs array. 
+							tempRole.roleIDs.push(tempRole.roleID)
+							tempRole.save(function(err, data) {
+								if (err)(console.log(err))
+							});
 						}
-//check if user is in favs. return the appropriate boolean.
-						for(var role in roles){
-							//check if user is in favs arr. 
-							var index = roles[role].favs.indexOf(req.decoded.id)
-							if(index != -1){
-								roles[role].favorited = true;
-								console.log(roles[role].name);
-								console.log(roles[role].new);
+					}
+
+					var tempArr = [];
+					for (var app in apps) {
+						//check if user is in favs arr. 
+						tempArr = apps[app].favs;
+						apps[app].favs = [];
+						for (var j in tempArr) {
+							if (tempArr[j].userID === req.decoded.id) {
+								console.log("adding to favs")
+								apps[app].favs.push(tempArr[j])
 							}
-							else{
-								roles[role].favorited = false;	
-							}
-							roles[role].favs = null;
+
 						}
-						res.json({
-							'success': true,
-							'data': roles
-						});
+						/*apps[app].favs = null;*/
+					}
+					res.json({
+						'success': true,
+						'data': apps
+					});
 				}
 			})
-		}
-	)
+		})
+		//delete method
+	apiRouter.route('/applicant/:appID')
+		.put(function(req, res) {
+			/*console.log(req.params.appID);*/
+			switch (req.body.status) {
+				case "delete":
+					{
+						Applicant.findOne({
+							_id: req.params.appID,
+						}, function(err, app) {
+							if (err) return res.send(err);
+							if (app) {
+								var index = app.roleIDs.indexOf(req.body.roleID);
+								/*console.log(index);*/
+								if (index > -1) {
+									app.roleIDs.splice(index, ++index);
+									app.save();
+								} else {
+									aws.removeSup(app.suppliments);
+									Applicant.remove({
+										_id: req.params.appID,
+									}, function(err, app) {
+										if (err) {
+											return res.send(err);
+										}
+									})
+								}
+								Role.findById(app.roleID, function(err, data) {
+									if (err) console.log(err);
+									if (data) {
+											--data.total_apps;
+										data.save(function() {})
+									}
+								})
+								res.json({
+									success: true,
+									message: 'Successfully deleted applicant'
+								});
+							}
+						})
+					}
+			}
+
+
+		})
 	apiRouter.route('/AppCount/:ID')
 		.get(function(req, res) {
 			Applicant.count({
@@ -113,7 +160,7 @@ module.exports = function(app, express) {
 			})
 		})
 		//==============================  Commenting =========================		
-	apiRouter.route('/applicant/comments/:appID')
+	apiRouter.route('/comments/:appID')
 		.put(function(req, res) {
 			Applicant.findById(req.params.appID, function(err, app) {
 				if (err) res.json({
@@ -159,39 +206,10 @@ module.exports = function(app, express) {
 				}
 			})
 		})
-		//==============================  Applicant =========================
-	apiRouter.route('/applicant/:appID')
-		.delete(function(req, res) {
-			Applicant.findOne({
-				_id: req.params.appID,
-			}, function(err, app) {
-				if (err) return res.send(err);
-				if (app) {
-					aws.removeSup(app.suppliments);
-					Role.findById(app.roleID, function(err, data) {
-						if (err) console.log(err);
-						if (data) {
-							console.log(data)
-								--data.total_apps;
-							data.save(function() {})
-						}
-					})
-					Applicant.remove({
-						_id: req.params.appID,
-					}, function(err, app) {
-						if (err) {
-							return res.send(err);
-						}
-						console.log(app)
-						res.json({
-							success: true,
-							message: 'Successfully deleted applicant'
-						});
-					})
-				}
-			})
-		})
-		//===============================  Roles ============================
+
+
+
+	//===============================  Roles ============================
 	apiRouter.route('/roles/:projectID')
 		.get(function(req, res) {
 			var output = '';
@@ -269,7 +287,7 @@ module.exports = function(app, express) {
 				_id: req.params.role_id,
 			}, function(err, role) {
 				if (!err) {
-					if( role && role.userID){
+					if (role && role.userID) {
 						if (role.userID != req.decoded.id) {
 							res.status("403").send({
 								success: false,
@@ -288,13 +306,29 @@ module.exports = function(app, express) {
 		.delete(function(req, res) {
 			//delete all applications with this roleID
 			Applicant.find({
-					roleID: req.params.role_id
-				},
-				function(err, roles) {
-					if (err) console.log(err);
-					for (var i in roles) {
-						aws.removeSup(roles[i].suppliments);
+					roleIDs: {
+						$in: [req.params.role_id]
 					}
+				},
+				function(err, apps) {
+					if (err) console.log(err);
+					else {
+						for (var a in apps) {
+							console.log(apps[a].roleIDs.length);
+							if (apps[a].roleIDs.length	<= 1) {
+								aws.removeSup(apps[a].suppliments);
+								apps[a].remove();
+							} else {
+								/*console.log(apps[a].roleIDs)*/
+								var index = apps[a].roleIDs.indexOf(req.params.role_id);
+								console.log(index);
+								apps[a].roleIDs.splice(index, ++index);
+								console.log(apps[a].roleIDs)
+								apps[a].save();
+							}
+						}
+					}
+
 					Role.findById(req.params.role_id, function(err, role) {
 						if (err) console.log(err);
 						if (role) {
@@ -419,17 +453,24 @@ module.exports = function(app, express) {
 		}, function(err, roles) {
 			for (var i in roles) {
 				Applicant.find({
-					roleID: roles[i]._id
+					roleIDs:{ $in:[roles[i]._id] }
 				}, function(err, apps) {
-					if (err) res.json({
-						success: false,
-						error: err
-					})
-					for (var i in apps) {
-						aws.removeSup(apps[i].suppliments);
+					if (err) console.log(err);
+					else {
+						for (var a in apps) {
+							console.log(apps[a].roleIDs.length);
+							if (apps[a].roleIDs.length	<= 1) {
+								aws.removeSup(apps[a].suppliments);
+								apps[a].remove();
+							} else {
+								/*console.log(apps[a].roleIDs)*/
+								var index = apps[a].roleIDs.indexOf(roles[i]._id);
+								apps[a].roleIDs.splice(index, ++index);
+								apps[a].save();
+							}
+						}
 					}
 				})
-				console.log("removing this role");
 				roles[i].remove();
 			}
 		})

@@ -12,8 +12,8 @@ var ApplicantSchema = new Schema({
 	favorited :{type:Boolean, default:false},
 	favs : [{
 			roleID:String,
-			type:false,
 			userID:String,
+			favorited:Boolean,
 	}],
 	age : String,
 	message : {type:String, max:220},
