@@ -22,6 +22,7 @@ controller('ApplyController', ['$scope', '$rootScope',
         Pub.getAppPrj(vm.roleData.projectID).then(function(data) {
           var project = data.data.project.project;
           var roles = data.data.project.roles;
+          console.log(roles)
           if (project) {
             $rootScope.meta = Meta.roleMeta(vm.roleData, project);
             vm.prjData = project;
@@ -33,15 +34,15 @@ controller('ApplyController', ['$scope', '$rootScope',
         })
       }
       //clean requirements
-      for (var i in vm.roleData.requirements) {
+      /*for (var i in vm.roleData.requirements) {
         if (!vm.roleData.requirements[i].selected) {
           vm.roleData.requirements.splice(i, ++i);
         }
-        if (vm.roleData.requirements[i].format == "Link") {
+      }*/
+      /*   if (vm.roleData.requirements[i].format == "Link") {
           vm.appData.links.push(vm.roleData.requirements[i]);
           vm.roleData.requirements.splice(i, ++i);
-        }
-      }
+        }*/
     });
 
     vm.updateCurRole = function(role) {

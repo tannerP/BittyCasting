@@ -55,12 +55,13 @@ module.exports = function(app, express) {
 	apiRouter.route('/applicants/:roleID')
 		.get(function(req, res) {
 			Applicant.find({
-				$or:[
-				{'roleID':req.params.roleID},
-				{'roleIDs': {
-					$in: [req.params.roleID]}
-				}
-				]
+				$or: [{
+					'roleID': req.params.roleID
+				}, {
+					'roleIDs': {
+						$in: [req.params.roleID]
+					}
+				}]
 			}, function(err, apps) {
 				console.log(apps)
 				if (err) {
@@ -72,12 +73,10 @@ module.exports = function(app, express) {
 					for (var app in apps) {
 						var tempApp = apps[app];
 						console.log(tempApp);
-						if(tempApp.roleID){
-						/*if (tempRole.roleIDs.length < 1) {*/
+						if (tempApp.roleID) {
+							/*if (tempRole.roleIDs.length < 1) {*/
 							/*tempRole.roleIDs = [];*/
 							//transfer roleID value to roleIDs array.
-
-
 							tempApp.roleIDs.push(tempApp.roleID)
 							tempApp.roleID = null;
 							tempApp.save(function(err, data) {
@@ -136,12 +135,14 @@ module.exports = function(app, express) {
 									}, function() {})
 								}
 								Role.findById(roleID, function(err, data) {
-									if (err) return res.json({'error':err});
+									if (err) return res.json({
+										'error': err
+									});
 									if (data) {
 										/*console.log("decremented totalapps")*/
-											--data.total_apps;
+										--data.total_apps;
 										data.save(function() {
-													return res.json({
+											return res.json({
 												'success': true,
 											});
 										})

@@ -46,6 +46,15 @@ angular.module('userService', [])
 
 .factory('Prerender', function($http){
 	var prerender = {};
+	prerender.reCacheIt = function(roleID){
+		/*console.log(link);
+		"?_escaped_fragment_"
+		*/
+		/*$http.get("https://bittycasting.com/Apply/+"+ "roleID" + )*/
+		$http.get("/Apply/"+ roleID + "?_escaped_fragment_")
+			.then(function(response){
+			});
+	}
 
 	prerender.cacheIt = function(roleID){
 		/*console.log(link);
