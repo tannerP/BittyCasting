@@ -1764,9 +1764,21 @@ ul.select-coverphoto-wrapper {
 
 
 .applyPage {
-    padding: 56px 0 60px 0;
+    padding: 56px 0 120px 0;
     position: relative;
 //    margin-bottom: -60px;
+    
+    .pageTitle {
+        padding-bottom: 20px;
+    }
+    
+    .pageSubtitle {
+        margin-top: -10px;
+    }
+    
+    p {
+        white-space: pre-wrap;
+    }
 
     .applyPageLeftBg { 
         width: 50%;  
@@ -1790,6 +1802,32 @@ ul.select-coverphoto-wrapper {
         background-size: 12px 12px;
     }
     
+    .applyPageLeft {
+        ul {
+            list-style: none;
+            padding: 0;
+            padding-bottom: 10px;
+            text-align: center;
+            li {
+                cursor: pointer;
+                margin: 0 5px 5px 0;
+                &:last-child {
+                    margin-right: 0px;
+                }
+            }
+            .roles-dynamics {
+                display: inline-block;
+                color: $color-grey-dark;
+                border: 2px solid $color-grey-dark;
+                padding: 10px;
+            }
+            .roles-dynamics-active {
+                color: $color-blue;
+                border: 2px solid $color-blue;
+            }
+        }
+    }
+    
     .applyLogo {
         position: absolute;
         top: 40px;
@@ -1806,6 +1844,11 @@ ul.select-coverphoto-wrapper {
         p {
             color: $color-grey;
         }
+        
+        a {
+            vertical-align: middle;
+        }
+        
         .powerLogo {
             width: 136px;
             height: auto;

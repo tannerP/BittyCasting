@@ -1689,8 +1689,14 @@ ul.select-coverphoto-wrapper {
       transition: all 0.2s ease; }
 
 .applyPage {
-  padding: 56px 0 60px 0;
+  padding: 56px 0 120px 0;
   position: relative; }
+  .applyPage .pageTitle {
+    padding-bottom: 20px; }
+  .applyPage .pageSubtitle {
+    margin-top: -10px; }
+  .applyPage p {
+    white-space: pre-wrap; }
   .applyPage .applyPageLeftBg {
     width: 50%;
     position: absolute;
@@ -1708,6 +1714,24 @@ ul.select-coverphoto-wrapper {
     display: inline-block;
     background: url("/assets/imgs/ic_asterisk.svg") no-repeat top right;
     background-size: 12px 12px; }
+  .applyPage .applyPageLeft ul {
+    list-style: none;
+    padding: 0;
+    padding-bottom: 10px;
+    text-align: center; }
+    .applyPage .applyPageLeft ul li {
+      cursor: pointer;
+      margin: 0 5px 5px 0; }
+      .applyPage .applyPageLeft ul li:last-child {
+        margin-right: 0px; }
+    .applyPage .applyPageLeft ul .roles-dynamics {
+      display: inline-block;
+      color: #666666;
+      border: 2px solid #666666;
+      padding: 10px; }
+    .applyPage .applyPageLeft ul .roles-dynamics-active {
+      color: #06bcc2;
+      border: 2px solid #06bcc2; }
   .applyPage .applyLogo {
     position: absolute;
     top: 40px;
@@ -1721,6 +1745,8 @@ ul.select-coverphoto-wrapper {
     float: right; }
     .applyPage .poweredBy p {
       color: #999999; }
+    .applyPage .poweredBy a {
+      vertical-align: middle; }
     .applyPage .poweredBy .powerLogo {
       width: 136px;
       height: auto;
