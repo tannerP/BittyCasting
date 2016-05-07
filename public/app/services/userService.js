@@ -46,14 +46,26 @@ angular.module('userService', [])
 
 .factory('Prerender', function($http){
 	var prerender = {};
-	prerender.reCacheIt = function(roleID){
-		/*console.log(link);
-		"?_escaped_fragment_"
-		*/
-		/*$http.get("https://bittycasting.com/Apply/+"+ "roleID" + )*/
-		$http.get("/Apply/"+ roleID + "?_escaped_fragment_")
-			.then(function(response){
+
+	var prerenderRecache = function(urlRecache){
+		$http.post("http://api.prerender.io/recache",
+		{
+			"prerenderToken": "RDdmSteuNT1ZCbqQ2O0h",
+			"url": urlRecache
+		}).then(function(response){
+				console.log(response)
 			});
+	}
+
+	prerender.recacheRole = function(roleID){
+		/*console.log(roleID);*/
+		var url = "http://bittycasting.com/role/" + roleID;
+		prerenderRecache(url);
+	}
+	prerender.recacheProject = function(roleID){
+		console.log(roleID);
+		var url = "http://bittycasting.com/role/" + roleID;
+		prerenderRecache(url);
 	}
 
 	prerender.cacheIt = function(roleID){

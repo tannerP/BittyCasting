@@ -14,7 +14,10 @@ angular.module('projectCtrl', ['userService',
       vm.curRole = {};
       $scope.roleData = {};
 
+
+
       (function init() { //start engines
+        console.log("Project page controller initializing")
         Project.get($routeParams.project_id)
           .success(function(data) {
             vm.project = data.project.project;
@@ -187,7 +190,8 @@ angular.module('projectCtrl', ['userService',
     }
   ])
   .controller('editRoleController',
-    function(Role, $location, $routeParams, $route, $scope, $timeout) {
+    function(Role, $location, $routeParams, 
+      $route, $scope, $timeout, Prerender) {
       var vm = this;
       vm.edit = true;
       vm.processing = false;
@@ -486,7 +490,7 @@ angular.module('projectCtrl', ['userService',
 //page: project.html
 .controller('editProjectController',
     function($scope, Project, $location, $routeParams,
-      $route, AWS, $rootScope) {
+      $route, AWS, $rootScope,Prerender) {
       var vm = this;
       var DEFAULT_COVERPHOTO = "/assets/imgs/img_projectCover01.png";
       vm.projectData = {};

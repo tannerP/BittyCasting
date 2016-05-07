@@ -10,6 +10,8 @@ var jwt = require('jsonwebtoken');
 var config = require('../../config').dev;
 var aws = require("../lib/aws.js")
 var bitly = require("../lib/bitly.js")
+var http = require('http');
+
 
 
 module.exports = function(app, express) {
