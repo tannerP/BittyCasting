@@ -102,6 +102,7 @@ module.exports = function(app, express) {
 	apiRouter.route('/applicant/:appID')
 		.put(function(req, res) {
 			/*console.log(req.params.appID);*/
+			var roleID = req.body.roleID;
 			switch (req.body.status) {
 				case "delete":
 					{
@@ -110,32 +111,32 @@ module.exports = function(app, express) {
 						}, function(err, app) {
 							if (err) return res.send(err);
 							if (app) {
-								var index = app.roleIDs.indexOf(req.body.roleID);
-								/*console.log(index);*/
-								if (index > -1) {
+
+								if (app.roleIDs.length > 1) {
+									var index = app.roleIDs.indexOf(roleID);
+									console.log(index);
 									app.roleIDs.splice(index, ++index);
 									app.save();
 								} else {
+									console.log("before removing supps")
 									aws.removeSup(app.suppliments);
+									console.log("after removing supps")
 									Applicant.remove({
 										_id: req.params.appID,
-									}, function(err, app) {
-										if (err) {
-											return res.send(err);
-										}
-									})
+									}, function() {})
 								}
-								Role.findById(app.roleID, function(err, data) {
-									if (err) console.log(err);
+								Role.findById(roleID, function(err, data) {
+									if (err) return res.json({'error':err});
 									if (data) {
+										console.log("decremented totalapps")
 											--data.total_apps;
-										data.save(function() {})
+										data.save(function() {
+													return res.json({
+												'success': true,
+											});
+										})
 									}
 								})
-								res.json({
-									success: true,
-									message: 'Successfully deleted applicant'
-								});
 							}
 						})
 					}
@@ -315,7 +316,7 @@ module.exports = function(app, express) {
 					else {
 						for (var a in apps) {
 							console.log(apps[a].roleIDs.length);
-							if (apps[a].roleIDs.length	<= 1) {
+							if (apps[a].roleIDs.length <= 1) {
 								aws.removeSup(apps[a].suppliments);
 								apps[a].remove();
 							} else {
@@ -453,13 +454,15 @@ module.exports = function(app, express) {
 		}, function(err, roles) {
 			for (var i in roles) {
 				Applicant.find({
-					roleIDs:{ $in:[roles[i]._id] }
+					roleIDs: {
+						$in: [roles[i]._id]
+					}
 				}, function(err, apps) {
 					if (err) console.log(err);
 					else {
 						for (var a in apps) {
 							console.log(apps[a].roleIDs.length);
-							if (apps[a].roleIDs.length	<= 1) {
+							if (apps[a].roleIDs.length <= 1) {
 								aws.removeSup(apps[a].suppliments);
 								apps[a].remove();
 							} else {

@@ -82,8 +82,14 @@ exports.removeSup = function (sup) {
     if (objects.length == sup.length)
         s3.deleteObjects(params, function (err, data) {
             /*console.log(data)*/
-            if (err) console.log(err, err.stack); // an error occurred
-            else     console.log("successfully removed");           // successful response
+            if (err) {
+                console.log(err, err.stack);
+                return;
+             }// an error occurred
+            else     {
+                console.log("successfully removed");
+                return
+            }           // successful response
         });
 }
 

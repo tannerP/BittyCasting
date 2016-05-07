@@ -16,7 +16,7 @@ angular.module('ProjectView', ['userService',
 
     var publicController = function(Applicant, AWS,
       $location, $routeParams, $scope,
-      $rootScope, $aside, $route) {
+      $rootScope, $aside, $route, $timeout) {
       var vm = this;
       vm.loggedIn = $rootScope.loggedIn;       
 
@@ -125,8 +125,10 @@ angular.module('ProjectView', ['userService',
                 //broacast from AWS
                 $rootScope.$on("app-media-submitted",
                   function() {
-                  vm.processing = false;
-                  $location.path('/Thankyou');
+                    $timeout(function() {
+                      vm.processing = false;
+                      $location.path('/Thankyou');
+                    }, 1500)
                 })
             }
           /*}*/

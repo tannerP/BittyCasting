@@ -75,6 +75,9 @@ controller('ApplyController', ['$scope', '$rootScope',
     vm.submit = function() {
       vm.processing = true;
       vm.currfile;
+      vm.appData.roleIDs = [];
+      vm.appData.roleIDs.push(vm.roleData._id);
+      //add links from text field;
       for (i in vm.newLinks) {
         if (vm.newLinks[i]) {
           var link = {};
