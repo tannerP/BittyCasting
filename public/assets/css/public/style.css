@@ -1351,6 +1351,14 @@ ul.projects li {
       transition: all 0.8s ease; }
   .aside .btn-preview {
     margin: 0 0 29px 0; }
+  .aside .share-url {
+    display: block;
+    width: 100%;
+    height: 34px;
+    padding: 6px 0;
+    font-size: 12px;
+    line-height: 1.42857143;
+    border-bottom: 1px solid #242424; }
   .aside .btn-copyLink {
     margin: 10px 0 29px 0; }
   .aside .btn-shareFB {
@@ -1358,7 +1366,7 @@ ul.projects li {
     width: 49%;
     float: left;
     margin-top: 10px;
-    background: url("/assets/imgs/ic_social_fb.svg") no-repeat left 15px center #3b5998;
+    background: url("/assets/imgs/ic_social_fb.svg") no-repeat left 15px center #06bcc2;
     background-size: 16px 16px;
     padding-left: 30px;
     -webkit-transition: all 0.8s ease;
@@ -1367,13 +1375,13 @@ ul.projects li {
     -o-transition: all 0.8s ease;
     transition: all 0.8s ease; }
     .aside .btn-shareFB:hover, .aside .btn-shareFB:focus {
-      background-color: #2a406d; }
+      background-color: #069A9F; }
   .aside .btn-shareTwitter {
     text-align: center;
     width: 49%;
     float: right;
     margin-top: 10px;
-    background: url("/assets/imgs/ic_social_twitter.svg") no-repeat left 15px center #00aced;
+    background: url("/assets/imgs/ic_social_twitter.svg") no-repeat left 15px center #06bcc2;
     background-size: 16px 16px;
     padding-left: 30px;
     -webkit-transition: all 0.8s ease;
@@ -1382,13 +1390,14 @@ ul.projects li {
     -o-transition: all 0.8s ease;
     transition: all 0.8s ease; }
     .aside .btn-shareTwitter:hover, .aside .btn-shareTwitter:focus {
-      background-color: #0084b4; }
+      background-color: #069A9F; }
   .aside .btn-shareEmail {
     text-align: center;
     width: 49%;
     float: left;
     margin-top: 10px;
     background: url("/assets/imgs/ic_social_email.svg") no-repeat left 15px center #31a357;
+    background: url("/assets/imgs/ic_social_email.svg") no-repeat left 15px center #06bcc2;
     background-size: 16px 16px;
     padding-left: 30px;
     -webkit-transition: all 0.8s ease;
@@ -1397,7 +1406,7 @@ ul.projects li {
     -o-transition: all 0.8s ease;
     transition: all 0.8s ease; }
     .aside .btn-shareEmail:hover, .aside .btn-shareEmail:focus {
-      background-color: #22733d; }
+      background-color: #069A9F; }
 
 .aside-backdrop.am-fade, .modal-backdrop.am-fade {
   background: rgba(0, 0, 0, 0.7);
