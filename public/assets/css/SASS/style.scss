@@ -220,6 +220,8 @@ p {
     line-height: 24px;
 }
 
+label {font-weight: 400;}
+
 a {
     text-decoration: none;
     color: $color-blue;
@@ -310,6 +312,36 @@ a {
             cursor:pointer;
             vertical-align: middle;
 
+        }
+        input:checked + span {
+            background: url("/assets/imgs/ic_check.svg") no-repeat center center $color-grey-light;
+            background-size: 12px 12px;
+        }
+    }
+}
+
+.custom-checkbox { 
+    label {
+        display: block;
+        font-size: $font-size-regular;
+        line-height: 24px;
+        padding-left: 0;
+        margin: 0 0 10px 24px; 
+        input[type="checkbox"] {
+            display: none;
+        }
+        span {
+            float: left;
+            margin: 3px 3px 0 -24px;
+            display:inline-block;
+            width: 18px;
+            height: 18px;
+            display: block;
+            border: none;
+            background-image: none;
+            background-color: $color-grey-light;
+            cursor:pointer;
+            vertical-align: middle;
         }
         input:checked + span {
             background: url("/assets/imgs/ic_check.svg") no-repeat center center $color-grey-light;
@@ -1481,6 +1513,10 @@ ul.projects li {
 
 .form-group {
     
+    ul {
+        list-style: none;
+        padding: 0;
+    }
     margin-bottom: 28px;
       
     label {
@@ -1488,6 +1524,14 @@ ul.projects li {
         font-size: $font-size-side-formtitle;
         color:	$color-grey;
         font-weight: 400;
+        span {
+            margin-left: 5px;
+            width: 12px;
+            height: 12px;
+            display: inline-block;
+            background: url("/assets/imgs/ic_asterisk.svg") no-repeat top right; 
+            background-size: 12px 12px;
+        }
     }
     
     input {
@@ -1768,6 +1812,11 @@ ul.select-coverphoto-wrapper {
     position: relative;
 //    margin-bottom: -60px;
     
+    ul {
+        list-style: none;
+        padding: 0;
+    }
+    
     .pageTitle {
         padding-bottom: 20px;
     }
@@ -1778,6 +1827,10 @@ ul.select-coverphoto-wrapper {
     
     p {
         white-space: pre-wrap;
+    }
+    
+    .custom-checkbox {
+        margin: -20px 0 29px 0;
     }
 
     .applyPageLeftBg { 
@@ -1791,15 +1844,6 @@ ul.select-coverphoto-wrapper {
 
     .applyPageLeft, .applyPageRight {
         padding: 0 15px;
-    }
-    
-    .applyPageRight label span{
-        margin-left: 5px;
-        width: 12px;
-        height: 12px;
-        display: inline-block;
-        background: url("/assets/imgs/ic_asterisk.svg") no-repeat top right; 
-        background-size: 12px 12px;
     }
     
     .applyPageLeft {
