@@ -48,7 +48,13 @@ angular.module('projectCtrl', ['userService',
   .controller('shareRoleController', ['$scope', '$alert', '$location',
     function($scope, $alert, $location) {
 
-      $scope.textToCopy = $scope.role.short_url;
+
+        //TODO: this is a temp fix for projeview-private,
+        // table view role sharing
+       if($scope.role){
+          $scope.roleData  = $scope.role;
+        }
+      $scope.textToCopy = $scope.roleData.short_url;  
       
       $scope.FB_text = "Casting Call: " + $scope.roleData.name
                          + " \ " + $scope.roleData.description;

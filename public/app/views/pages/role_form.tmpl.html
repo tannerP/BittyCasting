@@ -125,7 +125,9 @@
           </tr>
           </tbody>
         </table>
-
+        <div ng-if="roleAside.processing" class="custom-loader">
+          <img style ="height:40px; width:auto" ng-src='/assets/imgs/spin.gif'>
+        </div>   
       <!-- <button ng-if="!roleAside.edit" type="submit" class="custom-btn-primary-large" ng-submit=".createRoleBtn()">Create role</button> -->
       <button ng-if="!roleAside.edit" type="submit" id="submit" value="Create role" class="custom-btn-primary-large" ng-disabled="roleAside.processing">
         Create role

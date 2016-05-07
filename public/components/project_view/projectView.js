@@ -221,7 +221,7 @@ angular.module('ProjectView', ['userService',
         $scope.project = data;
         shareProjectAside.$promise.then(shareProjectAside.toggle);
       }
-      vm.shareRoleBtn = function(data) {
+      vm.shareRoleBtn = function(data)   {
         $scope.role = data;
         shareRoleAside.$promise.then(shareRoleAside.toggle);
       }
