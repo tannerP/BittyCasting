@@ -20,17 +20,17 @@ angular.module('projectCtrl', ['userService',
             vm.project = data.project.project;
             $rootScope.meta = Meta.prjMeta(vm.project);
             vm.roles = data.project.roles;
-            if (data.project.length < 1) {
+            if (data.project.length <= 1) {
               vm.curRole = data.project.roles[0];
             }
             //filter requirements 
-            vm.curRole.requirements = [];
+            /*vm.curRole.requirements = [];
             for (var r in vm.roles) {
               var rqmnt = vm.roles[r].requirements;
               if (vm.curRole.requirements.indexOf(rqmnt.name))
 
                 console.log(rqmnt)
-            }
+            }*/
 
             switch (data.client) {
               case "public":

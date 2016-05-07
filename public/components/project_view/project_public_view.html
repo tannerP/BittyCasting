@@ -11,7 +11,6 @@
                 <div class='pageTitle'>Role<span>s</span></div>
                 <ul>
                     <li ng-repeat="role in ppv.roles">
-                        <!-- <div class="custom-btn-secondary-small" ng-click="ppv.update_CurRole(role)">{{role.name}}</div> -->
                         <label >{{role.name}}</label>
                         <div style="white-space: pre-wrap" ng-bind-html="role.description | linky"></div>
                     </li>
@@ -57,7 +56,9 @@
                                 ng-class="{'btn':ppv.isSelected(role._id)}">
                         {{role.name}}
                         </button>
+
                     </li>
+                    <div class="custom-btn-secondary-small" ng-click="ppv.update_CurRole(role)">{{role.name}}</div>
                  </ul>
                  
                         <form ng-submit="ppv.submit()" name="form" class="css-form">

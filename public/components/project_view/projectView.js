@@ -21,6 +21,7 @@ angular.module('ProjectView', ['userService',
       vm.loggedIn = $rootScope.loggedIn;       
 
       vm.update_CurRole = function(new_currRole) {
+        console.log(vm.currole)
         vm.currole = new_currRole;
       }
       //TODO: this doesn't scale for collabs.
@@ -39,13 +40,13 @@ angular.module('ProjectView', ['userService',
     vm.appData.roleIDs = [];
     vm.files= [];
     
-    vm.isSelected = function(roleID){
+    /*vm.isSelected = function(roleID){
       var index = vm.appData.roleIDs.indexOf(roleID);
         if (index === -1 ){
           return false;
         }
           else return true;
-    }
+    }*/
 
     vm.toggleRole = function(roleID){
       vm.message = "";

@@ -44,7 +44,7 @@ angular.module('app.routes', ['ngRoute'])
     /*---------------- Private ----------------*/
     //role
         .when('/role/:role_id',  {
-            templateUrl: 'app/views/pages/applicants.html',
+            templateUrl: 'app/views/pages/role_page.html',
             controller: 'ApplicantPageController',
             controllerAs: 'page'
         })
