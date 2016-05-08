@@ -4,6 +4,7 @@ angular.module('userService', [])
 
 .service("Meta",function(){
 	var meta = new Object();
+
 	this.default = function(){
 		meta.site_name = "http://bittycasting.com";
 		meta.type = "website";

@@ -3,7 +3,7 @@ angular.module('projectCtrl', ['userService',
 ])
 
 .controller('ProjectPageController',
-    function(Role, Project, Meta, $location,
+    function(Role, Project, HomeService,Meta, $location,
       $routeParams, $scope, $aside, $route, $rootScope) {
       var vm = this;
       vm.prView = false;
@@ -13,8 +13,6 @@ angular.module('projectCtrl', ['userService',
       vm.project = {};
       vm.curRole = {};
       $scope.roleData = {};
-
-
 
       (function init() { //start engines
         console.log("Project page controller initializing")
@@ -55,6 +53,9 @@ angular.module('projectCtrl', ['userService',
             vm.message = err;
           });
       })();
+      HomeService.getView(function(view){
+          console.log(view)
+      })
 
       vm.togView = function() {
         vm.prView = !vm.prView;
@@ -336,37 +337,46 @@ angular.module('projectCtrl', ['userService',
       }
     })
   .controller('HomePageController',
-    function(Project, $location, $aside, $scope) {
+    function(Project, HomeService, $location, $aside, $scope) {
       var vm = this;
       $scope.aside = {};
       $scope.aside.projectData = {}
-      vm.gridView = true;
 
+      Project.getAll()
+        .success(function(data) {
+          vm.processing = false;
+          vm.projects = data.data;
+        })
+
+      
       vm.getProject = function(prjID) {
         $location.path('/projectDetails/' + prjID);
       }
+
       vm.setGridVw = function() {
-        vm.listStyle = {
-          'opacity': 0.2
-        };
-        vm.gridStyle = {
-          'opacity': 1
-        };
-        vm.listView = false;
-        vm.gridView = true;
+        HomeService.setView("GRID")
+        updateView();
       }
-      vm.setGridVw();
+      /*vm.setGridVw();*/
 
       vm.setListVw = function() {
-        vm.listStyle = {
-          'opacity': 1
-        };
-        vm.gridStyle = {
-          'opacity': 0.2
-        };
-        vm.gridView = false;
-        vm.listView = true;
+        HomeService.setView("LIST")
+        updateView();
       }
+
+      vm.newPrjBtn = function() {
+        vm.projectData = {};
+        newPrjAside.show();
+      }
+      vm.deleteBtn = function(data) {
+        $scope.projectData = data;
+        deletePrjAside.toggle();
+      }
+      vm.getProjectBtn = function(id) {
+        $location.path("/project/" + id);
+      }
+
+      /*Helpers  */
       var newPrjAside = $aside({
         scope: $scope,
         show: false,
@@ -383,26 +393,44 @@ angular.module('projectCtrl', ['userService',
         controllerAs: 'projectAside',
         templateUrl: '/app/views/pages/deleteProject.tmpl.html'
       });
-      vm.processing = true;
-      vm.projects;
 
-      vm.newPrjBtn = function() {
-        vm.projectData = {};
-        newPrjAside.show();
-      }
-      vm.deleteBtn = function(data) {
-        $scope.projectData = data;
-        deletePrjAside.toggle();
-      }
-      vm.getProjectBtn = function(id) {
-        $location.path("/project/" + id);
-      }
+      var updateView = function(){
+        //call back returns a string
+        HomeService.getView(function(view){
+          console.log(view)
+          if(view === "GRID"){
+            console.log('setting grid style')
+            vm.listStyle = {
+              'opacity': 0.2
+            };
+            vm.gridStyle = {
+              'opacity': 1
+            };
+            vm.listView = false;
+            vm.gridView = true;
 
-      Project.getAll()
-        .success(function(data) {
-          vm.processing = false;
-          vm.projects = data.data;
-        })
+          }
+          else if(view === "LIST"){
+            console.log('setting list style')
+            vm.listStyle = {
+              'opacity': 1
+            };
+            vm.gridStyle = {
+              'opacity': 0.2
+            };
+            vm.gridView = false;
+            vm.listView = true;
+            
+            /*vm.setGridVw()*/
+          }
+          else {
+            console.log("else statement ")
+            vm.setGridVw()
+          }
+
+        }); 
+      };
+      updateView();
     })
   .controller('newProjectController',
     function(Project, $location, $route, $rootScope, $scope, Upload, AWS) {

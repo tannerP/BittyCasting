@@ -41,35 +41,19 @@ angular.module('app.routes', ['ngRoute'])
             controller: 'ProjectPageController',
             controllerAs: 'page'
         })
-    /*---------------- Private ----------------*/
-    //role
         .when('/role/:role_id',  {
             templateUrl: 'app/views/pages/role_page.html',
-            controller: 'ApplicantPageController',
+            controller: 'RolePageController',
             controllerAs: 'page'
         })
+    /*---------------- Private ----------------*/
+
     //User
         .when('/profile',  {
                 templateUrl: 'app/views/pages/profile.html',
                  controller: 'profileController',
                 controllerAs: 'user'
             })
-    /*---------------- Admin ----------------*/
- /*       .when('/users',  {
-            templateUrl: 'app/views/pages/users/all.html',
-            controller: 'userController',
-            controllerAs: 'user'
-        })*/
-        .when('/users/create',  {
-            templateUrl: 'app/views/pages/signup.html',
-            controller: 'userCreateController',
-            controllerAs: 'user'
-        })
-        .when('/users/:user_id', {
-            templateUrl: 'app/views/pages/users/single.html',
-            controller: 'userEditController',
-            controllerAs: 'user'
-        })  
         .otherwise({
         redirectTo: '/'
       });
