@@ -2296,8 +2296,7 @@ ul.select-coverphoto-wrapper {
     div.pageHeader .pageHeader-review .custom-page-action {
       position: relative;
       top: -10px;
-      right: auto;
-      left: -20px; }
+      right: auto; }
       div.pageHeader .pageHeader-review .custom-page-action .btn-delete, div.pageHeader .pageHeader-review .custom-page-action .btn-fav, div.pageHeader .pageHeader-review .custom-page-action .btn-email {
         float: none; }
       div.pageHeader .pageHeader-review .custom-page-action div:last-child {
