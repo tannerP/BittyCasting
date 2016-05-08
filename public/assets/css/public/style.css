@@ -786,7 +786,9 @@ div.pageHeader {
       -ms-transition: all 0.8s ease;
       -o-transition: all 0.8s ease;
       transition: all 0.8s ease; }
-  div.pageHeader .custom-page-action .btn-edit, div.pageHeader .custom-page-action .btn-delete, div.pageHeader .custom-page-action .btn-share {
+  div.pageHeader .custom-page-action div:last-child {
+    margin-left: 0px; }
+  div.pageHeader .custom-page-action .btn-edit, div.pageHeader .custom-page-action .btn-delete, div.pageHeader .custom-page-action .btn-share, div.pageHeader .custom-page-action .btn-fav, div.pageHeader .custom-page-action .btn-email {
     display: inline;
     float: right;
     margin-left: 5px;
@@ -797,7 +799,7 @@ div.pageHeader {
     -ms-transition: all 0.8s ease;
     -o-transition: all 0.8s ease;
     transition: all 0.8s ease; }
-    div.pageHeader .custom-page-action .btn-edit:hover, div.pageHeader .custom-page-action .btn-edit:focus, div.pageHeader .custom-page-action .btn-delete:hover, div.pageHeader .custom-page-action .btn-delete:focus, div.pageHeader .custom-page-action .btn-share:hover, div.pageHeader .custom-page-action .btn-share:focus {
+    div.pageHeader .custom-page-action .btn-edit:hover, div.pageHeader .custom-page-action .btn-edit:focus, div.pageHeader .custom-page-action .btn-delete:hover, div.pageHeader .custom-page-action .btn-delete:focus, div.pageHeader .custom-page-action .btn-share:hover, div.pageHeader .custom-page-action .btn-share:focus, div.pageHeader .custom-page-action .btn-fav:hover, div.pageHeader .custom-page-action .btn-fav:focus, div.pageHeader .custom-page-action .btn-email:hover, div.pageHeader .custom-page-action .btn-email:focus {
       cursor: pointer;
       background-color: #444444; }
   div.pageHeader .custom-page-action .btn-share {
@@ -812,6 +814,15 @@ div.pageHeader {
     background: url("/assets/imgs/ic_trash_w.svg") no-repeat left 15px center #666666;
     background-size: 16px 16px;
     margin-left: 0px; }
+  div.pageHeader .custom-page-action .btn-fav {
+    padding-left: 20px;
+    background: none;
+    background-color: #666666; }
+    div.pageHeader .custom-page-action .btn-fav img {
+      margin-right: 5px; }
+  div.pageHeader .custom-page-action .btn-email {
+    background: url("/assets/imgs/ic_email_w.svg") no-repeat left 15px center #666666;
+    background-size: 16px 16px; }
   div.pageHeader .custom-page-action-secondary .custom-page-action-secondary-title {
     font-size: 16px;
     float: left; }
@@ -871,6 +882,8 @@ div.pageHeader {
   text-transform: uppercase;
   letter-spacing: 6px;
   padding: 40px 0; }
+  .pageTitle span {
+    float: left; }
 
 ul.projects, ul.applicants {
   list-style-type: none;
@@ -1924,26 +1937,8 @@ ul.select-coverphoto-wrapper {
       /* Safari */
       transform: rotate(180deg); }
 
-.pageHeader .pageHeader-review {
+.pageHeader-review .pageTitle {
   margin-top: -63px; }
-  .pageHeader .pageHeader-review .pageTitle span {
-    float: left; }
-  .pageHeader .pageHeader-review .custom-page-action ul li {
-    padding-left: 38px; }
-    .pageHeader .pageHeader-review .custom-page-action ul li:nth-child(1) {
-      padding-left: 20px;
-      background: none;
-      background-color: #666666; }
-      .pageHeader .pageHeader-review .custom-page-action ul li:nth-child(1) img {
-        margin-right: 5px; }
-    .pageHeader .pageHeader-review .custom-page-action ul li:nth-child(2) {
-      background: url("/assets/imgs/ic_email_w.svg") no-repeat left 15px center;
-      background-size: 16px 16px;
-      background-color: #666666; }
-    .pageHeader .pageHeader-review .custom-page-action ul li:nth-child(3) {
-      background: url("/assets/imgs/ic_trash_w.svg") no-repeat left 15px center;
-      background-size: 16px 16px;
-      background-color: #666666; }
 
 .reviewCarousel {
   position: relative; }
@@ -2294,17 +2289,21 @@ ul.select-coverphoto-wrapper {
   .applyPage .applyPageRight {
     padding: 0; }
 
-  .pageHeader .pageHeader-review .pageTitle span {
-    float: none; }
-  .pageHeader .pageHeader-review .custom-page-action {
-    position: relative;
-    top: -25px;
-    right: auto;
-    left: -20px; }
-    .pageHeader .pageHeader-review .custom-page-action ul {
-      width: 370px;
-      margin-right: auto;
-      margin-left: auto; }
+  div.pageHeader .pageHeader-review {
+    text-align: center; }
+    div.pageHeader .pageHeader-review .pageTitle span {
+      float: none; }
+    div.pageHeader .pageHeader-review .custom-page-action {
+      position: relative;
+      top: -10px;
+      right: auto;
+      left: -20px; }
+      div.pageHeader .pageHeader-review .custom-page-action .btn-delete, div.pageHeader .pageHeader-review .custom-page-action .btn-fav, div.pageHeader .pageHeader-review .custom-page-action .btn-email {
+        float: none; }
+      div.pageHeader .pageHeader-review .custom-page-action div:last-child {
+        margin-left: 5px; }
+      div.pageHeader .pageHeader-review .custom-page-action div:first-child {
+        margin-left: 0px; }
 
   .reviewHeader .reviewHeaderContent {
     padding-right: 70px;

@@ -870,7 +870,11 @@ div.pageHeader{
     
     .custom-page-action {
         
-        .btn-edit, .btn-delete, .btn-share {
+        div:last-child {
+            margin-left: 0px;
+        }
+        
+        .btn-edit, .btn-delete, .btn-share, .btn-fav, .btn-email {
             display: inline;
             float: right;
             margin-left: 5px;
@@ -902,8 +906,22 @@ div.pageHeader{
             background-size: 16px 16px;    
             margin-left: 0px;
         }
+        
+        .btn-fav {
+            padding-left: 20px;
+            background: none;
+            background-color: $color-grey-dark;
+            img {
+                margin-right: 5px;
+            }
+        }
+        
+        .btn-email {
+            background: url("/assets/imgs/ic_email_w.svg") no-repeat left 15px center $color-grey-dark;
+            background-size: 16px 16px;
+        }
     }
-    
+
     .custom-page-action-secondary {
         .custom-page-action-secondary-title {
             font-size: $font-size-large;
@@ -979,6 +997,8 @@ div.pageHeader{
     text-transform: uppercase;
     letter-spacing: 6px;
     padding: 40px 0;
+    
+    span {float: left;}
 }
 
 ul.projects, ul.applicants{
@@ -2071,40 +2091,9 @@ text-align: center;
     }
 }
 
-.pageHeader{
-    .pageHeader-review {
-        margin-top: -63px;
-        .pageTitle span{
-            float: left;
-        }
-        .custom-page-action {
-            ul {
-                li{
-                    padding-left: 38px;
-                    &:nth-child(1){
-                        padding-left: 20px;
-                        background: none;
-                        background-color: $color-grey-dark;
-                        img {
-                            margin-right: 5px;
-                        }
-                    }
-//                    &:nth-child(1){
-//                        background: url("/assets/imgs/ic_fav_w.svg") no-repeat left 15px center;
-//                        background-size: 16px 16px;
-//                        background-color: $color-grey-dark;}
-                    &:nth-child(2){
-                        background: url("/assets/imgs/ic_email_w.svg") no-repeat left 15px center;
-                        background-size: 16px 16px;
-                        background-color: $color-grey-dark;}
-                    &:nth-child(3){
-                        background: url("/assets/imgs/ic_trash_w.svg") no-repeat left 15px center;
-                        background-size: 16px 16px;
-                        background-color: $color-grey-dark;}
-                }
-            }
-        }
-    }
+.pageHeader-review {
+    .pageTitle {
+        margin-top: -63px;}
 }
 
 .reviewCarousel {
@@ -2485,26 +2474,29 @@ text-align: center;
             padding: 0;
         }
     }
-    .pageHeader{
+    div.pageHeader {
         .pageHeader-review {
+            text-align: center;
             .pageTitle span{
                 float: none;
             }
             .custom-page-action {
                 position: relative;
-                top: -25px;
+                top: -10px;
                 right: auto;
                 left: -20px;
-
-                ul {
-                    width: 370px;
-                    margin-right: auto;
-                    margin-left: auto;
+                .btn-delete, .btn-fav, .btn-email {
+                    float: none;
+                }
+                div:last-child {
+                    margin-left: 5px;
+                }
+                div:first-child {
+                    margin-left: 0px;
                 }
             }
-        
         }
-    }    
+    }
     .reviewHeader {
         .reviewHeaderContent {
             padding-right: 70px;
