@@ -12,30 +12,23 @@
     <div class="pageHeader">
         <div class="pageHeader-review">
             <div class='pageTitle'><span>{{currApp.name.first}} {{currApp.name.last}}</span></div>
-              <div class="center-by-table-wrapper">
-              <div class="center-by-table">
-                <div class="custom-page-action">
-                  <ul>
-                    <li class="custom-btn-secondary-small" ng-click="page.updateFav(currApp,roleData._id)">
-                       <img ng-if="currApp.favorited" ng-src="/assets/imgs/ic_fav_w_fill.svg" width="16px" vertical-align="middle">
-                       <img ng-if="!currApp.favorited" ng-src="/assets/imgs/ic_fav_w.svg" width="16px" vertical-align="middle">
-                      Favorite
-                    </li>
-  <!--                    <input type="checkbox" ng-model="currApp.favorited" ng-change="page.updateFav(currApp)"></input>-->
-                    <li class="custom-btn-secondary-small"
-                         href="#"
-                        socialshare
-                        socialshare-provider="email"
-                        socialshare-trigger="click"
-                        socialshare-to="{{currApp.email}}" 
-                        socialshare-body="{{Email_text}}">E-mail
-                    </li>
-                    <li class="custom-btn-secondary-small" ng-click="page.deleteAsideBtn(currApp)">Delete</li>
-                    </ul>
+                <div class="custom-page-action">                
+      <!--                    <input type="checkbox" ng-model="currApp.favorited" ng-change="page.updateFav(currApp)"></input>-->
+                        <div class="custom-btn-secondary-small btn-fav" ng-click="page.updateFav(currApp,roleData._id)">
+                           <img ng-if="currApp.favorited" ng-src="/assets/imgs/ic_fav_w_fill.svg" width="16px" vertical-align="middle">
+                           <img ng-if="!currApp.favorited" ng-src="/assets/imgs/ic_fav_w.svg" width="16px" vertical-align="middle">Favorite
+                        </div>
+                        <div class="custom-btn-secondary-small btn-email"
+                             href="#"
+                            socialshare
+                            socialshare-provider="email"
+                            socialshare-trigger="click"
+                            socialshare-to="{{currApp.email}}" 
+                            socialshare-body="{{Email_text}}">E-mail
+                        </div>   
+                        <div class="custom-btn-secondary-small btn-delete" ng-click="page.deleteAsideBtn(currApp)">Delete</div>
                 </div>
-            </div>
-        </div>
-      </div>
+         </div>
     </div>
     
     <div class="clear"></div>
