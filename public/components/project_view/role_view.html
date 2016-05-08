@@ -1,12 +1,15 @@
+<!-- <ppublicview project="page.project"
+             roles="roleData" currole="page.curRole"
+             toggle='page.togView()'>
+</ppublicview> -->
+
 <div ng-if="!viewApp" class="container paddingBottom60">
   <div class="pageHeader">
     <div class="custom-back" ng-click="main.backBtn()" style="z-index: 4;"></div>
     <div class="custom-page-action" style="z-index: 4;">
-      <ul>
-        <li class="custom-btn-secondary-small" ng-click="page.editRoleBtn()">Edit</li>
-        <li class="custom-btn-secondary-small" ng-click="page.deleteRoleBtn(roleData)">Delete</li>
-        <li class="custom-btn-secondary-small" ng-click="page.shareBtn()">Share</li>
-      </ul>
+        <div class="custom-btn-secondary-small btn-share" ng-click="page.shareBtn()">Share</div>
+        <div class="custom-btn-secondary-small btn-edit" ng-click="page.editRoleBtn()">Edit</div>
+        <div class="custom-btn-secondary-small btn-delete" ng-click="page.deleteRoleBtn(roleData)">Delete</div>
     </div>
     <div class='pageTitle pageTitleMobileOffset col-md-4 col-md-offset-4'>{{roleData.name || "page Casting"}}</div>
     <div class="clear"></div>
@@ -181,6 +184,6 @@
     <div class="next" ng-click="page.nextApp()">Next</div>
   </div>
 </div>
-
 <!-- <div newApplicantForm> + Add</div> -->
+<!--  -->
 </div>

@@ -25,6 +25,115 @@ angular.module('roleCtrl', ['userService',
   function (Applicant, Role, $location, $routeParams,$rootScope,
             $scope, $aside, $routeParams, $location, $route, $window) {
     var vm = this;
+
+    Pub.getAppRole($routeParams.role_id).then(function(data) {
+      vm.roleData = data.data.Application;
+      $rootScope.meta.url = vm.roleData.short_url;
+      /*console.log($rootScope.meta.url);*/
+      if (vm.roleData) { //TODO:remove? 
+        Pub.getProject(vm.roleData.projectID).then(function(data) {
+          getApps();
+          var project = data.data.project.project;
+          var roles = data.data.project.roles;
+          $scope.roleData  =roles; //TODO
+          /*$scope.role= data.data;*/
+          //calculate remaining days
+          var now = new Date()
+          var endDate = new Date(data.data.end_date);
+          var timeDiff = endDate - now;
+          var left = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
+          //calculate 
+          if(left < 8) 
+          {
+            if(left > 0 ) {vm.remaining = left; return;}//less than a wk 
+            else if(left === 0 ) {vm.remaining = "Today"; return;}//less than a wk 
+            else {
+               /*vm.remaining = Math.abs(left) + " Past";*/ //TODO: REMOVE
+              vm.prjClosed = "(Closed)";
+            }          
+          }
+
+          console.log(roles)
+          if (project) {
+            $rootScope.meta = Meta.roleMeta(vm.roleData, project);
+            vm.prjData = project;
+            vm.prjData.roles = roles;
+            vm.updateCurRole(roles[0]);
+            vm.appData.projectID = data.data.project._id;
+            vm.appData.roleID = vm.roleData._id;
+          }
+        })
+      }
+      //clean requirements
+      /*for (var i in vm.roleData.requirements) {
+        if (!vm.roleData.requirements[i].selected) {
+          vm.roleData.requirements.splice(i, ++i);
+        }
+      }*/
+      /*   if (vm.roleData.requirements[i].format == "Link") {
+          vm.appData.links.push(vm.roleData.requirements[i]);
+          vm.roleData.requirements.splice(i, ++i);
+        }*/
+    });
+    /*Role.get($routeParams.role_id)
+      .success(function (data) {
+        vm.processing = false;      
+        $scope.roleData = data.data;        
+        })
+      .error(function (error) {
+        console.log(error);
+      })*/
+    function getApps() {
+      Applicant.getAll($routeParams.role_id)
+        .success(function (data) {
+          vm.processing = false;
+          vm.applicants = data.data;
+          /*for(var app in vm.applicants){
+            if{vm.applicants.favs.indexOf()}
+              vm.applicants.favorited = true;
+          }*/
+          /*console.log(vm.applicants.favs)*/
+          $scope.numApps = data.data.length;
+          //get headshot
+          for(var i in vm.applicants){
+            for(var app in vm.applicants[i].favs){
+              if( $rootScope.user._id ===  vm.applicants[i].favs[app].userID
+                && $scope.roleData._id === vm.applicants[i].favs[app].roleID) {
+                vm.applicants[i].favorited = vm.applicants[i].favs[app].favorited;
+              }
+            }
+
+            if(vm.applicants[i].suppliments.length > 0){
+              for(var j in  vm.applicants[i].suppliments)
+              {
+                //check for headshot labeling
+                if(angular.equals(vm.applicants[i].suppliments[j].name, "Headshot") ||
+                angular.equals(vm.applicants[i].suppliments[j].name, "headshot")  )
+                {   //check it attachment is an image
+                  if(vm.applicants[i].suppliments[j].file_type.indexOf('image') != -1){
+                    /*console.log(vm.applicants[i].suppliments[j].file_type);*/
+                    vm.applicants[i].headshot = vm.applicants[i].suppliments[j].source;
+                    break;
+                  }
+                  vm.applicants[i].headshot= "/assets/imgs/img_headshot_placeholder.png";
+                }
+                else if(vm.applicants[i].suppliments[j].file_type.indexOf("image") != -1){
+                  /*console.log(vm.applicants[i].suppliments[j]);*/
+                  vm.applicants[i].headshot = vm.applicants[i].suppliments[j].source;
+                }
+                //if no headshot is attached
+                else vm.applicants[i].headshot= "/assets/imgs/img_headshot_placeholder.png";
+              }
+            }
+            // no attachment
+            else vm.applicants[i].headshot= "/assets/imgs/img_headshot_placeholder.png";
+          }
+        })
+        .error(function (error) {
+          console.log(error);
+        })
+    }
+
     $scope.viewApp = false;
     $scope.slides = [];
     vm.gridView = true;
@@ -107,85 +216,6 @@ angular.module('roleCtrl', ['userService',
         }
       }
     }
-    Role.get($routeParams.role_id)
-      .success(function (data) {
-        vm.processing = false;      
-        $scope.roleData = data.data;        
-        getApps();
-        /*$scope.role= data.data;*/
-      
-        //calculate remaining days
-        var now = new Date()
-        var endDate = new Date(data.data.end_date);
-        var timeDiff = endDate - now;
-        var left = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
-        //calculate 
-        if(left < 8) 
-        {
-          if(left > 0 ) {vm.remaining = left; return;}//less than a wk 
-          else if(left === 0 ) {vm.remaining = "Today"; return;}//less than a wk 
-          else {
-             /*vm.remaining = Math.abs(left) + " Past";*/ //TODO: REMOVE
-            vm.prjClosed = "(Closed)";
-          }          
-        }
-        })
-        .error(function (error) {
-          console.log(error);
-        })
-    function getApps() {
-      Applicant.getAll($routeParams.role_id)
-        .success(function (data) {
-          vm.processing = false;
-          vm.applicants = data.data;
-          /*for(var app in vm.applicants){
-            if{vm.applicants.favs.indexOf()}
-              vm.applicants.favorited = true;
-          }*/
-          /*console.log(vm.applicants.favs)*/
-          $scope.numApps = data.data.length;
-          //get headshot
-          for(var i in vm.applicants){
-
-
-            for(var app in vm.applicants[i].favs){
-              if( $rootScope.user._id ===  vm.applicants[i].favs[app].userID
-                && $scope.roleData._id === vm.applicants[i].favs[app].roleID) {
-                vm.applicants[i].favorited = vm.applicants[i].favs[app].favorited;
-              }
-            }
-
-            if(vm.applicants[i].suppliments.length > 0){
-              for(var j in  vm.applicants[i].suppliments)
-              {
-                //check for headshot labeling
-                if(angular.equals(vm.applicants[i].suppliments[j].name, "Headshot") ||
-                angular.equals(vm.applicants[i].suppliments[j].name, "headshot")  )
-                {   //check it attachment is an image
-                  if(vm.applicants[i].suppliments[j].file_type.indexOf('image') != -1){
-                    /*console.log(vm.applicants[i].suppliments[j].file_type);*/
-                    vm.applicants[i].headshot = vm.applicants[i].suppliments[j].source;
-                    break;
-                  }
-                  vm.applicants[i].headshot= "/assets/imgs/img_headshot_placeholder.png";
-                }
-                else if(vm.applicants[i].suppliments[j].file_type.indexOf("image") != -1){
-                  /*console.log(vm.applicants[i].suppliments[j]);*/
-                  vm.applicants[i].headshot = vm.applicants[i].suppliments[j].source;
-                }
-                //if no headshot is attached
-                else vm.applicants[i].headshot= "/assets/imgs/img_headshot_placeholder.png";
-              }
-            }
-            // no attachment
-            else vm.applicants[i].headshot= "/assets/imgs/img_headshot_placeholder.png";
-          }
-        })
-        .error(function (error) {
-          console.log(error);
-        })
-    }
-
 
     var editRoleAside = $aside({
         scope: $scope,

@@ -16,7 +16,14 @@ controller('ApplyController', ['$scope', '$rootScope',
     /*TODO: condense when combine project and role schema*/
     Pub.getAppRole($routeParams.id).then(function(data) {
       vm.roleData = data.data.Application;
+      vm.curRole = data.data.Application;
       $rootScope.meta.url = vm.roleData.short_url;
+      
+      /*console.log(vm.roleData)
+      console.log(vm.curRole);
+      vm.updateCurRole(vm.roleData);
+      console.log(vm.curRole);*/
+
       /*console.log($rootScope.meta.url);*/
       if (vm.roleData) { //TODO:remove? 
         Pub.getAppPrj(vm.roleData.projectID).then(function(data) {
@@ -27,7 +34,7 @@ controller('ApplyController', ['$scope', '$rootScope',
             $rootScope.meta = Meta.roleMeta(vm.roleData, project);
             vm.prjData = project;
             vm.prjData.roles = roles;
-            vm.updateCurRole(roles[0]);
+            /*vm.updateCurRole(roles[0]);*/
             vm.appData.projectID = data.data.project._id;
             vm.appData.roleID = vm.roleData._id;
           }

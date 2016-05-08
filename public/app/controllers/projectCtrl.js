@@ -56,7 +56,12 @@ angular.module('projectCtrl', ['userService',
       HomeService.getView(function(view){
           console.log(view)
       })
-
+      
+      vm.Role_back = function(){
+        vm.prView = true;
+        vm.pView = false;
+      }
+      
       vm.togView = function() {
         vm.prView = !vm.prView;
         vm.pView = !vm.pView;
