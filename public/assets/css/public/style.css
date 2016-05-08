@@ -2019,11 +2019,9 @@ ul.select-coverphoto-wrapper {
       margin: 0; }
       .reviewInfo table ul li {
         display: inline; }
+        .reviewInfo table ul li:after {
+          content: " | "; }
         .reviewInfo table ul li:last-child:after {
-          content: ""; }
-      .reviewInfo table ul li.links {
-        display: inline; }
-        .reviewInfo table ul li.links:last-child:after {
           content: ""; }
 
 .reviewComment {

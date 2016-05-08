@@ -2191,10 +2191,7 @@ text-align: center;
             
             li {
                 display: inline;
-                &:last-child:after {content: ""};
-            }
-            li.links {
-                display: inline;
+                &:after {content: " | "};
                 &:last-child:after {content: ""};
             }
         }
