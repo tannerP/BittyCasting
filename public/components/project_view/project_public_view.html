@@ -57,10 +57,9 @@
                             </div>
                             <ul class="custom-checkbox">
                                 <li ng-repeat="role in ppv.roles">
-                                        <label>{{role.name}}
+                                    <label><input type="checkbox" ng-click="ppv.toggleRole(role._id,role.requirements)"><span></span>{{role.name}}</label>
                                             <!-- <span 
                                             ng-click="ppv.toggleRole(role._id,role.requirements)" ng-class="{'btn':ppv.isSelected(role._id)}"></span> {{role.name}} -->
-                                        </label><input type="checkbox" ng-click="ppv.toggleRole(role._id,role.requirements)">
                                 </li>
                             </ul>            
                             
