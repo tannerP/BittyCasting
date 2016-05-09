@@ -67,40 +67,80 @@ angular.module('ProjectView', ['userService',
         }
           else return true;
     }*/
-    var addReq = function(){
+
+    vm.requirements = [];
+    var addReq = function(rmnts){
+      console.log(rmnts)
+      for(var i in rmnts){
+        console.log(rmnts[i])
+        if(vm.requirements.indexOf(rmnts[i].name) === -1 ){
+          vm.requirements.push(rmnts[i].name)
+        }
+      }
+      console.log(vm.requirements)
+      /*console.log(data)*/
         //check roleIDs and add role in it. 
 
-         var ids = vm.appData.roleIDs;
+
+
+      /*   var ids = vm.appData.roleIDs;
          console.log(ids);
-         console.log(role);
+         console.log(role);*/
          /*for(var i in ids){
             for(var i in role)
          }*/
     }
-    var removeReq = function(){
+    var updateReq = function(){
+      //search through vm.appData.roleID match with vm.roles
+      vm.requirements = [];
+
+      for(var i in vm.roles){       //loop through roles
+        console.log(vm.roles[i]); 
+        var role = vm.roles[i];
+        var index = vm.appData.roleIDs.indexOf(role._id);
+        if(index != -1){
+          //roles[index] is in rolesIDs
+          /*console.log(role.)*/
+          addReq(role.requirements);
+        }
+      }
+
+      /*console.log(rmnts)
+      var index = vm.requirements.indexOf(rmnts[i])
+      
+      if(index === -1 ){
+          vm.requirements.splice(index, index++)
+        }*/
+      /*for(var i in data){
+
+      }*/
         //check roleIDs and add role in it. 
 
-         var ids = vm.appData.roleIDs;
-         console.log(ids);
-         console.log(vm.roles);
 
-         /*for(var i in ids){
-            for(var i in role)
+
+         /*var ids = vm.appData.roleIDs;
+         console.log(ids);
+         console.log(vm.roles);*/
+      }
+/*
+         for(var i in vm.requirement){
+            
+            console.log(vm.requirements[i])
          }*/
-    }
-    vm.requirements = []
-    vm.toggleRole = function(roleID){
+    
+    vm.toggleRole = function(roleID,requirements){
       vm.message = "";
       if(roleID){
         var index = vm.appData.roleIDs.indexOf(roleID);
         if (index === -1 ){
           vm.appData.roleIDs.push(roleID);
-          addReq(roleID)
+          /*vm.requirements.push(requirement)*/
+          updateReq()
         }
         else{
           /*console.log("removing")*/
           vm.appData.roleIDs.splice(index,++index); 
-          removeReq(roleID)
+          updateReq()
         }
       }
       else console.log("error including role in applicantion")
@@ -160,7 +200,7 @@ angular.module('ProjectView', ['userService',
               }, 1500)
 
             } else { 
-              AWS.uploadAppMedias(vm.files, vm.appData.roleIDs[0],
+              AWS.uploadAppMedias(vm.files, vm.requirements,
                 vm.applicantID, $rootScope.awsConfig.bucket);
                 //broacast from AWS
                 $rootScope.$on("app-media-submitted",

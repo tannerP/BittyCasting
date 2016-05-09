@@ -8,7 +8,7 @@
                 <div class='pageTitle'>{{ppv.project.name}}</div> <!-- Remove tag causes displaying bug -->
                 <p ng-bind-html="ppv.project.description | linky"></p>
                 <img ng-src="{{ppv.project.coverphoto.source ||'assets/imgs/img_projectCover01.png'}}" class="img-responsive">
-                <div class='pageTitle'>Role<span>s</span></div>
+                <div class='pageTitle'>Roles<!-- <span>s</span> --></div>
                 <ul>
                     <li class="roles-dynamics" ng-click="ppv.update_CurRole(role)" ng-repeat="role in ppv.roles" ng-class="{'rolesDynamicsActive':ppv.isSelected(role._id)}">
                         {{role.name}}
@@ -59,7 +59,8 @@
                                 <li ng-repeat="role in ppv.roles">
                                         <label>
                                             <input type="checkbox">
-                                            <span ng-click="ppv.toggleRole(role._id);" ng-class="{'btn':ppv.isSelected(role._id)}"></span> {{role.name}}
+                                            <span 
+                                            ng-click="ppv.toggleRole(role._id,role.requirements)" ng-class="{'btn':ppv.isSelected(role._id)}"></span> {{role.name}}
                                         </label>
                                 </li>
                             </ul>            
