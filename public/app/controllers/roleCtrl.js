@@ -60,11 +60,7 @@ angular.module('roleCtrl', ['userService',
             vm.prjClosed;
             return;
           } else if (left === 1) {
-            vm.remaining = left + " day left";
-            vm.prjClosed;
-            return;
-          } else if (left === 0) {
-            vm.remaining = "ends today";
+            vm.remaining = "Ends today";
             vm.prjClosed;
             return;
           } else if (left < 0) {
