@@ -20,52 +20,12 @@ angular.module('projectCtrl', ['userService',
           .success(function(data) {
             vm.project = data.project.project;
 
-            /*console.log(data.project.roles)*/
-
             $rootScope.meta = Meta.prjMeta(vm.project);
             vm.roles = data.project.roles;
             if (vm.roles.length >= 1) {
               vm.curRole = data.project.roles[0];
               vm.requirements= vm.curRole.requirements;
-
-              
-              
-              /*console.log(vm.requirements)*/
-
-/*              for(var i in vm.roles){
-                var tempRole = vm.roles[i];
-
-                console.log(tempRole)
-
-                for(var j in vm.requirements)
-
-                  for(var k in tempRole.requirements){
-
-                    console.log(tempRole.requirements[k].name)
-                    console.log(vm.requirements[j].name)
-                    
-                     if( tempRole.requirements[k].name.indexOf(vm.requirements[j].name) === -1)
-                    {
-                      console.log("No match")
-                      vm.requirements.push(tempRole.requirements[k])
-                     }
-                     else{
-                      console.log("Found match")
-                     }
-                  }
-                 tempRole = {}  
-                }*/
-
-              }
-            //filter requirements 
-            /*vm.curRole.requirements = [];
-            for (var r in vm.roles) {
-              var rqmnt = vm.roles[r].requirements;
-              if (vm.curRole.requirements.indexOf(rqmnt.name))
-
-                console.log(rqmnt)
-            }*/
-
+            }
             switch (data.client) {
               case "public":
                 {

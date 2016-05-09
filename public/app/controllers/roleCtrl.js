@@ -81,11 +81,6 @@ angular.module('roleCtrl', ['userService',
         .success(function(data) {
           vm.processing = false;
           vm.applicants = data.data;
-          /*for(var app in vm.applicants){
-            if{vm.applicants.favs.indexOf()}
-              vm.applicants.favorited = true;
-          }*/
-          /*console.log(vm.applicants.favs)*/
           $scope.numApps = data.data.length;
           //get headshot
           for (var i in vm.applicants) {
@@ -149,67 +144,69 @@ angular.module('roleCtrl', ['userService',
       vm.listView = true;
     }
 
-    /*     vm.backBtn = function () {
-          $scope.viewApp = false;
-          $scope.$emit("unhideNav");
-          if($scope.currApp.new){
-            Applicant.viewedUpdate($scope.currApp._id);
-            $route.reload();
-          }
-        }*/
+    vm.backBtn = function() {
+      $scope.viewApp = false;
+      $scope.$emit("showNav");
+      if ($scope.currApp.new) {
+        Applicant.viewedUpdate($scope.currApp._id);
+        $route.reload();
+      }
+    }
+
+    var updateCarosel = function(index){
+      $scope.slides = [];
+      $scope.currIndex = index;
+      $scope.currApp = vm.applicants[index];
+      addSlides($scope.slides, $scope.currApp.suppliments);
+    }
+
+    vm.viewBtn = function(index) {
+      $scope.$emit("hideNav");
+      updateCarosel(index);
+      $scope.viewApp = true;
+    }
+    vm.nextApp = function() {
+      if ($scope.currIndex < vm.applicants.length - 1) {
+        $scope.currIndex += 1;
+        /*vm.viewBtn($scope.currIndex)*/
+        updateCarosel($scope.currIndex);
+      }else{
+        $scope.currIndex = 0;
+        updateCarosel($scope.currIndex);
+      }
+    }
+    vm.lastApp = function() {
+      console.log($scope.currIndex)
+      if ($scope.currIndex <= 0) {
+        $scope.currIndex = vm.applicants.length - 1;
+        /*vm.viewBtn($scope.currIndex)*/
+        updateCarosel($scope.currIndex)
+      }
+      else{
+        $scope.currIndex -= 1;
+        updateCarosel($scope.currIndex);
+      }
+    }
+    vm.updateFav = function(aplnt, roleID) {
+      aplnt.favorited = !aplnt.favorited;
+      Applicant.favUpdate(aplnt, roleID);
+
+    }
+
     $scope.deleteAppBtn = function() {
       Applicant.delete($scope.currApp._id, $scope.roleData._id)
         .success(function() {
           getApps();
           if ($scope.viewApp === true) {
-            $scope.$emit("unhideNav");
-            $scope.viewApp = false;
+/*            $scope.$emit("showNav");
+*/            vm.lastApp();
+            /*$scope.viewApp = false;*/
           }
           deleteAppAside.hide();
         })
         .error(function(err) {
           console.log(err);
         })
-    }
-
-    vm.backBtn = function() {
-      $scope.viewApp = false;
-      $scope.$emit("unhideNav");
-      if ($scope.currApp.new) {
-        Applicant.viewedUpdate($scope.currApp._id);
-        $route.reload();
-      }
-    }
-    vm.viewBtn = function(index) {
-      $scope.slides = [];
-      $scope.$emit("hideNav");
-      $scope.currIndex = index;
-      $scope.currApp = vm.applicants[index];
-      addSlides($scope.slides, $scope.currApp.suppliments);
-      $scope.viewApp = true;
-      /*if($scope.currApp.new){
-        Applicant.viewedUpdate($scope.currApp._id);
-      }*/
-      //application update app.new = false; 
-    }
-    vm.nextApp = function() {
-      if ($scope.currIndex < vm.applicants.length - 1) {
-        $scope.currIndex += 1;
-        vm.viewBtn($scope.currIndex)
-      }
-    }
-    vm.lastApp = function() {
-      if ($scope.currIndex > 0) {
-        $scope.currIndex -= 1;
-        vm.viewBtn($scope.currIndex)
-      }
-    }
-    vm.updateFav = function(aplnt, roleID) {
-      aplnt.favorited = !aplnt.favorited;
-      /*console.log(aplnt)*/
-      /*console.log(roleID);*/
-      Applicant.favUpdate(aplnt, roleID);
-
     }
 
     $scope.goToLink = function(url) {
@@ -223,7 +220,7 @@ angular.module('roleCtrl', ['userService',
 
     function addSlide(target, data) {
       var i = target.length;
-      var fileTypes = ["video", "image", "`applicant`s/pdf", "link"];
+      var fileTypes = ["video", "image", "applicantion/pdf", "link"];
 
       for (item in fileTypes) {
         if (data.file_type.indexOf(fileTypes[item])) {
@@ -261,6 +258,7 @@ angular.module('roleCtrl', ['userService',
 
           addSlide(target, sourceArr[i]); //carousel
         } else if (fType.indexOf('image') != -1) {
+
           $scope.images.push(sourceArr[i]);
           addSlide(target, sourceArr[i]); //carousel
         } else if (fType == "application/pdf" ||

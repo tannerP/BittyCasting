@@ -12,7 +12,7 @@ angular.module('userService', [])
 		meta.url = "http://bittycasting.com";
 		meta.description ="A free online casting tool for managing and organizing your next film, theater, or performance project.";        
 		meta.image =  "http://bittycasting.com/assets/imgs/favicon/apple-icon-310x310.png";
-
+		console.log(meta);
 		return meta;
 	}
 	this.roleMeta = function(role, project){
