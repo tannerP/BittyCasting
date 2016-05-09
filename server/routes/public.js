@@ -103,7 +103,7 @@ module.exports = function(app, express) {
         Role.find({
           projectID: proj._id
         }, function(err, roles) {
-          console.log(roles[0].requirements)
+          /*console.log(roles[0].requirements)*/
           var money = {};
           var client = checkClientship(proj, req.decoded);
           money.client = client;
