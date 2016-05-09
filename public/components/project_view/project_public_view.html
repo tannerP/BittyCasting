@@ -57,11 +57,10 @@
                             </div>
                             <ul class="custom-checkbox">
                                 <li ng-repeat="role in ppv.roles">
-                                        <label>
-                                            <input type="checkbox">
-                                            <span 
-                                            ng-click="ppv.toggleRole(role._id,role.requirements)" ng-class="{'btn':ppv.isSelected(role._id)}"></span> {{role.name}}
-                                        </label>
+                                        <label>{{role.name}}
+                                            <!-- <span 
+                                            ng-click="ppv.toggleRole(role._id,role.requirements)" ng-class="{'btn':ppv.isSelected(role._id)}"></span> {{role.name}} -->
+                                        </label><input type="checkbox" ng-click="ppv.toggleRole(role._id,role.requirements)">
                                 </li>
                             </ul>            
                             
@@ -120,10 +119,9 @@
                                         ngf-min-size="100"
                                         ngf-max-size="250MB"
                                         ngf-model-invalid="errors">
-                                        <div class="uploadFileName">{{files[$index].name}}</div>
-                                        <img ng-show="ppv.files[$index]" ngf-thumbnail="ppv.files[$index] || 'Attachment'">
-                                        <video ng-show="ppv.files[$index]" controls ngf-src="ppv.files[$index]">
-                                                            
+                                        <div class="uploadFileName">     <img ng-if="ppv.files[$index]" ngf-thumbnail="ppv.files[$index] || 'Attachment'">
+                                        <video ng-if="ppv.files[$index]" controls ngf-src="ppv.files[$index]">    
+                                        {{files[$index].name}}</div>
                                     </a>
                             </div>
                         <div class = "form-group">
