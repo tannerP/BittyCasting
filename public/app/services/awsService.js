@@ -8,7 +8,7 @@ angular.module('awsService', [])
 	var upload = [];
 	var updateID; //has to be global function
 
-    aws.uploadAppMedias = function(data,role,appID,bucket){ 
+    aws.uploadAppMedias = function(data,requirements,appID,bucket){ 
     //Note: ID is undefine.
         var uploadFiles = data;
             updateID = appID;
@@ -57,7 +57,7 @@ angular.module('awsService', [])
                           bucket: data.PostResponse.Bucket,
                           key: data.PostResponse.Key,
                           etag: data.PostResponse.ETag,
-                          name: role.requirements[i].name,
+                          name: requirements[i],
                           file_type: file.type
                         };
                         Applicant.update(updateID,parsedData);

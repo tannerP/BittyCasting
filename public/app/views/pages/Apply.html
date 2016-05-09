@@ -94,8 +94,9 @@
                                     ></textarea>
                                 </div>   
                                       
-                                <div class = "form-group" ng-repeat="rq in page.roleData.requirements">
-    <!-- NEED STYLING -->       <label>{{rq.name}}</label>
+                                <div class = "form-group" 
+                                ng-repeat="requirement in page.requirements">
+    <!-- NEED STYLING -->       <label>{{requirement}}</label>
                                 <!-- Fil Uploader -->
                             
                                     <div ng-if="rq.file_type != 'link'" class="drop-box" ngf-drop ng-model="page.files[$index]" ngf-max-size="500MB" ngf-model-invalid="page.errors" ngf-accept="'application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/pdf,image/*,video/*'"
@@ -132,14 +133,14 @@
                                 <div class = "form-group">
                                     <span ng-repeat="link in page.appData.links track by $index">
                                         <div class="applyLinkItem">
-                                            <span ng-if="link.name == rq.name">{{link.source}} <span ng-click="page.removeLink($index)"><img src="/assets/imgs/ic_trash.svg" width="16px" height="16px"></span>
+                                            <span ng-if="link.name == requirement">{{link.source}} <span ng-click="page.removeLink($index)"><img src="/assets/imgs/ic_trash.svg" width="16px" height="16px"></span>
                                             <br>
                                             </span>
                                         </div>  
                                     </span>
                                     <input class="applyAddLink" type="text" ng-model="page.newLinks[$index]" placeholder="http://">  
                                        <span>{{page.newLink}}</span>                            
-                                    <span ng-click="page.addLink($index,rq.name,page.newLinks[$index])"><img src="/assets/imgs/ic_plus.svg" width="16px" height="16px"></span>
+                                    <span ng-click="page.addLink($index,requirement,page.newLinks[$index])"><img src="/assets/imgs/ic_plus.svg" width="16px" height="16px"></span>
                                 </div>
                             </div>
 

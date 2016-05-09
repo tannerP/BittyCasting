@@ -65,7 +65,7 @@ module.exports = function(app, express) {
 					}
 				}]
 			}, function(err, apps) {
-				console.log(apps)
+				/*console.log(apps)*/
 				if (err) {
 					res.send(err);
 					console.log(err);
@@ -74,7 +74,7 @@ module.exports = function(app, express) {
 					//interate through roles
 					for (var app in apps) {
 						var tempApp = apps[app];
-						console.log(tempApp);
+						/*console.log(tempApp);*/
 						if (tempApp.roleID) {
 							/*if (tempRole.roleIDs.length < 1) {*/
 							/*tempRole.roleIDs = [];*/
@@ -95,7 +95,6 @@ module.exports = function(app, express) {
 						apps[app].favs = [];
 						for (var j in tempArr) {
 							if (tempArr[j].userID === req.decoded.id) {
-								console.log("adding to favs")
 								apps[app].favs.push(tempArr[j])
 							}
 
@@ -233,7 +232,7 @@ module.exports = function(app, express) {
 			Role.find({
 					'projectID': req.params.projectID
 				}, function(err, roles) {
-					console.log(roles)
+					/*console.log(roles)*/
 					if (err) {
 						res.send(err);
 						console.log(err);
@@ -336,9 +335,9 @@ module.exports = function(app, express) {
 							} else {
 								/*console.log(apps[a].roleIDs)*/
 								var index = apps[a].roleIDs.indexOf(req.params.role_id);
-								console.log(index);
+								/*console.log(index);*/
 								apps[a].roleIDs.splice(index, ++index);
-								console.log(apps[a].roleIDs)
+								/*console.log(apps[a].roleIDs)*/
 								apps[a].save();
 							}
 						}
@@ -475,7 +474,7 @@ module.exports = function(app, express) {
 					if (err) console.log(err);
 					else {
 						for (var a in apps) {
-							console.log(apps[a].roleIDs.length);
+							/*console.log(apps[a].roleIDs.length);*/
 							if (apps[a].roleIDs.length <= 1) {
 								aws.removeSup(apps[a].suppliments);
 								apps[a].remove();
