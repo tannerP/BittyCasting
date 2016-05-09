@@ -258,20 +258,12 @@ angular.module('roleCtrl', ['userService',
       /*$scope.roleData = data;*/
       deleteRoleAside.$promise.then(deleteRoleAside.toggle);
     }
-    vm.backBtn = function () {
-      $scope.viewApp = false;
-      $scope.$emit("unhideNav");
-      if($scope.currApp.new){
-        Applicant.viewedUpdate($scope.currApp._id);
-        $route.reload();
-      }
-    }
     $scope.deleteAppBtn = function () {
       Applicant.delete($scope.currApp._id, $scope.roleData._id)
         .success(function () {
           getApps();
           if($scope.viewApp === true){
-            $scope.$emit("unhideNav");
+            $scope.$emit("showNav");
             $scope.viewApp  = false;
           }
           deleteAppAside.hide();
@@ -286,9 +278,9 @@ angular.module('roleCtrl', ['userService',
     }
     vm.backBtn = function () {
       $scope.viewApp = false;
-      $scope.$emit("unhideNav");
+      $scope.$emit("showNav");
       if($scope.currApp.new){
-        Applicant.viewedUpdate($scope.currApp._id);
+        /*Applicant.viewedUpdate($scope.currApp._id);*/
         $route.reload();
       }
     }
