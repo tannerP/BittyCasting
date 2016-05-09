@@ -76,16 +76,17 @@
                                     <label>Phone number</label>
                                     <input type = "tel" class = "custom-form" ng-model="page.appData.phone" maxlength="15">
                                 </div>
-<!--
-                                <div class = "form-group">
+
+                                <!-- <div class = "form-group">
                                     <label>Age</label>
                                     <input type = "tel" class = "custom-form" ng-model="page.appData.age" maxlength="10">
                                 </div>
+                                 -->
                                 <div class = "form-group">
                                     <label>Gender</label>
-                                    <input type = "tel" class = "custom-form" ng-model="page.appData.gender" maxlength="10">
+                                    <input type = "text" class = "custom-form" ng-model="page.appData.gender" maxlength="10">
                                 </div>     
--->
+
                                 <div class = "form-group">
                                     <label>Message</label>
                                     <textarea  ng-model="page.appData.message"
@@ -96,7 +97,7 @@
                                       
                                 <div class = "form-group" 
                                 ng-repeat="requirement in page.requirements">
-    <!-- NEED STYLING -->       <label>{{requirement}}</label>
+    <!-- NEED STYLING        <label>{{requirement}}</label>
                                 <!-- Fil Uploader -->
                             
                                     <div ng-if="rq.file_type != 'link'" class="drop-box" ngf-drop ng-model="page.files[$index]" ngf-max-size="500MB" ngf-model-invalid="page.errors" ngf-accept="'application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/pdf,image/*,video/*'"
@@ -125,7 +126,7 @@
                                             ngf-max-size="250MB"
                                             ngf-model-invalid="page.errors">
                                             <div class="uploadFileName">{{page.files[$index].name}}</div>
-                                            
+
                                             <img ng-if="page.files[$index]" ngf-thumbnail="page.files[$index] || 'Attachment'">
                                             <video ng-if="page.files[$index]" controls ngf-src="page.files[$index]">     
                                         </a>
