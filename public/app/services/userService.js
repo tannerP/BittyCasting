@@ -33,7 +33,7 @@ angular.module('userService', [])
 		meta.type = "website";
 		meta.title= "CASTING CALL:"+ project.name
 		meta.site_name = "http://bittycasting.com";
-		meta.url += meta.site_name + "/project/" + project._id;
+		meta.url = meta.site_name + "/project/" + project._id;
 		meta.description = project.description;
 
 		if(project.coverphoto.name === "default"){
