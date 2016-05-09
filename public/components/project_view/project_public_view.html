@@ -10,7 +10,7 @@
                 <img ng-src="{{ppv.project.coverphoto.source ||'assets/imgs/img_projectCover01.png'}}" class="img-responsive">
                 <div class='pageTitle'>Role<span>s</span></div>
                 <ul>
-                    <li class="roles-dynamics roles-dynamics-active" ng-click="ppv.update_CurRole(role)" ng-repeat="role in ppv.roles" >
+                    <li class="roles-dynamics" ng-click="ppv.update_CurRole(role)" ng-repeat="role in ppv.roles" ng-class="{'rolesDynamicsActive':ppv.isSelected(role._id)}">
                         {{role.name}}
                     </li>                 
                 </ul>
@@ -145,7 +145,7 @@
                             <p ng-if="errors.requirements"> {{errors.requirements.message}}</p>
                         </div>
 
-                          <div ng-if="ppv.message" class="custom-loader">
+                          <div ng-if="ppv.message"  class ="custom-alert">
                             {{ppv.message}}
                           </div>   
                         <div ng-show="ppv.processing" class="custom-loader"><img style ="height:60px; width:auto"

@@ -4,6 +4,8 @@ angular.module('ProjectView', ['userService',
   ])
   /*notice ppublicview vs prpublicview and,
    their assiociated html-page differences*/
+
+
   .directive('ppublicview', function() {
     /*var link = function($scope,element, attrs){
       var vm = this;
@@ -87,7 +89,7 @@ angular.module('ProjectView', ['userService',
     vm.submit = function() {
       if(vm.appData.roleIDs.length < 1)
       {
-        vm.message = "Please select roles you're apply for."
+        vm.message = "Please select a role to submit."
         return;
       }
       vm.processing = true;
@@ -277,6 +279,7 @@ angular.module('ProjectView', ['userService',
         project: '=',
         roles: '=',
         toggle: '&',
+        roleView: '&',
       },
       templateUrl: 'components/project_view/project_npublic_view.html',
       controller: controller,

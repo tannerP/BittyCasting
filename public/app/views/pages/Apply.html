@@ -7,17 +7,18 @@
             
             <section class="col-md-6">
                 <div class="applyPageLeft">
-                    <div class='pageTitle'>{{page.prjData.name}}</div> <!-- Remove tag causes displaying bug -->
+                    <div class='pageTitle'>{{page.prjData.name || "Project Name"}}</div> <!-- Remove tag causes displaying bug -->
                     <!-- <div class='pageSubtitle'>{{page.prjData.name}}</div> -->
                     <p ng-bind-html="page.prjData.description | linky"></p>
                     <img ng-src="{{page.prjData.coverphoto.source||assets/imgs/img_projectCover01.png}}" class="img-responsive">
-                    <div class='pageTitle'>Role<span>s</span></div>
-                    <ul>
+                    <div class='pageTitle'>Role</div>
+                    <!-- <ul>
                         <li class="roles-dynamics roles-dynamics-active" ng-repeat="role in page.prjData.roles" ng-click="page.updateCurRole(role)">
-                            {{role.name}}
+                            {{page.curRole.name}}
                         </li>
-                    </ul>
+                    </ul> -->
                         <!-- <p>{{page.curRole}}</p> -->
+                    <div class='pageSubtitle'>{{page.curRole.name}}</div>
                     <p ng-bind-html="page.curRole.description | linky"></p>
                     
 

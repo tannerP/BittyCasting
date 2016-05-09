@@ -1,9 +1,12 @@
-angular.module('roleCtrl', ['userService',
-  'mgcrea.ngStrap'])
+'use strict';
+angular.module('RoleView',["userService", "mgcrea.ng.Strap"])
 
-.controller('RolePageController',
-  function (Applicant, Role, $location, $routeParams,$rootScope,
-            $scope, $aside, $routeParams, $location, $route, $window) {
+.directive('roleView', function(){
+
+
+	var roleViewController = function (Applicant, Role,
+		location, $routeParams,$rootScope, $scope, $aside,
+		 $location, $route, $window) {
     var vm = this;
     var editRoleAside = $aside({
         scope: $scope,
@@ -277,6 +280,22 @@ angular.module('roleCtrl', ['userService',
     }
 
   })
+
+	   return {
+      restrict: 'E',
+      scope: {
+        toggle: '&',
+        currole: '=',
+        roles: '=',
+        project: '=',
+      },
+      templateUrl: 'components/project_view/role_view.html',
+      controller: roleViewController,
+      controllerAs: 'ppv',
+      bindToController: true,
+      //required Angular V1.3 and above to associate scope to value "ppv"
+    }
+})
 
 .controller('CommentBoxCtrl',
   function ($scope, Applicant) {
