@@ -362,7 +362,6 @@ angular.module('projectCtrl', ['userService',
         /*vm.roleData.end_time = $scope.selectedTime.toJSON();*/
         vm.roleData.end_time;
         if (vm.newData.name) {
-          console.log("adding role name in createRoleBtn")
           vm.addReqt(vm.newData);
         }
 
