@@ -1,16 +1,17 @@
 angular.module('roleCtrl', ['userService',
-  'mgcrea.ngStrap'])
+  'mgcrea.ngStrap'
+])
 
 .controller('RolePageController',
-  function (Applicant, Role, $location, $routeParams,$rootScope,
-            $scope, $aside, $routeParams, $location, $route, $window) {
+  function(Applicant, Role, $location, $routeParams, $rootScope,
+    $scope, $aside, $routeParams, $location, $route, $window) {
     var vm = this;
     var editRoleAside = $aside({
         scope: $scope,
-        backdrop:'static',
+        backdrop: 'static',
         show: false,
         controller: 'editRoleController',
-        container:"body",
+        container: "body",
         controllerAs: 'roleAside',
         templateUrl: '/app/views/pages/role_form.tmpl.html'
       }),
@@ -42,30 +43,46 @@ angular.module('roleCtrl', ['userService',
     vm.listView = false;
 
     Role.get($routeParams.role_id)
-      .success(function (data) {
-        vm.processing = false;      
-        $scope.roleData = data.data;        
-        getApps();    
+      .success(function(data) {
+        vm.processing = false;
+        $scope.roleData = data.data;
+        getApps();
         var now = new Date()
         var endDate = new Date(data.data.end_date);
         var timeDiff = endDate - now;
-        var left = Math.ceil(timeDiff / (1000 * 3600 * 24)); 
+        var left = Math.ceil(timeDiff / (1000 * 3600 * 24));
         //calculate 
-        if(left < 8) 
-        {
-          if(left > 0 ) {vm.remaining = left; return;}//less than a wk 
-          else if(left === 0 ) {vm.remaining = "Today"; return;}//less than a wk 
-          else {
+        if (left < 8) { //only alert when 7 days left
+          /*if (left > 0) { //larger than 0
+          }*/
+          if (left > 1) {
+            vm.remaining = left + " days left";
+            vm.prjClosed;
+            return;
+          } else if (left === 1) {
+            vm.remaining = left + " day left";
+            vm.prjClosed;
+            return;
+          } else if (left === 0) {
+            vm.remaining = "ends today";
+            vm.prjClosed;
+            return;
+          } else if (left < 0) {
+            vm.remaining="";
             vm.prjClosed = "(Closed)";
-          }          
+          } else{
+            vm.prjClosed = "";
+            vm.remaining = "";
+          }
         }
-        })
-        .error(function (error) {
-          console.log(error);
-        })
+      })
+      .error(function(error) {
+        console.log(error);
+      })
+
     function getApps() {
       Applicant.getAll($routeParams.role_id)
-        .success(function (data) {
+        .success(function(data) {
           vm.processing = false;
           vm.applicants = data.data;
           /*for(var app in vm.applicants){
@@ -75,95 +92,99 @@ angular.module('roleCtrl', ['userService',
           /*console.log(vm.applicants.favs)*/
           $scope.numApps = data.data.length;
           //get headshot
-          for(var i in vm.applicants){
-            for(var app in vm.applicants[i].favs){
-              if( $rootScope.user._id ===  vm.applicants[i].favs[app].userID
-                && $scope.roleData._id === vm.applicants[i].favs[app].roleID) {
+          for (var i in vm.applicants) {
+            for (var app in vm.applicants[i].favs) {
+              if ($rootScope.user._id === vm.applicants[i].favs[app].userID && $scope.roleData._id === vm.applicants[i].favs[app].roleID) {
                 vm.applicants[i].favorited = vm.applicants[i].favs[app].favorited;
               }
             }
 
-            if(vm.applicants[i].suppliments.length > 0){
-              for(var j in  vm.applicants[i].suppliments)
-              {
+            if (vm.applicants[i].suppliments.length > 0) {
+              for (var j in vm.applicants[i].suppliments) {
                 //check for headshot labeling
-                if(angular.equals(vm.applicants[i].suppliments[j].name, "Headshot") ||
-                angular.equals(vm.applicants[i].suppliments[j].name, "headshot")  )
-                {   //check it attachment is an image
-                  if(vm.applicants[i].suppliments[j].file_type.indexOf('image') != -1){
+                if (angular.equals(vm.applicants[i].suppliments[j].name, "Headshot") ||
+                  angular.equals(vm.applicants[i].suppliments[j].name, "headshot")) { //check it attachment is an image
+                  if (vm.applicants[i].suppliments[j].file_type.indexOf('image') != -1) {
                     /*console.log(vm.applicants[i].suppliments[j].file_type);*/
                     vm.applicants[i].headshot = vm.applicants[i].suppliments[j].source;
                     break;
                   }
-                  vm.applicants[i].headshot= "/assets/imgs/img_headshot_placeholder.png";
-                }
-                else if(vm.applicants[i].suppliments[j].file_type.indexOf("image") != -1){
+                  vm.applicants[i].headshot = "/assets/imgs/img_headshot_placeholder.png";
+                } else if (vm.applicants[i].suppliments[j].file_type.indexOf("image") != -1) {
                   /*console.log(vm.applicants[i].suppliments[j]);*/
                   vm.applicants[i].headshot = vm.applicants[i].suppliments[j].source;
                 }
                 //if no headshot is attached
-                else vm.applicants[i].headshot= "/assets/imgs/img_headshot_placeholder.png";
+                else vm.applicants[i].headshot = "/assets/imgs/img_headshot_placeholder.png";
               }
             }
             // no attachment
-            else vm.applicants[i].headshot= "/assets/imgs/img_headshot_placeholder.png";
+            else vm.applicants[i].headshot = "/assets/imgs/img_headshot_placeholder.png";
           }
         })
-        .error(function (error) {
+        .error(function(error) {
           console.log(error);
         })
     }
 
     /*vm.gridStyle = {'opacity': 1};*/
 
-    vm.getProject = function (prjID) {
+    vm.getProject = function(prjID) {
       $location.path('/projectDetails/' + prjID);
     }
-    vm.setGridVw = function () {
-      vm.listStyle = {'opacity': 0.2};
-      vm.gridStyle = {'opacity': 1};
+    vm.setGridVw = function() {
+      vm.listStyle = {
+        'opacity': 0.2
+      };
+      vm.gridStyle = {
+        'opacity': 1
+      };
       vm.listView = false;
       vm.gridView = true;
     }
-    vm.setListVw = function () {
-      vm.listStyle = {'opacity': 1};
-      vm.gridStyle = {'opacity': 0.2};
+    vm.setListVw = function() {
+      vm.listStyle = {
+        'opacity': 1
+      };
+      vm.gridStyle = {
+        'opacity': 0.2
+      };
       vm.gridView = false;
       vm.listView = true;
     }
 
-/*     vm.backBtn = function () {
-      $scope.viewApp = false;
-      $scope.$emit("unhideNav");
-      if($scope.currApp.new){
-        Applicant.viewedUpdate($scope.currApp._id);
-        $route.reload();
-      }
-    }*/
-    $scope.deleteAppBtn = function () {
+    /*     vm.backBtn = function () {
+          $scope.viewApp = false;
+          $scope.$emit("unhideNav");
+          if($scope.currApp.new){
+            Applicant.viewedUpdate($scope.currApp._id);
+            $route.reload();
+          }
+        }*/
+    $scope.deleteAppBtn = function() {
       Applicant.delete($scope.currApp._id, $scope.roleData._id)
-        .success(function () {
+        .success(function() {
           getApps();
-          if($scope.viewApp === true){
+          if ($scope.viewApp === true) {
             $scope.$emit("unhideNav");
-            $scope.viewApp  = false;
+            $scope.viewApp = false;
           }
           deleteAppAside.hide();
         })
-        .error(function (err) {
+        .error(function(err) {
           console.log(err);
         })
     }
-   
-    vm.backBtn = function () {
+
+    vm.backBtn = function() {
       $scope.viewApp = false;
       $scope.$emit("unhideNav");
-      if($scope.currApp.new){
+      if ($scope.currApp.new) {
         Applicant.viewedUpdate($scope.currApp._id);
         $route.reload();
       }
     }
-    vm.viewBtn = function (index) {
+    vm.viewBtn = function(index) {
       $scope.slides = [];
       $scope.$emit("hideNav");
       $scope.currIndex = index;
@@ -175,35 +196,35 @@ angular.module('roleCtrl', ['userService',
       }*/
       //application update app.new = false; 
     }
-    vm.nextApp = function () {
+    vm.nextApp = function() {
       if ($scope.currIndex < vm.applicants.length - 1) {
         $scope.currIndex += 1;
         vm.viewBtn($scope.currIndex)
       }
     }
-    vm.lastApp = function () {
+    vm.lastApp = function() {
       if ($scope.currIndex > 0) {
         $scope.currIndex -= 1;
         vm.viewBtn($scope.currIndex)
       }
     }
-    vm.updateFav = function(aplnt,roleID){
+    vm.updateFav = function(aplnt, roleID) {
       aplnt.favorited = !aplnt.favorited;
       /*console.log(aplnt)*/
       /*console.log(roleID);*/
-      Applicant.favUpdate(aplnt,roleID);
+      Applicant.favUpdate(aplnt, roleID);
 
     }
 
-    $scope.goToLink = function (url){
+    $scope.goToLink = function(url) {
       var tmp = url.spli
-      if(url.indexOf('http') != -1){
+      if (url.indexOf('http') != -1) {
         $window.open(url);
-      }
-      else{
-        $window.open("http://"+ url);
+      } else {
+        $window.open("http://" + url);
       }
     }
+
     function addSlide(target, data) {
       var i = target.length;
       var fileTypes = ["video", "image", "`applicant`s/pdf", "link"];
@@ -211,8 +232,7 @@ angular.module('roleCtrl', ['userService',
       for (item in fileTypes) {
         if (data.file_type.indexOf(fileTypes[item])) {
           fileTypes[item] = false;
-        }
-        else {
+        } else {
           fileTypes[item] = true;
         }
       }
@@ -228,6 +248,7 @@ angular.module('roleCtrl', ['userService',
       });
     };
     $scope.carouselIndex = 0;
+
     function addSlides(target, sourceArr) {
       var _knwnFtypes = ["jpeg", "pdf", "img"]
       $scope.video = [], $scope.images = [],
@@ -243,12 +264,10 @@ angular.module('roleCtrl', ['userService',
           $scope.video.push(sourceArr[i]);
 
           addSlide(target, sourceArr[i]); //carousel
-        }
-        else if (fType.indexOf('image') != -1) {
+        } else if (fType.indexOf('image') != -1) {
           $scope.images.push(sourceArr[i]);
           addSlide(target, sourceArr[i]); //carousel
-        }
-        else if (fType == "application/pdf" ||
+        } else if (fType == "application/pdf" ||
           fType == "application/vnd.openxmlformats-officedocument.wordprocessingml.document") {
           $scope.documents.push(sourceArr[i]);
           /*addSlide(target, sourceArr[i]);*/
@@ -257,37 +276,37 @@ angular.module('roleCtrl', ['userService',
     }
 
     //delete aside btn  
-    vm.deleteAsideBtn = function (app) {
+    vm.deleteAsideBtn = function(app) {
       $scope.currApp = app
       deleteAppAside.$promise.then(deleteAppAside.toggle);
     }
-    vm.deleteRoleBtn = function () {
+    vm.deleteRoleBtn = function() {
       /*$scope.roleData = data;*/
       deleteRoleAside.$promise.then(deleteRoleAside.toggle);
     }
-     vm.deleteRoleBtn = function () {
+    vm.deleteRoleBtn = function() {
       /*$scope.roleData = data;*/
       deleteRoleAside.$promise.then(deleteRoleAside.toggle);
     }
-    vm.shareBtn = function () {
+    vm.shareBtn = function() {
       shareRoleAside.$promise.then(shareRoleAside.toggle);
     }
-    vm.editRoleBtn = function () {
+    vm.editRoleBtn = function() {
       editRoleAside.$promise.then(editRoleAside.toggle);
     }
 
   })
 
 .controller('CommentBoxCtrl',
-  function ($scope, Applicant) {
-    var vm = this;  
+  function($scope, Applicant) {
+    var vm = this;
     vm.newComment;
-  
-    vm.deleteCmt = function (appID, index, comment) {
+
+    vm.deleteCmt = function(appID, index, comment) {
       Applicant.deleteComment(appID, comment);
       delete $scope.currApp.comments[index];
     }
-    vm.addCmt = function (appID, owner, comment) {
+    vm.addCmt = function(appID, owner, comment) {
       var cmt = {
         owner: owner,
         comment: comment
