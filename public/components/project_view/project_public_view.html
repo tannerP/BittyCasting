@@ -121,8 +121,8 @@
                                         ngf-max-size="250MB"
                                         ngf-model-invalid="errors">
                                         <div class="uploadFileName">{{files[$index].name}}</div>
-                                        <img ng-if="ppv.files[$index]" ngf-thumbnail="ppv.files[$index] || 'Attachment'">
-                                        <video ng-if="ppv.files[$index]" controls ngf-src="ppv.files[$index]">
+                                        <img ng-show="ppv.files[$index]" ngf-thumbnail="ppv.files[$index] || 'Attachment'">
+                                        <video ng-show="ppv.files[$index]" controls ngf-src="ppv.files[$index]">
                                                             
                                     </a>
                             </div>

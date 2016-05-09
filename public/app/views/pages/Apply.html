@@ -125,6 +125,7 @@
                                             ngf-max-size="250MB"
                                             ngf-model-invalid="page.errors">
                                             <div class="uploadFileName">{{page.files[$index].name}}</div>
+                                            
                                             <img ng-if="page.files[$index]" ngf-thumbnail="page.files[$index] || 'Attachment'">
                                             <video ng-if="page.files[$index]" controls ngf-src="page.files[$index]">     
                                         </a>
