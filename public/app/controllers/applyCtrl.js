@@ -11,11 +11,19 @@ controller('ApplyController', ['$scope', '$rootScope',
     vm.appData.links = [];
     vm.files = [];
     vm.curRole = {};
+    vm.requirements = []
 
     $scope.submitted = false;
     /*TODO: condense when combine project and role schema*/
     Pub.getAppRole($routeParams.id).then(function(data) {
       vm.roleData = data.data.Application;
+
+      for(var i in vm.roleData.requirements){
+        vm.requirements.push(vm.roleData.requirements[i].name);
+        console.log(vm.requirements)
+      }
+
+
       vm.curRole = data.data.Application;
       $rootScope.meta.url = vm.roleData.short_url;
       
@@ -33,7 +41,7 @@ controller('ApplyController', ['$scope', '$rootScope',
           if (project) {
             $rootScope.meta = Meta.roleMeta(vm.roleData, project);
             vm.prjData = project;
-            vm.prjData.roles = roles;
+            /*vm.prjData.roles = roles;*/
             /*vm.updateCurRole(roles[0]);*/
             vm.appData.projectID = data.data.project._id;
             vm.appData.roleID = vm.roleData._id;
@@ -110,7 +118,7 @@ controller('ApplyController', ['$scope', '$rootScope',
               }, 1500)
 
             } else { 
-              AWS.uploadAppMedias(vm.files, vm.roleData, vm.applicantID,
+              AWS.uploadAppMedias(vm.files, vm.requirements, vm.applicantID,
                 $rootScope.awsConfig.bucket);
                 //broacast from AWS
                 $rootScope.$on("app-media-submitted", function() {

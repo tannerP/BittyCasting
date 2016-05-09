@@ -16,11 +16,29 @@ angular.module('ProjectView', ['userService',
       console.log(attrs);
     }*/
 
+    var link = function(scope, element, attrs, controller, transcludeFn){
+      console.log(scope)
+      console.log(element)
+      console.log(scope.ppv.requirement)
+    }
+
     var publicController = function(Applicant, AWS,
       $location, $routeParams, $scope,
       $rootScope, $aside, $route, $timeout) {
       var vm = this;
-      vm.loggedIn = $rootScope.loggedIn;       
+      vm.loggedIn = $rootScope.loggedIn;   
+      
+/*      console.log("public controller");
+      console.log(vm.roles)
+      for(var r in vm.roles){
+        console.log(r)
+      }
+      
+      (function(){
+        for( var r in  vm.roles){ 
+          console.log(r)
+        }
+      })()    */
 
       vm.update_CurRole = function(new_currRole) {
         /*console.log(vm.currole)*/
@@ -49,17 +67,40 @@ angular.module('ProjectView', ['userService',
         }
           else return true;
     }*/
+    var addReq = function(){
+        //check roleIDs and add role in it. 
 
+         var ids = vm.appData.roleIDs;
+         console.log(ids);
+         console.log(role);
+         /*for(var i in ids){
+            for(var i in role)
+         }*/
+    }
+    var removeReq = function(){
+        //check roleIDs and add role in it. 
+
+         var ids = vm.appData.roleIDs;
+         console.log(ids);
+         console.log(vm.roles);
+
+         /*for(var i in ids){
+            for(var i in role)
+         }*/
+    }
+    vm.requirements = []
     vm.toggleRole = function(roleID){
       vm.message = "";
       if(roleID){
         var index = vm.appData.roleIDs.indexOf(roleID);
         if (index === -1 ){
           vm.appData.roleIDs.push(roleID);
+          addReq(roleID)
         }
         else{
           /*console.log("removing")*/
           vm.appData.roleIDs.splice(index,++index); 
+          removeReq(roleID)
         }
       }
       else console.log("error including role in applicantion")
@@ -119,7 +160,7 @@ angular.module('ProjectView', ['userService',
               }, 1500)
 
             } else { 
-              AWS.uploadAppMedias(vm.files, vm.roles[0],
+              AWS.uploadAppMedias(vm.files, vm.appData.roleIDs[0],
                 vm.applicantID, $rootScope.awsConfig.bucket);
                 //broacast from AWS
                 $rootScope.$on("app-media-submitted",
@@ -147,6 +188,7 @@ angular.module('ProjectView', ['userService',
       controller: publicController,
       controllerAs: 'ppv',
       bindToController: true,
+      link:link,
       //required Angular V1.3 and above to associate scope to value "ppv"
     }
   })
@@ -258,7 +300,6 @@ angular.module('ProjectView', ['userService',
             vm.message = err;
           });
       }
-
       /*vm.load();*/
 
       vm.save = function() {

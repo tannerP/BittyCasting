@@ -91,7 +91,7 @@
                             </div>                                            
 -->
 
-                            <div class = "form-group" ng-repeat="rq in ppv.currole.requirements">
+                            <div class = "form-group" ng-repeat="rq in ppv.requirements">
                             <label>{{rq.name}}</label>
                             <!-- Fil Uploader -->
                                 <div ng-if="rq.file_type != 'link'" class="drop-box" ngf-drop ng-model="ppv.files[$index]" ngf-max-size="500MB" ngf-model-invalid="errors" ngf-accept="'application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/pdf,image/*,video/*'"
