@@ -220,6 +220,8 @@ p {
     line-height: 24px;
 }
 
+label {font-weight: 400;}
+
 a {
     text-decoration: none;
     color: $color-blue;
@@ -310,6 +312,36 @@ a {
             cursor:pointer;
             vertical-align: middle;
 
+        }
+        input:checked + span {
+            background: url("/assets/imgs/ic_check.svg") no-repeat center center $color-grey-light;
+            background-size: 12px 12px;
+        }
+    }
+}
+
+.custom-checkbox { 
+    label {
+        display: block;
+        font-size: $font-size-regular;
+        line-height: 24px;
+        padding-left: 0;
+        margin: 0 0 10px 24px; 
+        input[type="checkbox"] {
+            display: none;
+        }
+        span {
+            float: left;
+            margin: 3px 3px 0 -24px;
+            display:inline-block;
+            width: 18px;
+            height: 18px;
+            display: block;
+            border: none;
+            background-image: none;
+            background-color: $color-grey-light;
+            cursor:pointer;
+            vertical-align: middle;
         }
         input:checked + span {
             background: url("/assets/imgs/ic_check.svg") no-repeat center center $color-grey-light;
@@ -837,53 +869,59 @@ div.pageHeader{
     }
     
     .custom-page-action {
-        ul {
-            list-style: none;
-            li{
-                display: inline;
-                float: right;
-                margin-left: 5px;
-                padding-left: 38px;            
-                &:nth-child(1){
-                    background: url("/assets/imgs/ic_edit_w.svg") no-repeat left 15px center;
-                    background-size: 16px 16px;
-                    background-color: $color-grey-dark;
-                    @include transition(all, 0.8s, ease);
-                    &:hover, &:focus {
-                        cursor: pointer;
-                        background-color: $color-grey-darken;
-                        @include transition(all, 0.8s, ease);
-                    }
-                }
-                &:nth-child(2){
-                    background: url("/assets/imgs/ic_trash_w.svg") no-repeat left 15px center;
-                    background-size: 16px 16px;  
-                    background-color: $color-grey-dark;
-                    @include transition(all, 0.8s, ease);
-                    &:hover, &:focus {
-                        cursor: pointer;
-                        background-color: $color-grey-darken;
-                        @include transition(all, 0.8s, ease);
-                    }
-                }
-                &:nth-child(3){
-                    background: url("/assets/imgs/ic_share_w.svg") no-repeat left 15px center;
-                    background-size: 16px 16px;  
-                    background-color: $color-grey-dark;
-                    @include transition(all, 0.8s, ease);
-                    &:hover, &:focus {
-                        cursor: pointer;
-                        background-color: $color-grey-darken;
-                        @include transition(all, 0.8s, ease);
-                    }
-                }
-                &:last-child {
-                    margin-left: 0;
-                }
+        
+        div:last-child {
+            margin-left: 0px;
+        }
+        
+        .btn-edit, .btn-delete, .btn-share, .btn-fav, .btn-email {
+            display: inline;
+            float: right;
+            margin-left: 5px;
+            padding-left: 38px; 
+            background-color: $color-grey-dark;
+            @include transition(all, 0.8s, ease);
+            &:hover, &:focus {
+                cursor: pointer;
+                background-color: $color-grey-darken;
             }
         }
+        
+        .btn-share {            
+            background: url("/assets/imgs/ic_share_w.svg") no-repeat left 15px center $color-blue;
+            background-size: 16px 16px; 
+            &:hover, &:focus {
+                background-color: $color-blue-darken;
+            }
+            
+        }
+        
+        .btn-edit {            
+            background: url("/assets/imgs/ic_edit_w.svg") no-repeat left 15px center $color-grey-dark;
+            background-size: 16px 16px;          
+        }
+        
+        .btn-delete {            
+            background: url("/assets/imgs/ic_trash_w.svg") no-repeat left 15px center $color-grey-dark;
+            background-size: 16px 16px;    
+            margin-left: 0px;
+        }
+        
+        .btn-fav {
+            padding-left: 20px;
+            background: none;
+            background-color: $color-grey-dark;
+            img {
+                margin-right: 5px;
+            }
+        }
+        
+        .btn-email {
+            background: url("/assets/imgs/ic_email_w.svg") no-repeat left 15px center $color-grey-dark;
+            background-size: 16px 16px;
+        }
     }
-    
+
     .custom-page-action-secondary {
         .custom-page-action-secondary-title {
             font-size: $font-size-large;
@@ -959,6 +997,8 @@ div.pageHeader{
     text-transform: uppercase;
     letter-spacing: 6px;
     padding: 40px 0;
+    
+    span {float: left;}
 }
 
 ul.projects, ul.applicants{
@@ -994,6 +1034,8 @@ ul.projects li {
     @include box-shadow(0px, 2px, 2px, 0px, rgba(0,0,0,0.1));
     @include transition(all, 0.3s, ease);
     
+    img {cursor: pointer;}
+    
     .alert-new {
         position: absolute;
         top: 12px;
@@ -1006,6 +1048,26 @@ ul.projects li {
         color: white;
         z-index: 1;
         @include box-shadow(0px, 2px, 2px, 0px, rgba(0,0,0,0.1));
+    }
+    
+    .fav-applicant {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        z-index: 1;
+        width: 40px;
+        height: 20px;
+        padding-left: 25px;
+        color: white;
+        background: url("/assets/imgs/ic_fav_w_fill.svg") no-repeat left center;
+        background-size: 20px 20px;
+    }
+    
+    .fav-applicant-toggle {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        z-index: 1;
     }
     
     .cardScrim {
@@ -1123,9 +1185,10 @@ ul.projects li {
     .table-project-overview {       
         padding: 0 15px;
         
-        thead tr th:nth-child(1) {width: 20%; cursor: pointer;} //name
-        thead tr th:nth-child(2) {width: 60%;} //details
-        thead tr th:nth-child(3) {width: 20%;} //date      
+        thead tr th:nth-child(1) {width: 20%; cursor: pointer;} //cover
+        thead tr th:nth-child(2) {width: 30%; cursor: pointer;} //name
+        thead tr th:nth-child(3) {width: 30%;} //details
+        thead tr th:nth-child(4) {width: 20%;} //date      
         .table-utl ul li {
             &:nth-child(1) {
                 background: url("/assets/imgs/ic_trash.svg") no-repeat center center white;
@@ -1152,9 +1215,11 @@ ul.projects li {
     .table-applicants {       
         padding: 0 15px;
         
-        thead tr th:nth-child(1) {width: 30%; cursor: pointer;} //name
-        thead tr th:nth-child(2) {width: 35%;} //email
-        thead tr th:nth-child(3) {width: 35%;} //phone     
+        thead tr th:nth-child(1) {width: 10%; cursor: pointer;} //headshot
+        thead tr th:nth-child(2) {width: 20%;} //name
+        thead tr th:nth-child(3) {width: 20%;} //favorite
+        thead tr th:nth-child(4) {width: 20%;} //email
+        thead tr th:nth-child(5) {width: 30%;} //phone
         .table-utl ul li {
             &:nth-child(1) {
                 background: url("/assets/imgs/ic_trash.svg") no-repeat center center white;
@@ -1396,6 +1461,15 @@ ul.projects li {
     .btn-preview {
         margin: 0 0 29px 0;
     }
+    .share-url {
+        display: block;
+        width: 100%;
+        height: 34px;
+        padding: 6px 0;
+        font-size: $font-size-regular;
+        line-height: 1.42857143;
+        border-bottom: 1px solid $color-grey-darkest;
+    }   
     .btn-copyLink {
         margin: 10px 0 29px 0;
     }
@@ -1404,12 +1478,14 @@ ul.projects li {
         width: 49%;
         float: left;
         margin-top: 10px;
-        background: url("/assets/imgs/ic_social_fb.svg") no-repeat left 15px center #3b5998;
+//        background: url("/assets/imgs/ic_social_fb.svg") no-repeat left 15px center #3b5998;
+        background: url("/assets/imgs/ic_social_fb.svg") no-repeat left 15px center $color-blue;
         background-size: 16px 16px;
         padding-left: 30px;
         @include transition(all, 0.8s, ease);      
         &:hover, &:focus {
-            background-color: #2a406d;
+//            background-color: #2a406d;
+            background-color: $color-blue-darken;
         }    
     }
     .btn-shareTwitter {
@@ -1417,12 +1493,14 @@ ul.projects li {
         width: 49%;
         float: right;
         margin-top: 10px;
-        background: url("/assets/imgs/ic_social_twitter.svg") no-repeat left 15px center #00aced;
+//        background: url("/assets/imgs/ic_social_twitter.svg") no-repeat left 15px center #00aced;
+        background: url("/assets/imgs/ic_social_twitter.svg") no-repeat left 15px center $color-blue;
         background-size: 16px 16px;
         padding-left: 30px;
         @include transition(all, 0.8s, ease);      
         &:hover, &:focus {
-            background-color: #0084b4;
+//            background-color: #0084b4;
+            background-color: $color-blue-darken;
         }   
     }
     .btn-shareEmail {
@@ -1431,11 +1509,13 @@ ul.projects li {
         float: left;
         margin-top: 10px;
         background: url("/assets/imgs/ic_social_email.svg") no-repeat left 15px center #31a357;
+                background: url("/assets/imgs/ic_social_email.svg") no-repeat left 15px center $color-blue;
         background-size: 16px 16px;
         padding-left: 30px;
         @include transition(all, 0.8s, ease);      
         &:hover, &:focus {
-            background-color: #22733d;
+//            background-color: #22733d;
+            background-color: $color-blue-darken;
         }   
     }
 }
@@ -1456,6 +1536,10 @@ ul.projects li {
 
 .form-group {
     
+    ul {
+        list-style: none;
+        padding: 0;
+    }
     margin-bottom: 28px;
       
     label {
@@ -1463,6 +1547,14 @@ ul.projects li {
         font-size: $font-size-side-formtitle;
         color:	$color-grey;
         font-weight: 400;
+        span {
+            margin-left: 5px;
+            width: 12px;
+            height: 12px;
+            display: inline-block;
+            background: url("/assets/imgs/ic_asterisk.svg") no-repeat top right; 
+            background-size: 12px 12px;
+        }
     }
     
     input {
@@ -1686,9 +1778,14 @@ ul.select-coverphoto-wrapper {
     
     section {
         padding: 15px;
+        
+        p {
+            white-space: pre-wrap;}
+        
         .projectDetailsTitle {
             text-transform: uppercase;
             font-weight: 600;
+            margin-bottom: 10px;
         }
         
         &:nth-child(1){
@@ -1734,9 +1831,30 @@ ul.select-coverphoto-wrapper {
 
 
 .applyPage {
-    padding: 56px 0 60px 0;
+    padding: 56px 0 120px 0;
     position: relative;
 //    margin-bottom: -60px;
+    
+    ul {
+        list-style: none;
+        padding: 0;
+    }
+    
+    .pageTitle {
+        padding-bottom: 20px;
+    }
+    
+    .pageSubtitle {
+        margin-top: -10px;
+    }
+    
+    p {
+        white-space: pre-wrap;
+    }
+    
+    .custom-checkbox {
+        margin: -20px 0 29px 0;
+    }
 
     .applyPageLeftBg { 
         width: 50%;  
@@ -1751,13 +1869,30 @@ ul.select-coverphoto-wrapper {
         padding: 0 15px;
     }
     
-    .applyPageRight label span{
-        margin-left: 5px;
-        width: 12px;
-        height: 12px;
-        display: inline-block;
-        background: url("/assets/imgs/ic_asterisk.svg") no-repeat top right; 
-        background-size: 12px 12px;
+    .applyPageLeft {
+        ul {
+            list-style: none;
+            padding: 0;
+            padding-bottom: 10px;
+            text-align: center;
+            li {
+                cursor: pointer;
+                margin: 0 5px 5px 0;
+                &:last-child {
+                    margin-right: 0px;
+                }
+            }
+            .roles-dynamics {
+                display: inline-block;
+                color: $color-grey-dark;
+                border: 2px solid $color-grey-dark;
+                padding: 10px;
+            }
+            .rolesdynamicsactive {
+                color: $color-blue;
+                border: 2px solid $color-blue;
+            }
+        }
     }
     
     .applyLogo {
@@ -1776,6 +1911,11 @@ ul.select-coverphoto-wrapper {
         p {
             color: $color-grey;
         }
+        
+        a {
+            vertical-align: middle;
+        }
+        
         .powerLogo {
             width: 136px;
             height: auto;
@@ -1881,6 +2021,8 @@ ul.select-coverphoto-wrapper {
     display:table;         
     width:100%;
     font-size: $font-size-regular;
+    
+    p {white-space: pre-wrap;}
  
     .div-table-row {
         display:table-row;
@@ -1949,8 +2091,13 @@ text-align: center;
     }
 }
 
+.pageHeader-review {
+    .pageTitle {
+        margin-top: -63px;}
+}
+
 .reviewCarousel {
-    padding: 0 15px 30px 0;
+
     position: relative;
     .reviewCarouselImg{
         background-color: $color-grey-darkest;
@@ -2026,12 +2173,12 @@ text-align: center;
 }
 
 .reviewInfo {
-    padding-bottom: 100px;
+    padding: 30px 0 100px 0;
     table {
         font-size: $font-size-regular;
         width: 100%;
         tbody tr td{
-            vertical-align: middle;
+            vertical-align: text-top;
             height: 32px;
             &:nth-child(1) {width: 30%;}   
             &:nth-child(2) {width: 70%;} 
@@ -2044,10 +2191,7 @@ text-align: center;
             
             li {
                 display: inline;
-                &:last-child:after {content: ""};
-            }
-            li.links {
-                display: inline;
+                &:after {content: " | "};
                 &:last-child:after {content: ""};
             }
         }
@@ -2057,8 +2201,7 @@ text-align: center;
 }
 
 .reviewComment {
-    margin-top: -297px;
-    padding-bottom: 100px;
+    padding: 30px 0 100px 0;
     
     .makeComment {
         margin-bottom: 72px;
@@ -2328,6 +2471,28 @@ text-align: center;
             padding: 0;
         }
     }
+    div.pageHeader {
+        .pageHeader-review {
+            text-align: center;
+            .pageTitle span{
+                float: none;
+            }
+            .custom-page-action {
+                position: relative;
+                top: -10px;
+                right: auto;
+                .btn-delete, .btn-fav, .btn-email {
+                    float: none;
+                }
+                div:last-child {
+                    margin-left: 5px;
+                }
+                div:first-child {
+                    margin-left: 0px;
+                }
+            }
+        }
+    }
     .reviewHeader {
         .reviewHeaderContent {
             padding-right: 70px;
@@ -2418,7 +2583,7 @@ text-align: center;
                 margin: 0;
                 padding: 0;
                 float: left;
-                width: 50%;
+                width: 100%;
                 text-align: center;
                 color: white;
                 background-color: $color-blue;
@@ -2496,6 +2661,10 @@ text-align: center;
             }
         }
 
+    }  
+    
+    .aside {
+        width: 100%;
     }
     
     /***************************

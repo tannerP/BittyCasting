@@ -1,7 +1,8 @@
- <div class="applyPage">
-    <div class="applyPageLeftBg"></div>
-    <div class="container">
+     <div class="applyPage">
+        <div class="applyPageLeftBg"></div>
+        <div class="container">
 
+<<<<<<< HEAD
         <img class="applyLogo" ng-src="assets/imgs/logo_BittyCasting_B.svg">
         <div ng-if="main.loggedIn" class="custom-close-overlay" ng-click="main.backBtn()"></div>
         <section class="col-md-6">
@@ -30,12 +31,53 @@
                     <div ng-if="page.roleData.sex" class="div-table-row">
                         <div class="div-table-col">Gender</div>
                         <div class="div-table-col">{{page.roleData.gender}}</div>
+=======
+            <img class="applyLogo" ng-src="assets/imgs/logo_BittyCasting_B.svg">
+            <div ng-if="main.loggedIn" class="custom-close-overlay" ng-click="main.backBtn()"></div>
+            
+            <section class="col-md-6">
+                <div class="applyPageLeft">
+                    <div class='pageTitle'>{{page.prjData.name || "Project Name"}}</div> <!-- Remove tag causes displaying bug -->
+                    <!-- <div class='pageSubtitle'>{{page.prjData.name}}</div> -->
+                    <p ng-bind-html="page.prjData.description | linky"></p>
+                    <img ng-src="{{page.prjData.coverphoto.source||assets/imgs/img_projectCover01.png}}" class="img-responsive">
+                    <div class='pageTitle'>Role</div>
+                    <!-- <ul>
+                        <li class="roles-dynamics roles-dynamics-active" ng-repeat="role in page.prjData.roles" ng-click="page.updateCurRole(role)">
+                            {{page.curRole.name}}
+                        </li>
+                    </ul> -->
+                        <!-- <p>{{page.curRole}}</p> -->
+                    <div class='pageSubtitle'>{{page.curRole.name}}</div>
+                    <p ng-bind-html="page.curRole.description | linky"></p>
+                    
+
+                    <!-- <div style="white-space: pre-wrap" ng-bind-html="page.roleData.description | linky"></div> -->
+                    <div class="div-table">
+                         <div ng-if="page.roleData.location" class="div-table-row">
+                            <div class="div-table-col">Location</div>
+                            <div class="div-table-col">{{page.roleData.location}}</div>
+                        </div>
+                        <div ng-if="page.roleData.end_time" class="div-table-row">
+                            <div class="div-table-col">Time</div>
+                            <div class="div-table-col">{{page.roleData.end_time |  date:'h:mm a'}}, {{ page.roleData.end_date | date: "M/d/yyyy"}}</div>
+                        </div>
+                        <div ng-if="page.roleData.payterms" class="div-table-row">
+                            <div class="div-table-col">Pay term</div>
+                            <div class="div-table-col">{{page.roleData.payterms}}</div>
+                        </div>
+                        <div ng-if="page.roleData.sex" class="div-table-row">
+                            <div class="div-table-col">Gender</div>
+                            <div class="div-table-col">{{page.roleData.gender}}</div>
+                        </div>
+                        <!-- <div ng-if="page.roleData.age" class="div-table-row">
+                            <div class="div-table-col">Age</div>
+                            <div class="div-table-col">{{page.roleData.age}}</div>
+                        </div> -->                       
+>>>>>>> dev
                     </div>
-                    <!-- <div ng-if="page.roleData.age" class="div-table-row">
-                        <div class="div-table-col">Age</div>
-                        <div class="div-table-col">{{page.roleData.age}}</div>
-                    </div> -->
                 </div>
+<<<<<<< HEAD
             </div>
             <!-- <audio ng-if="page.currFile" controls ngf-src="page.currFile"> -->
         </section>
@@ -96,52 +138,123 @@
                                                 >
                                             upload from computer</a>
                                         </p>
-                                    </div>
-                                    <a ngf-select ng-model="page.files[$index]" name="file" 
-                                        ngf-pattern="'application/pdf,image/*,video/*'"
-                                        ngf-accept="'application/pdf,image/*,video/*'"
-                                        ngf-before
-                                        ngf-before-model-change= "page.errors = '' "
-                                        ngf-min-size="100"
-                                        ngf-max-size="250MB"
-                                        ngf-model-invalid="page.errors">
-                                        <div class="uploadFileName">{{page.files[$index].name}}</div>
-                                        <img ng-if="page.files[$index]" ngf-thumbnail="page.files[$index] || 'Attachment'">
-                                        <video ng-if="page.files[$index]" controls ngf-src="page.files[$index]">
-                                                            
-                                    </a>
-                            </div>
+=======
+                <!-- <audio ng-if="page.currFile" controls ngf-src="page.currFile"> -->
+            </section>
+            <!-- Application Form --> 
+            <style type="text/css">
+              .css-form input.required{
+                background-color: red;
+              }
+            </style>
+            
+            <section class="col-md-6">
+                <div class="applyPageRight">
+                     <div class='pageTitle'>Apply</div>
+                        <div class='pageSubtitle'>{{page.roleData.name}}</div>
+                            <form ng-submit="page.submit()" name="page.form" class="css-form">
+                                <div class = "form-group">
+                                    <label>First name<span></span></label>
+                                    <input type = "text" class="custom-form"  ng-model="page.appData.name.first" required>
+                                </div>
+                                <div class = "form-group">
+                                    <label>Last name<span class='required'></span></label>
+                                    <input type = "text" class = "custom-form" ng-model="page.appData.name.last" required>
+                                </div>
+                                <div class = "form-group">
+                                    <label>E-mail<span></span></label>
+                                    <input type = "email" class = "custom-form" ng-model="page.appData.email" required>
+                                </div>   
+                                <div class = "form-group">
+                                    <label>Phone number</label>
+                                    <input type = "tel" class = "custom-form" ng-model="page.appData.phone" maxlength="15">
+                                </div>
 
-                            <div class = "form-group">
-                                <span ng-repeat="link in page.appData.links track by $index">
-                                    <div class="applyLinkItem">
-                                        <span ng-if="link.name == rq.name">{{link.source}} <span ng-click="page.removeLink($index)"><img src="/assets/imgs/ic_trash.svg" width="16px" height="16px"></span>
-                                            <!-- <span background: url("/assets/imgs/ic_cross_overlay.svg") no-repeat center center;></span> -->
+                                <!-- <div class = "form-group">
+                                    <label>Age</label>
+                                    <input type = "tel" class = "custom-form" ng-model="page.appData.age" maxlength="10">
+                                </div>
+                                 -->
+                                <div class = "form-group">
+                                    <label>Gender</label>
+                                    <input type = "text" class = "custom-form" ng-model="page.appData.gender" maxlength="10">
+                                </div>     
+
+                                <div class = "form-group">
+                                    <label>Message</label>
+                                    <textarea  ng-model="page.appData.message"
+                                              ng-trim="1" rows="4"
+                                              class="custom-form-textarea"
+                                    ></textarea>
+                                </div>   
+                                      
+                                <div class = "form-group" 
+                                ng-repeat="requirement in page.requirements">
+    <!-- NEED STYLING        <label>{{requirement}}</label>
+                                <!-- Fil Uploader -->
+                            
+                                    <div ng-if="rq.file_type != 'link'" class="drop-box" ngf-drop ng-model="page.files[$index]" ngf-max-size="500MB" ngf-model-invalid="page.errors" ngf-accept="'application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/pdf,image/*,video/*'"
+                                    ngf-pattern="'application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/pdf,image/*,video/*'"
+                                    ngf-min-size="100"
+                                    ngf-max-size="250MB" ng-required="true">
+                                    <!-- Select File -->
+                                     <div ng-if="!page.files[$index]">
+                                         <p><span>Drag and drop file(s)</span><br/><a ngf-select ng-model="page.files[$index]" name="file" 
+                                            ngf-accept="'application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/pdf,image/*,video/*'"
+                                            ngf-pattern="'application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/pdf,image/*,video/*'"
+                                            ngf-before-model-change= "page.errors = '' "
+                                            ngf-min-size="100"
+                                            ngf-max-size="250MB"
+                                            ngf-model-invalid="page.errors"
+                                            ng-select="page.checkFile(page.files[$index])">upload from computer</a>
+                                         </p>
+>>>>>>> dev
+                                    </div>
+                                       
+                                        <a ngf-select ng-model="page.files[$index]" name="file" 
+                                            ngf-pattern="'application/pdf,image/*,video/*'"
+                                            ngf-accept="'application/pdf,image/*,video/*'"
+                                            ngf-before
+                                            ngf-before-model-change= "page.errors = '' "
+                                            ngf-min-size="100"
+                                            ngf-max-size="250MB"
+                                            ngf-model-invalid="page.errors">
+                                            <div class="uploadFileName">{{page.files[$index].name}}</div>
+
+                                            <img ng-if="page.files[$index]" ngf-thumbnail="page.files[$index] || 'Attachment'">
+                                            <video ng-if="page.files[$index]" controls ngf-src="page.files[$index]">     
+                                        </a>
+                                </div>
+
+                                <div class = "form-group">
+                                    <span ng-repeat="link in page.appData.links track by $index">
+                                        <div class="applyLinkItem">
+                                            <span ng-if="link.name == requirement">{{link.source}} <span ng-click="page.removeLink($index)"><img src="/assets/imgs/ic_trash.svg" width="16px" height="16px"></span>
                                             <br>
-                                        </span>
-                                    </div>
-                                    
-                                </span>
-                                <input class="applyAddLink" type="text" ng-model="page.newLinks[$index]" placeholder="http://">  
-                                   <span>{{page.newLink}}</span>                            
-                                <span ng-click="page.addLink($index,rq.name,page.newLinks[$index])"><img src="/assets/imgs/ic_plus.svg" width="16px" height="16px"></span>
+                                            </span>
+                                        </div>  
+                                    </span>
+                                    <input class="applyAddLink" type="text" ng-model="page.newLinks[$index]" placeholder="http://">  
+                                       <span>{{page.newLink}}</span>                            
+                                    <span ng-click="page.addLink($index,requirement,page.newLinks[$index])"><img src="/assets/imgs/ic_plus.svg" width="16px" height="16px"></span>
+                                </div>
                             </div>
-                        </div>
 
-                                    <!-- KAI-TING, THIS NEEDS STYLING -->
-                        <!-- <div>9
-                            <textarea ng-model="page.appData.message"></textarea>
-                        </div> -->
+                                        <!-- KAI-TING, THIS NEEDS STYLING -->
+                            <!-- <div>9
+                                <textarea ng-model="page.appData.message"></textarea>
+                            </div> -->
 
 
-                        <div ng-if="page.errors" class ="custom-alert" >
-                            <!-- <p>{{page.errors.$error}}</p>
-                            <p>{{page.errors}}</p>
-                            <p>{{page.files[$index]}}</p> -->
-                            <p>Whoops, the file format was invalid.</p>
-                            <p ng-if="page.errors.requirements"> {{page.errors.requirements.message}}</p>
-                        </div>
+                            <div ng-if="page.errors" class ="custom-alert" >
+                                <!-- <p>{{page.errors.$error}}</p>
+                                <p>{{page.errors}}</p>
+                                <p>{{page.files[$index]}}</p> -->
+                                <p>Whoops, the file format was invalid.</p>
+                                <p ng-if="page.errors.requirements"> {{page.errors.requirements.message}}</p>
+                            </div>
 
+<<<<<<< HEAD
                         <div ng-if="page.busy" class="custom-loader"><img style ="height:40px; width:auto"
                         ng-src='/assets/imgs/spin.gif'></div>   
                         <!-- <table>
@@ -163,3 +276,24 @@
             </section>    
         </div>
 </div>
+=======
+                            <div ng-show="page.processing" class="custom-loader"><img style ="height:40px; width:auto"
+                            ng-src='/assets/imgs/spin.gif'></div>   
+                            <!-- <table>
+                                <th>{{page.roleData.name}}</th>
+                                <tbody>
+                                <td><input type="checkbox"></input></td>
+                                </tbody>
+                            </table>     -->
+                            <button ng-show="!page.processing" type="submit" class="custom-btn-primary-large" ng-disabled="page.processing">Submit</button>
+                            <p class="btn_paragraph">By clicking on “Submit”, I agree to BittyCasting’s <a href="/submission_agreement" target="_blank">submission agreement.</a></p>
+                            <div class="poweredBy">
+                                <p>Powered by<a href="/" target="_blank"><img class="powerLogo" ng-src="assets/imgs/logo_BittyCasting.svg"></a></p>
+                            </div>   
+                        </form>
+                            
+                    </div>  
+                </section>    
+            </div>
+    </div>
+>>>>>>> dev

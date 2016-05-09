@@ -1,14 +1,7 @@
 <div class="aside" tabindex="-1" role="dialog">
   <div class="asideBg">
-    <div class="asideTitle" ng-if="projectAside.delete">Delete project</div>
+    <div class="asideTitle" ng-if="projectAside.delete">Deleting project: <br><span>{{projectData.name}}</span></div>
 
-    <section>
-      <div class="asideSubtitle">Name</div>
-      <p>{{projectData.name}}</p>
-    </section>
-
-    <section>
-      <div class="checkbox-delete">
 <!--
         <label>
           <input type="checkbox" ng-model=projectAside.input1 ngChange="projectAside.eval()">
@@ -16,16 +9,7 @@
           All roles associated with this project will be deleted.
         </label>
 -->
-        <label>
-          <input type="checkbox" ng-model=projectAside.input1><span></span>
-          All applicants and their files associated with roles in this project will be deleted.
-        </label>
-        <label>
-          <input type="checkbox" ng-model=projectAside.input2><span></span>
-          This action is irreversible.
-        </label>
-      </div>
-    </section>
+        <p>All applicants and their files associated with roles in this project will be deleted. This action is irreversible.</p>
 
     <button type="button" class="custom-btn-primary-large custom-btn-cancel" ng-click="$hide()">Cancel</button>
 

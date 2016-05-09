@@ -35,25 +35,25 @@ angular.module('app.routes', ['ngRoute'])
             controller: 'ApplyController',
             controllerAs: 'page'
         })
-    /*---------------- Private ----------------*/
-    //project    
+        //project    
         .when('/project/:project_id',  {
             templateUrl: 'app/views/pages/project_page.html',
             controller: 'ProjectPageController',
-            controllerAs: 'projectCtr'
+            controllerAs: 'page'
         })
-    //role    
-        .when('/applicants/:role_id',  {
-            templateUrl: 'app/views/pages/applicants.html',
-            controller: 'ApplicantPageController',
+    /*---------------- Private ----------------*/
+    //role
+        .when('/role/:role_id',  {
+            templateUrl: 'app/views/pages/role_page.html',
+            controller: 'RolePageController',
             controllerAs: 'page'
         })
     //User
-    .when('/profile',  {
-            templateUrl: 'app/views/pages/profile.html',
-             controller: 'profileController',
-            controllerAs: 'user'
-        })
+        .when('/profile',  {
+                templateUrl: 'app/views/pages/profile.html',
+                 controller: 'profileController',
+                controllerAs: 'user'
+            })
     /*---------------- Admin ----------------*/
  /*       .when('/users',  {
             templateUrl: 'app/views/pages/users/all.html',

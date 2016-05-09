@@ -3,10 +3,10 @@
 angular.module('ReviewPage',[])
   .directive('review', function() {
     return {
-      templateUrl: 'components/reviewPage/reviewPage.html',
+      templateUrl: 'components/review_page/reviewPage.html',
       restrict: 'A'
       }
-  });
+  });  
 /*  .controller('reviewPgCtrl', 
 	function($location, $routeParams,
 	 $scope,$route){

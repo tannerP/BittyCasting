@@ -10,13 +10,14 @@ var UserSchema = new Schema({
 	create_date: {type:Date, default:Date.now},
 	last_active: {type:Date, default:Date.now},
 	name : {first:String,last:String},
+	birth_date:{type:Date, default:Date.now},
 	role: String,
+	new_Applicants:[],
 	
 	//content
-	ui_settings:{},
-	alerts:{},
+	profile_photo:{},
+	collabs:[],
 	
-
 	password: {
 		type:String, 
 		required:true, 
@@ -32,16 +33,12 @@ var UserSchema = new Schema({
 //hash the password before the user is saved
 UserSchema.pre('save',function(next){
 	var user = this;
-
 	//hash the password only if the password has been 
 	//changed or user is new
-
 	if(!user.isModified('password')) return next();
-
 	//generate the hash
 	bcrypt.hash(user.password, null, null, function(err, hash){
 		if(err) return next(err);
-
 		//change the password to the hashed version
 		user.password = hash;
 		next();
@@ -51,7 +48,6 @@ UserSchema.pre('save',function(next){
 //method to compare a given password with the database hash
 UserSchema.methods.comparePassword = function(password){
 	var user = this;
-
 	return bcrypt.compareSync(password,user.password);
 };
 

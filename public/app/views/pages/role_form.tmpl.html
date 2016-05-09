@@ -14,7 +14,7 @@
         <!-- <label>Description (Max {{charRmnd}} characters)</label> -->
         <label>Description</label>
             <textarea  ng-model="roleAside.roleData.description"
-                      ng-trim="1" textarea-fit cols="40"
+                      ng-trim="1" rows="4"
                       class="custom-form-textarea"
               ></textarea>
       </div>
@@ -78,7 +78,9 @@
           <tbody>
             <tr class="defaultRequirements" 
                 ng-repeat="req in roleAside.roleData.requirements track by $index">
-              <td>{{req.name}}<span class="requirementFormat" ng-if="req.format.indexOf('Link') != -1"></span>
+              <td><input type="text" ng-model="req.name" required></input>
+                    <!-- <span class="requirementFormat" ng-if="req.format.indexOf('Link') != -1">
+                    </span> -->
               </td>
               <td></td>
               <!-- <td>
@@ -123,12 +125,14 @@
           </tr>
           </tbody>
         </table>
-
+        <div ng-if="roleAside.processing" class="custom-loader">
+          <img style ="height:40px; width:auto" ng-src='/assets/imgs/spin.gif'>
+        </div>   
       <!-- <button ng-if="!roleAside.edit" type="submit" class="custom-btn-primary-large" ng-submit=".createRoleBtn()">Create role</button> -->
-      <button ng-if="!roleAside.edit" type="submit" id="submit" value="Create role" class="custom-btn-primary-large">
+      <button ng-if="!roleAside.edit" type="submit" id="submit" value="Create role" class="custom-btn-primary-large" ng-disabled="roleAside.processing">
         Create role
       </button>
-      <button ng-if="roleAside.edit" type="submit" class="custom-btn-primary-large" ng-click="roleAside.updateRole()">
+      <button ng-if="roleAside.edit" type="submit" class="custom-btn-primary-large" ng-click="roleAside.updateRole()" ng-disabled="roleAside.processing">
         Save
       </button>
       <span ng-if="roleAside.processing" class="spinner"><span class="glyphicon glypicon-repeat"></span></span>

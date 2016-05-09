@@ -17,26 +17,58 @@ angular.module('userService', [])
 	}
 	this.roleMeta = function(role, project){
 		meta.type = "website";
-		meta.title= role.name
+		meta.title= "CASTING CALL:"+ role.name
 		meta.site_name = "http://bittycasting.com";
 		meta.url= "";
 		meta.url += meta.site_name + "/Apply/" + role._id;
 		meta.description = role.description;
 		if(project.coverphoto.name === "default"){
-			console.log("this is default photo");
 			meta.image = meta.site_name + '/'+project.coverphoto.source;
-			console.log(meta.image);}
+		}
 		else{ meta.image = "http://" + project.coverphoto.source.replace(/.*?:\/\//g, "");}
 		/*meta.image_secure = project.coverphoto.source;*/
 		return meta;
 	}
+	this.prjMeta = function(project){
+		meta.type = "website";
+		meta.title= "CASTING CALL:"+ project.name
+		meta.site_name = "http://bittycasting.com";
+		meta.url += meta.site_name + "/project/" + project._id;
+		meta.description = project.description;
 
-
+		if(project.coverphoto.name === "default"){
+			meta.image = meta.site_name + '/'+project.coverphoto.source;
+		}
+		else{ meta.image = "http://" + project.coverphoto.source.replace(/.*?:\/\//g, "");}
+		/*meta.image_secure = project.coverphoto.source;*/
+		return meta;
+	}
 	/*return meta;*/
 })
 
 .factory('Prerender', function($http){
 	var prerender = {};
+
+	var prerenderRecache = function(urlRecache){
+		$http.post("http://api.prerender.io/recache",
+		{
+			"prerenderToken": "RDdmSteuNT1ZCbqQ2O0h",
+			"url": urlRecache
+		}).then(function(response){
+				console.log(response)
+			});
+	}
+
+	prerender.recacheRole = function(roleID){
+		/*console.log(roleID);*/
+		var url = "http://bittycasting.com/role/" + roleID;
+		prerenderRecache(url);
+	}
+	prerender.recacheProject = function(roleID){
+		console.log(roleID);
+		var url = "http://bittycasting.com/role/" + roleID;
+		prerenderRecache(url);
+	}
 
 	prerender.cacheIt = function(roleID){
 		/*console.log(link);
@@ -45,7 +77,6 @@ angular.module('userService', [])
 		/*$http.get("https://bittycasting.com/Apply/+"+ "roleID" + )*/
 		$http.get("/Apply/"+ roleID + "?_escaped_fragment_")
 			.then(function(response){
-				console.log(response);
 			});
 	}
 	return prerender;
@@ -83,14 +114,34 @@ angular.module('userService', [])
 	var appFactory={};	
 	
 	appFactory.update = function(id,data)	{
-		return $http.put('/app/'+id, data);	
+		return $http.put('/suppliment/'+id, data);	
 		}	 
-	appFactory.delete = function(appID)	{
-		console.log(appID);
-		return $http.delete('api/applicant/'+ appID);
+	appFactory.viewedUpdate = function(id)	{
+		var money = {};
+		money.status = "new"
+		money.new = false;
+		return $http.put('/app/'+id, money);	
+		}	 
+	appFactory.favUpdate = function(app,roleID)	{
+		console.log(roleID);
+		var money = {};
+		money.status = "fav"
+		money.roleID = roleID;
+		/*console.log(money);*/
+
+		return $http.put('/app/'+app._id, money);	
+		}	 
+	/*appFactory.delete = function(appID, roleID)	{
+		return $http.delete('api/applicant/'+ appID, roleID);
+	}	 */
+	appFactory.delete = function(appID, roleID)	{
+		var data = {};
+		data.status = "delete";
+		data.roleID = roleID;
+		console.log(data);
+		return $http.put('api/applicant/'+appID, data);
 	}	 
 	appFactory.apply = function(data)	{
-		console.log(data);
 		return $http.post('/applicant', data);	
 	}	 
 	appFactory.getAll = function(roleID)	{
@@ -148,8 +199,8 @@ angular.module('userService', [])
 	projectFactory.getAll = function()	{
 		return $http.get('api/project');
 	}
-	projectFactory.get  = function(proj_id)	{
-		return $http.get('/api/project/' + proj_id);
+	projectFactory.get  = function(projID)	{
+		return $http.get('/public/project/' + projID);
 	}
 	projectFactory.appGetPrj  = function(proj_id)	{
 		return $http.get('/appPrj/' + proj_id);

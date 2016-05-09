@@ -13,15 +13,9 @@ angular.module('mainCtrl', ['authService','mgcrea.ngStrap'])
 		vm.footer = true;
 		vm.nav = true;
 		vm.navCollapsed = true;
-		$scope.coverPhotos = [
-		'assets/imgs/img_projectCover01.png',
-		'assets/imgs/img_projectCover02.png',
-		'assets/imgs/img_projectCover03.png',
-		'assets/imgs/img_projectCover04.png',
-		'assets/imgs/img_projectCover05.png'
-		];
 
 		vm.loggedIn = Auth.isLoggedIn();
+		$rootScope.loggedIn = Auth.isLoggedIn(),
 		
 		vm.founder = (function(){
 						if ($rootScope.user.role === "founder") return true;
@@ -31,12 +25,18 @@ angular.module('mainCtrl', ['authService','mgcrea.ngStrap'])
 		$scope.$on('hideNav', function(){
 			vm.nav = false;
 		})
-		$scope.$on('unhideNav', function(){
+		$scope.$on('showNav', function(){
 			vm.nav = true;
 		})
 
+		$scope.$on('hideFooter', function(){
+			vm.footer = false;
+		})
+		$scope.$on('showFooter', function(){
+			vm.footer = true;
+		})
+
 		$rootScope.$on('$routeChangeStart', function () {
-			//reset var. should only on applyCtrl. 
 			if($rootScope.meta) $rootScope.meta = Meta.default();
 
 			vm.navCollapsed = true;
@@ -52,7 +52,7 @@ angular.module('mainCtrl', ['authService','mgcrea.ngStrap'])
 				vm.publicVw = true;
 				vm.footer = true;
 			}
-			//show hide nav
+			//hide nav
 			else if($location.path().indexOf('/Apply') != -1){
 					vm.nav = false;
 			}
@@ -72,16 +72,17 @@ angular.module('mainCtrl', ['authService','mgcrea.ngStrap'])
 				Auth.getUser()
 						.then(function(data) {
 							if(data){
-							vm.usrInitial = data.name.first[0] + data.name.last[0];
-							if(data.role.indexOf("founder") != -1){vm.admin = true;}
-							else vm.admin = false;
-							$rootScope.user ={first:data.name.first,
-																last:data.name.last,
-																email:data.email,
-																role:data.role,
-													}
+								vm.usrInitial = data.name.first[0] + data.name.last[0];
+								if(data.role.indexOf("founder") != -1){vm.admin = true;}
+								else vm.admin = false;
+								$rootScope.user ={first:data.name.first,
+																	last:data.name.last,
+																	email:data.email,
+																	role:data.role,
+																	_id:data._id,
+								}
 							}
-						 })
+						})
 			}
 		})
 		vm.betaEmail;
@@ -92,8 +93,6 @@ angular.module('mainCtrl', ['authService','mgcrea.ngStrap'])
 			vm.betaEmail = null;
 			vm.betaSubMessage = "Submitted! Thank you for your interest"
 		}
-
-
 	}	
 	var feedbackAside = $aside({
 	 									scope:$scope,

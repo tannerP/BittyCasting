@@ -8,8 +8,7 @@ angular.module('awsService', [])
 	var upload = [];
 	var updateID; //has to be global function
 
-    aws.uploadAppMedias = function(data,role,appID,bucket){ 
-      console.log('AppID ' + appID);
+    aws.uploadAppMedias = function(data,requirements,appID,bucket){ 
     //Note: ID is undefine.
         var uploadFiles = data;
             updateID = appID;
@@ -58,7 +57,7 @@ angular.module('awsService', [])
                           bucket: data.PostResponse.Bucket,
                           key: data.PostResponse.Key,
                           etag: data.PostResponse.ETag,
-                          name: role.requirements[i].name,
+                          name: requirements[i],
                           file_type: file.type
                         };
                         Applicant.update(updateID,parsedData);
@@ -74,7 +73,7 @@ angular.module('awsService', [])
                         {   /*vm.busy = false;*/
                           /*return true;*/
                           //send event to main
-                          console.log("Finished uploading files")
+                          /*console.log("Finished uploading files")*/
                           $rootScope.$emit('app-media-submitted')
                         }
                       }
@@ -86,8 +85,8 @@ angular.module('awsService', [])
       };
 
   aws.uploadCP = function(data,bucket, callback){
-    console.log(data.file)
-    console.log(bucket)
+    /*console.log(data.file)
+    console.log(bucket)*/
     var deferred = $q.defer();
 
       /*console.log('AppID ' + appID);*/
@@ -131,7 +130,7 @@ angular.module('awsService', [])
                   });
                   upload[i]
                     .then(function(response) {
-                      console.log(response);
+                      /*console.log(response);*/
                       file.progress = parseInt(100);
                       /*console.log(response);*/
                       if (response.status === 201) {

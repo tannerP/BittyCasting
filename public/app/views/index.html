@@ -1,20 +1,14 @@
-
+<!DOCTYPE html>
 <html lang="en" ng-app="userApp" 
         ng-controller="mainController as main">
     <head>
-        <meta name="fragment" content="!">
+        <!-- used for crawler and nginx -->
+        <!-- <meta name="fragment" content="!"> -->
         <meta charset = "UTF-8">
         
-        <title>{{meta.title || 'BittyCasting'}}</title>
-        <!-- <meta property="og:url" content="{{meta.url || ''}}" /> -->
-        <!-- <meta property="og:type" content="{{meta.type || 'website'}}" /> -->
-        
-        <!-- <meta property="og:type" content="image"/>
-        <meta property="og:image:width" content="400" /> 
-        <meta property="og:image:height" content="300" /> -->
-        <!-- <meta property="og:url"                content="http://www.nytimes.com/2015/02/19/arts/international/when-great-minds-dont-think-alike.html" /> -->
+        <title>BittyCasting</title>
         <meta property="og:url" content="{{meta.url || ''}}" />
-        <meta property="og:type"               content="website" />
+        <meta property="og:type"  content="website" />
         <meta property="og:title"
          content="{{meta.title || 'BittyCasting'}}"/>
         <meta property="og:description" content="{{meta.description}}" />
@@ -30,10 +24,35 @@
         <meta name="twitter:title" content="{{meta.title || 'BittyCasting'}}">
         <meta name="twitter:description" content="{{meta.description}}">
         <meta name="twitter:image" content="{{meta.url}}">
-        <meta name="twitter:image:alt"  content="{{meta.logo}}">
+        <meta name="twitter:image:alt"  content="http://bittycasting.com/assets/imgs/favicon/apple-icon-114x114.png">
 
-        <meta name="BittyCasting | Sort talent, not files"
-        content="A free online   casting tool for managing and organizing your next film, theater, or performance project.">        
+        <!-- Alternative -->
+        <meta property="og:url" content="http://bittycasting.com" />
+        <meta property="og:type"  content="website" />
+        <meta property="og:title"
+         content="CASTING CALL"/>
+        <!-- <meta property="og:description" content="{{meta.description}}" /> -->
+        <meta property="og:image" content="http://bittycasting.com/assets/imgs/favicon/apple-icon-114x114.png" />
+        <meta property="og:image:width" content="300" /> 
+        <meta property="og:image:height" content="300" />
+        <meta property="og:site_name" content="BittyCasting.com"/>
+        <meta property="fb:app_id" content='606100206211278' />
+
+        <meta name="twitter:creator" content="@BittyCasting">
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:site" content="Bittycasting.com">
+        <meta name="twitter:title" content="CASTING CALL">
+        <meta name="twitter:image" content="http://bittycasting.com/assets/imgs/favicon/apple-icon-114x114.png">
+        
+
+
+        <meta name="description" content="A free online   casting tool for managing and organizing your next film, theater, or performance project.">
+        <meta name="keywords" content="">
+        <meta name="author" content="@tannerphan">
+        <meta name="BittyCasting | Sort talent, not files" content="A free online   casting tool for managing and organizing your next film, theater, or performance project.">
+        <meta name="image" content="http://bittycasting.com/assets/imgs/favicon/apple-icon-114x114.png">  
+        <meta property="og:image:width" content="200" /> 
+        <meta property="og:image:height" content="200" />      
 
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- FOR ANGULAR ROUTING -->
@@ -70,7 +89,6 @@
               version    : 'v2.6'
             });
           };
-
           (function(d, s, id){
              var js, fjs = d.getElementsByTagName(s)[0];
              if (d.getElementById(id)) {return;}
@@ -120,18 +138,21 @@
         
         <script src="components/footer/footer.directive.js"></script>
         <script src="components/nav/nav.directive.js"></script>
-        <script src="components/reviewPage/reviewPage.directive.js"></script>
+        <script src="components/review_page/reviewPage.directive.js"></script>
+        <script src="components/project_view/projectView.js"></script>
+        <script src="components/new_applicant_form/newApplicantForm.js"></script>
 
     	<!-- controllers -->
     	<script src="app/controllers/mainCtrl.js"></script>
     	<script src="app/controllers/userCtrl.js"></script>
     	<script src="app/controllers/projectCtrl.js"></script>
     	<script src="app/controllers/applyCtrl.js"></script>
-        <script src="app/controllers/applicantsCtrl.js"></script>
+        <script src="app/controllers/roleCtrl.js"></script>
 
     	<!-- services -->
     	<script src="app/services/authService.js"></script>
     	<script src="app/services/userService.js"></script>
+        <script src="app/services/UIService.js"></script>
         <script src="app/services/awsService.js"></script>
     	
     	<script src="app/app.routes.js"></script>
@@ -170,7 +191,7 @@
         <div ng-view autoscroll="true"></div>
         <button  ng-show="main.loggedIn" class='custom-btn-feedback'
                  ng-click="main.feedbackBtn()">
-                 <div class="verticalText">feedback</div>
+            <div class="verticalText">feedback</div>
         </button>
         <div ng-if="main.footer" footer 
             class='view-animate'></div>

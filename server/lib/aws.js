@@ -65,6 +65,7 @@ createS3Policy = function (contentType, callback) {
 
 exports.removeSup = function (sup) {
     var objects = [];
+    console.log("deleting from S3")
     for (var i in sup) {
         /*console.log(i);*/
         objects.push({
@@ -81,8 +82,15 @@ exports.removeSup = function (sup) {
     };
     if (objects.length == sup.length)
         s3.deleteObjects(params, function (err, data) {
-            if (err) console.log(err, err.stack); // an error occurred
-            else     console.log(data);           // successful response
+            /*console.log(data)*/
+            if (err) {
+                console.log(err, err.stack);
+                return;
+             }// an error occurred
+            else     {
+                console.log("successfully removed");
+                return
+            }           // successful response
         });
 }
 
@@ -98,7 +106,7 @@ exports.removeCP = function (key) {
     };    
     s3.deleteObjects(params, function (err, data) {
         if (err) console.log(err, err.stack); // an error occurred
-        else     console.log(data);           // successful response
+        else     console.log("successful removed from s3");           // successful response
     });
 }
 

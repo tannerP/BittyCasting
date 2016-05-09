@@ -14,18 +14,18 @@
       <!-- <img ng-if="$flow.files[0]" flow-img="$flow.files[0]" 
               style="width:400px; height:200px;"/> -->
         <label>Name</label>
-        <input type="text" class="custom-form" ng-model="aside.projectData.name" required autofocus>
+        <input type="text" class="custom-form" ng-model="projectAside.projectData.name" required autofocus>
       </div>
       <div class="form-group">
         <!-- <label>Description (Max {{charRmnd}} characters)</label> -->
         <label>Description</label>
-        <textarea ng-trim='0' textarea-fit cols="40" class="custom-form-textarea" ng-model="aside.projectData.description"></textarea>
+        <textarea ng-trim='0' rows="4" class="custom-form-textarea" ng-model="projectAside.projectData.description"></textarea>
       </div>        
       <div class="form-group">
         <label>Cover photo</label>
       </div>
         <ul class="select-coverphoto-wrapper">
-            <li ng-repeat=" photoLink in coverPhotos track by $index">
+            <li ng-repeat=" photoLink in projectAside.coverphotos track by $index">
               <div class="{{projectAside.CPStyling}}"
                     id="{{photoLink.split('/').pop().split('.').shift()}}" 
                     ng-click="projectAside.selectCP(photoLink, $index)"
@@ -43,11 +43,11 @@
             </li>
         </ul>
       <button type="submit" class="custom-btn-primary-large" ng-if="projectAside.NEW"
-       ng-click="projectAside.save(aside.projectData.name, aside.projectData.description)">
+       ng-click="projectAside.save(aside.projectData.name, aside.projectData.description)" ng-disabled="aside.processing">
         <span>Create project</span>
       </button>
       <button type="submit" class="custom-btn-primary-large" ng-if="!projectAside.NEW"
-      ng-click="projectAside.update(aside.projectData)">
+      ng-click="projectAside.update(aside.projectData)" ng-disabled="aside.processing">
         <span>Save</span>
       </button>
 

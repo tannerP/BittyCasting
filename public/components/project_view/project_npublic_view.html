@@ -1,0 +1,69 @@
+<div class="container paddingBottom60">
+  <div class="pageHeader">
+    <div class="custom-back" ng-click="vm.back()" style="z-index: 4;"></div>
+    <div class="custom-page-action" style="z-index: 4;">
+        <div ng-if="vm.roles.length > 0" class="custom-btn-secondary-small btn-share" ng-click="vm.sharePrjBtn(vm.project)">Share</div>
+        <div class="custom-btn-secondary-small btn-edit" ng-click="vm.editPrjBtn(vm.project)">Edit</div>
+        <div class="custom-btn-secondary-small btn-delete" ng-click="vm.deletePrjBtn(vm.project)">Delete</div>
+        <!-- <li class="custom-btn-secondary-small" ng-click="togView()">toggle</li> -->
+      <!-- {{page}} -->
+    </div>
+    <div class='pageTitle pageTitleMobileOffset col-md-4 col-md-offset-4'
+    data-ng-bind="vm.project.name">{{vm.project.name}}</div>
+    <div class="clear"></div>
+    <div class="projectDetails col-md-12">
+      <section class="col-md-3">
+      <img ng-src="{{vm.project.coverphoto.source || '/assets/imgs/img_projectCover01.png'}}" class="img-responsive">
+      </section>
+      <section class="col-md-6">
+        <p style="white-space: pre-wrap">{{vm.project.description}}</p>
+      </section>
+      <section class="col-md-3">
+        <!-- <p>Thumbnails of collaborators</p> -->
+      </section>
+    </div>
+    <div class="clear"></div>
+
+    <div class="custom-page-action-secondary">
+      <ul>
+        <li class='custom-btn-secondary-small' ng-click="vm.createBtn()">Create role</li>
+      </ul>
+    </div>
+    <div class="clear"></div>
+  </div>
+
+  <div class="custom-table table-responsive">
+    <table class="table table-hover table-project-details" ng-show="!projectCtr.gridView">
+      <thead>
+      <tr>
+        <th>Name</th>
+        <th>No. of applicants</th>
+        <th>Description</th>
+        <th>Application open until</th>
+      </tr>
+      </thead>
+      <tbody>
+      <!-- LOOP OVER THE USERS -->
+      <tr class="animate-repeat" ng-repeat="role in vm.roles">
+        <td ng-click='vm.getRoleBtn(role._id)'>{{ role.name }}</td>
+        <td ng-click='vm.getRoleBtn(role._id)'>
+          {{role.total_apps || "0"}}
+        </td>
+        <td ng-click='vm.getRoleBtn(role._id)'>{{ role.description }}</td>
+        <td class="tableHover"><span
+          class="tblDate">{{role.end_date | date:mediumDate}}</span>
+          <div class="table-utl">
+            <ul>
+              <li ng-click="vm.deleteBtn(role)"></li>
+              <li ng-click="vm.shareRoleBtn(role)"></li>
+            </ul>
+          </div>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- <projectView></projectView> -->
+  <!-- <div review></div> -->
+</div>
