@@ -2,7 +2,7 @@
   <div class="pageHeader">
     <div class="custom-back" ng-click="vm.back()" style="z-index: 4;"></div>
     <div class="custom-page-action" style="z-index: 4;">
-        <div ng-show="{{vm.roles.length > 0}}" class="custom-btn-secondary-small btn-share" ng-click="vm.sharePrjBtn(vm.project)">Share</div>
+        <div ng-if="vm.roles.length > 0" class="custom-btn-secondary-small btn-share" ng-click="vm.sharePrjBtn(vm.project)">Share</div>
         <div class="custom-btn-secondary-small btn-edit" ng-click="vm.editPrjBtn(vm.project)">Edit</div>
         <div class="custom-btn-secondary-small btn-delete" ng-click="vm.deletePrjBtn(vm.project)">Delete</div>
         <!-- <li class="custom-btn-secondary-small" ng-click="togView()">toggle</li> -->
