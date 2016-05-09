@@ -11,7 +11,7 @@ angular.module('userService', [])
 		meta.title= "BittyCasting";
 		meta.url = "http://bittycasting.com";
 		meta.description ="A free online casting tool for managing and organizing your next film, theater, or performance project.";        
-		meta.logo =  "http://bittycasting.com/assets/imgs/favicon/apple-icon-114x114.png";
+		meta.image =  "http://bittycasting.com/assets/imgs/favicon/apple-icon-310x310.png";
 
 		return meta;
 	}
@@ -19,7 +19,6 @@ angular.module('userService', [])
 		meta.type = "website";
 		meta.title= "CASTING CALL: "+ role.name
 		meta.site_name = "http://bittycasting.com";
-		meta.url= "";
 		meta.url += meta.site_name + "/Apply/" + role._id;
 		meta.description = role.description;
 		if(project.coverphoto.name === "default"){
@@ -64,9 +63,9 @@ angular.module('userService', [])
 		var url = "http://bittycasting.com/role/" + roleID;
 		prerenderRecache(url);
 	}
-	prerender.recacheProject = function(roleID){
-		console.log(roleID);
-		var url = "http://bittycasting.com/role/" + roleID;
+	prerender.recacheProject = function(projectID){
+		console.log(projectID);
+		var url = "http://bittycasting.com/role/" + projectID;
 		prerenderRecache(url);
 	}
 

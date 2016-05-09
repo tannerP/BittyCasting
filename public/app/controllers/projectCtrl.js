@@ -586,7 +586,7 @@ angular.module('projectCtrl', ['userService',
       vm.CP_cust;
       vm.CP_default;
       vm.NEW = false;
-      vm.processing = true;
+      vm.processing = false;
       vm.proj_id = $routeParams.project_id;
       $scope.file = {};
 
@@ -625,6 +625,7 @@ angular.module('projectCtrl', ['userService',
         vm.CP_cust = file;
       }
 
+      vm.processing = false;
       vm.update = function(data) {
         /*console.log(data);
         console.log($scope.aside.projectData)*/
@@ -643,12 +644,13 @@ angular.module('projectCtrl', ['userService',
           vm.projectData.coverphoto.name = "default";
         } else if (vm.CP_cust) {
           AWS.uploadCP(vm.CP_cust, $rootScope.awsConfig.bucket, function(data) {
-            $scope.aside.projectData.coverphoto = data;
+              vm.projectData.coverphoto = data;
             Project.update(vm.projectData._id,
                 vm.projectData)
               .success(function(data) {
+                Prerender.recacheProject(vm.projectData._id);
                 vm.processing = false;
-                vm.message = data.message;
+              /*  vm.message = data.message;*/
                 $scope.projectData = {};
                 $route.reload();
                 $scope.$hide()
@@ -658,9 +660,10 @@ angular.module('projectCtrl', ['userService',
         Project.update(vm.projectData._id,
             vm.projectData)
           .success(function(data) {
+            Prerender.recacheProject(vm.projectData._id);
             $scope.projectData = {};
             vm.processing = false;
-            vm.message = data.message;
+            /*vm.message = data.message;*/
             $route.reload();
             $scope.$hide()
           })
