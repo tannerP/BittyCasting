@@ -2191,10 +2191,7 @@ text-align: center;
             
             li {
                 display: inline;
-                &:last-child:after {content: ""};
-            }
-            li.links {
-                display: inline;
+                &:after {content: " | "};
                 &:last-child:after {content: ""};
             }
         }
@@ -2586,7 +2583,7 @@ text-align: center;
                 margin: 0;
                 padding: 0;
                 float: left;
-                width: 50%;
+                width: 100%;
                 text-align: center;
                 color: white;
                 background-color: $color-blue;

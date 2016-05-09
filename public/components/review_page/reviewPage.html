@@ -91,15 +91,15 @@
         <td ng-if="documents.length > 0">Document:</td>
         <td>
           <ul>
-            <li ng-repeat="doc in documents"><a target="_blank" ng-href="{{doc.source}}" download={{doc.name}}>{{doc.name}}</a> | </li>
+            <li ng-repeat="doc in documents"><a target="_blank" ng-href="{{doc.source}}" download={{doc.name}}>{{doc.name}}</a></li>
           </ul>
         </td>
       </tr>
       <tr>
-        <td ng-if="images.length > 0">Image:</td>
+        <td ng-if="images.length > 0">Headshot(s):</td>
         <td>
           <ul>
-            <li ng-repeat="image in images" class = "attch"><a target="_blank" ng-href="{{image.source}}" download={{image.name}}>{{image.name}}</a> | </li><br/>
+            <li ng-repeat="image in images" class = "attch"><a target="_blank" ng-href="{{image.source}}" download={{image.name}}>{{image.name}}</a></li>
           </ul>
         </td>
       </tr>
