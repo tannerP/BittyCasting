@@ -27,7 +27,6 @@ angular.module('ProjectView', ['userService',
       $rootScope, $aside, $route, $timeout) {
       var vm = this;
       vm.loggedIn = $rootScope.loggedIn;   
-      
 /*      console.log("public controller");
       console.log(vm.roles)
       for(var r in vm.roles){

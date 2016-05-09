@@ -98,8 +98,14 @@ angular.module('projectCtrl', ['userService',
       vm.togView = function() {
         vm.prView = !vm.prView;
         vm.pView = !vm.pView;
-        if (vm.prView === false) $scope.$emit("hideNav");
-        else $scope.$emit("unhideNav");
+        if (vm.prView === false){ 
+          $scope.$emit("hideNav");
+          $scope.$emit("showFooter");
+        }
+        else{
+         $scope.$emit("showNav");
+         $scope.$emit("hideFooter");
+        }
       }
     })
   .controller('shareRoleController', ['$scope', '$alert', '$location',

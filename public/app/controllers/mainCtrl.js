@@ -25,8 +25,15 @@ angular.module('mainCtrl', ['authService','mgcrea.ngStrap'])
 		$scope.$on('hideNav', function(){
 			vm.nav = false;
 		})
-		$scope.$on('unhideNav', function(){
+		$scope.$on('showNav', function(){
 			vm.nav = true;
+		})
+
+		$scope.$on('hideFooter', function(){
+			vm.footer = false;
+		})
+		$scope.$on('showFooter', function(){
+			vm.footer = true;
 		})
 
 		$rootScope.$on('$routeChangeStart', function () {
@@ -45,7 +52,7 @@ angular.module('mainCtrl', ['authService','mgcrea.ngStrap'])
 				vm.publicVw = true;
 				vm.footer = true;
 			}
-			//show hide nav
+			//hide nav
 			else if($location.path().indexOf('/Apply') != -1){
 					vm.nav = false;
 			}
