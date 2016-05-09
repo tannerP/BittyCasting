@@ -133,7 +133,7 @@ controller('signupCtrl', function(User,$scope,$location)	{
 
 		vm.saveUser = function()	{
 			vm.processing = true;
-			console.log("createUser");
+			/*console.log("createUser");*/
 			//clear the message
 			vm.message = '';
 			// use the create function in the userService

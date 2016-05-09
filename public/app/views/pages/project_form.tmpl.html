@@ -42,12 +42,16 @@
               </div>
             </li>
         </ul>
+
+      <div ng-if="projectAside.processing" class="custom-loader">
+        <img style ="height:40px; width:auto" ng-src='/assets/imgs/spin.gif'>
+      </div>  
       <button type="submit" class="custom-btn-primary-large" ng-if="projectAside.NEW"
-       ng-click="projectAside.save(aside.projectData.name, aside.projectData.description)" ng-disabled="aside.processing">
+       ng-click="projectAside.save(aside.projectData.name, aside.projectData.description)" ng-disabled="projectAside.processing">
         <span>Create project</span>
       </button>
       <button type="submit" class="custom-btn-primary-large" ng-if="!projectAside.NEW"
-      ng-click="projectAside.update(aside.projectData)" ng-disabled="aside.processing">
+      ng-click="projectAside.update(aside.projectData)" ng-disabled="projectAside.processing">
         <span>Save</span>
       </button>
 

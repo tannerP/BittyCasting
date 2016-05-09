@@ -14,7 +14,6 @@ angular.module('roleCtrl', ['userService',
         owner: owner,
         comment: comment
       }
-
       $scope.currApp.comments.push(cmt);
       Applicant.pushComment(appID, cmt);
       vm.newComment = "";
@@ -52,8 +51,6 @@ angular.module('roleCtrl', ['userService',
               vm.prjClosed = "(Closed)";
             }          
           }
-
-          console.log(roles)
           if (project) {
             $rootScope.meta = Meta.roleMeta(vm.roleData, project);
             vm.prjData = project;

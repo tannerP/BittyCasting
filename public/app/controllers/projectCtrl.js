@@ -525,6 +525,7 @@ angular.module('projectCtrl', ['userService',
         if (vm.NEW) vm.selectCP(DEFAULT_COVERPHOTO, 1);
 
       }();
+      
       vm.save = function() {
         vm.processing = true;
         vm.message;
@@ -537,9 +538,9 @@ angular.module('projectCtrl', ['userService',
             Project.create(vm.projectData)
               .success(function(data) {
                 $route.reload();
-                vm.processing = false;
                 vm.message = data.message;
-                $scope.$hide()
+                $scope.$hide();
+                vm.processing = false;
                 $scope.projectData = {};
                 $location.path('/home');
               })
@@ -549,9 +550,9 @@ angular.module('projectCtrl', ['userService',
               Project.create(vm.projectData)
                 .success(function(data) {
                   $route.reload();
-                  vm.processing = false;
                   vm.message = data.message;
                   $scope.$hide()
+                  vm.processing = false;
                   $scope.projectData = {};
                   $location.path('/home');
                 });
