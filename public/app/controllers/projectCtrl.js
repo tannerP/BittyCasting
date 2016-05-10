@@ -30,8 +30,10 @@ angular.module('projectCtrl', ['userService',
               case "public":
                 {
                   $scope.$emit("hideNav")
+                  $scope.$emit("showFooter")
                   vm.prView = false;
                   vm.pView = true;;
+                  /*$location.path("/");*/
                   break;
                 }
               case "owner":

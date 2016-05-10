@@ -27,7 +27,7 @@ angular.module('ProjectView', ['userService',
     $rootScope, $aside, $route, $timeout) {
     var vm = this;
     vm.loggedIn = $rootScope.loggedIn;
-    $scope.$emit("showFooter")
+    /*$scope.$emit("showFooter")*/
 
     vm.update_CurRole = function(new_currRole) {
         /*console.log(vm.currole)*/
