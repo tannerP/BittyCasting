@@ -38,6 +38,7 @@ angular.module('roleCtrl', ['userService',
         templateUrl: '/app/views/pages/applicant_delete.tmpl.html'
       });
     $scope.viewApp = false;
+    $scope.carouselIndex = 0;
     $scope.slides = [];
     vm.gridView = true;
     vm.listView = false;
@@ -154,6 +155,7 @@ angular.module('roleCtrl', ['userService',
     }
 
     var updateCarosel = function(index){
+      $scope.carouselIndex = 0;
       $scope.slides = [];
       $scope.currIndex = index;
       $scope.currApp = vm.applicants[index];
