@@ -1,8 +1,8 @@
 angular.module('mainCtrl', ['authService','mgcrea.ngStrap'])
 .controller('mainController',['$scope','$rootScope','Auth',
-	'$location',"$sce","$route","$window","Mail","$aside","Meta",
+	'$location',"$sce","$route","$window","Mail","$aside","Meta","AuthToken",
 		function($scope,$rootScope, Auth, $location, $sce,
-		 $route, $window,Mail,$aside, Meta) {
+		 $route, $window,Mail,$aside, Meta, AuthToken) {
 		var vm = this;
 		$rootScope.meta = {};
 
@@ -72,6 +72,13 @@ angular.module('mainCtrl', ['authService','mgcrea.ngStrap'])
 				Auth.getUser()
 						.then(function(data) {
 							if(data){
+								console.log(data)
+								data = data.data;
+								if(!data){
+									AuthToken.setToken();
+									console.log("NO USER GROUND")
+								}
+
 								vm.usrInitial = data.name.first[0] + data.name.last[0];
 								if(data.role.indexOf("founder") != -1){vm.admin = true;}
 								else vm.admin = false;

@@ -35,6 +35,11 @@ angular.module('app.routes', ['ngRoute'])
             controller: 'ApplyController',
             controllerAs: 'page'
         })
+        .when('/Apply/Project/:id',  {
+            templateUrl: 'app/views/pages/application_project.html',
+            controller: 'ApplyController',
+            controllerAs: 'page'
+        })
         //project    
         .when('/project/:project_id',  {
             templateUrl: 'app/views/pages/project_page.html',

@@ -504,7 +504,14 @@ module.exports = function(app, express) {
 		.get(function(req, res) {
 			User.findById(req.decoded.id, function(err, user) {
 				if (err) res.send(err);
-				res.json(user);
+				console.log(user)
+				if(!user || !user._id){
+					return res.status(403).send({
+						success: false,
+						message: 'Failed to authenticate token.'
+					});
+				}
+				res.json({data:user});
 			})
 		});
 	//===============================  USERS  ============================

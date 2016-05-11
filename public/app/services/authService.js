@@ -45,6 +45,10 @@ angular.module('authService', [])
 		else {
 			return $http.get('/api/me').then(function(data){
 					_user =  data.data;
+					console.log(data)
+					if(!_user) {
+						AuthToken.setToken();
+					}
 					return _user;
 				}, function err(response){
 				return response;

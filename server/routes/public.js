@@ -65,7 +65,7 @@ module.exports = function(app, express) {
   });
   app.get('/s3Policy', aws.getS3Policy);
 
-  app.get('/applicationRole/:role_id', function(req, res) {
+  app.get('/public/role/:role_id', function(req, res) {
     //find role data, then find project data before returning result
     Role.findById(req.params.role_id, function(err, role) {
       if (!err) {

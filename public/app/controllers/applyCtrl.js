@@ -35,15 +35,15 @@ controller('ApplyController', ['$scope', '$rootScope',
       /*console.log($rootScope.meta.url);*/
       if (vm.roleData) { //TODO:remove? 
         Pub.getAppPrj(vm.roleData.projectID).then(function(data) {
-          var project = data.data.project.project;
-          var roles = data.data.project.roles;
+          vm.project = data.data.project.project;
+          vm.roles = data.data.project.roles;
           console.log(roles)
-          if (project) {
-            $rootScope.meta = Meta.roleMeta(vm.roleData, project);
-            vm.prjData = project;
+          if (vm.project) {
+            $rootScope.meta = Meta.prjMeta(vm.project);
+            /*vm.prjData = vm.project;*/
             /*vm.prjData.roles = roles;*/
             /*vm.updateCurRole(roles[0]);*/
-            vm.appData.projectID = data.data.project._id;
+            vm.appData.projectID = vm.project
             vm.appData.roleID = vm.roleData._id;
           }
         })
