@@ -12,7 +12,6 @@ angular.module('userService', [])
 		meta.url = "http://bittycasting.com";
 		meta.description ="A free online casting tool for managing and organizing your next film, theater, or performance project.";        
 		meta.image =  "http://bittycasting.com/assets/imgs/favicon/apple-icon-310x310.png";
-		console.log(meta);
 		return meta;
 	}
 	this.roleMeta = function(role, project){
@@ -64,7 +63,7 @@ angular.module('userService', [])
 		prerenderRecache(url);
 	}
 	prerender.recacheProject = function(projectID){
-		console.log(projectID);
+		/*console.log(projectID);*/
 		var url = "http://bittycasting.com/role/" + projectID;
 		prerenderRecache(url);
 	}
@@ -122,7 +121,7 @@ angular.module('userService', [])
 		return $http.put('/app/'+id, money);	
 		}	 
 	appFactory.favUpdate = function(app,roleID)	{
-		console.log(roleID);
+		/*console.log(roleID);*/
 		var money = {};
 		money.status = "fav"
 		money.roleID = roleID;
@@ -137,7 +136,7 @@ angular.module('userService', [])
 		var data = {};
 		data.status = "delete";
 		data.roleID = roleID;
-		console.log(data);
+/*		console.log(data);*/
 		return $http.put('api/applicant/'+appID, data);
 	}	 
 	appFactory.apply = function(data)	{

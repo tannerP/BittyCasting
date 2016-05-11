@@ -125,9 +125,9 @@
                                     </a>
                             </div>
                         <div class = "form-group">
-                                <span ng-repeat="link in ppv.ppv.appData.links track by $index">
+                                <span ng-repeat="link in ppv.appData.links track by $index">
                                     <div class="applyLinkItem">
-                                        <span ng-if="link.name == rq.name">{{link.source}} <span ng-click="ppv.removeLink($index)">
+                                        <span ng-if="link.name == rq">{{link.source}} <span ng-click="ppv.removeLink($index)">
                                         <img src="/assets/imgs/ic_trash.svg" width="16px" height="16px"></span>
                                             <br>
                                         </span>
@@ -135,7 +135,7 @@
                                 </span>
                                 <input class="applyAddLink" type="text" ng-model="ppv.newLinks[$index]" placeholder="http://">  
                                    <span>{{newLink}}</span>                            
-                                <span ng-click="ppv.addLink($index,rq.name,ppv.newLinks[$index])"><img src="/assets/imgs/ic_plus.svg" width="16px" height="16px"></span>
+                                <span ng-click="ppv.addLink($index,rq)"><img src="/assets/imgs/ic_plus.svg" width="16px" height="16px"></span>
                             </div>
                         </div>
 

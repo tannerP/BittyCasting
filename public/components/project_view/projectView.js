@@ -121,7 +121,7 @@ angular.module('ProjectView', ['userService',
       }
       vm.processing = true;
       vm.currfile;
-      for (i in vm.newLinks) {
+      for (var i in vm.newLinks) {
         if (vm.newLinks[i]) {
           var link = {};
           link.name = name;

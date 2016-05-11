@@ -67,11 +67,12 @@ controller('ApplyController', ['$scope', '$rootScope',
     vm.link = ""
     vm.newLinks = [];
 
-    vm.addLink = function(arr_indx, name) {
+    vm.addLink = function(index, name) {
       var link = {};
+      console.log(index)
+      console.log(name)
       link.name = name;
-      link.source = vm.newLinks[arr_indx];
-
+      link.source = vm.newLinks[index];
       if (link.source.indexOf('.') > -1) {
         vm.appData.links.push(link)
         vm.newLinks[index] = "";
