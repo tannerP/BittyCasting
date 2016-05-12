@@ -24,7 +24,7 @@ angular.module('ProjectView', ['userService',
 
   var publicController = function(Applicant, AWS,
     $location, $routeParams, $scope,
-    $rootScope, $aside, $route, $timeout) {
+    $rootScope, $aside, $route, $timeout, $window) {
     var vm = this;
     vm.loggedIn = false;
     if($rootScope.user){
@@ -38,12 +38,11 @@ angular.module('ProjectView', ['userService',
       }
       //TODO: this doesn't scale for collabs.
     vm.back = function() {
-
-
       if ($rootScope.loggedIn) {
         vm.toggle();
       } else {
-        $location.path("/");
+        /*$location.path("/");*/
+        $window.history.back();
       }
     }
     vm.link = ""
@@ -273,9 +272,9 @@ angular.module('ProjectView', ['userService',
         vm.getRoleBtn = function(id) {
           $location.path("/role/" + id)
         }
-        vm.back = function() {
-          $location.path('/home');
-        }
+        /*vm.back = function() {
+          $window.history.back();
+        }*/
 
         vm.load = function() {
             Project.get($routeParams.project_id)
