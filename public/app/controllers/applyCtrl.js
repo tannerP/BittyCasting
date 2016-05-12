@@ -35,9 +35,11 @@ controller('ApplyController', ['$scope', '$rootScope',
       /*console.log($rootScope.meta.url);*/
       if (vm.roleData) { //TODO:remove? 
         Pub.getAppPrj(vm.roleData.projectID).then(function(data) {
+          console.log(data)
           vm.project = data.data.project.project;
-          vm.roles = data.data.project.roles;
-          console.log(roles)
+          vm.roles =  data.data.project.roles;
+          console.log(vm.roles)
+          console.log(vm.project)
           if (vm.project) {
             $rootScope.meta = Meta.prjMeta(vm.project);
             /*vm.prjData = vm.project;*/

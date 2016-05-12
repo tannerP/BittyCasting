@@ -100,10 +100,10 @@ angular.module('userService', [])
 	var pubFactory = {};
 	
 	pubFactory.getAppRole = function(id)	{
-		return $http.get('applicationRole/' + id);
+		return $http.get('public/role/' + id);
 	}
 	pubFactory.getAppPrj = function(id)	{
-		return $http.get('applicationPrj/' + id);
+		return $http.get('public/project/' + id);
 	}
 	return pubFactory;
 })
