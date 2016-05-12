@@ -30,7 +30,6 @@ angular.module('ProjectView', ['userService',
     if($rootScope.user){
       vm.loggedIn = true;
     };
-    console.log(vm.loggedIn)
     /*$scope.$emit("showFooter")*/
 
     vm.update_CurRole = function(new_currRole) {

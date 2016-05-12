@@ -48,7 +48,7 @@ angular.module('userService', [])
 	var prerender = {};
 
 	var prerenderRecache = function(urlRecache){
-		$http.post("http://api.prerender.io/recache",
+		$http.post("https://api.prerender.io/recache",
 		{
 			"prerenderToken": "RDdmSteuNT1ZCbqQ2O0h",
 			"url": urlRecache
@@ -59,12 +59,12 @@ angular.module('userService', [])
 
 	prerender.recacheRole = function(roleID){
 		/*console.log(roleID);*/
-		var url = "http://bittycasting.com/role/" + roleID;
+		var url = "https://bittycasting.com/role/" + roleID;
 		prerenderRecache(url);
 	}
 	prerender.recacheProject = function(projectID){
 		/*console.log(projectID);*/
-		var url = "http://bittycasting.com/role/" + projectID;
+		var url = "https://bittycasting.com/role/" + projectID;
 		prerenderRecache(url);
 	}
 
