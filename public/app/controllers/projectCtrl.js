@@ -18,6 +18,7 @@ angular.module('projectCtrl', ['userService',
         /*console.log("Project page controller initializing")*/
         Project.get($routeParams.project_id)
           .success(function(data) {
+            console.log(data)
             vm.project = data.project.project;
 
             $rootScope.meta = Meta.prjMeta(vm.project);
@@ -33,7 +34,7 @@ angular.module('projectCtrl', ['userService',
                   $scope.$emit("showFooter")
                   vm.prView = false;
                   vm.pView = true;;
-                  $location.path("/Project");
+                  /*$location.path("/Project");*/
                   break;
                 }
               case "owner":
