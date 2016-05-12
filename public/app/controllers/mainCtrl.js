@@ -67,7 +67,7 @@ angular.module('mainCtrl', ['authService','mgcrea.ngStrap'])
 			 vm.publicVw = false;
 			 vm.footer = false;
 			}
-			if(vm.loggedIn && !$rootScope.user){
+			if(vm.loggedIn && !vm.usrInitial){
 				Auth.getUser()
 						.then(function(data) {
 							if(data){
@@ -175,8 +175,8 @@ controller('loginCtrl',['$scope','Auth','$location','$route',
 						//conditional for /login vs aside
 						if($location.path() =='/login') $location.path('/home');
 						else{
-							$location.path('/home');}
-							$scope.$toggle();
+							$location.path('/home');
+								$scope.$toggle();
 						//this.user = 'name:unchanged';
 						/*Auth.getUser()
 							.then(function(data) {
@@ -184,6 +184,7 @@ controller('loginCtrl',['$scope','Auth','$location','$route',
 								$scope.$emit("LoggedIn", data.name);
 							 })*/
 						}
+					}
 					else vm.error = data.message;
 				});
 			};
