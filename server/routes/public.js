@@ -263,13 +263,13 @@ module.exports = function(app, express) {
               favorited:true
           };  
           app.favs.push(reqData);
-          console.log(app.favs)
+          /*console.log(app.favs)*/
         }
         else
         {
-          console.log("toggle favorite")
+          /*console.log("toggle favorite")*/
           app.favs[usrInx].favorited  = !app.favs[usrInx].favorited;
-          console.log(app.favs[usrInx].favorited);
+          /*console.log(app.favs[usrInx].favorited);*/
         }
         /*app.favorited = req.body.favorited;*/
         /*console.log()*/

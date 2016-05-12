@@ -504,7 +504,7 @@ module.exports = function(app, express) {
 		.get(function(req, res) {
 			User.findById(req.decoded.id, function(err, user) {
 				if (err) res.send(err);
-				console.log(user)
+				/*console.log(user)*/
 				if(!user || !user._id){
 					return res.status(403).send({
 						success: false,
