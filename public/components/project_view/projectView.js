@@ -26,7 +26,10 @@ angular.module('ProjectView', ['userService',
     $location, $routeParams, $scope,
     $rootScope, $aside, $route, $timeout) {
     var vm = this;
-    vm.loggedIn = $rootScope.loggedIn;
+    vm.loggedIn = false;
+    if($rootScope.user){
+      vm.loggedIn = true;
+    };
     console.log(vm.loggedIn)
     /*$scope.$emit("showFooter")*/
 

@@ -15,7 +15,6 @@ angular.module('mainCtrl', ['authService','mgcrea.ngStrap'])
 		vm.navCollapsed = true;
 
 		vm.loggedIn = Auth.isLoggedIn();
-		$rootScope.loggedIn = Auth.isLoggedIn(),
 		
 		vm.founder = (function(){
 						if ($rootScope.user.role === "founder") return true;
@@ -68,17 +67,16 @@ angular.module('mainCtrl', ['authService','mgcrea.ngStrap'])
 			 vm.publicVw = false;
 			 vm.footer = false;
 			}
-			if(vm.loggedIn && !vm.name){
+			if(vm.loggedIn && !$rootScope.user){
 				Auth.getUser()
 						.then(function(data) {
 							if(data){
-								console.log(data)
+								/*console.log(data)*/
 								data = data.data;
 								if(!data){
 									AuthToken.setToken();
-									console.log("NO USER GROUND")
-								}
-
+									console.log("NO USER found")
+								}else{
 								vm.usrInitial = data.name.first[0] + data.name.last[0];
 								if(data.role.indexOf("founder") != -1){vm.admin = true;}
 								else vm.admin = false;
@@ -89,6 +87,7 @@ angular.module('mainCtrl', ['authService','mgcrea.ngStrap'])
 																	_id:data._id,
 								}
 							}
+						}
 						})
 			}
 		})
