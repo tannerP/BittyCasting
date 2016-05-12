@@ -53,7 +53,7 @@ angular.module('userService', [])
 			"prerenderToken": "RDdmSteuNT1ZCbqQ2O0h",
 			"url": urlRecache
 		}).then(function(response){
-				console.log(response)
+				/*console.log(response)*/
 			});
 	}
 
