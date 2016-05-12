@@ -29,10 +29,10 @@ angular.module('projectCtrl', ['userService',
             switch (data.client) {
               case "public":
                 {
-                  /*$scope.$emit("hideNav")
+                  $scope.$emit("hideNav")
                   $scope.$emit("showFooter")
                   vm.prView = false;
-                  vm.pView = true;;*/
+                  vm.pView = true;;
                   $location.path("/Project");
                   break;
                 }
