@@ -30,11 +30,11 @@ angular.module('projectCtrl', ['userService',
             switch (data.client) {
               case "public":
                 {
-                  $scope.$emit("hideNav")
+                  /*$scope.$emit("hideNav")
                   $scope.$emit("showFooter")
                   vm.prView = false;
-                  vm.pView = true;;
-                  /*$location.path("/Project");*/
+                  vm.pView = true;;*/
+                  $location.path("/Apply/Project/"+$routeParams.project_id);
                   break;
                 }
               case "owner":
@@ -154,6 +154,12 @@ angular.module('projectCtrl', ['userService',
           show: false,
           type: 'success'
         });
+
+      var previewLink = "/Apply/Project/" + $scope.project._id;
+      $scope.preview = function() {
+        $scope.$toggle();
+        $location.path(previewLink)
+      }
 
       $scope.success = function() {
         $scope.toggle = true;

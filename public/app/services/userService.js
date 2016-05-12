@@ -176,7 +176,7 @@ angular.module('userService', [])
 		return $http.put('/api/role/' + id, roleData);
 	}
 	roleFactory.get = function(role_id)	{
-		return $http.get('api/role/' + role_id);
+		return $http.get('public/role/' + role_id);
 	}
 	roleFactory.delete  = function(id)	{
 		return $http.delete('/api/role/' + id);
