@@ -1,9 +1,7 @@
 
   <div class="container paddingBottom60"
-        flow-init="{target: '/upload', singleFile: true}"
-      flow-file-added="projectAside.prepImg( $file, $event, $flow )"
-      flow-files-submitted="$flow.upload()"
-      flow-file-success="$file.msg = $message">
+      flow-init="{target: '/upload', singleFile: false}"
+      flow-file-added="page.prepImg( $file, $event, $flow)">
   <div class="pageHeader">
   <div class="custom-back" ng-click="page.back()" style="z-index: 4;"></div>
     <div class='pageTitle'>Add Applicants</div>
@@ -11,24 +9,20 @@
     <div class="utlBar">
       <div class="sort"></div>
     </div>
-    <table>
-    <tr ng-repeat="file in $flow.files">
-        <td>{{$index+1}}</td>
-        <td>{{file.name}}</td>
-        <td>{{file.msg}}</td>
-    </tr>
-  </table>
-  <div>{{$flow.files.length}}</div>
-  <div ng-repeat=" file in $flow.files">{{file}}</div>
+  <!-- <div ng-repeat=" file in $flow.files">{{file}}</div> -->
+  <!-- <div>{{$flow.files.length}}</div> -->
+
   <div class="custom-table table-responsive">
     <table class="table table-hover table-applicants">
       <thead>
       <tr>
         <th>First name</th>  
         <th>Last name</th>
+        <th>Email</th>
         <th>Gender</th>
         <th>Age</th>
         <th>Requirements</th>
+        <th></th>
         <th>Comment</th>
         <th></th>
       </tr>
@@ -39,27 +33,53 @@
       <tr>
       <td>
            <input type="text" class="custom-form"
-       ng-model="roleAside.roleData.name" Required >
+       ng-model="page.newData.name.first" Required >
       </td>
       <td> <input type="text" class="custom-form"
-       ng-model="roleAside.roleData.name" Required ></td>
-        <td>Male</td>
+       ng-model="page.newData.name.last" Required ></td>
+        <td> <input type="text" class="custom-form"
+       ng-model="page.newData.name.last" Required ></td>
+        <td><div class="custom-dropdown" uib-dropdown is-open="false">
+                <span type="text" class="custom-form" uib-dropdown-toggle ng-disabled="disabled">
+                  {{page.newData.gender || "Gender"}}</span>
+                <ul uib-dropdown-menu role="menu" aria-labelledby="single-button">
+                  <li role="menuitem"><a href="#" ng-click="page.newData.gender = 'Female'">Female</a></li>
+                  <li role="menuitem"><a href="#" ng-click="page.newData.gender = 'Male'">Male</a></li>
+                </ul>
+              </div> </td>
       <td> <input type="text" class="custom-form"
-       ng-model="roleAside.roleData.name" Required></td>
+       ng-model="page.newData.age" Required></td>
       <td>
-      <div ng-repeat="rq in page.role.requirements">
-        <label>{{rq.name}}</label>
+      <div ng-repeat="rq in page.role.requirements" ng-click="page.newRqmnt(rq.name)"><span flow-btn>Upload {{rq.name}} / </span>
+      <span>Add Link</span>
+        
         <br>
-        <div>
-        <span flow-btn>Upload_File</span>
+        
+      </div>
+      <td>
+         <table>
+            <tr ng-repeat="file in $flow.files">
+                <td>{{file.file}}</td>
+                <td>{{file.data}}</td>
+                <td><img   style="width:116px; height:80px;" flow-img="file"/></td>
+            </tr>
+          </table>
       </td>
       <td>
        <textarea type="text" class="custom-form"
-       ng-model="roleAside.roleData.name" Required></textarea></td>
-      <td ng-click="roleAside.removeReqt($index)">
+       ng-model="page.newData.message" Required></textarea></td>
+      <td ng-click="page.removeReqt($index)">
         <img src="/assets/imgs/ic_trash.svg" width="16px" height="16px">
       </td>
       </tr>
   </tbody>
   </table>
 </div>
+<button type="submit" class="custom-btn-primary" ng-click="page" ng-disabled="page.processing">
+        Another one
+</button>
+<br>
+<button type="submit" class="custom-btn-primary-large" ng-click="page.submit()" ng-disabled="page.processing">
+        Save
+</button>
+

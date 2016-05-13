@@ -2,49 +2,6 @@ angular.module('roleCtrl', ['userService',
   'mgcrea.ngStrap'
 ])
 
-.controller('AddApplicantController',
-  function(Applicant, Role, $location, $routeParams, $rootScope,
-    $scope, $aside, $routeParams, $location, $route, $window) {
-    var vm = this;
-    vm.processing = true;
-    vm.back = function() {
-      $window.history.back();
-    }
-    Role.get($routeParams.role_id)
-      .success(function(data) {
-        console.log(data)
-        vm.processing = false;
-        vm.role = data.data;
-        var now = new Date()
-        var endDate = new Date(data.data.end_date);
-        var timeDiff = endDate - now;
-        var left = Math.ceil(timeDiff / (1000 * 3600 * 24));
-        //calculate 
-        if (left < 8) { //only alert when 7 days left
-          /*if (left > 0) { //larger than 0
-          }*/
-          if (left > 1) {
-            vm.remaining = left + " days left";
-            vm.prjClosed;
-            return;
-          } else if (left === 1) {
-            vm.remaining = "Ends today";
-            vm.prjClosed;
-            return;
-          } else if (left < 0) {
-            vm.remaining = "";
-            vm.prjClosed = "(Closed)";
-          } else {
-            vm.prjClosed = "";
-            vm.remaining = "";
-          }
-        }
-      })
-      .error(function(error) {
-        console.log(error);
-      })
-  })
-
 .controller('RolePageController',
   function(Applicant, Role, $location, $routeParams, $rootScope,
     $scope, $aside, $routeParams, $location, $route, $window) {

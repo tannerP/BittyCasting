@@ -191,8 +191,8 @@ module.exports = function(app, express) {
         }
       }
       if (req.body.roleIDs) {
-        for (link in req.body.roleIDs) {
-          applicant.roleIDs.push(req.body.roleIDs[link]);
+        for (id in req.body.roleIDs) {
+          applicant.roleIDs.push(req.body.roleIDs[id]);
         }
       }
       /*applicant.roleIDs = req.body.roleIDs;*/
