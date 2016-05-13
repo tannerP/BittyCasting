@@ -183,9 +183,9 @@ angular.module('ProjectView', ['userService',
 .directive('prpublicview',
   function(Role, Project, $location, $routeParams, $aside, $route) {
     var controller = ['$scope', 'Role', 'Project', "$location",
-      '$routeParams', '$aside', '$route',
+      '$routeParams', '$aside', '$route','$window',
       function($scope, Role, Project, $location, $routeParams,
-        $aside, $route) {
+        $aside, $route, $window) {
         var vm = this;
         vm.processing = true;
         vm.project = vm.project;
@@ -272,9 +272,9 @@ angular.module('ProjectView', ['userService',
         vm.getRoleBtn = function(id) {
           $location.path("/role/" + id)
         }
-        /*vm.back = function() {
+        vm.back = function() {
           $window.history.back();
-        }*/
+        }
 
         vm.load = function() {
             Project.get($routeParams.project_id)
