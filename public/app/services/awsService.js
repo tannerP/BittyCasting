@@ -10,6 +10,9 @@ angular.module('awsService', [])
 
     aws.uploadS3 = function(data, appID, bucket) {
     //Note: ID is undefine.
+    console.log(data)
+    console.log(appID)
+    console.log(bucket)
     var uploadFiles = data;
     updateID = appID;
     //remove empty files
@@ -19,6 +22,8 @@ angular.module('awsService', [])
       /*var  i = 1; //temp fix for loop above*/
       numFiles++;
       var file = uploadFiles[i].file;
+      console.log(file)
+      console.log(uploadFiles[i].requirement)
       /*file.progress = parseInt(0);*/
       if (file)
         (function(file, i) {
@@ -47,6 +52,7 @@ angular.module('awsService', [])
               });
               upload[i]
                 .then(function(response) {
+                  console.log(response)
                   file.progress = parseInt(100);
                   /*console.log(response);*/
                   if (response.status === 201) {

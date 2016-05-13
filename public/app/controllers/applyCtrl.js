@@ -1,8 +1,9 @@
 angular.module('applyCtrl', ['userService', 'mgcrea.ngStrap'])
   .controller('AddApplicantController',
     function(Applicant, Auth, Role, $location, $routeParams, $rootScope,
-      $scope, $aside, $routeParams, $location, $route, $window) {
+      $scope, $aside, $routeParams, $location, $route, $window, $timeout, AWS) {
       var vm = this;
+      vm.processing = false;
       //send public user to login page.
       vm.loggedIn = Auth.isLoggedIn();
       if (!vm.loggedIn) {
@@ -10,7 +11,7 @@ angular.module('applyCtrl', ['userService', 'mgcrea.ngStrap'])
       }
 
       vm.newData = {};
-      vm.processing = true;
+
       var requirement = "";
       vm.files = [];
       vm.newData.name = {};
@@ -20,8 +21,11 @@ angular.module('applyCtrl', ['userService', 'mgcrea.ngStrap'])
         vm.newData.gender = "",
         vm.newData.email = "",
         vm.newData.message = "",
+        vm.newData.roleIDs = [],
+        vm.newData.links = [],
 
-        Role.get($routeParams.role_id)
+        vm.processing = true;
+      Role.get($routeParams.role_id)
         .success(function(data) {
           vm.processing = false;
           vm.role = data.data;
@@ -55,6 +59,18 @@ angular.module('applyCtrl', ['userService', 'mgcrea.ngStrap'])
       vm.back = function() {
         $window.history.back();
       }
+
+      vm.addLink = function(link){
+        var temp = {};
+        temp.source = link;
+        temp.name = requirement;
+        if(temp){
+         vm.newData.links.push(temp)        
+        }
+        /*console.log(link)*/
+        console.log(vm.newData.links)
+        vm.newLink = ""
+      }
       vm.prepImg = function($file, $event, $flow) {
         console.log($flow)
         console.log($event)
@@ -75,28 +91,31 @@ angular.module('applyCtrl', ['userService', 'mgcrea.ngStrap'])
 
       vm.submit = function() {
         vm.processing = true;
-        console.log(vm.newData)
-        Applicant.apply(vm.appData)
+        vm.newData.roleIDs.push(vm.role._id)
+        Applicant.apply(vm.newData)
           .then(function(resp) {
-            vm.processing = true;
             vm.applicantID = resp.data.appID;
-            if (vm.files.length == 0) {
+            if (vm.files.length == 0 || !vm.applicantID) {
               $timeout(function() {
                 vm.processing = false;
+                $window.history.back();
+                return;
               }, 1500)
-
             } else {
               AWS.uploadS3(vm.files,
                 vm.applicantID, $rootScope.awsConfig.bucket);
-              //broacast from AWS
-              $timeout(function() {
-                vm.processing = false;
-                $location.path('/Thankyou');
-              }, 1500)
+              $rootScope.$on("app-media-submitted",
+                function() {
+                  $timeout(function() {
+                    vm.processing = false;
+                    $window.history.back();
+                    return;
+                  }, 1500)
+                })
             }
-            /*}*/
+            vm.newData = {}
+            vm.files = null;
           })
-        vm.newData = {}
       }
     })
 
@@ -237,6 +256,7 @@ angular.module('applyCtrl', ['userService', 'mgcrea.ngStrap'])
             $timeout(function() {
               vm.processing = false;
               $location.path('/Thankyou');
+              return;
             }, 1500)
 
           } else {
@@ -248,6 +268,7 @@ angular.module('applyCtrl', ['userService', 'mgcrea.ngStrap'])
                 $timeout(function() {
                   vm.processing = false;
                   $location.path('/Thankyou');
+                  return;
                 }, 1500)
               })
           }
@@ -318,8 +339,6 @@ angular.module('applyCtrl', ['userService', 'mgcrea.ngStrap'])
 
     vm.addLink = function(index, name) {
       var link = {};
-      console.log(index)
-      console.log(name)
       link.name = name;
       link.source = vm.newLinks[index];
       if (link.source.indexOf('.') > -1) {

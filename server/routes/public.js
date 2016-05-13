@@ -87,7 +87,7 @@ module.exports = function(app, express) {
         return res.json({
           success: true,
           client: client,
-          data:role,
+          data: role,
         });
       }
     })
@@ -161,17 +161,17 @@ module.exports = function(app, express) {
         if (req.body.name.last) {
           applicant.name.last = req.body.name.last;
         }
-      } else res.json({
-        success: false,
-        message: "Error: No user name"
-      })
-
-      //check for Role ID
-      /*if (req.body.roleID) applicant.roleID = req.body.roleID;
-      else res.json({
-        success: false,
-        message: "Error: No user name"
-      })*/
+      }
+      if (!req.body.roleIDs) {
+        return res.json({
+          success: false,
+          error: "No roleIDs"
+        })
+      } else {
+        for (id in req.body.roleIDs) {
+          applicant.roleIDs.push(req.body.roleIDs[id]);
+        }
+      }
 
       if (req.body.email) {
         applicant.email = req.body.email;
@@ -190,12 +190,9 @@ module.exports = function(app, express) {
           applicant.links.push(req.body.links[link]);
         }
       }
-      if (req.body.roleIDs) {
-        for (id in req.body.roleIDs) {
-          applicant.roleIDs.push(req.body.roleIDs[id]);
-        }
+      if (req.decoded.id) {
+        applicant.createID = req.decoded.id;
       }
-      /*applicant.roleIDs = req.body.roleIDs;*/
 
       applicant.save(function(err) {
         if (err) {
@@ -204,17 +201,44 @@ module.exports = function(app, express) {
             error: err
           })
         } else {
-          if (req.body.roleIDs) {
+          if (req.body.roleIDs && req.body.roleIDs[0]) {
             for (link in req.body.roleIDs) {
-              Role.findById(req.body.roleIDs[link], function(err, role) {
-                if (!err) {
-                  /*++role.new_apps;*/
-                  ++role.total_apps;
+              var roleID = req.body.roleIDs[link];
+              Role.findById( roleID, function(err, role) {
+                Applicant.find({
+                  $or: [{
+                    'roleID': roleID
+                  }, {
+                    'roleIDs': {
+                      $in: [roleID]
+                    }
+                  }]
+                }, function(err, apps) {
+                  /*console.log(role.total_apps);*/
+                  role.total_apps = apps.length;
+                  /*role.total_apps = count;*/
                   role.save(function(err, data) {});
-                }
+                  return;
+                })
               })
-            }
-          }
+              /*Role.findById(req.body.roleIDs[link], function(err, role) {
+                if (!err) {
+                  Applicant.count({
+                    'roleID': role._id
+                  }, function(err, count) {
+                    if (err) {
+                      res.send(err);
+                      console.log(err);
+                    } else {
+                      role.total_apps = count;
+                      console.log(role.total_apps);
+                      role.save(function(err, data) {});
+                      return
+                    }
+                  })
+                }
+              })*/
+            }}
           return res.json({
             success: true,
             appID: applicant._id

@@ -13,7 +13,7 @@
   <!-- <div>{{$flow.files.length}}</div> -->
 
   <div class="custom-table table-responsive">
-    <table class="table table-hover table-applicants">
+    <table class="table table-applicants">
       <thead>
       <tr>
         <th>First name</th>  
@@ -22,8 +22,6 @@
         <th>Gender</th>
         <th>Age</th>
         <th>Requirements</th>
-        <th></th>
-        <th>Comment</th>
         <th></th>
       </tr>
       </thead>
@@ -38,7 +36,7 @@
       <td> <input type="text" class="custom-form"
        ng-model="page.newData.name.last" Required ></td>
         <td> <input type="text" class="custom-form"
-       ng-model="page.newData.name.last" Required ></td>
+       ng-model="page.newData.email" Required ></td>
         <td><div class="custom-dropdown" uib-dropdown is-open="false">
                 <span type="text" class="custom-form" uib-dropdown-toggle ng-disabled="disabled">
                   {{page.newData.gender || "Gender"}}</span>
@@ -48,36 +46,57 @@
                 </ul>
               </div> </td>
       <td> <input type="text" class="custom-form"
-       ng-model="page.newData.age" Required></td>
+       ng-model="page.newData.age" Required>
+       </td>
       <td>
-      <div ng-repeat="rq in page.role.requirements" ng-click="page.newRqmnt(rq.name)"><span flow-btn>Upload {{rq.name}} / </span>
-      <span>Add Link</span>
+      <div ng-repeat="rq in page.role.requirements" ng-click="page.newRqmnt(rq.name)">
         
-        <br>
-        
+        <!-- <div ng-show="!page.adding"> -->
+        <div class="btn btn-primary" flow-btn>{{rq.name}}</div>
+        <br><br>
+
+        <!-- <a href="#" ng-click="page.addLink(rq.name)">Add Link</a> -->
+        <br><br>
+        <!-- </div> -->
+        <!-- <div ng-show="page.adding">
+        <input ng-model="page.newLink" placeholder="http://"></div>
+        </div> -->
+      
       </div>
-      <td>
-         <table>
-            <tr ng-repeat="file in $flow.files">
-                <td>{{file.file}}</td>
-                <td>{{file.data}}</td>
-                <td><img   style="width:116px; height:80px;" flow-img="file"/></td>
-            </tr>
-          </table>
-      </td>
-      <td>
-       <textarea type="text" class="custom-form"
-       ng-model="page.newData.message" Required></textarea></td>
+      
+      <td></td>
+      
       <td ng-click="page.removeReqt($index)">
         <img src="/assets/imgs/ic_trash.svg" width="16px" height="16px">
       </td>
       </tr>
+      <tr>
   </tbody>
   </table>
+  <table>
+    <tr ng-repeat="file in $flow.files">
+        <td><img   style="width:116px; height:80px;" flow-img="file"/></td>
+    </tr>
+  </table>
+  <textarea type="text"  width="140"rows="4"
+       ng-model="page.newData.message" Required>
+  </textarea>
+  <ul>
+    <li ng-repeat = "link in page.newData.links">
+      <span ng-if="link">{{link.source}}</span>
+    </li>
+  </ul>
+
+  <input ng-model="page.newLink" placeholder="http://">
+  <img src="/assets/imgs/ic_plus.svg" width="16px" height="16px" ng-click="page.addLink(page.newLink)">
 </div>
-<button type="submit" class="custom-btn-primary" ng-click="page" ng-disabled="page.processing">
+<div ng-show="page.processing" class="custom-loader">
+  <img style ="height:90px; width:auto" ng-src='/assets/imgs/spin.gif'>
+</div>   
+
+<!-- <button type="submit" class="custom-btn-primary" ng-click="page" ng-disabled="page.processing">
         Another one
-</button>
+</button> -->
 <br>
 <button type="submit" class="custom-btn-primary-large" ng-click="page.submit()" ng-disabled="page.processing">
         Save

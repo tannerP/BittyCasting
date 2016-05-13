@@ -157,7 +157,7 @@ controller('signupCtrl', function(User,$scope,$location)	{
 				});
 }}).
 controller('loginCtrl',['$scope','Auth','$location','$route',
-	function($scope,Auth,$location,$route){
+	function($scope, Auth, $location, $route){
 			var vm = this;
 			vm.message;
 			vm.loginData = {};
