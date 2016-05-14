@@ -3,18 +3,19 @@ angular.module('applyCtrl', ['userService', 'mgcrea.ngStrap'])
     function(Applicant, Auth, Role, $location, $routeParams, $rootScope,
       $scope, $aside, $routeParams, $location, $route, $window, $timeout, AWS) {
       var vm = this;
+      var requirement = "";
       vm.processing = false;
+      vm.applicants = [];
       //send public user to login page.
       vm.loggedIn = Auth.isLoggedIn();
       if (!vm.loggedIn) {
         $location.path("/login")
       }
-
-      vm.newData = {};
-
-      var requirement = "";
       vm.files = [];
+      vm.newData = {};
+      vm.newData.files = [];
       vm.newData.name = {};
+      vm.newData.files = {};
       vm.newData.name.first = "",
         vm.newData.name.last = "",
         vm.newData.age = "",
@@ -55,6 +56,23 @@ angular.module('applyCtrl', ['userService', 'mgcrea.ngStrap'])
         .error(function(error) {
           console.log(error);
         })
+      
+      vm.anotherApp = function(){
+        vm.processing = true;
+        var name = vm.newData.name;
+
+        if(name.first != ""  && name.last != "" ){
+          vm.newData.files = vm.files;
+          vm.newData.roleIDs.push(vm.role._id)
+          vm.applicants.push(vm.newData)
+
+         vm.files = [];
+         vm.newData = {};
+         vm.newData.roleIDs = [];
+        }
+
+        vm.processing = false; return;
+      }
 
       vm.back = function() {
         $window.history.back();
@@ -72,16 +90,10 @@ angular.module('applyCtrl', ['userService', 'mgcrea.ngStrap'])
         vm.newLink = ""
       }
       vm.prepImg = function($file, $event, $flow) {
-        console.log($flow)
-        console.log($event)
-        console.log($file)
         var temp = {};
         temp.file = $file.file;
         temp.requirement = requirement;
-
-        console.log(temp);
         vm.files.push(temp)
-        console.log(vm.files);
         temp = "";
       }
 
@@ -91,32 +103,60 @@ angular.module('applyCtrl', ['userService', 'mgcrea.ngStrap'])
 
       vm.submit = function() {
         vm.processing = true;
-        vm.newData.roleIDs.push(vm.role._id)
-        Applicant.apply(vm.newData)
+
+
+        console.log(vm.applicants)
+        console.log(vm.applicants.length)
+
+        var numDoneApp = 0;
+        
+        for(var i in vm.applicants){  
+        var data = vm.applicants[i];
+        var uploadFiles = data.files
+        /*    data.files = null;*/
+        
+        console.log(data)
+        console.log(uploadFiles)
+        vm.ready2UploadFiles = []
+        Applicant.apply(data)
           .then(function(resp) {
-            vm.applicantID = resp.data.appID;
-            if (vm.files.length == 0 || !vm.applicantID) {
-              $timeout(function() {
-                vm.processing = false;
-                $window.history.back();
-                return;
-              }, 1500)
-            } else {
-              AWS.uploadS3(vm.files,
-                vm.applicantID, $rootScope.awsConfig.bucket);
-              $rootScope.$on("app-media-submitted",
-                function() {
-                  $timeout(function() {
-                    vm.processing = false;
-                    $window.history.back();
-                    return;
-                  }, 1500)
-                })
+             var applicantID = resp.data.appID;
+            if (uploadFiles.length == 0) {
+                var temp;
+                    temp.files = uploadFiles;
+                    temp.appID = applicantID;
+                    vm.ready2UploadFiles.push(temp);
             }
-            vm.newData = {}
-            vm.files = null;
           })
+          console.log(vm.ready2UploadFiles);
+
+
+
+/*             else {
+                if(applicantID && uploadFiles.length > 0){
+                  AWS.uploadS3(uploadFiles,
+                    applicantID);
+                  $rootScope.$on("app-media-submitted",
+                    function() {
+                      $timeout(function() {
+                        vm.processing = false;
+                        numDoneApp++;
+                        return;
+                      }, 1500)
+                    })
+                }
+              }
+            if( numDoneApp === vm.applicants.length){
+              vm.newData = {}
+              vm.files = null;
+            }
+          })
+*/
+
       }
+    }
+
+
     })
 
 .controller('ApplicantProjectController', ['$scope', '$rootScope',
@@ -129,11 +169,8 @@ angular.module('applyCtrl', ['userService', 'mgcrea.ngStrap'])
     vm.appData = {}
 
     Pub.getAppPrj($routeParams.id).then(function(data) {
-      console.log(data)
       vm.project = data.data.project.project;
       vm.roles = data.data.project.roles;
-      console.log(vm.roles)
-      console.log(vm.project)
       if (vm.project) {
         $rootScope.meta = Meta.prjMeta(vm.project);
         /*vm.prjData = vm.project;*/
@@ -226,6 +263,8 @@ angular.module('applyCtrl', ['userService', 'mgcrea.ngStrap'])
 
     vm.processing = false;
     vm.submit = function() {
+
+
       if (vm.appData.roleIDs.length < 1) {
         vm.message = "Please select a role to submit."
         return;

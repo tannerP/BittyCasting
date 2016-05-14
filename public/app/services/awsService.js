@@ -6,15 +6,15 @@ angular.module('awsService', [])
 .factory('AWS', function($http, Applicant, Upload, $rootScope, $q) {
   var aws = [];
   var upload = [];
-  var updateID; //has to be global function
 
-    aws.uploadS3 = function(data, appID, bucket) {
+    aws.uploadS3 = function(data,appID) {
     //Note: ID is undefine.
     console.log(data)
     console.log(appID)
-    console.log(bucket)
+    
     var uploadFiles = data;
-    updateID = appID;
+     var bucket = $rootScope.awsConfig.bucket
+    var updateID = appID;
     //remove empty files
     var numFiles = 0;
     var numFilesDone = 0;
