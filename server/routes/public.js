@@ -68,10 +68,26 @@ module.exports = function(app, express) {
   app.get('/public/role/:role_id', function(req, res) {
     //find role data, then find project data before returning result
     Role.findById(req.params.role_id, function(err, role) {
-      if (!err) {
-        res.json({
+      if (err) {
+        return res.json({
+          success: false,
+          error: err
+        });
+      } else {
+        var checkClientship = function(role, decoded) {
+          if (!decoded) return "public";
+          else {
+            //check if requester is owner
+            if (role.userID === decoded.id) {
+              return "owner"
+            }
+          }
+        }
+        var client = checkClientship(role, req.decoded);
+        return res.json({
           success: true,
-          Application: role
+          client: client,
+          data: role,
         });
       }
     })
@@ -95,7 +111,7 @@ module.exports = function(app, express) {
           }
           //make sure there's a short_link
         if (!proj.short_url) {
-          var URL = config.baseURL + "/project/";
+          var URL = config.baseURL + "/Apply/Project/";
           bitly.shortenProjectURL(URL + proj._id, proj._id,
             function(data) {});
         }
@@ -136,77 +152,101 @@ module.exports = function(app, express) {
   });
 
   app.post('/applicant', function(req, res) {
-    var applicant = new Applicant();
-    //check for correct name;
-    if (req.body.name) {
-      if (req.body.name.first) {
-        applicant.name.first = req.body.name.first;
+      var applicant = new Applicant();
+      //check for correct name;
+      if (req.body.name) {
+        if (req.body.name.first) {
+          applicant.name.first = req.body.name.first;
+        }
+        if (req.body.name.last) {
+          applicant.name.last = req.body.name.last;
+        }
       }
-      if (req.body.name.last) {
-        applicant.name.last = req.body.name.last;
-      }
-    } else res.json({
-      success: false,
-      message: "Error: No user name"
-    })
-
-    //check for Role ID
-    /*if (req.body.roleID) applicant.roleID = req.body.roleID;
-    else res.json({
-      success: false,
-      message: "Error: No user name"
-    })*/
-
-    if (req.body.email) {
-      applicant.email = req.body.email;
-    }
-    if (req.body.phone) {
-      applicant.phone = req.body.phone;
-    }
-    if (req.body.gender) {
-      applicant.gender = req.body.gender;
-    }
-    if (req.body.message) {
-      applicant.message = req.body.message;
-    }
-    if (req.body.links) {
-      for (link in req.body.links) {
-        applicant.links.push(req.body.links[link]);
-      }
-    }
-    if (req.body.roleIDs) {
-      for (link in req.body.roleIDs) {
-        applicant.roleIDs.push(req.body.roleIDs[link]);
-      }
-    }
-    /*applicant.roleIDs = req.body.roleIDs;*/
-
-    applicant.save(function(err) {
-      if (err) {
+      if (!req.body.roleIDs) {
         return res.json({
           success: false,
-          error: err
+          error: "No roleIDs"
         })
       } else {
-        if (req.body.roleIDs) {
-          for (link in req.body.roleIDs) {
-            Role.findById(req.body.roleIDs[link], function(err, role) {
-              if (!err) {
-                /*++role.new_apps;*/
-                ++role.total_apps;
-                role.save(function(err, data) {});
-              }
-            })
-          }
+        for (id in req.body.roleIDs) {
+          applicant.roleIDs.push(req.body.roleIDs[id]);
         }
-        return res.json({
-          success: true,
-          appID: applicant._id
-        })
       }
+
+      if (req.body.email) {
+        applicant.email = req.body.email;
+      }
+      if (req.body.phone) {
+        applicant.phone = req.body.phone;
+      }
+      if (req.body.gender) {
+        applicant.gender = req.body.gender;
+      }
+      if (req.body.message) {
+        applicant.message = req.body.message;
+      }
+      if (req.body.links) {
+        for (link in req.body.links) {
+          applicant.links.push(req.body.links[link]);
+        }
+      }
+      if (req.decoded.id) {
+        applicant.createID = req.decoded.id;
+      }
+
+      applicant.save(function(err) {
+        if (err) {
+          return res.json({
+            success: false,
+            error: err
+          })
+        } else {
+          if (req.body.roleIDs && req.body.roleIDs[0]) {
+            for (link in req.body.roleIDs) {
+              var roleID = req.body.roleIDs[link];
+              Role.findById( roleID, function(err, role) {
+                Applicant.find({
+                  $or: [{
+                    'roleID': roleID
+                  }, {
+                    'roleIDs': {
+                      $in: [roleID]
+                    }
+                  }]
+                }, function(err, apps) {
+                  /*console.log(role.total_apps);*/
+                  role.total_apps = apps.length;
+                  /*role.total_apps = count;*/
+                  role.save(function(err, data) {});
+                  return;
+                })
+              })
+              /*Role.findById(req.body.roleIDs[link], function(err, role) {
+                if (!err) {
+                  Applicant.count({
+                    'roleID': role._id
+                  }, function(err, count) {
+                    if (err) {
+                      res.send(err);
+                      console.log(err);
+                    } else {
+                      role.total_apps = count;
+                      console.log(role.total_apps);
+                      role.save(function(err, data) {});
+                      return
+                    }
+                  })
+                }
+              })*/
+            }}
+          return res.json({
+            success: true,
+            appID: applicant._id
+          })
+        }
+      })
+
     })
-    
-  })
     //route for adding new requirement. 
   app.put('/app/:app_id', function(req, res) {
     if (req.body.status === "new") {
@@ -231,44 +271,42 @@ module.exports = function(app, express) {
           });
         })
       });
-  //TODO: move to /api
+      //TODO: move to /api
     } else if (req.body.status = "fav") {
       //role favoriting for. 
       Applicant.findById(req.params.app_id, function(err, app) {
-         /*= req.body.favorited;*/
+        /*= req.body.favorited;*/
 
         /*console.log(tempFav);*/
         var usrInx = -1;
         // console.log(app.favs)
         //check if user ever favorited applicant for this role
-        for(var i in app.favs){
+        for (var i in app.favs) {
           var curr = {};
-              curr.roleID = app.favs[i].roleID,
-              curr.userID = app.favs[i].userID;
+          curr.roleID = app.favs[i].roleID,
+            curr.userID = app.favs[i].userID;
 
           // if applicant has been favorited for spec. role. 
-          if(curr.userID === req.decoded.id 
-            && curr.roleID === req.body.roleID){
-              usrInx = i;
+          if (curr.userID === req.decoded.id && curr.roleID === req.body.roleID) {
+            usrInx = i;
           }
         }
 
-/*        console.log(usrInx);
-*/        /*var index = app.favs.indexOf(req.decoded.id);*/
-        if(usrInx === -1){
-/*          console.log("adding for the first time");*/
+        /*        console.log(usrInx);
+         */
+        /*var index = app.favs.indexOf(req.decoded.id);*/
+        if (usrInx === -1) {
+          /*          console.log("adding for the first time");*/
           var reqData = {
-              roleID:req.body.roleID,
-              userID:req.decoded.id,
-              favorited:true
-          };  
+            roleID: req.body.roleID,
+            userID: req.decoded.id,
+            favorited: true
+          };
           app.favs.push(reqData);
           /*console.log(app.favs)*/
-        }
-        else
-        {
+        } else {
           /*console.log("toggle favorite")*/
-          app.favs[usrInx].favorited  = !app.favs[usrInx].favorited;
+          app.favs[usrInx].favorited = !app.favs[usrInx].favorited;
           /*console.log(app.favs[usrInx].favorited);*/
         }
         /*app.favorited = req.body.favorited;*/
@@ -298,7 +336,7 @@ module.exports = function(app, express) {
   })
 
   app.put('/suppliment/:app_id', function(req, res) {
-    
+
     Applicant.findById(req.params.app_id, function(err, app) {
       if (err) res.json({
         Error: true,
@@ -343,15 +381,15 @@ module.exports = function(app, express) {
       });
 
       var data = {
-        //Specify email data
-        from: "internal@bittycasting.com",
-        //The email to contact
-        to: "support@bittycasting.com",
-        //Subject and text data  
-        subject: 'New Beta Customer',
-        html: 'Beta Request' + req.params.mail
-      }
-      //Invokes the method to send emails given the above data with the helper library
+          //Specify email data
+          from: "internal@bittycasting.com",
+          //The email to contact
+          to: "support@bittycasting.com",
+          //Subject and text data  
+          subject: 'New Beta Customer',
+          html: 'Beta Request' + req.params.mail
+        }
+        //Invokes the method to send emails given the above data with the helper library
       mailgun.messages().send(data, function(err, body) {
         //If there is an error, render the error page
         if (err) {
@@ -360,9 +398,9 @@ module.exports = function(app, express) {
           //Here "submitted.jade" is the view file for this landing page 
           //We pass the variable "email" from the url parameter in an object rendered by Jade
           /*console.log(body)*/
-            /*res.json(body);*/
-            /*  res.render('submitted', { email : req.params.mail });
-              console.log(body);*/
+          /*res.json(body);*/
+          /*  res.render('submitted', { email : req.params.mail });
+            console.log(body);*/
         }
       })
     })
@@ -390,7 +428,7 @@ module.exports = function(app, express) {
               message: 'Authentication failed. Wrong password.'
             });
           } else {
-            
+
             var token = jwt.sign({
               id: user.id,
               name: user.name,

@@ -45,31 +45,37 @@ angular.module('roleCtrl', ['userService',
 
     Role.get($routeParams.role_id)
       .success(function(data) {
+        if (data.client === "public") {
+          $location.path('Apply/' + $routeParams.role_id)
+        }
         vm.processing = false;
         $scope.roleData = data.data;
-        getApps();
-        var now = new Date()
-        var endDate = new Date(data.data.end_date);
-        var timeDiff = endDate - now;
-        var left = Math.ceil(timeDiff / (1000 * 3600 * 24));
-        //calculate 
-        if (left < 8) { //only alert when 7 days left
-          /*if (left > 0) { //larger than 0
-          }*/
-          if (left > 1) {
-            vm.remaining = left + " days left";
-            vm.prjClosed;
-            return;
-          } else if (left === 1) {
-            vm.remaining = "Ends today";
-            vm.prjClosed;
-            return;
-          } else if (left < 0) {
-            vm.remaining="";
-            vm.prjClosed = "(Closed)";
-          } else{
-            vm.prjClosed = "";
-            vm.remaining = "";
+        if ($scope.roleData) {
+          getApps();
+
+          var now = new Date()
+          var endDate = new Date(data.data.end_date);
+          var timeDiff = endDate - now;
+          var left = Math.ceil(timeDiff / (1000 * 3600 * 24));
+          //calculate 
+          if (left < 8) { //only alert when 7 days left
+            /*if (left > 0) { //larger than 0
+            }*/
+            if (left > 1) {
+              vm.remaining = left + " days left";
+              vm.prjClosed;
+              return;
+            } else if (left === 1) {
+              vm.remaining = "Ends today";
+              vm.prjClosed;
+              return;
+            } else if (left < 0) {
+              vm.remaining = "";
+              vm.prjClosed = "(Closed)";
+            } else {
+              vm.prjClosed = "";
+              vm.remaining = "";
+            }
           }
         }
       })
@@ -154,7 +160,7 @@ angular.module('roleCtrl', ['userService',
       }
     }
 
-    var updateCarosel = function(index){
+    var updateCarosel = function(index) {
       $scope.carouselIndex = 0;
       $scope.slides = [];
       $scope.currIndex = index;
@@ -172,7 +178,7 @@ angular.module('roleCtrl', ['userService',
         $scope.currIndex += 1;
         /*vm.viewBtn($scope.currIndex)*/
         updateCarosel($scope.currIndex);
-      }else{
+      } else {
         $scope.currIndex = 0;
         updateCarosel($scope.currIndex);
       }
@@ -183,8 +189,7 @@ angular.module('roleCtrl', ['userService',
         $scope.currIndex = vm.applicants.length - 1;
         /*vm.viewBtn($scope.currIndex)*/
         updateCarosel($scope.currIndex)
-      }
-      else{
+      } else {
         $scope.currIndex -= 1;
         updateCarosel($scope.currIndex);
       }
@@ -200,8 +205,9 @@ angular.module('roleCtrl', ['userService',
         .success(function() {
           getApps();
           if ($scope.viewApp === true) {
-/*            $scope.$emit("showNav");
-*/            vm.lastApp();
+            /*            $scope.$emit("showNav");
+             */
+            vm.lastApp();
             /*$scope.viewApp = false;*/
           }
           deleteAppAside.hide();
@@ -290,6 +296,11 @@ angular.module('roleCtrl', ['userService',
     vm.editRoleBtn = function() {
       editRoleAside.$promise.then(editRoleAside.toggle);
     }
+
+    $rootScope.$on('$locationChangeStart', function(event, newUrl, oldUrl) {
+      vm.backBtn();
+      event.preventDefault(); // This prevents the navigation from happening
+    });
 
   })
 

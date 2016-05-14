@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var ApplicantSchema = new Schema({
-
+	creatorID:{type:String, default: "applicant"},
 	updated_date: {type:Date, default:Date.now},
 	submission_date:{type:Date, default:Date.now},
 	/*new : [{
@@ -20,7 +20,7 @@ var ApplicantSchema = new Schema({
 	gender : String,
 	email:{
 		type:String,
-		required:true,
+		required:false,
 	},
 	phone:{
 		type:String,
