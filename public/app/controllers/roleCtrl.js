@@ -297,6 +297,11 @@ angular.module('roleCtrl', ['userService',
       editRoleAside.$promise.then(editRoleAside.toggle);
     }
 
+    $rootScope.$on('$locationChangeStart', function(event, newUrl, oldUrl) {
+      vm.backBtn();
+      event.preventDefault(); // This prevents the navigation from happening
+    });
+
   })
 
 .controller('CommentBoxCtrl',
