@@ -196,7 +196,6 @@ angular.module('projectCtrl', ['userService',
             } else {
               $route.reload();
             }
-
             vm.roleData = {};
             $scope.$hide()
           })

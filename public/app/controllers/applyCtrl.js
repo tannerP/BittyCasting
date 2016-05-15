@@ -16,42 +16,42 @@ angular.module('applyCtrl', ['userService', 'mgcrea.ngStrap'])
       vm.newData.files = [];
       vm.newData.name = {};
       vm.newData.files = {};
-      vm.newData.name.first = "",
-        vm.newData.name.last = "",
-        vm.newData.age = "",
-        vm.newData.gender = "",
-        vm.newData.email = "",
-        vm.newData.message = "",
-        vm.newData.roleIDs = [],
-        vm.newData.links = [],
+      vm.newData.name.first = "";
+      vm.newData.name.last = "";
+      vm.newData.age = "";
+      vm.newData.gender = "";
+      vm.newData.email = "";
+      vm.newData.message = "";
+      vm.newData.roleIDs = [];
+      vm.newData.links = [];
 
-        vm.processing = true;
+      vm.processing = true;
       Role.get($routeParams.role_id)
         .success(function(data) {
           vm.processing = false;
           vm.role = data.data;
-          var now = new Date()
-          var endDate = new Date(data.data.end_date);
-          var timeDiff = endDate - now;
-          var left = Math.ceil(timeDiff / (1000 * 3600 * 24));
+          /*  var now = new Date()
+            var endDate = new Date(data.data.end_date);
+            var timeDiff = endDate - now;
+            var left = Math.ceil(timeDiff / (1000 * 3600 * 24));
 
-          if (left < 8) {
-            if (left > 1) {
-              vm.remaining = left + " days left";
-              vm.prjClosed;
-              return;
-            } else if (left === 1) {
-              vm.remaining = "Ends today";
-              vm.prjClosed;
-              return;
-            } else if (left < 0) {
-              vm.remaining = "";
-              vm.prjClosed = "(Closed)";
-            } else {
-              vm.prjClosed = "";
-              vm.remaining = "";
-            }
-          }
+            if (left < 8) {
+              if (left > 1) {
+                vm.remaining = left + " days left";
+                vm.prjClosed;
+                return;
+              } else if (left === 1) {
+                vm.remaining = "Ends today";
+                vm.prjClosed;
+                return;
+              } else if (left < 0) {
+                vm.remaining = "";
+                vm.prjClosed = "(Closed)";
+              } else {
+                vm.prjClosed = "";
+                vm.remaining = "";
+              }
+            }*/
         })
         .error(function(error) {
           console.log(error);
@@ -64,7 +64,7 @@ angular.module('applyCtrl', ['userService', 'mgcrea.ngStrap'])
         if (name && name.first != "" && name.last != "") {
           vm.newData.files = vm.files;
           vm.newData.roleIDs.push(vm.role._id)
-          console.log(vm.newData.links)
+            /*console.log(vm.newData.links)*/
           vm.applicants.push(vm.newData)
 
           vm.files = [];
@@ -111,8 +111,8 @@ angular.module('applyCtrl', ['userService', 'mgcrea.ngStrap'])
         console.log(vm.applicants)
         console.log(vm.applicants.length)
 
-        var counter = 0;
-        var numDone = 0;
+        var uploadCounter = 0;
+        var numUploaded = 0;
         var ready2UploadFiles = [];
         var promises = [];
 
@@ -124,54 +124,63 @@ angular.module('applyCtrl', ['userService', 'mgcrea.ngStrap'])
           if (uploadFiles.length > 0) {
             /*temp.files = uploadFiles;
             temp.appID = resp.data.appID;*/
-            ++counter;
-            console.log("pushing resp. rile uploadFiles");
+            ++uploadCounter;
+            /*console.log("pushing resp. rile uploadFiles");*/
             ready2UploadFiles.push(uploadFiles);
-            console.log(ready2UploadFiles);
+            /*console.log(ready2UploadFiles);
             console.log(ready2UploadFiles.length);
             console.log(vm.applicants.length);
-            console.log(counter);
+            console.log(counter);*/
           }
 
-          console.log(data)
+          /*console.log(data)
           console.log(uploadFiles)
-          console.log(counter)
+          console.log(counter)*/
           Applicant.multiApply(data).then(function(resp) {
 
-            console.log(resp)
+            /*        console.log(resp)*/
             promises.push(resp);
-            console.log("Counter " + counter);
+            /*console.log("Counter " + counter);*/
             /*var applicantID = resp.data.appID;*/
-            if(counter == promises.length){
-            $q.all(promises).then(function(data) {
-              console.log(data)
-              for (var i in data) {
-                console.log(i)
-                console.log(data.length)
-                console.log(data)
+            if (uploadCounter == promises.length) {
+              $q.all(promises).then(function(data) {
+                /*            console.log(data)*/
+                for (var i in data) {
+                  /*  console.log(i)
+                    console.log(data.length)
+                    console.log(data)*/
 
-                var temp = {};
-                temp.appID = data[i].data.appID;
-                temp.files = ready2UploadFiles[i];
+                  var temp = {};
+                  temp.appID = data[i].data.appID;
+                  temp.files = ready2UploadFiles[i];
 
-                AWS.uploadS3(temp);
-                console.log(temp)
-                  /*$rootScope.$on("app-media-submitted",
+                  AWS.uploadS3(temp);
+                  /*                console.log(temp)*/
+                  $rootScope.$on("app-media-submitted",
                     function() {
-                      vm.processing = false;
-                      numDone++;
-                      console.log(numDone)
+                      numUploaded++;
+                      console.log(numUploaded)
+                      console.log(uploadCounter)
+                      if (numUploaded === 2 * uploadCounter) {
+                        $timeout(function() {
+                          vm.processing = false;
+                          console.log("Going back to Cali")
+                          vm.back();
+                          return;
+                        }, 500 * uploadCounter)
+
+                      }
                       return;
-                    })*/
-              }
-            });
-          }
+                    })
+                }
+              });
+            }
             return;
           })
 
-          console.log(vm.applicants.length);
-          console.log(counter);
-          /*   if (vm.applicants.length === counter) {
+          /*console.log(vm.applicants.length);
+          console.log(uploadCounter);*/
+          /*   if (vm.applicants.length === uploadCounter) {
                for (var i in ready2UploadFiles) {
                  console.log(i)
                  console.log(ready2UploadFiles.length)
@@ -457,9 +466,13 @@ angular.module('applyCtrl', ['userService', 'mgcrea.ngStrap'])
                 $rootScope.awsConfig.bucket);
               //broacast from AWS
               $rootScope.$on("app-media-submitted", function() {
-                vm.processing = false;
-                $location.path('/Thankyou');
+                $timeout(function() {
+                  vm.processing = false;
+                  $location.path('/Thankyou');
+                  return;
+                }, 1500)
               })
+
             }
           }
         })

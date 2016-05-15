@@ -9,9 +9,6 @@
     <div class="utlBar">
       <div class="sort"></div>
     </div>
-  <!-- <div ng-repeat=" file in $flow.files">{{file}}</div> -->
-  <!-- <div>{{$flow.files.length}}</div> -->
-
   <div class="custom-table table-responsive">
     <table class="table table-applicants">
       <thead>
@@ -87,18 +84,10 @@
        </td>
       <td>
       <div ng-repeat="rq in page.role.requirements" ng-click="page.newRqmnt(rq.name)">
-
-        
-        <!-- <div ng-show="!page.adding"> -->
         <div class="btn btn-primary" flow-btn>{{rq.name}}</div>
         <br><br>
 
-        <!-- <a href="#" ng-click="page.addLink(rq.name)">Add Link</a> -->
         <br><br>
-        <!-- </div> -->
-        <!-- <div ng-show="page.adding">
-        <input ng-model="page.newLink" placeholder="http://"></div>
-        </div> -->
       
       </div>
       

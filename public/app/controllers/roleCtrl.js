@@ -199,18 +199,23 @@ angular.module('roleCtrl', ['userService',
     $scope.deleteAppBtn = function() {
       Applicant.delete($scope.currApp._id, $scope.roleData._id)
         .success(function() {
-          if ($scope.viewApp === true) {
-            /*            $scope.$emit("showNav");
-             */
+          getApps();
+
+          if ($scope.viewApp === true) { //full page review
+            console.log(vm.applicants.length)
+             if($scope.currIndex === 0){
+                 vm.backBtn();
+             }
             vm.lastApp();
-            getApps();
-            /*$scope.viewApp = false;*/
           }
+          getApps();
           deleteAppAside.hide();
         })
         .error(function(err) {
           console.log(err);
+          deleteAppAside.hide();
         })
+    
     }
 
     $scope.goToLink = function(url) {
@@ -294,10 +299,10 @@ angular.module('roleCtrl', ['userService',
     }
 
     $rootScope.$on('$locationChangeStart', function(event, newUrl, oldUrl) {
-      if($scope.viewApp){
-      vm.backBtn();
-      event.preventDefault(); // This prevents the navigation from happening
-    }
+      if ($scope.viewApp) {
+        vm.backBtn();
+        event.preventDefault(); // This prevents the navigation from happening
+      }
     });
 
   })

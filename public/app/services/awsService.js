@@ -7,25 +7,24 @@ angular.module('awsService', [])
   var aws = [];
   var upload = [];
 
-    aws.uploadS3 = function(data) {
+  aws.uploadS3 = function(data) {
     //Note: ID is undefine.
-    console.log(data)
+  /*  console.log(data)
     console.log(data.appID)
     console.log(data.files)
-
+*/
     var uploadFiles = data.files;
     var updateID = data.appID;
     var bucket = $rootScope.awsConfig.bucket
-    //remove empty files
-    var numFiles = 0;
+      //remove empty files
+    var numFiles = data.files.length * 2; //HACK
     var numFilesDone = 0;
     for (var i in uploadFiles) {
       /*var  i = 1; //temp fix for loop above*/
-      numFiles++;
       var file = uploadFiles[i].file;
-      console.log(file)
-      console.log(uploadFiles[i].requirement)
-      /*file.progress = parseInt(0);*/
+     /* console.log(file)
+      console.log(uploadFiles[i].requirement)*/
+        /*file.progress = parseInt(0);*/
       if (file)
         (function(file, i) {
           $http.get('/s3Policy?mimeType=' + file.type)
@@ -68,19 +67,22 @@ angular.module('awsService', [])
                       file_type: file.type
                     };
                     Applicant.update(updateID, parsedData);
-
                   } else {
                     alert('Upload Failed, please resubmit your application.');
                   }
                 }, null, function(evt) {
                   file.progress = parseInt(100.0 * evt.loaded / evt.total);
-                  if (file.progress == 100) {
-                    numFilesDone++;
-                    if (numFilesDone == numFiles) //hack,because resp 4 times
+                  if (file.progress === 100) {
+                      ++numFilesDone;
+                      console.log(numFilesDone)
+                      console.log(numFiles)
+                    if (numFilesDone === numFiles) //hack,because resp 4 times
                     { /*vm.busy = false;*/
-                      /*return true;*/
-                      //send event to main
-                      /*console.log("Finished uploading files")*/
+                      console.log(numFilesDone)
+                      console.log(numFiles)
+                        /*return true;*/
+                        //send event to main
+                        /*console.log("Finished uploading files")*/
                       $rootScope.$emit('app-media-submitted')
                       return;
                     }
@@ -153,7 +155,7 @@ angular.module('awsService', [])
                   file.progress = parseInt(100.0 * evt.loaded / evt.total);
                   if (file.progress == 100) {
                     numFilesDone++;
-                    if (numFilesDone == numFiles) //hack,because resp 4 times
+                    if (numFilesDone == 2 * numFiles) //hack,because resp 4 times
                     { /*vm.busy = false;*/
                       /*return true;*/
                       //send event to main
