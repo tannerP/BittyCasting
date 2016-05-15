@@ -3,129 +3,75 @@ angular.module('projectCtrl', ['userService',
 ])
 
 .controller('ProjectPageController',
-    function(Role, Project, HomeService,Meta, $location,
-      $routeParams, $scope, $aside, $route, $rootScope) {
-      var vm = this;
-      vm.prView = false;
-      vm.pView = false;;
-      vm.processing = true;
-      vm.roles = [];
-      vm.project = {};
-      vm.curRole = {};
-      $scope.roleData = {};
+  function(Role, Project, HomeService, Meta, $location,
+    $routeParams, $scope, $aside, $route, $rootScope) {
+    var vm = this;
+    vm.prView = false;
+    vm.pView = false;;
+    vm.processing = true;
+    vm.roles = [];
+    vm.project = {};
+    vm.curRole = {};
+    $scope.roleData = {};
 
-      (function init() { //start engines
-        /*console.log("Project page controller initializing")*/
-        Project.get($routeParams.project_id)
-          .success(function(data) {
-            /*console.log(data)*/
-            vm.project = data.project.project;
+    (function init() { //start engines
+      /*console.log("Project page controller initializing")*/
+      Project.get($routeParams.project_id)
+        .success(function(data) {
+          /*console.log(data)*/
+          vm.project = data.project.project;
 
-            $rootScope.meta = Meta.prjMeta(vm.project);
-            vm.roles = data.project.roles;
-            if (vm.roles.length >= 1) {
-              vm.curRole = data.project.roles[0];
-              vm.requirements= vm.curRole.requirements;
-            }
-            switch (data.client) {
-              case "public":
-                {
-                  /*$scope.$emit("hideNav")
-                  $scope.$emit("showFooter")
-                  vm.prView = false;
-                  vm.pView = true;;*/
-                  $location.path("/Apply/Project/"+$routeParams.project_id);
-                  break;
-                }
-              case "owner":
-                {
-                  vm.prView = true;
-                  break;
-                }
-            }
-          })
-          .error(function(err) {
-            console.log(err)
-            vm.message = err;
-          });
-      })();
-      /*HomeService.getView(function(view){
-          console.log(view)
-      })*/
-      
-      vm.Role_back = function(){
-        vm.prView = true;
-        vm.pView = false;
-      }
-      
-      vm.togView = function() {
-        vm.prView = !vm.prView;
-        vm.pView = !vm.pView;
-        if (vm.prView === false){ 
-          $scope.$emit("hideNav");
-          $scope.$emit("showFooter");
-        }
-        else{
-         $scope.$emit("showNav");
-         $scope.$emit("hideFooter");
-        }
-      }
-    })
-  .controller('shareRoleController', ['$scope', '$alert', '$location',
-    function($scope, $alert, $location) {
-
-
-      //TODO: this is a temp fix for projeview-private,
-      // table view role sharing
-      if ($scope.role) {
-        $scope.roleData = $scope.role;
-      }
-      $scope.textToCopy = $scope.roleData.short_url;
-
-      $scope.FB_text = "CASTING CALL: " + $scope.roleData.name + 
-                            " \ " + $scope.roleData.description;
-
-      $scope.Email_text = "Hey, \n \n \t I just created an acting role in BittyCasting that I thought might interest you. Check out the project and role by clicking the link:" + $scope.textToCopy + "\n \n Thanks!";
-
-      $scope.Twitter_text = "CASTING CALL: " + $scope.roleData.name +
-       " " + $scope.roleData.short_url + " " + "via " + " " + "@BittyCasting ";
-
-
-      var successAlert = $alert({
-          title: 'Copied!',
-          animation: 'am-fade-and-slide-top',
-          duration: '1',
-          placement: 'top-right',
-          type: 'success',
-          show: false,
-          type: 'success'
-        }),
-        errAlert = $alert({
-          title: '',
-          content: 'Copied',
-          placement: 'top-right',
-          type: 'info',
-          show: false,
-          type: 'success'
+          $rootScope.meta = Meta.prjMeta(vm.project);
+          vm.roles = data.project.roles;
+          if (vm.roles.length >= 1) {
+            vm.curRole = data.project.roles[0];
+            vm.requirements = vm.curRole.requirements;
+          }
+          switch (data.client) {
+            case "public":
+              {
+                /*$scope.$emit("hideNav")
+                $scope.$emit("showFooter")
+                vm.prView = false;
+                vm.pView = true;;*/
+                $location.path("/Apply/Project/" + $routeParams.project_id);
+                break;
+              }
+            case "owner":
+              {
+                vm.prView = true;
+                break;
+              }
+          }
+        })
+        .error(function(err) {
+          console.log(err)
+          vm.message = err;
         });
+    })();
+    /*HomeService.getView(function(view){
+        console.log(view)
+    })*/
 
-      var previewLink = "/Apply/" + $scope.roleData._id;
-      $scope.preview = function() {
-        $scope.$toggle();
-        $location.path(previewLink)
-      }
-      $scope.success = function() {
-        $scope.toggle = true;
-        successAlert.toggle();
-      };
+    vm.Role_back = function() {
+      vm.prView = true;
+      vm.pView = false;
+    }
 
-      $scope.fail = function(err) {
-        console.error('Error!', err);
-        errAlert.toggle();
+    vm.togView = function() {
+      vm.prView = !vm.prView;
+      vm.pView = !vm.pView;
+      if (vm.prView === false) {
+        $scope.$emit("hideNav");
+        $scope.$emit("showFooter");
+      } else {
+        $scope.$emit("showNav");
+        $scope.$emit("hideFooter");
       }
     }
-  ])
-  .controller('shareProjectController', ['$scope', '$alert', '$location',
+  })
+
+.controller('shareProjectController', ['$scope', '$alert', '$location',
     function($scope, $alert, $location) {
       /*console.log("Share project controller");*/
 
@@ -206,7 +152,7 @@ angular.module('projectCtrl', ['userService',
     }
   ])
   .controller('editRoleController',
-    function(Role, $location, $routeParams, 
+    function(Role, $location, $routeParams,
       $route, $scope, $timeout, Prerender) {
       var vm = this;
       vm.edit = true;
@@ -363,16 +309,16 @@ angular.module('projectCtrl', ['userService',
           vm.projects = data.data;
         })
 
-      
+
       vm.getProject = function(prjID) {
         $location.path('/projectDetails/' + prjID);
       }
 
       vm.setGridVw = function() {
-        HomeService.setView("GRID")
-        updateView();
-      }
-      /*vm.setGridVw();*/
+          HomeService.setView("GRID")
+          updateView();
+        }
+        /*vm.setGridVw();*/
 
       vm.setListVw = function() {
         HomeService.setView("LIST")
@@ -382,6 +328,10 @@ angular.module('projectCtrl', ['userService',
       vm.newPrjBtn = function() {
         vm.projectData = {};
         newPrjAside.show();
+      }
+      vm.sharePrjBtn = function(data) {
+        $scope.project = data;
+        shareProjectAside.$promise.then(shareProjectAside.toggle);
       }
       vm.deleteBtn = function(data) {
         $scope.projectData = data;
@@ -408,12 +358,21 @@ angular.module('projectCtrl', ['userService',
         controllerAs: 'projectAside',
         templateUrl: '/app/views/pages/deleteProject.tmpl.html'
       });
+      shareProjectAside = $aside({
+        scope: $scope,
+        show: false,
+        keyboard: true,
+        controller: 'shareProjectController',
+        controllerAs: 'roleAside',
+        templateUrl: '/app/views/pages/project_share.tmpl.html'
+      });
 
-      var updateView = function(){
+
+      var updateView = function() {
         //call back returns a string
-        HomeService.getView(function(view){
+        HomeService.getView(function(view) {
           /*console.log(view)*/
-          if(view === "GRID"){
+          if (view === "GRID") {
             /*console.log('setting grid style')*/
             vm.listStyle = {
               'opacity': 0.2
@@ -424,8 +383,7 @@ angular.module('projectCtrl', ['userService',
             vm.listView = false;
             vm.gridView = true;
 
-          }
-          else if(view === "LIST"){
+          } else if (view === "LIST") {
             /*console.log('setting list style')*/
             vm.listStyle = {
               'opacity': 1
@@ -435,21 +393,20 @@ angular.module('projectCtrl', ['userService',
             };
             vm.gridView = false;
             vm.listView = true;
-            
+
             /*vm.setGridVw()*/
-          }
-          else {
+          } else {
             /*console.log("else statement ")*/
             vm.setGridVw()
           }
 
-        }); 
+        });
       };
       updateView();
     })
   .controller('newProjectController',
     function(Project, $location, $route, $rootScope,
-     $scope, Upload, AWS, Prerender) {
+      $scope, Upload, AWS, Prerender) {
       var DEFAULT_COVERPHOTO = "/assets/imgs/img_projectCover01.png";
       var vm = this;
       vm.coverphotos = [
@@ -495,7 +452,7 @@ angular.module('projectCtrl', ['userService',
         if (vm.NEW) vm.selectCP(DEFAULT_COVERPHOTO, 1);
 
       }();
-      
+
       vm.save = function() {
         vm.processing = true;
         vm.message;
@@ -538,7 +495,7 @@ angular.module('projectCtrl', ['userService',
 //page: project.html
 .controller('editProjectController',
     function($scope, Project, $location, $routeParams,
-      $route, AWS, $rootScope,Prerender) {
+      $route, AWS, $rootScope, Prerender) {
       var vm = this;
       var DEFAULT_COVERPHOTO = "/assets/imgs/img_projectCover01.png";
       vm.projectData = {};
@@ -613,10 +570,10 @@ angular.module('projectCtrl', ['userService',
           //if no stock photo selected
           vm.projectData.coverphoto.source = vm.CP_default;
           vm.projectData.coverphoto.name = "default";
-        //Updating Project cover photo
-        } else if (vm.CP_cust) { 
+          //Updating Project cover photo
+        } else if (vm.CP_cust) {
           AWS.uploadCP(vm.CP_cust, $rootScope.awsConfig.bucket, function(data) {
-              vm.projectData.coverphoto = data;
+            vm.projectData.coverphoto = data;
             Project.update(vm.projectData._id,
                 vm.projectData)
               .success(function(data) {

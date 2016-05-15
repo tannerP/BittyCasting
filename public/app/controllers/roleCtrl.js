@@ -306,7 +306,60 @@ angular.module('roleCtrl', ['userService',
     });
 
   })
+  .controller('shareRoleController', ['$scope', '$alert', '$location',
+    function($scope, $alert, $location) {
 
+
+      //TODO: this is a temp fix for projeview-private,
+      // table view role sharing
+      if ($scope.role) {
+        $scope.roleData = $scope.role;
+      }
+      $scope.textToCopy = $scope.roleData.short_url;
+
+      $scope.FB_text = "CASTING CALL: " + $scope.roleData.name + 
+                            " \ " + $scope.roleData.description;
+
+      $scope.Email_text = "Hey, \n \n \t I just created an acting role in BittyCasting that I thought might interest you. Check out the project and role by clicking the link:" + $scope.textToCopy + "\n \n Thanks!";
+
+      $scope.Twitter_text = "CASTING CALL: " + $scope.roleData.name +
+       " " + $scope.roleData.short_url + " " + "via " + " " + "@BittyCasting ";
+
+
+      var successAlert = $alert({
+          title: 'Copied!',
+          animation: 'am-fade-and-slide-top',
+          duration: '1',
+          placement: 'top-right',
+          type: 'success',
+          show: false,
+          type: 'success'
+        }),
+        errAlert = $alert({
+          title: '',
+          content: 'Copied',
+          placement: 'top-right',
+          type: 'info',
+          show: false,
+          type: 'success'
+        });
+
+      var previewLink = "/Apply/" + $scope.roleData._id;
+      $scope.preview = function() {
+        $scope.$toggle();
+        $location.path(previewLink)
+      }
+      $scope.success = function() {
+        $scope.toggle = true;
+        successAlert.toggle();
+      };
+
+      $scope.fail = function(err) {
+        console.error('Error!', err);
+        errAlert.toggle();
+      }
+    }
+  ])
 .controller('CommentBoxCtrl',
   function($scope, Applicant) {
     var vm = this;
