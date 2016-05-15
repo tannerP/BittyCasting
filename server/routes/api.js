@@ -129,7 +129,9 @@ module.exports = function(app, express) {
 									app.save();
 								} else {
 									/*console.log("before removing supps")*/
-									aws.removeSup(app.suppliments);
+									if(app.suppliments){
+										aws.removeSup(app.suppliments);
+									}
 									/*console.log("after removing supps")*/
 									Applicant.remove({
 										_id: req.params.appID,

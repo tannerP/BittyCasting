@@ -68,9 +68,11 @@ exports.removeSup = function (sup) {
     console.log("deleting from S3")
     for (var i in sup) {
         /*console.log(i);*/
-        objects.push({
-            Key: sup[i].key
-        })
+        if(sup.length > 0){
+            objects.push({
+                Key: sup[i].key
+            })
+        }
     }
     var params = {
         Bucket: config.bucket, /* required */

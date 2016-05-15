@@ -7,14 +7,14 @@ angular.module('awsService', [])
   var aws = [];
   var upload = [];
 
-    aws.uploadS3 = function(data,appID) {
+    aws.uploadS3 = function(data) {
     //Note: ID is undefine.
     console.log(data)
-    console.log(appID)
-    
-    var uploadFiles = data;
-     var bucket = $rootScope.awsConfig.bucket
-    var updateID = appID;
+    console.log(data.appID)
+
+    var uploadFiles = data.files;
+    var updateID = data.appID;
+    var bucket = $rootScope.awsConfig.bucket
     //remove empty files
     var numFiles = 0;
     var numFilesDone = 0;
@@ -81,6 +81,7 @@ angular.module('awsService', [])
                       //send event to main
                       /*console.log("Finished uploading files")*/
                       $rootScope.$emit('app-media-submitted')
+                      return;
                     }
                   }
 
@@ -88,6 +89,7 @@ angular.module('awsService', [])
             });
         }(file, i));
     }
+    return;
   };
   aws.uploadAppMedias = function(data, requirements, appID, bucket) {
     //Note: ID is undefine.

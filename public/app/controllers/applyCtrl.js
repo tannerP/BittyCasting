@@ -56,34 +56,35 @@ angular.module('applyCtrl', ['userService', 'mgcrea.ngStrap'])
         .error(function(error) {
           console.log(error);
         })
-      
-      vm.anotherApp = function(){
+
+      vm.anotherApp = function() {
         vm.processing = true;
         var name = vm.newData.name;
 
-        if(name.first != ""  && name.last != "" ){
+        if (name.first != "" && name.last != "") {
           vm.newData.files = vm.files;
           vm.newData.roleIDs.push(vm.role._id)
           vm.applicants.push(vm.newData)
 
-         vm.files = [];
-         vm.newData = {};
-         vm.newData.roleIDs = [];
+          vm.files = [];
+          vm.newData = {};
+          vm.newData.roleIDs = [];
         }
 
-        vm.processing = false; return;
+        vm.processing = false;
+        return;
       }
 
       vm.back = function() {
         $window.history.back();
       }
 
-      vm.addLink = function(link){
+      vm.addLink = function(link) {
         var temp = {};
         temp.source = link;
         temp.name = requirement;
-        if(temp){
-         vm.newData.links.push(temp)        
+        if (temp && !vm.processing) {
+          vm.newData.links.push(temp)
         }
         /*console.log(link)*/
         console.log(vm.newData.links)
@@ -108,55 +109,57 @@ angular.module('applyCtrl', ['userService', 'mgcrea.ngStrap'])
         console.log(vm.applicants)
         console.log(vm.applicants.length)
 
-        var numDoneApp = 0;
-        
-        for(var i in vm.applicants){  
-        var data = vm.applicants[i];
-        var uploadFiles = data.files
-        /*    data.files = null;*/
-        
-        console.log(data)
-        console.log(uploadFiles)
-        vm.ready2UploadFiles = []
-        Applicant.apply(data)
-          .then(function(resp) {
-             var applicantID = resp.data.appID;
-            if (uploadFiles.length == 0) {
-                var temp;
-                    temp.files = uploadFiles;
-                    temp.appID = applicantID;
-                    vm.ready2UploadFiles.push(temp);
-            }
-          })
-          console.log(vm.ready2UploadFiles);
+        var counter = 0;
+        var numDone = 0;
+        var ready2UploadFiles = [];
 
+        for (var i in vm.applicants) {
+          var data = vm.applicants[i];
+          var uploadFiles = data.files
+          var temp = {};
+          /*    data.files = null;*/
 
+          console.log(data)
+          console.log(uploadFiles)
+          console.log(counter)
+          Applicant.multiApply(data, function(resp){
 
-/*             else {
-                if(applicantID && uploadFiles.length > 0){
-                  AWS.uploadS3(uploadFiles,
-                    applicantID);
-                  $rootScope.$on("app-media-submitted",
-                    function() {
-                      $timeout(function() {
-                        vm.processing = false;
-                        numDoneApp++;
-                        return;
-                      }, 1500)
-                    })
-                }
+              console.log(resp)
+              console.log("Counter " + counter);
+              /*var applicantID = resp.data.appID;*/
+              if (uploadFiles.length > 0) {
+                temp.files = uploadFiles;
+                temp.appID = resp.data.appID;
+                ++counter;
+                console.log("pushing resp. rile uploadFiles");
+                ready2UploadFiles.push(temp);
+                console.log(ready2UploadFiles);
+                console.log(ready2UploadFiles.length);
+                console.log(vm.applicants.length);
+                console.log(counter);
               }
-            if( numDoneApp === vm.applicants.length){
-              vm.newData = {}
-              vm.files = null;
+              return;
+            })
+          console.log(vm.applicants.length);
+            console.log(counter);
+          if (vm.applicants.length === counter) {
+            for (var i in ready2UploadFiles) {
+              console.log(i)
+              console.log(ready2UploadFiles.length)
+              console.log(ready2UploadFiles[i])
+              AWS.uploadS3(ready2UploadFiles[i]);
+              console.log(i)
+                /*$rootScope.$on("app-media-submitted",
+                  function() {
+                    vm.processing = false;
+                    numDone++;
+                    console.log(numDone)
+                    return;
+                  })*/
             }
-          })
-*/
-
+          }
+        }
       }
-    }
-
-
     })
 
 .controller('ApplicantProjectController', ['$scope', '$rootScope',

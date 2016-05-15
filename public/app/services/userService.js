@@ -141,7 +141,13 @@ angular.module('userService', [])
 	}	 
 	appFactory.apply = function(data)	{
 		return $http.post('/applicant', data);	
-	}	 
+	}
+	appFactory.multiApply = function(data,callback)	{
+		$http.post('/applicant', data).
+		then(function(data){
+			callback(data);
+		})
+	}	 	 
 	appFactory.getAll = function(roleID)	{
 		return $http.get('/api/applicants/'+ roleID)
 		}

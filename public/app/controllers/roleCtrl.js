@@ -154,10 +154,6 @@ angular.module('roleCtrl', ['userService',
     vm.backBtn = function() {
       $scope.viewApp = false;
       $scope.$emit("showNav");
-      if ($scope.currApp.new) {
-        Applicant.viewedUpdate($scope.currApp._id);
-        $route.reload();
-      }
     }
 
     var updateCarosel = function(index) {
@@ -298,8 +294,10 @@ angular.module('roleCtrl', ['userService',
     }
 
     $rootScope.$on('$locationChangeStart', function(event, newUrl, oldUrl) {
+      if($scope.viewApp){
       vm.backBtn();
       event.preventDefault(); // This prevents the navigation from happening
+    }
     });
 
   })

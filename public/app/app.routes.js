@@ -53,7 +53,7 @@ angular.module('app.routes', ['ngRoute'])
             controller: 'RolePageController',
             controllerAs: 'page'
         })
-        .when('/role_addApplicant/:role_id',  {
+        .when('/addApplicant/:role_id',  {
             templateUrl: 'app/views/pages/addApplicants.html',
             controller: 'AddApplicantController',
             controllerAs: 'page'
