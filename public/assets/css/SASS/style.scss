@@ -927,6 +927,22 @@ div.pageHeader{
             font-size: $font-size-large;
             float: left;
         }
+        
+        .btn-add-applicants {
+            font-size: $font-size-regular;
+            img {
+                vertical-align: middle;
+                width: 14px;
+                height: 14px;
+                padding-bottom: 4px;
+                margin-left: 20px;
+                &:hover, &:focus {
+                    opacity: 0.6;
+                    filter: alpha(opacity=60);
+                }          
+            }
+        }
+        
         ul {
             list-style: none;
             padding: 0;

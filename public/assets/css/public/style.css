@@ -826,6 +826,17 @@ div.pageHeader {
   div.pageHeader .custom-page-action-secondary .custom-page-action-secondary-title {
     font-size: 16px;
     float: left; }
+  div.pageHeader .custom-page-action-secondary .btn-add-applicants {
+    font-size: 12px; }
+    div.pageHeader .custom-page-action-secondary .btn-add-applicants img {
+      vertical-align: middle;
+      width: 14px;
+      height: 14px;
+      padding-bottom: 4px;
+      margin-left: 20px; }
+      div.pageHeader .custom-page-action-secondary .btn-add-applicants img:hover, div.pageHeader .custom-page-action-secondary .btn-add-applicants img:focus {
+        opacity: 0.6;
+        filter: alpha(opacity=60); }
   div.pageHeader .custom-page-action-secondary ul {
     list-style: none;
     padding: 0; }
