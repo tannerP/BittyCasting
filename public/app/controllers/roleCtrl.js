@@ -199,11 +199,11 @@ angular.module('roleCtrl', ['userService',
     $scope.deleteAppBtn = function() {
       Applicant.delete($scope.currApp._id, $scope.roleData._id)
         .success(function() {
-          getApps();
           if ($scope.viewApp === true) {
             /*            $scope.$emit("showNav");
              */
             vm.lastApp();
+            getApps();
             /*$scope.viewApp = false;*/
           }
           deleteAppAside.hide();
