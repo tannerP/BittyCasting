@@ -118,7 +118,7 @@ angular.module('userService', [])
 		var money = {};
 		money.status = "new"
 		money.new = false;
-		return $http.put('/app/'+id, money);	
+		return $http.put('/api/app'+id, money);	
 		}	 
 	appFactory.favUpdate = function(app,roleID)	{
 		/*console.log(roleID);*/
@@ -127,7 +127,7 @@ angular.module('userService', [])
 		money.roleID = roleID;
 		/*console.log(money);*/
 
-		return $http.put('/app/'+app._id, money);	
+		return $http.put('/api/app/'+app._id, money);	
 		}	 
 	/*appFactory.delete = function(appID, roleID)	{
 		return $http.delete('api/applicant/'+ appID, roleID);

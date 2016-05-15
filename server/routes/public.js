@@ -134,7 +134,7 @@ module.exports = function(app, express) {
       }
     })
   })
-  app.get('/applicationPrj/:project_id', function(req, res) {
+/*  app.get('/applicationPrj/:project_id', function(req, res) {
     //if logged in. 
     Project.findById(req.params.project_id, function(err, proj) {
       Role.find({
@@ -149,7 +149,7 @@ module.exports = function(app, express) {
         });
       });
     })
-  });
+  });*/
 
   app.post('/applicant', function(req, res) {
       var applicant = new Applicant();
@@ -247,93 +247,6 @@ module.exports = function(app, express) {
       })
 
     })
-    //route for adding new requirement. 
-  app.put('/app/:app_id', function(req, res) {
-    if (req.body.status === "new") {
-      /*console.log(req.body);*/
-      Applicant.findById(req.params.app_id, function(err, app) {
-        app.new = false
-        app.save(function(err, data) {
-          if (err) {
-            return res.json({
-              success: false,
-              error: err
-            });
-          } else {
-            return res.json({
-              success: true,
-              message: "Updated Role new attr"
-            });
-          }
-          return res.json({
-            success: true,
-            message: 'updated'
-          });
-        })
-      });
-      //TODO: move to /api
-    } else if (req.body.status = "fav") {
-      //role favoriting for. 
-      Applicant.findById(req.params.app_id, function(err, app) {
-        /*= req.body.favorited;*/
-
-        /*console.log(tempFav);*/
-        var usrInx = -1;
-        // console.log(app.favs)
-        //check if user ever favorited applicant for this role
-        for (var i in app.favs) {
-          var curr = {};
-          curr.roleID = app.favs[i].roleID,
-            curr.userID = app.favs[i].userID;
-
-          // if applicant has been favorited for spec. role. 
-          if (curr.userID === req.decoded.id && curr.roleID === req.body.roleID) {
-            usrInx = i;
-          }
-        }
-
-        /*        console.log(usrInx);
-         */
-        /*var index = app.favs.indexOf(req.decoded.id);*/
-        if (usrInx === -1) {
-          /*          console.log("adding for the first time");*/
-          var reqData = {
-            roleID: req.body.roleID,
-            userID: req.decoded.id,
-            favorited: true
-          };
-          app.favs.push(reqData);
-          /*console.log(app.favs)*/
-        } else {
-          /*console.log("toggle favorite")*/
-          app.favs[usrInx].favorited = !app.favs[usrInx].favorited;
-          /*console.log(app.favs[usrInx].favorited);*/
-        }
-        /*app.favorited = req.body.favorited;*/
-        /*console.log()*/
-        /*app.favs=[];*/
-        app.save(function(err, data) {
-          /*console.log(data.favs);*/
-          if (err) {
-            return res.json({
-              success: false,
-              error: err
-            })
-          } else {
-            /*console.log("Success updating favorited");
-            console.log(data);*/
-            return res.json({
-              success: true,
-            });
-          }
-          return res.json({
-            success: true,
-            message: 'updated'
-          });
-        })
-      });
-    }
-  })
 
   app.put('/suppliment/:app_id', function(req, res) {
 
@@ -448,7 +361,6 @@ module.exports = function(app, express) {
       });
     });
   app.route('/register')
-    //create a user (accessed at POST http://localhost:8080/api/register)
     .post(function(req, res) {
       //create a new instance of the User model
       var user = new User();
@@ -479,7 +391,6 @@ module.exports = function(app, express) {
     });
   /*Others*/
   app.get('/submit/:mail', function(req, res) {
-    /*console.log(req.params.mail);*/
     //We pass the api_key and domain to the wrapper, or it won't be able to identify + send emails
     var mailgun = new Mailgun({
       apiKey: config.api_key,
@@ -502,10 +413,6 @@ module.exports = function(app, express) {
       if (err) {
         console.log(err)
       } else {
-        /*console.log(body)*/
-        /*res.json(body);*/
-        /*  res.render('submitted', { email : req.params.mail });
-          console.log(body);*/
       }
     });
   });

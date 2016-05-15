@@ -74,12 +74,10 @@ angular.module('awsService', [])
                   file.progress = parseInt(100.0 * evt.loaded / evt.total);
                   if (file.progress === 100) {
                       ++numFilesDone;
-                      console.log(numFilesDone)
-                      console.log(numFiles)
+                      
                     if (numFilesDone === numFiles) //hack,because resp 4 times
                     { /*vm.busy = false;*/
-                      console.log(numFilesDone)
-                      console.log(numFiles)
+                      
                         /*return true;*/
                         //send event to main
                         /*console.log("Finished uploading files")*/

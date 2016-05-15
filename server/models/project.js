@@ -4,6 +4,8 @@ var Schema = mongoose.Schema;
 var ProjectSchema = new Schema ({
 	user : {}, 
 	user_id : String,
+	admin:[{
+	}],
 	collabs_id:[{
 	}], 
 	coverphoto: {},
