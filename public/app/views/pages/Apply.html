@@ -98,13 +98,14 @@
                                 <div class = "form-group" 
                                 ng-repeat="requirement in page.requirements">
                                 <!-- <span>{{requirement}}</span> -->
+                                <label>{{requirement}}</label>
                                     <div ng-if="rq.file_type != 'link'" class="drop-box" ngf-drop ng-model="page.files[$index]" ngf-max-size="500MB" ngf-model-invalid="page.errors" ngf-accept="'application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/pdf,image/*,video/*'"
                                     ngf-pattern="'application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/pdf,image/*,video/*'"
                                     ngf-min-size="250"
                                     ngf-max-size="200MB" ng-required="true">
                                     <!-- Select File -->
                                      <div ng-if="!page.files[$index]">
-                                     <label>{{requirement}}</label>
+                                     
                                          <p><span>Drag and drop file(s)</span><br/><a ngf-select ng-model="page.files[$index]" name="file" 
                                             ngf-accept="'application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/pdf,image/*,video/*'"
                                             ngf-pattern="'application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/pdf,image/*,video/*'"
