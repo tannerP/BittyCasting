@@ -78,6 +78,7 @@ angular.module('userService', [])
 		$http.get(url)
 			.then(function(response){
 				console.log(response)
+				return;
 			});
 	}
 	return prerender;
