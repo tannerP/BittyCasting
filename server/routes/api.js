@@ -494,7 +494,7 @@ module.exports = function(app, express) {
 			project.description = req.body.description
 			project.coverphoto = req.body.coverphoto
 
-			project.save(function(err) {
+			project.save(function(err, project) {
 				if (err) {
 					return res.json({
 						success: false,
@@ -502,7 +502,10 @@ module.exports = function(app, express) {
 					})
 				}
 				res.json({
+					success:true,
+					projectID: project._id,
 					message: 'Project created.'
+
 				});
 			})
 		})
@@ -543,7 +546,7 @@ module.exports = function(app, express) {
 					else {
 						res.json({
 							success: true,
-							message: 'Project updated!',
+							projectID: project._id,
 						});
 					}
 				})

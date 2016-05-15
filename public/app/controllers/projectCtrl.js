@@ -226,6 +226,7 @@ angular.module('projectCtrl', ['userService',
         Role.update($routeParams.role_id, vm.roleData)
           .success(function() {
             $route.reload();
+            Prerender.cacheRole($routeParams.role_id);
             $timeout(function() {
               vm.processing = false;
               vm.projectData = null;
@@ -340,7 +341,7 @@ angular.module('projectCtrl', ['userService',
           .success(function(data) {
             vm.roleData = {};
             $route.reload();
-            Prerender.cacheIt(data.role._id);
+            Prerender.cacheRole(data.role._id);
             vm.processing = false;
             $scope.$hide()
 
@@ -447,7 +448,8 @@ angular.module('projectCtrl', ['userService',
       updateView();
     })
   .controller('newProjectController',
-    function(Project, $location, $route, $rootScope, $scope, Upload, AWS) {
+    function(Project, $location, $route, $rootScope,
+     $scope, Upload, AWS, Prerender) {
       var DEFAULT_COVERPHOTO = "/assets/imgs/img_projectCover01.png";
       var vm = this;
       vm.coverphotos = [
@@ -505,24 +507,27 @@ angular.module('projectCtrl', ['userService',
             vm.projectData.coverphoto.name = "default";
             Project.create(vm.projectData)
               .success(function(data) {
+                Prerender.cacheProject(data.projectID);
                 $route.reload();
                 vm.message = data.message;
                 $scope.$hide();
                 vm.processing = false;
                 $scope.projectData = {};
-                $location.path('/home');
+                /*$location.path('/home');*/
               })
           } else {
             AWS.uploadCP(vm.CP_cust, $rootScope.awsConfig.bucket, function(data) {
               vm.projectData.coverphoto = data;
+              console.log(data)
               Project.create(vm.projectData)
                 .success(function(data) {
+                  Prerender.cacheProject(data.projectID);
                   $route.reload();
                   vm.message = data.message;
                   $scope.$hide()
                   vm.processing = false;
                   $scope.projectData = {};
-                  $location.path('/home');
+                  return;
                 });
             });
           }
@@ -595,8 +600,6 @@ angular.module('projectCtrl', ['userService',
 
       vm.processing = false;
       vm.update = function(data) {
-        /*console.log(data);
-        console.log($scope.aside.projectData)*/
         vm.processing = true;
         var pj = data;
 
@@ -610,25 +613,26 @@ angular.module('projectCtrl', ['userService',
           //if no stock photo selected
           vm.projectData.coverphoto.source = vm.CP_default;
           vm.projectData.coverphoto.name = "default";
-        } else if (vm.CP_cust) {
+        //Updating Project cover photo
+        } else if (vm.CP_cust) { 
           AWS.uploadCP(vm.CP_cust, $rootScope.awsConfig.bucket, function(data) {
               vm.projectData.coverphoto = data;
             Project.update(vm.projectData._id,
                 vm.projectData)
               .success(function(data) {
-                Prerender.recacheProject(vm.projectData._id);
+                Prerender.cacheProject(vm.projectData._id);
                 vm.processing = false;
-              /*  vm.message = data.message;*/
                 $scope.projectData = {};
                 $route.reload();
                 $scope.$hide()
               });
           });
         }
+        //not updating Project cover photo
         Project.update(vm.projectData._id,
             vm.projectData)
           .success(function(data) {
-            Prerender.recacheProject(vm.projectData._id);
+            Prerender.cacheProject(vm.projectData._id);
             $scope.projectData = {};
             vm.processing = false;
             /*vm.message = data.message;*/

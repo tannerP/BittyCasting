@@ -38,7 +38,6 @@ angular.module('userService', [])
 			meta.image = meta.site_name + '/'+project.coverphoto.source;
 		}
 		else{ meta.image = "http://" + project.coverphoto.source.replace(/.*?:\/\//g, "");}
-		/*meta.image_secure = project.coverphoto.source;*/
 		return meta;
 	}
 	/*return meta;*/
@@ -53,34 +52,20 @@ angular.module('userService', [])
 			"prerenderToken": "RDdmSteuNT1ZCbqQ2O0h",
 			"url": urlRecache
 		}).then(function(response){
-				/*console.log(response)*/
 			});
 	}
 
-	prerender.recacheRole = function(roleID){
+	prerender.cacheRole = function(roleID){
 		/*console.log(roleID);*/
 		var url = "https://bittycasting.com/Apply/" + roleID;
 		prerenderRecache(url);
 	}
-	prerender.recacheProject = function(projectID){
+	prerender.cacheProject = function(projectID){
 		/*console.log(projectID);*/
 		var url = "https://bittycasting.com/Apply/Project" + projectID;
 		prerenderRecache(url);
 	}
 
-	prerender.cacheIt = function(roleID){
-		var url = "Apply/" + roleID 
-							+ "?_escaped_fragment_";
-		/*console.log(link);
-		"?_escaped_fragment_"
-		*/
-		/*$http.get("https://bittycasting.com/Apply/+"+ "roleID" + )*/
-		$http.get(url)
-			.then(function(response){
-				console.log(response)
-				return;
-			});
-	}
 	return prerender;
 })
 
