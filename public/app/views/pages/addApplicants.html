@@ -49,9 +49,14 @@
       <td> <input type="text" class="custom-form"
        ng-model="applicant.age" Required>
        </td>
-      <td> <h1>hey</h1>   
-          <td><img  ng-repeat="file in applicant.files track by $index" style="width:116px; height:80px;" flow-img="file"/></td>
+      <td> 
+          <td>
+            <img  ng-repeat="file in applicant.files track by $index" style="width:116px; height:80px;" flow-img="file"/>
+          </td>
           
+          <td>
+            <span ng-repeat="link in applicant.links">{{link.name}}</span>
+          </td>
       </td>
       
       <td ng-click="page.removeReqt($index)">
@@ -82,6 +87,7 @@
        </td>
       <td>
       <div ng-repeat="rq in page.role.requirements" ng-click="page.newRqmnt(rq.name)">
+
         
         <!-- <div ng-show="!page.adding"> -->
         <div class="btn btn-primary" flow-btn>{{rq.name}}</div>

@@ -61,13 +61,15 @@ angular.module('applyCtrl', ['userService', 'mgcrea.ngStrap'])
         vm.processing = true;
         var name = vm.newData.name;
 
-        if (name.first != "" && name.last != "") {
+        if (name && name.first != "" && name.last != "") {
           vm.newData.files = vm.files;
           vm.newData.roleIDs.push(vm.role._id)
+          console.log(vm.newData.links)
           vm.applicants.push(vm.newData)
 
           vm.files = [];
           vm.newData = {};
+          vm.newData.links = [];
           vm.newData.roleIDs = [];
         }
 
@@ -140,6 +142,7 @@ angular.module('applyCtrl', ['userService', 'mgcrea.ngStrap'])
             promises.push(resp);
             console.log("Counter " + counter);
             /*var applicantID = resp.data.appID;*/
+            if(counter == promises.length){
             $q.all(promises).then(function(data) {
               console.log(data)
               for (var i in data) {
@@ -162,6 +165,7 @@ angular.module('applyCtrl', ['userService', 'mgcrea.ngStrap'])
                     })*/
               }
             });
+          }
             return;
           })
 
