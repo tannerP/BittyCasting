@@ -11,6 +11,7 @@ angular.module('awsService', [])
     //Note: ID is undefine.
     console.log(data)
     console.log(data.appID)
+    console.log(data.files)
 
     var uploadFiles = data.files;
     var updateID = data.appID;

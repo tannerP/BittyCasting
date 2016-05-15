@@ -1,7 +1,7 @@
 angular.module('applyCtrl', ['userService', 'mgcrea.ngStrap'])
   .controller('AddApplicantController',
     function(Applicant, Auth, Role, $location, $routeParams, $rootScope,
-      $scope, $aside, $routeParams, $location, $route, $window, $timeout, AWS) {
+      $scope, $aside, $routeParams, $location, $route, $window, $timeout, AWS, $q) {
       var vm = this;
       var requirement = "";
       vm.processing = false;
@@ -112,52 +112,70 @@ angular.module('applyCtrl', ['userService', 'mgcrea.ngStrap'])
         var counter = 0;
         var numDone = 0;
         var ready2UploadFiles = [];
+        var promises = [];
 
         for (var i in vm.applicants) {
           var data = vm.applicants[i];
           var uploadFiles = data.files
           var temp = {};
-          /*    data.files = null;*/
+          data.files = null;
+          if (uploadFiles.length > 0) {
+            /*temp.files = uploadFiles;
+            temp.appID = resp.data.appID;*/
+            ++counter;
+            console.log("pushing resp. rile uploadFiles");
+            ready2UploadFiles.push(uploadFiles);
+            console.log(ready2UploadFiles);
+            console.log(ready2UploadFiles.length);
+            console.log(vm.applicants.length);
+            console.log(counter);
+          }
 
           console.log(data)
           console.log(uploadFiles)
           console.log(counter)
-          Applicant.multiApply(data, function(resp){
+          Applicant.multiApply(data).then(function(resp) {
 
-              console.log(resp)
-              console.log("Counter " + counter);
-              /*var applicantID = resp.data.appID;*/
-              if (uploadFiles.length > 0) {
-                temp.files = uploadFiles;
-                temp.appID = resp.data.appID;
-                ++counter;
-                console.log("pushing resp. rile uploadFiles");
-                ready2UploadFiles.push(temp);
-                console.log(ready2UploadFiles);
-                console.log(ready2UploadFiles.length);
-                console.log(vm.applicants.length);
-                console.log(counter);
+            console.log(resp)
+            promises.push(resp);
+            console.log("Counter " + counter);
+            /*var applicantID = resp.data.appID;*/
+            $q.all(promises).then(function(data) {
+              console.log(data)
+              for (var i in data) {
+                console.log(i)
+                console.log(data.length)
+                console.log(data)
+
+                var temp = {};
+                temp.appID = data[i].data.appID;
+                temp.files = ready2UploadFiles[i];
+
+                AWS.uploadS3(temp);
+                console.log(temp)
+                  /*$rootScope.$on("app-media-submitted",
+                    function() {
+                      vm.processing = false;
+                      numDone++;
+                      console.log(numDone)
+                      return;
+                    })*/
               }
-              return;
-            })
+            });
+            return;
+          })
+
           console.log(vm.applicants.length);
-            console.log(counter);
-          if (vm.applicants.length === counter) {
-            for (var i in ready2UploadFiles) {
-              console.log(i)
-              console.log(ready2UploadFiles.length)
-              console.log(ready2UploadFiles[i])
-              AWS.uploadS3(ready2UploadFiles[i]);
-              console.log(i)
-                /*$rootScope.$on("app-media-submitted",
-                  function() {
-                    vm.processing = false;
-                    numDone++;
-                    console.log(numDone)
-                    return;
-                  })*/
-            }
-          }
+          console.log(counter);
+          /*   if (vm.applicants.length === counter) {
+               for (var i in ready2UploadFiles) {
+                 console.log(i)
+                 console.log(ready2UploadFiles.length)
+                 console.log(ready2UploadFiles[i])
+                 AWS.uploadS3(ready2UploadFiles[i]);
+                 console.log(i)
+               }
+             }*/
         }
       }
     })

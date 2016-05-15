@@ -142,10 +142,10 @@ angular.module('userService', [])
 	appFactory.apply = function(data)	{
 		return $http.post('/applicant', data);	
 	}
-	appFactory.multiApply = function(data,callback)	{
-		$http.post('/applicant', data).
-		then(function(data){
-			callback(data);
+	appFactory.multiApply = function(data)	{
+		return $http.post('/applicant', data)
+		.then(function(data){
+			return data;
 		})
 	}	 	 
 	appFactory.getAll = function(roleID)	{
