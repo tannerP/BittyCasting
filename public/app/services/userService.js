@@ -59,22 +59,25 @@ angular.module('userService', [])
 
 	prerender.recacheRole = function(roleID){
 		/*console.log(roleID);*/
-		var url = "https://bittycasting.com/role/" + roleID;
+		var url = "https://bittycasting.com/Apply/" + roleID;
 		prerenderRecache(url);
 	}
 	prerender.recacheProject = function(projectID){
 		/*console.log(projectID);*/
-		var url = "https://bittycasting.com/role/" + projectID;
+		var url = "https://bittycasting.com/Apply/Project" + projectID;
 		prerenderRecache(url);
 	}
 
 	prerender.cacheIt = function(roleID){
+		var url = "Apply/" + roleID 
+							+ "?_escaped_fragment_";
 		/*console.log(link);
 		"?_escaped_fragment_"
 		*/
 		/*$http.get("https://bittycasting.com/Apply/+"+ "roleID" + )*/
-		$http.get("/Apply/"+ roleID + "/:?_escaped_fragment_")
+		$http.get(url)
 			.then(function(response){
+				console.log(response)
 			});
 	}
 	return prerender;
