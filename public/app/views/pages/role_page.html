@@ -138,9 +138,11 @@
                     <div ng-if="app.new" class="alert-new">New</div>
                     {{app.name.first}} {{app.name.last}}
                 </td>
-                <td>
-                  <img ng-if="app.favorited" ng-src="/assets/imgs/ic_fav_b_fill.svg" width="20px" vertical-align="middle" ng-click="page.updateFav(app,roleData._id)">
-                  <img ng-if="!app.favorited" ng-src="/assets/imgs/ic_fav_b.svg" width="20px" vertical-align="middle" ng-click="page.updateFav(app,roleData._id)">
+                <td ng-click="page.viewBtn($index)">
+                  <div style="z-index:-1;" ng-click="page.viewBtn($index)" >
+                    <img  ng-if="app.favorited" ng-src="/assets/imgs/ic_fav_b_fill.svg" width="20px" vertical-align="middle" >
+                    <img ng-if="!app.favorited" ng-src="/assets/imgs/ic_fav_b.svg" width="20px" vertical-align="middle">
+                  </div>
                 </td>
                 <td ng-click="page.viewBtn($index)">
                   {{ app.email }}
