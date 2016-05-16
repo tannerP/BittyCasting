@@ -116,22 +116,36 @@
                       <div class="div-table-row" ng-repeat="rq in page.role.requirements">
                           <div ng-show="!page.addingLink" class="div-table-col">{{rq.name}}</div>
                           <div ng-show="!page.addingLink" class="div-table-col">
-                                <span ng-click="page.newRqmnt(rq.name)"  flow-btn>
+                              <span ng-click="page.newRqmnt(rq.name)"  flow-btn>
                                     <a ng-href="#">Upload</a>
-                                </span> / 
-                                <a ng-href="#" ng-click="page.togAddLink()">Link</a>
-                              </div>
-                            </div>
+                              </span> / 
+                              <a ng-href="#" ng-click="page.togAddLink()">Link</a>               
+ 
+                              <span ng-repeat="file in page.files track by $index"><img class="upload-thumbnail" flow-img="file"/>File name<img class="upload-cancel" src="/assets/imgs/ic_cross_lightgrey.svg" ng-click=""></span>
+                              
+<!--
+                              <span class="custom-form">
+                                  <input ng-model="page.newLink" placeholder="http://">                             
+                                  <img class="upload-cancel" src="/assets/imgs/ic_cross_lightgrey.svg" ng-click="page.addLink(page.newLink)">
+                              </span>
+-->
+                                 
+                          </div>
+                      </div>
+                      
                           <div class="div-table-col" ng-show="page.addingLink">
-<!--                              <a ng-href="#" ng-click="page.togAddLink()">Add file</a>-->
                               <div class="custom-form">
                                   <input ng-model="page.newLink" placeholder="http://">                             
                                   <img class="upload-cancel" src="/assets/imgs/ic_cross_lightgrey.svg" ng-click="page.addLink(page.newLink)">
                               </div>
                           </div>
+                          
+<!--
                           <div class="div-table-col">
                               <div ng-repeat="file in page.files track by $index"><img class="upload-thumbnail" flow-img="file"/>File name<img class="upload-cancel" src="/assets/imgs/ic_cross_lightgrey.svg" ng-click=""></div>
                           </div>
+-->
+     
                   </div>
               </td>
               <td>
