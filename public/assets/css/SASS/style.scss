@@ -1269,6 +1269,12 @@ ul.projects li {
             thead tr th:nth-child(5) {width: 7%;} //age
             thead tr th:nth-child(6) {width: 32%;} //requirements
             thead tr th:nth-child(7) {width: 20%;} //comments
+            
+            .div-table-col input{
+                padding: 8px 0;
+                margin-top: -5px; 
+                width: 80%;
+            }
     }
     
     .table-application-requirements {
@@ -1858,6 +1864,19 @@ ul.select-coverphoto-wrapper {
     }        
 }
 
+.upload-thumbnail {
+    width:30px;
+    height:30px;
+    vertical-align: middle;
+    margin-right: 8px;
+}
+
+.upload-cancel {
+    width: 14px;
+    height: 14px;
+    vertical-align: middle;
+    margin-left: 15px;
+}
 
 /***************************
           Apply
