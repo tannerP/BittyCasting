@@ -38,12 +38,12 @@ angular.module('ProjectView', ['userService',
       }
       //TODO: this doesn't scale for collabs.
     vm.back = function() {
-      if ($rootScope.loggedIn) {
+      /*if ($rootScope.loggedIn) {
         vm.toggle();
-      } else {
+      } else {*/
         /*$location.path("/");*/
         $window.history.back();
-      }
+      /*}*/
     }
     vm.link = ""
     vm.newLinks = [];
@@ -117,9 +117,11 @@ angular.module('ProjectView', ['userService',
 
     vm.processing = false;
     vm.submit = function() {
-      if (vm.appData.roleIDs.length < 1) {
-        vm.message = "Please select a role to submit."
-        return;
+      if(vm.roles.length > 1){
+        if (vm.appData.roleIDs.length < 1) {
+          vm.message = "Please select a role to submit."
+          return;
+        }
       }
       vm.processing = true;
       vm.currfile;
@@ -167,10 +169,10 @@ angular.module('ProjectView', ['userService',
   return {
     restrict: 'E',
     scope: {
-      toggle: '&',
       currole: '=',
       roles: '=',
       project: '=',
+      requirements: '=',
     },
     templateUrl: 'components/project_view/project_public_view.html',
     controller: publicController,
