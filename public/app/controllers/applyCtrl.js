@@ -11,19 +11,22 @@ angular.module('applyCtrl', ['userService', 'mgcrea.ngStrap'])
       if (!vm.loggedIn) {
         $location.path("/login")
       }
-      vm.files = [];
-      vm.newData = {};
-      vm.newData.files = [];
-      vm.newData.name = {};
-      vm.newData.files = {};
-      vm.newData.name.first = "";
-      vm.newData.name.last = "";
-      vm.newData.age = "";
-      vm.newData.gender = "";
-      vm.newData.email = "";
-      vm.newData.message = "";
-      vm.newData.roleIDs = [];
-      vm.newData.links = [];
+      vm.clearNewApp = function() {
+        vm.files = [];
+        vm.newData = {};
+        vm.newData.files = [];
+        vm.newData.name = {};
+        vm.newData.files = {};
+        vm.newData.name.first = "";
+        vm.newData.name.last = "";
+        vm.newData.age = "";
+        vm.newData.gender = "";
+        vm.newData.email = "";
+        vm.newData.message = "";
+        vm.newData.roleIDs = [];
+        vm.newData.links = [];
+      }
+      vm.clearNewApp();
 
       vm.processing = true;
       Role.get($routeParams.role_id)
@@ -77,6 +80,15 @@ angular.module('applyCtrl', ['userService', 'mgcrea.ngStrap'])
         return;
       }
 
+      vm.removeApp = function(index) {
+        if (vm.applicants.length > 1) {
+          if (index === 0) vm.applicants.shift();
+          else vm.applicants.splice(index, index);
+        } else {
+          vm.applicants = []
+        }
+      }
+
       vm.back = function() {
         $window.history.back();
       }
@@ -89,8 +101,16 @@ angular.module('applyCtrl', ['userService', 'mgcrea.ngStrap'])
           vm.newData.links.push(temp)
         }
         /*console.log(link)*/
-        console.log(vm.newData.links)
+        /*console.log(vm.newData.links)*/
         vm.newLink = ""
+      }
+      vm.removeLink= function(index) {
+        if (vm.newData.links.length > 1) {
+          if (index === 0) vm.newData.links.shift();
+          else vm.newData.links.splice(index, index);
+        } else {
+          vm.newData.links = []
+        }
       }
       vm.prepImg = function($file, $event, $flow) {
         var temp = {};

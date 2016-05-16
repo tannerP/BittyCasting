@@ -24,8 +24,7 @@
 
           <tbody>
           <!-- LOOP OVER THE USERS -->
-          <tr ng-show="page.applicants.length > 0" ng-repeat="applicant in page.applicants">
-    <!--      {{page.applicants.length}}-->
+          <tr ng-show="page.applicants.length > 0" ng-repeat="applicant in page.applicants track by $index">
               <td>
                   <div class="custom-form">
                       <input type="text" ng-model="applicant.name.first" Required >
@@ -75,7 +74,7 @@
               <td>
                   <textarea ng-model="page.newData.message" rows="1" class="custom-form-textarea"></textarea>      
               </td>
-              <td ng-click="page.removeReqt($index)">
+              <td ng-click="page.removeApp($index)">
                   <img src="/assets/imgs/ic_trash.svg" width="16px" height="16px">
               </td>
           </tr>
@@ -136,7 +135,7 @@
                   <textarea ng-model="page.newData.message" rows="1" class="custom-form-textarea"></textarea>      
               </td>
               <td>
-                  <img src="/assets/imgs/ic_trash.svg" width="16px" height="16px">
+                  <img ng-click="page.clearNewApp()" src="/assets/imgs/ic_trash.svg" width="16px" height="16px">
               </td>
           </tr>
       </tbody>
@@ -146,11 +145,15 @@
     <table>
     <tr ng-repeat="file in page.files track by $index">
         <td><img   style="width:116px; height:80px;" flow-img="file"/></td>
-              <ul>
-                <li ng-repeat = "link in page.newData.links">
-                  <span ng-if="link">{{link.source}}</span>
-                </li>
-              </ul>
+    </tr>
+    <tr>
+      <td>
+          <ul>
+            <li ng-repeat = "link in page.newData.links">
+              <span ng-if="link" ng-dblclick="page.removeLink($index)">{{link.source}}</span>
+            </li>
+          </ul>
+        </td>
     </tr>
     </table>
     <!--
