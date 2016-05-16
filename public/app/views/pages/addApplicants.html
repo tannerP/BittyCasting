@@ -9,7 +9,18 @@ flow-file-added="page.prepImg( $file, $event, $flow)">
 </div>
 <div class="custom-table">
   <table class="table table-add-applicants">
-    <thead></thead>
+    <thead>
+        <thead>
+          <th>First name</th>  
+          <th>Last name</th>
+          <th>E-mail</th>
+          <th>Gender</th>
+          <th>Age</th>
+          <th>Requirements</th>
+          <th>Comments</th>
+          <th></th>
+      </thead>
+    </thead>
     <tbody>
       <!-- Adding Form -->
       <tr ng-show="!page.processing"> 
@@ -77,27 +88,32 @@ flow-file-added="page.prepImg( $file, $event, $flow)">
           </td>
 
         </tr>
-             <tr>
+        <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
           <td>
             <div class="add-applicants-add-more">
               <button type="submit" class="custom-btn-secondary-small btn-add" ng-click="page.anotherApp()" ng-disabled="page.processing">Add more</button>
+              <p ng-show="page.applicants.length > 0" > Added {{ page.applicants.length}} applicants</p>
             </div>
-            </td>
-            <td ng-show="page.applicants.length > 0">
-              <p> Added {{ page.applicants.length}} applicants</p>
             </td>
         </tr>
       </tbody>
     </table>
   </div>
 
-<div class="col-md-4 col-md-offset-4">
+<!-- <div class="col-md-4 col-md-offset-4">
     <button type="submit" class="custom-btn-primary-large" ng-click="page.submit()" ng-disabled="page.processing">Save</button>
-  </div>  
+  </div>   -->
 
 <div class="custom-table">
   <table class="table table-add-applicants">
-      <thead>
+     <!--  <thead>
               <th>First name</th>  
               <th>Last name</th>
               <th>E-mail</th>
@@ -106,10 +122,16 @@ flow-file-added="page.prepImg( $file, $event, $flow)">
               <th>Requirements</th>
               <th>Comments</th>
               <th></th>
-          </thead>
+          </thead> -->
 
           <tbody >
             <!-- LOOP OVER THE USERS -->
+            <tr> 
+            <!--  <td ng-show="page.applicants.length > 0"> -->
+
+            <!-- </td> -->
+               <button type="submit" class="custom-btn-primary-large" ng-click="page.submit()" ng-disabled="page.processing">Save</button>
+            </tr>
             <tr 
             ng-repeat="applicant in page.applicants.slice().reverse() track by $index | orderBy:$index:true">
               <td>
@@ -156,11 +178,47 @@ flow-file-added="page.prepImg( $file, $event, $flow)">
               <td ng-click="page.removeApp($index)">
                 <img src="/assets/imgs/ic_trash.svg" width="16px" height="16px">
               </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>    
-
+              <td>
+                <div class="div-table">
+                      <div class="div-table-row" ng-repeat="rq in page.role.requirements">
+                          <div ng-show="!page.addingLink" class="div-table-col">{{rq.name}}</div>
+                          <div ng-show="!page.addingLink" class="div-table-col">
+                              <span ng-click="page.newRqmnt(rq.name)"  flow-btn>
+                                    <a ng-href="#">Upload</a>
+                              </span> / 
+                              <a ng-href="#" ng-click="page.togAddLink()">Link</a>               
+ 
+                              <span ng-repeat="file in page.files track by $index"><img class="upload-thumbnail" flow-img="file"/>File name<img class="upload-cancel" src="/assets/imgs/ic_cross_lightgrey.svg" ng-click=""></span>
+                          </div>
+                      </div>
+                      
+                          <div class="div-table-col" ng-show="page.addingLink">
+                              <div class="custom-form">
+                                  <input ng-model="page.newLink" placeholder="http://">                             
+                                  <img class="upload-cancel" src="/assets/imgs/ic_cross_lightgrey.svg" ng-click="page.addLink(page.newLink)">
+                              </div>
+                          </div>
+                          
+<!--
+                          <div class="div-table-col">
+                              <div ng-repeat="file in page.files track by $index"><img class="upload-thumbnail" flow-img="file"/>File name<img class="upload-cancel" src="/assets/imgs/ic_cross_lightgrey.svg" ng-click=""></div>
+                          </div>
+-->
+     
+                  </div>
+              </td>
+              <td>
+                  <textarea ng-model="page.newData.message" rows="1" class="custom-form-textarea"></textarea>      
+              </td>
+             <!--  <td>
+                  <img ng-click="page.clearNewApp()" src="/assets/imgs/ic_trash.svg" width="16px" height="16px">
+              </td> -->
+          </tr>
+      </tbody>
+      </table>
+    </div>    
+ 
+<!-- >>>>>>> dfda478065b22a06c07654bcf027e27992bdc867 -->
       
       
 <!--
