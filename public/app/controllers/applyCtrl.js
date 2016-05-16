@@ -20,7 +20,7 @@ angular.module('applyCtrl', ['userService', 'mgcrea.ngStrap'])
         vm.newData.name.first = "";
         vm.newData.name.last = "";
         vm.newData.age = "";
-        vm.newData.gender = "";
+        vm.newData.gender = "Female";
         vm.newData.email = "";
         vm.newData.message = "";
         vm.newData.roleIDs = [];
