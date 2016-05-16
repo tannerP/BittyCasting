@@ -79,7 +79,7 @@
                   <img src="/assets/imgs/ic_trash.svg" width="16px" height="16px">
               </td>
           </tr>
-          <!-- Adding FORM -->
+          <!-- Adding Form -->
           <tr> 
               <td>
                   <div class="custom-form">
@@ -115,9 +115,20 @@
     <!--              <div ng-repeat="rq in page.role.requirements">{{rq.name}}: <a ng-click="page.newRqmnt(rq.name)">Upload</a> / Link</div>-->
                   <div class="div-table">
                       <div class="div-table-row" ng-repeat="rq in page.role.requirements">
-                          <div class="div-table-col">{{rq.name}}</div>
-                          <div class="div-table-col"><a ng-click="page.newRqmnt(rq.name)">Upload</a> / <a>Link</a></div>
-                          <div class="div-table-col" ng-if="link">{{link.source}}</div>
+                          <div ng-show="!page.addingLink" class="div-table-col">{{rq.name}}</div>
+                          <div ng-show="!page.addingLink" class="div-table-col">
+                            <span ng-click="page.newRqmnt(rq.name)"  flow-btn>
+                                <a ng-href="#">Upload</a>
+                                </span> / 
+                                <a ng-href="#" ng-click="page.togAddLink()">Link</a>
+                              </div>
+                            </div>
+                          <div class="div-table-col" ng-show="page.addingLink">
+                            <a ng-href="#" ng-click="page.togAddLink()">Add file</a>
+                              <input ng-model="page.newLink" placeholder="http://">
+                              <img src="/assets/imgs/ic_plus.svg" width="16px" height="16px" ng-click="page.addLink(page.newLink)">
+                            
+                          
                       </div>
                   </div>
               </td>
@@ -135,6 +146,11 @@
     <table>
     <tr ng-repeat="file in page.files track by $index">
         <td><img   style="width:116px; height:80px;" flow-img="file"/></td>
+              <ul>
+                <li ng-repeat = "link in page.newData.links">
+                  <span ng-if="link">{{link.source}}</span>
+                </li>
+              </ul>
     </tr>
     </table>
     <!--

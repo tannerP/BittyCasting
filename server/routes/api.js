@@ -216,7 +216,7 @@ module.exports = function(app, express) {
 									app.save();
 								} else {
 									/*console.log("before removing supps")*/
-									if(app.suppliments){
+									if(app.suppliments.length > 0){
 										aws.removeSup(app.suppliments);
 									}
 									/*console.log("after removing supps")*/
@@ -417,8 +417,7 @@ module.exports = function(app, express) {
 					if (err) console.log(err);
 					else {
 						for (var a in apps) {
-							console.log(apps[a].roleIDs.length);
-							if (apps[a].roleIDs.length <= 1) {
+								if (apps[a].suppliments.length > 0) {
 								aws.removeSup(apps[a].suppliments);
 								apps[a].remove();
 							} else {
@@ -567,9 +566,9 @@ module.exports = function(app, express) {
 					else {
 						for (var a in apps) {
 							/*console.log(apps[a].roleIDs.length);*/
-							if (apps[a].roleIDs.length <= 1) {
-								aws.removeSup(apps[a].suppliments);
-								apps[a].remove();
+								if(apps[a].suppliments.length <= 1){
+									aws.removeSup(apps[a].suppliments);
+									apps[a].remove();
 							} else {
 								/*console.log(apps[a].roleIDs)*/
 								var index = apps[a].roleIDs.indexOf(roles[i]._id);

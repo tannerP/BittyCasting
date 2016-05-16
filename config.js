@@ -6,7 +6,7 @@ exports.dev = {
   "PASS"    : "",
   "HOST"    : "127.0.0.1",  
   "PORT"    : "27017", 
-  "DATABASE" : "dev",
+  "DATABASE" : "prod",
   "api_key"	: "key-22cf943037f7135a79633e5f3fb255e1",
   "domain"	: "sandbox175d7e6c85154c599d2d8f94f9903fd2.mailgun.org",
   "from_who" : "tannerphan@gmail.com",

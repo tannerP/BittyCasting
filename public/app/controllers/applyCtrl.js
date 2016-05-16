@@ -100,12 +100,22 @@ angular.module('applyCtrl', ['userService', 'mgcrea.ngStrap'])
         temp = "";
       }
 
+      vm.addingLink = false
+      vm.togAddLink = function() {
+        console.log("btn pressed")
+        vm.addingLink = !vm.addingLink;
+        /*console.log(data)
+        requirement = data;*/
+      }
+
       vm.newRqmnt = function(data) {
+        console.log(data)
         requirement = data;
       }
 
       vm.submit = function() {
         vm.processing = true;
+        vm.anotherApp()
 
 
         console.log(vm.applicants)
