@@ -1081,17 +1081,17 @@ ul.projects li {
     width: 20%;
     cursor: pointer; }
   .custom-table .table-project-overview thead tr th:nth-child(2) {
-    width: 30%;
+    width: 20%;
     cursor: pointer; }
   .custom-table .table-project-overview thead tr th:nth-child(3) {
-    width: 30%; }
+    width: 40%; }
   .custom-table .table-project-overview thead tr th:nth-child(4) {
     width: 20%; }
   .custom-table .table-project-overview .table-utl ul li:nth-child(1) {
     background: url("/assets/imgs/ic_trash.svg") no-repeat center center white;
     background-size: 16px 16px; }
   .custom-table .table-project-overview .table-utl ul li:nth-child(2) {
-    background: url("/assets/imgs/ic_duplicate.svg") no-repeat center center white;
+    background: url("/assets/imgs/ic_share.svg") no-repeat center center white;
     background-size: 16px 16px; }
 .custom-table .table-project-details thead tr th:nth-child(1) {
   width: 20%;
@@ -1142,6 +1142,21 @@ ul.projects li {
     -webkit-box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.1);
     -moz-box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.1);
     box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.1); }
+.custom-table .table-add-applicants thead tr th:nth-child(1) {
+  width: 10%;
+  cursor: pointer; }
+.custom-table .table-add-applicants thead tr th:nth-child(2) {
+  width: 10%; }
+.custom-table .table-add-applicants thead tr th:nth-child(3) {
+  width: 21%; }
+.custom-table .table-add-applicants thead tr th:nth-child(4) {
+  width: 7%; }
+.custom-table .table-add-applicants thead tr th:nth-child(5) {
+  width: 7%; }
+.custom-table .table-add-applicants thead tr th:nth-child(6) {
+  width: 30%; }
+.custom-table .table-add-applicants thead tr th:nth-child(7) {
+  width: 20%; }
 .custom-table .table-application-requirements {
   /* tr.defaultRequirements {
       &:nth-child(1), &:nth-child(2), &:nth-child(3) {
