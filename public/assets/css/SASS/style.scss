@@ -1196,6 +1196,8 @@ ul.projects li {
     }
 }
 
+.table {margin-bottom: 0;}
+
 .custom-table {
     
     .table-project-overview {       
@@ -1260,12 +1262,12 @@ ul.projects li {
     }
     
     .table-add-applicants {
-            thead tr th:nth-child(1) {width: 10%; cursor: pointer;} //first name
-            thead tr th:nth-child(2) {width: 10%;} //last name
+            thead tr th:nth-child(1) {width: 9%; cursor: pointer;} //first name
+            thead tr th:nth-child(2) {width: 9%;} //last name
             thead tr th:nth-child(3) {width: 21%;} //e-mail
             thead tr th:nth-child(4) {width: 7%;} //gender
             thead tr th:nth-child(5) {width: 7%;} //age
-            thead tr th:nth-child(6) {width: 30%;} //requirements
+            thead tr th:nth-child(6) {width: 32%;} //requirements
             thead tr th:nth-child(7) {width: 20%;} //comments
     }
     
@@ -1303,7 +1305,6 @@ ul.projects li {
             td {
                 vertical-align: middle;
                 position: relative;
-                height: 51px;
                            
                 .tableHover {
                     display: inline;
@@ -1833,6 +1834,30 @@ ul.select-coverphoto-wrapper {
         }
     }
 }
+
+/***************************
+      Role overview
+***************************/
+
+.add-applicants-add-more {
+    padding: 10px 0;
+    margin-bottom: 60px;
+    border-top: 1px solid $color-grey-light;
+    border-bottom: 1px solid $color-grey-light;
+}
+
+.btn-add {
+    padding-left: 38px; 
+    background: url("/assets/imgs/ic_plus_w.svg") no-repeat left 15px center $color-grey-dark;
+    background-size: 16px 16px;    
+    margin-left: 0px;
+    @include transition(all, 0.8s, ease);
+    &:hover, &:focus {
+        cursor: pointer;
+        background-color: $color-grey-darken;
+    }        
+}
+
 
 /***************************
           Apply
@@ -2692,7 +2717,7 @@ text-align: center;
     .aside {
         width: 100%;
     }
-    
+
     /***************************
             Landing page
     ***************************/
@@ -2704,6 +2729,14 @@ text-align: center;
             .brandHeading {font-size: 26px;}
             .brandSubheading {font-size: 18px;}
         }
+    }
+ 
+    /***************************
+            Role overview
+    ***************************/
+    
+    .btn-add-applicants {
+        display: none;
     }
     
     /***************************
