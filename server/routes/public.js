@@ -78,7 +78,7 @@ module.exports = function(app, express) {
           if (!decoded) return "public";
           else {
             //check if requester is owner
-            if (role.userID === decoded.id) {
+            if (role && role.userID === decoded.id) {
               return "owner"
             }
           }

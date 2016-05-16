@@ -73,8 +73,9 @@ angular.module('mainCtrl', ['authService','mgcrea.ngStrap'])
 							if(data){
 								/*console.log(data)*/
 								data = data.data;
-								if(!data){
-									AuthToken.setToken();
+								if(!data.name){
+									Auth.logout();
+									$location.path('/')
 									console.log("NO USER found")
 								}else{
 								vm.usrInitial = data.name.first[0] + data.name.last[0];
