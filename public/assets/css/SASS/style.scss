@@ -1202,14 +1202,14 @@ ul.projects li {
         padding: 0 15px;
         
         thead tr th:nth-child(1) {width: 20%; cursor: pointer;} //cover
-        thead tr th:nth-child(2) {width: 30%; cursor: pointer;} //name
-        thead tr th:nth-child(3) {width: 30%;} //details
+        thead tr th:nth-child(2) {width: 20%; cursor: pointer;} //name
+        thead tr th:nth-child(3) {width: 40%;} //details
         thead tr th:nth-child(4) {width: 20%;} //date      
         .table-utl ul li {
             &:nth-child(1) {
                 background: url("/assets/imgs/ic_trash.svg") no-repeat center center white;
                 background-size: 16px 16px; }
-            &:nth-child(2) {background: url("/assets/imgs/ic_duplicate.svg") no-repeat center center white;
+            &:nth-child(2) {background: url("/assets/imgs/ic_share.svg") no-repeat center center white;
             background-size: 16px 16px; }
         }
     }
@@ -1257,6 +1257,16 @@ ul.projects li {
             z-index: 1;
             @include box-shadow(0px, 2px, 2px, 0px, rgba(0,0,0,0.1));
         }
+    }
+    
+    .table-add-applicants {
+            thead tr th:nth-child(1) {width: 10%; cursor: pointer;} //first name
+            thead tr th:nth-child(2) {width: 10%;} //last name
+            thead tr th:nth-child(3) {width: 21%;} //e-mail
+            thead tr th:nth-child(4) {width: 7%;} //gender
+            thead tr th:nth-child(5) {width: 7%;} //age
+            thead tr th:nth-child(6) {width: 30%;} //requirements
+            thead tr th:nth-child(7) {width: 20%;} //comments
     }
     
     .table-application-requirements {

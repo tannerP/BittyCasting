@@ -5,12 +5,9 @@
   <div class="pageHeader">
   <div class="custom-back" ng-click="page.back()" style="z-index: 4;"></div>
     <div class='pageTitle'>Add Applicants</div>
-    <h4>{{page.role.name}}</h4>
-    <div class="utlBar">
-      <div class="sort"></div>
-    </div>
+    <div class='pageSubtitle'>{{page.role.name}}</div>
   <div class="custom-table table-responsive">
-    <table class="table table-applicants">
+    <table class="table table-add-applicants">
       <thead>
       <tr>
         <th>First name</th>  
@@ -19,6 +16,7 @@
         <th>Gender</th>
         <th>Age</th>
         <th>Requirements</th>
+        <th>Comments</th>
         <th></th>
       </tr>
       </thead>
@@ -26,40 +24,44 @@
       <tbody>
       <!-- LOOP OVER THE USERS -->
       <tr ng-show="page.applicants.length > 0" ng-repeat="applicant in page.applicants">
-      {{page.applicants.length}}
-        <td>
-           <input type="text" class="custom-form"
-       ng-model="applicant.name.first" Required >
-      </td>
-      <td> <input type="text" class="custom-form"
-       ng-model="applicant.name.last" Required ></td>
-        <td> <input type="text" class="custom-form"
-       ng-model="applicant.email" Required ></td>
-        <td><div class="custom-dropdown" uib-dropdown is-open="false">
-                <span type="text" class="custom-form" uib-dropdown-toggle ng-disabled="disabled">
-                  {{applicant.gender || "Gender"}}</span>
-                <ul uib-dropdown-menu role="menu" aria-labelledby="single-button">
-                  <li role="menuitem"><a href="#" ng-click="applicant.gender = 'Female'">Female</a></li>
-                  <li role="menuitem"><a href="#" ng-click="applicant.gender = 'Male'">Male</a></li>
-                </ul>
-              </div> </td>
-      <td> <input type="text" class="custom-form"
-       ng-model="applicant.age" Required>
-       </td>
-      <td> 
+<!--      {{page.applicants.length}}-->
           <td>
-            <img  ng-repeat="file in applicant.files track by $index" style="width:116px; height:80px;" flow-img="file"/>
+              <div class="custom-form">
+                  <input type="text" ng-model="applicant.name.first" Required >
+              </div>
           </td>
-          
+          <td> 
+              <div class="custom-form">
+                  <input type="text" ng-model="applicant.name.last" Required >
+              </div>
+          </td>
           <td>
-            <span ng-repeat="link in applicant.links">{{link.name}}</span>
+              <input type="text" class="custom-form" ng-model="applicant.email" Required >
           </td>
-      </td>
-      
-      <td ng-click="page.removeReqt($index)">
-        <img src="/assets/imgs/ic_trash.svg" width="16px" height="16px">
-      </td>
-
+          <td>
+              <div class="custom-dropdown" uib-dropdown is-open="false">
+                    <span type="text" class="custom-form" uib-dropdown-toggle ng-disabled="disabled">
+                      {{applicant.gender || "Gender"}}</span>
+                    <ul uib-dropdown-menu role="menu" aria-labelledby="single-button">
+                      <li role="menuitem"><a href="#" ng-click="applicant.gender = 'Female'">Female</a></li>
+                      <li role="menuitem"><a href="#" ng-click="applicant.gender = 'Male'">Male</a></li>
+                    </ul>
+              </div> 
+          </td>
+          <td>
+              <input type="text" class="custom-form" ng-model="applicant.age" Required>
+          </td>
+          <td> 
+              <td>
+                    <img  ng-repeat="file in applicant.files track by $index" style="width:116px; height:80px;" flow-img="file"/>
+              </td>
+              <td>
+                <span ng-repeat="link in applicant.links">{{link.name}}</span>
+              </td>
+          </td>      
+          <td ng-click="page.removeReqt($index)">
+              <img src="/assets/imgs/ic_trash.svg" width="16px" height="16px">
+          </td>
       </tr>
       <!-- Adding FORM -->
       <tr>
