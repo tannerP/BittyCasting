@@ -178,7 +178,6 @@ angular.module('applyCtrl', ['userService', 'mgcrea.ngStrap'])
                           vm.back();
                           return;
                         }, 500 * uploadCounter)
-
                       }
                       return;
                     })
