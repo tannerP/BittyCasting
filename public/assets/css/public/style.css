@@ -1160,6 +1160,10 @@ ul.projects li {
   width: 32%; }
 .custom-table .table-add-applicants thead tr th:nth-child(7) {
   width: 20%; }
+.custom-table .table-add-applicants .div-table-col input {
+  padding: 8px 0;
+  margin-top: -5px;
+  width: 80%; }
 .custom-table .table-application-requirements {
   /* tr.defaultRequirements {
       &:nth-child(1), &:nth-child(2), &:nth-child(3) {
@@ -1739,6 +1743,18 @@ ul.select-coverphoto-wrapper {
   .btn-add:hover, .btn-add:focus {
     cursor: pointer;
     background-color: #444444; }
+
+.upload-thumbnail {
+  width: 30px;
+  height: 30px;
+  vertical-align: middle;
+  margin-right: 8px; }
+
+.upload-cancel {
+  width: 14px;
+  height: 14px;
+  vertical-align: middle;
+  margin-left: 15px; }
 
 /***************************
           Apply
