@@ -1075,6 +1075,9 @@ ul.projects li {
             -o-transition: all 0.2s ease;
             transition: all 0.2s ease; }
 
+.table {
+  margin-bottom: 0; }
+
 .custom-table .table-project-overview {
   padding: 0 15px; }
   .custom-table .table-project-overview thead tr th:nth-child(1) {
@@ -1143,10 +1146,10 @@ ul.projects li {
     -moz-box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.1);
     box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.1); }
 .custom-table .table-add-applicants thead tr th:nth-child(1) {
-  width: 10%;
+  width: 9%;
   cursor: pointer; }
 .custom-table .table-add-applicants thead tr th:nth-child(2) {
-  width: 10%; }
+  width: 9%; }
 .custom-table .table-add-applicants thead tr th:nth-child(3) {
   width: 21%; }
 .custom-table .table-add-applicants thead tr th:nth-child(4) {
@@ -1154,7 +1157,7 @@ ul.projects li {
 .custom-table .table-add-applicants thead tr th:nth-child(5) {
   width: 7%; }
 .custom-table .table-add-applicants thead tr th:nth-child(6) {
-  width: 30%; }
+  width: 32%; }
 .custom-table .table-add-applicants thead tr th:nth-child(7) {
   width: 20%; }
 .custom-table .table-application-requirements {
@@ -1188,8 +1191,7 @@ ul.projects li {
     cursor: pointer; }
     .custom-table .table tbody tr td {
       vertical-align: middle;
-      position: relative;
-      height: 51px; }
+      position: relative; }
       .custom-table .table tbody tr td .tableHover {
         display: inline;
         opacity: 1; }
@@ -1714,6 +1716,29 @@ ul.select-coverphoto-wrapper {
       list-style-type: square; }
       .projectDetails section ul li p {
         margin-bottom: 0; }
+
+/***************************
+      Role overview
+***************************/
+.add-applicants-add-more {
+  padding: 10px 0;
+  margin-bottom: 60px;
+  border-top: 1px solid #cccccc;
+  border-bottom: 1px solid #cccccc; }
+
+.btn-add {
+  padding-left: 38px;
+  background: url("/assets/imgs/ic_plus_w.svg") no-repeat left 15px center #666666;
+  background-size: 16px 16px;
+  margin-left: 0px;
+  -webkit-transition: all 0.8s ease;
+  -moz-transition: all 0.8s ease;
+  -ms-transition: all 0.8s ease;
+  -o-transition: all 0.8s ease;
+  transition: all 0.8s ease; }
+  .btn-add:hover, .btn-add:focus {
+    cursor: pointer;
+    background-color: #444444; }
 
 /***************************
           Apply
@@ -2523,6 +2548,12 @@ ul.select-coverphoto-wrapper {
         font-size: 26px; }
       section.home .brandMessage .brandSubheading {
         font-size: 18px; }
+
+  /***************************
+          Role overview
+  ***************************/
+  .btn-add-applicants {
+    display: none; }
 
   /***************************
              Footer
