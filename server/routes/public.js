@@ -34,18 +34,12 @@ module.exports = function(app, express) {
                 return data;
               }
             })
-            /*console.log("req.userData" +req.userData);*/
-            /*req.userData = user.select('_id username email');
-            console.log(req.userData);*/
           req.decoded = decoded;
           next();
         }
       });
     } else {
-      /*    return res.status(403).send({
-            success:false,
-            message: 'No token provided.'
-          });*/
+
       req.decoded = false;
       next();
     }
@@ -120,6 +114,7 @@ module.exports = function(app, express) {
           projectID: proj._id
         }, function(err, roles) {
           /*console.log(roles[0].requirements)*/
+          
           var money = {};
           var client = checkClientship(proj, req.decoded);
           money.client = client;
@@ -134,22 +129,7 @@ module.exports = function(app, express) {
       }
     })
   })
-/*  app.get('/applicationPrj/:project_id', function(req, res) {
-    //if logged in. 
-    Project.findById(req.params.project_id, function(err, proj) {
-      Role.find({
-        projectID: proj._id
-      }, function(err, roles) {
-        var money = {};
-        money.roles = roles;
-        money.project = proj;
-        res.json({
-          success: true,
-          project: money
-        });
-      });
-    })
-  });*/
+
 
   app.post('/applicant', function(req, res) {
       var applicant = new Applicant();
@@ -204,7 +184,8 @@ module.exports = function(app, express) {
           if (req.body.roleIDs && req.body.roleIDs[0]) {
             for (link in req.body.roleIDs) {
               var roleID = req.body.roleIDs[link];
-              Role.findById( roleID, function(err, role) {
+              console.log(roleID)
+              /*Role.findById(roleID, function(err, role) {
                 Applicant.find({
                   $or: [{
                     'roleID': roleID
@@ -214,30 +195,38 @@ module.exports = function(app, express) {
                     }
                   }]
                 }, function(err, apps) {
-                  /*console.log(role.total_apps);*/
+                  
                   role.total_apps = apps.length;
-                  /*role.total_apps = count;*/
+                  
                   role.save(function(err, data) {});
                   return;
                 })
-              })
-              /*Role.findById(req.body.roleIDs[link], function(err, role) {
+              })*/
+              Role.findById(roleID, function(err, role) {
                 if (!err) {
                   Applicant.count({
-                    'roleID': role._id
+                    $or: [{
+                    'roleID': roleID
+                  }, {
+                    'roleIDs': {
+                      $in: [roleID]
+                    }
+                  }]
                   }, function(err, count) {
+                    console.log(count);
                     if (err) {
                       res.send(err);
                       console.log(err);
                     } else {
-                      role.total_apps = count;
+                      /*role.total_apps = count;
                       console.log(role.total_apps);
-                      role.save(function(err, data) {});
+                      role.save(function(err, data) {});*/
                       return
                     }
                   })
                 }
-              })*/
+              })
+              
             }}
           return res.json({
             success: true,

@@ -71,6 +71,7 @@ angular.module('awsService', [])
                     alert('Upload Failed, please resubmit your application.');
                   }
                 }, null, function(evt) {
+                  console.log(evt);
                   file.progress = parseInt(100.0 * evt.loaded / evt.total);
                   if (file.progress === 100) {
                       ++numFilesDone;

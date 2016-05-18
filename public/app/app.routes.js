@@ -31,13 +31,13 @@ angular.module('app.routes', ['ngRoute'])
             controllerAs   : 'login'
         })
         .when('/Apply/:id',  {
-            templateUrl: 'app/views/pages/Apply.html',
-            controller: 'ApplyController',
+            templateUrl: 'app/views/pages/application_role_level.html',
+            controller: 'ApplicantRoleLvlController',
             controllerAs: 'page'
         })
         .when('/Apply/Project/:id',  {
-            templateUrl: 'app/views/pages/application_project.html',
-            controller: 'ApplicantProjectController',
+            templateUrl: 'app/views/pages/application_project_level.html',
+            controller: 'ApplicantProjectLvlController',
             controllerAs: 'page'
         })
         //project    

@@ -39,7 +39,7 @@ angular.module('projectCtrl', ['userService',
               }
             case "owner":
               {
-                vm.prView = true;
+
                 break;
               }
           }

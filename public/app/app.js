@@ -1,6 +1,7 @@
 
 angular.module('userApp', [
 	'angular-carousel',
+	'angular.filter',
 	'ui.bootstrap',
 	'xml',
 	'angular-clipboard',

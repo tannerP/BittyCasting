@@ -248,8 +248,15 @@ module.exports = function(app, express) {
 	apiRouter.route('/AppCount/:ID')
 		.get(function(req, res) {
 			Applicant.count({
-				'roleID': req.params.ID
+        $or: [{
+          'roleID': roleID
+        }, {
+          'roleIDs': {
+            $in: [roleID]
+          }
+        }]
 			}, function(err, count) {
+				console.log(count);
 				if (err) {
 					res.send(err);
 					console.log(err);
