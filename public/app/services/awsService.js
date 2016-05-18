@@ -66,6 +66,8 @@ angular.module('awsService', [])
                       name: uploadFiles[i].requirement,
                       file_type: file.type
                     };
+                    $rootScope.$emit('app-media-submitted')
+
                     Applicant.update(updateID, parsedData);
                   } else {
                     alert('Upload Failed, please resubmit your application.');
@@ -82,8 +84,8 @@ angular.module('awsService', [])
                         /*return true;*/
                         //send event to main
                         /*console.log("Finished uploading files")*/
-                      $rootScope.$emit('app-media-submitted')
-                      return;
+/*                      $rootScope.$emit('app-media-submitted')
+*/                      return;
                     }
                   }
 

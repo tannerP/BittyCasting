@@ -15,6 +15,7 @@ angular.module('userApp', [
 	'UIService',
 	'awsService',
 	'applyCtrl',
+	'addApplicant',
 	'mainCtrl',
 	'projectCtrl',
 	'userCtrl',
