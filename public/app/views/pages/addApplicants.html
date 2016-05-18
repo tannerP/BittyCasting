@@ -123,22 +123,22 @@
  
                               <span ng-repeat="file in page.files track by $index"><img class="upload-thumbnail" flow-img="file"/>File name<img class="upload-cancel" src="/assets/imgs/ic_cross_lightgrey.svg" ng-click=""></span>
                               
-<!--
-                              <span class="custom-form">
+                              <span class="custom-form" ng-show="page.addingLink">
                                   <input ng-model="page.newLink" placeholder="http://">                             
                                   <img class="upload-cancel" src="/assets/imgs/ic_cross_lightgrey.svg" ng-click="page.addLink(page.newLink)">
                               </span>
--->
                                  
                           </div>
                       </div>
                       
+<!--
                           <div class="div-table-col" ng-show="page.addingLink">
                               <div class="custom-form">
                                   <input ng-model="page.newLink" placeholder="http://">                             
                                   <img class="upload-cancel" src="/assets/imgs/ic_cross_lightgrey.svg" ng-click="page.addLink(page.newLink)">
                               </div>
                           </div>
+-->
                           
 <!--
                           <div class="div-table-col">
