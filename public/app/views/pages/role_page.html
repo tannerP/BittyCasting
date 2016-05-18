@@ -135,7 +135,7 @@
                     {{app.name.first}} {{app.name.last}}
                 </td>
                 <td>
-                  <div style="z-index:10;" ng-click="page.updateFav(app,roleData._id)" >
+                  <div ng-click="page.updateFav(app,roleData._id)" >
                     <img  ng-if="app.favorited" ng-src="/assets/imgs/ic_fav_b_fill.svg" width="20px" vertical-align="middle" >
                     <img ng-if="!app.favorited" ng-src="/assets/imgs/ic_fav_b.svg" width="20px" vertical-align="middle">
                   </div>
