@@ -81,7 +81,7 @@
         <td ng-if="currApp.links.length > 0">Links:</td>
         <td>
            <ul>
-            <li ng-repeat="link in currApp.links" ng-show="link != null">
+            <li ng-repeat="link in currApp.links track by $index" ng-show="link != null">
               <a target="_blank" ng-href="#" ng-click="goToLink(link.source)" >{{link.source || link }} </a>
             <br/></li>
           </ul>
