@@ -45,27 +45,26 @@ angular.module('addApplicant', ['userService', 'mgcrea.ngStrap'])
       /*console.log(vm.newData)*/
       console.log(vm.newData.links)
       if (name && name.first != "" && name.last != "") {
-        normalizeLink(function(){
+        normalizeLink(function() {
           vm.newData.roleIDs.push(vm.role._id)
           console.log(vm.newData)
-          
-          
-          
+
+
+
           vm.applicants.push(vm.newData)
-          /*console.log(vm.applicants)*/
-        /*  console.log(vm.applicants)
+            /*console.log(vm.applicants)*/
+            /*  console.log(vm.applicants)
 
           console.log(vm.appSHLinks)
 
           console.log(vm.newData.links)
           console.log(vm.newData.files)
   */
-          //init matrix
-          //matrix: #applicants x #requirements
+            //init matrix
+            //matrix: #applicants x #requirements
 
-          
+
           console.log(vm.appSHLinks);
-          vm.resetNewApp();
           vm.processing = false;
           console.log(vm.applicants)
         });
@@ -89,30 +88,30 @@ angular.module('addApplicant', ['userService', 'mgcrea.ngStrap'])
         }
       }
 
-  
+
       for (var i in vm.role.requirements) {
 
         var curReqmt = vm.role.requirements[i].name;
         /*if (vm.newData.files.length > 0 || vm.newData.links.length > 0) {*/
-          console.log("file length")
-          console.log(vm.newData.files.length)
-          
-          vm.appSHLinks[NUMAPP][i] = false; //default
-          // true if has the corresponding requirement
-          if (vm.newData.files.length > 0) {
-            for (var j in vm.newData.files) {
-              var fRequirement = vm.newData.files[j].requirement;
-              console.log("file requirement")
-              console.log(fRequirement)
-              console.log("current requirement")
-              console.log(curReqmt)
-              if (fRequirement === curReqmt) {
-                console.log("Adding true, file")
-                vm.appSHLinks[NUMAPP][i] = true;
-                break;
-              }
+        console.log("file length")
+        console.log(vm.newData.files.length)
+
+        vm.appSHLinks[NUMAPP][i] = false; //default
+        // true if has the corresponding requirement
+        if (vm.newData.files.length > 0) {
+          for (var j in vm.newData.files) {
+            var fRequirement = vm.newData.files[j].requirement;
+            console.log("file requirement")
+            console.log(fRequirement)
+            console.log("current requirement")
+            console.log(curReqmt)
+            if (fRequirement === curReqmt) {
+              console.log("Adding true, file")
+              vm.appSHLinks[NUMAPP][i] = true;
+              break;
             }
           }
+        }
         // true if has the corresponding requirement
         if (vm.newData.links.length > 0) {
           for (var j in vm.newData.links) {
@@ -165,9 +164,11 @@ angular.module('addApplicant', ['userService', 'mgcrea.ngStrap'])
       }
       /*vm.resetNewApp();*/
     vm.addAppBtn = function() {
-      anotherApp(function() {})
+      anotherApp(function() {
+        vm.resetNewApp();
+      })
     }
-    vm.togAppLinkBtn = function(appNdx, reqNdx){
+    vm.togAppLinkBtn = function(appNdx, reqNdx) {
       console.log(appNdx)
       console.log(reqNdx)
       vm.appSHLinks[appNdx][reqNdx] = !vm.appSHLinks[appNdx][reqNdx];
@@ -199,7 +200,7 @@ angular.module('addApplicant', ['userService', 'mgcrea.ngStrap'])
       console.log("ifRequirment")
       console.log(rqmnt)
       console.log(fileArr)
-      /*console.log(vm.newData.links)*/
+        /*console.log(vm.newData.links)*/
       if (fileArr) {
         for (i in fileArr) {
           console.log(rqmnt)
@@ -273,14 +274,15 @@ angular.module('addApplicant', ['userService', 'mgcrea.ngStrap'])
       console.log(array)
       if (array.length >= 1) {
         /*if (index === 0) array.shift();
-        else*/ array.splice(index, 1);
+        else*/
+        array.splice(index, 1);
       } else {
         array = new Array();
       }
       console.log(array)
     }
     var createMatixRow = function() {
-      
+
     }
 
     vm.back = function() {
@@ -289,6 +291,8 @@ angular.module('addApplicant', ['userService', 'mgcrea.ngStrap'])
 
     vm.submit = function() {
       vm.processing = true;
+      //anotherApp adds applicants
+      // and instanciate a matrix 
       anotherApp(function() {
 
         console.log(vm.applicants)
@@ -301,20 +305,8 @@ angular.module('addApplicant', ['userService', 'mgcrea.ngStrap'])
 
         for (var i in vm.applicants) {
           var data = vm.applicants[i];
-          var uploadFiles = data.files
+          var uploadFiles = data.files;
           data.files = null;
-
-          if (uploadFiles && uploadFiles.length > 0) {
-            /*temp.files = uploadFiles;
-            temp.appID = resp.data.appID;*/
-            /*console.log("pushing resp. rile uploadFiles");*/
-            var uploadCounter = uploadFiles.length;
-            ready2UploadFiles.push(uploadFiles);
-            /*console.log(ready2UploadFiles);
-            console.log(ready2UploadFiles.length);
-            console.log(vm.applicants.length);
-            console.log(counter);*/
-          }
 
           console.log(ready2UploadFiles)
           console.log(uploadFiles)
@@ -326,18 +318,29 @@ angular.module('addApplicant', ['userService', 'mgcrea.ngStrap'])
             /*console.log("Counter " + counter);*/
             /*var applicantID = resp.data.appID;*/
             if (vm.applicants.length == promises.length) {
+              var temp = {};
+              temp.appID = data[i].data.appID;
+              temp.files = ready2UploadFiles[i];
+
               $q.all(promises).then(function(data) {
                 /*            console.log(data)*/
                 for (var i in data) {
                   /*  console.log(i)
                     console.log(data.length)
                     console.log(data)*/
+                  if (uploadFiles && uploadFiles.length > 0) {
+                    /*temp.files = uploadFiles;
+                    temp.appID = resp.data.appID;*/
+                    /*console.log("pushing resp. rile uploadFiles");*/
+                    var uploadCounter = uploadFiles.length;
+                    ready2UploadFiles.push(uploadFiles);
+                    /*console.log(ready2UploadFiles);
+                    console.log(ready2UploadFiles.length);
+                    console.log(vm.applicants.length);
+                    console.log(counter);*/
+                    AWS.uploadS3(temp);
+                  }
 
-                  var temp = {};
-                  temp.appID = data[i].data.appID;
-                  temp.files = ready2UploadFiles[i];
-
-                  AWS.uploadS3(temp);
                   /*                console.log(temp)*/
                   $rootScope.$on("app-media-submitted",
                     function() {
@@ -357,6 +360,7 @@ angular.module('addApplicant', ['userService', 'mgcrea.ngStrap'])
                 }
               });
             }
+            
             return;
           })
         }

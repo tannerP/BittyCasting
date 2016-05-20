@@ -251,8 +251,8 @@
 	</div>
 
 
-	<div ng-show="page.processing" class="custom-loader">
-		<img style ="height:90px; width:auto" ng-src='/assets/imgs/spin.gif'>
+	<div ng-if="page.processing" class="custom-loader">
+		<img style ="height:90px; width:auto; z-index:5;" ng-src='/assets/imgs/spin.gif'>
 	</div>   
 
 	<div class="col-md-4 col-md-offset-4">

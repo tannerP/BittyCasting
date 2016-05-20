@@ -1,42 +1,6 @@
 angular.module('applyCtrl', ['userService', 'mgcrea.ngStrap'])
-  
+
 .directive('applyform', function() {
-  /*  var link = function(scope,element, attrs){
-      var vm = this;
-      console.log(vm);
-      console.log(scope.ppv.roles);
-      
-      console.log(element);
-      console.log(attrs);
-
-      attrs.$observe('project', function(project) {
-             /// do what is needed with passedId
-             console.log(project);
-             return
-           });
-
-      scope.$apply(function(scope,element, attrs){
-           console.log(vm);
-           console.log(scope.ppv.roles);
-      console.log(scope.ppv.roles);
-      
-      console.log(element);
-      console.log(attrs);
-      });
-
-      console.log(scope.$evalAsync(attrs.project))
-      console.log(data)
-
-      scope.$watch(attrs.roles, function(value){
-        console.log(value);
-      })
-    }*/
-
-  /*var link = function(scope, element, attrs, controller, transcludeFn){
-    console.log(scope)
-    console.log(element)
-    console.log(scope.ppv.requirement)
-  }*/
 
   var publicController = function(Applicant, AWS,
     $location, $routeParams, $scope,
@@ -46,20 +10,13 @@ angular.module('applyCtrl', ['userService', 'mgcrea.ngStrap'])
     if ($rootScope.user) {
       vm.loggedIn = true;
     };
-    /*$scope.$emit("showFooter")*/
 
     vm.update_CurRole = function(new_currRole) {
-        /*console.log(vm.currole)*/
         vm.currole = new_currRole;
       }
       //TODO: this doesn't scale for collabs.
     vm.back = function() {
-      /*if ($rootScope.loggedIn) {
-        vm.toggle();
-      } else {*/
-      /*$location.path("/");*/
       $window.history.back();
-      /*}*/
     }
     vm.link = ""
     vm.newLinks = [];
@@ -69,9 +26,8 @@ angular.module('applyCtrl', ['userService', 'mgcrea.ngStrap'])
     vm.files = [];
 
     var addReq = function(rmnts) {
-      /*console.log(rmnts)*/
+      console.log(rmnts)
       for (var i in rmnts) {
-        /*console.log(rmnts[i])*/
         vm.requirements.push(rmnts[i])
       }
     }
@@ -91,13 +47,12 @@ angular.module('applyCtrl', ['userService', 'mgcrea.ngStrap'])
 
     }
 
-    vm.toggleRole = function(roleID, requirements) {
+    vm.toggleRole = function(roleID) {
       vm.message = "";
       if (roleID) {
         var index = vm.appData.roleIDs.indexOf(roleID);
         if (index === -1) {
           vm.appData.roleIDs.push(roleID);
-          /*vm.requirements.push(requirement)*/
           updateReq()
         } else {
           /*console.log("removing")*/
@@ -131,15 +86,14 @@ angular.module('applyCtrl', ['userService', 'mgcrea.ngStrap'])
       if (vm.roles.length === 1) {
         var roleID = vm.roles[0]._id;
         vm.toggleRole(roleID, null)
-      } else {
-        if (vm.appData.roleIDs.length < 1) {
-          vm.message = "Please select a role to submit."
-          return;
-        }
+      }
+      if (vm.appData.roleIDs.length < 1) {
+        vm.message = "Please select a role to submit."
+        return;
       }
 
-      console.log(vm.appData)
       vm.processing = true;
+      var finishedFileCount = 0;
       vm.currfile;
       for (var i in vm.newLinks) {
         if (vm.newLinks[i]) {
@@ -152,28 +106,29 @@ angular.module('applyCtrl', ['userService', 'mgcrea.ngStrap'])
           }
         }
       }
-      Applicant.apply(vm.appData)
-        .then(function(resp) {
-          vm.processing = true;
-          vm.applicantID = resp.data.appID;
-          if (vm.files.length == 0) {
-            $timeout(function() {
-              vm.processing = false;
-              $location.path('/Thankyou');
-            }, 1500)
+      /*      Applicant.apply(vm.appData)
+              .then(function(resp) {
+                vm.processing = true;
+                vm.applicantID = resp.data.appID;
+                var numFiles = vm.files.length;
+                if (numFiles === 0) {
+                  $timeout(function() {
+                    vm.processing = false;
+                    $location.path('/Thankyou');
+                  }, 1500)
 
-          } else {
-            AWS.uploadAppMedias(vm.files, vm.requirements,
-              vm.applicantID, $rootScope.awsConfig.bucket);
-            $rootScope.$on("app-media-submitted",
-              function() {
-                $timeout(function() {
-                  vm.processing = false;
-                  $location.path('/Thankyou');
-                }, 1500)
-              })
-          }
-        })
+                } else {
+                  AWS.uploadAppMedias(vm.files, vm.requirements,
+                    vm.applicantID, $rootScope.awsConfig.bucket);
+                  $rootScope.$on("app-media-submitted",
+                    function() {
+                      finishedFileCount++;
+                      if(finishedFileCount === numFiles){
+                        $location.path('/Thankyou');
+                      }
+                    })
+                }
+              })*/
       return vm;
     }
   }

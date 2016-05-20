@@ -17,6 +17,10 @@ angular.module('awsService', [])
     var updateID = data.appID;
     var bucket = $rootScope.awsConfig.bucket
       //remove empty files
+
+  if(!data.files || data.files.length < 1){
+    return $rootScrope.err.message = "Input error";
+  }
     var numFiles = data.files.length * 2; //HACK
     var numFilesDone = 0;
     for (var i in uploadFiles) {
@@ -67,7 +71,6 @@ angular.module('awsService', [])
                       file_type: file.type
                     };
                     $rootScope.$emit('app-media-submitted')
-
                     Applicant.update(updateID, parsedData);
                   } else {
                     alert('Upload Failed, please resubmit your application.');
@@ -139,15 +142,15 @@ angular.module('awsService', [])
                   if (response.status === 201) {
                     var data = response.data,
                       parsedData;
-                    parsedData = {
-                      location: data.PostResponse.Location,
-                      bucket: data.PostResponse.Bucket,
-                      key: data.PostResponse.Key,
-                      etag: data.PostResponse.ETag,
-                      name: requirements[i],
-                      file_type: file.type
-                    };
-                    Applicant.update(updateID, parsedData);
+                      parsedData = {
+                        location: data.PostResponse.Location,
+                        bucket: data.PostResponse.Bucket,
+                        key: data.PostResponse.Key,
+                        etag: data.PostResponse.ETag,
+                        name: requirements[i],
+                        file_type: file.type
+                      };
+                      Applicant.update(updateID, parsedData);
 
                   } else {
                     alert('Upload Failed, please resubmit your application.');

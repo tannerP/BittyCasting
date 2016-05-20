@@ -11,6 +11,7 @@ var Mailgun = require("mailgun-js");
 var S3Config = require('./../aws.json');
 var aws = require('../../server/lib/aws');
 var bitly = require("../lib/bitly.js")
+var async = require('async');
 
 module.exports = function(app, express) {
   var app = express.Router();
@@ -26,14 +27,14 @@ module.exports = function(app, express) {
           });
         } else {
           req.userData = User.findOne({
-              '_id': decoded.id
-            }, function(err, data) {
-              if (data) {
-                data.last_active = new Date();
-                data.save();
-                return data;
-              }
-            })
+            '_id': decoded.id
+          }, function(err, data) {
+            if (data) {
+              data.last_active = new Date();
+              data.save();
+              return data;
+            }
+          })
           req.decoded = decoded;
           next();
         }
@@ -114,7 +115,7 @@ module.exports = function(app, express) {
           projectID: proj._id
         }, function(err, roles) {
           /*console.log(roles[0].requirements)*/
-          
+
           var money = {};
           var client = checkClientship(proj, req.decoded);
           money.client = client;
@@ -132,110 +133,102 @@ module.exports = function(app, express) {
 
 
   app.post('/applicant', function(req, res) {
-      var applicant = new Applicant();
-      //check for correct name;
-      if (req.body.name) {
-        if (req.body.name.first) {
-          applicant.name.first = req.body.name.first;
-        }
-        if (req.body.name.last) {
-          applicant.name.last = req.body.name.last;
-        }
+    var applicant = new Applicant();
+    //check for correct name;
+    if (req.body.name) {
+      if (req.body.name.first) {
+        applicant.name.first = req.body.name.first;
       }
-      if (!req.body.roleIDs) {
+      if (req.body.name.last) {
+        applicant.name.last = req.body.name.last;
+      }
+    }
+    if (!req.body.roleIDs) {
+      return res.json({
+        success: false,
+        error: "No roleIDs"
+      })
+    } else {
+      for (id in req.body.roleIDs) {
+        applicant.roleIDs.push(req.body.roleIDs[id]);
+      }
+    }
+
+    if (req.body.email) {
+      applicant.email = req.body.email;
+    }
+    if (req.body.phone) {
+      applicant.phone = req.body.phone;
+    }
+    if (req.body.gender) {
+      applicant.gender = req.body.gender;
+    }
+    if (req.body.message) {
+      applicant.message = req.body.message;
+    }
+    if (req.body.links) {
+      for (link in req.body.links) {
+        applicant.links.push(req.body.links[link]);
+      }
+    }
+    if (req.decoded.id) {
+      applicant.createID = req.decoded.id;
+    }
+
+    applicant.save(function(err) {
+      if (err) {
         return res.json({
           success: false,
-          error: "No roleIDs"
+          error: err
         })
       } else {
-        for (id in req.body.roleIDs) {
-          applicant.roleIDs.push(req.body.roleIDs[id]);
-        }
-      }
+        if (req.body.roleIDs && req.body.roleIDs[0]) {
+          for (i in req.body.roleIDs) {
+            var roleID = req.body.roleIDs[i];
+            console.log(roleID)
 
-      if (req.body.email) {
-        applicant.email = req.body.email;
-      }
-      if (req.body.phone) {
-        applicant.phone = req.body.phone;
-      }
-      if (req.body.gender) {
-        applicant.gender = req.body.gender;
-      }
-      if (req.body.message) {
-        applicant.message = req.body.message;
-      }
-      if (req.body.links) {
-        for (link in req.body.links) {
-          applicant.links.push(req.body.links[link]);
-        }
-      }
-      if (req.decoded.id) {
-        applicant.createID = req.decoded.id;
-      }
 
-      applicant.save(function(err) {
-        if (err) {
-          return res.json({
-            success: false,
-            error: err
-          })
-        } else {
-          if (req.body.roleIDs && req.body.roleIDs[0]) {
-            for (link in req.body.roleIDs) {
-              var roleID = req.body.roleIDs[link];
-              console.log(roleID)
-              /*Role.findById(roleID, function(err, role) {
-                Applicant.find({
-                  $or: [{
-                    'roleID': roleID
-                  }, {
-                    'roleIDs': {
-                      $in: [roleID]
-                    }
-                  }]
-                }, function(err, apps) {
-                  
-                  role.total_apps = apps.length;
-                  
-                  role.save(function(err, data) {});
-                  return;
-                })
-              })*/
+            async.map(req.body.roleIDs, updateCount, function(e, r) {
+              /*console.log("printing results after saving")
+              console.log(r);*/
+              return;
+            });
+
+            function updateCount(roleID, callback) {
               Role.findById(roleID, function(err, role) {
+                console.log("line 197:found role")
                 if (!err) {
                   Applicant.count({
                     $or: [{
-                    'roleID': roleID
-                  }, {
-                    'roleIDs': {
-                      $in: [roleID]
-                    }
-                  }]
+                      'roleID': roleID
+                    }, {
+                      'roleIDs': {
+                        $in: [roleID]
+                      }
+                    }]
                   }, function(err, count) {
-                    console.log(count);
-                    if (err) {
-                      res.send(err);
-                      console.log(err);
-                    } else {
-                      /*role.total_apps = count;
+                    /*console.log(count);*/
+                    if (err) return callback(err, null);
+                    else {
+                      role.total_apps = count;
                       console.log(role.total_apps);
-                      role.save(function(err, data) {});*/
-                      return
+                      role.save(function(err, data) {});
+                      return callback();
                     }
                   })
                 }
               })
-              
-            }}
-          return res.json({
-            success: true,
-            appID: applicant._id
-          })
+            }
+          }
         }
-      })
-
+        return res.json({
+          success: true,
+          appID: applicant._id
+        })
+      }
     })
+
+  })
 
   app.put('/suppliment/:app_id', function(req, res) {
 
@@ -401,8 +394,7 @@ module.exports = function(app, express) {
       //If there is an error, render the error page
       if (err) {
         console.log(err)
-      } else {
-      }
+      } else {}
     });
   });
   app.put('/feedback', function(req, res) {
