@@ -2578,7 +2578,7 @@ ul.select-coverphoto-wrapper {
     line-height: 40px;
     height: 130px; }
     .footer .container {
-      padding-top: 20px; }
+      padding: 10px 0; }
     .footer p {
       text-align: center;
       padding-right: 0;
