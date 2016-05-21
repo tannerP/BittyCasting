@@ -1,20 +1,44 @@
 angular.module('applyCtrl', ['userService', 'mgcrea.ngStrap'])
 
 .directive('applyform', function() {
+  var link = function(scope, element, 
+    attrs, controller, transcludeFn) {
+
+    console.log(scope)
+
+    scope.$watch('roles', function(old,_new){
+      console.log(old)
+      console.log(_new)
+    })
+
+    return;
+  }
 
   var publicController = function(Applicant, AWS,
     $location, $routeParams, $scope,
     $rootScope, $aside, $route, $timeout, $window) {
     var vm = this;
+
+    /*vm.currRoleID = vm.roles[0]._id*/
     vm.loggedIn = false;
     if ($rootScope.user) {
       vm.loggedIn = true;
     };
 
-    vm.update_CurRole = function(new_currRole) {
-        vm.currole = new_currRole;
+    vm.update_CurRole = function(roleID) {
+      console.log(roleID)
+        vm.currRoleID = roleID;
       }
+
+    vm.isSelected = function(id){
+      console.log(id)
+      if(id === vm.currRoleID){
+        return "rolesDynamicsActive";
+      }
+      else return false;
+    }
       //TODO: this doesn't scale for collabs.
+    
     vm.back = function() {
       $window.history.back();
     }
@@ -31,6 +55,7 @@ angular.module('applyCtrl', ['userService', 'mgcrea.ngStrap'])
         vm.requirements.push(rmnts[i])
       }
     }
+
     var updateReq = function() {
       vm.requirements = []; //reset
 
@@ -44,7 +69,6 @@ angular.module('applyCtrl', ['userService', 'mgcrea.ngStrap'])
           addReq(role.requirements);
         }
       }
-
     }
 
     vm.toggleRole = function(roleID) {
@@ -140,6 +164,7 @@ angular.module('applyCtrl', ['userService', 'mgcrea.ngStrap'])
       project: '=',
     },
     templateUrl: 'app/views/pages/applicant_form.html',
+    link:link,
     controller: publicController,
     controllerAs: 'ppv',
     bindToController: true,

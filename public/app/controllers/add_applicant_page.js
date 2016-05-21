@@ -40,33 +40,13 @@ angular.module('addApplicant', ['userService', 'mgcrea.ngStrap'])
         //Body
       var anotherApp = function(callback) {
         console.log(vm.newData)
-        vm.processing = true;
         var name = vm.newData.name;
         /*console.log(vm.newData)*/
         console.log(vm.newData.links)
         if (name && name.first != "" && name.last != "") {
           normalizeLink(function() {
             vm.newData.roleIDs.push(vm.role._id)
-            console.log(vm.newData)
-
-
-
             vm.applicants.push(vm.newData)
-              /*console.log(vm.applicants)*/
-              /*  console.log(vm.applicants)
-
-          console.log(vm.appSHLinks)
-
-          console.log(vm.newData.links)
-          console.log(vm.newData.files)
-  */
-              //init matrix
-              //matrix: #applicants x #requirements
-
-
-            console.log(vm.appSHLinks);
-            vm.processing = false;
-            console.log(vm.applicants)
           });
         }
         return callback();

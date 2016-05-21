@@ -20,7 +20,7 @@
 			</thead>
 		</thead>
 		<tbody>
-		<tr>
+		<tr ng-hide="page.processing">
 		<td>
 				<div class="custom-form">
 						<input type="text" class="custom-form" placeholder="First name" ng-model="page.newData.name.first" Required >
@@ -102,8 +102,8 @@
 								<div ng-show="page.ifRequirement(rq.name, page.newData.files) && !page.SHLinks[$index]" class="div-table-col">
 								<a ngf-select="page.onFileSelect(page.newFile, $invalidFiles)"
 										ng-model="page.newFile" name="file" 
-										ngf-pattern="'application/pdf,image/*,video/*'"
-										ngf-accept="'application/pdf,image/*,video/*'"
+										ngf-accept="'application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/pdf,image/*,video/*'"
+										ngf-pattern="'application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/pdf,image/*,video/*'"
 										ngf-before
 										ngf-before-model-change= "errors = '' "
 										ngf-min-size="100"
@@ -126,11 +126,11 @@
 					</td>
 <!-- reset -->					
 					<td>
-						<img ng-click="page.trashbtn()" src="/assets/imgs/ic_trash.svg" width="16px" height="16px">
+						<img ng-click="page.resetNewApp()" src="/assets/imgs/ic_trash.svg" width="16px" height="16px">
 					</td>
 			
 		</tr>
-		<tr>
+		<tr ng-hide="page.processing">
 			<td></td>
 			<td></td>
 			<td></td>
@@ -148,7 +148,7 @@
 <!-- added applicants -->
 			<tr ng-repeat="applicant in page.applicants"
 					ng-init="appNdx = $index" 
-						ng-mouseover="page.updateCurApp($index)">
+					ng-mouseover="page.updateCurApp($index)">
 							<td>
 								<div class="custom-form">
 									<input type="text" ng-model="applicant.name.first">
@@ -216,8 +216,8 @@
 <!-- end repeat -->	</div>
 									</div>
 <!-- Upload/Link -->
-									<div ng-show="!page.appSHLinks[appNdx][$index] &&
-												page.ifRequirement(rq.name, applicant.files)"
+									<div ng-show="!page.appSHLinks[appNdx][$index]
+									 && page.ifRequirement(rq.name, applicant.files)"
 									 class="div-table-col">
 										<a ngf-select="page.onFileSelectApplicants(			page.newFile,applicant.files)"
 											ng-model="page.newFile" name="file" 

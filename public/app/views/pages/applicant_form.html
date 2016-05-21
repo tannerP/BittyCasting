@@ -13,8 +13,8 @@
 								<ul>
 										<li ng-if="ppv.roles.length > 0"
 												ng-repeat="role in ppv.roles"class="roles-dynamics"
-												ng-click="ppv.update_CurRole(role)"
-										ng-class="{'rolesDynamicsActive':ppv.isSelected(role._id)}">
+												ng-click="ppv.update_CurRole(role._id)"
+												ng-class="ppv.isSelected(role._id)">
 												{{role.name}}
 										</li>              
 								</ul>
