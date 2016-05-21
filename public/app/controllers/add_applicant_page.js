@@ -94,11 +94,11 @@ angular.module('addApplicant', ['userService', 'mgcrea.ngStrap'])
         var curReqmt = vm.role.requirements[i].name;
         /*if (vm.newData.files.length > 0 || vm.newData.links.length > 0) {*/
         console.log("file length")
-        console.log(vm.newData.files.length)
+          /*console.log(vm.newData.files.length)*/
 
         vm.appSHLinks[NUMAPP][i] = false; //default
         // true if has the corresponding requirement
-        if (vm.newData.files.length > 0) {
+        if (vm.newData.files && vm.newData.files.length > 0) {
           for (var j in vm.newData.files) {
             var fRequirement = vm.newData.files[j].requirement;
             console.log("file requirement")
@@ -145,7 +145,6 @@ angular.module('addApplicant', ['userService', 'mgcrea.ngStrap'])
         vm.newData = {};
         vm.newData.files = [];
         vm.newData.name = {};
-        vm.newData.files = [];
         vm.newData.name.first = "";
         vm.newData.name.last = "";
         vm.newData.age = "";
@@ -197,14 +196,9 @@ angular.module('addApplicant', ['userService', 'mgcrea.ngStrap'])
     }
 
     vm.ifRequirement = function(rqmnt, fileArr) {
-      console.log("ifRequirment")
-      console.log(rqmnt)
-      console.log(fileArr)
         /*console.log(vm.newData.links)*/
       if (fileArr) {
         for (i in fileArr) {
-          console.log(rqmnt)
-          console.log(fileArr[i].requirement)
           if (rqmnt === fileArr[i].requirement) {
             return false;
           }
@@ -300,68 +294,71 @@ angular.module('addApplicant', ['userService', 'mgcrea.ngStrap'])
 
         var uploadCounter = 0;
         var numUploaded = 0;
-        var ready2UploadFiles = [];
+        var uploadFiles = [];
         var promises = [];
 
         for (var i in vm.applicants) {
-          var data = vm.applicants[i];
-          var uploadFiles = data.files;
-          data.files = null;
+          var applicant = vm.applicants[i];
+          var uploadFiles = applicant.files;
+          applicant.files = null;
 
-          console.log(ready2UploadFiles)
           console.log(uploadFiles)
-          console.log(data)
-          Applicant.multiApply(data).then(function(resp) {
+            /*console.log(uploadFiles)*/
+            /*console.log(data)*/
+          Applicant.multiApply(applicant).then(function(resp) {
 
             console.log(resp)
             promises.push(resp);
             /*console.log("Counter " + counter);*/
             /*var applicantID = resp.data.appID;*/
-            if (vm.applicants.length == promises.length) {
-              var temp = {};
-              temp.appID = data[i].data.appID;
-              temp.files = ready2UploadFiles[i];
+            console.log(vm.applicants.length)
+            console.log(promises.length)
+            if (vm.applicants.length === promises.length) {
 
               $q.all(promises).then(function(data) {
-                /*            console.log(data)*/
+                console.log(data)
+                if (!data) return;
                 for (var i in data) {
-                  /*  console.log(i)
-                    console.log(data.length)
-                    console.log(data)*/
+
+                  var temp = {};
+                  temp.appID = data[i].data.appID;
+                  temp.files = uploadFiles;
+                    console.log(uploadFiles)
+                    console.log(uploadFiles.length)
                   if (uploadFiles && uploadFiles.length > 0) {
                     /*temp.files = uploadFiles;
                     temp.appID = resp.data.appID;*/
                     /*console.log("pushing resp. rile uploadFiles");*/
-                    var uploadCounter = uploadFiles.length;
-                    ready2UploadFiles.push(uploadFiles);
+                    /*                    ready2UploadFiles.push(uploadFiles);
+                     */
                     /*console.log(ready2UploadFiles);
                     console.log(ready2UploadFiles.length);
                     console.log(vm.applicants.length);
                     console.log(counter);*/
                     AWS.uploadS3(temp);
                   }
-
-                  /*                console.log(temp)*/
-                  $rootScope.$on("app-media-submitted",
-                    function() {
-                      numUploaded++;
-                      console.log(numUploaded)
-                      console.log(uploadCounter)
-                      if (numUploaded === uploadCounter) {
-                        $timeout(function() {
-                          vm.processing = false;
-                          console.log("Going back to Cali")
-                          vm.back();
-                          return;
-                        }, 500 * uploadCounter)
-                      }
-                      return;
-                    })
                 }
+
+                /*                console.log(temp)*/
+                $rootScope.$on("app-media-submitted",
+                  function() {
+                    numUploaded++;
+                    console.log(numUploaded)
+                    console.log(uploadCounter)
+                    if (numUploaded === uploadCounter) {
+                      $timeout(function() {
+                        vm.processing = false;
+                        console.log("Going back to Cali")
+                        vm.back();
+                        return;
+                      }, 500 * uploadCounter)
+                    }
+                    return;
+                  })
+
               });
             }
-            
-            return;
+          return;
           })
         }
       })

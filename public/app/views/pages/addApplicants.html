@@ -180,7 +180,7 @@
 										<input type="text" class="custom-form" ng-model="applicant.age" Required>
 									</div>
 								</td>
-<!-- preview --><td>
+							<td>
 							<div class="div-table">
 								<div class="div-table-row"
 											ng-repeat="rq in page.role.requirements track by $index">
@@ -210,7 +210,7 @@
 											<span>{{file.file.name}}</span>
 											<img  class="upload-cancel"
 														src="/assets/imgs/ic_cross_lightgrey.svg"
-											 			ng-click="page.togAppLinkBtn(appNdx, $index);
+											 			ng-click="
 											 			page.removeElFrmArray($index, applicant.files)"/>
 											</span>
 <!-- end repeat -->	</div>
@@ -227,11 +227,12 @@
 											ngf-before-model-change= "errors = '' "
 											ngf-min-size="100"
 											ngf-max-size="250MB"
-											ngf-model-invalid="errors">
+											ngf-model-invalid="errors"
+											ng-click="page.newRqmnt(rq.name);">
 											Upload/
 										</a>
 										<a ng-href="#"
-									 		 ng-click="page.togAppLinkBtn(appNdx, $index)">Link</a>
+									 		 ng-click="page.togAppLinkBtn(appNdx, $index);page.newRqmnt(rq.name);">Link</a>
 									 </div>
 
 								</div>

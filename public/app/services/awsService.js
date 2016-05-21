@@ -6,20 +6,26 @@ angular.module('awsService', [])
 .factory('AWS', function($http, Applicant, Upload, $rootScope, $q) {
   var aws = [];
   var upload = [];
-
+  var bucket = $rootScope.awsConfig.bucket
   aws.uploadS3 = function(data) {
+
     //Note: ID is undefine.
-  /*  console.log(data)
+    console.log(data)
     console.log(data.appID)
     console.log(data.files)
-*/
-    var uploadFiles = data.files;
-    var updateID = data.appID;
-    var bucket = $rootScope.awsConfig.bucket
-      //remove empty files
 
-  if(!data.files || data.files.length < 1){
-    return $rootScrope.err.message = "Input error";
+    var uploadFiles = [];
+    for(var i in data.files){
+      uploadFiles.push(data.files[i]);
+    }
+    var updateID = data.appID;
+
+      console.log(uploadFiles)
+      console.log(updateID)
+
+  if(!uploadFiles && uploadFiles.length < 1){
+    console.log("being returned")
+    return $rootScope.message = "Input error";
   }
     var numFiles = data.files.length * 2; //HACK
     var numFilesDone = 0;
