@@ -210,13 +210,13 @@ angular.module('applyCtrl', ['userService', 'mgcrea.ngStrap'])
 
     $scope.submitted = false;
     /*TODO: condense when combine project and role schema*/
-    console.log($routeParams.id)
+/*    console.log($routeParams.id)*/
     Role.get($routeParams.id).then(function(data) {
       vm.roles = [];
       var castingRole = data.data.data;
       vm.roles.push(castingRole)
 
-      console.log(vm.roles)
+/*      console.log(vm.roles)*/
       if (castingRole) { //TODO:remove? 
         Pub.getAppPrj(castingRole.projectID).then(function(data) {
           vm.project = data.data.project.project;
