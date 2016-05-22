@@ -112,7 +112,7 @@ angular.module('applyCtrl', ['userService', 'mgcrea.ngStrap'])
         vm.toggleRole(roleID, null)
       }
       if (vm.appData.roleIDs.length < 1) {
-        vm.message = "Please select a role to submit."
+        vm.message = "Please select a role above before submitting your application."
         return;
       }
 
