@@ -14,6 +14,8 @@ angular.module('mainCtrl', ['authService', 'mgcrea.ngStrap'])
 			})
 			$scope.$on('$locationChangeStart', function(event, newUrl, oldUrl) {
 				if(newUrl.indexOf('/home') > -1) return;
+				if(newUrl.indexOf('/Apply') > -1) return;
+
 				if ($scope.isAside) event.preventDefault(); // This prevents the navigation from happening
 			});
 			var FBLink = "https://www.facebook.com/BittyCasting-1053535994667037/"

@@ -31,14 +31,18 @@ app.use(require('prerender-node')
 
 
 var env = process.argv[2];
-  
-  console.log(env)
+
+console.log(env)
 switch (env) {
   case "prod":
     var config = require('./config').prod; //get config file
     break;
   case "dev":
     var config = require('./config').dev; //get config file
+    app.use(morgan('dev')); //HTTP logger
+    break;
+  case "tp":
+    var config = require('./config').tp; //get config file
     app.use(morgan('dev')); //HTTP logger
     break;
   default:
