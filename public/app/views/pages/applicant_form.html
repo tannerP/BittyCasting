@@ -57,6 +57,7 @@
                                  <div class='pageSubtitle'
                                  			 ng-if="ppv.roles.length < 2">
                                  {{ ppv.roles[0].end_date | date:'mediumDate' }}
+                                 Deadline
                                  </div> 
 								 
 												<form ng-submit="ppv.submit()" name="form" class="css-form">
@@ -67,7 +68,7 @@
 																<li ng-repeat="role in ppv.roles">
 																		<label><input type="checkbox" ng-click="ppv.toggleRole(role._id,role.requirements)">
 																		<span></span>{{role.name}}
-																		( {{ ppv.roles[0].end_date | date:'mediumDate'}}	)
+																		( {{ ppv.roles[0].end_date | date:'mediumDate'}}	Deadline)
 																		</label>
 																						<!-- <span 
 																						ng-click="ppv.toggleRole(role._id,role.requirements)" ng-class="{'btn':ppv.isSelected(role._id)}"></span> {{role.name}} -->
