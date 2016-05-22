@@ -334,7 +334,7 @@ a {
         input[type="checkbox"] {
             display: none;
         }
-        span {
+        span.custom-checkbox-style {
             float: left;
             margin: 3px 3px 0 -24px;
             display:inline-block;
@@ -346,6 +346,11 @@ a {
             background-color: $color-grey-light;
             cursor:pointer;
             vertical-align: middle;
+        }
+        span.applicationDeadline {
+            color: $color-grey;
+            font-size: $font-size-small;
+            margin-left: 10px;
         }
         input:checked + span {
             background: url("/assets/imgs/ic_check.svg") no-repeat center center $color-grey-light;
