@@ -25,16 +25,16 @@ angular.module('applyCtrl', ['userService', 'mgcrea.ngStrap'])
       vm.loggedIn = true;
     };
 
-    vm.update_CurRole = function(roleID) {
-      console.log(roleID)
-        vm.currRoleID = roleID;
+    vm.update_CurRole = function(role) {
+        vm.curRole = role;
       }
 
     vm.isSelected = function(id){
-      console.log(id)
-      if(id === vm.currRoleID){
+      if(vm.curRole && id === vm.curRole._id){
         return "rolesDynamicsActive";
       }
+      else if(!vm.curRole &&vm.roles[0] && id === vm.roles[0]._id)
+       return "rolesDynamicsActive";
       else return false;
     }
       //TODO: this doesn't scale for collabs.
