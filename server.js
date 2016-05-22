@@ -42,7 +42,7 @@ switch (env) {
     app.use(morgan('dev')); //HTTP logger
     break;
   default:
-    var config = require('./config').prod; //get config file
+    var config = require('./config').dev; //get config file
     break;
 
 }
