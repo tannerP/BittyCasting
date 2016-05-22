@@ -263,9 +263,32 @@ module.exports = function(app, express) {
         })
       }
     });
-
   })
+  app.put('/feedback', function(req, res) {
+    var tStamp = req.body.timestamp
+    var data = {
+      from: "internal@bittycasting.com",
+      to: "tanner@bittycasting.com",
+      subject: "Beta User Feedback - " + req.body.title,
+      html: 'New user feedback: ' + req.body.message + " " + "User Information: " + "<br>" + 
+      req.body.user.first + " " + req.body.user.last + " " +
+      req.body.user.email + "." + "Timestamp: " + tStamp + " " +
+      "Request was sent from: " + req.body.location 
+    }
 
+    var mailgun = new Mailgun({
+      apiKey: config.api_key,
+      domain: config.domain
+    });
+    mailgun.messages()
+      .send(data, function(err, body) {
+        if (err) {
+          console.log(err)
+        } else {
+          return res;
+        }
+      });
+  });
 
   app.get('/submit/:mail', function(req, res) {
       /*console.log(req.params.mail);*/
@@ -279,7 +302,7 @@ module.exports = function(app, express) {
           //Specify email data
           from: "internal@bittycasting.com",
           //The email to contact
-          to: "support@bittycasting.com",
+          to: "tanner@bittycasting.com",
           //Subject and text data  
           subject: 'New Beta Customer',
           html: 'Beta Request' + req.params.mail
@@ -372,56 +395,7 @@ module.exports = function(app, express) {
       });
     });
   /*Others*/
-  app.get('/submit/:mail', function(req, res) {
-    //We pass the api_key and domain to the wrapper, or it won't be able to identify + send emails
-    var mailgun = new Mailgun({
-      apiKey: config.api_key,
-      domain: config.domain
-    });
 
-    var data = {
-      //Specify email data
-      from: "internal@bittycasting.com",
-      //The email to contact
-      to: "support@bittycasting.com",
-      //Subject and text data  
-      subject: 'New Beta Customer',
-      html: 'Beta Request' + req.params.mail
-    }
 
-    //Invokes the method to send emails given the above data with the helper library
-    mailgun.messages().send(data, function(err, body) {
-      //If there is an error, render the error page
-      if (err) {
-        console.log(err)
-      } else {}
-    });
-  });
-  app.put('/feedback', function(req, res) {
-    var hours = req.body.timestamp.getHours()
-    minutes = "0" + req.body.timestamp.getMinutes(),
-      seconds = "0" + req.body.timestamp.getSeconds(),
-      formattedTime = hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
-    var tStamp = req.body.timestamp
-    var data = {
-      from: "internal@bittycasting.com",
-      to: "support@bittycasting.com",
-      subject: "Beta User Feedback - " + req.body.title,
-      html: 'New user feedback: ' + req.body.message + " " + "User Information: " + "<br>" + req.body.user.first + " " + req.body.user.last + " " + req.body.user.emmail + "." + "Timestamp: " + tStamp
-    }
-
-    var mailgun = new Mailgun({
-      apiKey: config.api_key,
-      domain: config.domain
-    });
-    mailgun.messages()
-      .send(data, function(err, body) {
-        if (err) {
-          console.log(err)
-        } else {
-          return res;
-        }
-      });
-  });
   return app;
 }

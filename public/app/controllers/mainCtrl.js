@@ -202,11 +202,14 @@ controller('loginCtrl',['$scope','Auth','$location','$route',
 	/*console.log($rootScope.user);*/
 
 	vm.submit = function(feedback){
+		/*console.log(feedback
+			)*/
 		angular.copy(feedback,vm.fb_master);
 		vm.fb_master.location = $location.path();
-		vm.fb_master.timestamp = new Date();
+		vm.fb_master.timestamp = new Date().toLocaleString('en-US');
 		vm.fb_master.user = $rootScope.user;
 		
+		console.log(vm.fb_master)
 		Mail.sendFB(vm.fb_master);
 
 		$scope.feedback = {};		
