@@ -24,19 +24,19 @@
 <!--
 								<div class="div-table">
 										 <div ng-if="roleData.location" class="div-table-row">
-												<div class="div-table-col">Location</div>
+												<div class="div-table-col div-table-row-header">Location</div>
 												<div style="white-space: pre-wrap" class="div-table-col">{{roleData.location}}</div>
 										</div>
 										<div ng-if="roleData.end_time" class="div-table-row">
-												<div class="div-table-col">Time</div>
+												<div class="div-table-col div-table-row-header">Time</div>
 												<div class="div-table-col">{{roleData.end_time |  date:'h:mm a'}}, {{ roleData.end_date | date: "M/d/yyyy"}}</div>
 										</div>
 										<div ng-if="roleData.payterms" class="div-table-row">
-												<div class="div-table-col">Pay term</div>
+												<div class="div-table-col div-table-row-header">Pay term</div>
 												<div class="div-table-col">{{roleData.payterms}}</div>
 										</div>
 										<div ng-if="roleData.sex" class="div-table-row">
-												<div class="div-table-col">Gender</div>
+												<div class="div-table-col div-table-row-header">Gender</div>
 												<div class="div-table-col">{{roleData.gender}}</div>
 										</div>
 								</div>

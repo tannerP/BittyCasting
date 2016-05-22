@@ -1879,6 +1879,7 @@ ul.select-coverphoto-wrapper {
     height: 14px;
     vertical-align: middle;
     margin-left: 15px;
+    display: inline;
 }
 
 /***************************
@@ -2102,11 +2103,12 @@ ul.select-coverphoto-wrapper {
         width:auto;
         clear:both;
         
+        .div-table-row-header {
+            font-weight: 600;
+        } 
+        
         div {
-            &:nth-child(1) {
-                width: 30%;
-                font-weight: 600;
-            }
+            &:nth-child(1) {width: 30%;}
             &:nth-child(2) {width: 70%;}
         }
         
@@ -2114,6 +2116,18 @@ ul.select-coverphoto-wrapper {
             float:left;/*fix for  buggy browsers*/
             display:table-column; 
             padding: 4px 0;
+            vertical-align: middle;
+        }
+        
+        .div-table-col-attachments {
+            float:left;/*fix for  buggy browsers*/
+            display:table-column; 
+            line-height: 40px;
+            height: 40px;
+            vertical-align: middle;
+            
+            img, video {width:auto; height:20px; display: inline; margin-right: 5px;}
+            img.upload-cancel {width: 14px; height: 14px;}
         }
     }
 }
