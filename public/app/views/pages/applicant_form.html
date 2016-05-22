@@ -111,7 +111,7 @@
 																ngf-min-size="100"
 																ngf-max-size="250MB" ng-required="true">
 																<!-- Select File -->
-																 <div ng-if="!files[$index]">
+																 <div ng-if="!ppv.files[$index]">
 																		 <p><span>Drag and drop file(s)</span><br/><a ngf-select ng-model="ppv.files[$index]" name="file" 
 																		ngf-accept="'application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/pdf,image/*,video/*'"
 																		ngf-pattern="'application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/pdf,image/*,video/*'"
@@ -134,7 +134,7 @@
 																				<div class="uploadFileName">
 																				  <img ng-if="ppv.files[$index]" ngf-thumbnail="ppv.files[$index] || 'Attachment'">
 																					<video ng-if="ppv.files[$index]" controls ngf-src="ppv.files[$index]"></video>    
-																				{{files[$index].name}}
+																				{{ppv.files[$index].name}}
 																				</div>
 																		</a>
 														</div>
