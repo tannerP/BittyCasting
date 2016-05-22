@@ -13,8 +13,8 @@ angular.module('mainCtrl', ['authService', 'mgcrea.ngStrap'])
 				$scope.isAside = false;
 			})
 			$scope.$on('$locationChangeStart', function(event, newUrl, oldUrl) {
-				if ($scope.isAside)
-					event.preventDefault(); // This prevents the navigation from happening
+				if(newUrl.indexOf('/home') > -1) return;
+				if ($scope.isAside) event.preventDefault(); // This prevents the navigation from happening
 			});
 			var FBLink = "https://www.facebook.com/BittyCasting-1053535994667037/"
 			var twitterLink = " https://twitter.com/BittyCasting"
@@ -181,7 +181,6 @@ controller('loginCtrl', ['$scope', 'Auth', '$location', '$route',
 			Auth.login(email, password)
 				.success(function(data) {
 					vm.processing = false;
-
 					if (data.success) {
 						//if a user successfully logs in, redirect to users page
 						vm.loginData = {};

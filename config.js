@@ -1,4 +1,4 @@
-exports.dev = {
+exports.tp = {
 	'port': process.env.PORT || 8000,
   "baseURL":"http://bittycasting.com",
 	secret: "Hello 2016",
@@ -15,7 +15,7 @@ exports.dev = {
   "bitly_access_token":"27e4610217cc7cefacb2511313a175a8c75fa5ca"
 };
 
-exports.kt = {
+exports.dev = {
   'port': process.env.PORT || 8000,
   "baseURL":"http://bittycasting.com",
   secret: "Hello 2016",

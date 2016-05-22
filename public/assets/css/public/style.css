@@ -209,6 +209,9 @@ a {
 .paddingBottom120 {
   padding-bottom: 120px; }
 
+.marginTop20 {
+  margin-top: 20px; }
+
 .custom-loader {
   margin: 30px auto;
   width: 60px; }
@@ -1753,7 +1756,8 @@ ul.select-coverphoto-wrapper {
   width: 14px;
   height: 14px;
   vertical-align: middle;
-  margin-left: 15px; }
+  margin-left: 15px;
+  display: inline; }
 
 /***************************
           Apply
@@ -1944,16 +1948,33 @@ ul.select-coverphoto-wrapper {
     display: table-row;
     width: auto;
     clear: both; }
-    .div-table .div-table-row div:nth-child(1) {
-      width: 30%;
+    .div-table .div-table-row .div-table-row-header {
       font-weight: 600; }
+    .div-table .div-table-row div:nth-child(1) {
+      width: 30%; }
     .div-table .div-table-row div:nth-child(2) {
       width: 70%; }
     .div-table .div-table-row .div-table-col {
       float: left;
       /*fix for  buggy browsers*/
       display: table-column;
-      padding: 4px 0; }
+      padding: 4px 0;
+      vertical-align: middle; }
+    .div-table .div-table-row .div-table-col-attachments {
+      float: left;
+      /*fix for  buggy browsers*/
+      display: table-column;
+      line-height: 40px;
+      height: 40px;
+      vertical-align: middle; }
+      .div-table .div-table-row .div-table-col-attachments img, .div-table .div-table-row .div-table-col-attachments video {
+        width: auto;
+        height: 20px;
+        display: inline;
+        margin-right: 5px; }
+      .div-table .div-table-row .div-table-col-attachments img.upload-cancel {
+        width: 14px;
+        height: 14px; }
 
 .thankYouPage {
   text-align: center; }
@@ -2379,7 +2400,15 @@ ul.select-coverphoto-wrapper {
   .reviewComment {
     margin-top: -40px;
     padding-top: 40px;
-    border-top: 1px solid #cccccc; } }
+    border-top: 1px solid #cccccc; }
+
+  .reviewCarousel .rn-carousel-control.rn-carousel-control-prev {
+    left: 20px;
+    margin-top: -355px; }
+
+  .reviewCarousel .rn-carousel-control.rn-carousel-control-next {
+    right: 20px;
+    margin-top: -355px; } }
 @media screen and (max-width: 767px) {
   .custom-main {
     padding: 80px 0 60px 0; }
@@ -2572,6 +2601,15 @@ ul.select-coverphoto-wrapper {
   ***************************/
   .btn-add-applicants {
     display: none; }
+
+  /***************************
+          Review
+  ***************************/
+  .reviewCarousel .rn-carousel-control.rn-carousel-control-prev {
+    left: 10px; }
+
+  .reviewCarousel .rn-carousel-control.rn-carousel-control-next {
+    right: 10px; }
 
   /***************************
              Footer

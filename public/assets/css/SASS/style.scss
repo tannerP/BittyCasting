@@ -241,6 +241,10 @@ a {
     padding-bottom: 120px;
 }
 
+.marginTop20 {
+    margin-top: 20px;
+}
+
 .custom-loader {
     margin: 30px auto;
     width: 60px;
@@ -1875,6 +1879,7 @@ ul.select-coverphoto-wrapper {
     height: 14px;
     vertical-align: middle;
     margin-left: 15px;
+    display: inline;
 }
 
 /***************************
@@ -2098,11 +2103,12 @@ ul.select-coverphoto-wrapper {
         width:auto;
         clear:both;
         
+        .div-table-row-header {
+            font-weight: 600;
+        } 
+        
         div {
-            &:nth-child(1) {
-                width: 30%;
-                font-weight: 600;
-            }
+            &:nth-child(1) {width: 30%;}
             &:nth-child(2) {width: 70%;}
         }
         
@@ -2110,6 +2116,18 @@ ul.select-coverphoto-wrapper {
             float:left;/*fix for  buggy browsers*/
             display:table-column; 
             padding: 4px 0;
+            vertical-align: middle;
+        }
+        
+        .div-table-col-attachments {
+            float:left;/*fix for  buggy browsers*/
+            display:table-column; 
+            line-height: 40px;
+            height: 40px;
+            vertical-align: middle;
+            
+            img, video {width:auto; height:20px; display: inline; margin-right: 5px;}
+            img.upload-cancel {width: 14px; height: 14px;}
         }
     }
 }
@@ -2577,6 +2595,15 @@ text-align: center;
         padding-top: 40px;
         border-top: 1px solid $color-grey-light;
     }
+    .reviewCarousel .rn-carousel-control.rn-carousel-control-prev {
+        left: 20px;
+        margin-top: -355px;
+    }
+    
+    .reviewCarousel .rn-carousel-control.rn-carousel-control-next {
+        right: 20px;
+        margin-top: -355px;
+    }
     
 }
 
@@ -2756,6 +2783,18 @@ text-align: center;
     
     .btn-add-applicants {
         display: none;
+    }
+    
+    /***************************
+            Review
+    ***************************/
+    
+    .reviewCarousel .rn-carousel-control.rn-carousel-control-prev {
+        left: 10px;
+    }
+    
+    .reviewCarousel .rn-carousel-control.rn-carousel-control-next {
+        right: 10px;
     }
     
     /***************************
