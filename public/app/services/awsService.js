@@ -157,11 +157,14 @@ angular.module('awsService', [])
                         file_type: file.type
                       };
                       Applicant.update(updateID, parsedData);
+                      console.log("emiting app-media-submitted")
+                      $rootScope.$emit('app-media-submitted')
 
                   } else {
                     alert('Upload Failed, please resubmit your application.');
                   }
                 }, null, function(evt) {
+                  console.log(evt)
                   file.progress = parseInt(100.0 * evt.loaded / evt.total);
                   if (file.progress == 100) {
                     numFilesDone++;
@@ -170,7 +173,6 @@ angular.module('awsService', [])
                       /*return true;*/
                       //send event to main
                       /*console.log("Finished uploading files")*/
-                      $rootScope.$emit('app-media-submitted')
                     }
                   }
 

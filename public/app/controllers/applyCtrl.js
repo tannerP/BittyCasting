@@ -130,29 +130,35 @@ angular.module('applyCtrl', ['userService', 'mgcrea.ngStrap'])
           }
         }
       }
-      /*      Applicant.apply(vm.appData)
-              .then(function(resp) {
-                vm.processing = true;
-                vm.applicantID = resp.data.appID;
-                var numFiles = vm.files.length;
-                if (numFiles === 0) {
-                  $timeout(function() {
-                    vm.processing = false;
-                    $location.path('/Thankyou');
-                  }, 1500)
+      Applicant.apply(vm.appData)
+        .then(function(resp) {
+          vm.processing = true;
+          vm.applicantID = resp.data.appID;
+          var numFiles = 0;
+          //soft out null files in array
+          for(var i in vm.files){
+            if(vm.files[i] != null) numFiles++;
+          }
+          if (numFiles === 0) {
+            $timeout(function() {
+              vm.processing = false;
+              $location.path('/Thankyou');
+            }, 1500)
 
-                } else {
-                  AWS.uploadAppMedias(vm.files, vm.requirements,
-                    vm.applicantID, $rootScope.awsConfig.bucket);
-                  $rootScope.$on("app-media-submitted",
-                    function() {
-                      finishedFileCount++;
-                      if(finishedFileCount === numFiles){
-                        $location.path('/Thankyou');
-                      }
-                    })
+          } else {
+            AWS.uploadAppMedias(vm.files, vm.requirements,
+              vm.applicantID, $rootScope.awsConfig.bucket);
+            $rootScope.$on("app-media-submitted",
+              function() {
+                finishedFileCount++;
+                console.log("num files updated toDB " + finishedFileCount)
+                console.log("num files: " + numFiles)
+                if (finishedFileCount === numFiles) {
+                  $location.path('/Thankyou');
                 }
-              })*/
+              })
+          }
+        })
       return vm;
     }
   }

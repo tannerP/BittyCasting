@@ -96,21 +96,24 @@ angular.module('roleCtrl', ['userService',
                 vm.applicants[i].favorited = vm.applicants[i].favs[app].favorited;
               }
             }
-
+            console.log("applicant suppliment length" + vm.applicants[i].suppliments.length)
             if (vm.applicants[i].suppliments.length > 0) {
               for (var j in vm.applicants[i].suppliments) {
+              console.log(vm.applicants[i].name)
+                console.log(vm.applicants[i].suppliments[j].file_type)
+                console.log(vm.applicants[i].suppliments[j].file_type.indexOf('image'))
                 //check for headshot labeling
-                if (angular.equals(vm.applicants[i].suppliments[j].name, "Headshot") ||
-                  angular.equals(vm.applicants[i].suppliments[j].name, "headshot")) { //check it attachment is an image
-                  if (vm.applicants[i].suppliments[j].file_type.indexOf('image') != -1) {
-                    /*console.log(vm.applicants[i].suppliments[j].file_type);*/
+                /*if (angular.equals(vm.applicants[i].suppliments[j].name, "Headshot") ||
+                  angular.equals(vm.applicants[i].suppliments[j].name, "headshot" || 
+                  vm.applicants[i].suppliments[j].file_type.indexOf('image')=== 0)){
                     vm.applicants[i].headshot = vm.applicants[i].suppliments[j].source;
                     break;
-                  }
-                  vm.applicants[i].headshot = "/assets/imgs/img_headshot_placeholder.png";
-                } else if (vm.applicants[i].suppliments[j].file_type.indexOf("image") != -1) {
-                  /*console.log(vm.applicants[i].suppliments[j]);*/
+                } else*/ 
+                if (vm.applicants[i].suppliments[j].file_type.indexOf("image") === 0) {
+                  console.log("Adding headshot");
+                  console.log(vm.applicants[i].suppliments[j].source)
                   vm.applicants[i].headshot = vm.applicants[i].suppliments[j].source;
+                  break;
                 }
                 //if no headshot is attached
                 else vm.applicants[i].headshot = "/assets/imgs/img_headshot_placeholder.png";
