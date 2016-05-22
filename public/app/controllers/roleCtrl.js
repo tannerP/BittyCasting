@@ -360,7 +360,7 @@ angular.module('roleCtrl', ['userService',
 
       var previewLink = "/Apply/" + $scope.roleData._id;
       $scope.preview = function() {
-        $scope.$toggle();
+        $scope.$hide();
         $location.path(previewLink)
       }
       $scope.success = function() {

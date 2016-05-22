@@ -106,7 +106,7 @@ angular.module('projectCtrl', ['userService',
 
       var previewLink = "/Apply/Project/" + $scope.project._id;
       $scope.preview = function() {
-        $scope.$toggle();
+        $scope.$hide();
         $location.path(previewLink)
       }
 

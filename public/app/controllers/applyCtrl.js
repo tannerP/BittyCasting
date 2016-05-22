@@ -18,7 +18,7 @@ angular.module('applyCtrl', ['userService', 'mgcrea.ngStrap'])
     $location, $routeParams, $scope,
     $rootScope, $aside, $route, $timeout, $window) {
     var vm = this;
-
+    $scope.isAside = false;
     /*vm.currRoleID = vm.roles[0]._id*/
     vm.loggedIn = false;
     if ($rootScope.user) {

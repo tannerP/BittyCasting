@@ -6,17 +6,24 @@ angular.module('mainCtrl', ['authService', 'mgcrea.ngStrap'])
 			var vm = this;
 			$rootScope.meta = {};
 			$scope.$on('aside.show', function() {
+				console.log("aside showing")
 				$scope.isAside = true;
 			})
 
 			$scope.$on('aside.hide', function() {
+				console.log("aside hiding")
 				$scope.isAside = false;
 			})
 			$scope.$on('$locationChangeStart', function(event, newUrl, oldUrl) {
+				console.log($scope.isAside)
 				if(newUrl.indexOf('/home') > -1) return;
-				if(newUrl.indexOf('/Apply') > -1) return;
+				else if (newUrl.indexOf('/Apply') > -1) return;
+				else if (newUrl.indexOf('/project') > -1) return;
+				else if (newUrl.indexOf('/role') > -1) return;
+				else if ($scope.isAside) {
+					event.preventDefault();
 
-				if ($scope.isAside) event.preventDefault(); // This prevents the navigation from happening
+				} // This prevents the navigation from happening
 			});
 			var FBLink = "https://www.facebook.com/BittyCasting-1053535994667037/"
 			var twitterLink = " https://twitter.com/BittyCasting"
