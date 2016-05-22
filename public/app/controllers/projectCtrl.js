@@ -83,6 +83,9 @@ angular.module('projectCtrl', ['userService',
 
       $scope.Twitter_text = "CASTING CALL: " + $scope.project.name + " " + $scope.textToCopy + " " + "via " + " " + "@BittyCasting ";
 
+      $scope.$on('$locationChangeStart', function(event, newUrl, oldUrl) {
+        $scope.$hide()
+      });
       var successAlert = $alert({
           title: 'Copied!',
           animation: 'am-fade-and-slide-top',
@@ -122,6 +125,9 @@ angular.module('projectCtrl', ['userService',
     'Role', '$location', '$routeParams', '$route', '$alert', "$window",
     function($scope, Role, $location, $routeParams, $route, $alert, $window) {
       var vm = this;
+      $scope.$on('$locationChangeStart', function(event, newUrl, oldUrl) {
+        $scope.$hide()
+      });
       vm.input1 = false, vm.input2 = false;
       var errAlert = $alert({
         title: 'Whoops',
@@ -155,6 +161,9 @@ angular.module('projectCtrl', ['userService',
     function(Role, $location, $routeParams,
       $route, $scope, $timeout, Prerender) {
       var vm = this;
+      $scope.$on('$locationChangeStart', function(event, newUrl, oldUrl) {
+        $scope.$hide()
+      });
       vm.edit = true;
       vm.processing = false;
       vm.roleData = {};
@@ -218,6 +227,9 @@ angular.module('projectCtrl', ['userService',
   .controller('newRoleController',
     function(Role, $location, $routeParams, $route, $scope, Prerender) {
       var vm = this;
+      $scope.$on('$locationChangeStart', function(event, newUrl, oldUrl) {
+        $scope.$hide()
+      });
       vm.edit = false;
       vm.processing = false;
       var SD = new Date()
@@ -363,7 +375,7 @@ angular.module('projectCtrl', ['userService',
         show: false,
         keyboard: true,
         controller: 'shareProjectController',
-        controllerAs: 'roleAside',
+        controllerAs: 'projectAside',
         templateUrl: '/app/views/pages/project_share.tmpl.html'
       });
 
@@ -409,6 +421,9 @@ angular.module('projectCtrl', ['userService',
       $scope, Upload, AWS, Prerender) {
       var DEFAULT_COVERPHOTO = "/assets/imgs/img_projectCover01.png";
       var vm = this;
+      $scope.$on('$locationChangeStart', function(event, newUrl, oldUrl) {
+        $scope.$hide()
+      });
       vm.coverphotos = [
         'assets/imgs/img_projectCover01.png',
         'assets/imgs/img_projectCover02.png',
@@ -497,6 +512,9 @@ angular.module('projectCtrl', ['userService',
     function($scope, Project, $location, $routeParams,
       $route, AWS, $rootScope, Prerender) {
       var vm = this;
+      $scope.$on('$locationChangeStart', function(event, newUrl, oldUrl) {
+        $scope.$hide()
+      });
       var DEFAULT_COVERPHOTO = "/assets/imgs/img_projectCover01.png";
       vm.projectData = {};
       angular.copy($scope.project, vm.projectData)
@@ -604,7 +622,9 @@ angular.module('projectCtrl', ['userService',
       var vm = this;
       vm.process = true;
       vm.existing = true;
-
+      $scope.$on('$locationChangeStart', function(event, newUrl, oldUrl) {
+        $scope.$hide()
+      });
       var errAlert = $alert({
         title: 'Whoops',
         content: 'Please check all',
