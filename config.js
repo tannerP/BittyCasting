@@ -7,9 +7,9 @@ exports.dev = {
   "HOST"    : "127.0.0.1",  
   "PORT"    : "27017", 
   "DATABASE" : "prod",
-  "api_key"	: "key-22cf943037f7135a79633e5f3fb255e1",
-  "domain"	: "sandbox175d7e6c85154c599d2d8f94f9903fd2.mailgun.org",
-  "from_who" : "tannerphan@gmail.com",
+  "api_key" : "key-22cf943037f7135a79633e5f3fb255e1",
+  "domain"  : "email.bittycasting.com",
+  "from_who" : "internal@bittycasting.com",
   "bitly_id": "o_27bflsrjct",
   "bitly_secret":"R_f40c4c064d134b43aebe2dd06b7a4028",
   "bitly_access_token":"27e4610217cc7cefacb2511313a175a8c75fa5ca"
@@ -25,8 +25,8 @@ exports.prod = {
   "PORT"    : "27017", 
   "DATABASE" : "prod",
   "api_key" : "key-22cf943037f7135a79633e5f3fb255e1",
-  "domain"  : "sandbox175d7e6c85154c599d2d8f94f9903fd2.mailgun.org",
-  "from_who" : "tannerphan@gmail.com",
+  "domain"  : "email.bittycasting.com",
+  "from_who" : "internal@bittycasting.com",
   "bitly_id": "o_27bflsrjct",
   "bitly_secret":"R_f40c4c064d134b43aebe2dd06b7a4028",
   "bitly_access_token":"27e4610217cc7cefacb2511313a175a8c75fa5ca"
