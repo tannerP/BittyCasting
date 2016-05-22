@@ -2581,6 +2581,15 @@ text-align: center;
         padding-top: 40px;
         border-top: 1px solid $color-grey-light;
     }
+    .reviewCarousel .rn-carousel-control.rn-carousel-control-prev {
+        left: 20px;
+        margin-top: -355px;
+    }
+    
+    .reviewCarousel .rn-carousel-control.rn-carousel-control-next {
+        right: 20px;
+        margin-top: -355px;
+    }
     
 }
 
@@ -2760,6 +2769,18 @@ text-align: center;
     
     .btn-add-applicants {
         display: none;
+    }
+    
+    /***************************
+            Review
+    ***************************/
+    
+    .reviewCarousel .rn-carousel-control.rn-carousel-control-prev {
+        left: 10px;
+    }
+    
+    .reviewCarousel .rn-carousel-control.rn-carousel-control-next {
+        right: 10px;
     }
     
     /***************************
