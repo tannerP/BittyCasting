@@ -71,7 +71,7 @@
 <!-- link -->			<div class="div-table-col-attachments" 
 												ng-show="	page.SHLinks[$index]">
 											<span class="custom-form">
-													<input ng-model="page.newData.links[$index]" placeholder="http://"><
+													<input ng-model="page.newData.links[$index]" placeholder="http://">
 													<img class="upload-cancel"
 															 src="/assets/imgs/ic_cross_lightgrey.svg"
 															 ng-click="page.togAddLinkBtn($index)">	
@@ -100,8 +100,9 @@
 																						ngf-min-size="100"
 																						ngf-max-size="250MB"
 																						ngf-model-invalid="errors"
-																						ng-click="page.newRqmnt(rq.name)">Upload/
-																		</a>
+																						ng-click="page.newRqmnt(rq.name)">Upload
+																		</a>/
+                                    
 																				<!--  -->
 																		<a ng-href="#"
 																						ng-click="page.togAddLinkBtn($index);
@@ -205,8 +206,8 @@
 											ngf-max-size="250MB"
 											ngf-model-invalid="errors"
 											ng-click="page.newRqmnt(rq.name);">
-											Upload/
-										</a>
+											Upload
+										</a>/
 										<a ng-href="#"
 											 ng-click="page.togAppLinkBtn(appNdx, $index);page.newRqmnt(rq.name);">Link</a>
 								</div>

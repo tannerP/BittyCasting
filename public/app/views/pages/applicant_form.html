@@ -66,8 +66,8 @@
 														<ul class="custom-checkbox" ng-if="ppv.roles.length > 1">
 																<li ng-repeat="role in ppv.roles">
 																		<label><input type="checkbox" ng-click="ppv.toggleRole(role._id,role.requirements)">
-																		<span></span>{{role.name}}
-																		( {{ ppv.roles[0].end_date | date:'mediumDate'}}	Deadline)
+																		<span class="custom-checkbox-style"></span>{{role.name}}
+                                                                            <span class="applicationDeadline">(Deadline: {{ ppv.roles[0].end_date | date:'mediumDate'}})</span>
 																		</label>
 																						<!-- <span 
 																						ng-click="ppv.toggleRole(role._id,role.requirements)" ng-class="{'btn':ppv.isSelected(role._id)}"></span> {{role.name}} -->
@@ -97,7 +97,7 @@
 														</div> -->
 														<div class = "form-group">
 																<label>Message/Links</label>
-																<textarea type = "text" class = "custom-form" ng-model="ppv.appData.message" >
+																<textarea type = "text" class = "custom-form-textarea" ng-model="ppv.appData.message" rows="4">
 																</textarea>
 														</div>                                            
 
