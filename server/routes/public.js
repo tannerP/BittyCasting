@@ -268,7 +268,7 @@ module.exports = function(app, express) {
     var tStamp = req.body.timestamp
     var data = {
       from: "internal@bittycasting.com",
-      to: "tanner@bittycasting.com",
+      to: "support@bittycasting.com",
       subject: "Beta User Feedback - " + req.body.title,
       html: 'New user feedback: ' + req.body.message + " " + "User Information: " + "<br>" + 
       req.body.user.first + " " + req.body.user.last + " " +
@@ -302,7 +302,7 @@ module.exports = function(app, express) {
           //Specify email data
           from: "internal@bittycasting.com",
           //The email to contact
-          to: "tanner@bittycasting.com",
+          to: "support@bittycasting.com",
           //Subject and text data  
           subject: 'New Beta Customer',
           html: 'Beta Request' + req.params.mail
