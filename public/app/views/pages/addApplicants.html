@@ -8,20 +8,20 @@
 <div class="custom-table">
 	<table class="table table-add-applicants">
 		<thead>
-            <th>First name</th>  
-            <th>Last name</th>
-            <th>E-mail</th>
-            <th>Gender</th>
-            <th>Age</th>
-            <th>Requirements</th>
-            <th>Comments</th>
-            <th></th>
+						<th>First name</th>  
+						<th>Last name</th>
+						<th>E-mail</th>
+						<th>Gender</th>
+						<th>Age</th>
+						<th>Requirements</th>
+						<th>Comments</th>
+						<th></th>
 		</thead>
 		<tbody>
 		<tr ng-hide="page.processing">
 			<td>
 				<div class="custom-form">
-						<input type="text" class="custom-form" placeholder="First name" ng-model="page.newData.name.first" Required >
+						<input type="text" class="custom-form" placeholder="First name" ng-model="page.newData.name.first" Required>
 					</div>
 				</td>
 				<td> 
@@ -68,47 +68,47 @@
 										ng-repeat="rq in page.role.requirements track by $index">
 <!-- column 1-->
 								<div class="div-table-col-attachments">{{rq.name}}</div>
-
-<!-- link -->				
-                                <div class="div-table-col-attachments" ng-show="page.SHLinks[$index]">
-                                    <span class="custom-form">
-                                        <input ng-model="page.newData.links[$index]" placeholder="http://">                                               <img class="upload-cancel"
-                                             src="/assets/imgs/ic_cross_lightgrey.svg"
-                                             ng-click="page.togAddLinkBtn($index)">	
-                                    </span>
-								</div>
+<!-- link -->			<div class="div-table-col-attachments" 
+												ng-show="	page.SHLinks[$index]">
+											<span class="custom-form">
+													<input ng-model="page.newData.links[$index]" placeholder="http://"><
+													<img class="upload-cancel"
+															 src="/assets/imgs/ic_cross_lightgrey.svg"
+															 ng-click="page.togAddLinkBtn($index)">	
+											</span>
+									</div>
 <!-- column 2-->										
 								<div class="div-table-col-attachments">
 <!-- preview -->  	
-                                    <span ng-if="file.requirement === rq.name" ng-repeat="file in page.newData.files track by $index">
-                                        <img ngf-thumbnail="file.file ||'Attachment'"/>
-                                        <video controls ngf-src="file.file"></video>
-                                        <span style="display: inline;">{{file.file.name | limitTo:18}}</span>
-                                        <img class="upload-cancel"
-                                         src="/assets/imgs/ic_cross_lightgrey.svg"
-                                         ng-click="page.removeElFrmArray($index, page.newData.files)" />
-                                    </span><!-- end repeat -->
+										<span ng-if="file.requirement === rq.name" ng-repeat="file in page.newData.files track by $index">
+												<img ngf-thumbnail="file.file ||'Attachment'"/>
+												<video controls ngf-src="file.file"></video>
+												<span style="display: inline;">{{file.file.name | limitTo:18}}</span>
+												<img class="upload-cancel"
+												 src="/assets/imgs/ic_cross_lightgrey.svg"
+												 ng-click="page.removeElFrmArray($index, page.newData.files)" />
+										</span><!-- end repeat -->
 								</div>
 <!-- upload/link -->
 								<div ng-show="page.ifRequirement(rq.name, page.newData.files) && !page.SHLinks[$index]" class="div-table-col-attachments">
-                                    <a ngf-select="page.onFileSelect(page.newFile, $invalidFiles)"
-                                            ng-model="page.newFile" name="file" 
-                                            ngf-accept="'application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/pdf,image/*,video/*'"
-                                            ngf-pattern="'application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/pdf,image/*,video/*'"
-                                            ngf-before
-                                            ngf-before-model-change= "errors = '' "
-                                            ngf-min-size="100"
-                                            ngf-max-size="250MB"
-                                            ngf-model-invalid="errors"
-                                            ng-click="page.newRqmnt(rq.name)">Upload
-                                    </a>
-                                    /		<!--  -->
-                                    <a ng-href="#"
-                                            ng-click="page.togAddLinkBtn($index);
-                                                      page.newRqmnt(rq.name)"> Link
-                                    </a>
+																		<a ngf-select="page.onFileSelect(page.newFile, $invalidFiles)"
+																						ng-model="page.newFile" name="file" 
+																						ngf-accept="'application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/pdf,image/*,video/*'"
+																						ngf-pattern="'application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/pdf,image/*,video/*'"
+																						ngf-before
+																						ngf-before-model-change= "errors = '' "
+																						ngf-min-size="100"
+																						ngf-max-size="250MB"
+																						ngf-model-invalid="errors"
+																						ng-click="page.newRqmnt(rq.name)">Upload/
+																		</a>
+																				<!--  -->
+																		<a ng-href="#"
+																						ng-click="page.togAddLinkBtn($index);
+																											page.newRqmnt(rq.name)"> Link
+																		</a>
 								</div><!-- end div-table-col -->
-                                
+																
 							</div><!-- end div-table-row -->
 						</div><!-- end div-table -->
 				</td>
@@ -122,8 +122,8 @@
 					</td>
 			
 		</tr>
-            
-            
+						
+						
 <!-- added applicants -->
 			<tr ng-repeat="applicant in page.applicants"
 					ng-init="appNdx = $index" 
@@ -168,13 +168,13 @@
 										
 <!-- show and hide vm.appSHLinks[currApp][req.id] === false -->
 										<div class="div-table-col-attachments"
-											 			ng-if="page.appSHLinks[appNdx][$index] &&
+														ng-show="page.appSHLinks[appNdx][$index] &&
 													page.ifRequirement(rq.name, applicant.files)">
-                                            <span class="custom-form">
+											<span class="custom-form">
 												<input ng-model="applicant.links[$index].source"
 															 placeholder="http://">
 												<img class="upload-cancel" src="/assets/imgs/ic_cross_lightgrey.svg" ng-click="page.togAppLinkBtn(appNdx, $index);">
-                                            </span>
+											</span>
 										</div>	
 																
 <!-- preview -->									
@@ -187,10 +187,10 @@
 
 												<img class="upload-cancel"
 															src="/assets/imgs/ic_cross_lightgrey.svg"
-												 			ng-click="
-												 			page.removeElFrmArray($index, applicant.files)">
-								     </span><!-- end repeat -->
-								     </div>
+															ng-click="
+															page.removeElFrmArray($index, applicant.files)">
+										 </span><!-- end repeat -->
+										 </div>
 <!-- Upload/Link -->
 									<div ng-show="!page.appSHLinks[appNdx][$index]
 									 && page.ifRequirement(rq.name, applicant.files)"
@@ -208,8 +208,9 @@
 											Upload/
 										</a>
 										<a ng-href="#"
-									 		 ng-click="page.togAppLinkBtn(appNdx, $index);page.newRqmnt(rq.name);">Link</a>
+											 ng-click="page.togAppLinkBtn(appNdx, $index);page.newRqmnt(rq.name);">Link</a>
 								</div>
+							</div>
 							</div>
 						</td>
 <!--usr message -->					
@@ -224,11 +225,11 @@
 			</tbody>
 		</table>
 	</div>
-    
-    <div ng-hide="page.processing" class="add-applicants-add-more">
-        <button type="submit" class="custom-btn-secondary-small btn-add" ng-click="page.addAppBtn()" ng-disabled="page.processing">Add more</button>
+		
+		<div ng-hide="page.processing" class="add-applicants-add-more">
+				<button type="submit" class="custom-btn-secondary-small btn-add" ng-click="page.addAppBtn()" ng-disabled="page.processing">Add more</button>
 <!--        <p ng-show="page.applicants.length > 0" > Added {{ page.newData.length}} applicants</p>-->
-    </div>
+		</div>
 
 
 	<div ng-show="page.processing" class="custom-loader">
