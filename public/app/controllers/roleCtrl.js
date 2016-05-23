@@ -269,11 +269,24 @@ angular.module('roleCtrl', ['userService',
 
         for (var i = 0; i < sourceArr.length; i++) {
           var fType = sourceArr[i].file_type;
+          var source = sourceArr[i].source;
+          var indx = sourceArr[i].source.match('(%)')
+          source = source.slice(++indx.index)
+          indx = source.match('(%)')
+
+          source = source.slice(++indx.index)
+          source = source.split('.')
+          var name = source[0];
+
+          sourceArr[i].name = name;
+          console.log(name)
+
+
+          /*var fName = */
           if (fType == "Link") {
             $scope.links.push(sourceArr[i]);
             /*addSlide(target, sourceArr[i]);*/
-          }
-          if (fType.indexOf('video') != -1) {
+          } else if (fType.indexOf('video') != -1) {
             $scope.video.push(sourceArr[i]);
 
             addSlide(target, sourceArr[i]); //carousel
@@ -285,7 +298,7 @@ angular.module('roleCtrl', ['userService',
             fType == "application/vnd.openxmlformats-officedocument.wordprocessingml.document") {
             $scope.documents.push(sourceArr[i]);
             /*addSlide(target, sourceArr[i]);*/
-          }
+          } else continue;
         }
       }
 
@@ -321,7 +334,7 @@ angular.module('roleCtrl', ['userService',
     })
   .controller('shareRoleController', ['$scope', '$alert', '$location',
     '$timeout',
-    function($scope, $alert, $location,$timeout) {
+    function($scope, $alert, $location, $timeout) {
       //TODO: this is a temp fix for projeview-private,
       // table view role sharing
       $scope.$on('$locationChangeStart', function(event, newUrl, oldUrl) {
