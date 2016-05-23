@@ -4,7 +4,7 @@ angular.module('roleCtrl', ['userService',
 
 .controller('RolePageController',
     function(Applicant, Role, $location, $routeParams, $rootScope,
-      $scope, $aside, $routeParams, $location, $route, $window) {
+      $scope, $aside, $routeParams, $location, $route, $window, $timeout) {
       var vm = this;
       var funcLog = function() {
         console.log('hello aside')
@@ -320,7 +320,8 @@ angular.module('roleCtrl', ['userService',
 
     })
   .controller('shareRoleController', ['$scope', '$alert', '$location',
-    function($scope, $alert, $location) {
+    '$timeout',
+    function($scope, $alert, $location,$timeout) {
       //TODO: this is a temp fix for projeview-private,
       // table view role sharing
       $scope.$on('$locationChangeStart', function(event, newUrl, oldUrl) {
@@ -360,8 +361,11 @@ angular.module('roleCtrl', ['userService',
 
       var previewLink = "/Apply/" + $scope.roleData._id;
       $scope.preview = function() {
-        $scope.$hide();
-        $location.path(previewLink)
+        $scope.$emit('aside.hide')
+        $timeout(function() {
+          $scope.$hide();
+          $location.path(previewLink)
+        }, 100)
       }
       $scope.success = function() {
         $scope.toggle = true;

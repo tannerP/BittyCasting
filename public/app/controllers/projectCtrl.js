@@ -72,7 +72,8 @@ angular.module('projectCtrl', ['userService',
   })
 
 .controller('shareProjectController', ['$scope', '$alert', '$location',
-    function($scope, $alert, $location) {
+  '$timeout',
+    function($scope, $alert, $location,$timeout) {
       /*console.log("Share project controller");*/
 
       $scope.textToCopy = $scope.project.short_url;
@@ -106,8 +107,11 @@ angular.module('projectCtrl', ['userService',
 
       var previewLink = "/Apply/Project/" + $scope.project._id;
       $scope.preview = function() {
-        $scope.$hide();
-        $location.path(previewLink)
+        $scope.$emit('aside.hide')
+        $timeout(function() {
+          $scope.$hide();
+          $location.path(previewLink)
+        }, 100)
       }
 
       $scope.success = function() {

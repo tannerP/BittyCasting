@@ -42,7 +42,7 @@ switch (env) {
     app.use(morgan('dev')); //HTTP logger
     break;
   case "tp":
-    var config = require('./config').dev; //get config file
+    var config = require('./config').tp; //get config file
     app.use(morgan('dev')); //HTTP logger
     break;
   default:

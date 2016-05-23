@@ -5,6 +5,8 @@ angular.module('mainCtrl', ['authService', 'mgcrea.ngStrap'])
 			$route, $window, Mail, $aside, Meta, AuthToken) {
 			var vm = this;
 			$rootScope.meta = {};
+			$scope.isAside = false;
+
 			$scope.$on('aside.show', function() {
 				console.log("aside showing")
 				$scope.isAside = true;
@@ -16,11 +18,11 @@ angular.module('mainCtrl', ['authService', 'mgcrea.ngStrap'])
 			})
 			$scope.$on('$locationChangeStart', function(event, newUrl, oldUrl) {
 				console.log($scope.isAside)
-				if(newUrl.indexOf('/home') > -1) return;
+				/*if(newUrl.indexOf('/home') > -1) return;
 				else if (newUrl.indexOf('/Apply') > -1) return;
 				else if (newUrl.indexOf('/project') > -1) return;
-				else if (newUrl.indexOf('/role') > -1) return;
-				else if ($scope.isAside) {
+				else if (newUrl.indexOf('/role') > -1) return;*/
+				/*else*/ if ($scope.isAside) {
 					event.preventDefault();
 
 				} // This prevents the navigation from happening
