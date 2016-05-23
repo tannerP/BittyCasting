@@ -149,6 +149,7 @@ angular.module('projectCtrl', ['userService',
           .success(function() {
 
             if ($location.path().indexOf("/role") > -1) {
+              $scope.$emit('aside.hide')
               $window.history.back();
             } else {
               $route.reload();
@@ -653,9 +654,11 @@ angular.module('projectCtrl', ['userService',
             vm.processing = false;
             vm.projectData = null;
             if ($location.path().indexOf("project") != -1) {
+              $scope.$emit('aside.hide')
               $scope.$hide();
               $location.path("/home")
             } else {
+              $scope.$emit('aside.hide')
               $route.reload();
               $scope.$hide();
             }
