@@ -402,6 +402,7 @@ angular.module('roleCtrl', ['userService',
       }
       vm.addCmt = function(appID, owner, comment) {
         var cmt = {
+          timestamp: new Date(),
           owner: owner,
           comment: comment
         }

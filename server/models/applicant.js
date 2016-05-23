@@ -40,7 +40,8 @@ var ApplicantSchema = new Schema({
 	}],
 	comments:[{
 		owner:String,
-		comment:String
+		comment:String,
+		timestamp: {type:Date, default:Date.now},		
 	}],
 	links:[{}],
 	suppliments:[{

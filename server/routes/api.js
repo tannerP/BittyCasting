@@ -277,7 +277,9 @@ module.exports = function(app, express) {
 					error: err
 				});
 				if (req.body.state == 'PUT') {
+					console.log(req.body);
 					app.comments.push({
+						timestamp: new Date(),
 						owner: req.body.owner,
 						comment: req.body.comment
 					});
