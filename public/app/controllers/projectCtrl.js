@@ -72,8 +72,8 @@ angular.module('projectCtrl', ['userService',
   })
 
 .controller('shareProjectController', ['$scope', '$alert', '$location',
-  '$timeout',
-    function($scope, $alert, $location,$timeout) {
+    '$timeout',
+    function($scope, $alert, $location, $timeout) {
       /*console.log("Share project controller");*/
 
       $scope.textToCopy = $scope.project.short_url;
@@ -130,6 +130,7 @@ angular.module('projectCtrl', ['userService',
     function($scope, Role, $location, $routeParams, $route, $alert, $window) {
       var vm = this;
       $scope.$on('$locationChangeStart', function(event, newUrl, oldUrl) {
+        $scope.$emit('aside.hide')
         $scope.$hide()
       });
       vm.input1 = false, vm.input2 = false;
@@ -489,7 +490,7 @@ angular.module('projectCtrl', ['userService',
                 $scope.$emit('aside.hide')
                 $route.reload();
                 vm.message = data.message;
-                
+
                 vm.processing = false;
                 $scope.projectData = {};
                 /*$location.path('/home');*/
@@ -631,6 +632,7 @@ angular.module('projectCtrl', ['userService',
       vm.process = true;
       vm.existing = true;
       $scope.$on('$locationChangeStart', function(event, newUrl, oldUrl) {
+        $scope.$emit('aside.hide')
         $scope.$hide()
       });
       var errAlert = $alert({
