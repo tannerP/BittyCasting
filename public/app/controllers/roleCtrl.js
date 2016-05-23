@@ -104,7 +104,7 @@ angular.module('roleCtrl', ['userService',
                   vm.applicants[i].favorited = vm.applicants[i].favs[app].favorited;
                 }
               }
-              console.log("applicant suppliment length" + vm.applicants[i].suppliments.length)
+              /*console.log("applicant suppliment length" + vm.applicants[i].suppliments.length)*/
               if (vm.applicants[i].suppliments.length > 0) {
                 for (var j in vm.applicants[i].suppliments) {
                   /* console.log(vm.applicants[i].name)
@@ -273,15 +273,13 @@ angular.module('roleCtrl', ['userService',
           var indx = sourceArr[i].source.match('(%)')
           source = source.slice(++indx.index)
           indx = source.match('(%)')
-          console.log(source)
-
-          source = source.slice(++indx.index)
-          source = source.split('.')
-          var name = source[0];
-
+          
+          source = source.slice(++indx.index);
+          source = source.split('.');
+          source = source[0].split('24');
+          var name = source[1];
           sourceArr[i].name = name;
-          console.log(name)
-
+          
 
           /*var fName = */
           if (fType == "Link") {

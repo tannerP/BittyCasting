@@ -8,16 +8,16 @@ angular.module('mainCtrl', ['authService', 'mgcrea.ngStrap'])
 			$scope.isAside = false;
 
 			$scope.$on('aside.show', function() {
-				console.log("aside showing")
+				/*console.log("aside showing")*/
 				$scope.isAside = true;
 			})
 
 			$scope.$on('aside.hide', function() {
-				console.log("aside hiding")
+				/*console.log("aside hiding")*/
 				$scope.isAside = false;
 			})
 			$scope.$on('$locationChangeStart', function(event, newUrl, oldUrl) {
-				console.log($scope.isAside)
+				/*console.log($scope.isAside)*/
 				/*if(newUrl.indexOf('/home') > -1) return;
 				else if (newUrl.indexOf('/Apply') > -1) return;
 				else if (newUrl.indexOf('/project') > -1) return;
@@ -195,11 +195,13 @@ controller('loginCtrl', ['$scope', 'Auth', '$location', '$route',
 					if (data.success) {
 						//if a user successfully logs in, redirect to users page
 						vm.loginData = {};
+						$scope.$emit('aside.hide')
 						//conditional for /login vs aside
 						if ($location.path() == '/login') $location.path('/home');
 						else {
 							$location.path('/home');
-							$scope.$toggle();
+							$scope.$hide();
+
 							//this.user = 'name:unchanged';
 							/*Auth.getUser()
 								.then(function(data) {
