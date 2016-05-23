@@ -144,7 +144,7 @@ angular.module('userService', [])
 	/*Commenting*/
 	appFactory.pushComment = function(id,data)	{
 		data.state="PUT"
-		return $http.put('api/applicant/comments/'+id, data);	
+		return $http.put('api/comments/'+id, data);	
 		}
 	appFactory.deleteComment = function(id,data)	{
 		var newData ={
@@ -153,7 +153,7 @@ angular.module('userService', [])
 			_id:data._id,
 			state:"DELETE"
 		}
-		return $http.put('api/applicant/comments/'+id, newData);	
+		return $http.put('api/comments/'+id, newData);	
 		}
 	return appFactory;
 })

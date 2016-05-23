@@ -273,6 +273,7 @@ angular.module('roleCtrl', ['userService',
           var indx = sourceArr[i].source.match('(%)')
           source = source.slice(++indx.index)
           indx = source.match('(%)')
+          console.log(source)
 
           source = source.slice(++indx.index)
           source = source.split('.')
