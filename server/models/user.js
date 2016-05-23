@@ -12,7 +12,7 @@ var UserSchema = new Schema({
 	name : {first:String,last:String},
 	birth_date:{type:Date, default:Date.now},
 	role: String,
-	new_Applicants:[],
+	notifications:[],
 	
 	//content
 	profile_photo:{},

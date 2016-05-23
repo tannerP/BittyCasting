@@ -38,7 +38,6 @@ angular.module('userService', [])
 			meta.image = meta.site_name + '/'+project.coverphoto.source;
 		}
 		else{ meta.image = "http://" + project.coverphoto.source.replace(/.*?:\/\//g, "");}
-		/*meta.image_secure = project.coverphoto.source;*/
 		return meta;
 	}
 	/*return meta;*/
@@ -53,30 +52,20 @@ angular.module('userService', [])
 			"prerenderToken": "RDdmSteuNT1ZCbqQ2O0h",
 			"url": urlRecache
 		}).then(function(response){
-				/*console.log(response)*/
 			});
 	}
 
-	prerender.recacheRole = function(roleID){
+	prerender.cacheRole = function(roleID){
 		/*console.log(roleID);*/
-		var url = "https://bittycasting.com/role/" + roleID;
+		var url = "https://bittycasting.com/Apply/" + roleID;
 		prerenderRecache(url);
 	}
-	prerender.recacheProject = function(projectID){
+	prerender.cacheProject = function(projectID){
 		/*console.log(projectID);*/
-		var url = "https://bittycasting.com/role/" + projectID;
+		var url = "https://bittycasting.com/Apply/Project" + projectID;
 		prerenderRecache(url);
 	}
 
-	prerender.cacheIt = function(roleID){
-		/*console.log(link);
-		"?_escaped_fragment_"
-		*/
-		/*$http.get("https://bittycasting.com/Apply/+"+ "roleID" + )*/
-		$http.get("/Apply/"+ roleID + "?_escaped_fragment_")
-			.then(function(response){
-			});
-	}
 	return prerender;
 })
 
@@ -118,7 +107,7 @@ angular.module('userService', [])
 		var money = {};
 		money.status = "new"
 		money.new = false;
-		return $http.put('/app/'+id, money);	
+		return $http.put('/api/app'+id, money);	
 		}	 
 	appFactory.favUpdate = function(app,roleID)	{
 		/*console.log(roleID);*/
@@ -127,7 +116,7 @@ angular.module('userService', [])
 		money.roleID = roleID;
 		/*console.log(money);*/
 
-		return $http.put('/app/'+app._id, money);	
+		return $http.put('/api/app/'+app._id, money);	
 		}	 
 	/*appFactory.delete = function(appID, roleID)	{
 		return $http.delete('api/applicant/'+ appID, roleID);
@@ -141,7 +130,13 @@ angular.module('userService', [])
 	}	 
 	appFactory.apply = function(data)	{
 		return $http.post('/applicant', data);	
-	}	 
+	}
+	appFactory.multiApply = function(data)	{
+		return $http.post('/applicant', data)
+		.then(function(data){
+			return data;
+		})
+	}	 	 
 	appFactory.getAll = function(roleID)	{
 		return $http.get('/api/applicants/'+ roleID)
 		}
@@ -149,7 +144,7 @@ angular.module('userService', [])
 	/*Commenting*/
 	appFactory.pushComment = function(id,data)	{
 		data.state="PUT"
-		return $http.put('api/applicant/comments/'+id, data);	
+		return $http.put('api/comments/'+id, data);	
 		}
 	appFactory.deleteComment = function(id,data)	{
 		var newData ={
@@ -158,7 +153,7 @@ angular.module('userService', [])
 			_id:data._id,
 			state:"DELETE"
 		}
-		return $http.put('api/applicant/comments/'+id, newData);	
+		return $http.put('api/comments/'+id, newData);	
 		}
 	return appFactory;
 })
@@ -176,7 +171,7 @@ angular.module('userService', [])
 		return $http.put('/api/role/' + id, roleData);
 	}
 	roleFactory.get = function(role_id)	{
-		return $http.get('api/role/' + role_id);
+		return $http.get('public/role/' + role_id);
 	}
 	roleFactory.delete  = function(id)	{
 		return $http.delete('/api/role/' + id);

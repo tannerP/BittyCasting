@@ -1,4 +1,5 @@
 
+<<<<<<< HEAD
   <div class="container paddingBottom60"
       flow-init="{target: '/upload', singleFile: false}"
       flow-file-added="page.prepImg( $file, $event, $flow)">
@@ -102,3 +103,247 @@
         Save
 </button>
 
+=======
+<div class="container paddingBottom60">
+<div class="pageHeader">
+	<div class="custom-back" ng-click="page.back()" style="z-index: 4;"></div>
+	<div class='pageTitle'>Add Applicants</div>
+	<div class='pageSubtitle'>{{page.role.name}}</div>
+</div>
+<div class="custom-table">
+	<table class="table table-add-applicants">
+		<thead>
+						<th>First name</th>  
+						<th>Last name</th>
+						<th>E-mail</th>
+						<th>Gender</th>
+						<th>Age</th>
+						<th>Requirements</th>
+						<th>Comments</th>
+						<th></th>
+		</thead>
+		<tbody>
+		<tr ng-hide="page.processing">
+			<td>
+				<div class="custom-form">
+						<input type="text" class="custom-form" placeholder="First name" ng-model="page.newData.name.first" Required>
+					</div>
+				</td>
+				<td> 
+					<div class="custom-form">
+						<input type="text" class="custom-form"
+						placeholder="Last name"
+						ng-model="page.newData.name.last" Required >
+					</div>
+				</td>
+				<td>
+					<div class="custom-form">
+						<input type="text" class="custom-form"
+						placeholder="Email"
+						ng-model="page.newData.email" Required >
+					</div>
+				</td>
+				<td>
+					<div class="custom-dropdown" uib-dropdown is-open="false">
+						<span type="text" class="custom-form" uib-dropdown-toggle ng-disabled="disabled">
+							{{page.newData.gender || "Gender"}}</span>
+							<ul uib-dropdown-menu role="menu" 
+									aria-labelledby="single-button">
+								<li role="menuitem">
+									<a href="#" ng-click="page.newData.gender = 'Female'">
+										Female
+									</a>
+								</li>
+								<li role="menuitem">
+									<a href="#" ng-click="page.newData.gender = 'Male'">
+									Male
+									</a>
+								</li>
+							</ul>
+						</div>
+					</td>
+					<td>
+						<div class="custom-form">
+							<input type="text" class="custom-form" ng-model="page.newData.age" Required>
+						</div>
+					</td>
+					<td>
+						<div class="div-table">
+							<div class="div-table-row" 
+										ng-repeat="rq in page.role.requirements track by $index">
+<!-- column 1-->
+								<div class="div-table-col-attachments">{{rq.name}}</div>
+<!-- link -->			<div class="div-table-col-attachments" 
+												ng-show="	page.SHLinks[$index]">
+											<span class="custom-form">
+													<input ng-model="page.newData.links[$index]" placeholder="http://">
+													<img class="upload-cancel"
+															 src="/assets/imgs/ic_cross_lightgrey.svg"
+															 ng-click="page.togAddLinkBtn($index)">	
+											</span>
+									</div>
+<!-- column 2-->										
+								<div class="div-table-col-attachments">
+<!-- preview -->  	
+										<span ng-if="file.requirement === rq.name" ng-repeat="file in page.newData.files track by $index">
+												<img ngf-thumbnail="file.file ||'Attachment'"/>
+												<video controls ngf-src="file.file"></video>
+												<span style="display: inline;">{{file.file.name | limitTo:18}}</span>
+												<img class="upload-cancel"
+												 src="/assets/imgs/ic_cross_lightgrey.svg"
+												 ng-click="page.removeElFrmArray($index, page.newData.files)" />
+										</span><!-- end repeat -->
+								</div>
+<!-- upload/link -->
+								<div ng-show="page.ifRequirement(rq.name, page.newData.files) && !page.SHLinks[$index]" class="div-table-col-attachments">
+																		<a ngf-select="page.onFileSelect(page.newFile, $invalidFiles)"
+																						ng-model="page.newFile" name="file" 
+																						ngf-accept="'application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/pdf,image/*,video/*'"
+																						ngf-pattern="'application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/pdf,image/*,video/*'"
+																						ngf-before
+																						ngf-before-model-change= "errors = '' "
+																						ngf-min-size="100"
+																						ngf-max-size="250MB"
+																						ngf-model-invalid="errors"
+																						ng-click="page.newRqmnt(rq.name)">Upload
+																		</a>/
+                                    
+																				<!--  -->
+																		<a ng-href="#"
+																						ng-click="page.togAddLinkBtn($index);
+																											page.newRqmnt(rq.name)"> Link
+																		</a>
+								</div><!-- end div-table-col -->
+																
+							</div><!-- end div-table-row -->
+						</div><!-- end div-table -->
+				</td>
+<!-- message -->					
+					<td>
+						<textarea ng-model="page.newData.message" rows="1" class="custom-form-textarea"></textarea>      
+					</td>
+<!-- reset -->					
+					<td>
+						<img ng-click="page.resetNewApp()" src="/assets/imgs/ic_trash.svg" width="16px" height="16px">
+					</td>
+			
+		</tr>
+						
+						
+<!-- added applicants -->
+			<tr ng-repeat="applicant in page.applicants"
+					ng-init="appNdx = $index" 
+					ng-mouseover="page.updateCurApp($index)">
+							<td>
+								<div class="custom-form">
+									<input type="text" ng-model="applicant.name.first">
+									<!-- <input type="text" ng-model="appNdx"> -->
+								</div>
+							</td>
+							<td> 
+								<div class="custom-form">
+									<input type="text" ng-model="applicant.name.last" Required >
+								</div>
+							</td>
+							<td>
+								<div class="custom-form">
+									<input type="text" class="custom-form" ng-model="applicant.email" Required >
+								</div>
+							</td>
+							<td>
+								<div class="custom-dropdown" uib-dropdown is-open="false">
+									<span type="text" class="custom-form" uib-dropdown-toggle ng-disabled="disabled">
+										{{applicant.gender || "Gender"}}</span>
+										<ul uib-dropdown-menu role="menu" aria-labelledby="single-button">
+											<li role="menuitem"><a href="#" ng-click="applicant.gender = 'Female'">Female</a></li>
+											<li role="menuitem"><a href="#" ng-click="applicant.gender = 'Male'">Male</a></li>
+										</ul>
+									</div> 
+								</td>
+								<td>
+									<div class="custom-form">
+										<input type="text" class="custom-form" ng-model="applicant.age" Required>
+									</div>
+								</td>
+							<td>
+							<div class="div-table">
+								<div class="div-table-row"
+											ng-repeat="rq in page.role.requirements track by $index">
+										<div class="div-table-col-attachments">{{rq.name}}</div>
+<!-- link -->
+										
+<!-- show and hide vm.appSHLinks[currApp][req.id] === false -->
+										<div class="div-table-col-attachments"
+														ng-show="page.appSHLinks[appNdx][$index] &&
+													page.ifRequirement(rq.name, applicant.files)">
+											<span class="custom-form">
+												<input ng-model="applicant.links[$index].source"
+															 placeholder="http://">
+												<img class="upload-cancel" src="/assets/imgs/ic_cross_lightgrey.svg" ng-click="page.togAppLinkBtn(appNdx, $index);">
+											</span>
+										</div>	
+																
+<!-- preview -->									
+									<div class="div-table-col-attachments">
+<!-- repeat --> 		                
+										<span ng-if="file.requirement === rq.name" ng-repeat="file in applicant.files track by $index">
+											<img ngf-thumbnail="file.file ||'Attachment'"/>
+											<video controls ngf-src="file.file"></video>
+											<span style="display: inline;">{{file.file.name | limitTo:18}}</span>
+
+												<img class="upload-cancel"
+															src="/assets/imgs/ic_cross_lightgrey.svg"
+															ng-click="
+															page.removeElFrmArray($index, applicant.files)">
+										 </span><!-- end repeat -->
+										 </div>
+<!-- Upload/Link -->
+									<div ng-show="!page.appSHLinks[appNdx][$index]
+									 && page.ifRequirement(rq.name, applicant.files)"
+									 class="div-table-col-attachments">
+										<a ngf-select="page.onFileSelectApplicants(			page.newFile,applicant.files)"
+											ng-model="page.newFile" name="file" 
+											ngf-pattern="'application/pdf,image/*,video/*'"
+											ngf-accept="'application/pdf,image/*,video/*'"
+											ngf-before
+											ngf-before-model-change= "errors = '' "
+											ngf-min-size="100"
+											ngf-max-size="250MB"
+											ngf-model-invalid="errors"
+											ng-click="page.newRqmnt(rq.name);">
+											Upload
+										</a>/
+										<a ng-href="#"
+											 ng-click="page.togAppLinkBtn(appNdx, $index);page.newRqmnt(rq.name);">Link</a>
+								</div>
+							</div>
+							</div>
+						</td>
+<!--usr message -->					
+					<td>
+							<textarea ng-model="applicant.message" rows="1" class="custom-form-textarea"></textarea>      
+					</td>
+<!-- trash -->
+					<td ng-click="page.removeApp($index)">
+								<img src="/assets/imgs/ic_trash.svg" width="16px" height="16px">
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+		
+		<div ng-hide="page.processing" class="add-applicants-add-more">
+				<button type="submit" class="custom-btn-secondary-small btn-add" ng-click="page.addAppBtn()" ng-disabled="page.processing">Add more</button>
+<!--        <p ng-show="page.applicants.length > 0" > Added {{ page.newData.length}} applicants</p>-->
+		</div>
+
+
+	<div ng-show="page.processing" class="custom-loader">
+		<img style ="height:90px; width:auto; z-index:5;" ng-src='/assets/imgs/spin.gif'>
+	</div>   
+
+	<div class="col-md-4 col-md-offset-4">
+		<button type="submit" class="custom-btn-primary-large" ng-click="page.submit()" ng-disabled="page.processing">Save</button>
+	</div>  
+</div>
+>>>>>>> dev

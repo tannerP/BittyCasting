@@ -241,6 +241,10 @@ a {
     padding-bottom: 120px;
 }
 
+.marginTop20 {
+    margin-top: 20px;
+}
+
 .custom-loader {
     margin: 30px auto;
     width: 60px;
@@ -330,7 +334,7 @@ a {
         input[type="checkbox"] {
             display: none;
         }
-        span {
+        span.custom-checkbox-style {
             float: left;
             margin: 3px 3px 0 -24px;
             display:inline-block;
@@ -342,6 +346,11 @@ a {
             background-color: $color-grey-light;
             cursor:pointer;
             vertical-align: middle;
+        }
+        span.applicationDeadline {
+            color: $color-grey;
+            font-size: $font-size-small;
+            margin-left: 10px;
         }
         input:checked + span {
             background: url("/assets/imgs/ic_check.svg") no-repeat center center $color-grey-light;
@@ -927,6 +936,22 @@ div.pageHeader{
             font-size: $font-size-large;
             float: left;
         }
+        
+        .btn-add-applicants {
+            font-size: $font-size-regular;
+            img {
+                vertical-align: middle;
+                width: 14px;
+                height: 14px;
+                padding-bottom: 4px;
+                margin-left: 20px;
+                &:hover, &:focus {
+                    opacity: 0.6;
+                    filter: alpha(opacity=60);
+                }          
+            }
+        }
+        
         ul {
             list-style: none;
             padding: 0;
@@ -1180,20 +1205,22 @@ ul.projects li {
     }
 }
 
+.table {margin-bottom: 0;}
+
 .custom-table {
     
     .table-project-overview {       
         padding: 0 15px;
         
         thead tr th:nth-child(1) {width: 20%; cursor: pointer;} //cover
-        thead tr th:nth-child(2) {width: 30%; cursor: pointer;} //name
-        thead tr th:nth-child(3) {width: 30%;} //details
+        thead tr th:nth-child(2) {width: 20%; cursor: pointer;} //name
+        thead tr th:nth-child(3) {width: 40%;} //details
         thead tr th:nth-child(4) {width: 20%;} //date      
         .table-utl ul li {
             &:nth-child(1) {
                 background: url("/assets/imgs/ic_trash.svg") no-repeat center center white;
                 background-size: 16px 16px; }
-            &:nth-child(2) {background: url("/assets/imgs/ic_duplicate.svg") no-repeat center center white;
+            &:nth-child(2) {background: url("/assets/imgs/ic_share.svg") no-repeat center center white;
             background-size: 16px 16px; }
         }
     }
@@ -1243,6 +1270,21 @@ ul.projects li {
         }
     }
     
+    .table-add-applicants {
+            thead tr th:nth-child(1) {width: 9%; cursor: pointer;} //first name
+            thead tr th:nth-child(2) {width: 9%;} //last name
+            thead tr th:nth-child(3) {width: 21%;} //e-mail
+            thead tr th:nth-child(4) {width: 7%;} //gender
+            thead tr th:nth-child(5) {width: 7%;} //age
+            thead tr th:nth-child(6) {width: 32%;} //requirements
+            thead tr th:nth-child(7) {width: 20%;} //comments
+            
+            .div-table custom-form input{
+                padding: 8px 0;
+                width: 80%;
+            }
+    }
+    
     .table-application-requirements {
         thead tr th:nth-child(1) {width: 40%; cursor: pointer;} //Name
         thead tr th:nth-child(2) {width: 40%; cursor: pointer;} //Type
@@ -1277,7 +1319,6 @@ ul.projects li {
             td {
                 vertical-align: middle;
                 position: relative;
-                height: 51px;
                            
                 .tableHover {
                     display: inline;
@@ -1809,6 +1850,44 @@ ul.select-coverphoto-wrapper {
 }
 
 /***************************
+      Role overview
+***************************/
+
+.add-applicants-add-more {
+    padding: 10px 0;
+    margin-bottom: 60px;
+    border-top: 1px solid $color-grey-light;
+    border-bottom: 1px solid $color-grey-light;
+}
+
+.btn-add {
+    padding-left: 38px; 
+    background: url("/assets/imgs/ic_plus_w.svg") no-repeat left 15px center $color-grey-dark;
+    background-size: 16px 16px;    
+    margin-left: 0px;
+    @include transition(all, 0.8s, ease);
+    &:hover, &:focus {
+        cursor: pointer;
+        background-color: $color-grey-darken;
+    }        
+}
+
+.upload-thumbnail {
+    width:30px;
+    height:30px;
+    vertical-align: middle;
+    margin-right: 8px;
+}
+
+.upload-cancel {
+    width: 14px;
+    height: 14px;
+    vertical-align: middle;
+    margin-left: 15px;
+    display: inline;
+}
+
+/***************************
           Apply
 ***************************/
 
@@ -1888,7 +1967,7 @@ ul.select-coverphoto-wrapper {
                 border: 2px solid $color-grey-dark;
                 padding: 10px;
             }
-            .rolesdynamicsactive {
+            .rolesDynamicsActive {
                 color: $color-blue;
                 border: 2px solid $color-blue;
             }
@@ -2029,11 +2108,12 @@ ul.select-coverphoto-wrapper {
         width:auto;
         clear:both;
         
+        .div-table-row-header {
+            font-weight: 600;
+        } 
+        
         div {
-            &:nth-child(1) {
-                width: 30%;
-                font-weight: 600;
-            }
+            &:nth-child(1) {width: 30%;}
             &:nth-child(2) {width: 70%;}
         }
         
@@ -2041,6 +2121,18 @@ ul.select-coverphoto-wrapper {
             float:left;/*fix for  buggy browsers*/
             display:table-column; 
             padding: 4px 0;
+            vertical-align: middle;
+        }
+        
+        .div-table-col-attachments {
+            float:left;/*fix for  buggy browsers*/
+            display:table-column; 
+            line-height: 40px;
+            height: 40px;
+            vertical-align: middle;
+            
+            img, video {width:auto; height:20px; display: inline; margin-right: 5px;}
+            img.upload-cancel {width: 14px; height: 14px;}
         }
     }
 }
@@ -2508,6 +2600,15 @@ text-align: center;
         padding-top: 40px;
         border-top: 1px solid $color-grey-light;
     }
+    .reviewCarousel .rn-carousel-control.rn-carousel-control-prev {
+        left: 20px;
+        margin-top: -355px;
+    }
+    
+    .reviewCarousel .rn-carousel-control.rn-carousel-control-next {
+        right: 20px;
+        margin-top: -355px;
+    }
     
 }
 
@@ -2517,6 +2618,7 @@ text-align: center;
     .custom-main {padding: 80px 0 60px 0;}
     section.contact {margin-bottom: 60px;}
     .custom-btn-feedback {top: 75%;}
+    .paddingBottom120 {padding-bottom: 180px;}
         
     /***************************
                 Nav
@@ -2666,7 +2768,7 @@ text-align: center;
     .aside {
         width: 100%;
     }
-    
+
     /***************************
             Landing page
     ***************************/
@@ -2679,6 +2781,26 @@ text-align: center;
             .brandSubheading {font-size: 18px;}
         }
     }
+ 
+    /***************************
+            Role overview
+    ***************************/
+    
+    .btn-add-applicants {
+        display: none;
+    }
+    
+    /***************************
+            Review
+    ***************************/
+    
+    .reviewCarousel .rn-carousel-control.rn-carousel-control-prev {
+        left: 10px;
+    }
+    
+    .reviewCarousel .rn-carousel-control.rn-carousel-control-next {
+        right: 10px;
+    }
     
     /***************************
                Footer
@@ -2689,7 +2811,7 @@ text-align: center;
         line-height: 40px;
         height: 130px;
         .container {
-            padding-top: 20px;
+            padding: 10px 0;
         }
         p {
             text-align: center;

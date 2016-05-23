@@ -1,6 +1,7 @@
 
 angular.module('userApp', [
 	'angular-carousel',
+	'angular.filter',
 	'ui.bootstrap',
 	'xml',
 	'angular-clipboard',
@@ -14,6 +15,7 @@ angular.module('userApp', [
 	'UIService',
 	'awsService',
 	'applyCtrl',
+	'addApplicant',
 	'mainCtrl',
 	'projectCtrl',
 	'userCtrl',

@@ -3,7 +3,7 @@
              toggle='page.togView()'>
 </ppublicview> -->
 
-<div ng-if="!viewApp" class="container paddingBottom60">
+<div ng-show="!viewApp" class="container paddingBottom60">
   <div class="pageHeader">
     <div class="custom-back" ng-click="main.backBtn()" style="z-index: 4;"></div>
     <div class="custom-page-action" style="z-index: 4;">
@@ -25,25 +25,25 @@
         <p class="projectDetailsTitle">Info</p>
         <div class="div-table">
           <div class="div-table-row">
-            <div class="div-table-col">Location</div>
+            <div class="div-table-col div-table-row-header">Location</div>
             <div class="div-table-col">{{roleData.location || "No Info"}}</div>
           </div>
           <!-- <div class="div-table-row">
-            <div class="div-table-col">Time</div>
+            <div class="div-table-col div-table-row-header">Time</div>
             <div class="div-table-col">{{roleData.end_time | date:'h:mm a'}}, {{ roleData.end_date | date: "M/d/yyyy" ||
               "No end time"}}
             </div>
           </div>
           <div ng-if="roleData.payterms" class="div-table-row">
-            <div class="div-table-col">Pay term</div>
+            <div class="div-table-col div-table-row-header">Pay term</div>
             <div class="div-table-col">{{roleData.payterms}}</div>
           </div>
           <div class="div-table-row">
-            <div class="div-table-col">Gender</div>
+            <div class="div-table-col div-table-row-header">Gender</div>
             <div class="div-table-col">{{roleData.sex || "No Info"}}</div>
           </div>
           <div class="div-table-row">
-            <div class="div-table-col">Age</div>
+            <div class="div-table-col div-table-row-header">Age</div>
             <div class="div-table-col">{{roleData.age || "No Info"}}</div>
           </div>
         </div> 
@@ -58,20 +58,10 @@
     <div class="clear"></div>
 
     <div class="custom-page-action-secondary">
-      <div class="custom-page-action-secondary-title">
-      {{numApps}} applicants
-        <!-- <a ng-href="/add_Applicants/role/:id"> + Add applicant</a> -->
-        <a href="#">
-          
-          <!-- <div newApplicantForm> + Add</div> -->
-        </a>
+      <div class="custom-page-action-secondary-title">{{numApps}} applicants<a class="btn-add-applicants" ng-href="{{'addApplicant/'+ roleData._id}}"><img ng-src="/assets/imgs/ic_plus_bl.svg"> Add applicants</a>
       </div>
-      <!--
-        <ul>
-            <li class='custom-btn-secondary-small' ng-click="">Create role</li>
-        </ul>-->
     </div>
-<!--    <applicantForm>+ Add</applicantForm>-->
+
     <div class="utlBar">
       <div class="sort"></div>
       <div class="gridListToggle">
@@ -87,7 +77,6 @@
       <li class="col-lg-3 col-md-4 col-sm-6">
         <div class="card cardApplicants">
             <div ng-if="app.new" class="alert-new">New</div>
-            <!-- <div class="fav-applicant">(0)</div> -->
               <img class="fav-applicant-toggle" ng-if="app.favorited" ng-src="/assets/imgs/ic_fav_w_fill.svg" width="20px" vertical-align="middle" ng-click="page.updateFav(app,roleData._id)">
 
               <img class="fav-applicant-toggle" ng-if="!app.favorited" ng-src="/assets/imgs/ic_fav_w.svg" width="20px" vertical-align="middle" ng-click="page.updateFav(app,roleData._id)">
@@ -95,9 +84,6 @@
                 <div ng-if="app.headshot" class="card cardApplicants" ng-style="{
                   'background':'url('+ app.headshot+ ') no-repeat center center',
                    'background-size': 'auto 100%', 'background-color': '#242424'}">
-                    <!-- <video  controls ngf-src='app.headshot'></video>-->
-                    <!-- <div ng-show="!app.headshot" class="card cardApplicants" ng-style="{
-                      'background': 'url(/assets/imgs/img_projectCover01.png) no-repeat top center','background-size': '100% auto'}"> -->
                     <a href="" class="md-headline" ng-click="page.viewBtn($index)">
                       <div class="cardInfoBg"></div>
                       <div class="cardScrim"></div>
@@ -109,7 +95,6 @@
                             <div class='actionBar'>
                               <ul>
                                 <li class="trashcan" ng-click='page.deleteAsideBtn(app)'></li>
-                                <!--                                        <li class="duplicate"></li>-->
                               </ul>
                             </div>
                       </div>
@@ -150,12 +135,10 @@
                     {{app.name.first}} {{app.name.last}}
                 </td>
                 <td>
-                  <!-- <img ng-src="/assets/imgs/ic_fav_b_fill.svg" width="20px" vertical-align="middle"> --> <!-- <span>(0)</span> -->
-                  <img ng-if="app.favorited" ng-src="/assets/imgs/ic_fav_b_fill.svg" width="20px" vertical-align="middle" ng-click="page.updateFav(app,roleData._id)">
-                  <img ng-if="!app.favorited" ng-src="/assets/imgs/ic_fav_b.svg" width="20px" vertical-align="middle" ng-click="page.updateFav(app,roleData._id)">
-                  <!-- <input type="checkbox" ng-model="app.favorited"
-                         ng-change="page.updateFav(app)">
-                  </input> -->
+                  <div ng-click="page.updateFav(app,roleData._id)" >
+                    <img  ng-if="app.favorited" ng-src="/assets/imgs/ic_fav_b_fill.svg" width="20px" vertical-align="middle" >
+                    <img ng-if="!app.favorited" ng-src="/assets/imgs/ic_fav_b.svg" width="20px" vertical-align="middle">
+                  </div>
                 </td>
                 <td ng-click="page.viewBtn($index)">
                   {{ app.email }}
@@ -165,7 +148,6 @@
                 <div class="table-utl">
                   <ul>
                     <li class="trashcan" ng-click='page.deleteAsideBtn(app)'></li>
-                    <!--  <li class="duplicate"></li> -->
                   </ul>
                 </div>
               </td>
@@ -174,16 +156,16 @@
           </tbody>
           </table>
     </div>
-</div>
+  </div>
+
 
 <!--Review Page-->
+<!-- <div newApplicantForm> + Add</div> -->
+<!--  -->
 <div ng-show="viewApp">
   <div review></div>
   <div class="reviewBar" ng-show="viewApp" style=" z-index:4;">
     <div class="previous" ng-click="page.lastApp()">Previous</div>
     <div class="next" ng-click="page.nextApp()">Next</div>
   </div>
-</div>
-<!-- <div newApplicantForm> + Add</div> -->
-<!--  -->
 </div>

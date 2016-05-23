@@ -209,6 +209,9 @@ a {
 .paddingBottom120 {
   padding-bottom: 120px; }
 
+.marginTop20 {
+  margin-top: 20px; }
+
 .custom-loader {
   margin: 30px auto;
   width: 60px; }
@@ -290,7 +293,7 @@ a {
   margin: 0 0 10px 24px; }
   .custom-checkbox label input[type="checkbox"] {
     display: none; }
-  .custom-checkbox label span {
+  .custom-checkbox label span.custom-checkbox-style {
     float: left;
     margin: 3px 3px 0 -24px;
     display: inline-block;
@@ -302,6 +305,10 @@ a {
     background-color: #cccccc;
     cursor: pointer;
     vertical-align: middle; }
+  .custom-checkbox label span.applicationDeadline {
+    color: #999999;
+    font-size: 10px;
+    margin-left: 10px; }
   .custom-checkbox label input:checked + span {
     background: url("/assets/imgs/ic_check.svg") no-repeat center center #cccccc;
     background-size: 12px 12px; }
@@ -826,6 +833,17 @@ div.pageHeader {
   div.pageHeader .custom-page-action-secondary .custom-page-action-secondary-title {
     font-size: 16px;
     float: left; }
+  div.pageHeader .custom-page-action-secondary .btn-add-applicants {
+    font-size: 12px; }
+    div.pageHeader .custom-page-action-secondary .btn-add-applicants img {
+      vertical-align: middle;
+      width: 14px;
+      height: 14px;
+      padding-bottom: 4px;
+      margin-left: 20px; }
+      div.pageHeader .custom-page-action-secondary .btn-add-applicants img:hover, div.pageHeader .custom-page-action-secondary .btn-add-applicants img:focus {
+        opacity: 0.6;
+        filter: alpha(opacity=60); }
   div.pageHeader .custom-page-action-secondary ul {
     list-style: none;
     padding: 0; }
@@ -1064,23 +1082,26 @@ ul.projects li {
             -o-transition: all 0.2s ease;
             transition: all 0.2s ease; }
 
+.table {
+  margin-bottom: 0; }
+
 .custom-table .table-project-overview {
   padding: 0 15px; }
   .custom-table .table-project-overview thead tr th:nth-child(1) {
     width: 20%;
     cursor: pointer; }
   .custom-table .table-project-overview thead tr th:nth-child(2) {
-    width: 30%;
+    width: 20%;
     cursor: pointer; }
   .custom-table .table-project-overview thead tr th:nth-child(3) {
-    width: 30%; }
+    width: 40%; }
   .custom-table .table-project-overview thead tr th:nth-child(4) {
     width: 20%; }
   .custom-table .table-project-overview .table-utl ul li:nth-child(1) {
     background: url("/assets/imgs/ic_trash.svg") no-repeat center center white;
     background-size: 16px 16px; }
   .custom-table .table-project-overview .table-utl ul li:nth-child(2) {
-    background: url("/assets/imgs/ic_duplicate.svg") no-repeat center center white;
+    background: url("/assets/imgs/ic_share.svg") no-repeat center center white;
     background-size: 16px 16px; }
 .custom-table .table-project-details thead tr th:nth-child(1) {
   width: 20%;
@@ -1131,6 +1152,24 @@ ul.projects li {
     -webkit-box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.1);
     -moz-box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.1);
     box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.1); }
+.custom-table .table-add-applicants thead tr th:nth-child(1) {
+  width: 9%;
+  cursor: pointer; }
+.custom-table .table-add-applicants thead tr th:nth-child(2) {
+  width: 9%; }
+.custom-table .table-add-applicants thead tr th:nth-child(3) {
+  width: 21%; }
+.custom-table .table-add-applicants thead tr th:nth-child(4) {
+  width: 7%; }
+.custom-table .table-add-applicants thead tr th:nth-child(5) {
+  width: 7%; }
+.custom-table .table-add-applicants thead tr th:nth-child(6) {
+  width: 32%; }
+.custom-table .table-add-applicants thead tr th:nth-child(7) {
+  width: 20%; }
+.custom-table .table-add-applicants .div-table custom-form input {
+  padding: 8px 0;
+  width: 80%; }
 .custom-table .table-application-requirements {
   /* tr.defaultRequirements {
       &:nth-child(1), &:nth-child(2), &:nth-child(3) {
@@ -1162,8 +1201,7 @@ ul.projects li {
     cursor: pointer; }
     .custom-table .table tbody tr td {
       vertical-align: middle;
-      position: relative;
-      height: 51px; }
+      position: relative; }
       .custom-table .table tbody tr td .tableHover {
         display: inline;
         opacity: 1; }
@@ -1690,6 +1728,42 @@ ul.select-coverphoto-wrapper {
         margin-bottom: 0; }
 
 /***************************
+      Role overview
+***************************/
+.add-applicants-add-more {
+  padding: 10px 0;
+  margin-bottom: 60px;
+  border-top: 1px solid #cccccc;
+  border-bottom: 1px solid #cccccc; }
+
+.btn-add {
+  padding-left: 38px;
+  background: url("/assets/imgs/ic_plus_w.svg") no-repeat left 15px center #666666;
+  background-size: 16px 16px;
+  margin-left: 0px;
+  -webkit-transition: all 0.8s ease;
+  -moz-transition: all 0.8s ease;
+  -ms-transition: all 0.8s ease;
+  -o-transition: all 0.8s ease;
+  transition: all 0.8s ease; }
+  .btn-add:hover, .btn-add:focus {
+    cursor: pointer;
+    background-color: #444444; }
+
+.upload-thumbnail {
+  width: 30px;
+  height: 30px;
+  vertical-align: middle;
+  margin-right: 8px; }
+
+.upload-cancel {
+  width: 14px;
+  height: 14px;
+  vertical-align: middle;
+  margin-left: 15px;
+  display: inline; }
+
+/***************************
           Apply
 ***************************/
 .btn_paragraph {
@@ -1752,7 +1826,7 @@ ul.select-coverphoto-wrapper {
       color: #666666;
       border: 2px solid #666666;
       padding: 10px; }
-    .applyPage .applyPageLeft ul .rolesdynamicsactive {
+    .applyPage .applyPageLeft ul .rolesDynamicsActive {
       color: #06bcc2;
       border: 2px solid #06bcc2; }
   .applyPage .applyLogo {
@@ -1878,16 +1952,33 @@ ul.select-coverphoto-wrapper {
     display: table-row;
     width: auto;
     clear: both; }
-    .div-table .div-table-row div:nth-child(1) {
-      width: 30%;
+    .div-table .div-table-row .div-table-row-header {
       font-weight: 600; }
+    .div-table .div-table-row div:nth-child(1) {
+      width: 30%; }
     .div-table .div-table-row div:nth-child(2) {
       width: 70%; }
     .div-table .div-table-row .div-table-col {
       float: left;
       /*fix for  buggy browsers*/
       display: table-column;
-      padding: 4px 0; }
+      padding: 4px 0;
+      vertical-align: middle; }
+    .div-table .div-table-row .div-table-col-attachments {
+      float: left;
+      /*fix for  buggy browsers*/
+      display: table-column;
+      line-height: 40px;
+      height: 40px;
+      vertical-align: middle; }
+      .div-table .div-table-row .div-table-col-attachments img, .div-table .div-table-row .div-table-col-attachments video {
+        width: auto;
+        height: 20px;
+        display: inline;
+        margin-right: 5px; }
+      .div-table .div-table-row .div-table-col-attachments img.upload-cancel {
+        width: 14px;
+        height: 14px; }
 
 .thankYouPage {
   text-align: center; }
@@ -2313,7 +2404,15 @@ ul.select-coverphoto-wrapper {
   .reviewComment {
     margin-top: -40px;
     padding-top: 40px;
-    border-top: 1px solid #cccccc; } }
+    border-top: 1px solid #cccccc; }
+
+  .reviewCarousel .rn-carousel-control.rn-carousel-control-prev {
+    left: 20px;
+    margin-top: -355px; }
+
+  .reviewCarousel .rn-carousel-control.rn-carousel-control-next {
+    right: 20px;
+    margin-top: -355px; } }
 @media screen and (max-width: 767px) {
   .custom-main {
     padding: 80px 0 60px 0; }
@@ -2323,6 +2422,9 @@ ul.select-coverphoto-wrapper {
 
   .custom-btn-feedback {
     top: 75%; }
+
+  .paddingBottom120 {
+    padding-bottom: 180px; }
 
   /***************************
               Nav
@@ -2499,6 +2601,21 @@ ul.select-coverphoto-wrapper {
         font-size: 18px; }
 
   /***************************
+          Role overview
+  ***************************/
+  .btn-add-applicants {
+    display: none; }
+
+  /***************************
+          Review
+  ***************************/
+  .reviewCarousel .rn-carousel-control.rn-carousel-control-prev {
+    left: 10px; }
+
+  .reviewCarousel .rn-carousel-control.rn-carousel-control-next {
+    right: 10px; }
+
+  /***************************
              Footer
   ***************************/
   .footer {
@@ -2506,7 +2623,7 @@ ul.select-coverphoto-wrapper {
     line-height: 40px;
     height: 130px; }
     .footer .container {
-      padding-top: 20px; }
+      padding: 10px 0; }
     .footer p {
       text-align: center;
       padding-right: 0;

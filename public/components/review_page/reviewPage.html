@@ -81,14 +81,14 @@
         <td ng-if="currApp.links.length > 0">Links:</td>
         <td>
            <ul>
-            <li ng-repeat="link in currApp.links">
-              <a target="_blank" ng-href="#" ng-click="goToLink(link.source)" >{{link.source}}</a>
+            <li ng-repeat="link in currApp.links track by $index" ng-show="link != null">
+              <a target="_blank" ng-href="#" ng-click="goToLink(link.source)" >{{link.source || link }} </a>
             <br/></li>
           </ul>
         </td>
       </tr>
       <tr>
-        <td ng-if="documents.length > 0">Document:</td>
+        <td ng-if="documents.length > 0">Document<span ng-if="documents.length > 1">s</span>:</td>
         <td>
           <ul>
             <li ng-repeat="doc in documents"><a target="_blank" ng-href="{{doc.source}}" download={{doc.name}}>{{doc.name}}</a></li>
@@ -96,7 +96,7 @@
         </td>
       </tr>
       <tr>
-        <td ng-if="images.length > 0">Headshot(s):</td>
+        <td ng-if="images.length > 0">Image<span ng-if="images.length > 1">s</span></td>
         <td>
           <ul>
             <li ng-repeat="image in images" class = "attch"><a target="_blank" ng-href="{{image.source}}" download={{image.name}}>{{image.name}}</a></li>
@@ -104,7 +104,9 @@
         </td>
       </tr>
       <tr>
-        <td ng-if="video.length > 0">Video</td>
+        <td ng-if="video.length > 0">Video
+          <span ng-if="documents.length > 1">s</span>
+          </td>
         <td>
           <ul>
             <li class = "attch"><a ng-repeat="video in video" target="_blank" ng-href="{{video.source}}" download="{{video.name}}">{{video.name}}</a>
