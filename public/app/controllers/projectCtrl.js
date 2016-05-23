@@ -302,6 +302,7 @@ angular.module('projectCtrl', ['userService',
         Role.create(vm.projectID, vm.roleData)
           .success(function(data) {
             vm.roleData = {};
+            $scope.$emit('aside.hide')
             $route.reload();
             Prerender.cacheRole(data.role._id);
             vm.processing = false;
@@ -484,9 +485,11 @@ angular.module('projectCtrl', ['userService',
             Project.create(vm.projectData)
               .success(function(data) {
                 Prerender.cacheProject(data.projectID);
+                $scope.$hide();
+                $scope.$emit('aside.hide')
                 $route.reload();
                 vm.message = data.message;
-                $scope.$hide();
+                
                 vm.processing = false;
                 $scope.projectData = {};
                 /*$location.path('/home');*/
@@ -498,9 +501,10 @@ angular.module('projectCtrl', ['userService',
               Project.create(vm.projectData)
                 .success(function(data) {
                   Prerender.cacheProject(data.projectID);
+                  $scope.$hide()
+                  $scope.$emit('aside.hide')
                   $route.reload();
                   vm.message = data.message;
-                  $scope.$hide()
                   vm.processing = false;
                   $scope.projectData = {};
                   return;
