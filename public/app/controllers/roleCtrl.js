@@ -7,9 +7,6 @@ angular.module('roleCtrl', ['userService',
       $scope, $aside, $routeParams, $location, $route,
       $window, $timeout, RoleService) {
       var vm = this;
-      var funcLog = function() {
-        console.log('hello aside')
-      }
       var editRoleAside = $aside({
           scope: $scope,
           backdrop: 'static',

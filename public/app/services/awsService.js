@@ -10,9 +10,9 @@ angular.module('awsService', [])
   aws.uploadS3 = function(data) {
 
     //Note: ID is undefine.
-    console.log(data)
+/*    console.log(data)
     console.log(data.appID)
-    console.log(data.files)
+    console.log(data.files)*/
 
     var uploadFiles = [];
     for(var i in data.files){
@@ -20,11 +20,11 @@ angular.module('awsService', [])
     }
     var updateID = data.appID;
 
-      console.log(uploadFiles)
-      console.log(updateID)
+/*      console.log(uploadFiles)
+      console.log(updateID)*/
 
   if(!uploadFiles && uploadFiles.length < 1){
-    console.log("being returned")
+    /*console.log("being returned")*/
     return $rootScope.message = "Input error";
   }
     var numFiles = data.files.length * 2; //HACK
