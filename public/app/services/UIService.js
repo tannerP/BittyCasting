@@ -14,3 +14,18 @@ angular.module('UIService', [])
 
 	return home;
 })
+
+.service("RoleService",function(){
+	var role = {};
+		  role.view = "";
+
+	role.setView = function(view){	
+		role.view = view;
+	}
+
+	role.getView = function(callback){
+		callback(role.view); return;
+	}
+
+	return role;
+})

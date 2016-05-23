@@ -4,7 +4,8 @@ angular.module('roleCtrl', ['userService',
 
 .controller('RolePageController',
     function(Applicant, Role, $location, $routeParams, $rootScope,
-      $scope, $aside, $routeParams, $location, $route, $window, $timeout) {
+      $scope, $aside, $routeParams, $location, $route,
+      $window, $timeout, RoleService) {
       var vm = this;
       var funcLog = function() {
         console.log('hello aside')
@@ -141,7 +142,10 @@ angular.module('roleCtrl', ['userService',
       vm.getProject = function(prjID) {
         $location.path('/projectDetails/' + prjID);
       }
+
       vm.setGridVw = function() {
+        RoleService.setView("GRID")
+        updateView();
         vm.listStyle = {
           'opacity': 0.2
         };
@@ -152,6 +156,8 @@ angular.module('roleCtrl', ['userService',
         vm.gridView = true;
       }
       vm.setListVw = function() {
+        RoleService.setView("LIST")
+        updateView();
         vm.listStyle = {
           'opacity': 1
         };
@@ -161,6 +167,41 @@ angular.module('roleCtrl', ['userService',
         vm.gridView = false;
         vm.listView = true;
       }
+      var updateView = function() {
+        //call back returns a string
+        RoleService.getView(function(view) {
+          /*console.log(view)*/
+          if (view === "GRID") {
+            /*console.log('setting grid style')*/
+            vm.listStyle = {
+              'opacity': 0.2
+            };
+            vm.gridStyle = {
+              'opacity': 1
+            };
+            vm.listView = false;
+            vm.gridView = true;
+
+          } else if (view === "LIST") {
+            /*console.log('setting list style')*/
+            vm.listStyle = {
+              'opacity': 1
+            };
+            vm.gridStyle = {
+              'opacity': 0.2
+            };
+            vm.gridView = false;
+            vm.listView = true;
+
+            /*vm.setGridVw()*/
+          } else {
+            /*console.log("else statement ")*/
+            vm.setGridVw()
+          }
+
+        });
+      };
+      updateView();
 
       vm.backBtn = function() {
         $scope.viewApp = false;
@@ -273,13 +314,13 @@ angular.module('roleCtrl', ['userService',
           var indx = sourceArr[i].source.match('(%)')
           source = source.slice(++indx.index)
           indx = source.match('(%)')
-          
+
           source = source.slice(++indx.index);
           source = source.split('.');
           source = source[0].split('24');
           var name = source[1];
           sourceArr[i].name = name;
-          
+
 
           /*var fName = */
           if (fType == "Link") {
