@@ -140,7 +140,7 @@
       <div class="comments" ng-if="data" ng-repeat="data in currApp.comments track by $index">
         <div class="commentThumbnail">{{data.owner}}</div>
         <p>{{data.comment}}</p>
-        <p class="timestamp">Posted on 5:34PM, Feb 8, 2016</p>
+        <!-- <p class="timestamp">Posted on 5:34PM, Feb 8, 2016</p> -->
         <ul class="comments-action">
           <!--                <li><a>Edit</a></li>-->
           <li><a ng-click="box.deleteCmt(currApp._id,$index,data)">Delete</a></li>
