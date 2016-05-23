@@ -53,8 +53,8 @@ angular.module('addApplicant', ['userService', 'mgcrea.ngStrap'])
       }
 
       var normalizeLink = function(callback) {
-        console.log(vm.newData.links);
-        console.log(vm.applicants)
+        /*console.log(vm.newData.links);
+        console.log(vm.applicants)*/
         var NUMAPP = vm.applicants.length;
         vm.appSHLinks[NUMAPP] = [];
 
@@ -269,8 +269,8 @@ angular.module('addApplicant', ['userService', 'mgcrea.ngStrap'])
         // and instanciate a matrix 
         anotherApp(function() {
 
-            console.log(vm.applicants)
-            console.log(vm.applicants.length)
+            /*console.log(vm.applicants)
+            console.log(vm.applicants.length)*/
 
             var uploadCounter = 0;
             var numUploaded = 0;

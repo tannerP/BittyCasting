@@ -104,13 +104,33 @@ angular.module('applyCtrl', ['userService', 'mgcrea.ngStrap'])
       } else vm.appData.links = []
     }
 
+    var isFulfilled = function(requirements, files, links){
+      console.log(requirements)
+      console.log(files)
+      console.log(links)
+      /*var */
+      for(var i in requirements){
+        var req = requirements[i]
+        var file  = files[i]
+        var link = links[i]
+        console.log(req)
+        console.log(file)
+        console.log(link)
+      }
+
+      return false;
+    }
 
     vm.processing = false;
     vm.submit = function() {
+      isFulfilled(vm.requirements, vm.files, vm.newLinks)
+      return;
+      //Special case when form only display one role (role level sharing)
       if (vm.roles.length === 1) {
         var roleID = vm.roles[0]._id;
         vm.toggleRole(roleID, null)
       }
+
       if (vm.appData.roleIDs.length < 1) {
         vm.message = "Please select a role above before submitting your application."
         return;
@@ -151,8 +171,8 @@ angular.module('applyCtrl', ['userService', 'mgcrea.ngStrap'])
             $rootScope.$on("app-media-submitted",
               function() {
                 finishedFileCount++;
-                console.log("num files updated toDB " + finishedFileCount)
-                console.log("num files: " + numFiles)
+                /*console.log("num files updated toDB " + finishedFileCount)
+                console.log("num files: " + numFiles)*/
                 if (finishedFileCount === numFiles) {
                   $location.path('/Thankyou');
                 }

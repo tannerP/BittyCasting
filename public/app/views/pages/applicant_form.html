@@ -45,11 +45,6 @@
 						<!-- <audio ng-if="currFile" controls ngf-src="currFile"> -->
 				</section>
 				<!-- Application Form --> 
-				<style type="text/css">
-					.css-form input.required{
-						background-color: red;
-					}
-				</style>		 
 				<section class="col-md-6">
 						<div class="applyPageRight">
 								 <div class='pageTitle'>Apply</div>
@@ -103,43 +98,38 @@
 
 
 														<div class = "form-group" ng-repeat="rq in ppv.requirements | uniq: 'name'">
-														<label>{{rq.name}}</label>
+														<label>{{rq.name}}<span ng-if="rq.required"></span></label>
 														<!-- Fil Uploader -->
-
-																<div ng-if="rq.file_type != 'link'" class="drop-box" ngf-drop ng-model="ppv.files[$index]" ngf-max-size="500MB" ngf-model-invalid="errors" ngf-accept="'application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/pdf,image/*,video/*'"
+																<!-- <div ng-if="rq.file_type != 'link'" class="drop-box" ngf-drop ng-model="ppv.files[$index]" ngf-max-size="500MB" ngf-model-invalid="errors" ngf-accept="'application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/pdf,image/*,video/*'"
 																ngf-pattern="'application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/pdf,image/*,video/*'"
 																ngf-min-size="100"
-																ngf-max-size="250MB" ng-required="true">
+																ngf-max-size="250MB" ng-required="true"> -->
 																<!-- Select File -->
-																 <div ng-if="!ppv.files[$index]">
-																		 <p><span>Drag and drop file(s)</span><br/><a ngf-select ng-model="ppv.files[$index]" name="file" 
+																 <div>
+																		 <a ngf-select ng-model="ppv.files[$index]" name="file" 
 																		ngf-accept="'application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/pdf,image/*,video/*'"
 																		ngf-pattern="'application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/pdf,image/*,video/*'"
 																		ngf-before-model-change= "errors = '' "
 																		ngf-min-size="100"
 																		ngf-max-size="500MB"
 																		ngf-model-invalid="errors"
-																		ng-select="checkFile(files[$index])"
-																		>upload from computer</a>
+																		ng-select="checkFile(files[$index])">
+																		<span ng-if="!ppv.files[$index]">Upload from computer</span>
+																		<span ng-if="ppv.files[$index]">Another one</span>
+																		</a>
 																				</p>
 																		</div>
-																		<a ngf-select ng-model="ppv.files[$index]" name="file" 
-																				ngf-pattern="'application/pdf,image/*,video/*'"
-																				ngf-accept="'application/pdf,image/*,video/*'"
-																				ngf-before
-																				ngf-before-model-change= "errors = '' "
-																				ngf-min-size="100"
-																				ngf-max-size="250MB"
-																				ngf-model-invalid="errors">
-																				<div class="uploadFileName">
-																				  <img ng-if="ppv.files[$index]" ngf-thumbnail="ppv.files[$index] || 'Attachment'">
-																					<video ng-if="ppv.files[$index]" controls ngf-src="ppv.files[$index]"></video>    
+																		<div class="div-table-col-attachments">
+																					<div style ="height:40px; width:auto">
+																							
+																					</div>
+																				  <img style ="height:40px; width:auto"
+																				  ng-if="ppv.files[$index]" ngf-thumbnail="ppv.files[$index] || 'Attachment'">
+																					<video style ="height:40px; width:auto"
+																					ng-if="ppv.files[$index]" controls ngf-src="ppv.files[$index]"></video>    
 																				{{ppv.files[$index].name | limitTo:18}}
-																				</div>
-																		</a>
-														</div>
-														<div class = "form-group">
-																<span ng-repeat="link in ppv.appData.links track by $index">
+																		</div>
+																<!-- <span ng-repeat="link in ppv.appData.links track by $index">
 																		<div class="applyLinkItem">
 																				<span ng-if="link.name == rq">{{link.source}} <span ng-click="ppv.removeLink($index)">
 																				<img src="/assets/imgs/ic_trash.svg" width="16px" height="16px"></span>
@@ -149,8 +139,7 @@
 																</span>
 																<input class="applyAddLink" type="text" ng-model="ppv.newLinks[$index]" placeholder="http://">  
 																<span>{{newLink}}</span>                
-																<span ng-click="ppv.addLink($index,rq)"><img src="/assets/imgs/ic_plus.svg" width="16px" height="16px"></span>
-														</div>
+																<span ng-click="ppv.addLink($index,rq)"><img src="/assets/imgs/ic_plus.svg" width="16px" height="16px"></span> -->
 													</div>
 												<div ng-if="errors" class ="custom-alert" >
 														<p>Whoops, the file format was invalid.</p>
