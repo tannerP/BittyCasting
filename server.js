@@ -32,7 +32,7 @@ app.use(require('prerender-node')
 
 var env = process.argv[2];
 
-console.log(env)
+/*console.log(env)*/
 switch (env) {
   case "prod":
     var config = require('./config').prod; //get config file

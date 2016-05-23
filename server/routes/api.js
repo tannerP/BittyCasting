@@ -256,7 +256,7 @@ module.exports = function(app, express) {
           }
         }]
 			}, function(err, count) {
-				console.log(count);
+				/*console.log(count);*/
 				if (err) {
 					res.send(err);
 					console.log(err);
@@ -445,7 +445,7 @@ module.exports = function(app, express) {
 								function(err, project) {
 									if (!err) {
 										--project.num_roles;
-										console.log(project.num_roles);
+										/*console.log(project.num_roles);*/
 										project.save(function() {})
 									}
 								})
