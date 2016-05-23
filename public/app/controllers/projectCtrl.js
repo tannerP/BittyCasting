@@ -186,6 +186,7 @@ angular.module('projectCtrl', ['userService',
         vm.roleData.updated_date = new Date();
         Role.update($routeParams.role_id, vm.roleData)
           .success(function() {
+            $scope.$emit('aside.hide')
             $route.reload();
             Prerender.cacheRole($routeParams.role_id);
             $timeout(function() {
@@ -606,6 +607,7 @@ angular.module('projectCtrl', ['userService',
                 vm.projectData)
               .success(function(data) {
                 Prerender.cacheProject(vm.projectData._id);
+                $scope.$emit('aside.hide')
                 vm.processing = false;
                 $scope.projectData = {};
                 $route.reload();
@@ -618,6 +620,7 @@ angular.module('projectCtrl', ['userService',
             vm.projectData)
           .success(function(data) {
             Prerender.cacheProject(vm.projectData._id);
+            $scope.$emit('aside.hide')
             $scope.projectData = {};
             vm.processing = false;
             /*vm.message = data.message;*/
