@@ -107,6 +107,8 @@ angular.module('userService', [])
 		var money = {};
 		money.status = "new"
 		money.roleID = roleID;
+		console.log(appID)
+		console.log(roleID)
 		return $http.put('/api/app/'+appID, money);	
 		}	 
 	appFactory.favUpdate = function(app,roleID)	{

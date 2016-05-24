@@ -231,7 +231,15 @@ angular.module('roleCtrl', ['userService',
         $scope.slides = [];
         $scope.currIndex = index;
         $scope.currApp = vm.applicants[index];
-        addSlides($scope.slides, $scope.currApp.suppliments);
+        var app = $scope.currApp;
+        if(app.new){
+          app.new = false;
+          console.log("updating currApp")
+          console.log(app._id)
+          console.log($scope.roleData._id)
+          vm.updateViewed(app,$scope.roleData._id)
+        }
+        addSlides($scope.slides, app.suppliments);
       }
 
       vm.viewBtn = function(index) {
