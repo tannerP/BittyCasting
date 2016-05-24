@@ -8,6 +8,10 @@ var ApplicantSchema = new Schema({
 	/*new : [{
 		:Boolean
 	}],*/
+	userViewed_IDs: [{
+		userID:String,
+		roleID:String
+	}],
 	name : { first: String, last: String },
 	favorited :{type:Boolean, default:false},
 	favs : [{

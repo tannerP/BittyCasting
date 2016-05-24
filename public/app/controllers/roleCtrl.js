@@ -98,38 +98,56 @@ angular.module('roleCtrl', ['userService',
             vm.processing = false;
             vm.applicants = data.data;
             $scope.numApps = data.data.length;
-            //get headshot
+            //apply filters
             for (var i in vm.applicants) {
-              for (var app in vm.applicants[i].favs) {
-                if ($rootScope.user._id === vm.applicants[i].favs[app].userID && $scope.roleData._id === vm.applicants[i].favs[app].roleID) {
-                  vm.applicants[i].favorited = vm.applicants[i].favs[app].favorited;
+              var applicant = vm.applicants[i];
+
+              //filter for new applicant
+              if(applicant.userViewed_IDs.length === 0){
+                applicant.new = true;
+              }
+              for(var v in applicant.userViewed_IDs){
+                /*console.log(applicant.userViewed_IDs[v])*/
+                /*console.log($rootScope.user)*/
+                var viewed = applicant.userViewed_IDs[v];
+                if(viewed.roleID === $scope.roleData._id &&
+                  viewed.userID === $rootScope.user._id){
+                  /*console.log("viewed matches roleID")*/
+                  applicant.new = false;
+                }else applicant.new = true;
+                
+              }
+
+              for (var app in applicant.favs) {
+                if ($rootScope.user._id === applicant.favs[app].userID && $scope.roleData._id === applicant.favs[app].roleID) {
+                  applicant.favorited = applicant.favs[app].favorited;
                 }
               }
-              /*console.log("applicant suppliment length" + vm.applicants[i].suppliments.length)*/
-              if (vm.applicants[i].suppliments.length > 0) {
-                for (var j in vm.applicants[i].suppliments) {
-                  /* console.log(vm.applicants[i].name)
-                   console.log(vm.applicants[i].suppliments[j].file_type)
-                   console.log(vm.applicants[i].suppliments[j].file_type.indexOf('image'))*/
+              //get headshot
+              if (applicant.suppliments.length > 0) {
+                for (var j in applicant.suppliments) {
+                  /* console.log(applicant.name)
+                   console.log(applicant.suppliments[j].file_type)
+                   console.log(applicant.suppliments[j].file_type.indexOf('image'))*/
                   //check for headshot labeling
-                  /*if (angular.equals(vm.applicants[i].suppliments[j].name, "Headshot") ||
-                    angular.equals(vm.applicants[i].suppliments[j].name, "headshot" || 
-                    vm.applicants[i].suppliments[j].file_type.indexOf('image')=== 0)){
-                      vm.applicants[i].headshot = vm.applicants[i].suppliments[j].source;
+                  /*if (angular.equals(applicant.suppliments[j].name, "Headshot") ||
+                    angular.equals(applicant.suppliments[j].name, "headshot" || 
+                    applicant.suppliments[j].file_type.indexOf('image')=== 0)){
+                      applicant.headshot = applicant.suppliments[j].source;
                       break;
                   } else*/
-                  if (vm.applicants[i].suppliments[j].file_type.indexOf("image") === 0) {
+                  if (applicant.suppliments[j].file_type.indexOf("image") === 0) {
                     /*  console.log("Adding headshot");
-                      console.log(vm.applicants[i].suppliments[j].source)*/
-                    vm.applicants[i].headshot = vm.applicants[i].suppliments[j].source;
+                      console.log(applicant.suppliments[j].source)*/
+                    applicant.headshot = applicant.suppliments[j].source;
                     break;
                   }
                   //if no headshot is attached
-                  else vm.applicants[i].headshot = "/assets/imgs/img_headshot_placeholder.png";
+                  else applicant.headshot = "/assets/imgs/img_headshot_placeholder.png";
                 }
               }
               // no attachment
-              else vm.applicants[i].headshot = "/assets/imgs/img_headshot_placeholder.png";
+              else applicant.headshot = "/assets/imgs/img_headshot_placeholder.png";
             }
           })
           .error(function(error) {
@@ -242,10 +260,13 @@ angular.module('roleCtrl', ['userService',
           updateCarosel($scope.currIndex);
         }
       }
+      vm.updateViewed = function(app, roleID) {
+        app.new = false;
+        Applicant.viewedUpdate(app._id, roleID);
+      }
       vm.updateFav = function(aplnt, roleID) {
         aplnt.favorited = !aplnt.favorited;
         Applicant.favUpdate(aplnt, roleID);
-
       }
 
       $scope.deleteAppBtn = function() {

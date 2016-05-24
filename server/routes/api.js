@@ -54,11 +54,18 @@ module.exports = function(app, express) {
 
 	//==============================  Applicants =========================
 	    //route for adding new requirement. 
-  app.put('/app/:app_id', function(req, res) {
+	apiRouter.route('/app/:app_id')
+		.put(function(req, res) {
+    console.log(req.body);
     if (req.body.status === "new") {
       /*console.log(req.body);*/
       Applicant.findById(req.params.app_id, function(err, app) {
         app.new = false
+        var money = {}
+        money.roleID = req.body.roleID;
+        money.userID = req.decoded.id;
+        app.userViewed_IDs.push(money);
+        console.log(app.userViewed_IDs)
         app.save(function(err, data) {
           if (err) {
             return res.json({
@@ -68,17 +75,13 @@ module.exports = function(app, express) {
           } else {
             return res.json({
               success: true,
-              message: "Updated Role new attr"
+              message: "Updated"
             });
           }
-          return res.json({
-            success: true,
-            message: 'updated'
-          });
         })
       });
       //TODO: move to /api
-    } else if (req.body.status = "fav") {
+    } else if (req.body.status === "fav") {
       //role favoriting for. 
       Applicant.findById(req.params.app_id, function(err, app) {
         /*= req.body.favorited;*/
@@ -132,10 +135,10 @@ module.exports = function(app, express) {
               success: true,
             });
           }
-          return res.json({
+          /*return res.json({
             success: true,
             message: 'updated'
-          });
+          });*/
         })
       });
     }

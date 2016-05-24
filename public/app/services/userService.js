@@ -103,11 +103,11 @@ angular.module('userService', [])
 	appFactory.update = function(id,data)	{
 		return $http.put('/suppliment/'+id, data);	
 		}	 
-	appFactory.viewedUpdate = function(id)	{
+	appFactory.viewedUpdate = function(appID, roleID)	{
 		var money = {};
 		money.status = "new"
-		money.new = false;
-		return $http.put('/api/app'+id, money);	
+		money.roleID = roleID;
+		return $http.put('/api/app/'+appID, money);	
 		}	 
 	appFactory.favUpdate = function(app,roleID)	{
 		/*console.log(roleID);*/
