@@ -46,7 +46,7 @@ angular.module('addApplicant', ['userService', 'mgcrea.ngStrap'])
         if (name && name.first != "" && name.last != "") {
           normalizeLink(function() {
             vm.newData.roleIDs.push(vm.role._id)
-            vm.applicants.push(vm.newData)
+            vm.applicants.unshift(vm.newData)
           });
         }
         return callback();

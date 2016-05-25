@@ -21,7 +21,7 @@ angular.module('UIService', ['userService'])
 
 	role.setView = function(view){	
 		role.view = view;
-				return $http.put('api/settings' , view);
+				/*return $http.put('api/settings' , view);*/
 
 	}
 
