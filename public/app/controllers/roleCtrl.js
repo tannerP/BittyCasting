@@ -7,6 +7,8 @@ angular.module('roleCtrl', ['userService',
       $scope, $aside, $routeParams, $location, $route,
       $window, $timeout, RoleService) {
       var vm = this;
+      $scope.appLimit = 6;
+
       var funcLog = function() {
         console.log('hello aside')
       }
@@ -18,6 +20,24 @@ angular.module('roleCtrl', ['userService',
         else $scope.filter = null;
       }
 
+      $window.onscroll = function() {
+        var position = document.body.scrollTop || document.documentElement.scrollTop || 0;
+        var width = $window.innerWidth;
+        var cardHeight = 283;
+
+        var coefficient 
+        if(width < 345){
+          coefficient = 2;
+        }
+        else if(width > 345 && width < 660 ){
+          coefficient = 2;
+        }
+        else{
+          coefficient = 6
+        }
+        $scope.appLimit = parseInt(((position / 283) + 1)* coefficient);
+        $scope.$digest()
+      }
       var editRoleAside = $aside({
           scope: $scope,
           backdrop: 'static',
@@ -284,7 +304,7 @@ angular.module('roleCtrl', ['userService',
         } else {
           $scope.currIndex = 0;
         }
-        
+
         updateCarosel(vm.applicants[$scope.currIndex]);
       }
       vm.lastApp = function() {

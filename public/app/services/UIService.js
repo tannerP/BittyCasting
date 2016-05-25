@@ -1,6 +1,6 @@
-angular.module('UIService', [])
+angular.module('UIService', ['userService'])
 
-.service("HomeService",function(){
+.service("HomeService",function(User){
 	var home = {};
 		  home.view = "";
 
@@ -15,12 +15,14 @@ angular.module('UIService', [])
 	return home;
 })
 
-.service("RoleService",function(){
+.service("RoleService",function($http){
 	var role = {};
 		  role.view = "";
 
 	role.setView = function(view){	
 		role.view = view;
+				return $http.put('api/settings' , view);
+
 	}
 
 	role.getView = function(callback){

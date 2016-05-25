@@ -633,8 +633,12 @@ module.exports = function(app, express) {
 						message: 'Failed to authenticate token.'
 					});
 				}
+				var money = {}
+				money.name = user.name;
+				money.role = user.role;
+				money._id = user._id;
 				res.json({
-					data: user
+					data: money
 				});
 			})
 		});

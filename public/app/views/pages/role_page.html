@@ -78,7 +78,7 @@
   <div class="cardContainer" ng-if="page.gridView">
   <!-- FILTER -->
     <!-- <ul class='applicants' ng-repeat="app in page.applicants | applicants:filter track by $index"> -->
-    <ul class='applicants' ng-repeat="app in page.applicants | orderBy: '-submission_date' | applicants:filter |
+    <ul class='applicants' ng-repeat="app in page.applicants | orderBy: '-submission_date' | applicants:filter | limitTo:appLimit |
      filter:q as applicants track by $index" ng-init="numApps = applicants.length">
      
       <li class="col-lg-3 col-md-4 col-sm-6">

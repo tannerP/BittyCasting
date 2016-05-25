@@ -234,5 +234,9 @@ angular.module('userService', [])
 		return $http.delete('/api/users/' + id);
 	};
 
+	/*userFactory.updateViewPref = function(viewType, page)	{
+		return $http.delete('/api/users/' + id);
+	};*/
+
 	return userFactory;
 	});
