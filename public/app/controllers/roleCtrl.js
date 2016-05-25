@@ -10,8 +10,13 @@ angular.module('roleCtrl', ['userService',
       var funcLog = function() {
         console.log('hello aside')
       }
-      
-      $scope.filter = "favorited";
+      var fav = false;
+      vm.toggleFav = function() {
+        console.log(fav)
+        fav = !fav;
+        if (fav) $scope.filter = "favorited";
+        else $scope.filter = null;
+      }
 
       var editRoleAside = $aside({
           scope: $scope,
@@ -130,15 +135,14 @@ angular.module('roleCtrl', ['userService',
                 for (var f in applicant.favs) {
                   var roleID = $routeParams.role_id
                   var appRoleID = applicant.favs[f].roleID;
-/*                  console.log(roleID)
-                  console.log(appRoleID)*/
+                  /*                  console.log(roleID)
+                                    console.log(appRoleID)*/
                   if (roleID !== appRoleID) applicant.favs.splice(f, 1);
 
                   if (applicant && applicant.favs[f] &&
-                    $rootScope.user._id === applicant.favs[f].userID 
-                    && $scope.roleData._id === applicant.favs[f].roleID) {
-                  applicant.favorited = applicant.favs[f].favorited;
-                }
+                    $rootScope.user._id === applicant.favs[f].userID && $scope.roleData._id === applicant.favs[f].roleID) {
+                    applicant.favorited = applicant.favs[f].favorited;
+                  }
                 }
                 /*console.log("afer")
                 console.log(applicant.favs)*/
@@ -247,47 +251,53 @@ angular.module('roleCtrl', ['userService',
         $scope.$emit("showNav");
       }
 
-      var updateCarosel = function(index) {
+      var updateCarosel = function(applicant) {
         $scope.carouselIndex = 0;
         $scope.slides = [];
-        $scope.currIndex = index;
-        $scope.currApp = vm.applicants[index];
-        var app = $scope.currApp;
+        for (var i in vm.applicants) {
+          var temp = vm.applicants[i];
+          if (temp._id === applicant._id) {
+            $scope.currIndex = parseInt(i);
+            break;
+          } else $scope.currIndex = 0;
+        }
+
+        $scope.currApp = applicant;
+        var app = applicant;
         if (app.new) {
           app.new = false;
-          console.log("updating currApp")
-          console.log(app._id)
-          console.log($scope.roleData._id)
           vm.updateViewed(app, $scope.roleData._id)
         }
         addSlides($scope.slides, app.suppliments);
       }
 
-      vm.viewBtn = function(index) {
+      vm.viewBtn = function(app) {
         $scope.$emit("hideNav");
-        updateCarosel(index);
+        updateCarosel(app);
         $scope.viewApp = true;
       }
       vm.nextApp = function() {
         if ($scope.currIndex < vm.applicants.length - 1) {
+          /*$scope.currIndex = $scope.currIndex;*/
           $scope.currIndex += 1;
           /*vm.viewBtn($scope.currIndex)*/
-          updateCarosel($scope.currIndex);
         } else {
           $scope.currIndex = 0;
-          updateCarosel($scope.currIndex);
         }
+        
+        updateCarosel(vm.applicants[$scope.currIndex]);
       }
       vm.lastApp = function() {
-        console.log($scope.currIndex)
+        /*console.log($scope.currIndex)*/
         if ($scope.currIndex <= 0) {
           $scope.currIndex = vm.applicants.length - 1;
           /*vm.viewBtn($scope.currIndex)*/
-          updateCarosel($scope.currIndex)
+          /*updateCarosel($scope.currIndex)*/
         } else {
           $scope.currIndex -= 1;
-          updateCarosel($scope.currIndex);
+          /*updateCarosel($scope.currIndex);*/
         }
+        updateCarosel(vm.applicants[$scope.currIndex]);
       }
       vm.updateViewed = function(app, roleID) {
         app.new = false;
@@ -304,7 +314,6 @@ angular.module('roleCtrl', ['userService',
             /*getApps();*/
             --$scope.numApps;
             if ($scope.viewApp === true) { //full page review
-              console.log(vm.applicants.length)
               if ($scope.numApps === 0) {
                 vm.backBtn();
               }
