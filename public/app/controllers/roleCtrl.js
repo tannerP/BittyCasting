@@ -10,6 +10,9 @@ angular.module('roleCtrl', ['userService',
       var funcLog = function() {
         console.log('hello aside')
       }
+      
+      $scope.filter = "favorited";
+
       var editRoleAside = $aside({
           scope: $scope,
           backdrop: 'static',
@@ -103,26 +106,44 @@ angular.module('roleCtrl', ['userService',
               var applicant = vm.applicants[i];
 
               //filter for new applicant
-              if(applicant.userViewed_IDs.length === 0){
+              if (applicant.userViewed_IDs.length === 0) {
                 applicant.new = true;
-              }
-              for(var v in applicant.userViewed_IDs){
-                /*console.log(applicant.userViewed_IDs[v])*/
-                /*console.log($rootScope.user)*/
-                var viewed = applicant.userViewed_IDs[v];
-                if(viewed.roleID === $scope.roleData._id &&
-                  viewed.userID === $rootScope.user._id){
-                  /*console.log("viewed matches roleID")*/
-                  applicant.new = false;
-                }else applicant.new = true;
-                
+              } else {
+                for (var v in applicant.userViewed_IDs) {
+                  /*console.log(applicant.userViewed_IDs[v])*/
+                  /*console.log($rootScope.user)*/
+                  var viewed = applicant.userViewed_IDs[v];
+                  if (viewed.roleID === $scope.roleData._id &&
+                    viewed.userID === $rootScope.user._id) {
+                    /*console.log("viewed matches roleID")*/
+                    applicant.new = false;
+                  } else applicant.new = true;
+
+                }
+
               }
 
-              for (var app in applicant.favs) {
-                if ($rootScope.user._id === applicant.favs[app].userID && $scope.roleData._id === applicant.favs[app].roleID) {
-                  applicant.favorited = applicant.favs[app].favorited;
+              if (applicant.favs.length > 0) {
+                /*console.log("before")
+                console.log(applicant.favs)*/
+
+                for (var f in applicant.favs) {
+                  var roleID = $routeParams.role_id
+                  var appRoleID = applicant.favs[f].roleID;
+/*                  console.log(roleID)
+                  console.log(appRoleID)*/
+                  if (roleID !== appRoleID) applicant.favs.splice(f, 1);
+
+                  if (applicant && applicant.favs[f] &&
+                    $rootScope.user._id === applicant.favs[f].userID 
+                    && $scope.roleData._id === applicant.favs[f].roleID) {
+                  applicant.favorited = applicant.favs[f].favorited;
                 }
+                }
+                /*console.log("afer")
+                console.log(applicant.favs)*/
               }
+
               //get headshot
               if (applicant.suppliments.length > 0) {
                 for (var j in applicant.suppliments) {
@@ -232,12 +253,12 @@ angular.module('roleCtrl', ['userService',
         $scope.currIndex = index;
         $scope.currApp = vm.applicants[index];
         var app = $scope.currApp;
-        if(app.new){
+        if (app.new) {
           app.new = false;
           console.log("updating currApp")
           console.log(app._id)
           console.log($scope.roleData._id)
-          vm.updateViewed(app,$scope.roleData._id)
+          vm.updateViewed(app, $scope.roleData._id)
         }
         addSlides($scope.slides, app.suppliments);
       }

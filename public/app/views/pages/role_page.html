@@ -64,6 +64,12 @@
 
     <div class="utlBar">
       <div class="sort"></div>
+      <div ng-click='filter = "favorited"'>
+        Heart filter
+      </div>
+      <div ng-click='filter = ""'>
+        No Heart filter
+      </div>
       <div class="gridListToggle">
         <div ng-style="page.gridStyle" ng-click="page.setGridVw()"></div>
         <div ng-style="page.listStyle" ng-click="page.setListVw()"></div>
@@ -73,7 +79,10 @@
   </div>
   <!-- GRID VIEW -->
   <div class="cardContainer" ng-if="page.gridView">
-    <ul class='applicants' ng-repeat="app in page.applicants track by $index">
+  <!-- FILTER -->
+    <!-- <ul class='applicants' ng-repeat="app in page.applicants | applicants:filter track by $index"> -->
+    <ul class='applicants' ng-repeat="app in page.applicants | orderBy: '-submission_date' | applicants:filter track by $index">
+
       <li class="col-lg-3 col-md-4 col-sm-6">
         <div class="card cardApplicants">
             <div ng-if="app.new" class="alert-new" ng-click="page.updateViewed(app, roleData._id)">New</div>
