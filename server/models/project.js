@@ -7,6 +7,8 @@ var ProjectSchema = new Schema ({
 	admin:[{
 	}],
 	collabs_id:[{
+		userID:String,
+		accepted:false
 	}], 
 	coverphoto: {},
 	short_url: String,

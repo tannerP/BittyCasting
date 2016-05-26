@@ -185,8 +185,6 @@ module.exports = function(app, express) {
         if (req.body.roleIDs && req.body.roleIDs[0]) {
           for (i in req.body.roleIDs) {
             var roleID = req.body.roleIDs[i];
-            console.log(roleID)
-
 
             async.map(req.body.roleIDs, updateCount, function(e, r) {
               /*console.log("printing results after saving")

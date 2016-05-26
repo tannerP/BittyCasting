@@ -11,6 +11,8 @@ var config = require('../../config').dev;
 var aws = require("../lib/aws.js")
 var bitly = require("../lib/bitly.js")
 var http = require('http');
+var Mailgun = require("mailgun-js");
+var Invite = require('../models/invite');
 
 
 
@@ -52,11 +54,114 @@ module.exports = function(app, express) {
 		}
 	});
 
+	apiRouter.route('/collab/invite/:projectID')
+		.put(function(req, res) {
+			var tStamp = req.body.timestamp;
+			var mailgun = new Mailgun({
+				apiKey: config.api_key,
+				domain: config.domain
+			});
+			var guestEmail = req.body.email,
+				usrID = req.decoded.id,
+				projectID = req.body.projectID,
+				projectName = req.body.projectName;
+
+
+			var invite = new Invite();
+			User.findOne({
+				email: guestEmail
+			}, function(err, user) {
+				if (user) invite.member = true;
+				else invite.member = false;
+
+				invite.userID = req.decoded.id;
+				invite.guestID = null;
+				invite.guestEmail = guestEmail;
+				invite.projectID = projectID;
+				invite.projectName = projectName;
+				invite.notify = true;
+				invite.notify_type = "invite";
+
+				var notification = {};
+				notification.notification_type = "invite"
+				notification.data = invite;
+				user.notifications.unshift(notification);
+
+				if (user.invites.indexOf(projectID) - 1) {
+					//this ensure no duplication
+					user.invites.push(projectID)
+				}
+
+
+				invite.save(function(err, data) {
+					if (err) return res.json({
+						sucess: false
+					});
+					//if guest is not a member
+					if (data.member) {
+						var URL = "bittycasting.com/login";
+						var emailData = {
+							from: "friends@bittycasting.com",
+							to: guestEmail,
+							subject: "Invitation to Collaborate in " + req.body.projectName,
+							html: "You have been invited to collaborate " +
+								"in this project. Accept and follow this link: " + URL,
+						}
+
+						//if guest is not a member
+					} else {
+						var URL = "bittycasting.com/register/" + data._id;
+						var emailData = {
+							from: "friends@bittycasting.com",
+							to: guestEmail,
+							subject: "Invitation to Collaborate in " + req.body.projectName,
+							html: "You have been invited to collaborate " +
+								"in this project. Accept and follow this link: " + URL,
+						}
+						return res.json({
+							success: true,
+							message: "not a member"
+						})
+					}
+					mailgun.messages()
+						.send(emailData, function(err, data) {
+							if (err) {
+								conosole.log(err)
+								return res.json({
+									success: false,
+									error: err
+								})
+							} else {
+								console.log(data)
+								return res.json({
+									success: true
+								})
+							}
+						});
+
+					return
+				})
+				if (invite.member) {
+					Project.findById(projectID, function(error, project) {
+						var data = {};
+						data.accepted = false;
+						data.userID = user._id;
+						project.collabs_id.push(data)
+						console.log(project.collabs_id)
+						project.save()
+					})
+					user.save(function(error, user) {
+						if (!error) {}
+						console.log("user saving")
+						console.log(error)
+					})
+				}
+			})
+		});
 	//==============================  Applicants =========================
 	//route for adding new requirement. 
 	apiRouter.route('/app/:app_id')
 		.put(function(req, res) {
-			console.log(req.body);
 			if (req.body.status === "new") {
 				/*console.log(req.body);*/
 				Applicant.findById(req.params.app_id, function(err, app) {
@@ -541,18 +646,37 @@ module.exports = function(app, express) {
 		})
 		//get all projects belong to user
 		.get(function(req, res) {
-			Project.find({
-				user_id: req.decoded.id
-			}, function(err, projects) {
-				if (err) {
-					res.send(err);
-				} else {
-					res.json({
-						'success': true,
-						'data': projects
+			User.findById(req.decoded.id, function(error, user) {
+				if (error) return;
+				var projectIDs = []
+					/*for (var i in user.invites) {
+						var invite = user.invites;
+						console.log(invite)
+						projectIDs.push(invite.projectID)
+					}*/
+
+				Project.find({
+					"user_id": req.decoded.id
+				}, function(err, ownedP) {
+					console.log(ownedP.collabs_id)
+					Project.find({
+						"collabs_id.userID": req.decoded.id,
+					}, function(err, invitedP) {
+						console.log(invitedP)
+						if (err) {
+							res.send(err);
+						} else {
+							res.json({
+								'success': true,
+								'data': ownedP.concat(invitedP)
+							});
+						}
 					});
-				}
-			});
+
+				})
+			})
+
+
 		})
 
 	//===============================  Project:project_id  ============================
@@ -705,37 +829,46 @@ module.exports = function(app, express) {
 		});
 	apiRouter.route('/user/settings')
 		.put(function(req, res) {
-			User.findById(req.decoded.id,function(err, user) {
-			console.log(user.views)	
-			switch (req.body.page){
-				case "role": 
-				user.views.role = req.body.view; break;
-				case "home": 
-				user.views.home = req.body.view; break;
-			}
-			user.save()
-			console.log(user.views)
+			User.findById(req.decoded.id, function(err, user) {
+				console.log(user.views)
+				switch (req.body.page) {
+					case "role":
+						user.views.role = req.body.view;
+						break;
+					case "home":
+						user.views.home = req.body.view;
+						break;
+				}
+				user.save()
+				console.log(user.views)
 
 
-			console.log("Reached api")
-			/*console.log(req)
-			console.log(res)*/
-			return res.json({success:true})
+				console.log("Reached api")
+					/*console.log(req)
+					console.log(res)*/
+				return res.json({
+					success: true
+				})
 			})
 		})
-		.get(function(req, res){
-			User.findById(req.decoded.id,function(err, user) {
-			var temp ={};
-				if(!err){
-				switch (req.body.page){
-				case "role": 
-				temp = user.views.role; break;
-				case "home": 
-				temp = user.views.role; break;
-			}	
-			 return res.json({success:true, view:temp})
-			}
-		})
+		.get(function(req, res) {
+			User.findById(req.decoded.id, function(err, user) {
+				var temp = {};
+				if (!err) {
+					switch (req.body.page) {
+						case "role":
+							temp = user.views.role;
+							break;
+						case "home":
+							temp = user.views.role;
+							break;
+					}
+					return res.json({
+						success: true,
+						view: temp
+					})
+				}
+			})
 		});
 
 	apiRouter.route('/users')

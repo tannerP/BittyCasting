@@ -72,7 +72,7 @@ angular.module('app.routes', ['ngRoute'])
         })*/
         .when('/users/create',  {
             templateUrl: 'app/views/pages/signup.html',
-            controller: 'userCreateController',
+            controller: 'signupCtrl',
             controllerAs: 'user'
         })
         .when('/users/:user_id', {

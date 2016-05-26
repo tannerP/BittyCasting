@@ -79,6 +79,16 @@ angular.module('userService', [])
 		/*console.log(feedback);*/
 		return $http.put('feedback' ,data);
 	}
+	mailFactory.sendCollabInvite = function(project,guestEmail)	{
+/*		console.log(guestEmail)*/
+			var data = {};
+			data.email = guestEmail
+			data.projectName = project.name;
+			data.projectID = project._id;
+			return $http.put('/api/collab/invite/'+data.projectID ,data);
+		/*console.log(feedback);*/
+		/*return $http.put('/api/collab/invite' ,data);*/
+	}
 /*	pubFactory.getAppPrj = function(id)	{
 		return $http.get('applicationPrj/' + id);
 	}*/

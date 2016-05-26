@@ -1,0 +1,14 @@
+<div class="aside" tabindex="-1" role="dialog">
+  <div class="asideBg">
+    <div class="custom-close" ng-click="$hide()"></div>
+
+    <div class="asideTitle">Collaborators</div>
+      <br>
+      <label>Invite</label>
+      <input type="text" placeholder="{{ collab.emailPlaceHolder||'Email'}}"
+       ng-model="collab.guestEmail">
+    <button type="button" class="custom-btn-primary-large custom-btn-cancel"
+             ng-click="collab.inviteBtn()">Invite</button>
+  </div>
+</div>
+
