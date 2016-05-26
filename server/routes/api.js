@@ -64,7 +64,7 @@ module.exports = function(app, express) {
 						return res.json({
 							success: false,
 							error: err,
-							message:"App doesn't exist"
+							message: "App doesn't exist"
 						});
 					}
 					var money = {}
@@ -667,7 +667,7 @@ module.exports = function(app, express) {
 						}, config.secret, {
 							expiresIn: 86400
 						}); //24 hrs
-						res.json({
+						return res.json({
 							name: user.name,
 							success: true,
 							message: 'User updated!',
@@ -683,7 +683,7 @@ module.exports = function(app, express) {
 				_id: req.decoded.id
 			}, function(err, user) {
 				if (err) return res.send(err);
-				res.json({
+				return res.json({
 					message: 'Successfully deleted'
 				});
 			});
@@ -703,6 +703,41 @@ module.exports = function(app, express) {
 				}
 			});
 		});
+	apiRouter.route('/user/settings')
+		.put(function(req, res) {
+			User.findById(req.decoded.id,function(err, user) {
+			console.log(user.views)	
+			switch (req.body.page){
+				case "role": 
+				user.views.role = req.body.view; break;
+				case "home": 
+				user.views.home = req.body.view; break;
+			}
+			user.save()
+			console.log(user.views)
+
+
+			console.log("Reached api")
+			/*console.log(req)
+			console.log(res)*/
+			return res.json({success:true})
+			})
+		})
+		.get(function(req, res){
+			User.findById(req.decoded.id,function(err, user) {
+			var temp ={};
+				if(!err){
+				switch (req.body.page){
+				case "role": 
+				temp = user.views.role; break;
+				case "home": 
+				temp = user.views.role; break;
+			}	
+			 return res.json({success:true, view:temp})
+			}
+		})
+		});
+
 	apiRouter.route('/users')
 		// get all the users (accessed at GET http://localhost::8080/api/users)
 		.get(function(req, res) {
@@ -716,7 +751,7 @@ module.exports = function(app, express) {
 					/*console.log("Found Users" + users)*/
 					res.json(users);
 				}
-			});
+			})
 		});
 	return apiRouter;
 }

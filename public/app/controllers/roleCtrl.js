@@ -257,14 +257,10 @@ angular.module('roleCtrl', ['userService',
             vm.listView = true;
 
             /*vm.setGridVw()*/
-          } else {
-            /*console.log("else statement ")*/
-            vm.setGridVw()
-          }
+          } 
 
         });
       };
-      updateView();
 
       vm.backBtn = function() {
         $scope.viewApp = false;

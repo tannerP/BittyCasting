@@ -21,12 +21,21 @@ angular.module('UIService', ['userService'])
 
 	role.setView = function(view){	
 		role.view = view;
-				/*return $http.put('api/settings' , view);*/
+		role.page = 'role';
+		return;
+/*				return $http.put('/api/user/settings' , role);*/
 
 	}
 
+
 	role.getView = function(callback){
-		callback(role.view); return;
+		var role = {};
+		role.view = "";
+		if(!role.view){
+				$http.get('/api/user/settings', role).then(function(data){
+					console.log(data)
+				})}
+		callback(role.view); ;
 	}
 
 	return role;
