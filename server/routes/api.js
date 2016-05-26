@@ -53,7 +53,67 @@ module.exports = function(app, express) {
 			});
 		}
 	});
+	apiRouter.route('/collab/response/')
+		.put(function(req, res) {
+			var response = req.body.response,
+				projectID = req.body.projectID;
 
+			console.log(req.body.response)
+			console.log(req.body.projectID)
+				//accept invitation
+				//mark project.collabs_id.accepted = true;
+			User.findById(req.decoded.id, function(error, user) {
+				var ind = user.invites.indexOf(projectID);
+
+				if (ind > -1) {
+					/*if(user.invites.length ===1) user.invites =[];*/
+					user.invites.splice(ind, 1);
+					console.log(user.invites)
+					user.save()
+				}
+
+				Project.findById(projectID, function(err, project) {
+					/*console.log(collabs)*/
+					if (err) return res.json({
+						success: false,
+						message: "No project"
+					});
+					//search for user
+					/*console.log(project)*/
+					for (var i in project.collabs_id) {
+						var collab = project.collabs_id[i];
+						collab.responded = true;
+						console.log("Collab")
+						console.log(collab.userID)
+						console.log("Request.decoded")
+						console.log(req.decoded.id)
+						console.log(collab.userID.indexOf(req.decoded.id))
+						if (collab.userID.indexOf(req.decoded.id) > -1) {
+							//accept invite
+							console.log("Founder collab user")
+							if (response === true) {
+								console.log("Accept Projet")
+								collab.accepted = true;
+								break;
+							}
+							//reject invite
+							else {
+								console.log("Reject Projet")
+								project.collabs_id.splice(i, 1);
+							}
+						}
+					}
+					project.save()
+
+					/*return res.json({success:true,message:"No project"});*/
+				})
+			})
+
+			//reject invitation
+			//remove invite
+
+			return;
+		})
 	apiRouter.route('/collab/invite/:projectID')
 		.put(function(req, res) {
 			var tStamp = req.body.timestamp;
@@ -73,6 +133,8 @@ module.exports = function(app, express) {
 			}, function(err, user) {
 				if (user) invite.member = true;
 				else invite.member = false;
+
+				console.log(invite.member)
 
 				invite.userID = req.decoded.id;
 				invite.guestID = null;
@@ -127,35 +189,57 @@ module.exports = function(app, express) {
 						.send(emailData, function(err, data) {
 							if (err) {
 								conosole.log(err)
-								return res.json({
+								return err;
+								/*return res.json({
 									success: false,
 									error: err
-								})
+								})*/
 							} else {
 								console.log(data)
-								return res.json({
-									success: true
+									/*return res.json({
+										success: true
+									})*/
+
+								Project.findById(projectID, function(error, project) {
+									var data = {};
+									var exist = true;
+									data.accepted = false;
+									data.responded = false;
+									data.userID = user._id;
+
+									for (var i in project.collabs_id) {
+										var collab = project.collabs_id[i];
+										console.log(collab)
+										console.log(project.collabs_id.length)
+										console.log(++i)
+										if (collab.userID.indexOf(user._id) === -1 &&
+											project.collabs_id.length === ++i) {
+											exist = false;
+											break;
+										}
+									}
+									console.log("pushing to collabs")
+									if(!exist || project.collabs_id.length < 1)
+									{project.collabs_id.push({
+																				userID: user._id,
+																				userName: user.name,
+																				userProfilePhoto: user.profile,
+																			})
+																			/*console.log(project.collabs_id)*/
+																		project.save(function(error, project) {
+																			console.log(project.invites)
+																			user.save(function(error, user) {
+																				if (!error) {}
+																				console.log("user saving")
+																				console.log(error)
+																			})
+																		})}
+
 								})
 							}
 						});
-
 					return
 				})
-				if (invite.member) {
-					Project.findById(projectID, function(error, project) {
-						var data = {};
-						data.accepted = false;
-						data.userID = user._id;
-						project.collabs_id.push(data)
-						console.log(project.collabs_id)
-						project.save()
-					})
-					user.save(function(error, user) {
-						if (!error) {}
-						console.log("user saving")
-						console.log(error)
-					})
-				}
 			})
 		});
 	//==============================  Applicants =========================
@@ -761,6 +845,8 @@ module.exports = function(app, express) {
 				money.name = user.name;
 				money.role = user.role;
 				money._id = user._id;
+				money.invites = user.invites;
+				money.notifications = user.notifications;
 				res.json({
 					data: money
 				});

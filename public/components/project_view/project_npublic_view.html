@@ -20,6 +20,11 @@
       </section>
       <section class="col-md-6">
         <span class="btn btn-normal" ng-click="vm.collabBtn()">Add collaborators</span>
+        <ul>
+           <li ng-repeat="collab in vm.project.collabs_id">
+           {{collab.userName.first}} {{collab.userName.last }}
+           </li>
+         </ul>
       </section>
       <section class="col-md-3">
         <!-- <p>Thumbnails of collaborators</p> -->

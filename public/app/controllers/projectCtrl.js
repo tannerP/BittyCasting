@@ -481,7 +481,7 @@ angular.module('projectCtrl', ['userService',
       }
     })
   .controller('HomePageController',
-    function(Project, HomeService, $location, $aside, $scope) {
+    function(Project, HomeService, $location, $aside, $scope,$rootScope) {
       var vm = this;
       $scope.aside = {};
       $scope.aside.projectData = {}
@@ -490,9 +490,22 @@ angular.module('projectCtrl', ['userService',
         .success(function(data) {
           vm.processing = false;
           vm.projects = data.data;
+          for(var i in vm.projects){
+            var projectID = vm.projects[i]._id;
+            console.log(projectID)
+            console.log($rootScope.user.invites)
+            if($rootScope.user.invites.indexOf(projectID) > -1){
+              console.log("guest = true")
+              vm.projects[i].guest = true;
+            }
+          }
         })
 
-
+      vm.acceptProject = function(project){
+        Project.response2Invite(true,project).then(function(data){
+          console.log(data)          
+        })
+      }
       vm.getProject = function(prjID) {
         $location.path('/projectDetails/' + prjID);
       }

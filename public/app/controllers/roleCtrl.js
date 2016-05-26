@@ -14,15 +14,15 @@ angular.module('roleCtrl', ['userService',
       }
       var fav = false;
       vm.toggleFav = function() {
-        console.log(fav)
         fav = !fav;
         if (fav) $scope.filter = "favorited";
         else $scope.filter = null;
       }
 
       $window.onscroll = function() {
-        var position = document.body.scrollTop || document.documentElement.scrollTop || 0;
-        var width = $window.innerWidth;
+        var position = document.body.scrollTop ||
+                       document.documentElement.scrollTop || 0;
+        var width = $window.innerWidth; 
         var cardHeight = 283;
 
         var coefficient 

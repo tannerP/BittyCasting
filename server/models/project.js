@@ -7,9 +7,12 @@ var ProjectSchema = new Schema ({
 	admin:[{
 	}],
 	collabs_id:[{
-		userID:String,
-		accepted:false
-	}], 
+				userID:String,
+				userName:{},
+				userProfilePhoto:{},
+				accepted:{type:Boolean,default:false},
+				responded:{type:Boolean,default:false},
+			}], 
 	coverphoto: {},
 	short_url: String,
 	updated_date: {type:Date, default:Date.now},

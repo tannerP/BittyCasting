@@ -198,6 +198,13 @@ angular.module('userService', [])
 .factory('Project', function($http){
 	var projectFactory={};
 
+	projectFactory.response2Invite = function(response,project){
+		var money = {}
+				money.response = response;
+				money.projectID = project._id;
+		return $http.put('api/collab/response', money);
+	}
+
 	projectFactory.create = function(projectData) {
 		return $http.post('api/project',projectData);
 	}

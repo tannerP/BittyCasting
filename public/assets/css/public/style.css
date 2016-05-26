@@ -1050,6 +1050,7 @@ ul.projects li {
         list-style: none;
         padding: 0; }
         .card .cardInfo .actionBar ul li {
+          color: black;
           width: 36px;
           height: 36px;
           -webkit-border-radius: 50%;
@@ -1068,11 +1069,6 @@ ul.projects li {
           .card .cardInfo .actionBar ul li:nth-child(1) {
             background: url("/assets/imgs/ic_trash.svg") no-repeat center center white;
             background-size: 16px 16px; }
-          .card .cardInfo .actionBar ul li:nth-child(2) {
-            background: url("/assets/imgs/ic_duplicate.svg") no-repeat center center white;
-            background-size: 16px 16px; }
-          .card .cardInfo .actionBar ul li:last-child {
-            margin-right: 0; }
           .card .cardInfo .actionBar ul li:hover, .card .cardInfo .actionBar ul li:focus {
             background-color: #eeeeee;
             cursor: pointer;
