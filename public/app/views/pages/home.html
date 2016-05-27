@@ -58,7 +58,10 @@
                     {{ project.name }}
                 </td>
                 <td ng-click="home.getProjectBtn(project._id)">
-                  {{ project.description }}
+                  {{project.description| words: 50}}
+                  <!-- {{project.description.length}} -->
+                  <!-- {{project.description.length > 200 ? "...":" no"}} -->
+                  <!-- <span ng-if="project.description.length > 200">...</span> -->
                 </td>
                 <td>
                   <div class="tableHover">{{ project.updated_date | date:'short'}}</div>

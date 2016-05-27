@@ -58,12 +58,15 @@
     <div class="clear"></div>
 
     <div class="custom-page-action-secondary">
-      <div class="custom-page-action-secondary-title">{{numApps}} applicants<a class="btn-add-applicants" ng-href="{{'addApplicant/'+ roleData._id}}"><img ng-src="/assets/imgs/ic_plus_bl.svg"> Add applicants</a>
+      <div class="custom-page-action-secondary-title">{{numApps}}  Applicants total <a class="btn-add-applicants" ng-href="{{'addApplicant/'+ roleData._id}}"><img ng-src="/assets/imgs/ic_plus_bl.svg"> Add applicants</a>
       </div>
     </div>
 
     <div class="utlBar">
       <div class="sort"></div>
+      <div ng-click="page.toggleFav()">
+        Heart filter
+      </div>
       <div class="gridListToggle">
         <div ng-style="page.gridStyle" ng-click="page.setGridVw()"></div>
         <div ng-style="page.listStyle" ng-click="page.setListVw()"></div>
@@ -73,10 +76,14 @@
   </div>
   <!-- GRID VIEW -->
   <div class="cardContainer" ng-if="page.gridView">
-    <ul class='applicants' ng-repeat="app in page.applicants track by $index">
+  <!-- FILTER -->
+    <!-- <ul class='applicants' ng-repeat="app in page.applicants | applicants:filter track by $index"> -->
+    <ul class='applicants' ng-repeat="app in page.applicants | orderBy: '-submission_date' | applicants:filter | limitTo:appLimit |
+     filter:q as applicants track by $index" ng-init="numApps = applicants.length">
+     
       <li class="col-lg-3 col-md-4 col-sm-6">
         <div class="card cardApplicants">
-            <div ng-if="app.new" class="alert-new">New</div>
+            <div ng-if="app.new" class="alert-new" ng-click="page.updateViewed(app, roleData._id)">New</div>
               <img class="fav-applicant-toggle" ng-if="app.favorited" ng-src="/assets/imgs/ic_fav_w_fill.svg" width="20px" vertical-align="middle" ng-click="page.updateFav(app,roleData._id)">
 
               <img class="fav-applicant-toggle" ng-if="!app.favorited" ng-src="/assets/imgs/ic_fav_w.svg" width="20px" vertical-align="middle" ng-click="page.updateFav(app,roleData._id)">
@@ -84,11 +91,11 @@
                 <div ng-if="app.headshot" class="card cardApplicants" ng-style="{
                   'background':'url('+ app.headshot+ ') no-repeat center center',
                    'background-size': 'auto 100%', 'background-color': '#242424'}">
-                    <a href="" class="md-headline" ng-click="page.viewBtn($index)">
+                    <a href="" class="md-headline" ng-click="page.viewBtn(app)">
                       <div class="cardInfoBg"></div>
                       <div class="cardScrim"></div>
                       <div class="cardInfo">
-                            <a href="" class="md-headline" ng-click="page.viewBtn($index)">
+                            <a href="" class="md-headline" ng-click="page.viewBtn(app)">
                               <div class="cardTitle">{{app.name.first}} {{app.name.last}}</div>
                             </a>
                             <div class="cardSubTitle">{{ app.updated_date|date:medium}}</div>
@@ -121,7 +128,7 @@
               <tbody>
               <!-- LOOP OVER THE USERS -->
               <tr ng-repeat="app in page.applicants track by $index" >
-                <td ng-click="page.viewBtn($index)">
+                <td ng-click="page.viewBtn(app)">
                     <div ng-if="app.headshot" ng-style="{
                     'background':'url('+ app.headshot+ ') no-repeat center center', 
                     'background-size': 'auto 100%', 

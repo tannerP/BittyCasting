@@ -103,11 +103,13 @@ angular.module('userService', [])
 	appFactory.update = function(id,data)	{
 		return $http.put('/suppliment/'+id, data);	
 		}	 
-	appFactory.viewedUpdate = function(id)	{
+	appFactory.viewedUpdate = function(appID, roleID)	{
 		var money = {};
 		money.status = "new"
-		money.new = false;
-		return $http.put('/api/app'+id, money);	
+		money.roleID = roleID;
+		console.log(appID)
+		console.log(roleID)
+		return $http.put('/api/app/'+appID, money);	
 		}	 
 	appFactory.favUpdate = function(app,roleID)	{
 		/*console.log(roleID);*/
@@ -231,6 +233,10 @@ angular.module('userService', [])
 	userFactory.delete = function(id)	{
 		return $http.delete('/api/users/' + id);
 	};
+
+	/*userFactory.updateViewPref = function(viewType, page)	{
+		return $http.delete('/api/users/' + id);
+	};*/
 
 	return userFactory;
 	});

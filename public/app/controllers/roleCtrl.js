@@ -7,8 +7,36 @@ angular.module('roleCtrl', ['userService',
       $scope, $aside, $routeParams, $location, $route,
       $window, $timeout, RoleService) {
       var vm = this;
+      $scope.appLimit = 6;
+
       var funcLog = function() {
         console.log('hello aside')
+      }
+      var fav = false;
+      vm.toggleFav = function() {
+        console.log(fav)
+        fav = !fav;
+        if (fav) $scope.filter = "favorited";
+        else $scope.filter = null;
+      }
+
+      $window.onscroll = function() {
+        var position = document.body.scrollTop || document.documentElement.scrollTop || 0;
+        var width = $window.innerWidth;
+        var cardHeight = 283;
+
+        var coefficient 
+        if(width < 345){
+          coefficient = 2;
+        }
+        else if(width > 345 && width < 660 ){
+          coefficient = 2;
+        }
+        else{
+          coefficient = 6
+        }
+        $scope.appLimit = parseInt(((position / 283) + 1)* coefficient);
+        $scope.$digest()
       }
       var editRoleAside = $aside({
           scope: $scope,
@@ -98,38 +126,73 @@ angular.module('roleCtrl', ['userService',
             vm.processing = false;
             vm.applicants = data.data;
             $scope.numApps = data.data.length;
-            //get headshot
+            //apply filters
             for (var i in vm.applicants) {
-              for (var app in vm.applicants[i].favs) {
-                if ($rootScope.user._id === vm.applicants[i].favs[app].userID && $scope.roleData._id === vm.applicants[i].favs[app].roleID) {
-                  vm.applicants[i].favorited = vm.applicants[i].favs[app].favorited;
+              var applicant = vm.applicants[i];
+
+              //filter for new applicant
+              if (applicant.userViewed_IDs.length === 0) {
+                applicant.new = true;
+              } else {
+                for (var v in applicant.userViewed_IDs) {
+                  /*console.log(applicant.userViewed_IDs[v])*/
+                  /*console.log($rootScope.user)*/
+                  var viewed = applicant.userViewed_IDs[v];
+                  if (viewed.roleID === $scope.roleData._id &&
+                    viewed.userID === $rootScope.user._id) {
+                    /*console.log("viewed matches roleID")*/
+                    applicant.new = false;
+                  } else applicant.new = true;
+
                 }
+
               }
-              /*console.log("applicant suppliment length" + vm.applicants[i].suppliments.length)*/
-              if (vm.applicants[i].suppliments.length > 0) {
-                for (var j in vm.applicants[i].suppliments) {
-                  /* console.log(vm.applicants[i].name)
-                   console.log(vm.applicants[i].suppliments[j].file_type)
-                   console.log(vm.applicants[i].suppliments[j].file_type.indexOf('image'))*/
+
+              if (applicant.favs.length > 0) {
+                /*console.log("before")
+                console.log(applicant.favs)*/
+
+                for (var f in applicant.favs) {
+                  var roleID = $routeParams.role_id
+                  var appRoleID = applicant.favs[f].roleID;
+                  /*                  console.log(roleID)
+                                    console.log(appRoleID)*/
+                  if (roleID !== appRoleID) applicant.favs.splice(f, 1);
+
+                  if (applicant && applicant.favs[f] &&
+                    $rootScope.user._id === applicant.favs[f].userID && $scope.roleData._id === applicant.favs[f].roleID) {
+                    applicant.favorited = applicant.favs[f].favorited;
+                  }
+                }
+                /*console.log("afer")
+                console.log(applicant.favs)*/
+              }
+
+              //get headshot
+              if (applicant.suppliments.length > 0) {
+                for (var j in applicant.suppliments) {
+                  /* console.log(applicant.name)
+                   console.log(applicant.suppliments[j].file_type)
+                   console.log(applicant.suppliments[j].file_type.indexOf('image'))*/
                   //check for headshot labeling
-                  /*if (angular.equals(vm.applicants[i].suppliments[j].name, "Headshot") ||
-                    angular.equals(vm.applicants[i].suppliments[j].name, "headshot" || 
-                    vm.applicants[i].suppliments[j].file_type.indexOf('image')=== 0)){
-                      vm.applicants[i].headshot = vm.applicants[i].suppliments[j].source;
+                  /*if (angular.equals(applicant.suppliments[j].name, "Headshot") ||
+                    angular.equals(applicant.suppliments[j].name, "headshot" || 
+                    applicant.suppliments[j].file_type.indexOf('image')=== 0)){
+                      applicant.headshot = applicant.suppliments[j].source;
                       break;
                   } else*/
-                  if (vm.applicants[i].suppliments[j].file_type.indexOf("image") === 0) {
+                  if (applicant.suppliments[j].file_type.indexOf("image") === 0) {
                     /*  console.log("Adding headshot");
-                      console.log(vm.applicants[i].suppliments[j].source)*/
-                    vm.applicants[i].headshot = vm.applicants[i].suppliments[j].source;
+                      console.log(applicant.suppliments[j].source)*/
+                    applicant.headshot = applicant.suppliments[j].source;
                     break;
                   }
                   //if no headshot is attached
-                  else vm.applicants[i].headshot = "/assets/imgs/img_headshot_placeholder.png";
+                  else applicant.headshot = "/assets/imgs/img_headshot_placeholder.png";
                 }
               }
               // no attachment
-              else vm.applicants[i].headshot = "/assets/imgs/img_headshot_placeholder.png";
+              else applicant.headshot = "/assets/imgs/img_headshot_placeholder.png";
             }
           })
           .error(function(error) {
@@ -194,58 +257,71 @@ angular.module('roleCtrl', ['userService',
             vm.listView = true;
 
             /*vm.setGridVw()*/
-          } else {
-            /*console.log("else statement ")*/
-            vm.setGridVw()
-          }
+          } 
 
         });
       };
-      updateView();
 
       vm.backBtn = function() {
         $scope.viewApp = false;
         $scope.$emit("showNav");
       }
 
-      var updateCarosel = function(index) {
+      var updateCarosel = function(applicant) {
         $scope.carouselIndex = 0;
         $scope.slides = [];
-        $scope.currIndex = index;
-        $scope.currApp = vm.applicants[index];
-        addSlides($scope.slides, $scope.currApp.suppliments);
+        for (var i in vm.applicants) {
+          var temp = vm.applicants[i];
+          if (temp._id === applicant._id) {
+            $scope.currIndex = parseInt(i);
+            break;
+          } else $scope.currIndex = 0;
+        }
+
+        $scope.currApp = applicant;
+        var app = applicant;
+        if (app.new) {
+          app.new = false;
+          vm.updateViewed(app, $scope.roleData._id)
+        }
+        addSlides($scope.slides, app.suppliments);
       }
 
-      vm.viewBtn = function(index) {
+      vm.viewBtn = function(app) {
         $scope.$emit("hideNav");
-        updateCarosel(index);
+        updateCarosel(app);
         $scope.viewApp = true;
       }
       vm.nextApp = function() {
         if ($scope.currIndex < vm.applicants.length - 1) {
+          /*$scope.currIndex = $scope.currIndex;*/
           $scope.currIndex += 1;
           /*vm.viewBtn($scope.currIndex)*/
-          updateCarosel($scope.currIndex);
         } else {
           $scope.currIndex = 0;
-          updateCarosel($scope.currIndex);
         }
+
+        updateCarosel(vm.applicants[$scope.currIndex]);
       }
       vm.lastApp = function() {
-        console.log($scope.currIndex)
+        /*console.log($scope.currIndex)*/
         if ($scope.currIndex <= 0) {
           $scope.currIndex = vm.applicants.length - 1;
           /*vm.viewBtn($scope.currIndex)*/
-          updateCarosel($scope.currIndex)
+          /*updateCarosel($scope.currIndex)*/
         } else {
           $scope.currIndex -= 1;
-          updateCarosel($scope.currIndex);
+          /*updateCarosel($scope.currIndex);*/
         }
+        updateCarosel(vm.applicants[$scope.currIndex]);
+      }
+      vm.updateViewed = function(app, roleID) {
+        app.new = false;
+        Applicant.viewedUpdate(app._id, roleID);
       }
       vm.updateFav = function(aplnt, roleID) {
         aplnt.favorited = !aplnt.favorited;
         Applicant.favUpdate(aplnt, roleID);
-
       }
 
       $scope.deleteAppBtn = function() {
@@ -254,7 +330,6 @@ angular.module('roleCtrl', ['userService',
             /*getApps();*/
             --$scope.numApps;
             if ($scope.viewApp === true) { //full page review
-              console.log(vm.applicants.length)
               if ($scope.numApps === 0) {
                 vm.backBtn();
               }
