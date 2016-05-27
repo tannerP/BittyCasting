@@ -85,6 +85,11 @@ angular.module('roleCtrl', ['userService',
           if (data.client === "public") {
             $location.path('Apply/' + $routeParams.role_id)
           }
+          else if(data.client === "owner"){
+            vm.owner = true;
+          }
+          else vm.owner = false;
+          
           vm.processing = false;
           $scope.roleData = data.data;
           if ($scope.roleData) {
@@ -201,9 +206,9 @@ angular.module('roleCtrl', ['userService',
 
       /*vm.gridStyle = {'opacity': 1};*/
 
-      vm.getProject = function(prjID) {
+      /*vm.getProject = function(prjID) {
         $location.path('/projectDetails/' + prjID);
-      }
+      }*/
 
       vm.setGridVw = function() {
         RoleService.setView("GRID")

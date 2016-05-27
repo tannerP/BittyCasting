@@ -3,8 +3,8 @@
     <div class="custom-back" ng-click="vm.back()" style="z-index: 4;"></div>
     <div class="custom-page-action" style="z-index: 4;">
         <div ng-if="vm.roles.length > 0" class="custom-btn-secondary-small btn-share" ng-click="vm.sharePrjBtn(vm.project)">Share</div>
-        <div class="custom-btn-secondary-small btn-edit" ng-click="vm.editPrjBtn(vm.project)">Edit</div>
-        <div class="custom-btn-secondary-small btn-delete" ng-click="vm.deletePrjBtn(vm.project)">Delete</div>
+        <div ng-if="vm.owner" class="custom-btn-secondary-small btn-edit" ng-click="vm.editPrjBtn(vm.project)" >Edit</div>
+        <div class="custom-btn-secondary-small btn-delete" ng-click="vm.deletePrjBtn(vm.project)" ng-if="vm.owner">Delete</div>
         <!-- <li class="custom-btn-secondary-small" ng-click="togView()">toggle</li> -->
       <!-- {{page}} -->
     </div>
@@ -19,7 +19,8 @@
         <p style="white-space: pre-wrap">{{vm.project.description}}</p>
       </section>
       <section class="col-md-6">
-        <span class="btn btn-normal" ng-click="vm.collabBtn(vm.project)">Add collaborators</span>
+        <span class="btn btn-normal" ng-if="vm.owner" 
+               ng-click="vm.collabBtn(vm.project)">Add collaborators</span>
         <ul>
            <li ng-repeat="collab in vm.project.collabs_id">
            {{collab.userName.first}} {{collab.userName.last }}
@@ -34,7 +35,8 @@
 
     <div class="custom-page-action-secondary">
       <ul>
-        <li class='custom-btn-secondary-small' ng-click="vm.createBtn()">Create role</li>
+        <li class='custom-btn-secondary-small' ng-if="vm.owner" 
+             ng-click="vm.createBtn()">Create role</li>
       </ul>
     </div>
     <div class="clear"></div>

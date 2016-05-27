@@ -18,15 +18,21 @@
                            <img ng-if="currApp.favorited" ng-src="/assets/imgs/ic_fav_w_fill.svg" width="16px" vertical-align="middle">
                            <img ng-if="!currApp.favorited" ng-src="/assets/imgs/ic_fav_w.svg" width="16px" vertical-align="middle">Favorite
                         </div>
-                        <div class="custom-btn-secondary-small btn-email"
-                             href="#"
+                        <div
+                            ng-if="page.owner" 
+                            class="custom-btn-secondary-small btn-email"
+                            href="#"
                             socialshare
                             socialshare-provider="email"
                             socialshare-trigger="click"
                             socialshare-to="{{currApp.email}}" 
                             socialshare-body="{{Email_text}}">E-mail
                         </div>   
-                        <div class="custom-btn-secondary-small btn-delete" ng-click="page.deleteAsideBtn(currApp)">Delete</div>
+                        <div class="custom-btn-secondary-small btn-delete"
+                              ng-click="page.deleteAsideBtn(currApp)"
+                              ng-if="page.owner">
+                              Delete
+                        </div>
                 </div>
          </div>
     </div>

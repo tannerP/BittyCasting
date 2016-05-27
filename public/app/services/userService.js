@@ -248,7 +248,7 @@ angular.module('userService', [])
 
 	userFactory.createWithInvitation = function(inviteID,userData)	{
 		console.log(inviteID)
-		return $http.post('/register/invitation/'+inviteID, userData);
+		return $http.put('/register/invitation/'+inviteID, userData);
 	};
 	userFactory.create = function(userData)	{
 		return $http.post('/register/', userData);

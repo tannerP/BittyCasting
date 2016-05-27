@@ -6,10 +6,10 @@
     <ul>
       <li ng-repeat="collab in project.collabs_id">
         <span>{{collab.userName.first}} {{collab.userName.last}}</span>
-        <span ng-if="collab.accepted">accepted</span>
+        <span ng-if="collab.accepted">Accepted</span>
         <span ng-if="!collab.accepted">Not accepted</span>
         <span ng-if="collab.responded">Responded</span>
-        <span ng-if="!collab.responded">Not Responded</span>
+        <span ng-if="!collab.responded">Not responded</span>
         <span class="btn btn-standard" ng-click="page.removeBtn(collab)">Remove</span>
       </li>
     </ul>
