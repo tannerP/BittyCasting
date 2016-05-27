@@ -2,13 +2,23 @@
   <div class="asideBg">
     <div class="custom-close" ng-click="$hide()"></div>
 
-    <div class="asideTitle">Collaborators</div>
+    <div class="asideTitle">Collaborators Project:{{project.name}}</div>
+    <ul>
+      <li ng-repeat="collab in project.collabs_id">
+        <span>{{collab.userName.first}} {{collab.userName.last}}</span>
+        <span ng-if="collab.accepted">accepted</span>
+        <span ng-if="!collab.accepted">Not accepted</span>
+        <span ng-if="collab.responded">Responded</span>
+        <span ng-if="!collab.responded">Not Responded</span>
+        <span class="btn btn-standard" ng-click="page.removeBtn(collab)">Remove</span>
+      </li>
+    </ul>
       <br>
       <label>Invite</label>
-      <input type="text" placeholder="{{ collab.emailPlaceHolder||'Email'}}"
-       ng-model="collab.guestEmail">
+      <input type="text" placeholder="{{ page.emailPlaceHolder||'Email'}}"
+       ng-model="page.guestEmail">
     <button type="button" class="custom-btn-primary-large custom-btn-cancel"
-             ng-click="collab.inviteBtn()">Invite</button>
+             ng-click="page.inviteBtn()">Invite</button>
   </div>
 </div>
 

@@ -69,10 +69,11 @@ angular.module('projectCtrl', ['userService',
             show: false,
             keyboard: true,
             controller: 'collabController',
-            controllerAs: 'collab',
+            controllerAs: 'page',
             templateUrl: '/app/views/pages/collab.tmpl.html'
           });
-        vm.collabBtn = function() {
+        vm.collabBtn = function(data) {
+          $scope.project = data;
           collabAside.$promise.then(collabAside.toggle);
         }  
         vm.deleteBtn = function(data) {
@@ -151,14 +152,18 @@ angular.module('projectCtrl', ['userService',
     }
   })
 
-.controller('collabController',function(Mail,$scope){
+.controller('collabController',function(Mail,Project,$scope){
   var vm = this;
   vm.guestEmail = "";
-  var project = $scope.$parent.vm.project; 
-  
+  /*var project = $scope.$parent.vm.project; */
+ 
+  vm.removeBtn = function(collab){
+    Project.removeCollab($scope.project._id,collab);
+    /*$route.reload();*/
+  }
 
   vm.inviteBtn = function(){
-    Mail.sendCollabInvite(project,vm.guestEmail);
+    Mail.sendCollabInvite($scope.project,vm.guestEmail);
     vm.guestEmail = ""
     vm.emailPlaceHolder = "Email Sent"
   }
@@ -503,7 +508,11 @@ angular.module('projectCtrl', ['userService',
 
       vm.acceptProject = function(project){
         Project.response2Invite(true,project).then(function(data){
-          console.log(data)          
+        })
+      }
+      vm.rejectProject = function(project){
+        Project.response2Invite(false,project).then(function(data){
+          console.log(data)
         })
       }
       vm.getProject = function(prjID) {

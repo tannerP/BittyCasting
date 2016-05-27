@@ -155,10 +155,9 @@ angular.module('roleCtrl', ['userService',
                 for (var f in applicant.favs) {
                   var roleID = $routeParams.role_id
                   var appRoleID = applicant.favs[f].roleID;
-                  /*                  console.log(roleID)
-                                    console.log(appRoleID)*/
+                  //filter
                   if (roleID !== appRoleID) applicant.favs.splice(f, 1);
-
+                  //check and assigned as favorited
                   if (applicant && applicant.favs[f] &&
                     $rootScope.user._id === applicant.favs[f].userID && $scope.roleData._id === applicant.favs[f].roleID) {
                     applicant.favorited = applicant.favs[f].favorited;
@@ -319,8 +318,13 @@ angular.module('roleCtrl', ['userService',
         app.new = false;
         Applicant.viewedUpdate(app._id, roleID);
       }
-      vm.updateFav = function(aplnt, roleID) {
+      vm.updateFav = function(index,aplnt, roleID) {
+        console.log(aplnt.favorited)
         aplnt.favorited = !aplnt.favorited;
+        console.log(aplnt.favorited)
+/*        vm.applicants[index].favorited = !vm.applicants[index].favorited */
+        
+        /*aplnt.favorited = !aplnt.favorited;*/
         Applicant.favUpdate(aplnt, roleID);
       }
 

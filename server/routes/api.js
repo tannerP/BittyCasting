@@ -53,6 +53,29 @@ module.exports = function(app, express) {
 			});
 		}
 	});
+	apiRouter.route('/collab/remove/')
+		.put(function(req, res) {
+			console.log(req.body)
+			if (req.body.projectID && req.body.userID) {
+				Project.findById(req.body.projectID, function(err, project) {
+					if (!project) return res.json({
+						success: false,
+						message: 'Project not found.'
+					})
+					for (var i in project.collabs_id) {
+						if (project.collabs_id[i].userID.indexOf(req.body.userID) > -1) {
+							console.log("found collab")
+							project.collabs_id.splice(i, 1);
+							project.save();
+							return res.json({
+								success: true
+							})
+						}
+					}
+
+				})
+			}else return res.json({success:false, message:"Invalid request"})
+		})
 	apiRouter.route('/collab/response/')
 		.put(function(req, res) {
 			var response = req.body.response,
@@ -126,15 +149,14 @@ module.exports = function(app, express) {
 				projectID = req.body.projectID,
 				projectName = req.body.projectName;
 
-
-			var invite = new Invite();
 			User.findOne({
 				email: guestEmail
 			}, function(err, user) {
+				var invite = new Invite();
+				var emailData = {}
 				if (user) invite.member = true;
 				else invite.member = false;
 
-				console.log(invite.member)
 
 				invite.userID = req.decoded.id;
 				invite.guestID = null;
@@ -144,104 +166,98 @@ module.exports = function(app, express) {
 				invite.notify = true;
 				invite.notify_type = "invite";
 
-				var notification = {};
-				notification.notification_type = "invite"
-				notification.data = invite;
-				user.notifications.unshift(notification);
-
-				if (user.invites.indexOf(projectID) - 1) {
-					//this ensure no duplication
-					user.invites.push(projectID)
-				}
 
 
 				invite.save(function(err, data) {
 					if (err) return res.json({
 						sucess: false
 					});
-					//if guest is not a member
+					//if invitee is not a member
 					if (data.member) {
+						var notification = {};
+						notification.notification_type = "invite"
+						notification.data = invite;
+						user.notifications.unshift(notification);
 						var URL = "bittycasting.com/login";
-						var emailData = {
+						emailData = {
 							from: "friends@bittycasting.com",
 							to: guestEmail,
 							subject: "Invitation to Collaborate in " + req.body.projectName,
 							html: "You have been invited to collaborate " +
-								"in this project. Accept and follow this link: " + URL,
+								"in this project. Accept and follow this link: " + URL ,
 						}
+						Project.findById(projectID, function(error, project) {
+							var data = {};
+							var exist = true;
+							if (user.invites.indexOf(projectID) - 1) {
+								//this ensure no duplication
+								user.invites.push(projectID)
+							}
 
-						//if guest is not a member
-					} else {
-						var URL = "bittycasting.com/register/" + data._id;
-						var emailData = {
-							from: "friends@bittycasting.com",
-							to: guestEmail,
-							subject: "Invitation to Collaborate in " + req.body.projectName,
-							html: "You have been invited to collaborate " +
-								"in this project. Accept and follow this link: " + URL,
-						}
-						return res.json({
-							success: true,
-							message: "not a member"
+							data.accepted = false;
+							data.responded = false;
+							data.userID = user._id;
+
+							for (var i in project.collabs_id) {
+								var collab = project.collabs_id[i];
+								console.log(++i)
+								if (collab.userID.indexOf(user._id) === -1 &&
+									project.collabs_id.length === ++i) {
+									exist = false;
+									break;
+								}
+							}
+							if (project.collabs_id.length < 1) {
+								project.collabs_id.push({
+										userID: user._id,
+										userName: user.name,
+										userProfilePhoto: user.profile,
+									})
+									/*console.log(project.collabs_id)*/
+								project.save(function(error, project) {
+									user.save(function(error, user) {
+										if (!error) {
+											mailgun.messages()
+												.send(emailData, function(err, data) {
+													console.log(data)
+													return res.json({
+														success: true,
+													});
+												});
+										}
+									})
+								})
+
+							}
+						})
+
+					} else { //Invitee is not a member
+						var URL = "https://bittycasting.com/register/invite/" + data._id;
+						console.log(URL)
+						bitly.shorten(URL, function(newURL) {
+
+							emailData = {
+								from: "friends@bittycasting.com",
+								to: guestEmail,
+								subject: "Invitation to Collaborate in " + req.body.projectName,
+								html: "You have been invited to collaborate " +
+									"in this project. Accept and follow this link: " + newURL
+									+ "invite ID " + data._id,
+							}
+							mailgun.messages()
+								.send(emailData, function(err, data) {
+									console.log(data)
+									return res.json({
+										success: true,
+									});
+								});
 						})
 					}
-					mailgun.messages()
-						.send(emailData, function(err, data) {
-							if (err) {
-								conosole.log(err)
-								return err;
-								/*return res.json({
-									success: false,
-									error: err
-								})*/
-							} else {
-								console.log(data)
-									/*return res.json({
-										success: true
-									})*/
 
-								Project.findById(projectID, function(error, project) {
-									var data = {};
-									var exist = true;
-									data.accepted = false;
-									data.responded = false;
-									data.userID = user._id;
-
-									for (var i in project.collabs_id) {
-										var collab = project.collabs_id[i];
-										console.log(collab)
-										console.log(project.collabs_id.length)
-										console.log(++i)
-										if (collab.userID.indexOf(user._id) === -1 &&
-											project.collabs_id.length === ++i) {
-											exist = false;
-											break;
-										}
-									}
-									console.log("pushing to collabs")
-									if(!exist || project.collabs_id.length < 1)
-									{project.collabs_id.push({
-																				userID: user._id,
-																				userName: user.name,
-																				userProfilePhoto: user.profile,
-																			})
-																			/*console.log(project.collabs_id)*/
-																		project.save(function(error, project) {
-																			console.log(project.invites)
-																			user.save(function(error, user) {
-																				if (!error) {}
-																				console.log("user saving")
-																				console.log(error)
-																			})
-																		})}
-
-								})
-							}
-						});
-					return
 				})
 			})
-		});
+		})
+
 	//==============================  Applicants =========================
 	//route for adding new requirement. 
 	apiRouter.route('/app/:app_id')

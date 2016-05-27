@@ -54,12 +54,13 @@ exports.shortenProjectURL = function(url, RoleID, callback) {
 			})
 		}
 	}
-	/*bitly.shorten(url)
-	  .then(function(response) {
-	    console.log(response)
-	    return response.data.url;
-
-	    // Do something with data
-	  }, function(error) {
-	    throw error;
-	  });*/
+exports.shorten = function(url, callback){
+	  Bitly.shortenLink(url, function(err, res){
+	  	console.log(res)
+	  	if(!err){
+	  		return	callback(JSON.parse(res).data.url)
+	  	}
+	  })
+	    /*console.log(response)*/
+	    return;
+	  }

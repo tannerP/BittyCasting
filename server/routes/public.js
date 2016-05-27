@@ -95,6 +95,13 @@ module.exports = function(app, express) {
         error: err
       });
       else {
+        /*for(var i in proj.collabs_id){
+          if(!proj.collabs_id[i].userName){
+            proj.collabs_id.splice(i,1);
+            proj.collabs_id.shift()
+          }
+        }
+        proj.save();*/
         var checkClientship = function(prj, decoded) {
             if (!decoded) return "public";
             else {
@@ -382,7 +389,33 @@ module.exports = function(app, express) {
           if (err.code == 11000)
             return res.json({
               success: false,
-              message: 'A user with that username already exists.'
+              message: 'A user with that email already exists.'
+            });
+          else
+            return res.send(err);
+        }
+        res.json({
+          message: 'User created!'
+        });
+      });
+    });
+    app.route('/register/invite/:inviteID')
+    .post(function(req, res) {
+      var user = new User();
+      user.name.last = req.body.name.last;
+      user.name.first = req.body.name.first;
+      user.password = req.body.password;
+      user.email = req.body.email;
+      user.role = "user";
+
+      user.save(function(err, user) {
+        if (err) {
+          console.log(err);
+          //duplicate entry
+          if (err.code == 11000)
+            return res.json({
+              success: false,
+              message: 'A user with that email already exists.'
             });
           else
             return res.send(err);

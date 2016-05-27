@@ -205,6 +205,13 @@ angular.module('userService', [])
 		return $http.put('api/collab/response', money);
 	}
 
+	projectFactory.removeCollab = function(projectID,collab){
+		var money = {};
+		money.projectID = projectID;
+		money.userID = collab.userID;
+		console.log(money)
+		return $http.put('api/collab/remove', money);
+	}
 	projectFactory.create = function(projectData) {
 		return $http.post('api/project',projectData);
 	}
@@ -239,6 +246,10 @@ angular.module('userService', [])
 		return $http.get('/api/users');
 	};
 
+	userFactory.createWithInvitation = function(inviteID,userData)	{
+		console.log(inviteID)
+		return $http.post('/register/invitation/'+inviteID, userData);
+	};
 	userFactory.create = function(userData)	{
 		return $http.post('/register/', userData);
 	};
