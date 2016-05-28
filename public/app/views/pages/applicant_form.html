@@ -134,6 +134,7 @@
 																				<div class="uploadFileName">
 																				  <img ng-if="ppv.files[$index]" ngf-thumbnail="ppv.files[$index] || 'Attachment'">
 																					<video ng-if="ppv.files[$index]" controls ngf-src="ppv.files[$index]"></video>    
+
 																				{{ppv.files[$index].name | limitTo:18}}
 																				</div>
 																		</a>

@@ -498,6 +498,10 @@ angular.module('roleCtrl', ['userService',
       $scope.success = function() {
         $scope.toggle = true;
         successAlert.toggle();
+        $scope.textToCopy = "Copied."
+        $timeout(function(){
+          $scope.textToCopy = $scope.roleData.short_url;
+        },1500);
       };
 
       $scope.fail = function(err) {

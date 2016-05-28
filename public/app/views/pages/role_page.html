@@ -58,7 +58,8 @@
     <div class="clear"></div>
 
     <div class="custom-page-action-secondary">
-      <div class="custom-page-action-secondary-title">{{numApps}}  Applicants total <a class="btn-add-applicants" ng-href="{{'addApplicant/'+ roleData._id}}"><img ng-src="/assets/imgs/ic_plus_bl.svg"> Add applicants</a>
+      <div class="custom-page-action-secondary-title">
+      <span ng-show="numApps >0">{{numApps}} Applicants total </span> <a class="btn-add-applicants" ng-href="{{'addApplicant/'+ roleData._id}}"><img ng-src="/assets/imgs/ic_plus_bl.svg"> Add applicants</a>
       </div>
     </div>
 

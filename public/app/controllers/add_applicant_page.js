@@ -163,7 +163,7 @@ angular.module('addApplicant', ['userService', 'mgcrea.ngStrap'])
       vm.newRqmnt = function(data) {
         requirement = data;
         vm.requirement = data;
-        console.log(requirement)
+
       }
 
       vm.removeLink = function(index) {
