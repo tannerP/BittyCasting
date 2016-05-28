@@ -64,7 +64,7 @@ module.exports = function(app, express) {
   app.get('/public/role/:role_id', function(req, res) {
     //find role data, then find project data before returning result
     Role.findById(req.params.role_id, function(err, role) {
-      if (err) {
+      if (err || role ===null) {
         return res.json({
           success: false,
           error: err

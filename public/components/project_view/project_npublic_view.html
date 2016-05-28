@@ -22,8 +22,11 @@
         <span class="btn btn-normal" ng-if="vm.owner" 
                ng-click="vm.collabBtn(vm.project)">Add collaborators</span>
         <ul>
+          <li>
+           {{vm.convertInitial(vm.userName)}}
+           </li>
            <li ng-repeat="collab in vm.project.collabs_id">
-           {{collab.userName.first}} {{collab.userName.last }}
+           {{vm.convertInitial(collab.userName)}}
            </li>
          </ul>
       </section>

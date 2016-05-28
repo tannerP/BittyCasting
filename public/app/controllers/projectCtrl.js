@@ -4,12 +4,15 @@ angular.module('projectCtrl', ['userService',
   .directive('prpublicview',
     function(Role, Project, $location, $routeParams, $aside, $route) {
       var controller = ['$scope', 'Role', 'Project', "$location",
-        '$routeParams', '$aside', '$route', '$window',
+        '$routeParams', '$aside', '$route', '$window',"$rootScope",
         function($scope, Role, Project, $location, $routeParams,
-          $aside, $route, $window) {
+          $aside, $route, $window,$rootScope) {
           var vm = this;
           vm.processing = true;
           vm.project = vm.project;
+          vm.userName = ({first:$rootScope.user.first,
+           last:$rootScope.user.last})
+          console.log($rootScope.user)
           //function is used in project sharing aside. 
           $scope.preview = function() {
             vm.toggle();
@@ -109,6 +112,10 @@ angular.module('projectCtrl', ['userService',
             $window.history.back();
           }
 
+          vm.convertInitial = function(name) {
+              return initial = name.first[0]+name.last[0];
+          }
+
           vm.load = function() {
               Project.get($routeParams.project_id)
                 .success(function(data) {
@@ -181,6 +188,10 @@ angular.module('projectCtrl', ['userService',
     vm.project = {};
     vm.curRole = {};
     $scope.roleData = {};
+    vm.userName = {};
+    /*console.log($rootScope.user)*/
+    /*vm.userName.first = $rootScope.user.first;
+    vm.userName.last = $rootScope.user.last;*/
 
     (function init() { //start engines
       /*console.log("Project page controller initializing")*/
