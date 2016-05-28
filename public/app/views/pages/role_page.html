@@ -64,14 +64,20 @@
     </div>
 
     <div class="utlBar">
-      <div class="sort"></div>
-      <div ng-click="page.toggleFav()">
-        Heart filter
-      </div>
-      <div class="gridListToggle">
-        <div ng-style="page.gridStyle" ng-click="page.setGridVw()"></div>
-        <div ng-style="page.listStyle" ng-click="page.setListVw()"></div>
-      </div>
+<!--        <div class="sort" ng-click="page.toggleFav()">Heart filter</div>-->
+        
+        <div class="sort custom-dropdown" uib-dropdown is-open="false">
+            <span type="text" class="custom-form" uib-dropdown-toggle ng-disabled="disabled">{{applicant.gender || "All applicants"}}</span>
+            <ul uib-dropdown-menu role="menu" aria-labelledby="single-button">
+                <li role="menuitem"><a href="#" ng-click="applicant.gender = 'All applicants'">All applicants</a></li>
+                <li role="menuitem"><a href="#" ng-click="applicant.gender = 'Favorite'">Favorite</a></li>
+            </ul>
+        </div>     
+
+        <div class="gridListToggle">
+            <div ng-style="page.gridStyle" ng-click="page.setGridVw()"></div>
+            <div ng-style="page.listStyle" ng-click="page.setListVw()"></div>
+        </div>
     </div>
     <div class="clear"></div>
   </div>
