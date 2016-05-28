@@ -568,6 +568,8 @@ module.exports = function(app, express) {
 				if (err) res.send(err);
 				if (req.body.name) project.name = req.body.name;
 				if (req.body.description) project.description = req.body.description;
+				else project.description = null;
+
 				if (req.body.updated_date) project.updated_date = req.body.updated_date;
 				if (req.body.coverphoto) project.coverphoto = req.body.coverphoto;
 				project.save(function(err) {
