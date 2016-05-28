@@ -182,7 +182,7 @@ angular.module('awsService', [])
     }
   };
 
-  aws.uploadCP = function(data, bucket, callback) {
+  aws.uploadCP = function(data, callback) {
     /*console.log(data.file)
     console.log(bucket)*/
     var deferred = $q.defer();

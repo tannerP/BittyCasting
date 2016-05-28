@@ -62,8 +62,8 @@
 																<li ng-repeat="role in ppv.roles">
 																		<label><input type="checkbox" ng-click="ppv.toggleRole(role._id,role.requirements)">
 																		<span class="custom-checkbox-style"></span>{{role.name}}
-                                                                            <span class="applicationDeadline">(Deadline: {{ ppv.roles[0].end_date | date:'mediumDate'}})</span>
-																		</label>
+                                  <span class="applicationDeadline">(Deadline: {{ ppv.roles[0].end_date | date:'mediumDate'}})</span>
+</label>
 																						<!-- <span 
 																						ng-click="ppv.toggleRole(role._id,role.requirements)" ng-class="{'btn':ppv.isSelected(role._id)}"></span> {{role.name}} -->
 																</li>
@@ -114,12 +114,21 @@
 																		ngf-max-size="500MB"
 																		ngf-model-invalid="errors"
 																		ng-select="checkFile(files[$index])">
-																		<span ng-if="!ppv.files[$index]">Upload from computer</span>
-																		<span ng-if="ppv.files[$index]">Another one</span>
+																			<span ng-if="!ppv.files[$index] && !ppv.isNewLink[$index]">
+																				Upload from computer
+																			</span>
 																		</a>
+																		<span ng-init="ppv.isNewLink[$index] = false"
+																					ng-click="ppv.isNewLink[$index] = !ppv.isNewLink[$index];
+																					ppv.links[$index]='' ">Link</span>
+																		<input ng-show="ppv.isNewLink[$index]"
+																						ng-model="ppv.links[$index]"
+																						placeholder="http://">
+																		
 																				</p>
 																		</div>
-																		<div class="div-table-col-attachments">
+																		<div class="div-table-col-attachments"
+																					ng-hide="ppv.isNewLink[$index]">
 																					<div style ="height:40px; width:auto">
 																							
 																					</div>
@@ -160,6 +169,6 @@
 														</div>  
 										</form>					
 								</div>  
-						</section>    
+						</section>
 				</div>
 </div>
