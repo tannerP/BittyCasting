@@ -54,7 +54,8 @@ module.exports = function(app, express) {
 
 	//==============================  Applicants =========================
 	    //route for adding new requirement. 
-  app.put('/app/:app_id', function(req, res) {
+	apiRouter.route('/app/:app_id')
+  	.put(function(req, res) {
     if (req.body.status === "new") {
       /*console.log(req.body);*/
       Applicant.findById(req.params.app_id, function(err, app) {
@@ -317,8 +318,6 @@ module.exports = function(app, express) {
 				}
 			})
 		})
-
-
 
 	//===============================  Roles ============================
 	apiRouter.route('/roles/:projectID')
