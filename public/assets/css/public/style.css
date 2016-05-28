@@ -212,6 +212,11 @@ a {
 .marginTop20 {
   margin-top: 20px; }
 
+.verticalAlignCenterHelper {
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle; }
+
 .custom-loader {
   margin: 30px auto;
   width: 60px; }
@@ -685,69 +690,32 @@ section.features {
       color: #999999;
       line-height: 24px;
       margin-bottom: 10px; }
-section.pricing {
-  padding-bottom: -20px; }
-  section.pricing .targetCustomer div {
-    text-align: center;
-    padding: 0 30px; }
-    section.pricing .targetCustomer div img {
-      width: 80px;
-      height: 80px;
-      padding-bottom: 20px;
-      margin: 0 auto; }
-  section.pricing .pricingPlanWrapper {
-    padding-top: 30px;
-    margin: 0 0 0 0; }
-    section.pricing .pricingPlanWrapper .pricingPlan {
-      background-color: white;
-      -webkit-box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.1);
-      -moz-box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.1);
-      box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.1);
-      padding: 15px;
-      margin: 80px 0 20px 0; }
-      section.pricing .pricingPlanWrapper .pricingPlan .pricingCost {
-        background-color: #06bcc2;
-        text-align: center;
-        font-size: 20px;
-        color: white;
-        margin: -30px 15px 15px 15px;
-        padding: 15px; }
-      section.pricing .pricingPlanWrapper .pricingPlan .freePlan {
-        text-align: left; }
-        section.pricing .pricingPlanWrapper .pricingPlan .freePlan .pricingCost {
-          padding-top: 30px;
-          height: 86px; }
-      section.pricing .pricingPlanWrapper .pricingPlan .paidPlan {
-        text-align: center; }
-        section.pricing .pricingPlanWrapper .pricingPlan .paidPlan img {
-          width: 32px;
-          height: 32px;
-          margin: 20px 0; }
-    section.pricing .pricingPlanWrapper .pricingfor {
-      margin-bottom: 60px; }
-      section.pricing .pricingPlanWrapper .pricingfor .pricingforImg {
-        float: left;
-        width: 40px;
-        height: 40px;
-        vertical-align: center; }
-        section.pricing .pricingPlanWrapper .pricingfor .pricingforImg.pricingforImg01 {
-          background: url("/assets/imgs/ic_people.svg") no-repeat center center; }
-        section.pricing .pricingPlanWrapper .pricingfor .pricingforImg.pricingforImg02 {
-          background: url("/assets/imgs/ic_camcorder.svg") no-repeat center center; }
-        section.pricing .pricingPlanWrapper .pricingfor .pricingforImg.pricingforImg03 {
-          background: url("/assets/imgs/ic_lightbulb.svg") no-repeat center center; }
-        section.pricing .pricingPlanWrapper .pricingfor .pricingforImg.pricingforImg04 {
-          background: url("/assets/imgs/ic_dart.svg") no-repeat center center; }
-      section.pricing .pricingPlanWrapper .pricingfor p {
-        padding-left: 50px; }
-section.about {
+section.testimonial {
   padding-bottom: 60px; }
+  section.testimonial img {
+    vertical-align: middle; }
+  section.testimonial quote p {
+    font-size: 16px;
+    line-height: 26px;
+    font-style: italic; }
+  section.testimonial quote span {
+    font-size: 12px;
+    color: #999999;
+    float: right;
+    margin-top: 10px; }
+section.about {
+  padding-bottom: 60px;
+  background-color: white; }
   section.about p:last-child {
     margin-top: 30px; }
+  section.about img {
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    border-radius: 50%; }
 section.contact {
   text-align: center;
-  padding-bottom: 120px;
-  background-color: white; }
+  padding-bottom: 120px; }
   section.contact .contactInfo {
     display: inline-block;
     text-align: left; }
@@ -2380,6 +2348,11 @@ ul.select-coverphoto-wrapper {
     -webkit-box-shadow: 0px 0px 0px 0px #06bcc2;
     -moz-box-shadow: 0px 0px 0px 0px #06bcc2;
     box-shadow: 0px 0px 0px 0px #06bcc2; }
+
+  section.testimonial img {
+    margin: -30px auto 30px auto;
+    max-width: 160px;
+    height: auto; }
 
   .pageTitleMobileOffset {
     padding-top: 120px; }
