@@ -981,7 +981,29 @@ div.pageHeader{
     .utlBar {
         float: right;
         
+        .sort {
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 24px;
+            span {
+                padding-right: 22px;               
+                cursor: pointer;
+            }
+            &:after {
+                content:""; 
+                background: #ccc; 
+                position: absolute; 
+                top: 8px; 
+                right: -16px; 
+                height: 18px; 
+                width: 1px;
+            }
+        }
+        
         .gridListToggle {
+            
+            display: inline-block;
+            vertical-align: middle;
             
             div {
                 width: 20px;
@@ -1673,6 +1695,7 @@ ul.projects li {
 }
 
 .custom-dropdown {
+    cursor: pointer;
     border: 0;
     background: url('/assets/imgs/ic_arrow_dropdown.svg') no-repeat right center;
     background-size: 10px 10px;

@@ -26,6 +26,9 @@ var ApplicantSchema = new Schema({
 		type:String,
 		required:false,
 	},
+	compensation:String,
+	usage:String,
+	ethnicity:String,
 	phone:{
 		type:String,
 		required:false,

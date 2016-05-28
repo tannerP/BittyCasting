@@ -44,7 +44,7 @@ angular.module('roleCtrl', ['userService',
           show: false,
           controller: 'editRoleController',
           container: "body",
-          controllerAs: 'roleAside',
+          controllerAs: 'vm',
           templateUrl: '/app/views/pages/role_form.tmpl.html',
           onShow: 'funcLog',
           onHide: 'funcLog'
@@ -498,6 +498,10 @@ angular.module('roleCtrl', ['userService',
       $scope.success = function() {
         $scope.toggle = true;
         successAlert.toggle();
+        $scope.textToCopy = "Copied."
+        $timeout(function(){
+          $scope.textToCopy = $scope.roleData.short_url;
+        },1500);
       };
 
       $scope.fail = function(err) {

@@ -117,6 +117,10 @@ angular.module('projectCtrl', ['userService',
       $scope.success = function() {
         $scope.toggle = true;
         successAlert.toggle();
+        $scope.textToCopy = "Copied!"
+        $timeout(function(){
+          $scope.textToCopy = $scope.project.short_url;
+        },1500);
       };
 
       $scope.fail = function(err) {
@@ -294,6 +298,7 @@ angular.module('projectCtrl', ['userService',
       }
       vm.processing = false;
       vm.createRoleBtn = function() {
+        console.log(vm.roleData)
         vm.processing = true;
         vm.projectID = $routeParams.project_id;
         vm.roleData.end_date = $scope.selectedDate.toJSON();
