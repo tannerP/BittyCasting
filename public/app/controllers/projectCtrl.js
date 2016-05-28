@@ -4,15 +4,13 @@ angular.module('projectCtrl', ['userService',
   .directive('prpublicview',
     function(Role, Project, $location, $routeParams, $aside, $route) {
       var controller = ['$scope', 'Role', 'Project', "$location",
-        '$routeParams', '$aside', '$route', '$window',"$rootScope",
+        '$routeParams', '$aside', '$route', '$window',
         function($scope, Role, Project, $location, $routeParams,
-          $aside, $route, $window,$rootScope) {
+          $aside, $route, $window) {
           var vm = this;
           vm.processing = true;
           vm.project = vm.project;
-          vm.userName = ({first:$rootScope.user.first,
-           last:$rootScope.user.last})
-          console.log($rootScope.user)
+          
           //function is used in project sharing aside. 
           $scope.preview = function() {
             vm.toggle();
@@ -113,22 +111,9 @@ angular.module('projectCtrl', ['userService',
           }
 
           vm.convertInitial = function(name) {
+            if(!name) return;
               return initial = name.first[0]+name.last[0];
           }
-
-          vm.load = function() {
-              Project.get($routeParams.project_id)
-                .success(function(data) {
-                  vm.project = data.project.project;
-                  $scope.project = data.project.project; //for collab aside
-                  vm.Roles = data.project.roles
-                })
-                .error(function(err) {
-                  console.log(err);
-                  vm.message = err;
-                });
-            }
-            /*vm.load();*/
 
           vm.save = function() {
             vm.processing = true;
@@ -199,7 +184,7 @@ angular.module('projectCtrl', ['userService',
         .success(function(data) {
           /*console.log(data)*/
           vm.project = data.project.project;
-
+          
 
           $rootScope.meta = Meta.prjMeta(vm.project);
           vm.roles = data.project.roles;

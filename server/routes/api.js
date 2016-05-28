@@ -34,6 +34,7 @@ module.exports = function(app, express) {
 							'_id': decoded.id
 						}, function(err, data) {
 							if (data) {
+								decoded.name = data.name;
 								data.last_active = new Date();
 								data.save();
 								return data;
@@ -725,6 +726,7 @@ module.exports = function(app, express) {
 
 			var project = new Project();
 			project.user_id = req.decoded.id;
+			project.user = req.decoded.name //User Name
 			project.name = req.body.name;
 			project.description = req.body.description
 			project.coverphoto = req.body.coverphoto
@@ -757,18 +759,25 @@ module.exports = function(app, express) {
 
 				Project.find({
 					"user_id": req.decoded.id
-				}, function(err, ownedP) {
-					console.log(ownedP.collabs_id)
+				}, function(err, projects) {
+					//TODO: remove after out of beta
+					for(var i in projects){ 
+						var project = projects[i];
+						if(!project.user){
+						project.user = req.decoded.name;
+						project.save();
+						}
+					}
+					
 					Project.find({
 						"collabs_id.userID": req.decoded.id,
-					}, function(err, invitedP) {
-						console.log(invitedP)
+					}, function(err, guestProjects) {
 						if (err) {
 							res.send(err);
 						} else {
 							res.json({
 								'success': true,
-								'data': ownedP.concat(invitedP)
+								'data': projects.concat(guestProjects)
 							});
 						}
 					});

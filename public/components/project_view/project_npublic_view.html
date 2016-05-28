@@ -23,7 +23,7 @@
                ng-click="vm.collabBtn(vm.project)">Add collaborators</span>
         <ul>
           <li>
-           {{vm.convertInitial(vm.userName)}}
+           {{vm.convertInitial(vm.project.user)}}
            </li>
            <li ng-repeat="collab in vm.project.collabs_id">
            {{vm.convertInitial(collab.userName)}}
@@ -67,7 +67,7 @@
           class="tblDate">{{role.end_date | date:mediumDate}}</span>
           <div class="table-utl">
             <ul>
-              <li ng-click="vm.deleteBtn(role)"></li>
+              <li ng-if="vm.owner" ng-click="vm.deleteBtn(role)"></li>
               <li ng-click="vm.shareRoleBtn(role)"></li>
             </ul>
           </div>

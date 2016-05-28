@@ -31,6 +31,7 @@ module.exports = function(app, express) {
             '_id': decoded.id
           }, function(err, data) {
             if (data) {
+              decoded.name = data.name;
               data.last_active = new Date();
               data.save();
               return data;
@@ -114,6 +115,9 @@ module.exports = function(app, express) {
           }
         }
         proj.save();*/
+        if(!proj.user) proj.user = req.decoded.name;
+
+
         var checkClientship = function(prj, decoded) {
             if (!decoded) return "public";
             else {
