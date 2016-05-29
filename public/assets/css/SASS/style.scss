@@ -767,12 +767,14 @@ section {
                 color: $color-blue;
                 margin: 20px 0 10px 0;
                 font-weight: 200;
+                vertical-align: middle;
             }
             .featureSubtitle {
                 font-size: 16px;
-                color: $color-grey;
+                color: $color-grey-dark;
                 line-height: 24px;
                 margin-bottom: 10px;
+                vertical-align: middle;
             }
         }
     }
@@ -787,6 +789,7 @@ section {
                 font-size: 16px;
                 line-height: 26px;
                 font-style: italic;
+                color: $color-grey-dark;
             }
             span {
                 font-size: $font-size-regular;
@@ -921,6 +924,8 @@ section {
     &.contact {
         text-align: center;
         padding-bottom: 120px;
+        background: url("/assets/imgs/img_indexCover03.png") no-repeat bottom center fixed;
+        background-size: 100% auto;
         .contactInfo {
             display: inline-block;
             text-align: left;
