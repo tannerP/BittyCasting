@@ -741,6 +741,7 @@ section {
                     border: 1px solid white;
                     background: url("/assets/imgs/ic_check_circle_w.svg") no-repeat center left 30px transparent;
                     background-size: 32px 32px;
+                    cursor: default;
                     }
                 p {
                     font-size: $font-size-regular;
