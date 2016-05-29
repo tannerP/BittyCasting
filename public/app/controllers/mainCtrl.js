@@ -124,7 +124,7 @@ angular.module('mainCtrl', ['authService', 'mgcrea.ngStrap'])
 					$timeout(function(){
 						$scope.isSending = false
 					},1500)
-					/*Mail.betaUser(vm.betaEmail);*/
+					Mail.betaUser(vm.betaEmail);
 					vm.betaEmail = null;
 					vm.betaSubMessage = "Submitted! Thank you for your interest."
 				}
