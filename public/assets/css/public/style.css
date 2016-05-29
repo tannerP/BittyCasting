@@ -1251,14 +1251,11 @@ ul.projects li {
       }
   } */ }
   .custom-table .table-application-requirements thead tr th:nth-child(1) {
-    width: 40%;
+    width: 70%;
     cursor: pointer; }
   .custom-table .table-application-requirements thead tr th:nth-child(2) {
-    width: 40%;
-    cursor: pointer; }
+    width: 20%; }
   .custom-table .table-application-requirements thead tr th:nth-child(3) {
-    width: 10%; }
-  .custom-table .table-application-requirements thead tr th:nth-child(4) {
     width: 10%; }
   .custom-table .table-application-requirements td span.requirementFormat {
     width: 12px;
@@ -1604,7 +1601,8 @@ ul.projects li {
     border-bottom: 1px solid #242424;
     background-color: transparent;
     padding: 6px 0;
-    margin-top: -5px; }
+    margin-top: -5px;
+    width: 100%; }
     .custom-form input:focus {
       outline: none;
       border-bottom: 1px solid #06bcc2; }
@@ -1837,6 +1835,15 @@ ul.select-coverphoto-wrapper {
   vertical-align: middle;
   margin-left: 15px;
   display: inline; }
+
+.asideRole {
+  width: 800px; }
+  .asideRole .asideRoleColLeft, .asideRole .asideRoleColRight {
+    width: 48%; }
+  .asideRole .asideRoleColLeft {
+    float: left; }
+  .asideRole .asideRoleColRight {
+    float: right; }
 
 /***************************
           Apply
