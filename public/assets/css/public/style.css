@@ -714,7 +714,15 @@ section.features {
 section.testimonial {
   padding-bottom: 60px; }
   section.testimonial img {
-    vertical-align: middle; }
+    vertical-align: middle;
+    -webkit-transition: all 0.8s ease;
+    -moz-transition: all 0.8s ease;
+    -ms-transition: all 0.8s ease;
+    -o-transition: all 0.8s ease;
+    transition: all 0.8s ease; }
+    section.testimonial img:hover, section.testimonial img:focus {
+      opacity: 0.6;
+      filter: alpha(opacity=60); }
   section.testimonial quote p {
     font-size: 16px;
     line-height: 26px;

@@ -788,7 +788,14 @@ section {
     &.testimonial {
         padding-bottom: 60px;
         
-        img {vertical-align: middle;}
+        img {
+            vertical-align: middle;
+            @include transition(all, 0.8s, ease);
+            &:hover, &:focus {
+                opacity: 0.6;
+                filter: alpha(opacity=60);
+            }  
+        }
         
         quote {
             p {
