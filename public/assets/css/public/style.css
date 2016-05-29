@@ -724,7 +724,7 @@ section.testimonial {
     float: right;
     margin-top: 10px; }
 section.about {
-  padding-bottom: 60px;
+  padding-bottom: 10px;
   background-color: white;
   text-align: center; }
   section.about p {
@@ -745,6 +745,8 @@ section.about {
     font-size: 16px;
     color: #666666;
     line-height: 24px; }
+  section.about .teamMember {
+    margin-top: 80px; }
   section.about .teamSocial {
     margin-top: 20px; }
     section.about .teamSocial a {
@@ -2440,16 +2442,18 @@ ul.select-coverphoto-wrapper {
     max-width: 160px;
     height: auto; }
 
-  section.about img {
-    max-width: 240px;
-    padding: 0; }
-  section.about .teamMember {
-    margin-bottom: 30px; }
-  section.about p {
-    font-size: 16px;
-    margin: 20px 0 5px 0; }
-  section.about span {
-    font-size: 12px; }
+  section.about {
+    padding-bottom: 30px; }
+    section.about img {
+      max-width: 240px;
+      padding: 0; }
+    section.about .teamMember {
+      margin-bottom: -40px; }
+    section.about p {
+      font-size: 16px;
+      margin: 20px 0 5px 0; }
+    section.about span {
+      font-size: 12px; }
 
   .pageTitleMobileOffset {
     padding-top: 120px; }
