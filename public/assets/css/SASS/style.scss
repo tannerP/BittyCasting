@@ -935,8 +935,11 @@ section {
     &.contact {
         text-align: center;
         padding-bottom: 120px;
-        background: url("/assets/imgs/img_indexCover03.png") no-repeat top center;
-        background-size: auto 100%;
+        background: url("/assets/imgs/img_indexCover03.png") no-repeat 50% 50% fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
         .contactInfo {
             display: inline-block;
             text-align: left;
