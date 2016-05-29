@@ -19,9 +19,7 @@
 												{{role.name}}
 										</li>              
 								</ul>
-								<p ng-init=""
-								ng-bind-html="ppv.curRole.description || ppv.roles[0].description | linky"></p>
-
+								
 								<div class="div-table">
 										 <div class="div-table-row">
 												<div class="div-table-col div-table-row-header">Usage</div>
@@ -42,6 +40,8 @@
 													ppv.roles[0].sex}}</div>
 										</div>
 								</div>
+								<p ng-init=""
+								ng-bind-html="ppv.curRole.description || ppv.roles[0].description | linky"></p>
 								
 						</div>
 						<!-- <audio ng-if="currFile" controls ngf-src="currFile"> -->
@@ -115,7 +115,7 @@
 																		ngf-min-size="100"
 																		ngf-max-size="500MB"
 																		ngf-model-invalid="errors"
-																		ng-select="checkFile(files[$index])">
+																		ng-select="addFile(files[$index], rq)">
 																			<span ng-if="!ppv.files[$index] && !ppv.isNewLink[$index]">
 																				Upload from computer
 																			</span>
