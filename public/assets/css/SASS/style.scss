@@ -1426,9 +1426,9 @@ ul.projects li {
             thead tr th:nth-child(2) {width: 9%;} //last name
             thead tr th:nth-child(3) {width: 18%;} //e-mail
             thead tr th:nth-child(4) {width: 7%;} //gender
-            thead tr th:nth-child(5) {width: 10%;} //phone
-            thead tr th:nth-child(6) {width: 32%;} //requirements
-            thead tr th:nth-child(7) {width: 20%;} //comments
+            thead tr th:nth-child(5) {width: 13%;} //phone
+            thead tr th:nth-child(6) {width: 28%;} //requirements
+            thead tr th:nth-child(7) {width: 16%;} //comments
             
             .div-table custom-form input{
                 padding: 8px 0;
@@ -1437,10 +1437,9 @@ ul.projects li {
     }
     
     .table-application-requirements {
-        thead tr th:nth-child(1) {width: 40%; cursor: pointer;} //Name
-        thead tr th:nth-child(2) {width: 40%; cursor: pointer;} //Type
-        thead tr th:nth-child(3) {width: 10%;} //required     
-        thead tr th:nth-child(4) {width: 10%;} //action
+        thead tr th:nth-child(1) {width: 70%; cursor: pointer;} //Name
+        thead tr th:nth-child(2) {width: 20%;} //required     
+        thead tr th:nth-child(3) {width: 10%;} //action
         
         /* tr.defaultRequirements {
             &:nth-child(1), &:nth-child(2), &:nth-child(3) {
@@ -1794,6 +1793,7 @@ ul.projects li {
         background-color: transparent;
         padding: 6px 0;
         margin-top: -5px;
+        width: 100%;
         &:focus {
             outline: none;
             border-bottom: 1px solid $color-blue;
@@ -2037,6 +2037,17 @@ ul.select-coverphoto-wrapper {
     vertical-align: middle;
     margin-left: 15px;
     display: inline;
+}
+
+.asideRole {
+    width: 800px;
+    
+    .asideRoleColLeft, .asideRoleColRight {
+        width: 48%;
+    }
+    
+    .asideRoleColLeft {float: left;}
+    .asideRoleColRight {float: right;}
 }
 
 /***************************

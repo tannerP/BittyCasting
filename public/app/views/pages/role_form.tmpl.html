@@ -1,101 +1,117 @@
-<div class="aside" tabindex="-1" role="dialog">
+<div class="aside asideRole" tabindex="-1" role="dialog">
   <div class="asideBg">
     <form class="container-roleAside" ng-submit="vm.createRoleBtn()">
       <div class="custom-close" ng-click="$hide()"></div>
-      <div class="asideTitle" ng-if="!vm.edit">Create role</div>
-      <div class="asideTitle" ng-if="vm.edit">Edit role</div>
-
-      <div class="form-group">
-        <label>Name</label>
-        <input type="text" class="custom-form"
-               ng-model="vm.roleData.name" Required autofocus>
-      </div>
-      <div class="form-group">
-        <!-- <label>Description (Max {{charRmnd}} characters)</label> -->
-        <label>Description</label>
-            <textarea  ng-model="vm.roleData.description"
-                      ng-trim="1" rows="4"
-                      class="custom-form-textarea"
-              ></textarea>
-      </div>
-
-      <div class="form-group">
-        <div ng-class="{'has-error': datepickerForm.date.$invalid}">
-          <label class="control-label"><i class="fa fa-calendar"></i>Submission deadline</label>
-          <input type='text'
-                 class="custom-form" ng-model="selectedDate"
-                 start-date="vm.startDate"
-                 required bs-datepicker autoclose="true">
-        </div>
-      </div>
-
-<!--
-       <div class = "form-group">
-          <div ng-class="{'has-error': timepickerForm.time.$invalid}">
-          <label >End Time </label>
-          <input type="text" class="custom-form"
-                  ng-model="selectedTime" name="time" bs-timepicker>
-          </div>
-      </div>
--->
+      <div class="asideTitle" ng-if="!roleAside.edit">Create role</div>
+      <div class="asideTitle" ng-if="roleAside.edit">Edit role</div>
         
-<!--
-      <div class = "form-group">
-          <label>Location</label>
-          <input type = "text" class = "custom-form"
-                  ng-model = "vm.roleData.location">
-      </div>
--->
-        
-      <div class = "form-group">
-          <label>Compensation</label>
-          <input type = "text" class = "custom-form"
-                  ng-model = "vm.roleData.compensation">
-      </div>
-        
-      <div class = "form-group">
-          <label>Usage</label>
-          <input type = "text" class = "custom-form"
-                  ng-model = "vm.roleData.usage">
-      </div>
-      <div class = "form-group">
-          <label>Age</label>
-          <input  type = "text"
-                  class = "custom-form" ng-model = "vm.roleData.age">
-      </div>
-        
-      <div class = "form-group">
-            <label>Ethnicity</label>
-            <div class="custom-dropdown" uib-dropdown is-open="false">
-                <span type="text" class="custom-form" uib-dropdown-toggle ng-disabled="disabled">{{vm.roleData.ethnicity || "All"}}</span>
-                <ul uib-dropdown-menu role="menu" aria-labelledby="single-button"
-                ">
-                    <li role="menuitem"><a href="#" ng-click="vm.roleData.ethnicity = 'All'">All</a></li>
-                    <li role="menuitem"><a href="#" ng-click="vm.roleData.ethnicity = 'White'">White</a></li>
-                    <li role="menuitem"><a href="#" ng-click="vm.roleData.ethnicity = 'White'">Asian</a></li>
-                    <li role="menuitem"><a href="#" ng-click="vm.roleData.ethnicity = 'Black or African American'">Black or African American</a></li>
-                    <li role="menuitem"><a href="#" ng-click="vm.roleData.ethnicity = 'Hispanic or Latino'">Hispanic or Latino</a></li>
-                    <li role="menuitem"><a href="#" ng-click="vm.roleData.ethnicity = 'Other'">Other</a></li>
-                </ul>
-            </div>                 
+      <div class="asideRoleColLeft">
           
-<!--
-          <input type = "text" class = "custom-form"
-                  ng-model = "vm.roleData.payterms">
--->
-      </div>
-  
-      <div class = "form-group">
-            <label>Gender</label>
-            <div class="custom-dropdown" uib-dropdown is-open="false">
-                <span type="text" class="custom-form" uib-dropdown-toggle ng-disabled="disabled">{{vm.roleData.sex || "Female"}}</span>
-                <ul uib-dropdown-menu role="menu" aria-labelledby="single-button">
-                    <li role="menuitem"><a href="#" ng-click="vm.roleData.sex = 'Female'">Female</a></li>
-                    <li role="menuitem"><a href="#" ng-click="vm.roleData.sex = 'Male'">Male</a></li>
-                </ul>
-            </div>  
-      </div>  
+          <div class="asideDesMessage">  
+              <p>The information of the role will be displayed in the application form for applicants to review. By default, applicants will be asked for name, E-mail, phone number(optional), and agent contact(optional) in the application form.</p>
+          </div>
 
+          <div class="form-group">
+            <label>Name<span></span></label>
+            <input type="text" class="custom-form"
+                   ng-model="roleAside.roleData.name" Required autofocus>
+          </div>
+          <div class="form-group">
+            <!-- <label>Description (Max {{charRmnd}} characters)</label> -->
+            <label>Description</label>
+                <textarea  ng-model="roleAside.roleData.description"
+                          ng-trim="1" rows="4"
+                          class="custom-form-textarea"
+                  ></textarea>
+          </div>
+
+          <div class="form-group">
+            <div ng-class="{'has-error': datepickerForm.date.$invalid}">
+              <label class="control-label"><i class="fa fa-calendar"></i>Submission deadline</label>
+              <input type='text'
+                     class="custom-form" ng-model="selectedDate"
+                     start-date="roleAside.startDate"
+                     required bs-datepicker autoclose="true">
+            </div>
+          </div>
+
+
+    <!--
+           <div class = "form-group">
+              <div ng-class="{'has-error': timepickerForm.time.$invalid}">
+              <label >End Time </label>
+              <input type="text" class="custom-form"
+                      ng-model="selectedTime" name="time" bs-timepicker>
+              </div>
+          </div>
+
+    -->
+
+    <!--
+          <div class = "form-group">
+              <label>Location</label>
+              <input type = "text" class = "custom-form"
+                      ng-model = "roleAside.roleData.location">
+          </div>
+    -->
+          
+    </div><!--end of asideRoleColLeft-->   
+    
+      <div class="asideRoleColRight">    
+          
+          <div class = "form-group">
+              <label>Compensation</label>
+              <input type = "text" class = "custom-form"
+                      ng-model = "roleAside.roleData.payterms">
+          </div>
+          
+          <div class = "form-group">
+              <label>Usage</label>
+              <input type = "text" class = "custom-form"
+                      ng-model = "roleAside.roleData.payterms">
+          </div>
+
+          <div class = "form-group">
+                <label>Ethnicity</label>
+                <div class="custom-dropdown" uib-dropdown is-open="false">
+                    <span type="text" class="custom-form" uib-dropdown-toggle ng-disabled="disabled">{{applicant.gender || "All"}}</span>
+                    <ul uib-dropdown-menu role="menu" aria-labelledby="single-button">
+                        <li role="menuitem"><a href="#" ng-click="applicant.gender = 'All'">All</a></li>
+                        <li role="menuitem"><a href="#" ng-click="applicant.gender = 'White'">White</a></li>
+                        <li role="menuitem"><a href="#" ng-click="applicant.gender = 'Asian'">Asian</a></li>
+                        <li role="menuitem"><a href="#" ng-click="applicant.gender = 'Black or African American'">Black or African American</a></li>
+                        <li role="menuitem"><a href="#" ng-click="applicant.gender = 'Hispanic or Latino'">Hispanic or Latino</a></li>
+                        <li role="menuitem"><a href="#" ng-click="applicant.gender = 'Other'">Other</a></li>
+                    </ul>
+                </div>                 
+
+    <!--
+              <input type = "text" class = "custom-form"
+                      ng-model = "roleAside.roleData.payterms">
+    -->
+          </div>
+
+          <div class = "form-group">
+              <label>Age</label>
+              <input  type = "text"
+                      class = "custom-form" ng-model = "roleAside.roleData.age">
+          </div>
+
+          <div class = "form-group">
+                <label>Gender</label>
+                <div class="custom-dropdown" uib-dropdown is-open="false">
+                    <span type="text" class="custom-form" uib-dropdown-toggle ng-disabled="disabled">{{roleAside.roleData.sex || "Female"}}</span>
+                    <ul uib-dropdown-menu role="menu" aria-labelledby="single-button">
+                        <li role="menuitem"><a href="#" ng-click="roleAside.roleData.sex = 'Female'">Female</a></li>
+                        <li role="menuitem"><a href="#" ng-click="roleAside.roleData.sex = 'Male'">Male</a></li>
+                    </ul>
+                </div>  
+          </div>  
+
+      </div><!--end of asideRoleColRight-->
+        
+      <div class="clear"></div>
+          
       <label class="asideRequirementsTitle">Attachments</label>
 
       <div class="custom-table">
@@ -104,7 +120,7 @@
           <thead>
           <tr>
             <th>Name</th>
-            <th></th>
+            <th>Required</th>
             <!-- <th>Required</th> -->
             <th>Add</th>
           </tr>
@@ -112,9 +128,15 @@
           <tbody>
             <tr class="defaultRequirements" 
                 ng-repeat="req in vm.roleData.requirements track by $index">
-              <td><input type="text" ng-model="req.name" required></input>
+              <td>
+                  <div class="custom-form">
+                  <input type="text" ng-model="req.name" required></input>
+                  </div>
+<!--
                     <span class="requirementFormat" ng-if="req.format.indexOf('Link') != -1">
                     </span>
+-->
+
               </td>
               <!-- <td></td> -->
               <td>
@@ -138,7 +160,7 @@
           <tr>
             <td>
                 <div class="custom-form">
-                    <input type="text" ng-model='vm.newData.name' placeholder="New requirement"></input>
+                    <input type="text" ng-model='vm.newData.name' placeholder="New attachment"></input>
                 </div>
             </td>
             <!-- <td>
