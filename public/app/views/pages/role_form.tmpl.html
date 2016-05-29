@@ -12,7 +12,8 @@
           </div>
 
           <div class="form-group">
-            <label>Name<span></span></label>
+
+            <label>Name</label>
             <input type="text" class="custom-form"
                    ng-model="roleAside.roleData.name" Required autofocus>
           </div>
@@ -34,7 +35,6 @@
                      required bs-datepicker autoclose="true">
             </div>
           </div>
-
 
     <!--
            <div class = "form-group">
@@ -127,16 +127,13 @@
           </thead>
           <tbody>
             <tr class="defaultRequirements" 
-                ng-repeat="req in vm.roleData.requirements track by $index">
+                ng-repeat="req in roleAside.roleData.requirements track by $index">
               <td>
                   <div class="custom-form">
-                  <input type="text" ng-model="req.name" required></input>
+                      <input type="text" ng-model="req.name" required>
                   </div>
-<!--
-                    <span class="requirementFormat" ng-if="req.format.indexOf('Link') != -1">
-                    </span>
--->
-
+                    <!-- <span class="requirementFormat" ng-if="req.format.indexOf('Link') != -1">
+                    </span> -->
               </td>
               <!-- <td></td> -->
               <td>

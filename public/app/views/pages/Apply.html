@@ -24,22 +24,22 @@
 								ng-bind-html="ppv.curRole.description || ppv.roles[0].description | linky"></p>
                             
 								<div class="div-table">
-										 <div class="div-table-row">
+										 <div class="div-table-row" ng-if="ppv.curRole.usage || ppv.roles[0].usage">
 												<div class="div-table-col div-table-row-header">Usage</div>
 												<div style="white-space: pre-wrap" class="div-table-col">{{ppv.curRole.usage || ppv.roles[0].usage }}</div>
 										</div>
-										 <div class="div-table-row">
+										 <div class="div-table-row" ng-if="ppv.curRole.compensation || ppv.roles[0].compensation">
 												<div class="div-table-col div-table-row-header">Compensation</div>
 												<div style="white-space: pre-wrap" class="div-table-col">{{ppv.curRole.compensation || ppv.roles[0].compensation }}</div>
 										</div>
-										<div class="div-table-row">
+										<div class="div-table-row" ng-if="ppv.curRole.end_date || ppv.roles[0].end_date">
 												<div class="div-table-col div-table-row-header">End Date</div>
 												<div class="div-table-col">{{ 
 												ppv.curRole.end_date || ppv.roles[0].end_date|  date:'mediumDate'}}</div>
 										</div>
-										<div class="div-table-row">
+										<div class="div-table-row" ng-if="ppv.curRole.sex || ppv.roles[0].sex">
 												<div class="div-table-col div-table-row-header">Gender</div>
-												<div class="div-table-col">{{ppv.curRole.gender || 
+												<div class="div-table-col">{{ppv.curRole.sex || 
 													ppv.roles[0].sex}}</div>
 										</div>
 								</div>
