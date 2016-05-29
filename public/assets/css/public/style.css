@@ -791,8 +791,8 @@ section.about {
 section.contact {
   text-align: center;
   padding-bottom: 120px;
-  background: url("/assets/imgs/img_indexCover03.png") no-repeat bottom center fixed;
-  background-size: 100% auto; }
+  background: url("/assets/imgs/img_indexCover03.png") no-repeat top center;
+  background-size: auto 100%; }
   section.contact .contactInfo {
     display: inline-block;
     text-align: left; }
