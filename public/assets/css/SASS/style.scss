@@ -864,7 +864,7 @@ section {
 //    }
     
     &.about {
-        padding-bottom: 60px;
+        padding-bottom: 10px;
         background-color: white;  
         text-align: center;
 //        background: url("/assets/imgs/img_aboutBg.png") no-repeat center bottom white;
@@ -888,6 +888,10 @@ section {
             font-size: 16px;
             color: $color-grey-dark;
             line-height: 24px;
+        }
+        
+        .teamMember {
+            margin-top: 80px;
         }
         
         .teamSocial {
@@ -2699,8 +2703,9 @@ text-align: center;
     }
     
     section.about {
+        padding-bottom: 30px;
         img {max-width: 240px; padding: 0;}
-        .teamMember {margin-bottom: 30px;}
+        .teamMember {margin-bottom: -40px;}
         p {
             font-size: $font-size-large;
             margin: 20px 0 5px 0;
