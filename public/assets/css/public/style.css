@@ -705,14 +705,63 @@ section.testimonial {
     margin-top: 10px; }
 section.about {
   padding-bottom: 60px;
-  background-color: white; }
-  section.about p:last-child {
-    margin-top: 30px; }
+  background-color: white;
+  text-align: center; }
+  section.about p {
+    font-size: 18px;
+    margin: 20px 0 5px 0; }
+  section.about span {
+    color: #999999; }
   section.about img {
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
     -ms-border-radius: 50%;
-    border-radius: 50%; }
+    border-radius: 50%;
+    padding: 20px;
+    margin: 0 auto; }
+  section.about .teamSocial {
+    margin-top: 20px; }
+    section.about .teamSocial a {
+      display: inline-block;
+      width: 24px;
+      height: 24px;
+      margin-right: 3px;
+      cursor: pointer; }
+      section.about .teamSocial a:nth-child(1) {
+        background: url("/assets/imgs/ic_social_linkedin_b.svg") no-repeat center center;
+        background-size: 18px 18px;
+        -webkit-transition: all 0.8s ease;
+        -moz-transition: all 0.8s ease;
+        -ms-transition: all 0.8s ease;
+        -o-transition: all 0.8s ease;
+        transition: all 0.8s ease; }
+        section.about .teamSocial a:nth-child(1):hover, section.about .teamSocial a:nth-child(1):focus {
+          background: url("/assets/imgs/ic_social_linkedin_bl.svg") no-repeat center center;
+          background-size: 18px 18px; }
+      section.about .teamSocial a:nth-child(2) {
+        background: url("/assets/imgs/ic_social_fb_b.svg") no-repeat center center;
+        background-size: 18px 18px;
+        -webkit-transition: all 0.8s ease;
+        -moz-transition: all 0.8s ease;
+        -ms-transition: all 0.8s ease;
+        -o-transition: all 0.8s ease;
+        transition: all 0.8s ease; }
+        section.about .teamSocial a:nth-child(2):hover, section.about .teamSocial a:nth-child(2):focus {
+          background: url("/assets/imgs/ic_social_fb_bl.svg") no-repeat center center;
+          background-size: 18px 18px; }
+      section.about .teamSocial a:nth-child(3) {
+        background: url("/assets/imgs/ic_social_twitter_b.svg") no-repeat center center;
+        background-size: 18px 18px;
+        -webkit-transition: all 0.8s ease;
+        -moz-transition: all 0.8s ease;
+        -ms-transition: all 0.8s ease;
+        -o-transition: all 0.8s ease;
+        transition: all 0.8s ease; }
+        section.about .teamSocial a:nth-child(3):hover, section.about .teamSocial a:nth-child(3):focus {
+          background: url("/assets/imgs/ic_social_twitter_bl.svg") no-repeat center center;
+          background-size: 18px 18px; }
+      section.about .teamSocial a:last-child {
+        margin-right: 0; }
 section.contact {
   text-align: center;
   padding-bottom: 120px; }
@@ -2354,6 +2403,16 @@ ul.select-coverphoto-wrapper {
     max-width: 160px;
     height: auto; }
 
+  section.about img {
+    max-width: 240px;
+    padding: 0; }
+  section.about .teamMember {
+    margin-bottom: 30px; }
+  section.about p {
+    font-size: 16px; }
+  section.about span {
+    font-size: 12px; }
+
   .pageTitleMobileOffset {
     padding-top: 120px; }
 
@@ -2591,6 +2650,10 @@ ul.select-coverphoto-wrapper {
         font-size: 26px; }
       section.home .brandMessage .brandSubheading {
         font-size: 18px; }
+
+  section.about img {
+    width: 100%;
+    padding: 0; }
 
   /***************************
           Role overview

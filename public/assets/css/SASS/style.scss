@@ -842,15 +842,62 @@ section {
     
     &.about {
         padding-bottom: 60px;
-        background-color: white;
+        background-color: white;  
+        text-align: center;
 //        background: url("/assets/imgs/img_aboutBg.png") no-repeat center bottom white;
-        
-        p:last-child {
-            margin-top: 30px;
+        p {
+            font-size: 18px;
+            margin: 20px 0 5px 0;
+        }
+        span {
+            color: $color-grey;
         }
         
         img {
             @include border-radius(50%);
+            padding: 20px;
+            margin: 0 auto;
+        }
+        
+        .teamSocial {
+            margin-top: 20px;
+            a {
+                display: inline-block;
+                width: 24px;
+                height: 24px;
+                margin-right: 3px;
+                cursor: pointer;
+                &:nth-child(1) {
+                    background: url("/assets/imgs/ic_social_linkedin_b.svg") no-repeat center center;
+                    background-size: 18px 18px;
+                    @include transition(all, 0.8s, ease);
+                    &:hover, &:focus {
+                        background: url("/assets/imgs/ic_social_linkedin_bl.svg") no-repeat center center;
+                        background-size: 18px 18px;
+                    }
+                }
+                &:nth-child(2) {
+                    background: url("/assets/imgs/ic_social_fb_b.svg") no-repeat center center;
+                    background-size: 18px 18px;
+                    @include transition(all, 0.8s, ease);
+                    &:hover, &:focus {
+                        background: url("/assets/imgs/ic_social_fb_bl.svg") no-repeat center center;
+                        background-size: 18px 18px;
+                    }
+                }
+                &:nth-child(3) {
+                    background: url("/assets/imgs/ic_social_twitter_b.svg") no-repeat center center;
+                    background-size: 18px 18px;
+                    @include transition(all, 0.8s, ease);
+                    &:hover, &:focus {
+                        background: url("/assets/imgs/ic_social_twitter_bl.svg") no-repeat center center;
+                        background-size: 18px 18px;
+                    }
+                }
+                &:last-child {
+                    margin-right: 0;
+                }
+            }
         }
     }
     
@@ -2607,6 +2654,13 @@ text-align: center;
         height: auto;
     }
     
+    section.about {
+        img {max-width: 240px; padding: 0;}
+        .teamMember {margin-bottom: 30px;}
+        p {font-size: $font-size-large;}
+        span {font-size: $font-size-regular;}
+    }
+    
     .pageTitleMobileOffset {padding-top: 120px;}
     .applyPageLeftBg {display:none;}
     .applyPage { 
@@ -2842,6 +2896,13 @@ text-align: center;
         }
     }
  
+    section.about {
+        img {
+            width: 100%;
+            padding: 0;
+        }
+    }
+    
     /***************************
             Role overview
     ***************************/
