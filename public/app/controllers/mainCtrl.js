@@ -168,6 +168,7 @@ controller('signupCtrl', function(User, $scope, $location) {
 		// use the create function in the userService
 		User.create(vm.userData)
 			.success(function(data) {
+				$scope.$emit('aside.hide')
 				vm.processing = false;
 				$scope.$hide();
 				//clear the form

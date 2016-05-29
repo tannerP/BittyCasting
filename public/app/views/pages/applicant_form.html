@@ -19,37 +19,34 @@
 												{{role.name}}
 										</li>              
 								</ul>
-								<p ng-bind-html="ppv.curRole.description || ppv.roles[0].description | linky"></p>
-										
-<!--
+								
 								<div class="div-table">
-										 <div ng-if="roleData.location" class="div-table-row">
-												<div class="div-table-col div-table-row-header">Location</div>
-												<div style="white-space: pre-wrap" class="div-table-col">{{roleData.location}}</div>
+										 <div class="div-table-row">
+												<div class="div-table-col div-table-row-header">Usage</div>
+												<div style="white-space: pre-wrap" class="div-table-col">{{ppv.curRole.usage || ppv.roles[0].usage }}</div>
 										</div>
-										<div ng-if="roleData.end_time" class="div-table-row">
-												<div class="div-table-col div-table-row-header">Time</div>
-												<div class="div-table-col">{{roleData.end_time |  date:'h:mm a'}}, {{ roleData.end_date | date: "M/d/yyyy"}}</div>
+										 <div class="div-table-row">
+												<div class="div-table-col div-table-row-header">Compensation</div>
+												<div style="white-space: pre-wrap" class="div-table-col">{{ppv.curRole.compensation || ppv.roles[0].compensation }}</div>
 										</div>
-										<div ng-if="roleData.payterms" class="div-table-row">
-												<div class="div-table-col div-table-row-header">Pay term</div>
-												<div class="div-table-col">{{roleData.payterms}}</div>
+										<div class="div-table-row">
+												<div class="div-table-col div-table-row-header">End Date</div>
+												<div class="div-table-col">{{ 
+												ppv.curRole.end_date || ppv.roles[0].end_date|  date:'mediumDate'}}</div>
 										</div>
-										<div ng-if="roleData.sex" class="div-table-row">
+										<div class="div-table-row">
 												<div class="div-table-col div-table-row-header">Gender</div>
-												<div class="div-table-col">{{roleData.gender}}</div>
+												<div class="div-table-col">{{ppv.curRole.gender || 
+													ppv.roles[0].sex}}</div>
 										</div>
 								</div>
--->								
+								<p ng-init=""
+								ng-bind-html="ppv.curRole.description || ppv.roles[0].description | linky"></p>
+								
 						</div>
 						<!-- <audio ng-if="currFile" controls ngf-src="currFile"> -->
 				</section>
 				<!-- Application Form --> 
-				<style type="text/css">
-					.css-form input.required{
-						background-color: red;
-					}
-				</style>		 
 				<section class="col-md-6">
 						<div class="applyPageRight">
 								 <div class='pageTitle'>Apply</div>
@@ -67,8 +64,8 @@
 																<li ng-repeat="role in ppv.roles">
 																		<label><input type="checkbox" ng-click="ppv.toggleRole(role._id,role.requirements)">
 																		<span class="custom-checkbox-style"></span>{{role.name}}
-                                                                            <span class="applicationDeadline">(Deadline: {{ ppv.roles[0].end_date | date:'mediumDate'}})</span>
-																		</label>
+                                  <span class="applicationDeadline">(Deadline: {{ ppv.roles[0].end_date | date:'mediumDate'}})</span>
+</label>
 																						<!-- <span 
 																						ng-click="ppv.toggleRole(role._id,role.requirements)" ng-class="{'btn':ppv.isSelected(role._id)}"></span> {{role.name}} -->
 																</li>
@@ -103,44 +100,47 @@
 
 
 														<div class = "form-group" ng-repeat="rq in ppv.requirements | uniq: 'name'">
-														<label>{{rq.name}}</label>
+														<label>{{rq.name}}<span ng-if="rq.required"></span></label>
 														<!-- Fil Uploader -->
-
-																<div ng-if="rq.file_type != 'link'" class="drop-box" ngf-drop ng-model="ppv.files[$index]" ngf-max-size="500MB" ngf-model-invalid="errors" ngf-accept="'application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/pdf,image/*,video/*'"
+																<!-- <div ng-if="rq.file_type != 'link'" class="drop-box" ngf-drop ng-model="ppv.files[$index]" ngf-max-size="500MB" ngf-model-invalid="errors" ngf-accept="'application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/pdf,image/*,video/*'"
 																ngf-pattern="'application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/pdf,image/*,video/*'"
 																ngf-min-size="100"
-																ngf-max-size="250MB" ng-required="true">
+																ngf-max-size="250MB" ng-required="true"> -->
 																<!-- Select File -->
-																 <div ng-if="!ppv.files[$index]">
-																		 <p><span>Drag and drop file(s)</span><br/><a ngf-select ng-model="ppv.files[$index]" name="file" 
+																 <div>
+																		 <a ngf-select ng-model="ppv.files[$index]" name="file" 
 																		ngf-accept="'application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/pdf,image/*,video/*'"
 																		ngf-pattern="'application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/pdf,image/*,video/*'"
 																		ngf-before-model-change= "errors = '' "
 																		ngf-min-size="100"
 																		ngf-max-size="500MB"
 																		ngf-model-invalid="errors"
-																		ng-select="checkFile(files[$index])"
-																		>upload from computer</a>
+																		ng-select="addFile(files[$index], rq)">
+																			<span ng-if="!ppv.files[$index] && !ppv.isNewLink[$index]">
+																				Upload from computer
+																			</span>
+																		</a>
+																		<span ng-init="ppv.isNewLink[$index] = false"
+																					ng-click="ppv.isNewLink[$index] = !ppv.isNewLink[$index];
+																					ppv.links[$index]='' ">Link</span>
+																		<input ng-show="ppv.isNewLink[$index]"
+																						ng-model="ppv.links[$index]"
+																						placeholder="http://">
+																		
 																				</p>
 																		</div>
-																		<a ngf-select ng-model="ppv.files[$index]" name="file" 
-																				ngf-pattern="'application/pdf,image/*,video/*'"
-																				ngf-accept="'application/pdf,image/*,video/*'"
-																				ngf-before
-																				ngf-before-model-change= "errors = '' "
-																				ngf-min-size="100"
-																				ngf-max-size="250MB"
-																				ngf-model-invalid="errors">
-																				<div class="uploadFileName">
-																				  <img ng-if="ppv.files[$index]" ngf-thumbnail="ppv.files[$index] || 'Attachment'">
-																					<video ng-if="ppv.files[$index]" controls ngf-src="ppv.files[$index]"></video>    
-
+																		<div class="div-table-col-attachments"
+																					ng-hide="ppv.isNewLink[$index]">
+																					<div style ="height:40px; width:auto">
+																							
+																					</div>
+																				  <img style ="height:40px; width:auto"
+																				  ng-if="ppv.files[$index]" ngf-thumbnail="ppv.files[$index] || 'Attachment'">
+																					<video style ="height:40px; width:auto"
+																					ng-if="ppv.files[$index]" controls ngf-src="ppv.files[$index]"></video>    
 																				{{ppv.files[$index].name | limitTo:18}}
-																				</div>
-																		</a>
-														</div>
-														<div class = "form-group">
-																<span ng-repeat="link in ppv.appData.links track by $index">
+																		</div>
+																<!-- <span ng-repeat="link in ppv.appData.links track by $index">
 																		<div class="applyLinkItem">
 																				<span ng-if="link.name == rq">{{link.source}} <span ng-click="ppv.removeLink($index)">
 																				<img src="/assets/imgs/ic_trash.svg" width="16px" height="16px"></span>
@@ -150,8 +150,7 @@
 																</span>
 																<input class="applyAddLink" type="text" ng-model="ppv.newLinks[$index]" placeholder="http://">  
 																<span>{{newLink}}</span>                
-																<span ng-click="ppv.addLink($index,rq)"><img src="/assets/imgs/ic_plus.svg" width="16px" height="16px"></span>
-														</div>
+																<span ng-click="ppv.addLink($index,rq)"><img src="/assets/imgs/ic_plus.svg" width="16px" height="16px"></span> -->
 													</div>
 												<div ng-if="errors" class ="custom-alert" >
 														<p>Whoops, the file format was invalid.</p>
@@ -172,6 +171,6 @@
 														</div>  
 										</form>					
 								</div>  
-						</section>    
+						</section>
 				</div>
 </div>

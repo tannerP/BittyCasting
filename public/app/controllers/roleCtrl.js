@@ -5,7 +5,7 @@ angular.module('roleCtrl', ['userService',
 .controller('RolePageController',
     function(Applicant, Role, $location, $routeParams, $rootScope,
       $scope, $aside, $routeParams, $location, $route,
-      $window, $timeout, RoleService) {
+      $window, $timeout, RoleService, $route) {
       var vm = this;
       $scope.appLimit = 6;
 
@@ -13,12 +13,20 @@ angular.module('roleCtrl', ['userService',
         console.log('hello aside')
       }
       var fav = false;
-      vm.toggleFav = function() {
+
+      vm.setFilter = function(filter)
+      {
+        $scope.filter = filter
+      }
+      /*vm.allView = function() {
         console.log(fav)
         fav = !fav;
         if (fav) $scope.filter = "favorited";
         else $scope.filter = null;
       }
+      vm.favView = function(){
+        $scope.filter = "favorited";
+      }*/
 
       $window.onscroll = function() {
         var position = document.body.scrollTop || document.documentElement.scrollTop || 0;
@@ -44,7 +52,7 @@ angular.module('roleCtrl', ['userService',
           show: false,
           controller: 'editRoleController',
           container: "body",
-          controllerAs: 'roleAside',
+          controllerAs: 'vm',
           templateUrl: '/app/views/pages/role_form.tmpl.html',
           onShow: 'funcLog',
           onHide: 'funcLog'
@@ -322,6 +330,7 @@ angular.module('roleCtrl', ['userService',
       vm.updateFav = function(aplnt, roleID) {
         aplnt.favorited = !aplnt.favorited;
         Applicant.favUpdate(aplnt, roleID);
+        /*$route.reload();*/
       }
 
       $scope.deleteAppBtn = function() {

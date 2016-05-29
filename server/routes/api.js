@@ -56,7 +56,6 @@ module.exports = function(app, express) {
 	//route for adding new requirement. 
 	apiRouter.route('/app/:app_id')
 		.put(function(req, res) {
-			console.log(req.body);
 			if (req.body.status === "new") {
 				/*console.log(req.body);*/
 				Applicant.findById(req.params.app_id, function(err, app) {
@@ -83,7 +82,7 @@ module.exports = function(app, express) {
 						}
 					}
 					app.userViewed_IDs.push(money);
-					console.log(app.userViewed_IDs)
+					/*console.log(app.userViewed_IDs)*/
 					app.save(function(err, data) {
 						if (err) {
 							return res.json({
@@ -371,19 +370,22 @@ module.exports = function(app, express) {
 			/*console.log(req.body);*/
 			var URL = config.baseURL + "/Apply/";
 
+			role.age = req.body.age;
+			role.compensation = req.body.compensation;
 			role.projectID = req.params.projectID;
-			role.name = req.body.name;
 			role.description = req.body.description;
+			role.ethnicity = req.body.ethnicity;
 			role.end_date = req.body.end_date;
 			role.end_time = req.body.end_time;
-
+			role.name = req.body.name;
+			role.usage = req.body.usage;
 			role.location = req.body.location;
 			role.payterms = req.body.payterms;
-			/*role.age = req.body.age;*/
 			role.sex = req.body.sex;
 			role.requirements = req.body.requirements;
 
 			role.save(function(err, role) {
+				console.log(role)
 				if (err) {
 					return res.json({
 						success: false,
@@ -634,7 +636,7 @@ module.exports = function(app, express) {
 						success: false,
 						message: 'Failed to authenticate token.'
 					});
-				}
+				}else{
 				var money = {}
 				money.name = user.name;
 				money.role = user.role;
@@ -642,6 +644,7 @@ module.exports = function(app, express) {
 				res.json({
 					data: money
 				});
+			}
 			})
 		});
 	//===============================  USERS  ============================

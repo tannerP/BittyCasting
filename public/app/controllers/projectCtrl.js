@@ -250,17 +250,17 @@ angular.module('projectCtrl', ['userService',
       vm.roleData = {},
         vm.roleData.requirements = [{
           name: "Headshot",
-          required: true,
+          required: false,
           selected: true,
           format: "Attachment"
         }, {
           name: "Resume",
-          required: true,
+          required: false,
           selected: true,
           format: "Attachment"
         }, {
           name: "Reel",
-          required: true,
+          required: false,
           selected: true,
           format: "Attachment"
         }],
@@ -270,6 +270,7 @@ angular.module('projectCtrl', ['userService',
         vm.newData.format = "Attachment";
 
       vm.addReqt = function(data) {
+        console.log(data)
         if (!data) {
           console.log("error: input variable");
           return;
@@ -277,7 +278,7 @@ angular.module('projectCtrl', ['userService',
         var item = {
           name: data.name,
           format: data.format,
-          required: true,
+          required: data.required,
           selected: true
         }
         vm.roleData.requirements.push(item)
@@ -297,6 +298,7 @@ angular.module('projectCtrl', ['userService',
       }
       vm.processing = false;
       vm.createRoleBtn = function() {
+        console.log(vm.roleData)
         vm.processing = true;
         vm.projectID = $routeParams.project_id;
         vm.roleData.end_date = $scope.selectedDate.toJSON();

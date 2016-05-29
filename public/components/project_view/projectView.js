@@ -24,7 +24,7 @@ angular.module('ProjectView', ['userService',
             static: false,
             backdrop: "static",
             controller: 'newRoleController',
-            controllerAs: 'roleAside',
+            controllerAs: 'vm',
             templateUrl: '/app/views/pages/role_form.tmpl.html'
           }),
           editPrjAside = $aside({

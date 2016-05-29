@@ -1,19 +1,19 @@
 <div class="aside" tabindex="-1" role="dialog">
   <div class="asideBg">
-    <form class="container-roleAside" ng-submit="roleAside.createRoleBtn()">
+    <form class="container-roleAside" ng-submit="vm.createRoleBtn()">
       <div class="custom-close" ng-click="$hide()"></div>
-      <div class="asideTitle" ng-if="!roleAside.edit">Create role</div>
-      <div class="asideTitle" ng-if="roleAside.edit">Edit role</div>
+      <div class="asideTitle" ng-if="!vm.edit">Create role</div>
+      <div class="asideTitle" ng-if="vm.edit">Edit role</div>
 
       <div class="form-group">
         <label>Name</label>
         <input type="text" class="custom-form"
-               ng-model="roleAside.roleData.name" Required autofocus>
+               ng-model="vm.roleData.name" Required autofocus>
       </div>
       <div class="form-group">
         <!-- <label>Description (Max {{charRmnd}} characters)</label> -->
         <label>Description</label>
-            <textarea  ng-model="roleAside.roleData.description"
+            <textarea  ng-model="vm.roleData.description"
                       ng-trim="1" rows="4"
                       class="custom-form-textarea"
               ></textarea>
@@ -24,7 +24,7 @@
           <label class="control-label"><i class="fa fa-calendar"></i>Submission deadline</label>
           <input type='text'
                  class="custom-form" ng-model="selectedDate"
-                 start-date="roleAside.startDate"
+                 start-date="vm.startDate"
                  required bs-datepicker autoclose="true">
         </div>
       </div>
@@ -43,55 +43,55 @@
       <div class = "form-group">
           <label>Location</label>
           <input type = "text" class = "custom-form"
-                  ng-model = "roleAside.roleData.location">
+                  ng-model = "vm.roleData.location">
       </div>
 -->
         
       <div class = "form-group">
           <label>Compensation</label>
           <input type = "text" class = "custom-form"
-                  ng-model = "roleAside.roleData.payterms">
+                  ng-model = "vm.roleData.compensation">
       </div>
         
       <div class = "form-group">
           <label>Usage</label>
           <input type = "text" class = "custom-form"
-                  ng-model = "roleAside.roleData.payterms">
+                  ng-model = "vm.roleData.usage">
+      </div>
+      <div class = "form-group">
+          <label>Age</label>
+          <input  type = "text"
+                  class = "custom-form" ng-model = "vm.roleData.age">
       </div>
         
       <div class = "form-group">
             <label>Ethnicity</label>
             <div class="custom-dropdown" uib-dropdown is-open="false">
-                <span type="text" class="custom-form" uib-dropdown-toggle ng-disabled="disabled">{{applicant.gender || "All"}}</span>
-                <ul uib-dropdown-menu role="menu" aria-labelledby="single-button">
-                    <li role="menuitem"><a href="#" ng-click="applicant.gender = 'All'">All</a></li>
-                    <li role="menuitem"><a href="#" ng-click="applicant.gender = 'White'">White</a></li>
-                    <li role="menuitem"><a href="#" ng-click="applicant.gender = 'Asian'">Asian</a></li>
-                    <li role="menuitem"><a href="#" ng-click="applicant.gender = 'Black or African American'">Black or African American</a></li>
-                    <li role="menuitem"><a href="#" ng-click="applicant.gender = 'Hispanic or Latino'">Hispanic or Latino</a></li>
-                    <li role="menuitem"><a href="#" ng-click="applicant.gender = 'Other'">Other</a></li>
+                <span type="text" class="custom-form" uib-dropdown-toggle ng-disabled="disabled">{{vm.roleData.ethnicity || "All"}}</span>
+                <ul uib-dropdown-menu role="menu" aria-labelledby="single-button"
+                ">
+                    <li role="menuitem"><a href="#" ng-click="vm.roleData.ethnicity = 'All'">All</a></li>
+                    <li role="menuitem"><a href="#" ng-click="vm.roleData.ethnicity = 'White'">White</a></li>
+                    <li role="menuitem"><a href="#" ng-click="vm.roleData.ethnicity = 'White'">Asian</a></li>
+                    <li role="menuitem"><a href="#" ng-click="vm.roleData.ethnicity = 'Black or African American'">Black or African American</a></li>
+                    <li role="menuitem"><a href="#" ng-click="vm.roleData.ethnicity = 'Hispanic or Latino'">Hispanic or Latino</a></li>
+                    <li role="menuitem"><a href="#" ng-click="vm.roleData.ethnicity = 'Other'">Other</a></li>
                 </ul>
             </div>                 
           
 <!--
           <input type = "text" class = "custom-form"
-                  ng-model = "roleAside.roleData.payterms">
+                  ng-model = "vm.roleData.payterms">
 -->
       </div>
-        
-      <div class = "form-group">
-          <label>Age</label>
-          <input  type = "text"
-                  class = "custom-form" ng-model = "roleAside.roleData.age">
-      </div>
-        
+  
       <div class = "form-group">
             <label>Gender</label>
             <div class="custom-dropdown" uib-dropdown is-open="false">
-                <span type="text" class="custom-form" uib-dropdown-toggle ng-disabled="disabled">{{roleAside.roleData.sex || "Female"}}</span>
+                <span type="text" class="custom-form" uib-dropdown-toggle ng-disabled="disabled">{{vm.roleData.sex || "Female"}}</span>
                 <ul uib-dropdown-menu role="menu" aria-labelledby="single-button">
-                    <li role="menuitem"><a href="#" ng-click="roleAside.roleData.sex = 'Female'">Female</a></li>
-                    <li role="menuitem"><a href="#" ng-click="roleAside.roleData.sex = 'Male'">Male</a></li>
+                    <li role="menuitem"><a href="#" ng-click="vm.roleData.sex = 'Female'">Female</a></li>
+                    <li role="menuitem"><a href="#" ng-click="vm.roleData.sex = 'Male'">Male</a></li>
                 </ul>
             </div>  
       </div>  
@@ -100,7 +100,7 @@
 
       <div class="custom-table">
         <table class="table table-application-requirements"
-               ng-show="!roleAside.gridView">
+               ng-show="!vm.gridView">
           <thead>
           <tr>
             <th>Name</th>
@@ -111,26 +111,26 @@
           </thead>
           <tbody>
             <tr class="defaultRequirements" 
-                ng-repeat="req in roleAside.roleData.requirements track by $index">
+                ng-repeat="req in vm.roleData.requirements track by $index">
               <td><input type="text" ng-model="req.name" required></input>
-                    <!-- <span class="requirementFormat" ng-if="req.format.indexOf('Link') != -1">
-                    </span> -->
+                    <span class="requirementFormat" ng-if="req.format.indexOf('Link') != -1">
+                    </span>
               </td>
-              <td></td>
-              <!-- <td>
+              <!-- <td></td> -->
+              <td>
                   <div class="switch">
                         <input id="{{cmn-toggle-$index}}" 
                               class="cmn-toggle cmn-toggle-round" 
                               type="checkbox" ng-model="req.required">
                         <label for="{{cmn-toggle-$index}}"></label>
                   </div>           
-              </td>    -->
+              </td>   
               <!-- <td >
                   <div class="checkbox-requirements">
                       <label><input type="checkbox" ng-model="req.selected"><span></span></label>
                   </div>   
               </td> -->
-              <td ng-click="roleAside.removeReqt($index)">
+              <td ng-click="vm.removeReqt($index)">
                 <img src="/assets/imgs/ic_trash.svg" width="16px" height="16px">
               </td>
             </tr>
@@ -138,38 +138,45 @@
           <tr>
             <td>
                 <div class="custom-form">
-                    <input type="text" ng-model='roleAside.newData.name' placeholder="New requirement"></input>
+                    <input type="text" ng-model='vm.newData.name' placeholder="New requirement"></input>
                 </div>
             </td>
             <!-- <td>
+                <div class="switch">
+                      <input id="{{cmn-toggle-newData}}"
+                            class="cmn-toggle cmn-toggle-round" 
+                            type="checkbox" ng-model="vm.newData.required">
+                      <label for="{{cmn-toggle-newData}}"></label>
+                </div>           
+            </td>  -->
+            <!-- <td>
               <div class="custom-dropdown" uib-dropdown is-open="false">
                 <span type="text" class="custom-form" uib-dropdown-toggle ng-disabled="disabled">
-                  {{roleAside.newData.format || "Select"}}</span>
+                  {{vm.newData.format || "Select"}}</span>
                 <ul uib-dropdown-menu role="menu" aria-labelledby="single-button">
-                  <li role="menuitem"><a href="#" ng-click="roleAside.newData.format = 'Link'">Link</a></li>
-                  <li role="menuitem"><a href="#" ng-click="roleAside.newData.format = 'Attachment'">Attachment</a></li>
+                  <li role="menuitem"><a href="#" ng-click="vm.newData.format = 'Link'">Link</a></li>
+                  <li role="menuitem"><a href="#" ng-click="vm.newData.format = 'Attachment'">Attachment</a></li>
                 </ul>
               </div> 
             </td> -->
             <td>
             </td>
             <td>
-              <img src="/assets/imgs/ic_plus.svg" width="16px" height="16px" ng-click="roleAside.addReqt(roleAside.newData)">
+              <img src="/assets/imgs/ic_plus.svg" width="16px" height="16px" ng-click="vm.addReqt(vm.newData)">
             </td>
           </tr>
           </tbody>
         </table>
-        <div ng-if="roleAside.processing" class="custom-loader">
+        <div ng-if="vm.processing" class="custom-loader">
           <img style ="height:40px; width:auto" ng-src='/assets/imgs/spin.gif'>
         </div>   
-      <!-- <button ng-if="!roleAside.edit" type="submit" class="custom-btn-primary-large" ng-submit=".createRoleBtn()">Create role</button> -->
-      <button ng-if="!roleAside.edit" type="submit" id="submit" value="Create role" class="custom-btn-primary-large" ng-disabled="roleAside.processing">
+      <button ng-if="!vm.edit" type="submit" id="submit" value="Create role" class="custom-btn-primary-large" ng-disabled="vm.processing">
         Create role
       </button>
-      <button ng-if="roleAside.edit" type="submit" class="custom-btn-primary-large" ng-click="roleAside.updateRole()" ng-disabled="roleAside.processing">
+      <button ng-if="vm.edit" type="submit" class="custom-btn-primary-large" ng-click="vm.updateRole()" ng-disabled="vm.processing">
         Save
       </button>
-      <span ng-if="roleAside.processing" class="spinner"><span class="glyphicon glypicon-repeat"></span></span>
+      <span ng-if="vm.processing" class="spinner"><span class="glyphicon glypicon-repeat"></span></span>
 
     </form>
   </div>

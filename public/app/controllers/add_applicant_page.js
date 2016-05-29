@@ -58,12 +58,21 @@ angular.module('addApplicant', ['userService', 'mgcrea.ngStrap'])
       return callback();
     }
 
-    var normalizeLink = function(callback) {
-      console.log(vm.newData.links);
-      console.log(vm.applicants)
-      var NUMAPP = vm.applicants.length;
-      vm.appSHLinks[NUMAPP] = [];
+      var normalizeLink = function(callback) {
+        /*console.log(vm.newData.links);
+        console.log(vm.applicants)*/
+        var NUMAPP = vm.applicants.length;
+        vm.appSHLinks[NUMAPP] = [];
 
+        for (var i in vm.newData.links) {
+          var temp = {};
+          temp.source = vm.newData.links[i]
+          temp.name = vm.role.requirements[i].name;
+          vm.newData.links[i] = {}
+          if (temp.source && temp.source.length > 3) {
+            vm.newData.links[i] = temp;
+          }
+        }
       for (var i in vm.newData.links) {
         var temp = {};
         temp.source = vm.newData.links[i]
