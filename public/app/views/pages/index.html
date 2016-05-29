@@ -6,19 +6,27 @@
       <div class="brandMessage">
         <div class="row">
 
-          <div class="col-md-8 col-md-offset-2">
-
-                <div class="brandHeading">Sort talent, not files.</div>
-                <div class="brandSubHeading">BittyCasting is a simple tool for managing your next creative project without rummaging through your inbox.</div>
+          <div class="col-md-10 col-md-offset-1">
+              
+                <div class="col-md-8 col-md-offset-2">
+                    <div class="brandHeading">Sort talent, not files.</div>
+                    <div class="brandSubHeading">BittyCasting is a free tool for directors, studios, and agencies to recruit talent and manage their files without filling up their inbox.</div>
+                </div>
 
                 <div class="brandRequest">
                   <form id="newCustForm">
-                    <div class="col-sm-8">
+                    <div class="col-sm-3">
+                      <input class="custom-form-request" type="text" placeholder="Your name" ng-model="main.betaEmail">
+                    </div>
+                    <div class="col-sm-6">
                       <input class="custom-form-request" type="text" placeholder="Your E-mail" ng-model="main.betaEmail">
                     </div>
-                    <div class="col-sm-4">
-                      <button class="custom-btn-primary-large" type="submit" value="Send" ng-click="main.betaRequestBtn()">
-                        Request beta access
+                    <div class="col-sm-3">
+                      <button class="custom-btn-primary-large joinBeta" type="submit" value="Send" ng-click="main.betaRequestBtn()">
+                        Join the Beta
+                      </button>
+                      <button class="custom-btn-primary-large sentBeta" type="submit" value="Send" ng-click="main.betaRequestBtn()">
+                        Request sent
                       </button>
                     </div>
                   </form>         
@@ -56,11 +64,8 @@
              data-parallax='{"x" : 80, "distance": 0, "smoothness": 10}'/>
       </div>
       <div class="col-md-6 col-sm-6">
-        <div class="featureTitle">Organize</div>
-        <div class="featureSubtitle">We’ll sort for you.</div>
-        <p>Email, Dropbox, iCloud, and your hard drive—these are fine for keeping track of your personal files, but why
-          should you have to keep track of others’ files there? Let BittyCasting take over, so you don’t have to worry
-          about where you left a file or what it was named.</p>
+        <div class="featureTitle">Keep out of your inbox</div>
+        <div class="featureSubtitle">Store your talent’s files in the cloud, so you can quickly find and filter candidates—anytime, anywhere.</div>
       </div>
       <div class="clear"></div>
     </div>
@@ -70,11 +75,8 @@
              data-parallax='{"x" : 80, "distance": 0, "smoothness": 10}'/>
       </div>
       <div class="col-md-6 col-sm-6">
-        <div class="featureTitle">Share</div>
-        <div class="featureSubtitle">Never deal with files over email again.</div>
-        <p>Whether you’re casting a short film, running a talent show, or taking open contest submissions, with a simple
-          link, you can share your project, letting applicants send in a set of required submission criteria, be it an
-          audition reel, a voice over sample, a manuscript, a photo, or just a résumé.</p>
+        <div class="featureTitle">Look professional</div>
+        <div class="featureSubtitle">Create a custom project page where applicants can view and apply for roles, no email or design required.</div>
       </div>
       <div class="clear"></div>
     </div>
@@ -84,11 +86,8 @@
              data-parallax='{"x" : 80, "distance": 0, "smoothness": 10}'/>
       </div>
       <div class="col-md-6 col-sm-6">
-        <div class="featureTitle">Collaborate</div>
-        <div class="featureSubtitle">Find the best talent. Instantly.</div>
-        <p>Even small projects require multiple people, so that’s why BittyCasting includes a robust set of tools for
-          collaboration. You can easily review, provide feedback, evaluate on submissions before making the final call.
-          Plus, you can also invite an applicant to follow up in a snap.</p>
+        <div class="featureTitle">Collaborate with your team</div>
+        <div class="featureSubtitle">Build consensus with your collaborators by favoriting and commenting on the best applicants for a role.</div>
       </div>
       <div class="clear"></div>
     </div>
@@ -96,12 +95,11 @@
       <div class="col-md-4 col-sm-6 col-md-offset-1">
         <img ng-src="assets/imgs/img_interface04.png" class="img-responsive "
              data-parallax='{"x" : 80, "distance": 0, "smoothness": 10}'/>
-
       </div>
       <div class="col-md-6 col-sm-6">
-        <div class="featureTitle">Save</div>
-        <div class="featureSubtitle">Access from anywhere.</div>
-        <p>We store your project files in the cloud, keeping them safe and separated from your personal files. Access the talent’s files anywhere, anytime, regardless of the computer you’re using.</p>
+        <div class="featureTitle">Reach a wider audience</div>
+        <div class="featureSubtitle">Go where the talent is by simply sharing a casting call on your favorite social network.
+</div>
       </div>
       <div class="clear"></div>
     </div>
@@ -121,7 +119,7 @@
 
         <div class="col-md-6">
             <quote>
-            <p>“I have absolutely LOVED BittyCasting and would continue to use this for every project down the road. I am sure that with your continued development, this will grow into an absolutely phenomenal casting portal that outshines anything else out there.”
+            <p>“I have absolutely LOVED BittyCasting and would continue to use this for every project down the road. I am sure that with their continued development, this will grow into an absolutely phenomenal casting portal that outshines anything else out there.”
         </p>
             <span>— Steven Hudson, Executive Producer</span>
             <div class="clear"></div>
@@ -237,6 +235,10 @@
   <div class="container">
         <div class="sectionTitle">About</div>
         <div class="sectionTitleDivider"></div>
+        <div class="col-md-6 col-md-offset-3 teamIntro">
+            We are a team of entrepreneurs from Seattle, Washington focused on creating great tools to empower filmmakers, actors, and talent agencies.
+        </div>
+        <div class="clear"></div>
         <div class="col-md-3 col-sm-6 col-xs-6 teamMember">
             <img ng-src="assets/imgs/pic_team_ryan.png" class="img-responsive">
             <p>Ryan Nelson</p>
@@ -287,11 +289,12 @@
     <div class="sectionTitle">Contact</div>
     <div class="sectionTitleDivider"></div>
     <div class="contactInfo">
-      <p><img ng-src="assets/imgs/ic_email.svg">support@bittycasting.com</p>
+        <p><img ng-src="assets/imgs/ic_email.svg"><a href="mailto:support@bittycasting.com" target="_blank">support@bittycasting.com</a></p>
 
-      <p><img ng-src="assets/imgs/ic_phone.svg">+1 503 488 0906</p>
-
-      <p><img ng-src="assets/imgs/ic_location.svg">Seattle, United States</p>
+        <p><img ng-src="assets/imgs/ic_social_fb_stroke_b.svg"><a href="https://www.facebook.com/BittyCasting/" target="_blank">https://www.facebook.com/BittyCasting/</a></p>
+      <p><img ng-src="assets/imgs/ic_social_twitter_stroke_b.svg"><a href="https://twitter.com/BittyCasting/" target="_blank">https://twitter.com/BittyCasting/</a></p>
+      <p><img ng-src="assets/imgs/ic_social_linkedin_stroke_b.svg"><a href="https://www.linkedin.com/company/bittycasting/" target="_blank">https://www.linkedin.com/company/bittycasting/</a></p>
+<!--      <p><img ng-src="assets/imgs/ic_location.svg">Seattle, United States</p>-->
     </div>
   </div>
 

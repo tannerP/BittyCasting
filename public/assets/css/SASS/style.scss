@@ -58,6 +58,8 @@ $color-coral-lighten: #e59689;
 $color-red-darken: #ba3a3a;
 $color-red: #D84444;
 
+$color-green: #75a332;
+
 /***************************
            Font
 ***************************/
@@ -685,7 +687,8 @@ section {
     &.home {
         width: 100%; 
         padding-bottom: 140px;
-        background: url("/assets/imgs/img_indexCover.png") no-repeat 50% 50% fixed;
+        background: url("/assets/imgs/img_indexCover02.png") no-repeat 50% 50% fixed;
+        position: relative;
         -webkit-background-size: cover;
         -moz-background-size: cover;
         -o-background-size: cover;
@@ -697,15 +700,18 @@ section {
             width: 100%;
             .brandHeading {
                 font-size: 36px;
-                color: $color-grey-darkest;
+                color: white;
                 letter-spacing: 2;
-                margin-bottom: 30px;
+                margin-bottom: 25px;
+                font-weight: 200;
+                text-transform: capitalize;
             } 
             .brandSubHeading {
                 font-size: 20px;
-                color: $color-grey-dark;
-                line-height: 38px;
-                margin-bottom: 30px;
+                color: white;
+                line-height: 34px;
+                margin-bottom: 35px;
+                font-weight: 200;
             } 
             .brandRequest {   
                 margin-top: 40px;
@@ -721,10 +727,22 @@ section {
                         border: 1px solid $color-blue;
                     }
                 }
-                button {
+                .joinBeta {
                     width: 100%;
                     height: 60px;
-                    display: inline-block;}               
+                    display: inline-block;
+                    margin-bottom: 10px;} 
+                .sentBeta {
+                    width: 100%;
+                    height: 60px;
+                    display: inline-block;
+                    margin-bottom: 10px; 
+                    padding: 12px 0px 12px 35px;
+                    border: 1px solid white;
+                    background: url("/assets/imgs/ic_check_circle_w.svg") no-repeat center left 30px transparent;
+                    background-size: 32px 32px;
+                    cursor: default;
+                    }
                 p {
                     font-size: $font-size-regular;
                     color: $color-grey;
@@ -750,12 +768,16 @@ section {
                 font-size: 24px;
                 color: $color-blue;
                 margin: 20px 0 10px 0;
+                font-weight: 200;
+                vertical-align: middle;
+                text-transform: capitalize;
             }
             .featureSubtitle {
                 font-size: 16px;
-                color: $color-grey;
+                color: $color-grey-dark;
                 line-height: 24px;
                 margin-bottom: 10px;
+                vertical-align: middle;
             }
         }
     }
@@ -770,9 +792,10 @@ section {
                 font-size: 16px;
                 line-height: 26px;
                 font-style: italic;
+                color: $color-grey-dark;
             }
             span {
-                font-size: $font-size-regular;
+                font-size: $font-size-medium;
                 color: $color-grey;
                 float: right;
                 margin-top: 10px;
@@ -847,7 +870,7 @@ section {
 //        background: url("/assets/imgs/img_aboutBg.png") no-repeat center bottom white;
         p {
             font-size: 18px;
-            margin: 20px 0 5px 0;
+            margin: 5px 0 5px 0;
         }
         span {
             color: $color-grey;
@@ -857,6 +880,14 @@ section {
             @include border-radius(50%);
             padding: 20px;
             margin: 0 auto;
+        }
+        
+        .teamIntro {
+            margin-top: -20px;
+            margin-bottom: 30px;
+            font-size: 16px;
+            color: $color-grey-dark;
+            line-height: 24px;
         }
         
         .teamSocial {
@@ -904,19 +935,32 @@ section {
     &.contact {
         text-align: center;
         padding-bottom: 120px;
+        background: url("/assets/imgs/img_indexCover03.png") no-repeat center center fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
         .contactInfo {
             display: inline-block;
             text-align: left;
 
             img {
-                width: 32px;
-                height: 32px;
+                width: 28px;
+                height: 28px;
                 vertical-align: middle;
-                margin-right: 10px;
+                margin-right: 20px;
                 display: inline;
             }
             p {
                 font-size: $font-size-medium;
+                a {
+                    color: $color-grey-darkest;
+                    padding-bottom: 5px;
+                    &:hover, &:focus {
+                        border-bottom: 1px solid $color-grey-darkest;
+                        padding-bottom: 5px;
+                    }
+                }
                 
             }
         }
@@ -2657,7 +2701,10 @@ text-align: center;
     section.about {
         img {max-width: 240px; padding: 0;}
         .teamMember {margin-bottom: 30px;}
-        p {font-size: $font-size-large;}
+        p {
+            font-size: $font-size-large;
+            margin: 20px 0 5px 0;
+        }
         span {font-size: $font-size-regular;}
     }
     
