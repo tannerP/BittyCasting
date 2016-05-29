@@ -648,13 +648,14 @@ section.home {
       font-size: 36px;
       color: white;
       letter-spacing: 2;
-      margin-bottom: 30px;
-      font-weight: 200; }
+      margin-bottom: 25px;
+      font-weight: 200;
+      text-transform: capitalize; }
     section.home .brandMessage .brandSubHeading {
       font-size: 20px;
       color: white;
-      line-height: 38px;
-      margin-bottom: 30px;
+      line-height: 34px;
+      margin-bottom: 35px;
       font-weight: 200; }
     section.home .brandMessage .brandRequest {
       margin-top: 40px; }
@@ -699,7 +700,8 @@ section.features {
       color: #06bcc2;
       margin: 20px 0 10px 0;
       font-weight: 200;
-      vertical-align: middle; }
+      vertical-align: middle;
+      text-transform: capitalize; }
     section.features .featureDes .featureSubtitle {
       font-size: 16px;
       color: #666666;
@@ -716,7 +718,7 @@ section.testimonial {
     font-style: italic;
     color: #666666; }
   section.testimonial quote span {
-    font-size: 12px;
+    font-size: 14px;
     color: #999999;
     float: right;
     margin-top: 10px; }
@@ -726,7 +728,7 @@ section.about {
   text-align: center; }
   section.about p {
     font-size: 18px;
-    margin: 20px 0 5px 0; }
+    margin: 5px 0 5px 0; }
   section.about span {
     color: #999999; }
   section.about img {
@@ -736,6 +738,12 @@ section.about {
     border-radius: 50%;
     padding: 20px;
     margin: 0 auto; }
+  section.about .teamIntro {
+    margin-top: -20px;
+    margin-bottom: 30px;
+    font-size: 16px;
+    color: #666666;
+    line-height: 24px; }
   section.about .teamSocial {
     margin-top: 20px; }
     section.about .teamSocial a {
@@ -788,13 +796,19 @@ section.contact {
     display: inline-block;
     text-align: left; }
     section.contact .contactInfo img {
-      width: 32px;
-      height: 32px;
+      width: 28px;
+      height: 28px;
       vertical-align: middle;
-      margin-right: 10px;
+      margin-right: 20px;
       display: inline; }
     section.contact .contactInfo p {
       font-size: 14px; }
+      section.contact .contactInfo p a {
+        color: #242424;
+        padding-bottom: 5px; }
+        section.contact .contactInfo p a:hover, section.contact .contactInfo p a:focus {
+          border-bottom: 1px solid #242424;
+          padding-bottom: 5px; }
 
 /***************************
            Homepage
@@ -2428,7 +2442,8 @@ ul.select-coverphoto-wrapper {
   section.about .teamMember {
     margin-bottom: 30px; }
   section.about p {
-    font-size: 16px; }
+    font-size: 16px;
+    margin: 20px 0 5px 0; }
   section.about span {
     font-size: 12px; }
 

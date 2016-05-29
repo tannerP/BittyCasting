@@ -702,14 +702,15 @@ section {
                 font-size: 36px;
                 color: white;
                 letter-spacing: 2;
-                margin-bottom: 30px;
+                margin-bottom: 25px;
                 font-weight: 200;
+                text-transform: capitalize;
             } 
             .brandSubHeading {
                 font-size: 20px;
                 color: white;
-                line-height: 38px;
-                margin-bottom: 30px;
+                line-height: 34px;
+                margin-bottom: 35px;
                 font-weight: 200;
             } 
             .brandRequest {   
@@ -768,6 +769,7 @@ section {
                 margin: 20px 0 10px 0;
                 font-weight: 200;
                 vertical-align: middle;
+                text-transform: capitalize;
             }
             .featureSubtitle {
                 font-size: 16px;
@@ -792,7 +794,7 @@ section {
                 color: $color-grey-dark;
             }
             span {
-                font-size: $font-size-regular;
+                font-size: $font-size-medium;
                 color: $color-grey;
                 float: right;
                 margin-top: 10px;
@@ -867,7 +869,7 @@ section {
 //        background: url("/assets/imgs/img_aboutBg.png") no-repeat center bottom white;
         p {
             font-size: 18px;
-            margin: 20px 0 5px 0;
+            margin: 5px 0 5px 0;
         }
         span {
             color: $color-grey;
@@ -877,6 +879,14 @@ section {
             @include border-radius(50%);
             padding: 20px;
             margin: 0 auto;
+        }
+        
+        .teamIntro {
+            margin-top: -20px;
+            margin-bottom: 30px;
+            font-size: 16px;
+            color: $color-grey-dark;
+            line-height: 24px;
         }
         
         .teamSocial {
@@ -931,14 +941,22 @@ section {
             text-align: left;
 
             img {
-                width: 32px;
-                height: 32px;
+                width: 28px;
+                height: 28px;
                 vertical-align: middle;
-                margin-right: 10px;
+                margin-right: 20px;
                 display: inline;
             }
             p {
                 font-size: $font-size-medium;
+                a {
+                    color: $color-grey-darkest;
+                    padding-bottom: 5px;
+                    &:hover, &:focus {
+                        border-bottom: 1px solid $color-grey-darkest;
+                        padding-bottom: 5px;
+                    }
+                }
                 
             }
         }
@@ -2679,7 +2697,10 @@ text-align: center;
     section.about {
         img {max-width: 240px; padding: 0;}
         .teamMember {margin-bottom: 30px;}
-        p {font-size: $font-size-large;}
+        p {
+            font-size: $font-size-large;
+            margin: 20px 0 5px 0;
+        }
         span {font-size: $font-size-regular;}
     }
     
