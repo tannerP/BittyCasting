@@ -5,28 +5,25 @@
     <div class="container">
       <div class="brandMessage">
         <div class="row">
-
           <div class="col-md-10 col-md-offset-1">
-              
                 <div class="col-md-8 col-md-offset-2">
                     <div class="brandHeading">Sort talent, not files.</div>
                     <div class="brandSubHeading">BittyCasting is a free tool for directors, studios, and agencies to recruit talent and manage their files without filling up their inbox.</div>
                 </div>
-
                 <div class="brandRequest">
                   <form id="newCustForm">
-                    <div class="col-sm-3">
-                      <input class="custom-form-request" type="text" placeholder="Your name" ng-model="main.betaEmail">
+                    <!-- <div class="col-sm-3">
+                      <input class="custom-form-request" type="text" placeholder="Your name" ng-model="main.name">
+                    </div> -->
+                    <div class="col-sm-8">
+                      <input class="custom-form-request" type="text" placeholder="{{ main.betaSubMessage ||'Your E-mail'}}" ng-model="main.betaEmail">
                     </div>
-                    <div class="col-sm-6">
-                      <input class="custom-form-request" type="text" placeholder="Your E-mail" ng-model="main.betaEmail">
-                    </div>
-                    <div class="col-sm-3">
-                      <button class="custom-btn-primary-large joinBeta" type="submit" value="Send" ng-click="main.betaRequestBtn()">
+                    <div class="col-sm-4">
+                      <button ng-show="!isSending"
+                              class="custom-btn-primary-large joinBeta"
+                              type="submit" value="Send"
+                              ng-click="main.betaRequestBtn();">
                         Join the Beta
-                      </button>
-                      <button class="custom-btn-primary-large sentBeta" type="submit" value="Send" ng-click="main.betaRequestBtn()">
-                        Request sent
                       </button>
                     </div>
                   </form>         
@@ -34,9 +31,7 @@
                 <p class="col-sm-12">We are currently in private beta. Access to the beta is by invitation only. </p>
                 <div class="clear"></div>    
               </div>
-
          </div>
-            
          <div class="col-md-10 col-md-offset-1">   
             <div class="videoFrameWrapper">
               <div class="embed-responsive embed-responsive-16by9 videoFrame">

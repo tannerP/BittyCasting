@@ -73,7 +73,7 @@ angular.module('userService', [])
 	var mailFactory = {};
 	
 	mailFactory.betaUser = function(email)	{
-		return $http.get('submit/:' + email);
+		return $http.put('submit/:' + email);
 	}
 	mailFactory.sendFB = function(data)	{
 		/*console.log(feedback);*/
