@@ -6,9 +6,10 @@ angular.module('awsService', [])
 .factory('AWS', function($http, Applicant, Upload, $rootScope, $q) {
   var aws = [];
   var upload = [];
+  var bucket
   $http.get('/config').success(function(data) {
     $rootScope.awsConfig = data.awsConfig;
-    var bucket = $rootScope.awsConfig.bucket
+     bucket = $rootScope.awsConfig.bucket
   });
   
   aws.uploadS3 = function(data) {
