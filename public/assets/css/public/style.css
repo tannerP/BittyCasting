@@ -1592,6 +1592,13 @@ ul.projects li {
     -webkit-box-shadow: 0 0 0px 1000px white inset; }
   .form-group img:hover, .form-group img:focus {
     cursor: pointer; }
+  .form-group .uploadImg {
+    margin: 0 5px 5px 0; }
+  .form-group a {
+    line-height: 34px;
+    cursor: pointer; }
+    .form-group a.uploadAddMore {
+      float: right; }
 
 .custom-form {
   display: block;
@@ -1613,6 +1620,9 @@ ul.projects li {
     padding: 6px 0;
     margin-top: -5px;
     width: 100%; }
+    .custom-form input.inputShort {
+      width: 80%;
+      display: inline; }
     .custom-form input:focus {
       outline: none;
       border-bottom: 1px solid #06bcc2; }

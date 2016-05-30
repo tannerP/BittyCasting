@@ -1781,6 +1781,17 @@ ul.projects li {
             cursor: pointer;
         }
     }
+    .uploadImg {
+        margin: 0 5px 5px 0;
+    }
+    a {
+        line-height: 34px;
+        cursor: pointer;
+        &.uploadAddMore {
+            float: right;
+        }
+    }
+
 }
 
 .custom-form {
@@ -1801,6 +1812,7 @@ ul.projects li {
         padding: 6px 0;
         margin-top: -5px;
         width: 100%;
+        &.inputShort {width: 80%; display: inline;}
         &:focus {
             outline: none;
             border-bottom: 1px solid $color-blue;
