@@ -32,11 +32,6 @@ angular.module('userApp', [
 	'app.routes',
 	'textarea-fit'
 	])
-  .run(function ($rootScope, $location, $http) {
-    $http.get('/config').success(function(data) {
-        $rootScope.awsConfig = data.awsConfig;
-      });
-  })
   .run(function($animate) {
   	$animate.enabled(true);
 	})
