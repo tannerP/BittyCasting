@@ -191,6 +191,7 @@ angular.module('applyCtrl', ['userService', 'mgcrea.ngStrap'])
     Pub.getAppPrj($routeParams.id).then(function(data) {
       vm.project = data.data.project.project;
       $rootScope.meta = Meta.prjMeta(vm.project);
+      console.log($rootScope.meta)
       vm.roles = data.data.project.roles;
       if (vm.project) {
         $rootScope.meta = Meta.prjMeta(vm.project);
@@ -228,6 +229,7 @@ angular.module('applyCtrl', ['userService', 'mgcrea.ngStrap'])
         Pub.getAppPrj(castingRole.projectID).then(function(data) {
           vm.project = data.data.project.project;
           $rootScope.meta = Meta.prjMeta(vm.project);
+          console.log($rootScope.meta)
           vm.otherRoles = data.data.project.roles;
 
           if (vm.project && vm.roles[0]) {
