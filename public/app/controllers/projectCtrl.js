@@ -20,6 +20,7 @@ angular.module('projectCtrl', ['userService',
         .success(function(data) {
           /*console.log(data)*/
           vm.project = data.project.project;
+          $rootScope.meta = Meta.prjMeta(vm.project);
 
           vm.roles = data.project.roles;
           if (vm.roles.length >= 1) {
