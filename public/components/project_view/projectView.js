@@ -15,7 +15,6 @@ angular.module('ProjectView', ['userService',
 
       $scope.selectedDate = SD;
       vm.roleData = {},
-      vm.roleData.sex = "Female"
         vm.roleData.requirements = [{
           name: "Headshot",
           required: true,

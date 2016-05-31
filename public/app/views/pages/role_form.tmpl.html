@@ -82,10 +82,10 @@
                         <li role="menuitem"><a href="#" ng-click="vm.roleData.ethnicity= 'Any'">Any</a></li>
                         <li role="menuitem"><a href="#" ng-click="vm.roleData.ethnicity = 'Asian'">Asian</a></li>
                         <li role="menuitem"><a href="#" ng-click="vm.roleData.ethnicity = 'Black or African American'">Black or African American</a></li>
+                        <li role="menuitem"><a href="#" ng-click="vm.roleData.ethnicity = 'Caucasian'">Caucasian</a></li>
                         <li role="menuitem"><a href="#" ng-click="vm.roleData.ethnicity = 'Hawaiiain or Pacific Islander'">Hawaiiain or Pacific Islander</a></li>
-                        <li role="menuitem"><a href="#" ng-click="vm.roleData.ethnicity = 'Middleeastern'">Middleeastern</a></li>
+                        <li role="menuitem"><a href="#" ng-click="vm.roleData.ethnicity = 'Middle Eastern'">Middle Eastern</a></li>
                         <li role="menuitem"><a href="#" ng-click="vm.roleData.ethnicity = 'Native American'">Native American</a></li>
-                        <li role="menuitem"><a href="#" ng-click="vm.roleData.ethnicity = 'White'">White</a></li>
                         <li role="menuitem"><a href="#" ng-click="vm.roleData.ethnicity = 'Other'">Other</a></li>
                     </ul>
                 </div>                 
@@ -105,7 +105,7 @@
           <div class = "form-group">
                 <label>Gender</label>
                 <div class="custom-dropdown" uib-dropdown is-open="false">
-                    <span type="text" class="custom-form" uib-dropdown-toggle ng-disabled="disabled">{{vm.roleData.sex || "Female"}}</span>
+                    <span type="text" class="custom-form" uib-dropdown-toggle ng-disabled="disabled">{{vm.roleData.sex || "Select"}}</span>
                     <ul uib-dropdown-menu role="menu" aria-labelledby="single-button">
                         <li role="menuitem"><a href="#" ng-click="vm.roleData.sex = 'Female'">Female</a></li>
                         <li role="menuitem"><a href="#" ng-click="vm.roleData.sex = 'Male'">Male</a></li>
