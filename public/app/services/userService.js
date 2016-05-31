@@ -248,15 +248,12 @@ angular.module('userService', [])
 		return $http.get('/api/users');
 	};
 
-<<<<<<< HEAD
 	userFactory.createWithInvitation = function(inviteID,userData)	{
 		console.log(inviteID)
 		return $http.put('/register/invitation/'+inviteID, userData);
 	};
 	userFactory.create = function(userData)	{
-=======
-	userFactory.create = function(userData) {
->>>>>>> dev
+
 		return $http.post('/register/', userData);
 	};
 

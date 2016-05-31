@@ -885,9 +885,9 @@ module.exports = function(app, express) {
 					money.name = user.name;
 					money.role = user.role;
 					money._id = user._id;
-					res.json({
+					/*res.json({
 						data: money
-					});
+					});*/
 				}
 				var money = {}
 				money.name = user.name;
