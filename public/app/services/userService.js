@@ -4,18 +4,19 @@ angular.module('userService', [])
 
 .service("Meta", function() {
 	var meta = new Object();
-	meta.site_name = "http://bittycasting.com";
 	meta.type = "website";
+	meta.site_name = "https://bittycasting.com";
+
 	this.default = function() {
 		meta.title = "BittyCasting";
-		meta.url = "http://bittycasting.com";
+		meta.url = "https://bittycasting.com";
 		meta.description = "A free online casting tool for managing and organizing your next film, theater, or performance project.";
 		meta.image = "http://bittycasting.com/assets/imgs/favicon/apple-icon-310x310.png";
 		return meta;
 	}
 	this.roleMeta = function(role, project) {
 		meta.title = "CASTING CALL: " + role.name
-		meta.url = meta.site_name + "/Apply/" + role._id;
+		meta.url += meta.site_name + "/Apply/" + role._id;
 		meta.description = role.description;
 		if (project.coverphoto.name === "default") {
 			meta.image = meta.site_name + '/' + project.coverphoto.source;
@@ -68,7 +69,7 @@ angular.module('userService', [])
 	var mailFactory = {};
 
 	mailFactory.betaUser = function(email) {
-		return $http.get('submit/:' + email);
+		return $http.put('submit/:' + email);
 	}
 	mailFactory.sendFB = function(data) {
 			/*console.log(feedback);*/
@@ -98,11 +99,12 @@ angular.module('userService', [])
 	appFactory.update = function(id, data) {
 		return $http.put('/suppliment/' + id, data);
 	}
-	appFactory.viewedUpdate = function(id) {
+
+	appFactory.viewedUpdate = function(appID, roleID) {
 		var money = {};
 		money.status = "new"
-		money.new = false;
-		return $http.put('/api/app' + id, money);
+		money.roleID = roleID;
+		return $http.put('/api/app/' + appID, money);
 	}
 	appFactory.favUpdate = function(app, roleID) {
 			/*console.log(roleID);*/
@@ -226,6 +228,10 @@ angular.module('userService', [])
 	userFactory.delete = function(id) {
 		return $http.delete('/api/users/' + id);
 	};
+
+	/*userFactory.updateViewPref = function(viewType, page)	{
+		return $http.delete('/api/users/' + id);
+	};*/
 
 	return userFactory;
 });

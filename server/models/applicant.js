@@ -5,9 +5,14 @@ var ApplicantSchema = new Schema({
 	creatorID:{type:String, default: "applicant"},
 	updated_date: {type:Date, default:Date.now},
 	submission_date:{type:Date, default:Date.now},
+	agent:String,
 	/*new : [{
 		:Boolean
 	}],*/
+	userViewed_IDs: [{
+		userID:String,
+		roleID:String
+	}],
 	name : { first: String, last: String },
 	favorited :{type:Boolean, default:false},
 	favs : [{
@@ -22,6 +27,9 @@ var ApplicantSchema = new Schema({
 		type:String,
 		required:false,
 	},
+	compensation:String,
+	usage:String,
+	ethnicity:String,
 	phone:{
 		type:String,
 		required:false,

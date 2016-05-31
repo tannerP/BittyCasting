@@ -20,6 +20,7 @@ angular.module('userApp', [
 	'projectCtrl',
 	'userCtrl',
 	'roleCtrl',
+	'applicantFilters',
 	'footer',
 	'ReviewPage',
 	'ProjectView',

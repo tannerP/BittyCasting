@@ -53,95 +53,115 @@ module.exports = function(app, express) {
 	});
 
 	//==============================  Applicants =========================
-	    //route for adding new requirement. 
+	//route for adding new requirement. 
 	apiRouter.route('/app/:app_id')
-  	.put(function(req, res) {
-    if (req.body.status === "new") {
-      /*console.log(req.body);*/
-      Applicant.findById(req.params.app_id, function(err, app) {
-        app.new = false
-        app.save(function(err, data) {
-          if (err) {
-            return res.json({
-              success: false,
-              error: err
-            });
-          } else {
-            return res.json({
-              success: true,
-              message: "Updated Role new attr"
-            });
-          }
-          return res.json({
-            success: true,
-            message: 'updated'
-          });
-        })
-      });
-      //TODO: move to /api
-    } else if (req.body.status = "fav") {
-      //role favoriting for. 
-      Applicant.findById(req.params.app_id, function(err, app) {
-        /*= req.body.favorited;*/
+		.put(function(req, res) {
+			if (req.body.status === "new") {
+				/*console.log(req.body);*/
+				Applicant.findById(req.params.app_id, function(err, app) {
+					if (err) {
+						return res.json({
+							success: false,
+							error: err,
+							message: "App doesn't exist"
+						});
+					}
+					var money = {}
+					money.roleID = req.body.roleID;
+					money.userID = req.decoded.id;
+					var viewed = app.userViewed_IDs;
+					//return if user has already viewed
+					for (var i in viewed) {
+						if (viewed[i].userID === money.userID && viewed[i].roleID === money.roleID) {
+							return res.json({
+								success: false,
+								message: "Already exist",
+								viewed: true
+							});
 
-        /*console.log(tempFav);*/
-        var usrInx = -1;
-        // console.log(app.favs)
-        //check if user ever favorited applicant for this role
-        for (var i in app.favs) {
-          var curr = {};
-          curr.roleID = app.favs[i].roleID,
-            curr.userID = app.favs[i].userID;
+						}
+					}
+					app.userViewed_IDs.push(money);
+					/*console.log(app.userViewed_IDs)*/
+					app.save(function(err, data) {
+						if (err) {
+							return res.json({
+								success: false,
+								error: err
+							});
+						} else {
+							return res.json({
+								success: true,
+								message: "Updated",
+								viewed: true
+							});
+						}
+					})
+				});
+				//TODO: move to /api
+			} else if (req.body.status === "fav") {
+				//role favoriting for. 
+				Applicant.findById(req.params.app_id, function(err, app) {
+					/*= req.body.favorited;*/
 
-          // if applicant has been favorited for spec. role. 
-          if (curr.userID === req.decoded.id && curr.roleID === req.body.roleID) {
-            usrInx = i;
-          }
-        }
+					/*console.log(tempFav);*/
+					var usrInx = -1;
+					// console.log(app.favs)
+					//check if user ever favorited applicant for this role
+					for (var i in app.favs) {
+						var curr = {};
+						curr.roleID = app.favs[i].roleID,
+							curr.userID = app.favs[i].userID;
 
-        /*        console.log(usrInx);
-         */
-        /*var index = app.favs.indexOf(req.decoded.id);*/
-        if (usrInx === -1) {
-          /*          console.log("adding for the first time");*/
-          var reqData = {
-            roleID: req.body.roleID,
-            userID: req.decoded.id,
-            favorited: true
-          };
-          app.favs.push(reqData);
-          /*console.log(app.favs)*/
-        } else {
-          /*console.log("toggle favorite")*/
-          app.favs[usrInx].favorited = !app.favs[usrInx].favorited;
-          /*console.log(app.favs[usrInx].favorited);*/
-        }
-        /*app.favorited = req.body.favorited;*/
-        /*console.log()*/
-        /*app.favs=[];*/
-        app.save(function(err, data) {
-          /*console.log(data.favs);*/
-          if (err) {
-            return res.json({
-              success: false,
-              error: err
-            })
-          } else {
-            /*console.log("Success updating favorited");
-            console.log(data);*/
-            return res.json({
-              success: true,
-            });
-          }
-          return res.json({
-            success: true,
-            message: 'updated'
-          });
-        })
-      });
-    }
-  })
-	//Get all applicants
+						// if applicant has been favorited for spec. role. 
+						if (curr.userID === req.decoded.id && curr.roleID === req.body.roleID) {
+							usrInx = i;
+						}
+					}
+
+					/*        console.log(usrInx);
+					 */
+					/*var index = app.favs.indexOf(req.decoded.id);*/
+					if (usrInx === -1) {
+						/*          console.log("adding for the first time");*/
+						var reqData = {
+							roleID: req.body.roleID,
+							userID: req.decoded.id,
+							favorited: true
+						};
+						app.favs.push(reqData);
+						/*console.log(app.favs)*/
+					} else {
+						/*console.log("toggle favorite")*/
+						app.favs[usrInx].favorited = !app.favs[usrInx].favorited;
+						/*console.log(app.favs[usrInx].favorited);*/
+					}
+					/*app.favorited = req.body.favorited;*/
+					/*console.log()*/
+					/*app.favs=[];*/
+					app.save(function(err, data) {
+						/*console.log(data.favs);*/
+						if (err) {
+							return res.json({
+								success: false,
+								error: err
+							})
+						} else {
+							/*console.log("Success updating favorited");
+							console.log(data);*/
+							return res.json({
+								success: true,
+							});
+						}
+						/*return res.json({
+						  success: true,
+						  message: 'updated'
+						});*/
+					})
+				});
+			}
+		})
+		//Get all applicants
 	apiRouter.route('/applicants/:roleID')
 		.get(function(req, res) {
 			Applicant.find({
@@ -217,7 +237,7 @@ module.exports = function(app, express) {
 									app.save();
 								} else {
 									/*console.log("before removing supps")*/
-									if(app.suppliments.length > 0){
+									if (app.suppliments.length > 0) {
 										aws.removeSup(app.suppliments);
 									}
 									/*console.log("after removing supps")*/
@@ -249,13 +269,13 @@ module.exports = function(app, express) {
 	apiRouter.route('/AppCount/:ID')
 		.get(function(req, res) {
 			Applicant.count({
-        $or: [{
-          'roleID': roleID
-        }, {
-          'roleIDs': {
-            $in: [roleID]
-          }
-        }]
+				$or: [{
+					'roleID': roleID
+				}, {
+					'roleIDs': {
+						$in: [roleID]
+					}
+				}]
 			}, function(err, count) {
 				/*console.log(count);*/
 				if (err) {
@@ -348,19 +368,25 @@ module.exports = function(app, express) {
 			/*console.log(req.body);*/
 			var URL = config.baseURL + "/Apply/";
 
-			role.projectID = req.params.projectID;
-			role.name = req.body.name;
+			role.age = req.body.age;
+			role.compensation = req.body.compensation;
+
 			role.description = req.body.description;
+			role.ethnicity = req.body.ethnicity;
 			role.end_date = req.body.end_date;
 			role.end_time = req.body.end_time;
-
 			role.location = req.body.location;
+			role.name = req.body.name;
 			role.payterms = req.body.payterms;
-			/*role.age = req.body.age;*/
+			role.projectID = req.params.projectID;
+			role.usage = req.body.usage;
+
+
 			role.sex = req.body.sex;
 			role.requirements = req.body.requirements;
 
 			role.save(function(err, role) {
+				console.log(role)
 				if (err) {
 					return res.json({
 						success: false,
@@ -425,7 +451,7 @@ module.exports = function(app, express) {
 					if (err) console.log(err);
 					else {
 						for (var a in apps) {
-								if (apps[a].suppliments.length > 0) {
+							if (apps[a].suppliments.length > 0) {
 								aws.removeSup(apps[a].suppliments);
 								apps[a].remove();
 							} else {
@@ -466,16 +492,23 @@ module.exports = function(app, express) {
 		.put(function(req, res) {
 			Role.findById(req.params.role_id, function(err, role) {
 				if (err) res.send(err);
-
 				role.name = req.body.name;
+				role.age = req.body.age;
+				role.compensation = req.body.compensation;
+
 				role.description = req.body.description;
+				role.ethnicity = req.body.ethnicity;
 				role.end_date = req.body.end_date;
 				role.end_time = req.body.end_time;
-				role.requirements = req.body.requirements;
 				role.location = req.body.location;
+				role.name = req.body.name;
 				role.payterms = req.body.payterms;
-				role.age = req.body.age;
+				role.projectID = req.body.projectID;
+				role.usage = req.body.usage;
+
+
 				role.sex = req.body.sex;
+				role.requirements = req.body.requirements;
 				role.save(function(err) {
 					if (err) {
 						return res.json({
@@ -509,7 +542,7 @@ module.exports = function(app, express) {
 					})
 				}
 				res.json({
-					success:true,
+					success: true,
 					projectID: project._id,
 					message: 'Project created.'
 
@@ -545,6 +578,8 @@ module.exports = function(app, express) {
 				if (err) res.send(err);
 				if (req.body.name) project.name = req.body.name;
 				if (req.body.description) project.description = req.body.description;
+				else project.description = null;
+
 				if (req.body.updated_date) project.updated_date = req.body.updated_date;
 				if (req.body.coverphoto) project.coverphoto = req.body.coverphoto;
 				project.save(function(err) {
@@ -574,9 +609,9 @@ module.exports = function(app, express) {
 					else {
 						for (var a in apps) {
 							/*console.log(apps[a].roleIDs.length);*/
-								if(apps[a].suppliments.length <= 1){
-									aws.removeSup(apps[a].suppliments);
-									apps[a].remove();
+							if (apps[a].suppliments.length <= 1) {
+								aws.removeSup(apps[a].suppliments);
+								apps[a].remove();
 							} else {
 								/*console.log(apps[a].roleIDs)*/
 								var index = apps[a].roleIDs.indexOf(roles[i]._id);
@@ -604,13 +639,20 @@ module.exports = function(app, express) {
 			User.findById(req.decoded.id, function(err, user) {
 				if (err) res.send(err);
 				/*console.log(user)*/
-				if(!user || !user._id){
+				if (!user || !user._id) {
 					return res.status(403).send({
 						success: false,
 						message: 'Failed to authenticate token.'
 					});
+				} else {
+					var money = {}
+					money.name = user.name;
+					money.role = user.role;
+					money._id = user._id;
+					res.json({
+						data: money
+					});
 				}
-				res.json({data:user});
 			})
 		});
 	//===============================  USERS  ============================
@@ -638,7 +680,7 @@ module.exports = function(app, express) {
 						}, config.secret, {
 							expiresIn: 86400
 						}); //24 hrs
-						res.json({
+						return res.json({
 							name: user.name,
 							success: true,
 							message: 'User updated!',
@@ -654,7 +696,7 @@ module.exports = function(app, express) {
 				_id: req.decoded.id
 			}, function(err, user) {
 				if (err) return res.send(err);
-				res.json({
+				return res.json({
 					message: 'Successfully deleted'
 				});
 			});
@@ -674,6 +716,50 @@ module.exports = function(app, express) {
 				}
 			});
 		});
+	apiRouter.route('/user/settings')
+		.put(function(req, res) {
+			User.findById(req.decoded.id, function(err, user) {
+				console.log(user.views)
+				switch (req.body.page) {
+					case "role":
+						user.views.role = req.body.view;
+						break;
+					case "home":
+						user.views.home = req.body.view;
+						break;
+				}
+				user.save()
+				console.log(user.views)
+
+
+				console.log("Reached api")
+					/*console.log(req)
+					console.log(res)*/
+				return res.json({
+					success: true
+				})
+			})
+		})
+		.get(function(req, res) {
+			User.findById(req.decoded.id, function(err, user) {
+				var temp = {};
+				if (!err) {
+					switch (req.body.page) {
+						case "role":
+							temp = user.views.role;
+							break;
+						case "home":
+							temp = user.views.role;
+							break;
+					}
+					return res.json({
+						success: true,
+						view: temp
+					})
+				}
+			})
+		});
+
 	apiRouter.route('/users')
 		// get all the users (accessed at GET http://localhost::8080/api/users)
 		.get(function(req, res) {
@@ -687,7 +773,7 @@ module.exports = function(app, express) {
 					/*console.log("Found Users" + users)*/
 					res.json(users);
 				}
-			});
+			})
 		});
 	return apiRouter;
 }

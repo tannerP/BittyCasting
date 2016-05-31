@@ -13,16 +13,16 @@ var UserSchema = new Schema({
 	birth_date:{type:Date, default:Date.now},
 	role: String,
 	notifications:[],
-	
+	views:{home:String,
+				 role:String},	
 	//content
 	profile_photo:{},
-	collabs:[],
-	
+	collabs:[],	
 	password: {
 		type:String, 
 		required:true, 
 		select:true
-	},
+	},	
 	email:{
 		type:String,
 		require:true,

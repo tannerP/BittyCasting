@@ -49,7 +49,7 @@
         <td ng-click='vm.getRoleBtn(role._id)'>
           {{role.total_apps || "0"}}
         </td>
-        <td ng-click='vm.getRoleBtn(role._id)'>{{ role.description }}</td>
+        <td ng-click='vm.getRoleBtn(role._id)'>{{ role.description | characters:150:true}}</td>
         <td class="tableHover"><span
           class="tblDate">{{role.end_date | date:mediumDate}}</span>
           <div class="table-utl">

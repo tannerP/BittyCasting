@@ -100,7 +100,7 @@
 																						ngf-max-size="250MB"
 																						ngf-model-invalid="errors"
 																						ng-click="page.newRqmnt(rq.name)">Upload
-																		</a>/
+																		</a>/ 
                                     
 																				<!--  -->
 																		<a ng-href="#"
@@ -114,7 +114,7 @@
 				</td>
 <!-- message -->					
 					<td>
-						<textarea ng-model="page.newData.message" rows="1" class="custom-form-textarea"></textarea>      
+						<textarea ng-model="page.newData.message" rows="5" class="custom-form-textarea"></textarea>      
 					</td>
 <!-- reset -->					
 					<td>
@@ -152,12 +152,13 @@
 											<li role="menuitem"><a href="#" ng-click="applicant.gender = 'Female'">Female</a></li>
 											<li role="menuitem"><a href="#" ng-click="applicant.gender = 'Male'">Male</a></li>
 										</ul>
-									</div> 
+								</div> 
 								</td>
 								<td>
 									<div class="custom-form">
-										<input type="tel" class="custom-form" ng-model="applicant.phone">
-									</div>
+										<input type="tel" class="custom-form"
+													 ng-model="applicant.phone">
+										</div>
 								</td>
 							<td>
 							<div class="div-table">
@@ -215,7 +216,7 @@
 						</td>
 <!--usr message -->					
 					<td>
-							<textarea ng-model="applicant.message" rows="1" class="custom-form-textarea"></textarea>      
+							<textarea ng-model="applicant.message" rows="5" class="custom-form-textarea"></textarea>      
 					</td>
 <!-- trash -->
 					<td ng-click="page.removeApp($index)">

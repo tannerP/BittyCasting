@@ -1,8 +1,9 @@
 angular.module('mainCtrl', ['authService', 'mgcrea.ngStrap'])
 	.controller('mainController', ['$scope', '$rootScope', 'Auth',
-		'$location', "$sce", "$route", "$window", "Mail", "$aside", "Meta", "AuthToken",
-		function($scope, $rootScope, Auth, $location, $sce,
-			$route, $window, Mail, $aside, Meta, AuthToken) {
+		'$location', "$sce", "$route", "$window", "Mail",
+		 "$aside", "Meta", "AuthToken","$timeout",
+		function($scope, $rootScope, Auth,$location, $sce,
+			$route, $window, Mail, $aside, Meta, AuthToken,$timeout ) {
 			var vm = this;
 			$rootScope.meta = {};
 			$scope.isAside = false;
@@ -115,11 +116,17 @@ angular.module('mainCtrl', ['authService', 'mgcrea.ngStrap'])
 				}
 			})
 			vm.betaEmail;
-			vm.betaRequestBtn = function(email) {
+			$scope.isSending = false;
+			vm.betaRequestBtn = function() {
+				$scope.isSending = true;
+				/*$scope.$apply();*/
 				if (vm.betaEmail) {
+					$timeout(function(){
+						$scope.isSending = false
+					},1500)
 					Mail.betaUser(vm.betaEmail);
 					vm.betaEmail = null;
-					vm.betaSubMessage = "Submitted! Thank you for your interest"
+					vm.betaSubMessage = "Submitted! Thank you for your interest."
 				}
 			}
 			var feedbackAside = $aside({
@@ -168,6 +175,7 @@ controller('signupCtrl', function(User, $scope, $location) {
 		// use the create function in the userService
 		User.create(vm.userData)
 			.success(function(data) {
+				$scope.$emit('aside.hide')
 				vm.processing = false;
 				$scope.$hide();
 				//clear the form
