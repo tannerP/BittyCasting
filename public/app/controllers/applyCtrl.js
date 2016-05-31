@@ -19,7 +19,6 @@ angular.module('applyCtrl', ['userService', 'mgcrea.ngStrap'])
       vm.loggedIn = true;
     };
     vm.isLast = function(index, array){
-      
       if(++index === array.length) return true;
       else return false
     }
@@ -247,7 +246,7 @@ angular.module('applyCtrl', ['userService', 'mgcrea.ngStrap'])
   return {
     restrict: 'E',
     scope: {
-      requirements: '=',
+      requirements: '=?',
       roles: '=',
       project: '=',
     },
