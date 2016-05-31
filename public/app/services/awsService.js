@@ -6,25 +6,21 @@ angular.module('awsService', [])
 .factory('AWS', function($http, Applicant, Upload, $rootScope, $q) {
   var aws = [];
   var upload = [];
-  var bucket = $rootScope.awsConfig.bucket
+  var bucket;
+  $http.get('/config').success(function(data) {
+        bucket = data.awsConfig;
+      });
+
   aws.uploadS3 = function(data) {
 
     //Note: ID is undefine.
-    console.log(data)
-    console.log(data.appID)
-    console.log(data.files)
-
     var uploadFiles = [];
     for (var i in data.files) {
       uploadFiles.push(data.files[i]);
     }
     var updateID = data.appID;
 
-    console.log(uploadFiles)
-    console.log(updateID)
-
     if (!uploadFiles && uploadFiles.length < 1) {
-      console.log("being returned")
       return $rootScope.message = "Input error";
     }
     var numFiles = data.files.length * 2; //HACK
@@ -106,8 +102,8 @@ angular.module('awsService', [])
     return;
   };
   aws.uploadAppMedias = function(files, requirements, appID, bucket) {
-    console.log(files)
-    console.log(appID)
+    /*console.log(files)
+    console.log(appID)*/
     var uploadFiles = [];
     for (var i in files) {
       uploadFiles.push(files[i].file);
@@ -117,7 +113,7 @@ angular.module('awsService', [])
     //remove empty files
     var numFiles = 0;
     var numFilesDone = 0;
-    console.log(uploadFiles)
+    /*console.log(uploadFiles)*/
     for (var i in uploadFiles) {
       /*var  i = 1; //temp fix for loop above*/
       numFiles++;
@@ -164,7 +160,6 @@ angular.module('awsService', [])
                       file_type: file.type
                     };
                     Applicant.update(updateID, parsedData);
-                    console.log("emiting app-media-submitted")
                     $rootScope.$emit('app-media-submitted')
 
                   } else {
@@ -255,13 +250,6 @@ angular.module('awsService', [])
                   }
                 }, null, function(evt) {
                   file.progress = parseInt(100.0 * evt.loaded / evt.total);
-                  if (file.progress == 100) {
-                    numFilesDone++;
-                    if (numFilesDone == numFiles) //hack,because resp 4 times
-                    {
-                      console.log("Finished uploading files")
-                    }
-                  }
 
                 });
             });

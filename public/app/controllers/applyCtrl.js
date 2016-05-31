@@ -4,12 +4,6 @@ angular.module('applyCtrl', ['userService', 'mgcrea.ngStrap'])
   var link = function(scope, element,
     attrs, controller, transcludeFn) {
 
-    console.log(scope)
-
-    scope.$watch('roles', function(old, _new) {
-      console.log(old)
-      console.log(_new)
-    })
 
     return;
   }
