@@ -67,8 +67,10 @@
           
           <div class = "form-group">
               <label>Usage</label>
-              <input type = "text" class = "custom-form"
-                      ng-model = "vm.roleData.usage">
+              <textarea  ng-model="vm.roleData.usage"
+                        ng-trim="1" rows="4"
+                        class="custom-form-textarea"
+                  ></textarea>
           </div>
 
           <div class = "form-group">
