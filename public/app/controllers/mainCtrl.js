@@ -199,7 +199,7 @@ controller('signupCtrl', function(User, $scope, $location) {
 		vm.doLogin = function(email, password) {
 			vm.processing = true; //TODO:processing Icon
 			vm.error = '';
-			Auth.login(email.toLowerCase(), password)
+			Auth.login(email, password)
 				.success(function(data) {
 					vm.processing = false;
 					if (data.success) {
