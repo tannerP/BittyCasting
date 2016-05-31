@@ -912,7 +912,7 @@ section {
                 height: 24px;
                 margin-right: 3px;
                 cursor: pointer;
-                &:nth-child(1) {
+                &.teamSocialLinkedin {
                     background: url("/assets/imgs/ic_social_linkedin_b.svg") no-repeat center center;
                     background-size: 18px 18px;
                     @include transition(all, 0.8s, ease);
@@ -921,7 +921,7 @@ section {
                         background-size: 18px 18px;
                     }
                 }
-                &:nth-child(2) {
+                &.teamSocialFB {
                     background: url("/assets/imgs/ic_social_fb_b.svg") no-repeat center center;
                     background-size: 18px 18px;
                     @include transition(all, 0.8s, ease);
@@ -930,12 +930,21 @@ section {
                         background-size: 18px 18px;
                     }
                 }
-                &:nth-child(3) {
+                &.teamSocialTwitter {
                     background: url("/assets/imgs/ic_social_twitter_b.svg") no-repeat center center;
                     background-size: 18px 18px;
                     @include transition(all, 0.8s, ease);
                     &:hover, &:focus {
                         background: url("/assets/imgs/ic_social_twitter_bl.svg") no-repeat center center;
+                        background-size: 18px 18px;
+                    }
+                }
+                &.teamSocialIG {
+                    background: url("/assets/imgs/ic_social_ig_b.svg") no-repeat center center;
+                    background-size: 18px 18px;
+                    @include transition(all, 0.8s, ease);
+                    &:hover, &:focus {
+                        background: url("/assets/imgs/ic_social_ig_bl.svg") no-repeat center center;
                         background-size: 18px 18px;
                     }
                 }
