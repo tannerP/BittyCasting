@@ -136,7 +136,8 @@
 
               <tbody>
               <!-- LOOP OVER THE USERS -->
-              <tr ng-repeat="app in page.applicants track by $index" >
+              <tr ng-repeat="app in page.applicants | orderBy: '-submission_date' | applicants:filter | limitTo:appLimit |
+                filter:q as applicants track by $index" ng-init="numApps = applicants.length">
                 <td ng-click="page.viewBtn(app)">
                     <div ng-if="app.headshot" ng-style="{
                     'background':'url('+ app.headshot+ ') no-repeat center center', 

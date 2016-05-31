@@ -15,27 +15,18 @@ angular.module('UIService', ['userService'])
 	return home;
 })
 
-.service("RoleService",function($http){
+.service("RoleService",function($http, HomeService){
 	var role = {};
 		  role.view = "";
 
 	role.setView = function(view){	
+		console.log(view)
 		role.view = view;
-		role.page = 'role';
 		return;
 /*				return $http.put('/api/user/settings' , role);*/
-
 	}
-
-
 	role.getView = function(callback){
-		var role = {};
-		role.view = "";
-		if(!role.view){
-				$http.get('/api/user/settings', role).then(function(data){
-					console.log(data)
-				})}
-		callback(role.view); ;
+		return callback(role.view); ;
 	}
 
 	return role;

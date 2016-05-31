@@ -269,7 +269,8 @@ angular.module('roleCtrl', ['userService',
 
         });
       };
-
+      updateView();
+      
       vm.backBtn = function() {
         $scope.viewApp = false;
         $scope.$emit("showNav");
