@@ -1,15 +1,9 @@
 angular.module('applyCtrl', ['userService', 'mgcrea.ngStrap'])
 
 .directive('applyform', function() {
-  var link = function(scope, element, 
+  var link = function(scope, element,
     attrs, controller, transcludeFn) {
 
-    console.log(scope)
-
-    scope.$watch('roles', function(old,_new){
-      console.log(old)
-      console.log(_new)
-    })
 
     return;
   }
@@ -24,21 +18,23 @@ angular.module('applyCtrl', ['userService', 'mgcrea.ngStrap'])
     if ($rootScope.user) {
       vm.loggedIn = true;
     };
-
-    vm.update_CurRole = function(role) {
-        vm.curRole = role;
-      }
-
-    vm.isSelected = function(id){
-      if(vm.curRole && id === vm.curRole._id){
-        return "rolesDynamicsActive";
-      }
-      else if(!vm.curRole &&vm.roles[0] && id === vm.roles[0]._id)
-       return "rolesDynamicsActive";
-      else return false;
+    vm.isLast = function(index, array){
+      if(++index === array.length) return true;
+      else return false
     }
+    vm.update_CurRole = function(role) {
+      vm.curRole = role;
+    }
+
+    vm.isSelected = function(id) {
+        if (vm.curRole && id === vm.curRole._id) {
+          return "rolesDynamicsActive";
+        } else if (!vm.curRole && vm.roles[0] && id === vm.roles[0]._id)
+          return "rolesDynamicsActive";
+        else return false;
+      }
       //TODO: this doesn't scale for collabs.
-    
+
     vm.back = function() {
       $window.history.back();
     }
@@ -47,10 +43,9 @@ angular.module('applyCtrl', ['userService', 'mgcrea.ngStrap'])
     vm.appData = {};
     vm.appData.links = [];
     vm.appData.roleIDs = [];
-    vm.files = [];
+    vm.files = new Array();
 
     var addReq = function(rmnts) {
-      console.log(rmnts)
       for (var i in rmnts) {
         vm.requirements.push(rmnts[i])
       }
@@ -58,6 +53,7 @@ angular.module('applyCtrl', ['userService', 'mgcrea.ngStrap'])
 
     var updateReq = function() {
       vm.requirements = []; //reset
+      vm.files = [];
 
       for (var i in vm.roles) { //loop through roles
         /*console.log(vm.roles[i]); */
@@ -86,7 +82,34 @@ angular.module('applyCtrl', ['userService', 'mgcrea.ngStrap'])
       } else console.log("error including role in applicantion")
     }
 
-    /*---------------------------------------*/
+    /*------------------Form---------------------*/
+
+    vm.addFile = function(files, requirement, index) {
+      /*console.log(files)
+      console.log(index)
+      console.log(requirement)*/
+
+      if (!vm.files[index] || vm.files[index].length < 1) {
+        vm.files[index] = new Array();
+      }
+
+      for (var i in files) {
+        var file = {};
+        file.requirement = requirement;
+        file.file = files[i]
+        vm.files[index].push(file)
+      }
+    }
+    vm.removeFile = function(rIndex, fIndex) {
+      console.log(rIndex)
+      console.log(fIndex)
+      if (vm.files[rIndex][fIndex]) {
+        vm.files[rIndex].splice(fIndex, 1);
+      }
+      /*if(vm.files[rIndex].length === 1) vm.files[rIndex] = [];*/
+      return;
+    }
+
 
     vm.addLink = function(arr_index, name) {
       var link = {};
@@ -104,17 +127,73 @@ angular.module('applyCtrl', ['userService', 'mgcrea.ngStrap'])
       } else vm.appData.links = []
     }
 
+    var isValid = function(requirements, files, links) {
+      console.log(requirements)
+      console.log(files)
+      console.log(links)
+        /*var */
+      for (var i in requirements) {
+        var req = requirements[i]
+        /*var file = files[i]*/
+        var link = links[i]
+        if (req.required) {
+
+          if (files[i] && files[i].length > 0) return -1;
+          else if (link != null) return -1
+          else {
+            return i;
+          }
+        }
+        console.log(req.required)
+        /*console.log(file)*/
+        console.log(link)
+        console.log(i)
+      }
+    }
 
     vm.processing = false;
     vm.submit = function() {
+      var numFiles = 0;
+      var uploadFiles =[]
+
+
+      for (var i in vm.requirements) {
+        /*console.log('i is ' + i)
+        console.log(vm.files[i])*/
+        if (vm.files[i]) {
+          for(var j in vm.files[i]){
+
+              uploadFiles.push(vm.files[i][j]);
+              numFiles++;
+          }
+          /*console.log('File length is ' + vm.files[i].length)
+          console.log("vm.files[i].length ")
+          console.log(vm.files[i].length)*/
+          /*numFiles += vm.files[i].length;*/
+          /*console.log(vm.files[i].length)*/
+        }
+      }
+
+      var index = isValid(vm.requirements,vm.files, vm.newLinks);
+      vm.message = '';
+      /*console.log(index)*/
+      if (index > -1) { // valid = -1
+        vm.message = "Missing " + vm.requirements[index].name;
+        index = null;
+        return;
+      }
+
+      //Special case when form only display one role (role level sharing)
       if (vm.roles.length === 1) {
         var roleID = vm.roles[0]._id;
         vm.toggleRole(roleID, null)
       }
+
       if (vm.appData.roleIDs.length < 1) {
         vm.message = "Please select a role above before submitting your application."
         return;
       }
+
 
       vm.processing = true;
       var finishedFileCount = 0;
@@ -130,15 +209,13 @@ angular.module('applyCtrl', ['userService', 'mgcrea.ngStrap'])
           }
         }
       }
+      console.log("before applying")
+      console.log(vm.files)
       Applicant.apply(vm.appData)
         .then(function(resp) {
           vm.processing = true;
           vm.applicantID = resp.data.appID;
-          var numFiles = 0;
           //soft out null files in array
-          for(var i in vm.files){
-            if(vm.files[i] != null) numFiles++;
-          }
           if (numFiles === 0) {
             $timeout(function() {
               vm.processing = false;
@@ -146,12 +223,16 @@ angular.module('applyCtrl', ['userService', 'mgcrea.ngStrap'])
             }, 1500)
 
           } else {
-            AWS.uploadAppMedias(vm.files, vm.requirements,
+            console.log(uploadFiles.length)
+            console.log(uploadFiles)
+
+            AWS.uploadAppMedias(uploadFiles, vm.requirements,
               vm.applicantID, $rootScope.awsConfig.bucket);
             $rootScope.$on("app-media-submitted",
               function() {
                 finishedFileCount++;
-                console.log("num files updated toDB " + finishedFileCount)
+                /*console.log("num files updated toDB " 
+                  + finishedFileCount)*/
                 console.log("num files: " + numFiles)
                 if (finishedFileCount === numFiles) {
                   $location.path('/Thankyou');
@@ -165,12 +246,12 @@ angular.module('applyCtrl', ['userService', 'mgcrea.ngStrap'])
   return {
     restrict: 'E',
     scope: {
-      requirements: '=',
+      requirements: '=?',
       roles: '=',
       project: '=',
     },
-    templateUrl: 'app/views/pages/applicant_form.html',
-    link:link,
+    templateUrl: 'app/views/pages/Apply.html',
+    link: link,
     controller: publicController,
     controllerAs: 'ppv',
     bindToController: true,
@@ -216,13 +297,13 @@ angular.module('applyCtrl', ['userService', 'mgcrea.ngStrap'])
 
     $scope.submitted = false;
     /*TODO: condense when combine project and role schema*/
-/*    console.log($routeParams.id)*/
+    /*    console.log($routeParams.id)*/
     Role.get($routeParams.id).then(function(data) {
       vm.roles = [];
       var castingRole = data.data.data;
       vm.roles.push(castingRole)
 
-/*      console.log(vm.roles)*/
+      /*      console.log(vm.roles)*/
       if (castingRole) { //TODO:remove? 
         Pub.getAppPrj(castingRole.projectID).then(function(data) {
           vm.project = data.data.project.project;

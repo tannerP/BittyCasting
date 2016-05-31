@@ -289,7 +289,7 @@ module.exports = function(app, express) {
 						}
 					}
 					app.userViewed_IDs.push(money);
-					console.log(app.userViewed_IDs)
+					/*console.log(app.userViewed_IDs)*/
 					app.save(function(err, data) {
 						if (err) {
 							return res.json({
@@ -577,19 +577,25 @@ module.exports = function(app, express) {
 			/*console.log(req.body);*/
 			var URL = config.baseURL + "/Apply/";
 
-			role.projectID = req.params.projectID;
-			role.name = req.body.name;
+			role.age = req.body.age;
+			role.compensation = req.body.compensation;
+
 			role.description = req.body.description;
+			role.ethnicity = req.body.ethnicity;
 			role.end_date = req.body.end_date;
 			role.end_time = req.body.end_time;
-
 			role.location = req.body.location;
+			role.name = req.body.name;
 			role.payterms = req.body.payterms;
-			/*role.age = req.body.age;*/
+			role.projectID = req.params.projectID;
+			role.usage = req.body.usage;
+
+
 			role.sex = req.body.sex;
 			role.requirements = req.body.requirements;
 
 			role.save(function(err, role) {
+				console.log(role)
 				if (err) {
 					return res.json({
 						success: false,
@@ -695,16 +701,23 @@ module.exports = function(app, express) {
 		.put(function(req, res) {
 			Role.findById(req.params.role_id, function(err, role) {
 				if (err) res.send(err);
-
 				role.name = req.body.name;
+				role.age = req.body.age;
+				role.compensation = req.body.compensation;
+
 				role.description = req.body.description;
+				role.ethnicity = req.body.ethnicity;
 				role.end_date = req.body.end_date;
 				role.end_time = req.body.end_time;
-				role.requirements = req.body.requirements;
 				role.location = req.body.location;
+				role.name = req.body.name;
 				role.payterms = req.body.payterms;
-				role.age = req.body.age;
+				role.projectID = req.body.projectID;
+				role.usage = req.body.usage;
+
+
 				role.sex = req.body.sex;
+				role.requirements = req.body.requirements;
 				role.save(function(err) {
 					if (err) {
 						return res.json({
@@ -801,6 +814,8 @@ module.exports = function(app, express) {
 				if (err) res.send(err);
 				if (req.body.name) project.name = req.body.name;
 				if (req.body.description) project.description = req.body.description;
+				else project.description = null;
+
 				if (req.body.updated_date) project.updated_date = req.body.updated_date;
 				if (req.body.coverphoto) project.coverphoto = req.body.coverphoto;
 				project.save(function(err) {
@@ -865,6 +880,14 @@ module.exports = function(app, express) {
 						success: false,
 						message: 'Failed to authenticate token.'
 					});
+				} else {
+					var money = {}
+					money.name = user.name;
+					money.role = user.role;
+					money._id = user._id;
+					res.json({
+						data: money
+					});
 				}
 				var money = {}
 				money.name = user.name;
@@ -875,6 +898,7 @@ module.exports = function(app, express) {
 				res.json({
 					data: money
 				});
+
 			})
 		});
 	//===============================  USERS  ============================

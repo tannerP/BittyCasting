@@ -5,6 +5,7 @@ var ApplicantSchema = new Schema({
 	creatorID:{type:String, default: "applicant"},
 	updated_date: {type:Date, default:Date.now},
 	submission_date:{type:Date, default:Date.now},
+	agent:String,
 	/*new : [{
 		:Boolean
 	}],*/
@@ -26,6 +27,9 @@ var ApplicantSchema = new Schema({
 		type:String,
 		required:false,
 	},
+	compensation:String,
+	usage:String,
+	ethnicity:String,
 	phone:{
 		type:String,
 		required:false,

@@ -6,35 +6,32 @@ angular.module('awsService', [])
 .factory('AWS', function($http, Applicant, Upload, $rootScope, $q) {
   var aws = [];
   var upload = [];
-  var bucket = $rootScope.awsConfig.bucket
+    var bucket
+  $http.get('/config').success(function(data) {
+    $rootScope.awsConfig = data.awsConfig;
+     bucket = $rootScope.awsConfig.bucket
+  });
+
   aws.uploadS3 = function(data) {
 
     //Note: ID is undefine.
-    console.log(data)
-    console.log(data.appID)
-    console.log(data.files)
-
     var uploadFiles = [];
-    for(var i in data.files){
+    for (var i in data.files) {
       uploadFiles.push(data.files[i]);
     }
     var updateID = data.appID;
 
-      console.log(uploadFiles)
-      console.log(updateID)
-
-  if(!uploadFiles && uploadFiles.length < 1){
-    console.log("being returned")
-    return $rootScope.message = "Input error";
-  }
+    if (!uploadFiles && uploadFiles.length < 1) {
+      return $rootScope.message = "Input error";
+    }
     var numFiles = data.files.length * 2; //HACK
     var numFilesDone = 0;
     for (var i in uploadFiles) {
       /*var  i = 1; //temp fix for loop above*/
       var file = uploadFiles[i].file;
-     /* console.log(file)
-      console.log(uploadFiles[i].requirement)*/
-        /*file.progress = parseInt(0);*/
+      /* console.log(file)
+       console.log(uploadFiles[i].requirement)*/
+      /*file.progress = parseInt(0);*/
       if (file)
         (function(file, i) {
           $http.get('/s3Policy?mimeType=' + file.type)
@@ -82,19 +79,20 @@ angular.module('awsService', [])
                     alert('Upload Failed, please resubmit your application.');
                   }
                 }, null, function(evt) {
-/*                  console.log(evt);*/
+                  /*                  console.log(evt);*/
                   file.progress = parseInt(100.0 * evt.loaded / evt.total);
                   if (file.progress === 100) {
-                      ++numFilesDone;
-                      
+                    ++numFilesDone;
+
                     if (numFilesDone === numFiles) //hack,because resp 4 times
                     { /*vm.busy = false;*/
-                      
-                        /*return true;*/
-                        //send event to main
-                        /*console.log("Finished uploading files")*/
-/*                      $rootScope.$emit('app-media-submitted')
-*/                      return;
+
+                      /*return true;*/
+                      //send event to main
+                      /*console.log("Finished uploading files")*/
+                      /*                      $rootScope.$emit('app-media-submitted')
+                       */
+                      return;
                     }
                   }
 
@@ -104,13 +102,19 @@ angular.module('awsService', [])
     }
     return;
   };
-  aws.uploadAppMedias = function(data, requirements, appID, bucket) {
-    //Note: ID is undefine.
-    var uploadFiles = data;
+  aws.uploadAppMedias = function(files, requirements, appID, bucket) {
+    /*console.log(files)
+    console.log(appID)*/
+    var uploadFiles = [];
+    for (var i in files) {
+      uploadFiles.push(files[i].file);
+
+    }
     updateID = appID;
     //remove empty files
     var numFiles = 0;
     var numFilesDone = 0;
+    /*console.log(uploadFiles)*/
     for (var i in uploadFiles) {
       /*var  i = 1; //temp fix for loop above*/
       numFiles++;
@@ -148,17 +152,16 @@ angular.module('awsService', [])
                   if (response.status === 201) {
                     var data = response.data,
                       parsedData;
-                      parsedData = {
-                        location: data.PostResponse.Location,
-                        bucket: data.PostResponse.Bucket,
-                        key: data.PostResponse.Key,
-                        etag: data.PostResponse.ETag,
-                        name: requirements[i],
-                        file_type: file.type
-                      };
-                      Applicant.update(updateID, parsedData);
-                  /*    console.log("emiting app-media-submitted")*/
-                      $rootScope.$emit('app-media-submitted')
+                    parsedData = {
+                      location: data.PostResponse.Location,
+                      bucket: data.PostResponse.Bucket,
+                      key: data.PostResponse.Key,
+                      etag: data.PostResponse.ETag,
+                      name: files[i].requirement.name,
+                      file_type: file.type
+                    };
+                    Applicant.update(updateID, parsedData);
+                    $rootScope.$emit('app-media-submitted')
 
                   } else {
                     alert('Upload Failed, please resubmit your application.');
@@ -182,7 +185,7 @@ angular.module('awsService', [])
     }
   };
 
-  aws.uploadCP = function(data, bucket, callback) {
+  aws.uploadCP = function(data, callback) {
     /*console.log(data.file)
     console.log(bucket)*/
     var deferred = $q.defer();
@@ -248,13 +251,6 @@ angular.module('awsService', [])
                   }
                 }, null, function(evt) {
                   file.progress = parseInt(100.0 * evt.loaded / evt.total);
-                  if (file.progress == 100) {
-                    numFilesDone++;
-                    if (numFilesDone == numFiles) //hack,because resp 4 times
-                    {
-                      console.log("Finished uploading files")
-                    }
-                  }
 
                 });
             });

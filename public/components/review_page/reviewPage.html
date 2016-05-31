@@ -41,9 +41,12 @@
     
   <div class="reviewCarousel">
     <div class="reviewCarouselImg">
-      <ul rn-carousel rn-carousel-control-allow-loop rn-carousel-controls rn-carousel-buffered
+      <ul rn-carousel 
+          rn-carousel-index="carouselIndex"
+          rn-carousel-controls 
+          rn-carousel-controls-allow-loop
           rn-carousel-transition="fadeAndSlide"
-          rn-carousel-index="carouselIndex">
+          >
         <li ng-repeat="slide in slides track by slide.id" ng-class="'id-' + slide.id">
           <div class="reviewCarouselImgBg" ng-if="slide.image"
                ng-style="{ 'background': 'url(' + slide.source + ') no-repeat center center',
@@ -67,6 +70,10 @@
   <div class="reviewInfo col-md-6">
     <table>
       <tbody>
+      <tr>
+        <td>Agent</td>
+        <td>{{currApp.agent}}</td>
+      </tr>
       <tr>
         <td>Name</td>
         <td>{{currApp.name.first}} {{currApp.name.last}}</td>

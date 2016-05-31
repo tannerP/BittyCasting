@@ -291,6 +291,10 @@ angular.module('projectCtrl', ['userService',
       $scope.success = function() {
         $scope.toggle = true;
         successAlert.toggle();
+        $scope.textToCopy = "Copied!"
+        $timeout(function(){
+          $scope.textToCopy = $scope.project.short_url;
+        },1500);
       };
 
       $scope.fail = function(err) {
@@ -405,92 +409,7 @@ angular.module('projectCtrl', ['userService',
       }
 
     })
-  .controller('newRoleController',
-    function(Role, $location, $routeParams, $route, $scope, Prerender) {
-      var vm = this;
-      $scope.$on('$locationChangeStart', function(event, newUrl, oldUrl) {
-        $scope.$hide()
-      });
-      vm.edit = false;
-      vm.processing = false;
-      var SD = new Date()
-      SD.setDate(SD.getDate() + 30);
 
-      $scope.selectedDate = SD;
-      vm.roleData = {},
-        vm.roleData.requirements = [{
-          name: "Headshot",
-          required: true,
-          selected: true,
-          format: "Attachment"
-        }, {
-          name: "Resume",
-          required: true,
-          selected: true,
-          format: "Attachment"
-        }, {
-          name: "Reel",
-          required: true,
-          selected: true,
-          format: "Attachment"
-        }],
-        vm.newData = {},
-        vm.newData.name = "",
-        vm.newData.required = true,
-        vm.newData.format = "Attachment";
-
-      vm.addReqt = function(data) {
-        if (!data) {
-          console.log("error: input variable");
-          return;
-        }
-        var item = {
-          name: data.name,
-          format: data.format,
-          required: true,
-          selected: true
-        }
-        vm.roleData.requirements.push(item)
-        vm.newData.name = "",
-          vm.newData.required = true,
-          vm.newData.format = "Attachment",
-          vm.newData.selected = true;
-      }
-      vm.removeReqt = function(index) {
-        if (vm.roleData.requirements.length > 1) {
-          if (index === 0) vm.roleData.requirements.shift();
-          else vm.roleData.requirements.splice(index, index);
-        } else if (vm.roleData.requirements.length === 1) {
-          vm.roleData.requirements = []
-        }
-
-      }
-      vm.processing = false;
-      vm.createRoleBtn = function() {
-        vm.processing = true;
-        vm.projectID = $routeParams.project_id;
-        vm.roleData.end_date = $scope.selectedDate.toJSON();
-        /*vm.roleData.end_time = $scope.selectedTime.toJSON();*/
-        vm.roleData.end_time;
-        if (vm.newData.name) {
-          vm.addReqt(vm.newData);
-        }
-
-        Role.create(vm.projectID, vm.roleData)
-          .success(function(data) {
-            vm.roleData = {};
-            $scope.$emit('aside.hide')
-            $route.reload();
-            Prerender.cacheRole(data.role._id);
-            vm.processing = false;
-            $scope.$hide()
-
-          })
-          .error(function(err) {
-            console.log(err.message);
-          })
-      }
-    })
   .controller('HomePageController',
     function(Project, HomeService, $location, $aside, $scope,$rootScope) {
       var vm = this;
@@ -612,7 +531,7 @@ angular.module('projectCtrl', ['userService',
 
         });
       };
-      updateView();
+  updateView();
     })
   .controller('newProjectController',
     function(Project, $location, $route, $rootScope,
@@ -688,7 +607,7 @@ angular.module('projectCtrl', ['userService',
                 /*$location.path('/home');*/
               })
           } else {
-            AWS.uploadCP(vm.CP_cust, $rootScope.awsConfig.bucket, function(data) {
+            AWS.uploadCP(vm.CP_cust, function(data) {
               vm.projectData.coverphoto = data;
               console.log(data)
               Project.create(vm.projectData)

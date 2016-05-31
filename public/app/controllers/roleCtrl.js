@@ -5,7 +5,7 @@ angular.module('roleCtrl', ['userService',
 .controller('RolePageController',
     function(Applicant, Role, $location, $routeParams, $rootScope,
       $scope, $aside, $routeParams, $location, $route,
-      $window, $timeout, RoleService) {
+      $window, $timeout, RoleService, $route) {
       var vm = this;
       $scope.appLimit = 6;
 
@@ -13,11 +13,25 @@ angular.module('roleCtrl', ['userService',
         console.log('hello aside')
       }
       var fav = false;
-      vm.toggleFav = function() {
+
+      /*vm.toggleFav = function() {
         fav = !fav;
         if (fav) $scope.filter = "favorited";
         else $scope.filter = null;
-      }
+      }*/
+
+      vm.setFilter = function(filter) {
+          $scope.filter = filter
+        }
+        /*vm.allView = function() {
+          console.log(fav)
+          fav = !fav;
+          if (fav) $scope.filter = "favorited";
+          else $scope.filter = null;
+        }
+        vm.favView = function(){
+          $scope.filter = "favorited";
+        }*/
 
       $window.onscroll = function() {
         var position = document.body.scrollTop ||
@@ -25,17 +39,15 @@ angular.module('roleCtrl', ['userService',
         var width = $window.innerWidth; 
         var cardHeight = 283;
 
-        var coefficient 
-        if(width < 345){
+        var coefficient
+        if (width < 345) {
           coefficient = 2;
-        }
-        else if(width > 345 && width < 660 ){
+        } else if (width > 345 && width < 660) {
           coefficient = 2;
-        }
-        else{
+        } else {
           coefficient = 6
         }
-        $scope.appLimit = parseInt(((position / 283) + 1)* coefficient);
+        $scope.appLimit = parseInt(((position / 283) + 1) * coefficient);
         $scope.$digest()
       }
       var editRoleAside = $aside({
@@ -44,7 +56,7 @@ angular.module('roleCtrl', ['userService',
           show: false,
           controller: 'editRoleController',
           container: "body",
-          controllerAs: 'roleAside',
+          controllerAs: 'vm',
           templateUrl: '/app/views/pages/role_form.tmpl.html',
           onShow: 'funcLog',
           onHide: 'funcLog'
@@ -78,7 +90,11 @@ angular.module('roleCtrl', ['userService',
       vm.listView = false;
       //$scope.isAside track if an aside is open. If it is, 
       //prevent going back, instead, close aside.
-
+      $scope.$watch('carouselIndex', function(newVal, oldVal) {
+        console.log($scope.slides.length)
+        console.log('newValue '+newVal )
+        if(++newVal === $scope.slides.length )  $scope.carouselIndex = 5;
+      });
 
       Role.get($routeParams.role_id)
         .success(function(data) {
@@ -261,10 +277,11 @@ angular.module('roleCtrl', ['userService',
             vm.listView = true;
 
             /*vm.setGridVw()*/
-          } 
+          }
 
         });
       };
+      updateView();
 
       vm.backBtn = function() {
         $scope.viewApp = false;
@@ -331,6 +348,7 @@ angular.module('roleCtrl', ['userService',
         
         /*aplnt.favorited = !aplnt.favorited;*/
         Applicant.favUpdate(aplnt, roleID);
+        /*$route.reload();*/
       }
 
       $scope.deleteAppBtn = function() {
@@ -507,6 +525,10 @@ angular.module('roleCtrl', ['userService',
       $scope.success = function() {
         $scope.toggle = true;
         successAlert.toggle();
+        $scope.textToCopy = "Copied."
+        $timeout(function() {
+          $scope.textToCopy = $scope.roleData.short_url;
+        }, 1500);
       };
 
       $scope.fail = function(err) {
@@ -516,24 +538,25 @@ angular.module('roleCtrl', ['userService',
       return;
     }
   ])
-  .controller('CommentBoxCtrl',
-    function($scope, Applicant) {
-      var vm = this;
-      vm.newComment;
 
-      vm.deleteCmt = function(appID, index, comment) {
-        Applicant.deleteComment(appID, comment);
-        delete $scope.currApp.comments[index];
-      }
-      vm.addCmt = function(appID, owner, comment) {
-        var cmt = {
-          timestamp: new Date(),
-          owner: owner,
-          comment: comment
-        }
+.controller('CommentBoxCtrl',
+  function($scope, Applicant) {
+    var vm = this;
+    vm.newComment;
 
-        $scope.currApp.comments.push(cmt);
-        Applicant.pushComment(appID, cmt);
-        vm.newComment = "";
+    vm.deleteCmt = function(appID, index, comment) {
+      Applicant.deleteComment(appID, comment);
+      delete $scope.currApp.comments[index];
+    }
+    vm.addCmt = function(appID, owner, comment) {
+      var cmt = {
+        timestamp: new Date(),
+        owner: owner,
+        comment: comment
       }
-    })
+
+      $scope.currApp.comments.push(cmt);
+      Applicant.pushComment(appID, cmt);
+      vm.newComment = "";
+    }
+  })
