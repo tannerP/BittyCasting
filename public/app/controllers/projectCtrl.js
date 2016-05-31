@@ -417,7 +417,7 @@ angular.module('projectCtrl', ['userService',
                 /*$location.path('/home');*/
               })
           } else {
-            AWS.uploadCP(vm.CP_cust, $rootScope.awsConfig.bucket, function(data) {
+            AWS.uploadCP(vm.CP_cust, function(data) {
               vm.projectData.coverphoto = data;
               console.log(data)
               Project.create(vm.projectData)
