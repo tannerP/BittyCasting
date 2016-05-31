@@ -25,6 +25,7 @@ var UserSchema = new Schema({
 	},	
 	email:{
 		type:String,
+		lowercase: true,
 		require:true,
 		index:{	unique:true	}
 	},

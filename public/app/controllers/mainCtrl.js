@@ -197,7 +197,7 @@ controller('loginCtrl', ['$scope', 'Auth', '$location', '$route',
 		vm.doLogin = function(email, password) {
 			vm.processing = true; //TODO:processing Icon
 			vm.error = '';
-			Auth.login(email, password)
+			Auth.login(email.toLowerCase(), password)
 				.success(function(data) {
 					vm.processing = false;
 					if (data.success) {
