@@ -24,7 +24,11 @@ angular.module('applyCtrl', ['userService', 'mgcrea.ngStrap'])
     if ($rootScope.user) {
       vm.loggedIn = true;
     };
-
+    vm.isLast = function(index, array){
+      
+      if(++index === array.length) return true;
+      else return false
+    }
     vm.update_CurRole = function(role) {
       vm.curRole = role;
     }
@@ -104,9 +108,13 @@ angular.module('applyCtrl', ['userService', 'mgcrea.ngStrap'])
       }
     }
     vm.removeFile = function(rIndex, fIndex) {
+      console.log(rIndex)
+      console.log(fIndex)
       if (vm.files[rIndex][fIndex]) {
         vm.files[rIndex].splice(fIndex, 1);
       }
+      /*if(vm.files[rIndex].length === 1) vm.files[rIndex] = [];*/
+      return;
     }
 
 
@@ -155,25 +163,23 @@ angular.module('applyCtrl', ['userService', 'mgcrea.ngStrap'])
       var numFiles = 0;
       var uploadFiles =[]
 
-      console.log(vm.files)
+
       for (var i in vm.requirements) {
-        console.log('i is ' + i)
-        console.log(vm.files[i])
+        /*console.log('i is ' + i)
+        console.log(vm.files[i])*/
         if (vm.files[i]) {
           for(var j in vm.files[i]){
 
               uploadFiles.push(vm.files[i][j]);
               numFiles++;
           }
-          console.log('File length is ' + vm.files[i].length)
+          /*console.log('File length is ' + vm.files[i].length)
           console.log("vm.files[i].length ")
-          console.log(vm.files[i].length)
+          console.log(vm.files[i].length)*/
           /*numFiles += vm.files[i].length;*/
-          console.log(vm.files[i].length)
+          /*console.log(vm.files[i].length)*/
         }
       }
-
-      console.log(numFiles)
 
       var index = isValid(vm.requirements,vm.files, vm.newLinks);
       vm.message = '';

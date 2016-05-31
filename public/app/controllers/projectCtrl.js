@@ -341,7 +341,7 @@ angular.module('projectCtrl', ['userService',
 
         });
       };
-      updateView();
+  updateView();
     })
   .controller('newProjectController',
     function(Project, $location, $route, $rootScope,

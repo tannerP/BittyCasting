@@ -153,7 +153,9 @@ module.exports = function(app, express) {
         applicant.roleIDs.push(req.body.roleIDs[id]);
       }
     }
-
+    if (req.body.agent) {
+      applicant.agent = req.body.agent;
+    }
     if (req.body.email) {
       applicant.email = req.body.email;
     }
@@ -171,6 +173,7 @@ module.exports = function(app, express) {
         applicant.links.push(req.body.links[link]);
       }
     }
+
     if (req.decoded.id) {
       applicant.createID = req.decoded.id;
     }

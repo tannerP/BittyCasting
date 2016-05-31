@@ -20,11 +20,10 @@ angular.module('UIService', ['userService'])
 		  role.view = "";
 
 	role.setView = function(view){	
-		console.log(view)
 		role.view = view;
 		return;
-/*				return $http.put('/api/user/settings' , role);*/
 	}
+	
 	role.getView = function(callback){
 		return callback(role.view); ;
 	}
