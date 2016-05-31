@@ -21,7 +21,7 @@ angular.module('userService', [])
 		if (project.coverphoto.name === "default") {
 			meta.image = meta.site_name + '/' + project.coverphoto.source;
 		} else {
-			meta.image = "http://" + project.coverphoto.source.replace(/.*?:\/\//g, "");
+			meta.image = "https://" + project.coverphoto.source.replace(/.*?:\/\//g, "");
 		}
 		/*meta.image_secure = project.coverphoto.source;*/
 		return meta;
@@ -34,7 +34,7 @@ angular.module('userService', [])
 			if (project.coverphoto.name === "default") {
 				meta.image = meta.site_name + '/' + project.coverphoto.source;
 			} else {
-				meta.image = "http://" + project.coverphoto.source.replace(/.*?:\/\//g, "");
+				meta.image = "https://" + project.coverphoto.source.replace(/.*?:\/\//g, "");
 			}
 			return meta;
 		}
