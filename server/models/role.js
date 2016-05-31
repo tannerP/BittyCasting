@@ -27,7 +27,6 @@ var RoleSchema = new Schema({
 	age: { type:String, min:0, max:90 },
 	usage:String, 
 	location:String,
-	payterms:String,
 	sex: { type:String },
 	requirements:[{
 		name:String,

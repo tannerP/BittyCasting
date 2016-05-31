@@ -2,8 +2,8 @@
   <div class="asideBg">
     <form class="container-roleAside" ng-submit="vm.createRoleBtn()">
       <div class="custom-close" ng-click="$hide()"></div>
-      <div class="asideTitle" ng-if="!roleAside.edit">Create role</div>
-      <div class="asideTitle" ng-if="roleAside.edit">Edit role</div>
+      <div class="asideTitle" ng-if="!vm.edit">Create role</div>
+      <div class="asideTitle" ng-if="vm.edit">Edit role</div>
         
       <div class="asideRoleColLeft">
           
@@ -15,12 +15,12 @@
 
             <label>Name</label>
             <input type="text" class="custom-form"
-                   ng-model="roleAside.roleData.name" Required autofocus>
+                   ng-model="vm.roleData.name" Required autofocus>
           </div>
           <div class="form-group">
             <!-- <label>Description (Max {{charRmnd}} characters)</label> -->
             <label>Description</label>
-                <textarea  ng-model="roleAside.roleData.description"
+                <textarea  ng-model="vm.roleData.description"
                           ng-trim="1" rows="4"
                           class="custom-form-textarea"
                   ></textarea>
@@ -31,7 +31,7 @@
               <label class="control-label"><i class="fa fa-calendar"></i>Submission deadline</label>
               <input type='text'
                      class="custom-form" ng-model="selectedDate"
-                     start-date="roleAside.startDate"
+                     start-date="vm.startDate"
                      required bs-datepicker autoclose="true">
             </div>
           </div>
@@ -51,7 +51,7 @@
           <div class = "form-group">
               <label>Location</label>
               <input type = "text" class = "custom-form"
-                      ng-model = "roleAside.roleData.location">
+                      ng-model = "vm.roleData.location">
           </div>
     -->
           
@@ -62,48 +62,53 @@
           <div class = "form-group">
               <label>Compensation</label>
               <input type = "text" class = "custom-form"
-                      ng-model = "roleAside.roleData.payterms">
+                      ng-model = "vm.roleData.compensation">
           </div>
           
           <div class = "form-group">
               <label>Usage</label>
               <input type = "text" class = "custom-form"
-                      ng-model = "roleAside.roleData.payterms">
+                      ng-model = "vm.roleData.usage">
           </div>
 
           <div class = "form-group">
-                <label>Ethnicity</label>
+                <label>Race or Ethnicity</label>
                 <div class="custom-dropdown" uib-dropdown is-open="false">
-                    <span type="text" class="custom-form" uib-dropdown-toggle ng-disabled="disabled">{{applicant.gender || "All"}}</span>
+                    <span type="text" class="custom-form"
+                           uib-dropdown-toggle ng-disabled="disabled">
+                           {{vm.roleData.ethnicity || 'Any'}}
+                    </span>
                     <ul uib-dropdown-menu role="menu" aria-labelledby="single-button">
-                        <li role="menuitem"><a href="#" ng-click="applicant.gender = 'All'">All</a></li>
-                        <li role="menuitem"><a href="#" ng-click="applicant.gender = 'White'">White</a></li>
-                        <li role="menuitem"><a href="#" ng-click="applicant.gender = 'Asian'">Asian</a></li>
-                        <li role="menuitem"><a href="#" ng-click="applicant.gender = 'Black or African American'">Black or African American</a></li>
-                        <li role="menuitem"><a href="#" ng-click="applicant.gender = 'Hispanic or Latino'">Hispanic or Latino</a></li>
-                        <li role="menuitem"><a href="#" ng-click="applicant.gender = 'Other'">Other</a></li>
+                        <li role="menuitem"><a href="#" ng-click="vm.roleData.ethnicity= 'Any'">Any</a></li>
+                        <li role="menuitem"><a href="#" ng-click="vm.roleData.ethnicity = 'Asian'">Asian</a></li>
+                        <li role="menuitem"><a href="#" ng-click="vm.roleData.ethnicity = 'Black or African American'">Black or African American</a></li>
+                        <li role="menuitem"><a href="#" ng-click="vm.roleData.ethnicity = 'Hawaiiain or Pacific Islander'">Hawaiiain or Pacific Islander</a></li>
+                        <li role="menuitem"><a href="#" ng-click="vm.roleData.ethnicity = 'Middleeastern'">Middleeastern</a></li>
+                        <li role="menuitem"><a href="#" ng-click="vm.roleData.ethnicity = 'Native American'">Native American</a></li>
+                        <li role="menuitem"><a href="#" ng-click="vm.roleData.ethnicity = 'White'">White</a></li>
+                        <li role="menuitem"><a href="#" ng-click="vm.roleData.ethnicity = 'Other'">Other</a></li>
                     </ul>
                 </div>                 
 
     <!--
               <input type = "text" class = "custom-form"
-                      ng-model = "roleAside.roleData.payterms">
+                      ng-model = "vm.roleData.payterms">
     -->
           </div>
 
           <div class = "form-group">
-              <label>Age</label>
+              <label>Age Range</label>
               <input  type = "text"
-                      class = "custom-form" ng-model = "roleAside.roleData.age">
+                      class = "custom-form" ng-model = "vm.roleData.age">
           </div>
 
           <div class = "form-group">
                 <label>Gender</label>
                 <div class="custom-dropdown" uib-dropdown is-open="false">
-                    <span type="text" class="custom-form" uib-dropdown-toggle ng-disabled="disabled">{{roleAside.roleData.sex || "Female"}}</span>
+                    <span type="text" class="custom-form" uib-dropdown-toggle ng-disabled="disabled">{{vm.roleData.sex || "Female"}}</span>
                     <ul uib-dropdown-menu role="menu" aria-labelledby="single-button">
-                        <li role="menuitem"><a href="#" ng-click="roleAside.roleData.sex = 'Female'">Female</a></li>
-                        <li role="menuitem"><a href="#" ng-click="roleAside.roleData.sex = 'Male'">Male</a></li>
+                        <li role="menuitem"><a href="#" ng-click="vm.roleData.sex = 'Female'">Female</a></li>
+                        <li role="menuitem"><a href="#" ng-click="vm.roleData.sex = 'Male'">Male</a></li>
                     </ul>
                 </div>  
           </div>  
@@ -127,7 +132,7 @@
           </thead>
           <tbody>
             <tr class="defaultRequirements" 
-                ng-repeat="req in roleAside.roleData.requirements track by $index">
+                ng-repeat="req in vm.roleData.requirements track by $index">
               <td>
                   <div class="custom-form">
                       <input type="text" ng-model="req.name" required>
@@ -157,17 +162,19 @@
           <tr>
             <td>
                 <div class="custom-form">
-                    <input type="text" ng-model='vm.newData.name' placeholder="New attachment"></input>
+                    <input type="text" ng-model='vm.newData.name'
+                            placeholder="New attachment"> 
+                    </input>
                 </div>
             </td>
-            <!-- <td>
+            <td>
                 <div class="switch">
-                      <input id="{{cmn-toggle-newData}}"
+                      <input id="{{'cmn-toggle-'+ vm.roleData.requirements.length}}"
                             class="cmn-toggle cmn-toggle-round" 
                             type="checkbox" ng-model="vm.newData.required">
-                      <label for="{{cmn-toggle-newData}}"></label>
+                      <label for="{{'cmn-toggle-'+ vm.roleData.requirements.length}}"></label>
                 </div>           
-            </td>  -->
+            </td> 
             <!-- <td>
               <div class="custom-dropdown" uib-dropdown is-open="false">
                 <span type="text" class="custom-form" uib-dropdown-toggle ng-disabled="disabled">

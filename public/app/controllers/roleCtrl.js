@@ -520,6 +520,7 @@ angular.module('roleCtrl', ['userService',
       return;
     }
   ])
+  
   .controller('CommentBoxCtrl',
     function($scope, Applicant) {
       var vm = this;

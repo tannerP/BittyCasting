@@ -372,15 +372,18 @@ module.exports = function(app, express) {
 
 			role.age = req.body.age;
 			role.compensation = req.body.compensation;
-			role.projectID = req.params.projectID;
+
 			role.description = req.body.description;
 			role.ethnicity = req.body.ethnicity;
 			role.end_date = req.body.end_date;
 			role.end_time = req.body.end_time;
-			role.name = req.body.name;
-			role.usage = req.body.usage;
 			role.location = req.body.location;
+			role.name = req.body.name;
 			role.payterms = req.body.payterms;
+			role.projectID = req.params.projectID;
+			role.usage = req.body.usage;
+
+
 			role.sex = req.body.sex;
 			role.requirements = req.body.requirements;
 
@@ -491,16 +494,23 @@ module.exports = function(app, express) {
 		.put(function(req, res) {
 			Role.findById(req.params.role_id, function(err, role) {
 				if (err) res.send(err);
-
 				role.name = req.body.name;
+				role.age = req.body.age;
+				role.compensation = req.body.compensation;
+
 				role.description = req.body.description;
+				role.ethnicity = req.body.ethnicity;
 				role.end_date = req.body.end_date;
 				role.end_time = req.body.end_time;
-				role.requirements = req.body.requirements;
 				role.location = req.body.location;
+				role.name = req.body.name;
 				role.payterms = req.body.payterms;
-				role.age = req.body.age;
+				role.projectID = req.body.projectID;
+				role.usage = req.body.usage;
+
+
 				role.sex = req.body.sex;
+				role.requirements = req.body.requirements;
 				role.save(function(err) {
 					if (err) {
 						return res.json({
@@ -636,15 +646,15 @@ module.exports = function(app, express) {
 						success: false,
 						message: 'Failed to authenticate token.'
 					});
-				}else{
-				var money = {}
-				money.name = user.name;
-				money.role = user.role;
-				money._id = user._id;
-				res.json({
-					data: money
-				});
-			}
+				} else {
+					var money = {}
+					money.name = user.name;
+					money.role = user.role;
+					money._id = user._id;
+					res.json({
+						data: money
+					});
+				}
 			})
 		});
 	//===============================  USERS  ============================
@@ -710,37 +720,46 @@ module.exports = function(app, express) {
 		});
 	apiRouter.route('/user/settings')
 		.put(function(req, res) {
-			User.findById(req.decoded.id,function(err, user) {
-			console.log(user.views)	
-			switch (req.body.page){
-				case "role": 
-				user.views.role = req.body.view; break;
-				case "home": 
-				user.views.home = req.body.view; break;
-			}
-			user.save()
-			console.log(user.views)
+			User.findById(req.decoded.id, function(err, user) {
+				console.log(user.views)
+				switch (req.body.page) {
+					case "role":
+						user.views.role = req.body.view;
+						break;
+					case "home":
+						user.views.home = req.body.view;
+						break;
+				}
+				user.save()
+				console.log(user.views)
 
 
-			console.log("Reached api")
-			/*console.log(req)
-			console.log(res)*/
-			return res.json({success:true})
+				console.log("Reached api")
+					/*console.log(req)
+					console.log(res)*/
+				return res.json({
+					success: true
+				})
 			})
 		})
-		.get(function(req, res){
-			User.findById(req.decoded.id,function(err, user) {
-			var temp ={};
-				if(!err){
-				switch (req.body.page){
-				case "role": 
-				temp = user.views.role; break;
-				case "home": 
-				temp = user.views.role; break;
-			}	
-			 return res.json({success:true, view:temp})
-			}
-		})
+		.get(function(req, res) {
+			User.findById(req.decoded.id, function(err, user) {
+				var temp = {};
+				if (!err) {
+					switch (req.body.page) {
+						case "role":
+							temp = user.views.role;
+							break;
+						case "home":
+							temp = user.views.role;
+							break;
+					}
+					return res.json({
+						success: true,
+						view: temp
+					})
+				}
+			})
 		});
 
 	apiRouter.route('/users')
