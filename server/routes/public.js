@@ -1,6 +1,7 @@
 'user strick';
 var User = require("../models/user");
 var Invite = require("../models/invite")
+var emailConfirmation = require("../models/emailConfirmation")
 var Project = require("../models/project");
 var Role = require("../models/role");
 var Applicant = require("../models/applicant");
@@ -402,6 +403,9 @@ module.exports = function(app, express) {
     .post(function(req, res) {
       //create a new instance of the User model
       var user = new User();
+      var confirmation = new emailConfirmation();
+      confirmation.userID = user._id;
+      confirmation.save();
       //set the users information (comes from the request)
       user.name.last = req.body.name.last;
       user.name.first = req.body.name.first;
@@ -410,46 +414,49 @@ module.exports = function(app, express) {
       user.role = "user";
       /*console.log(user);*/
       //save the user and check for errors
-      var tStamp = req.body.timestamp
+      /*var tStamp = req.body.timestamp*/
       var data = {
-        from: "internal@bittycasting.com",
-        to: "support@bittycasting.com",
-        subject: "Beta User Feedback - " + req.body.title,
-        html: 'New user feedback: ' + req.body.message + " " + "User Information: " + "<br>" +
-          req.body.user.first + " " + req.body.user.last + " " +
-          req.body.user.email + "." + "Timestamp: " + tStamp + " " +
-          "Request was sent from: " + req.body.location
+        from: "Registration@bittycasting.com",
+        to: req.body.email,
+        subject: "Confirm: New Registration",
+        html: 'Follow this link to finish your Bittycasting Registration: ' + 
+        "https://bittycasting.com/confirm/confirmation._id"
       }
 
       var mailgun = new Mailgun({
         apiKey: config.api_key,
         domain: config.domain
       });
-      mailgun.messages()
-        .send(data, function(err, body) {
-          if (err) {
-            console.log(err)
-          } else {
-            return res;
-          }
-        });
-        
+
+
       user.save(function(err) {
-        if (err) {
-          console.log(err);
-          //duplicate entry
-          if (err.code == 11000)
-            return res.json({
-              success: false,
-              message: 'A user with that email already exists.'
-            });
-          else
-            return res.send(err);
-        }
-        res.json({
-          message: 'User created!'
-        });
-      });
+          if (err) {
+            console.log(err);
+            //duplicate entry
+            if (err.code == 11000)
+              return res.json({
+                success: false,
+                message: 'A user with that email already exists.'
+              });
+            else {
+              mailgun.messages()
+                .send(data, function(err, body) {
+                  if (err) {
+                    console.log(err)
+                    return err;
+                  } else {
+                    console.log(body)
+                    return;
+                  }
+                });
+              res.json({
+                message: 'User created!'
+              });
+          return res.send(err);
+                }
+          }
+      })
+
     });
   app.route('/register/invitation/:inviteID')
     .put(function(req, res) {
