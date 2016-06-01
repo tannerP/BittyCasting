@@ -1,5 +1,6 @@
 'user strick';
 var User = require("../models/user");
+var Invite = require("../models/invite")
 var Project = require("../models/project");
 var Role = require("../models/role");
 var Applicant = require("../models/applicant");
@@ -30,6 +31,8 @@ module.exports = function(app, express) {
             '_id': decoded.id
           }, function(err, data) {
             if (data) {
+              data.email = data.email.toLowerCase()
+              decoded.name = data.name;
               data.last_active = new Date();
               data.save();
               return data;
@@ -63,29 +66,40 @@ module.exports = function(app, express) {
   app.get('/public/role/:role_id', function(req, res) {
     //find role data, then find project data before returning result
     Role.findById(req.params.role_id, function(err, role) {
-      if (err) {
+      if (err || role ===null) {
         return res.json({
           success: false,
           error: err
         });
       } else {
-        var checkClientship = function(role, decoded) {
-          if (!decoded) return "public";
-          else {
-            //check if requester is owner
-            if (role && role.userID === decoded.id) {
-              return "owner"
+        Project.findById(role.projectID, function(err, proj) {
+          var checkClientship = function(prj, decoded) {
+            if (!decoded) return "public";
+            else {
+              //check if requester is owner
+              if (prj.user_id === decoded.id) {
+                return "owner"
+              } else {
+                for (var i in prj.collabs_id) {
+                  var collab = prj.collabs_id[i];
+                  if (collab.userID === req.decoded.id) {
+                    return "collab";
+                  }
+                  return "public";
+                }
+              }
             }
           }
-        }
-        var client = checkClientship(role, req.decoded);
-        return res.json({
-          success: true,
-          client: client,
-          data: role,
-        });
+          var client = checkClientship(proj, req.decoded);
+          return res.json({
+            success: true,
+            client: client,
+            data: role,
+          });
+        })
       }
     })
+
   })
 
   app.get('/public/project/:project_id', function(req, res) {
@@ -95,12 +109,30 @@ module.exports = function(app, express) {
         error: err
       });
       else {
+        /*for(var i in proj.collabs_id){
+          if(!proj.collabs_id[i].userName){
+            proj.collabs_id.splice(i,1);
+            proj.collabs_id.shift()
+          }
+        }
+        proj.save();*/
+        if(!proj.user) proj.user = req.decoded.name;
+
+
         var checkClientship = function(prj, decoded) {
             if (!decoded) return "public";
             else {
               //check if requester is owner
               if (prj.user_id === decoded.id) {
                 return "owner"
+              } else {
+                for (var i in prj.collabs_id) {
+                  var collab = prj.collabs_id[i];
+                  if (collab.userID === req.decoded.id) {
+                    return "collab";
+                  }
+                  return "public";
+                }
               }
             }
           }
@@ -188,8 +220,6 @@ module.exports = function(app, express) {
         if (req.body.roleIDs && req.body.roleIDs[0]) {
           for (i in req.body.roleIDs) {
             var roleID = req.body.roleIDs[i];
-            console.log(roleID)
-
 
             async.map(req.body.roleIDs, updateCount, function(e, r) {
               /*console.log("printing results after saving")
@@ -273,10 +303,10 @@ module.exports = function(app, express) {
       from: "internal@bittycasting.com",
       to: "support@bittycasting.com",
       subject: "Beta User Feedback - " + req.body.title,
-      html: 'New user feedback: ' + req.body.message + " " + "User Information: " + "<br>" + 
-      req.body.user.first + " " + req.body.user.last + " " +
-      req.body.user.email + "." + "Timestamp: " + tStamp + " " +
-      "Request was sent from: " + req.body.location 
+      html: 'New user feedback: ' + req.body.message + " " + "User Information: " + "<br>" +
+        req.body.user.first + " " + req.body.user.last + " " +
+        req.body.user.email + "." + "Timestamp: " + tStamp + " " +
+        "Request was sent from: " + req.body.location
     }
 
     var mailgun = new Mailgun({
@@ -387,7 +417,7 @@ module.exports = function(app, express) {
           if (err.code == 11000)
             return res.json({
               success: false,
-              message: 'A user with that username already exists.'
+              message: 'A user with that email already exists.'
             });
           else
             return res.send(err);
@@ -397,8 +427,56 @@ module.exports = function(app, express) {
         });
       });
     });
+  app.route('/register/invitation/:inviteID')
+    .put(function(req, res) {
+      console.log(req.params.inviteID)
+
+      Invite.findById(req.params.inviteID, function(err, invite) {
+        console.log(invite)
+        var user = new User();
+        user.name.last = req.body.name.last;
+        user.name.first = req.body.name.first;
+        user.password = req.body.password;
+        user.email = req.body.email;
+        user.role = "user";
+        if (invite) user.invites.push(invite.projectID)
+        user.save(function(err, user) {
+          if (err) {
+            console.log(err);
+            //duplicate entry
+            if (err.code == 11000)
+              return res.json({
+                success: false,
+                message: 'A user with that email already exists.'
+              });
+            else
+              return res.send(err);
+          } else {
+            if (invite) {
+              Project.findById(invite.projectID, function(err, project) {
+
+                if (err) return res.json({
+                  success: false,
+                  message: "No project"
+                });
+
+                project.collabs_id.push({
+                  userID: user._id,
+                  userName: user.name,
+                  userProfilePhoto: user.profile,
+                })
+                project.save();
+                //return res.json({success:true,message:"No project"});
+              })
+            }
+            return res.json({
+              success: true,
+              message: 'User created!'
+            });
+          }
+        });
+      })
+    });
   /*Others*/
-
-
   return app;
 }

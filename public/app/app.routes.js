@@ -64,6 +64,12 @@ angular.module('app.routes', ['ngRoute'])
                  controller: 'profileController',
                 controllerAs: 'user'
             })
+    /*---------------- User ----------------*/
+        .when('/register/invite/:inviteID',  {
+            templateUrl: 'app/views/pages/signup.html',
+            controller: 'signupInviteCtrl',
+            controllerAs: 'user'
+        })
     /*---------------- Admin ----------------*/
  /*       .when('/users',  {
             templateUrl: 'app/views/pages/users/all.html',
@@ -72,7 +78,7 @@ angular.module('app.routes', ['ngRoute'])
         })*/
         .when('/users/create',  {
             templateUrl: 'app/views/pages/signup.html',
-            controller: 'userCreateController',
+            controller: 'signupCtrl',
             controllerAs: 'user'
         })
         .when('/users/:user_id', {

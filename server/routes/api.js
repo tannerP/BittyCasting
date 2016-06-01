@@ -11,6 +11,8 @@ var config = require('../../config').dev;
 var aws = require("../lib/aws.js")
 var bitly = require("../lib/bitly.js")
 var http = require('http');
+var Mailgun = require("mailgun-js");
+var Invite = require('../models/invite');
 
 
 
@@ -32,6 +34,7 @@ module.exports = function(app, express) {
 							'_id': decoded.id
 						}, function(err, data) {
 							if (data) {
+								decoded.name = data.name;
 								data.last_active = new Date();
 								data.save();
 								return data;
@@ -51,6 +54,210 @@ module.exports = function(app, express) {
 			});
 		}
 	});
+	apiRouter.route('/collab/remove/')
+		.put(function(req, res) {
+			console.log(req.body)
+			if (req.body.projectID && req.body.userID) {
+				Project.findById(req.body.projectID, function(err, project) {
+					if (!project) return res.json({
+						success: false,
+						message: 'Project not found.'
+					})
+					for (var i in project.collabs_id) {
+						if (project.collabs_id[i].userID.indexOf(req.body.userID) > -1) {
+							console.log("found collab")
+							project.collabs_id.splice(i, 1);
+							project.save();
+							return res.json({
+								success: true
+							})
+						}
+					}
+
+				})
+			}else return res.json({success:false, message:"Invalid request"})
+		})
+	apiRouter.route('/collab/response/')
+		.put(function(req, res) {
+			var response = req.body.response,
+				projectID = req.body.projectID;
+
+			console.log(req.body.response)
+			console.log(req.body.projectID)
+				//accept invitation
+				//mark project.collabs_id.accepted = true;
+			User.findById(req.decoded.id, function(error, user) {
+				var ind = user.invites.indexOf(projectID);
+
+				if (ind > -1) {
+					/*if(user.invites.length ===1) user.invites =[];*/
+					user.invites.splice(ind, 1);
+					console.log(user.invites)
+					user.save()
+				}
+
+				Project.findById(projectID, function(err, project) {
+					/*console.log(collabs)*/
+					if (err) return res.json({
+						success: false,
+						message: "No project"
+					});
+					//search for user
+					/*console.log(project)*/
+					for (var i in project.collabs_id) {
+						var collab = project.collabs_id[i];
+						collab.responded = true;
+						console.log("Collab")
+						console.log(collab.userID)
+						console.log("Request.decoded")
+						console.log(req.decoded.id)
+						console.log(collab.userID.indexOf(req.decoded.id))
+						if (collab.userID.indexOf(req.decoded.id) > -1) {
+							//accept invite
+							console.log("Founder collab user")
+							if (response === true) {
+								console.log("Accept Projet")
+								collab.accepted = true;
+								break;
+							}
+							//reject invite
+							else {
+								console.log("Reject Projet")
+								project.collabs_id.splice(i, 1);
+							}
+						}
+					}
+					project.save()
+
+					/*return res.json({success:true,message:"No project"});*/
+				})
+			})
+
+			//reject invitation
+			//remove invite
+
+			return;
+		})
+	apiRouter.route('/collab/invite/:projectID')
+		.put(function(req, res) {
+			var tStamp = req.body.timestamp;
+			var mailgun = new Mailgun({
+				apiKey: config.api_key,
+				domain: config.domain
+			});
+			var guestEmail = req.body.email,
+				usrID = req.decoded.id,
+				projectID = req.body.projectID,
+				projectName = req.body.projectName;
+
+			User.findOne({
+				email: guestEmail
+			}, function(err, user) {
+				var invite = new Invite();
+				var emailData = {}
+				if (user) invite.member = true;
+				else invite.member = false;
+
+
+				invite.userID = req.decoded.id;
+				invite.guestID = null;
+				invite.guestEmail = guestEmail;
+				invite.projectID = projectID;
+				invite.projectName = projectName;
+				invite.notify = true;
+				invite.notify_type = "invite";
+
+
+
+				invite.save(function(err, data) {
+					if (err) return res.json({
+						sucess: false
+					});
+					//if invitee is not a member
+					if (data.member) {
+						var notification = {};
+						notification.notification_type = "invite"
+						notification.data = invite;
+						user.notifications.unshift(notification);
+						var URL = "bittycasting.com/login";
+						emailData = {
+							from: "friends@bittycasting.com",
+							to: guestEmail,
+							subject: "Invitation to Collaborate in " + req.body.projectName,
+							html: "You have been invited to collaborate " +
+								"in this project. Accept and follow this link: " + URL ,
+						}
+						Project.findById(projectID, function(error, project) {
+							var data = {};
+							var exist = true;
+							if (user.invites.indexOf(projectID) - 1) {
+								//this ensure no duplication
+								user.invites.push(projectID)
+							}
+
+							data.accepted = false;
+							data.responded = false;
+							data.userID = user._id;
+
+							for (var i in project.collabs_id) {
+								var collab = project.collabs_id[i];
+								console.log(++i)
+								if (collab.userID.indexOf(user._id) === -1 &&
+									project.collabs_id.length === ++i) {
+									exist = false;
+									break;
+								}
+							}
+							if (project.collabs_id.length < 1) {
+								project.collabs_id.push({
+										userID: user._id,
+										userName: user.name,
+										userProfilePhoto: user.profile,
+									})
+									/*console.log(project.collabs_id)*/
+								project.save(function(error, project) {
+									user.save(function(error, user) {
+										if (!error) {
+											mailgun.messages()
+												.send(emailData, function(err, data) {
+													console.log(data)
+													return res.json({
+														success: true,
+													});
+												});
+										}
+									})
+								})
+
+							}
+						})
+
+					} else { //Invitee is not a member
+						var URL = "https://bittycasting.com/register/invite/" + data._id;
+						console.log(URL)
+						bitly.shorten(URL, function(newURL) {
+
+							emailData = {
+								from: "friends@bittycasting.com",
+								to: guestEmail,
+								subject: "Invitation to Collaborate in " + req.body.projectName,
+								html: "You have been invited to collaborate " +
+									"in this project. Accept and follow this link: " + newURL
+									+ "invite ID " + data._id,
+							}
+							mailgun.messages()
+								.send(emailData, function(err, data) {
+									console.log(data)
+									return res.json({
+										success: true,
+									});
+								});
+						})
+					}
+
+				})
+			})
+		})
 
 	//==============================  Applicants =========================
 	//route for adding new requirement. 
@@ -530,6 +737,7 @@ module.exports = function(app, express) {
 
 			var project = new Project();
 			project.user_id = req.decoded.id;
+			project.user = req.decoded.name //User Name
 			project.name = req.body.name;
 			project.description = req.body.description
 			project.coverphoto = req.body.coverphoto
@@ -551,18 +759,44 @@ module.exports = function(app, express) {
 		})
 		//get all projects belong to user
 		.get(function(req, res) {
-			Project.find({
-				user_id: req.decoded.id
-			}, function(err, projects) {
-				if (err) {
-					res.send(err);
-				} else {
-					res.json({
-						'success': true,
-						'data': projects
+			User.findById(req.decoded.id, function(error, user) {
+				if (error) return;
+				var projectIDs = []
+					/*for (var i in user.invites) {
+						var invite = user.invites;
+						console.log(invite)
+						projectIDs.push(invite.projectID)
+					}*/
+
+				Project.find({
+					"user_id": req.decoded.id
+				}, function(err, projects) {
+					//TODO: remove after out of beta
+					for(var i in projects){ 
+						var project = projects[i];
+						if(!project.user){
+						project.user = req.decoded.name;
+						project.save();
+						}
+					}
+					
+					Project.find({
+						"collabs_id.userID": req.decoded.id,
+					}, function(err, guestProjects) {
+						if (err) {
+							res.send(err);
+						} else {
+							res.json({
+								'success': true,
+								'data': projects.concat(guestProjects)
+							});
+						}
 					});
-				}
-			});
+
+				})
+			})
+
+
 		})
 
 	//===============================  Project:project_id  ============================
@@ -649,10 +883,20 @@ module.exports = function(app, express) {
 					money.name = user.name;
 					money.role = user.role;
 					money._id = user._id;
-					res.json({
+					/*res.json({
 						data: money
-					});
+					});*/
 				}
+				var money = {}
+				money.name = user.name;
+				money.role = user.role;
+				money._id = user._id;
+				money.invites = user.invites;
+				money.notifications = user.notifications;
+				res.json({
+					data: money
+				});
+
 			})
 		});
 	//===============================  USERS  ============================

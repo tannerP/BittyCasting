@@ -15,19 +15,21 @@
         </div>
         <div class="form-group">
           <label>E-mail</label>
-          <input type="email" class="custom-form" ng-model="user.userData.email">
+          <input type="email" class="custom-form" ng-model="user.userData.email" required>
         </div>
         <div class="form-group">
           <label>Create password</label>
-          <input type="password" class="custom-form" ng-model="user.userData.password">
+          <input type="password" class="custom-form" ng-model="user.userData.password" required>
         </div>
         <!-- <div class = "form-group">
             <label>Confirm password</label>
                 <input type = "password" class = "custom-form" ng-model = "user.userData.password">
         </div> -->
-        <button type="submit" class="custom-btn-primary-large" ng-click="user.saveUser()">Sign up for free</button>
       </form>
-      <a ui-sref="main" sp-logout>Logout</a>
+      <div ng-show="user.message"  class ="custom-alert">
+        {{user.message}}
+      </div>   
+      <button type="submit" class="custom-btn-primary-large" ng-click="user.saveUser()">Sign up for free</button>
 
 
       <div class="asideMessage paddingBottom60">

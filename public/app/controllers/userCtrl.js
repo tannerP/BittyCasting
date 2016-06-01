@@ -1,56 +1,80 @@
-angular.module('userCtrl',['userService'])
+angular.module('userCtrl', ['userService'])
 
-	.controller('userController',function(User)	{
-		var vm = this;
-		vm.processing = true;
+.controller('userController', function(User) {
+	var vm = this;
+	vm.processing = true;
 
-		User.all()
-		.success(function(data)	{	
+	User.all()
+		.success(function(data) {
 			vm.processing = false;
 
 			vm.users = data;
 		})
-		.error(function(err){
+		.error(function(err) {
 			console.log(err)
 		});
 
-		vm.deleteUser = function(id)	{
-			vm.processing = true;
+	vm.deleteUser = function(id) {
+		vm.processing = true;
 
-			User.delete(id)
-				.success(function(data)	{
+		User.delete(id)
+			.success(function(data) {
 
-					User.all()
-						.success(function(data)	{
-							vm.processing = false;
-							vm.users = data;
-							});
-						});
-	}})
+				User.all()
+					.success(function(data) {
+						vm.processing = false;
+						vm.users = data;
+					});
+			});
+	}
+})
+.controller('signupInviteCtrl', 
+	function(User, $scope, $location,$routeParams) {
+	var vm = this;
+	vm.userData = {};
+	vm.type = 'create';
 
-	.controller('profileController', 
-		function($routeParams,User,Auth)	{	
-			var vm = this;
-			Auth.getUser()
-						.then(function(data) {
-							vm.userData = data;
-							vm.userData.password = "";
-						 })
-			vm.saveUser = function(){
-				User.update(vm.userData._id,vm.userData)
+	vm.saveUser = function() {
+		vm.processing = true;
+		/*console.log("createUser");*/
+		//clear the message
+		vm.message = '';
+		// use the create function in the userService
+		User.createWithInvitation($routeParams.inviteID,vm.userData)
+		.then(function(res){
+			console.log(res)
+			vm.message = res.data.message;
+			console.log(vm.message)
+			vm.processing = false;
+			return;
+		})
+		return;
+	}			
+})
+
+.controller('profileController',
+	function($routeParams, User, Auth) {
+		var vm = this;
+		Auth.getUser()
+			.then(function(data) {
+				vm.userData = data.data;
+				vm.userData.password = "";
+			})
+		vm.saveUser = function() {
+			User.update(vm.userData._id, vm.userData)
 				.success(function(data) {
 					vm.processing = false;
 					vm.message = data.message;
 				});
-			}
-		})
+		}
+	})
 
-	.controller('userEditController_admin', 
-		function($routeParams,User)	{
+.controller('userEditController_admin',
+	function($routeParams, User) {
 		var vm = this;
 		vm.type = 'edit';
 		User.get($routeParams.user_id)
-			.success(function(data)	{
+			.success(function(data) {
 				vm.userData = data;
 			});
 
@@ -58,7 +82,7 @@ angular.module('userCtrl',['userService'])
 			vm.processing = true;
 			vm.message = '';
 
-		User.update($routeParams.user_id, vm.userData)
+			User.update($routeParams.user_id, vm.userData)
 				.success(function(data) {
 					vm.processing = false;
 
@@ -66,4 +90,5 @@ angular.module('userCtrl',['userService'])
 
 					vm.message = data.message;
 				});
-	}})
+		}
+	})

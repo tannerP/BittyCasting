@@ -12,7 +12,8 @@ var UserSchema = new Schema({
 	name : {first:String,last:String},
 	birth_date:{type:Date, default:Date.now},
 	role: String,
-	notifications:[],
+	invites:[],
+	notifications:[{notification_type:String,data:{}}],
 	views:{home:String,
 				 role:String},	
 	//content
@@ -25,6 +26,7 @@ var UserSchema = new Schema({
 	},	
 	email:{
 		type:String,
+		lowercase: true,
 		require:true,
 		index:{	unique:true	}
 	},

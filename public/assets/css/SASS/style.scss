@@ -1338,6 +1338,7 @@ ul.projects li {
                 padding: 0;
 
                 li {
+                    color:black;
                     width: 36px;
                     height: 36px;
                     @include border-radius(50%);
@@ -1350,15 +1351,6 @@ ul.projects li {
                     &:nth-child(1) {
                         background: url("/assets/imgs/ic_trash.svg") no-repeat center center white;
                         background-size: 16px 16px;           
-                    }
-
-                    &:nth-child(2) {
-                        background: url("/assets/imgs/ic_duplicate.svg") no-repeat center center white;
-                        background-size: 16px 16px;            
-                    }
-
-                    &:last-child {
-                        margin-right: 0;
                     }
 
                     &:hover, &:focus {

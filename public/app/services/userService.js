@@ -71,6 +71,20 @@ angular.module('userService', [])
 	mailFactory.betaUser = function(email) {
 		return $http.put('submit/:' + email);
 	}
+
+	mailFactory.sendCollabInvite = function(project,guestEmail)	{
+/*		console.log(guestEmail)*/
+			var data = {};
+			data.email = guestEmail
+			data.projectName = project.name;
+			data.projectID = project._id;
+			return $http.put('/api/collab/invite/'+data.projectID ,data);
+		/*console.log(feedback);*/
+		/*return $http.put('/api/collab/invite' ,data);*/
+	}
+/*	pubFactory.getAppPrj = function(id)	{
+		return $http.get('applicationPrj/' + id);
+	}*/
 	mailFactory.sendFB = function(data) {
 			/*console.log(feedback);*/
 			return $http.put('feedback', data);
@@ -183,6 +197,20 @@ angular.module('userService', [])
 .factory('Project', function($http) {
 	var projectFactory = {};
 
+	projectFactory.response2Invite = function(response,project){
+		var money = {}
+				money.response = response;
+				money.projectID = project._id;
+		return $http.put('api/collab/response', money);
+	}
+
+	projectFactory.removeCollab = function(projectID,collab){
+		var money = {};
+		money.projectID = projectID;
+		money.userID = collab.userID;
+		console.log(money)
+		return $http.put('api/collab/remove', money);
+	}
 	projectFactory.create = function(projectData) {
 		return $http.post('api/project', projectData);
 	}
@@ -217,7 +245,12 @@ angular.module('userService', [])
 		return $http.get('/api/users');
 	};
 
-	userFactory.create = function(userData) {
+	userFactory.createWithInvitation = function(inviteID,userData)	{
+		console.log(inviteID)
+		return $http.put('/register/invitation/'+inviteID, userData);
+	};
+	userFactory.create = function(userData)	{
+
 		return $http.post('/register/', userData);
 	};
 
