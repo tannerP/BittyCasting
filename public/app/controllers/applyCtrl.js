@@ -3,8 +3,13 @@ angular.module('applyCtrl', ['userService', 'mgcrea.ngStrap'])
 .directive('applyform', function() {
   var link = function(scope, element,
     attrs, controller, transcludeFn) {
-
-
+    /*console.log(scope)
+    console.log(controller)*/
+    scope.$watch('ppv.roles', function(newVal, oldVal){
+      if(newVal &&newVal.length ===1){
+        controller.requirements = newVal[0].requirements;
+      }
+    })
     return;
   }
 
@@ -13,6 +18,11 @@ angular.module('applyCtrl', ['userService', 'mgcrea.ngStrap'])
     $rootScope, $aside, $route, $timeout, $window) {
     var vm = this;
     $scope.isAside = false;
+
+    /* $scope.$watch('vm.roles', function(data1, data2) {
+      console.log(data1)
+      console.log(data2)
+    });*/
     /*vm.currRoleID = vm.roles[0]._id*/
     vm.loggedIn = false;
     if ($rootScope.user) {
@@ -101,8 +111,6 @@ angular.module('applyCtrl', ['userService', 'mgcrea.ngStrap'])
       }
     }
     vm.removeFile = function(rIndex, fIndex) {
-      console.log(rIndex)
-      console.log(fIndex)
       if (vm.files[rIndex][fIndex]) {
         vm.files[rIndex].splice(fIndex, 1);
       }
@@ -128,9 +136,6 @@ angular.module('applyCtrl', ['userService', 'mgcrea.ngStrap'])
     }
 
     var isValid = function(requirements, files, links) {
-      console.log(requirements)
-      console.log(files)
-      console.log(links)
         /*var */
       for (var i in requirements) {
         var req = requirements[i]
@@ -144,10 +149,8 @@ angular.module('applyCtrl', ['userService', 'mgcrea.ngStrap'])
             return i;
           }
         }
-        console.log(req.required)
         /*console.log(file)*/
-        console.log(link)
-        console.log(i)
+        
       }
     }
 
@@ -209,8 +212,8 @@ angular.module('applyCtrl', ['userService', 'mgcrea.ngStrap'])
           }
         }
       }
-      console.log("before applying")
-      console.log(vm.files)
+      /*console.log("before applying")
+      console.log(vm.files)*/
       Applicant.apply(vm.appData)
         .then(function(resp) {
           vm.processing = true;
@@ -223,8 +226,8 @@ angular.module('applyCtrl', ['userService', 'mgcrea.ngStrap'])
             }, 1500)
 
           } else {
-            console.log(uploadFiles.length)
-            console.log(uploadFiles)
+            /*console.log(uploadFiles.length)
+            console.log(uploadFiles)*/
 
             AWS.uploadAppMedias(uploadFiles, vm.requirements,
               vm.applicantID, $rootScope.awsConfig.bucket);
@@ -258,7 +261,6 @@ angular.module('applyCtrl', ['userService', 'mgcrea.ngStrap'])
     //required Angular V1.3 and above to associate scope to value "ppv"
   }
 })
-
 
 .controller('ApplicantProjectLvlController', ['$scope', '$rootScope',
   'Upload', '$http', 'Project', 'Role', 'Applicant',
@@ -308,7 +310,6 @@ angular.module('applyCtrl', ['userService', 'mgcrea.ngStrap'])
         Pub.getAppPrj(castingRole.projectID).then(function(data) {
           vm.project = data.data.project.project;
           vm.otherRoles = data.data.project.roles;
-
           if (vm.project && vm.roles[0]) {
             $rootScope.meta = Meta.roleMeta(castingRole, vm.project);
             /*vm.appData.projectID = vm.project

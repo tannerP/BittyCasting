@@ -32,7 +32,6 @@ module.exports = function(app, express) {
           }, function(err, data) {
             if (data) {
               data.email = data.email.toLowerCase()
-              console.log(data.email)
               decoded.name = data.name;
               data.last_active = new Date();
               data.save();
