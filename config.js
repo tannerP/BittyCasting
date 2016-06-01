@@ -9,7 +9,7 @@ exports.tp = {
   "PASS"    : "",
   "HOST"    : "127.0.0.1",  
   "PORT"    : "27017", 
-  "DATABASE" : "authentication",
+  "DATABASE" : "dev",
   "api_key" : "key-22cf943037f7135a79633e5f3fb255e1",
   "domain"  : "email.bittycasting.com",
   "from_who" : "internal@bittycasting.com",

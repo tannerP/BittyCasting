@@ -419,42 +419,42 @@ module.exports = function(app, express) {
         from: "Registration@bittycasting.com",
         to: req.body.email,
         subject: "Confirm: New Registration",
-        html: 'Follow this link to finish your Bittycasting Registration: ' + 
-        "https://bittycasting.com/confirm/confirmation._id"
+        html: 'Follow this link to finish your Bittycasting Registration: ' +
+          "https://bittycasting.com/confirm/confirmation._id"
       }
 
-      var mailgun = new Mailgun({
-        apiKey: config.api_key,
-        domain: config.domain
-      });
-
-
       user.save(function(err) {
-          if (err) {
-            console.log(err);
-            //duplicate entry
-            if (err.code == 11000)
-              return res.json({
-                success: false,
-                message: 'A user with that email already exists.'
-              });
-            else {
-              mailgun.messages()
-                .send(data, function(err, body) {
-                  if (err) {
-                    console.log(err)
-                    return err;
-                  } else {
-                    console.log(body)
-                    return;
-                  }
-                });
-              res.json({
-                message: 'User created!'
-              });
-          return res.send(err);
+        if (err) {
+          console.log(err);
+          //duplicate entry
+          if (err.code == 11000)
+            return res.json({
+              success: false,
+              message: 'A user with that email already exists.'
+            });
+          else {
+            var mailgun = new Mailgun({
+              apiKey: config.api_key,
+              domain: config.domain
+            });
+
+            mailgun.messages()
+              .send(data, function(err, body) {
+                if (err) {
+                  console.log(err)
+                  return res.json({
+                    success: false, 
+                    error: err
+                  });
+                } else {
+                  console.log(body)
+                  return res.json({
+                    message: 'User created!'
+                  });
                 }
+              });
           }
+        }
       })
 
     });
