@@ -1,9 +1,10 @@
 angular.module('mainCtrl', ['authService', 'mgcrea.ngStrap'])
 	.controller('mainController', ['$scope', '$rootScope', 'Auth',
 		'$location', "$sce", "$route", "$window", "Mail",
-		 "$aside", "Meta", "AuthToken","$timeout",
-		function($scope, $rootScope, Auth,$location, $sce,
-			$route, $window, Mail, $aside, Meta, AuthToken,$timeout ) {
+		"$aside", "Meta", "AuthToken", "$timeout","EmailValidator",
+		function($scope, $rootScope, Auth, $location, $sce,
+			$route, $window, Mail, $aside, Meta, AuthToken,
+			$timeout,EmailValidator) {
 			var vm = this;
 			$rootScope.meta = {};
 			$scope.isAside = false;
@@ -23,7 +24,8 @@ angular.module('mainCtrl', ['authService', 'mgcrea.ngStrap'])
 				else if (newUrl.indexOf('/Apply') > -1) return;
 				else if (newUrl.indexOf('/project') > -1) return;
 				else if (newUrl.indexOf('/role') > -1) return;*/
-				/*else*/ if ($scope.isAside) {
+				/*else*/
+				if ($scope.isAside) {
 					event.preventDefault();
 
 				} // This prevents the navigation from happening
@@ -108,8 +110,8 @@ angular.module('mainCtrl', ['authService', 'mgcrea.ngStrap'])
 										last: data.name.last,
 										email: data.email,
 										role: data.role,
-										invites:data.invites,
-										notifications:data.notifcations,
+										invites: data.invites,
+										notifications: data.notifcations,
 										_id: data._id,
 									}
 								}
@@ -123,9 +125,9 @@ angular.module('mainCtrl', ['authService', 'mgcrea.ngStrap'])
 				$scope.isSending = true;
 				/*$scope.$apply();*/
 				if (vm.betaEmail) {
-					$timeout(function(){
+					$timeout(function() {
 						$scope.isSending = false
-					},1500)
+					}, 1500)
 					Mail.betaUser(vm.betaEmail);
 					vm.betaEmail = null;
 					vm.betaSubMessage = "Submitted! Thank you for your interest."
@@ -164,31 +166,64 @@ angular.module('mainCtrl', ['authService', 'mgcrea.ngStrap'])
 		}
 	]).
 
-controller('signupCtrl', function(User, $scope, $location) {
+controller('signupCtrl', function(User, $scope, $location, EmailValidator) {
 	var vm = this;
 	vm.userData = {};
 	vm.type = 'create';
 
-	vm.saveUser = function() {
-		vm.processing = true;
-		/*console.log("createUser");*/
-		//clear the message
-		vm.message = '';
-		// use the create function in the userService
-		User.create(vm.userData)
-			.success(function(data) {
-				$scope.$emit('aside.hide')
-				vm.processing = false;
-				$scope.$hide();
-				//clear the form
-				vm.userData = {};
-				vm.message = data.message;
-				setTimeout(function() {
-					$location.path('/login')
-				}, 2000)
+	vm.nameChanging = function(name) {
+		var index = name.indexOf(" ");
 
-			});
+		var fname = name.split(" ")[0];
+		var lname = name.split(" ")[1];
+		if (fname && fname[0].toUpperCase() != fname[0]) {
+			fname = fname[0].toUpperCase() + fname.slice(1);
+			vm.userData.name = fname;
+		}
+		if (lname && lname[0].toUpperCase() != lname[0]) {
+			lname = lname[0].toUpperCase() + lname.slice(1);
+		}
+
+		if (lname && lname) {
+			vm.userData.name = ''
+			vm.userData.name = fname + " " + lname
+		}
 	}
+
+vm.isEmailVallid = true;
+	vm.emailChanging = function(email) {
+		if(!email) return;
+		vm.isEmailVallid = false;
+		EmailValidator.validate(email, function(result){
+			vm.isEmailVallid = result;
+
+			console.log(vm.isEmailVallid)
+			return;
+		})
+
+	}
+
+
+vm.saveUser = function() {
+	vm.processing = true;
+	/*console.log("createUser");*/
+	//clear the message
+	vm.message = '';
+	// use the create function in the userService
+	User.create(vm.userData)
+		.success(function(data) {
+			$scope.$emit('aside.hide')
+			vm.processing = false;
+			$scope.$hide();
+			//clear the form
+			vm.userData = {};
+			vm.message = data.message;
+			setTimeout(function() {
+				$location.path('/login')
+			}, 2000)
+
+		});
+}
 })
 .controller('loginCtrl', ['$scope', 'Auth', '$location', '$route',
 	function($scope, Auth, $location, $route) {
@@ -206,7 +241,7 @@ controller('signupCtrl', function(User, $scope, $location) {
 						//if a user successfully logs in, redirect to users page
 						vm.loginData = {};
 						$scope.$emit('aside.hide')
-						//conditional for /login vs aside
+							//conditional for /login vs aside
 						if ($location.path() == '/login') $location.path('/home');
 						else {
 							$location.path('/home');
