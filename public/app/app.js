@@ -1,5 +1,4 @@
 angular.module('userApp', [
-		'ngResource',
 		'angular-carousel',
 		'angular.filter',
 		'ui.bootstrap',
