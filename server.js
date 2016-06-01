@@ -61,9 +61,12 @@ app.use(bodyParser.json());
 //configure app to handle CORS requests
 app.use(function(req, res, next) {
   res.setHeader('Access-Control-Allow-Orgin', '*');
-  res.setHeader('Access-Control-Allow-Method', 'GET,POST');
+  res.setHeader('Access-Control-Allow-Method', 'GET,POST,OPTIONS');
   res.setHeader('Access-Control-Allow-Headers',
-    'X-Request-With,content-type,\Authorization');
+    'Origin,X-Request-With,Content-Type,Accept');
+  
+  
+
   /*  res.setHeader('Last-Modified', (new Date()).toUTCString());*/
   /*res.setHeader('Cache-Control', 'public, max-age=3155'); */
   next();

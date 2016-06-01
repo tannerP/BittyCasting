@@ -166,10 +166,25 @@ angular.module('mainCtrl', ['authService', 'mgcrea.ngStrap'])
 		}
 	]).
 
-controller('signupCtrl', function(User, $scope, $location, EmailValidator) {
+controller('signupCtrl', function(User, $scope, 
+	$location, EmailValidator, Facebook) {
 	var vm = this;
 	vm.userData = {};
 	vm.type = 'create';
+
+	vm.checkFB = function(){
+		console.log("checking FB")
+		console.log(Facebook)
+		     Facebook.api('/me', function(response) {
+		     	console.log(response)
+        $scope.user = response;
+      });
+		 /*Facebook.login(function(response) {
+
+	   	console.log(response)
+        $scope.user = response;
+      });*/
+	}
 
 	vm.nameChanging = function(name) {
 		var index = name.indexOf(" ");

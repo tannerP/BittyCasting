@@ -1,4 +1,5 @@
 angular.module('userApp', [
+		'facebook',
 		'angular-carousel',
 		'angular.filter',
 		'ui.bootstrap',
@@ -53,8 +54,9 @@ angular.module('userApp', [
 			placement: 'right'
 		});
 	})
-	.config(function($httpProvider) {
-		$httpProvider.defaults.useXDomain = true;
+	.config(function($httpProvider, FacebookProvider) {
+		FacebookProvider.init('606100032877962');
+
 		delete $httpProvider.defaults.headers.common['X-Requested-With'];
 		//attach our auth inteceptor to the http requests
 		$httpProvider.interceptors.push('AuthInterceptor');

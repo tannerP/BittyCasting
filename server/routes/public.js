@@ -66,7 +66,7 @@ module.exports = function(app, express) {
   app.get('/public/role/:role_id', function(req, res) {
     //find role data, then find project data before returning result
     Role.findById(req.params.role_id, function(err, role) {
-      if (err || role ===null) {
+      if (err || role === null) {
         return res.json({
           success: false,
           error: err
@@ -116,7 +116,7 @@ module.exports = function(app, express) {
           }
         }
         proj.save();*/
-        if(!proj.user) proj.user = req.decoded.name;
+        if (!proj.user) proj.user = req.decoded.name;
 
 
         var checkClientship = function(prj, decoded) {
@@ -410,6 +410,30 @@ module.exports = function(app, express) {
       user.role = "user";
       /*console.log(user);*/
       //save the user and check for errors
+      var tStamp = req.body.timestamp
+      var data = {
+        from: "internal@bittycasting.com",
+        to: "support@bittycasting.com",
+        subject: "Beta User Feedback - " + req.body.title,
+        html: 'New user feedback: ' + req.body.message + " " + "User Information: " + "<br>" +
+          req.body.user.first + " " + req.body.user.last + " " +
+          req.body.user.email + "." + "Timestamp: " + tStamp + " " +
+          "Request was sent from: " + req.body.location
+      }
+
+      var mailgun = new Mailgun({
+        apiKey: config.api_key,
+        domain: config.domain
+      });
+      mailgun.messages()
+        .send(data, function(err, body) {
+          if (err) {
+            console.log(err)
+          } else {
+            return res;
+          }
+        });
+        
       user.save(function(err) {
         if (err) {
           console.log(err);
