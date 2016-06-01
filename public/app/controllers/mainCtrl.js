@@ -231,6 +231,9 @@ controller('signupCtrl', function(User, $scope,
 
 		vm.saveUser = function() {
 			vm.processing = true;
+			/*vm.userData.name.first = vm.userData.name.split(" ")[0].toLowerCase();
+			  vm.userData.name.last= vm.userData.name.split(" ")[1].toLowerCase();*/
+			  console.log(vm.userData.name)
 			/*console.log("createUser");*/
 			//clear the message
 			vm.message = '';

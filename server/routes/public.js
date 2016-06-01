@@ -401,29 +401,30 @@ module.exports = function(app, express) {
     });
   app.route('/register')
     .post(function(req, res) {
-      //create a new instance of the User model
+      console.log("In register block")
+        //create a new instance of the User model
       var user = new User();
       var confirmation = new emailConfirmation();
       confirmation.userID = user._id;
       confirmation.save();
       //set the users information (comes from the request)
-      user.name.last = req.body.name.last;
-      user.name.first = req.body.name.first;
+      var name = req.body.name
+
+
+      user.name = ({
+        first: name.split(" ")[0],
+        last: name.split(" ")[1]
+      })
+
+      /*user.name.last = req.body.name.last;
+      user.name.first = req.body.name.first;*/
       user.password = req.body.password;
       user.email = req.body.email;
       user.role = "user";
-      /*console.log(user);*/
-      //save the user and check for errors
-      /*var tStamp = req.body.timestamp*/
-      var data = {
-        from: "Registration@bittycasting.com",
-        to: req.body.email,
-        subject: "Confirm: New Registration",
-        html: 'Follow this link to finish your Bittycasting Registration: ' +
-          "https://bittycasting.com/confirm/confirmation._id"
-      }
 
-      user.save(function(err) {
+      user.save(function(err, user) {
+        console.log(err)
+        console.log(user)
         if (err) {
           console.log(err);
           //duplicate entry
@@ -432,29 +433,38 @@ module.exports = function(app, express) {
               success: false,
               message: 'A user with that email already exists.'
             });
-          else {
-            var mailgun = new Mailgun({
-              apiKey: config.api_key,
-              domain: config.domain
-            });
-
-            mailgun.messages()
-              .send(data, function(err, body) {
-                if (err) {
-                  console.log(err)
-                  return res.json({
-                    success: false, 
-                    error: err
-                  });
-                } else {
-                  console.log(body)
-                  return res.json({
-                    message: 'User created!'
-                  });
-                }
-              });
+        } else {
+          console.log(user)
+          var data = {
+            from: "Registration@bittycasting.com",
+            to: req.body.email,
+            subject: "Confirm: New Registration",
+            html: user.name.first[0].toUpperCase() + user.name.first.toLowerCase().slice(1) +
+              ', Please follow this link to finish your Bittycasting registration. ' +
+              "https://bittycasting.com/confirm/" + confirmation._id,
           }
+          var mailgun = new Mailgun({
+            apiKey: config.api_key,
+            domain: config.domain
+          });
+
+          mailgun.messages()
+            .send(data, function(err, body) {
+              if (err) {
+                console.log(err)
+                return res.json({
+                  success: false,
+                  error: err
+                });
+              } else {
+                console.log(body)
+                return res.json({
+                  message: 'User created!'
+                });
+              }
+            });
         }
+
       })
 
     });
