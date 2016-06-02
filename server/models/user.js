@@ -27,7 +27,7 @@ var UserSchema = new Schema({
 		type:String,
 		lowercase: true,
 		require:true,
-		/*index:{	unique:true	}*/
+		index:{	unique:true	}
 	},
 });
 

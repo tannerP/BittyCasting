@@ -436,12 +436,12 @@ module.exports = function(app, express) {
         } else {
           console.log(user)
           var data = {
-            from: "Registration@bittycasting.com",
+            from: "Registration@BittyCasting.com",
             to: req.body.email,
             subject: "Confirm: New Registration",
             html: user.name.first[0].toUpperCase() + user.name.first.toLowerCase().slice(1) +
-              ', Please follow this link to finish your Bittycasting registration. ' +
-              "https://bittycasting.com/confirm/" + confirmation._id,
+              ', please follow this link to finish your Bittycasting registration. ' +
+              "https://bittycasting.com/register/confirm/" + confirmation._id,
           }
           var mailgun = new Mailgun({
             apiKey: config.api_key,

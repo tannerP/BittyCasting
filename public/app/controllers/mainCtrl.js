@@ -239,6 +239,9 @@ controller('signupCtrl', function(User, $scope,
 			vm.message = '';
 			// use the create function in the userService
 			User.create(vm.userData)
+				error(function(data){
+					data
+				})
 				.success(function(data) {
 					$scope.$emit('aside.hide')
 					vm.processing = false;
