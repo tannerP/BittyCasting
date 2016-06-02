@@ -94,6 +94,7 @@ angular.module('mainCtrl', ['authService', 'mgcrea.ngStrap'])
 							if (data) {
 								/*console.log(data)*/
 								data = data.data;
+
 								if (!data.name) {
 									Auth.logout();
 									$location.path('/')

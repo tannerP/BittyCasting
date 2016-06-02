@@ -95,6 +95,7 @@ module.exports = function(app, express) {
             success: true,
             client: client,
             data: role,
+            project:proj,
           });
         })
       }
