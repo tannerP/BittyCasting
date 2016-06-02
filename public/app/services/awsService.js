@@ -7,6 +7,7 @@ angular.module('awsService', [])
   var aws = [];
   var upload = [];
     var bucket
+
   $http.get('/config').success(function(data) {
     $rootScope.awsConfig = data.awsConfig;
      bucket = $rootScope.awsConfig.bucket

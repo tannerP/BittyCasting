@@ -10,7 +10,7 @@ angular.module('projectCtrl', ['userService',
           var vm = this;
           vm.processing = true;
           vm.project = vm.project;
-          
+
           //function is used in project sharing aside. 
           $scope.preview = function() {
             vm.toggle();
@@ -23,14 +23,14 @@ angular.module('projectCtrl', ['userService',
               static: false,
               backdrop: "static",
               controller: 'newRoleController',
-              controllerAs: 'roleAside',
+              controllerAs: 'vm',
               templateUrl: '/app/views/pages/role_form.tmpl.html'
             }),
             editPrjAside = $aside({
               scope: $scope,
               show: false,
               controller: 'editProjectController',
-              controllerAs: 'projectAside',
+              controllerAs: 'vm',
               templateUrl: '/app/views/pages/project_form.tmpl.html'
             }),
             shareRoleAside = $aside({
@@ -111,8 +111,8 @@ angular.module('projectCtrl', ['userService',
           }
 
           vm.convertInitial = function(name) {
-            if(!name) return;
-              return initial = name.first[0]+name.last[0];
+            if (!name) return;
+            return initial = name.first[0] + name.last[0];
           }
 
           vm.save = function() {
@@ -184,9 +184,8 @@ angular.module('projectCtrl', ['userService',
         .success(function(data) {
           /*console.log(data)*/
           vm.project = data.project.project;
-          
-
           $rootScope.meta = Meta.prjMeta(vm.project);
+
           vm.roles = data.project.roles;
           if (vm.roles.length >= 1) {
             vm.curRole = data.project.roles[0];
@@ -292,9 +291,9 @@ angular.module('projectCtrl', ['userService',
         $scope.toggle = true;
         successAlert.toggle();
         $scope.textToCopy = "Copied!"
-        $timeout(function(){
+        $timeout(function() {
           $scope.textToCopy = $scope.project.short_url;
-        },1500);
+        }, 1500);
       };
 
       $scope.fail = function(err) {
@@ -410,8 +409,8 @@ angular.module('projectCtrl', ['userService',
 
     })
 
-  .controller('HomePageController',
-    function(Project, HomeService, $location, $aside, $scope,$rootScope) {
+.controller('HomePageController',
+    function(Project, HomeService, $location, $aside, $scope, $rootScope) {
       var vm = this;
       $scope.aside = {};
       $scope.aside.projectData = {}
@@ -422,10 +421,10 @@ angular.module('projectCtrl', ['userService',
           vm.projects = data.data;
           for (var i in vm.projects) {
             var projectID = vm.projects[i]._id;
-            console.log(projectID)
-            console.log($rootScope.user.invites)
+            /*console.log(projectID)
+            console.log($rootScope.user.invites)*/
             if ($rootScope.user.invites.indexOf(projectID) > -1) {
-              console.log("guest = true")
+              /*console.log("guest = true")*/
               vm.projects[i].guest = true;
             }
           }
@@ -476,7 +475,7 @@ angular.module('projectCtrl', ['userService',
         show: false,
         keyboard: true,
         controller: 'newProjectController',
-        controllerAs: 'projectAside',
+        controllerAs: 'vm',
         templateUrl: '/app/views/pages/project_form.tmpl.html'
       });
       deletePrjAside = $aside({
@@ -531,7 +530,7 @@ angular.module('projectCtrl', ['userService',
 
         });
       };
-  updateView();
+      updateView();
     })
   .controller('newProjectController',
     function(Project, $location, $route, $rootScope,
@@ -630,7 +629,7 @@ angular.module('projectCtrl', ['userService',
 //page: project.html
 .controller('editProjectController',
     function($scope, Project, $location, $routeParams,
-      $route, AWS, $rootScope, Prerender) {
+      $route, AWS, $rootScope, Prerender, $timeout) {
       var vm = this;
       $scope.$on('$locationChangeStart', function(event, newUrl, oldUrl) {
         $scope.$hide()
@@ -710,7 +709,7 @@ angular.module('projectCtrl', ['userService',
           vm.projectData.coverphoto.name = "default";
           //Updating Project cover photo
         } else if (vm.CP_cust) {
-          AWS.uploadCP(vm.CP_cust, $rootScope.awsConfig.bucket, function(data) {
+          AWS.uploadCP(vm.CP_cust, function(data) {
             vm.projectData.coverphoto = data;
             Project.update(vm.projectData._id,
                 vm.projectData)
@@ -720,7 +719,10 @@ angular.module('projectCtrl', ['userService',
                 vm.processing = false;
                 $scope.projectData = {};
                 $route.reload();
-                $scope.$hide()
+                $timeout(function() {
+                  $scope.$hide();
+                }, 1000)
+
               });
           });
         }
@@ -738,9 +740,10 @@ angular.module('projectCtrl', ['userService',
           })
       }
     })
-.controller('newRoleController',
+  .controller('newRoleController',
     function(Role, $location, $routeParams, $route, $scope, Prerender) {
       var vm = this;
+      console.log("new role controoller")
       $scope.$on('$locationChangeStart', function(event, newUrl, oldUrl) {
         $scope.$hide()
       });
@@ -796,8 +799,10 @@ angular.module('projectCtrl', ['userService',
 
       }
       vm.processing = false;
+      console.log(vm.processing)
       vm.createRoleBtn = function() {
-        vm.processing = true;
+
+        /*vm.processing = true;*/
         vm.projectID = $routeParams.project_id;
         vm.roleData.end_date = $scope.selectedDate.toJSON();
         /*vm.roleData.end_time = $scope.selectedTime.toJSON();*/
@@ -822,43 +827,43 @@ angular.module('projectCtrl', ['userService',
       }
     })
 
-  //Change to style.flexDirection = 'column-reverse'
-  .controller('deleteProjectController', ['$scope', '$alert', 'Project', '$location', '$route',
-    function($scope, $alert, Project, $location, $route) {
-      var vm = this;
-      vm.process = true;
-      vm.existing = true;
-      $scope.$on('$locationChangeStart', function(event, newUrl, oldUrl) {
-        $scope.$emit('aside.hide')
-        $scope.$hide()
-      });
-      var errAlert = $alert({
-        title: 'Whoops',
-        content: 'Please check all',
-        animation: 'am-fade-and-`sl`ide-top',
-        duration: '5',
-        placement: 'top-right',
-        type: 'danger',
-        show: false,
-        type: 'success'
-      });
+//Change to style.flexDirection = 'column-reverse'
+.controller('deleteProjectController', ['$scope', '$alert', 'Project', '$location', '$route',
+  function($scope, $alert, Project, $location, $route) {
+    var vm = this;
+    vm.process = true;
+    vm.existing = true;
+    $scope.$on('$locationChangeStart', function(event, newUrl, oldUrl) {
+      $scope.$emit('aside.hide')
+      $scope.$hide()
+    });
+    var errAlert = $alert({
+      title: 'Whoops',
+      content: 'Please check all',
+      animation: 'am-fade-and-`sl`ide-top',
+      duration: '5',
+      placement: 'top-right',
+      type: 'danger',
+      show: false,
+      type: 'success'
+    });
 
-      vm.delete = function(projID) {
-        Project.delete(projID)
-          .success(function() {
+    vm.delete = function(projID) {
+      Project.delete(projID)
+        .success(function() {
+          $route.reload();
+          vm.processing = false;
+          vm.projectData = null;
+          if ($location.path().indexOf("project") != -1) {
+            $scope.$emit('aside.hide')
+            $scope.$hide();
+            $location.path("/home")
+          } else {
+            $scope.$emit('aside.hide')
             $route.reload();
-            vm.processing = false;
-            vm.projectData = null;
-            if ($location.path().indexOf("project") != -1) {
-              $scope.$emit('aside.hide')
-              $scope.$hide();
-              $location.path("/home")
-            } else {
-              $scope.$emit('aside.hide')
-              $route.reload();
-              $scope.$hide();
-            }
-          })
-      }
+            $scope.$hide();
+          }
+        })
     }
-  ]);
+  }
+]);

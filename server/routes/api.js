@@ -546,8 +546,6 @@ module.exports = function(app, express) {
 			})
 		})
 
-
-
 	//===============================  Roles ============================
 	apiRouter.route('/roles/:projectID')
 		.get(function(req, res) {

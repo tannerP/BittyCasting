@@ -15,7 +15,7 @@ angular.module('mainCtrl', ['authService', 'mgcrea.ngStrap'])
 			})
 
 			$scope.$on('aside.hide', function() {
-				console.log("aside hiding")
+				/*console.log("aside hiding")*/
 				$scope.isAside = false;
 			})
 			$scope.$on('$locationChangeStart', function(event, newUrl, oldUrl) {
@@ -96,6 +96,7 @@ angular.module('mainCtrl', ['authService', 'mgcrea.ngStrap'])
 							if (data) {
 								/*console.log(data)*/
 								data = data.data;
+
 								if (!data.name) {
 									Auth.logout();
 									$location.path('/')

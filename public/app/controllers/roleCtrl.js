@@ -5,7 +5,7 @@ angular.module('roleCtrl', ['userService',
 .controller('RolePageController',
     function(Applicant, Role, $location, $routeParams, $rootScope,
       $scope, $aside, $routeParams, $location, $route,
-      $window, $timeout, RoleService, $route) {
+      $window, $timeout, RoleService, $route, Meta) {
       var vm = this;
       $scope.appLimit = 6;
 
@@ -35,8 +35,8 @@ angular.module('roleCtrl', ['userService',
 
       $window.onscroll = function() {
         var position = document.body.scrollTop ||
-                       document.documentElement.scrollTop || 0;
-        var width = $window.innerWidth; 
+          document.documentElement.scrollTop || 0;
+        var width = $window.innerWidth;
         var cardHeight = 283;
 
         var coefficient
@@ -91,21 +91,20 @@ angular.module('roleCtrl', ['userService',
       //$scope.isAside track if an aside is open. If it is, 
       //prevent going back, instead, close aside.
       $scope.$watch('carouselIndex', function(newVal, oldVal) {
-        console.log($scope.slides.length)
-        console.log('newValue '+newVal )
-        if(++newVal === $scope.slides.length )  $scope.carouselIndex = 5;
+        if (++newVal === $scope.slides.length) $scope.carouselIndex = 5;
       });
 
       Role.get($routeParams.role_id)
         .success(function(data) {
+          $rootScope.meta = Meta.prjMeta(data.project);
+
+
           if (data.client === "public") {
             $location.path('Apply/' + $routeParams.role_id)
-          }
-          else if(data.client === "owner"){
+          } else if (data.client === "owner") {
             vm.owner = true;
-          }
-          else vm.owner = false;
-          
+          } else vm.owner = false;
+
           vm.processing = false;
           $scope.roleData = data.data;
           if ($scope.roleData) {
@@ -340,12 +339,12 @@ angular.module('roleCtrl', ['userService',
         app.new = false;
         Applicant.viewedUpdate(app._id, roleID);
       }
-      vm.updateFav = function(index,aplnt, roleID) {
+      vm.updateFav = function(index, aplnt, roleID) {
         console.log(aplnt.favorited)
         aplnt.favorited = !aplnt.favorited;
         console.log(aplnt.favorited)
-/*        vm.applicants[index].favorited = !vm.applicants[index].favorited */
-        
+          /*        vm.applicants[index].favorited = !vm.applicants[index].favorited */
+
         /*aplnt.favorited = !aplnt.favorited;*/
         Applicant.favUpdate(aplnt, roleID);
         /*$route.reload();*/

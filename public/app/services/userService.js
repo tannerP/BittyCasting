@@ -49,7 +49,8 @@ angular.module('userService', [])
 	}
 	this.roleMeta = function(role, project) {
 		meta.title = "CASTING CALL: " + role.name
-		meta.url += meta.site_name + "/Apply/" + role._id;
+		meta.url = ""
+		meta.url = meta.site_name + "/Apply/" + role._id;
 		meta.description = role.description;
 		if (project.coverphoto.name === "default") {
 			meta.image = meta.site_name + '/' + project.coverphoto.source;
@@ -60,9 +61,8 @@ angular.module('userService', [])
 		return meta;
 	}
 	this.prjMeta = function(project) {
-
 			meta.title = "CASTING CALL: " + project.name
-
+			meta.url = ""
 			meta.url = meta.site_name + "/Apply/Project/" + project._id;
 			meta.description = project.description;
 
@@ -148,12 +148,11 @@ angular.module('userService', [])
 	appFactory.update = function(id, data) {
 		return $http.put('/suppliment/' + id, data);
 	}
+
 	appFactory.viewedUpdate = function(appID, roleID) {
 		var money = {};
 		money.status = "new"
 		money.roleID = roleID;
-		console.log(appID)
-		console.log(roleID)
 		return $http.put('/api/app/' + appID, money);
 	}
 	appFactory.favUpdate = function(app, roleID) {
