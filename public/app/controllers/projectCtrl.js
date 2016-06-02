@@ -629,7 +629,7 @@ angular.module('projectCtrl', ['userService',
 //page: project.html
 .controller('editProjectController',
     function($scope, Project, $location, $routeParams,
-      $route, AWS, $rootScope, Prerender) {
+      $route, AWS, $rootScope, Prerender, $timeout) {
       var vm = this;
       $scope.$on('$locationChangeStart', function(event, newUrl, oldUrl) {
         $scope.$hide()
@@ -709,7 +709,7 @@ angular.module('projectCtrl', ['userService',
           vm.projectData.coverphoto.name = "default";
           //Updating Project cover photo
         } else if (vm.CP_cust) {
-          AWS.uploadCP(vm.CP_cust, $rootScope.awsConfig.bucket, function(data) {
+          AWS.uploadCP(vm.CP_cust, function(data) {
             vm.projectData.coverphoto = data;
             Project.update(vm.projectData._id,
                 vm.projectData)
@@ -719,7 +719,10 @@ angular.module('projectCtrl', ['userService',
                 vm.processing = false;
                 $scope.projectData = {};
                 $route.reload();
-                $scope.$hide()
+                $timeout(function() {
+                  $scope.$hide();
+                }, 1000)
+
               });
           });
         }
