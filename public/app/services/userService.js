@@ -16,7 +16,8 @@ angular.module('userService', [])
 	}
 	this.roleMeta = function(role, project) {
 		meta.title = "CASTING CALL: " + role.name
-		meta.url += meta.site_name + "/Apply/" + role._id;
+		meta.url = ""
+		meta.url = meta.site_name + "/Apply/" + role._id;
 		meta.description = role.description;
 		if (project.coverphoto.name === "default") {
 			meta.image = meta.site_name + '/' + project.coverphoto.source;
@@ -28,6 +29,7 @@ angular.module('userService', [])
 	}
 	this.prjMeta = function(project) {
 			meta.title = "CASTING CALL: " + project.name
+			meta.url = ""
 			meta.url = meta.site_name + "/Apply/Project/" + project._id;
 			meta.description = project.description;
 
