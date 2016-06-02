@@ -164,9 +164,42 @@ angular.module('mainCtrl', ['authService', 'mgcrea.ngStrap'])
 				$window.open(FBLink, '_blank');
 			}
 		}
-	]).
+	])
+	.controller('signupConfirmCtrl', function(User, $scope, $routeParams,
+		$location, EmailConfirmation, EmailValidator, Facebook, Auth) {
+		var vm = this;
+		vm.message = ""
+		vm.email = "";
 
-controller('signupCtrl', function(User, $scope,
+		console.log("sign up confirm controller")
+
+
+				vm.isEmailVallid = true;
+		vm.emailChanging = function(email) {
+			if (!email) return;
+			vm.isEmailVallid = false;
+			EmailValidator.validate(email, function(data) {
+				if(data.is_valid === false)
+				{
+					vm.message = "Invalid Email";
+				}
+				else{
+					vm.message = ""
+				}
+				return;
+			})
+
+		}
+
+		Auth.confirmEmail($routeParams.confirmID)
+			.success(function(data){
+				vm.message = data.message;
+				console.log(data)
+			})
+
+	return vm;
+	})
+	.controller('signupCtrl', function(User, $scope,
 		$location, EmailValidator, Facebook) {
 		var vm = this;
 		vm.userData = {};
@@ -179,18 +212,18 @@ controller('signupCtrl', function(User, $scope,
 			console.log(Facebook)
 
 			Facebook.login(function(response) {
-					if (response.status === "connected") {
-						Facebook.api('/me?fields=name,email', function(response) {
-							/*console.log(response)*/
-							/*$scope.user = response;*/
-							vm.userData.name = response.name;
-							vm.userData.email = response.email;
-							/*console.log(vm.userData)
-							console.log($scope.user)*/
-							return;
-						});
-					}
-				}, {
+				if (response.status === "connected") {
+					Facebook.api('/me?fields=name,email', function(response) {
+						/*console.log(response)*/
+						/*$scope.user = response;*/
+						vm.userData.name = response.name;
+						vm.userData.email = response.email;
+						/*console.log(vm.userData)
+						console.log($scope.user)*/
+						return;
+					});
+				}
+			}, {
 				scope: 'email'
 			});
 			return;
@@ -233,14 +266,14 @@ controller('signupCtrl', function(User, $scope,
 			vm.processing = true;
 			/*vm.userData.name.first = vm.userData.name.split(" ")[0].toLowerCase();
 			  vm.userData.name.last= vm.userData.name.split(" ")[1].toLowerCase();*/
-			  console.log(vm.userData.name)
-			/*console.log("createUser");*/
-			//clear the message
+			console.log(vm.userData.name)
+				/*console.log("createUser");*/
+				//clear the message
 			vm.message = '';
 			// use the create function in the userService
 			User.create(vm.userData)
-				error(function(data){
-					data
+			error(function(data) {
+					vm.message = data.message;
 				})
 				.success(function(data) {
 					$scope.$emit('aside.hide')

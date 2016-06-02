@@ -358,7 +358,66 @@ module.exports = function(app, express) {
     })
     /*  })
     });*/
-    /* Authentication */
+
+  app.route('/register/confirm/:confirmID')
+    .get(function(req, res) {
+      emailConfirmation.findOne({
+        _id: req.params.confirmID
+      }, function(err, data) {
+        console.log(err)
+        console.log(data)
+        if (!data) return res.json({
+          success: false,
+          message: "Request Expired. Please Resubmit Your Email"
+        });
+
+        else {
+          User.findOne({
+              _id: data.userID
+            }).select('name email password')
+            .exec(function(err, user) {
+              if (err) throw err;
+              if (!user) {
+                 return res.json({
+                  success: false,
+                  message: 'Authentication failed. User not found.'
+                });
+              }
+              /*           } else if (user) {
+
+                           var validPassword = user.comparePassword(req.body.password);
+                           if (!validPassword) {
+                             res.json({
+                               success: false,
+                               message: 'Authentication failed. Wrong password.'
+                             });
+                           } else {*/
+
+              var token = jwt.sign({
+                id: user.id,
+                name: user.name,
+              }, config.secret, {
+                expiresIn: 86400 //  (24hrs)
+                  // expires in 3600 * 24 = c (24 hours)
+              });
+              //return the information including token as JSON
+              return res.json({
+                success: false,
+                name: user.name,
+                message: 'Enjoy your token!',
+                token: token
+              });
+              /*}*/
+
+            });
+
+
+
+        }
+
+      })
+    })
+
   app.route('/login')
     .post(function(req, res) {
       /*console.log(req.body);*/
@@ -404,13 +463,13 @@ module.exports = function(app, express) {
       console.log("In register block")
         //create a new instance of the User model
       var user = new User();
-      var confirmation = new emailConfirmation();
+      var confirmation = new EmailConfirmation();
       confirmation.userID = user._id;
+      confirmation.email = req.body.email;
       confirmation.save();
+
       //set the users information (comes from the request)
-      var name = req.body.name
-
-
+      var name = req.body.name;
       user.name = ({
         first: name.split(" ")[0],
         last: name.split(" ")[1]
@@ -441,7 +500,7 @@ module.exports = function(app, express) {
             subject: "Confirm: New Registration",
             html: user.name.first[0].toUpperCase() + user.name.first.toLowerCase().slice(1) +
               ', please follow this link to finish your Bittycasting registration. ' +
-              "https://bittycasting.com/register/confirm/" + confirmation._id,
+              "https://bittycasting.com/confirm/user" + confirmation._id,
           }
           var mailgun = new Mailgun({
             apiKey: config.api_key,

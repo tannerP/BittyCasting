@@ -65,6 +65,11 @@ angular.module('app.routes', ['ngRoute'])
                 controllerAs: 'user'
             })
     /*---------------- User ----------------*/
+        .when('/confirm/user/:confirmID',  {
+            templateUrl: 'app/views/pages/signup_confirm.html',
+            controller: 'signupConfirmCtrl',
+            controllerAs: 'vm'
+        })
         .when('/register/invite/:inviteID',  {
             templateUrl: 'app/views/pages/signup.html',
             controller: 'signupInviteCtrl',

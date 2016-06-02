@@ -27,6 +27,14 @@ angular.module('userService', [])
 	return email
 })
 
+.factory("EmailConfirmation", function($http) {
+	var email = new Object();
+	email.confirm = function(confirmID){
+	 	return $http.get("register/confirm/"+confirmID)
+	}
+	return email
+})
+
 .service("Meta", function() {
 	var meta = new Object();
 	meta.type = "website";
