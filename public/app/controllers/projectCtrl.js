@@ -421,10 +421,10 @@ angular.module('projectCtrl', ['userService',
           vm.projects = data.data;
           for (var i in vm.projects) {
             var projectID = vm.projects[i]._id;
-            console.log(projectID)
-            console.log($rootScope.user.invites)
+            /*console.log(projectID)
+            console.log($rootScope.user.invites)*/
             if ($rootScope.user.invites.indexOf(projectID) > -1) {
-              console.log("guest = true")
+              /*console.log("guest = true")*/
               vm.projects[i].guest = true;
             }
           }
@@ -475,7 +475,7 @@ angular.module('projectCtrl', ['userService',
         show: false,
         keyboard: true,
         controller: 'newProjectController',
-        controllerAs: 'projectAside',
+        controllerAs: 'vm',
         templateUrl: '/app/views/pages/project_form.tmpl.html'
       });
       deletePrjAside = $aside({
