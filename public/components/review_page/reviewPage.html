@@ -14,7 +14,7 @@
             <div class='pageTitle'><span>{{currApp.name.first}} {{currApp.name.last}}</span></div>
                 <div class="custom-page-action">                
       <!--                    <input type="checkbox" ng-model="currApp.favorited" ng-change="page.updateFav(currApp)"></input>-->
-                        <div class="custom-btn-secondary-small btn-fav" ng-click="page.updateFav(currApp,roleData._id)">
+                        <div class="custom-btn-secondary-small btn-fav" ng-click="page.updateFav($index,currApp,roleData._id)">
                            <img ng-if="currApp.favorited" ng-src="/assets/imgs/ic_fav_w_fill.svg" width="16px" vertical-align="middle">
                            <img ng-if="!currApp.favorited" ng-src="/assets/imgs/ic_fav_w.svg" width="16px" vertical-align="middle">Favorite
                         </div>
