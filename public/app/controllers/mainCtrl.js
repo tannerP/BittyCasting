@@ -174,16 +174,14 @@ angular.module('mainCtrl', ['authService', 'mgcrea.ngStrap'])
 		console.log("sign up confirm controller")
 
 
-				vm.isEmailVallid = true;
+		vm.isEmailVallid = true;
 		vm.emailChanging = function(email) {
 			if (!email) return;
 			vm.isEmailVallid = false;
 			EmailValidator.validate(email, function(data) {
-				if(data.is_valid === false)
-				{
+				if (data.is_valid === false) {
 					vm.message = "Invalid Email";
-				}
-				else{
+				} else {
 					vm.message = ""
 				}
 				return;
@@ -192,12 +190,12 @@ angular.module('mainCtrl', ['authService', 'mgcrea.ngStrap'])
 		}
 
 		Auth.confirmEmail($routeParams.confirmID)
-			.success(function(data){
+			.success(function(data) {
 				vm.message = data.message;
 				console.log(data)
 			})
 
-	return vm;
+		return vm;
 	})
 	.controller('signupCtrl', function(User, $scope,
 		$location, EmailValidator, Facebook) {
@@ -272,20 +270,24 @@ angular.module('mainCtrl', ['authService', 'mgcrea.ngStrap'])
 			vm.message = '';
 			// use the create function in the userService
 			User.create(vm.userData)
-			error(function(data) {
+				.error(function(data) {
 					vm.message = data.message;
 				})
-				.success(function(data) {
-					$scope.$emit('aside.hide')
-					vm.processing = false;
-					$scope.$hide();
-					//clear the form
-					vm.userData = {};
-					vm.message = data.message;
-					setTimeout(function() {
-						$location.path('/login')
-					}, 2000)
-
+				.success(function(user) {
+					console.log(user)
+					if (!user.success) return vm.message = user.message;
+					else {
+						$scope.$emit('aside.hide')
+						$scope.$hide();
+						//clear the form
+						vm.userData = {};
+						setTimeout(function() {
+							vm.processing = false;
+							vm.message = user.message;
+							/*$location.path('/login')*/
+							return;
+						}, 2000)
+					}
 				});
 		}
 	})

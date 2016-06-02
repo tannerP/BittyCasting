@@ -1,7 +1,7 @@
 'user strick';
 var User = require("../models/user");
 var Invite = require("../models/invite")
-var emailConfirmation = require("../models/emailConfirmation")
+var EmailConfirmation = require("../models/emailConfirmation")
 var Project = require("../models/project");
 var Role = require("../models/role");
 var Applicant = require("../models/applicant");
@@ -518,7 +518,8 @@ module.exports = function(app, express) {
               } else {
                 console.log(body)
                 return res.json({
-                  message: 'User created!'
+                  success:true,
+                  message: 'An email is sent to you. Please finish'
                 });
               }
             });
