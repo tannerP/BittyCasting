@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var comfirmSchema = new Schema ({
-	createdAt: { type: Date, expires: '45m' },
+	create_date: {type:Date, default:Date.now},
 	userID : String,
 	email : String,
 	});

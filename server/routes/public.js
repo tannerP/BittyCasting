@@ -360,16 +360,25 @@ module.exports = function(app, express) {
     /*  })
     });*/
 
-  app.route('/register/confirm/:confirmID')
-    .get(function(req, res) {
-      emailConfirmation.findOne({
+app.route('/register/resend/:confirmID')
+  .get(function(req, res) {
+      EmailConfirmation.findOne({
         _id: req.params.confirmID
       }, function(err, data) {
-        console.log(err)
-        console.log(data)
+
+      })
+    })
+
+  app.route('/register/confirm/:confirmID')
+    .get(function(req, res) {
+      EmailConfirmation.findOne({
+        _id: req.params.confirmID
+      }, function(err, data) {
+        /*console.log(err)
+        console.log(data)*/
         if (!data) return res.json({
           success: false,
-          message: "Request Expired. Please Resubmit Your Email"
+          message: "Your confirmation email is expired. Press Send and receive another confirmation."
         });
 
         else {
@@ -403,7 +412,7 @@ module.exports = function(app, express) {
               });
               //return the information including token as JSON
               return res.json({
-                success: false,
+                success: true,
                 name: user.name,
                 message: 'Enjoy your token!',
                 token: token
@@ -483,8 +492,8 @@ module.exports = function(app, express) {
       user.role = "user";
 
       user.save(function(err, user) {
-        console.log(err)
-        console.log(user)
+        /*console.log(err)
+        console.log(user)*/
         if (err) {
           console.log(err);
           //duplicate entry
@@ -494,7 +503,7 @@ module.exports = function(app, express) {
               message: 'A user with that email already exists.'
             });
         } else {
-          console.log(user)
+          /*console.log(user)*/
           var data = {
             from: "Registration@BittyCasting.com",
             to: req.body.email,

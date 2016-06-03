@@ -179,8 +179,8 @@ angular.module('mainCtrl', ['authService', 'mgcrea.ngStrap'])
 		vm.emailChanging = function(email) {
 			if (!email) return;
 			vm.isEmailVallid = false;
-			EmailValidator.validate(email, function(data) {
-				if (data.is_valid === false) {
+			EmailValidator.validate(email, function(isvalid) {
+				if (!isvalid) {
 					vm.message = "Invalid Email";
 				} else {
 					vm.message = ""
