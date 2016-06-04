@@ -340,7 +340,7 @@ module.exports = function(app, express) {
           to: "support@bittycasting.com",
           //Subject and text data  
           subject: 'New Beta Customer',
-          html: 'Beta Request' + req.params.mail
+          html: 'Beta Request ' + req.params.mail
         }
         //Invokes the method to send emails given the above data with the helper library
       mailgun.messages().send(data, function(err, body) {
