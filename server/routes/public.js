@@ -1,6 +1,7 @@
 'user strick';
 var User = require("../models/user");
 var Invite = require("../models/invite")
+var EmailConfirmation = require("../models/emailConfirmation")
 var Project = require("../models/project");
 var Role = require("../models/role");
 var Applicant = require("../models/applicant");
@@ -66,7 +67,7 @@ module.exports = function(app, express) {
   app.get('/public/role/:role_id', function(req, res) {
     //find role data, then find project data before returning result
     Role.findById(req.params.role_id, function(err, role) {
-      if (err || role ===null) {
+      if (err || role === null) {
         return res.json({
           success: false,
           error: err
@@ -117,7 +118,7 @@ module.exports = function(app, express) {
           }
         }
         proj.save();*/
-        if(!proj.user) proj.user = req.decoded.name;
+        if (!proj.user) proj.user = req.decoded.name;
 
 
         var checkClientship = function(prj, decoded) {
@@ -359,7 +360,75 @@ module.exports = function(app, express) {
     })
     /*  })
     });*/
-    /* Authentication */
+
+app.route('/register/resend/:confirmID')
+  .get(function(req, res) {
+      EmailConfirmation.findOne({
+        _id: req.params.confirmID
+      }, function(err, data) {
+
+      })
+    })
+
+  app.route('/register/confirm/:confirmID')
+    .get(function(req, res) {
+      EmailConfirmation.findOne({
+        _id: req.params.confirmID
+      }, function(err, data) {
+        /*console.log(err)
+        console.log(data)*/
+        if (!data) return res.json({
+          success: false,
+          message: "Your confirmation email is expired. Press Send and receive another confirmation."
+        });
+
+        else {
+          User.findOne({
+              _id: data.userID
+            }).select('name email password')
+            .exec(function(err, user) {
+              if (err) throw err;
+              if (!user) {
+                 return res.json({
+                  success: false,
+                  message: 'Authentication failed. User not found.'
+                });
+              }
+              /*           } else if (user) {
+
+                           var validPassword = user.comparePassword(req.body.password);
+                           if (!validPassword) {
+                             res.json({
+                               success: false,
+                               message: 'Authentication failed. Wrong password.'
+                             });
+                           } else {*/
+
+              var token = jwt.sign({
+                id: user.id,
+                name: user.name,
+              }, config.secret, {
+                expiresIn: 86400 //  (24hrs)
+                  // expires in 3600 * 24 = c (24 hours)
+              });
+              //return the information including token as JSON
+              return res.json({
+                success: true,
+                name: user.name,
+                message: 'Enjoy your token!',
+                token: token
+              });
+              /*}*/
+
+            });
+
+
+
+        }
+
+      })
+    })
+
   app.route('/login')
     .post(function(req, res) {
       /*console.log(req.body);*/
@@ -402,17 +471,29 @@ module.exports = function(app, express) {
     });
   app.route('/register')
     .post(function(req, res) {
-      //create a new instance of the User model
+        //create a new instance of the User model
       var user = new User();
+      var confirmation = new EmailConfirmation();
+      confirmation.userID = user._id;
+      confirmation.email = req.body.email;
+      confirmation.save();
+
       //set the users information (comes from the request)
-      user.name.last = req.body.name.last;
-      user.name.first = req.body.name.first;
+      var name = req.body.name;
+      user.name = ({
+        first: name.split(" ")[0],
+        last: name.split(" ")[1]
+      })
+
+      /*user.name.last = req.body.name.last;
+      user.name.first = req.body.name.first;*/
       user.password = req.body.password;
       user.email = req.body.email;
       user.role = "user";
-      /*console.log(user);*/
-      //save the user and check for errors
-      user.save(function(err) {
+
+      user.save(function(err, user) {
+        /*console.log(err)
+        console.log(user)*/
         if (err) {
           console.log(err);
           //duplicate entry
@@ -421,13 +502,41 @@ module.exports = function(app, express) {
               success: false,
               message: 'A user with that email already exists.'
             });
-          else
-            return res.send(err);
+        } else {
+          /*console.log(user)*/
+          var data = {
+            from: "Registration@BittyCasting.com",
+            to: req.body.email,
+            subject: "Confirm: New Registration",
+            html: user.name.first[0].toUpperCase() + user.name.first.toLowerCase().slice(1) +
+              ', please follow this link to finish your Bittycasting registration. ' +
+              "https://bittycasting.com/confirm/user/" + confirmation._id,
+          }
+          var mailgun = new Mailgun({
+            apiKey: config.api_key,
+            domain: config.domain
+          });
+
+          mailgun.messages()
+            .send(data, function(err, body) {
+              if (err) {
+                console.log(err)
+                return res.json({
+                  success: false,
+                  error: err
+                });
+              } else {
+                console.log(body)
+                return res.json({
+                  success:true,
+                  message: 'An email is sent to you. Please finish'
+                });
+              }
+            });
         }
-        res.json({
-          message: 'User created!'
-        });
-      });
+
+      })
+
     });
   app.route('/register/invitation/:inviteID')
     .put(function(req, res) {

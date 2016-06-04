@@ -4,26 +4,29 @@
     <div class="custom-close" ng-click="$hide()"></div>
     <form class="container-page">
       <div class="form-group">
-        <label>First name</label>
-        <input type="text" name="fname" class="custom-form" ng-model="user.userData.name.first">
-      </div>
-      <div class="form-group">
-        <label>Last name</label>
-        <input type="text" name="lname" class="custom-form" ng-model="user.userData.name.last">
-      </div>
       <div class="form-group">
         <label>E-mail</label>
-        <input type="email" class="custom-form" ng-model="user.userData.email">
+        <input type="email" class="custom-form"
+                ng-model="user.userData.email"
+                ng-model-options='{ debounce: 1000 }'
+                ng-change="user.emailChanging(user.userData.email)">
+      </div>
+        <label>Name</label>
+        <input type="text" name="name" class="custom-form"
+                ng-model="user.userData.name"
+                ng-change="user.nameChanging(user.userData.name)">
       </div>
       <div class="form-group">
         <label>Create password</label>
         <input type="password" class="custom-form" ng-model="user.userData.password">
       </div>
-      <!-- <div class = "form-group">
-          <label>Confirm password</label>
-              <input type = "password" class = "custom-form" ng-model = "user.userData.password">
-      </div> -->
+      <!-- ERROR ICON -->
+        <div class="custom-alert" ng-if="user.message">
+          {{user.message}}
+        </div>
+
       <button type="submit" class="custom-btn-primary-large" ng-click="user.saveUser()">Sign up for free</button>
+      <button type="submit" class="custom-btn-primary-large" ng-click="user.checkFB()">Facebook</button>
     </form>
     <div class="asideMessage">
       <p>By clicking on “Sign up for free”, I agree to BittyCasting’s <a href="/terms_of_service">terms of service.</a>

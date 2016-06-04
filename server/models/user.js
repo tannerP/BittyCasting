@@ -21,7 +21,6 @@ var UserSchema = new Schema({
 	collabs:[],	
 	password: {
 		type:String, 
-		required:true, 
 		select:true
 	},	
 	email:{

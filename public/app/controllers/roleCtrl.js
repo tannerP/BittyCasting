@@ -492,8 +492,8 @@ angular.module('roleCtrl', ['userService',
       $scope.Email_text = "Hey, \n \n \t I just created an acting role in BittyCasting that I thought might interest you. Check out the project and role by clicking the link:" + $scope.textToCopy + "\n \n Thanks!";
 
       $scope.Twitter_text = "CASTING CALL: " + $scope.roleData.name +
-        " " + $scope.roleData.short_url + " " + "via " + " " + "@BittyCasting ";
-
+       " via " + " " + "@BittyCasting ";
+      $scope.Twitter_url = $scope.roleData.short_url; 
 
       var successAlert = $alert({
           title: 'Copied!',

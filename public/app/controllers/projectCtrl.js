@@ -255,7 +255,9 @@ angular.module('projectCtrl', ['userService',
 
       $scope.Email_text = "Hey, \n \n \t I just created an acting role in BittyCasting that I thought might interest you. Check out the project and role by clicking the link:" + $scope.textToCopy + "\n \n Thanks!";
 
-      $scope.Twitter_text = "CASTING CALL: " + $scope.project.name + " " + $scope.textToCopy + " " + "via " + " " + "@BittyCasting ";
+      $scope.Twitter_text = "CASTING CALL: " + $scope.project.name + " via " + "@BittyCasting";
+
+      $scope.Twitter_url = $scope.project.short_url;
 
       $scope.$on('$locationChangeStart', function(event, newUrl, oldUrl) {
         $scope.$hide()

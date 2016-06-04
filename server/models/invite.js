@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var ProjectSchema = new Schema ({
-	createdAt: { type: Date, expires: '30m' },
+	createdAt: { type: Date, expires: '14d' },
 	notify: Boolean,
 	notify_type:String,
 	userID : String,
