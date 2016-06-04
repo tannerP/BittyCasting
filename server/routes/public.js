@@ -324,7 +324,7 @@ module.exports = function(app, express) {
       });
   });
 
-  app.get('/submit/:mail', function(req, res) {
+  app.put('/submit/:mail', function(req, res) {
       /*console.log(req.params.mail);*/
       //We pass the api_key and domain to the wrapper, or it won't be able to identify + send emails
       var mailgun = new Mailgun({
@@ -336,13 +336,14 @@ module.exports = function(app, express) {
           //Specify email data
           from: "internal@bittycasting.com",
           //The email to contact
-          to: "support@bittycasting.com",
+          to: "tanner@bittycasting.com",
           //Subject and text data  
           subject: 'New Beta Customer',
           html: 'Beta Request' + req.params.mail
         }
         //Invokes the method to send emails given the above data with the helper library
       mailgun.messages().send(data, function(err, body) {
+        console.log(body)
         //If there is an error, render the error page
         if (err) {
           console.log(err)
