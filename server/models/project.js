@@ -20,9 +20,8 @@ var ProjectSchema = new Schema ({
 	name : {
 		type: String, 
 	},
-	description:{
-		type: String,
-	}
+	description:{type: String},
+	usage:{ type: String}
 	});
 
 module.exports = mongoose.model('Project',ProjectSchema);

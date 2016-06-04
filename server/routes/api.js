@@ -730,6 +730,7 @@ module.exports = function(app, express) {
 			project.name = req.body.name;
 			project.description = req.body.description
 			project.coverphoto = req.body.coverphoto
+			project.usage = req.body.usage
 
 			project.save(function(err, project) {
 				if (err) {
@@ -795,11 +796,11 @@ module.exports = function(app, express) {
 			Project.findById(req.params.project_id, function(err, project) {
 				if (err) res.send(err);
 				if (req.body.name) project.name = req.body.name;
-				if (req.body.description) project.description = req.body.description;
-				else project.description = null;
-
+				if(req.body.usage) project.usage = req.body.usage;
 				if (req.body.updated_date) project.updated_date = req.body.updated_date;
 				if (req.body.coverphoto) project.coverphoto = req.body.coverphoto;
+				if (req.body.description) project.description = req.body.description;
+				else project.description = null;
 				project.save(function(err) {
 					if (err) console.log(err);
 					if (err) res.send(err);
