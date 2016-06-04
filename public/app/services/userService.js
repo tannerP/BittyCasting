@@ -278,7 +278,6 @@ angular.module('userService', [])
 	};
 
 	userFactory.createWithInvitation = function(inviteID,userData)	{
-		console.log(inviteID)
 		return $http.put('/register/invitation/'+inviteID, userData);
 	};
 	userFactory.create = function(userData)	{

@@ -206,13 +206,6 @@ angular.module('mainCtrl', ['authService', 'mgcrea.ngStrap'])
 							else {
 								$location.path('/home');
 								$scope.$hide();
-
-								//this.user = 'name:unchanged';
-								/*Auth.getUser()
-									.then(function(data) {
-										$scope.name = data.name;
-										$scope.$emit("LoggedIn", data.name);
-									 })*/
 							}
 						} else vm.error = data.message;
 					});

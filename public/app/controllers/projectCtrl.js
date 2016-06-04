@@ -156,9 +156,10 @@ angular.module('projectCtrl', ['userService',
   }
 
   vm.inviteBtn = function() {
-    Mail.sendCollabInvite($scope.project, vm.guestEmail);
-    vm.guestEmail = ""
-    vm.emailPlaceHolder = "Email Sent"
+    if(vm.guestEmail)
+    {   Mail.sendCollabInvite($scope.project, vm.guestEmail);
+        vm.guestEmail = ""
+        vm.emailPlaceHolder = "Email Sent"}
   }
 })
 
@@ -437,7 +438,7 @@ angular.module('projectCtrl', ['userService',
       }
       vm.rejectProject = function(project) {
         Project.response2Invite(false, project).then(function(data) {
-          console.log(data)
+          $route.$reload();
         })
       }
       vm.getProject = function(prjID) {

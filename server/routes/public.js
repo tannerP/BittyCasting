@@ -581,7 +581,6 @@ module.exports = function(app, express) {
     .put(function(req, res) {
 
       Invite.findById(req.params.inviteID, function(err, invite) {
-        console.log(invite)
         var user = new User();
         user.name.last = req.body.name.last;
         user.name.first = req.body.name.first;
@@ -591,7 +590,6 @@ module.exports = function(app, express) {
         if (invite) user.invites.push(invite.projectID)
         user.save(function(err, user) {
           if (err) {
-            console.log(err);
             //duplicate entry
             if (err.code == 11000)
               return res.json({

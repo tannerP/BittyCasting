@@ -1,8 +1,23 @@
 <div class="custom-main">
   <div class="container">
     <div class="col-md-4 col-md-offset-4">
-
       <div class='pageTitle'>Register</div>
+      
+      <label>E-mail</label>
+        <input type="email" 
+                ng-model="user.userData.email"
+                ng-model-options='{ debounce: 1000 }'
+                ng-change="user.emailChanging(user.userData.email)">
+      </div>
+        <label>Name</label>
+        <input type="text" name="name" 
+                ng-model="user.userData.name"
+                ng-change="user.nameChanging(user.userData.name)">
+      </div>
+      <div class="form-group">
+        <label>Create password</label>
+        <input type="password" ng-model="user.userData.password">
+      </div>
 
       <div ng-show="user.message"  class ="custom-alert">
         {{user.message}}

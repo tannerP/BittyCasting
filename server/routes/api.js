@@ -85,8 +85,8 @@ module.exports = function(app, express) {
 			var response = req.body.response,
 				projectID = req.body.projectID;
 
-			console.log(req.body.response)
-			console.log(req.body.projectID)
+/*			console.log(req.body.response)
+			console.log(req.body.projectID)*/
 				//accept invitation
 				//mark project.collabs_id.accepted = true;
 			User.findById(req.decoded.id, function(error, user) {
@@ -95,7 +95,7 @@ module.exports = function(app, express) {
 				if (ind > -1) {
 					/*if(user.invites.length ===1) user.invites =[];*/
 					user.invites.splice(ind, 1);
-					console.log(user.invites)
+					/*console.log(user.invites)*/
 					user.save()
 				}
 
@@ -110,35 +110,24 @@ module.exports = function(app, express) {
 					for (var i in project.collabs_id) {
 						var collab = project.collabs_id[i];
 						collab.responded = true;
-						console.log("Collab")
-						console.log(collab.userID)
-						console.log("Request.decoded")
-						console.log(req.decoded.id)
-						console.log(collab.userID.indexOf(req.decoded.id))
 						if (collab.userID.indexOf(req.decoded.id) > -1) {
 							//accept invite
-							console.log("Founder collab user")
 							if (response === true) {
-								console.log("Accept Projet")
 								collab.accepted = true;
 								break;
 							}
 							//reject invite
 							else {
-								console.log("Reject Projet")
 								project.collabs_id.splice(i, 1);
 							}
 						}
 					}
-					project.save()
-
-					/*return res.json({success:true,message:"No project"});*/
+					project.save(function(error, data){
+						if(data) return ({success:true, data:data})
+						else return ({success:false, error:error})
+					})
 				})
 			})
-
-			//reject invitation
-			//remove invite
-
 			return;
 		})
 	apiRouter.route('/collab/invite/:projectID')
@@ -204,7 +193,6 @@ module.exports = function(app, express) {
 
 							for (var i in project.collabs_id) {
 								var collab = project.collabs_id[i];
-								console.log(++i)
 								if (collab.userID.indexOf(user._id) === -1 &&
 									project.collabs_id.length === ++i) {
 									exist = false;
@@ -223,7 +211,6 @@ module.exports = function(app, express) {
 										if (!error) {
 											mailgun.messages()
 												.send(emailData, function(err, data) {
-													console.log(data)
 													return res.json({
 														success: true,
 													});
