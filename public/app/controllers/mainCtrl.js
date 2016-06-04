@@ -185,6 +185,41 @@ angular.module('mainCtrl', ['authService', 'mgcrea.ngStrap'])
 
 	}
 ])
+.controller('loginCtrl', ['$scope', 'Auth', '$location', '$route',
+		function($scope, Auth, $location, $route) {
+			var vm = this;
+			vm.message;
+			vm.loginData = {};
+			vm.process = false;
+			vm.doLogin = function(email, password) {
+				vm.processing = true; //TODO:processing Icon
+				vm.error = '';
+				Auth.login(email, password)
+					.success(function(data) {
+						vm.processing = false;
+						if (data.success) {
+							//if a user successfully logs in, redirect to users page
+							vm.loginData = {};
+							$scope.$emit('aside.hide')
+								//conditional for /login vs aside
+							if ($location.path() == '/login') $location.path('/home');
+							else {
+								$location.path('/home');
+								$scope.$hide();
+
+								//this.user = 'name:unchanged';
+								/*Auth.getUser()
+									.then(function(data) {
+										$scope.name = data.name;
+										$scope.$emit("LoggedIn", data.name);
+									 })*/
+							}
+						} else vm.error = data.message;
+					});
+			};
+
+		}
+	])
 
 /* NAV */
 .controller('navCtrl', ['$scope', '$popover', '$aside', 'Auth', '$location',
