@@ -574,37 +574,31 @@ div.navbar-collapse.collapse.in {
 
 .custom-action-nav  {
     
-    ul {
-        list-style-type: none;
+    float: right;
+    
+    div {
+        font-size: $font-size-regular;        
+        margin-left: 35px;
+        text-decoration: none;
+        display: inline;
         float: right;
-        margin: 0;
-        padding: 0;
+        &:hover, &:focus {
+            cursor: pointer;
+        }
+    }  
+    
+    .nav-register{
+        margin-top: 10px;
     }
     
-    li {           
-        display: inline;
-        
-        a {
-            font-size: $font-size-regular;        
-            line-height: 56px;
-            margin-left: 35px;
-            text-decoration: none;
-        }   
-        
-        &:first-child { 
-            
-            a {
-                color: $color-grey-dark;
-                @include transition(all, 0.2s, ease);
-            }
-            a:hover, a:focus  {
-                background-color: transparent;
-                color: $color-blue;
-                @include transition(all, 0.2s, ease);
-            }
-
-        } 
-
+    .nav-signin{
+        line-height: 56px;
+        color: $color-grey-dark;
+        @include transition(all, 0.2s, ease);
+        &:hover, &:focus  {
+            color: $color-blue;
+            @include transition(all, 0.2s, ease);
+        }
     }
 
 }
