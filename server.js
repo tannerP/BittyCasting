@@ -62,9 +62,6 @@ app.use(function(req, res, next) {
   res.setHeader('Access-Control-Allow-Method', 'GET,POST,OPTIONS');
   res.setHeader('Access-Control-Allow-Headers',
     'Origin,X-Request-With,Content-Type,Accept');
-  
-  
-
   /*  res.setHeader('Last-Modified', (new Date()).toUTCString());*/
   /*res.setHeader('Cache-Control', 'public, max-age=3155'); */
   next();

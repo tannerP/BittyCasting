@@ -470,7 +470,6 @@ app.route('/register/resend/:confirmID')
     });
   app.route('/register')
     .post(function(req, res) {
-      console.log("In register block")
         //create a new instance of the User model
       var user = new User();
       var confirmation = new EmailConfirmation();
@@ -510,7 +509,7 @@ app.route('/register/resend/:confirmID')
             subject: "Confirm: New Registration",
             html: user.name.first[0].toUpperCase() + user.name.first.toLowerCase().slice(1) +
               ', please follow this link to finish your Bittycasting registration. ' +
-              "https://bittycasting.com/confirm/user" + confirmation._id,
+              "https://bittycasting.com/confirm/user/" + confirmation._id,
           }
           var mailgun = new Mailgun({
             apiKey: config.api_key,
