@@ -101,6 +101,7 @@ angular.module('roleCtrl', ['userService',
 
           if (data.client === "public") {
             $location.path('Apply/' + $routeParams.role_id)
+            $location.replace();
           } else if (data.client === "owner") {
             vm.owner = true;
           } else vm.owner = false;

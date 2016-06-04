@@ -92,12 +92,17 @@ module.exports = function(app, express) {
             }
           }
           var client = checkClientship(proj, req.decoded);
-          return res.json({
-            success: true,
-            client: client,
-            data: role,
-            project: proj,
-          });
+          /*if (client === "owner") {*/
+            return res.json({
+              success: true,
+              client: client,
+              data: role,
+              project: proj,
+            });
+          /*}
+          else{ 
+            return res.redirect("/Apply/"+req.params.role_id)
+          }*/
         })
       }
     })
@@ -379,8 +384,7 @@ module.exports = function(app, express) {
             from: "Registration@BittyCasting.com",
             to: data.email,
             subject: "New Registration",
-            html:  "Please follow this link to finish your Bittycasting registration." 
-            + "https://bittycasting.com/confirm/user/" + data._id,
+            html: "Please follow this link to finish your Bittycasting registration." + "https://bittycasting.com/confirm/user/" + data._id,
           }
           var mailgun = new Mailgun({
             apiKey: config.api_key,
@@ -416,11 +420,12 @@ module.exports = function(app, express) {
         _id: req.params.confirmID
       }, function(err, data) {
 
-        if(data)
-        {var DURATION = 14; //days
-                var curData = new Date();
-                var daysOld = (curData - data.create_date);
-                daysOld = Math.ceil(daysOld / (1000 * 3600 * 24));}
+        if (data) {
+          var DURATION = 14; //days
+          var curData = new Date();
+          var daysOld = (curData - data.create_date);
+          daysOld = Math.ceil(daysOld / (1000 * 3600 * 24));
+        }
 
         if (!data || daysOld > DURATION) return res.json({
           success: false,
@@ -429,12 +434,12 @@ module.exports = function(app, express) {
 
         else {
           //sample project
-/*          var SAMPLE_PROJECT_ID;
-          Project.findOne({_id:SAMPLE_PROJECT_ID}, function(err, sample){
-            if(sample){
+          /*          var SAMPLE_PROJECT_ID;
+                    Project.findOne({_id:SAMPLE_PROJECT_ID}, function(err, sample){
+                      if(sample){
 
-            }
-          })*/
+                      }
+                    })*/
 
 
           User.findOne({

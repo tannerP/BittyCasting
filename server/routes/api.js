@@ -897,7 +897,7 @@ module.exports = function(app, express) {
 				if (req.body.name) user.name = req.body.name;
 				if (req.body.username) user.username = req.body.username;
 				if (req.body.password) user.password = req.body.password;
-				var self = this;
+
 				user.save(function(err) {
 					if (err) console.log(err);
 					if (err) res.send(err);

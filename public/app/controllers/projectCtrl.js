@@ -200,6 +200,7 @@ angular.module('projectCtrl', ['userService',
                 vm.prView = false;
                 vm.pView = true;;*/
                 $location.path("/Apply/Project/" + $routeParams.project_id);
+                $location.replace();
                 break;
               }
             case "owner":
