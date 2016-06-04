@@ -2060,7 +2060,7 @@ ul.select-coverphoto-wrapper {
 }
 
 .asideRole {
-    width: 800px;
+    width: 768px;
     
     .asideRoleColLeft, .asideRoleColRight {
         width: 48%;
@@ -2967,6 +2967,12 @@ text-align: center;
     
     .aside {
         width: 100%;
+    }
+    
+    .asideRole {
+        .asideRoleColLeft, .asideRoleColRight {
+            width: 100%;
+        }
     }
 
     /***************************

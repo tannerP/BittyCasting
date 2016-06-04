@@ -1864,7 +1864,7 @@ ul.select-coverphoto-wrapper {
   display: inline; }
 
 .asideRole {
-  width: 800px; }
+  width: 768px; }
   .asideRole .asideRoleColLeft, .asideRole .asideRoleColRight {
     width: 48%; }
   .asideRole .asideRoleColLeft {
@@ -2713,6 +2713,9 @@ ul.select-coverphoto-wrapper {
           z-index: 1000; }
 
   .aside {
+    width: 100%; }
+
+  .asideRole .asideRoleColLeft, .asideRole .asideRoleColRight {
     width: 100%; }
 
   /***************************
