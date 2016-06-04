@@ -75,7 +75,10 @@ module.exports = function(app, express) {
 					}
 
 				})
-			}else return res.json({success:false, message:"Invalid request"})
+			} else return res.json({
+				success: false,
+				message: "Invalid request"
+			})
 		})
 	apiRouter.route('/collab/response/')
 		.put(function(req, res) {
@@ -185,7 +188,7 @@ module.exports = function(app, express) {
 							to: guestEmail,
 							subject: "Invitation to Collaborate in " + req.body.projectName,
 							html: "You have been invited to collaborate " +
-								"in this project. Accept and follow this link: " + URL ,
+								"in this project. Accept and follow this link: " + URL,
 						}
 						Project.findById(projectID, function(error, project) {
 							var data = {};
@@ -242,8 +245,7 @@ module.exports = function(app, express) {
 								to: guestEmail,
 								subject: "Invitation to Collaborate in " + req.body.projectName,
 								html: "You have been invited to collaborate " +
-									"in this project. Accept and follow this link: " + newURL
-									+ "invite ID " + data._id,
+									"in this project. Accept and follow this link: " + newURL + "invite ID " + data._id,
 							}
 							mailgun.messages()
 								.send(emailData, function(err, data) {
@@ -577,7 +579,6 @@ module.exports = function(app, express) {
 
 			role.age = req.body.age;
 			role.compensation = req.body.compensation;
-
 			role.description = req.body.description;
 			role.ethnicity = req.body.ethnicity;
 			role.end_date = req.body.end_date;
@@ -587,8 +588,6 @@ module.exports = function(app, express) {
 			role.payterms = req.body.payterms;
 			role.projectID = req.params.projectID;
 			role.usage = req.body.usage;
-
-
 			role.sex = req.body.sex;
 			role.requirements = req.body.requirements;
 
@@ -603,18 +602,22 @@ module.exports = function(app, express) {
 
 					Project.findById(req.params.projectID, function(err, project) {
 						if (!err) {
-							++project.num_roles;
-							project.save(function(err) {
-								if (err) {
-									return res.json({
-										success: false,
-										error: err
+							Role.count({
+									projectID: project._id
+								}, function(err, count) {
+									project.num_roles = count;
+									project.save(function(err) {
+										if (err) {
+											return res.json({
+												success: false,
+												error: err
+											})
+										} else return;
 									})
-								}
-							})
-						}
+								})
+							}
 					})
-					return bitly.shortenURL(URL + role._id, role._id, function(data) {
+					bitly.shortenURL(URL + role._id, role._id, function(data) {
 						return res.json({
 							success: true,
 							role: data
@@ -734,7 +737,6 @@ module.exports = function(app, express) {
 	//===============================  Project  ============================
 	apiRouter.route('/project')
 		.post(function(req, res) {
-
 			var project = new Project();
 			project.user_id = req.decoded.id;
 			project.user = req.decoded.name //User Name
@@ -762,24 +764,19 @@ module.exports = function(app, express) {
 			User.findById(req.decoded.id, function(error, user) {
 				if (error) return;
 				var projectIDs = []
-					/*for (var i in user.invites) {
-						var invite = user.invites;
-						console.log(invite)
-						projectIDs.push(invite.projectID)
-					}*/
 
 				Project.find({
 					"user_id": req.decoded.id
 				}, function(err, projects) {
 					//TODO: remove after out of beta
-					for(var i in projects){ 
+					for (var i in projects) {
 						var project = projects[i];
-						if(!project.user){
-						project.user = req.decoded.name;
-						project.save();
+						if (!project.user) {
+							project.user = req.decoded.name;
+							project.save();
 						}
 					}
-					
+
 					Project.find({
 						"collabs_id.userID": req.decoded.id,
 					}, function(err, guestProjects) {

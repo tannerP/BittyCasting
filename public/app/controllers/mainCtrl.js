@@ -10,7 +10,6 @@ angular.module('mainCtrl', ['authService', 'mgcrea.ngStrap'])
 			$scope.isAside = false;
 
 			$scope.$on('aside.show', function() {
-				/*console.log("aside showing")*/
 				$scope.isAside = true;
 			})
 
@@ -19,12 +18,7 @@ angular.module('mainCtrl', ['authService', 'mgcrea.ngStrap'])
 				$scope.isAside = false;
 			})
 			$scope.$on('$locationChangeStart', function(event, newUrl, oldUrl) {
-				/*console.log($scope.isAside)*/
-				/*if(newUrl.indexOf('/home') > -1) return;
-				else if (newUrl.indexOf('/Apply') > -1) return;
-				else if (newUrl.indexOf('/project') > -1) return;
-				else if (newUrl.indexOf('/role') > -1) return;*/
-				/*else*/
+
 				if ($scope.isAside) {
 					event.preventDefault();
 
@@ -166,168 +160,7 @@ angular.module('mainCtrl', ['authService', 'mgcrea.ngStrap'])
 			}
 		}
 	])
-	.controller('signupConfirmCtrl', function(User, $scope, $routeParams,
-		$location, EmailConfirmation, EmailValidator, Facebook, Auth) {
-		var vm = this;
-		vm.message = ""
-		vm.email = "";
-
-		console.log("sign up confirm controller")
-
-
-		vm.isEmailVallid = true;
-		vm.emailChanging = function(email) {
-			if (!email) return;
-			vm.isEmailVallid = false;
-			EmailValidator.validate(email, function(isvalid) {
-				if (!isvalid) {
-					vm.message = "Invalid Email";
-				} else {
-					vm.message = ""
-				}
-				return;
-			})
-
-		}
-
-		Auth.confirmEmail($routeParams.confirmID)
-			.success(function(data) {
-				vm.message = data.message;
-				console.log(data)
-			})
-
-		return vm;
-	})
-	.controller('signupCtrl', function(User, $scope,
-		$location, EmailValidator, Facebook) {
-		var vm = this;
-		vm.userData = {};
-		vm.userData.name = "";
-		vm.userData.email = "";
-		vm.type = 'create';
-
-		vm.checkFB = function() {
-			console.log("checking FB")
-			console.log(Facebook)
-
-			Facebook.login(function(response) {
-				if (response.status === "connected") {
-					Facebook.api('/me?fields=name,email', function(response) {
-						/*console.log(response)*/
-						/*$scope.user = response;*/
-						vm.userData.name = response.name;
-						vm.userData.email = response.email;
-						/*console.log(vm.userData)
-						console.log($scope.user)*/
-						return;
-					});
-				}
-			}, {
-				scope: 'email'
-			});
-			return;
-		}
-
-
-		vm.nameChanging = function(name) {
-			var index = name.indexOf(" ");
-
-			var fname = name.split(" ")[0];
-			var lname = name.split(" ")[1];
-			if (fname) {
-				fname = fname[0].toUpperCase() + fname.toLowerCase().slice(1);
-				vm.userData.name = fname;
-			}
-			if (lname) {
-				lname = lname[0].toUpperCase() + lname.toLowerCase().slice(1);
-			}
-
-			if (lname && lname) {
-				vm.userData.name = ''
-				vm.userData.name = fname + " " + lname
-			}
-		}
-
-		vm.isEmailVallid = true;
-		vm.emailChanging = function(email) {
-			if (!email) return;
-
-			vm.isEmailVallid = false;
-			EmailValidator.validate(email, function(result) {
-				vm.isEmailVallid = result;
-				return;
-			})
-
-		}
-
-
-		vm.saveUser = function() {
-			vm.processing = true;
-			/*vm.userData.name.first = vm.userData.name.split(" ")[0].toLowerCase();
-			  vm.userData.name.last= vm.userData.name.split(" ")[1].toLowerCase();*/
-			console.log(vm.userData.name)
-				/*console.log("createUser");*/
-				//clear the message
-			vm.message = '';
-			// use the create function in the userService
-			User.create(vm.userData)
-				.error(function(data) {
-					vm.message = data.message;
-				})
-				.success(function(user) {
-					console.log(user)
-					if (!user.success) return vm.message = user.message;
-					else {
-						$scope.$emit('aside.hide')
-						$scope.$hide();
-						//clear the form
-						vm.userData = {};
-						setTimeout(function() {
-							vm.processing = false;
-							vm.message = user.message;
-							/*$location.path('/login')*/
-							return;
-						}, 2000)
-					}
-				});
-		}
-	})
-	.controller('loginCtrl', ['$scope', 'Auth', '$location', '$route',
-		function($scope, Auth, $location, $route) {
-			var vm = this;
-			vm.message;
-			vm.loginData = {};
-			vm.process = false;
-			vm.doLogin = function(email, password) {
-				vm.processing = true; //TODO:processing Icon
-				vm.error = '';
-				Auth.login(email, password)
-					.success(function(data) {
-						vm.processing = false;
-						if (data.success) {
-							//if a user successfully logs in, redirect to users page
-							vm.loginData = {};
-							$scope.$emit('aside.hide')
-								//conditional for /login vs aside
-							if ($location.path() == '/login') $location.path('/home');
-							else {
-								$location.path('/home');
-								$scope.$hide();
-
-								//this.user = 'name:unchanged';
-								/*Auth.getUser()
-									.then(function(data) {
-										$scope.name = data.name;
-										$scope.$emit("LoggedIn", data.name);
-									 })*/
-							}
-						} else vm.error = data.message;
-					});
-			};
-
-		}
-	])
-
+	
 .controller("feedbackCtrl", ['$rootScope', '$scope', 'Mail',
 	'$location',
 	function($rootScope, $scope, Mail, $location) {
@@ -335,12 +168,9 @@ angular.module('mainCtrl', ['authService', 'mgcrea.ngStrap'])
 		$scope.feedback = {};
 		vm.fb_master = {};
 		vm.fb_master.user = {};
-		/*console.log($location.path());*/
-		/*console.log($rootScope.user);*/
 
 		vm.submit = function(feedback) {
-			/*console.log(feedback
-				)*/
+
 			angular.copy(feedback, vm.fb_master);
 			vm.fb_master.location = $location.path();
 			vm.fb_master.timestamp = new Date().toLocaleString('en-US');

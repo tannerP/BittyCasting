@@ -96,7 +96,7 @@ module.exports = function(app, express) {
             success: true,
             client: client,
             data: role,
-            project:proj,
+            project: proj,
           });
         })
       }
@@ -345,7 +345,7 @@ module.exports = function(app, express) {
         //Invokes the method to send emails given the above data with the helper library
       mailgun.messages().send(data, function(err, body) {
         console.log(body)
-        //If there is an error, render the error page
+          //If there is an error, render the error page
         if (err) {
           console.log(err)
         } else {
@@ -361,12 +361,52 @@ module.exports = function(app, express) {
     /*  })
     });*/
 
-app.route('/register/resend/:confirmID')
-  .get(function(req, res) {
+  app.route('/register/resend/:confirmID')
+    .get(function(req, res) {
       EmailConfirmation.findOne({
         _id: req.params.confirmID
       }, function(err, data) {
+        if (!data) return res.json({
+          success: false,
+          error: err
+        })
+        else {
+          //reset create_date instead of creating a new EmailConfirmation object. 
+          data.create_date = new Date();
+          data.save();
 
+          var data = {
+            from: "Registration@BittyCasting.com",
+            to: data.email,
+            subject: "New Registration",
+            html:  "Please follow this link to finish your Bittycasting registration." 
+            + "https://bittycasting.com/confirm/user/" + data._id,
+          }
+          var mailgun = new Mailgun({
+            apiKey: config.api_key,
+            domain: config.domain
+          });
+
+          mailgun.messages()
+            .send(data, function(err, body) {
+              if (err) {
+                return res.json({
+                  success: false,
+                  error: err
+                });
+              } else {
+                return res.json({
+                  success: true,
+                  message: 'An email is sent to you.'
+                });
+              }
+            });
+          //resend email
+
+          /*var curData = new Date();
+          var daysOld = (curData - data.create_date);
+          daysOld = Math.ceil(daysOld / (1000 * 3600 * 24));*/
+        }
       })
     })
 
@@ -375,35 +415,39 @@ app.route('/register/resend/:confirmID')
       EmailConfirmation.findOne({
         _id: req.params.confirmID
       }, function(err, data) {
-        /*console.log(err)
-        console.log(data)*/
-        if (!data) return res.json({
+
+        if(data)
+        {var DURATION = 14; //days
+                var curData = new Date();
+                var daysOld = (curData - data.create_date);
+                daysOld = Math.ceil(daysOld / (1000 * 3600 * 24));}
+
+        if (!data || daysOld > DURATION) return res.json({
           success: false,
           message: "Your confirmation email is expired. Press Send and receive another confirmation."
         });
 
         else {
+          //sample project
+/*          var SAMPLE_PROJECT_ID;
+          Project.findOne({_id:SAMPLE_PROJECT_ID}, function(err, sample){
+            if(sample){
+
+            }
+          })*/
+
+
           User.findOne({
               _id: data.userID
             }).select('name email password')
             .exec(function(err, user) {
               if (err) throw err;
               if (!user) {
-                 return res.json({
+                return res.json({
                   success: false,
                   message: 'Authentication failed. User not found.'
                 });
               }
-              /*           } else if (user) {
-
-                           var validPassword = user.comparePassword(req.body.password);
-                           if (!validPassword) {
-                             res.json({
-                               success: false,
-                               message: 'Authentication failed. Wrong password.'
-                             });
-                           } else {*/
-
               var token = jwt.sign({
                 id: user.id,
                 name: user.name,
@@ -471,7 +515,7 @@ app.route('/register/resend/:confirmID')
     });
   app.route('/register')
     .post(function(req, res) {
-        //create a new instance of the User model
+      //create a new instance of the User model
       var user = new User();
       var confirmation = new EmailConfirmation();
       confirmation.userID = user._id;
@@ -492,8 +536,6 @@ app.route('/register/resend/:confirmID')
       user.role = "user";
 
       user.save(function(err, user) {
-        /*console.log(err)
-        console.log(user)*/
         if (err) {
           console.log(err);
           //duplicate entry
@@ -503,7 +545,6 @@ app.route('/register/resend/:confirmID')
               message: 'A user with that email already exists.'
             });
         } else {
-          /*console.log(user)*/
           var data = {
             from: "Registration@BittyCasting.com",
             to: req.body.email,
@@ -520,15 +561,13 @@ app.route('/register/resend/:confirmID')
           mailgun.messages()
             .send(data, function(err, body) {
               if (err) {
-                console.log(err)
                 return res.json({
                   success: false,
                   error: err
                 });
               } else {
-                console.log(body)
                 return res.json({
-                  success:true,
+                  success: true,
                   message: 'An email is sent to you. Please finish'
                 });
               }
@@ -540,7 +579,6 @@ app.route('/register/resend/:confirmID')
     });
   app.route('/register/invitation/:inviteID')
     .put(function(req, res) {
-      console.log(req.params.inviteID)
 
       Invite.findById(req.params.inviteID, function(err, invite) {
         console.log(invite)
@@ -577,7 +615,6 @@ app.route('/register/resend/:confirmID')
                   userProfilePhoto: user.profile,
                 })
                 project.save();
-                //return res.json({success:true,message:"No project"});
               })
             }
             return res.json({
@@ -588,6 +625,5 @@ app.route('/register/resend/:confirmID')
         });
       })
     });
-  /*Others*/
   return app;
 }

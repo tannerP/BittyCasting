@@ -17,10 +17,8 @@ angular.module('authService', [])
 		// return the promise object and its data
 		return $http.get("/register/confirm/" + confirmID)
 			.success(function(data) {
-				console.log(data)
 				if (data.success) {
 					AuthToken.setToken(data);
-					$location.path("/home")
 				}
 				return data;
 			});

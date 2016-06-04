@@ -163,8 +163,6 @@ angular.module('addApplicant', ['userService', 'mgcrea.ngStrap'])
       })
     }
     vm.togAppLinkBtn = function(appNdx, reqNdx) {
-      console.log(appNdx)
-      console.log(reqNdx)
       vm.appSHLinks[appNdx][reqNdx] = !vm.appSHLinks[appNdx][reqNdx];
       var linkArr = vm.applicants[appNdx].links;
       vm.removeElFrmArray(reqNdx, linkArr);
@@ -178,7 +176,6 @@ angular.module('addApplicant', ['userService', 'mgcrea.ngStrap'])
     vm.newRqmnt = function(data) {
       requirement = data;
       vm.requirement = data;
-      console.log(requirement)
     }
 
     vm.removeLink = function(index) {
@@ -199,13 +196,6 @@ angular.module('addApplicant', ['userService', 'mgcrea.ngStrap'])
           }
         }
       }
-      /*     if(vm.newData.links){
-             for(i in vm.newData.links){
-               if(vm.newData.links[i].name === rqmnt){
-                 return false;
-               }
-             }
-           }*/
       return true;
     }
 
@@ -231,48 +221,32 @@ angular.module('addApplicant', ['userService', 'mgcrea.ngStrap'])
     }
 
     vm.hasData = function(rqmnt, files, links) {
-      console.log(rqmnt)
-      console.log(links)
-      console.log(files)
       if (links) {
         for (var i in links) {
           var link = links[i];
-
-          console.log(link)
           if (link.name === rqmnt) {
-            console.log("return true")
             return true;
           }
         }
       }
-      /*if()
-      console.log(rqmnt)
-      console.log(link)
-      console.log(files)*/
       return false;
     }
 
     var curAppIndex;
     vm.updateCurApp = function(index) {
       curAppIndex = index;
-      console.log(curAppIndex)
     }
 
     vm.removeElFrmArray = function(index, array) {
-      console.log(index);
-      console.log(array)
       if (array.length >= 1) {
-        /*if (index === 0) array.shift();
-        else*/
         array.splice(index, 1);
       } else {
         array = new Array();
       }
-      console.log(array)
     }
-    var createMatixRow = function() {
+    /*var createMatixRow = function() {
 
-    }
+    }*/
 
     vm.back = function() {
       $window.history.back();
@@ -283,9 +257,6 @@ angular.module('addApplicant', ['userService', 'mgcrea.ngStrap'])
       //anotherApp adds applicants
       // and instanciate a matrix 
       anotherApp(function() {
-
-        console.log(vm.applicants)
-        console.log(vm.applicants.length)
 
         var uploadCounter = 0;
         var numUploaded = 0;
@@ -298,17 +269,10 @@ angular.module('addApplicant', ['userService', 'mgcrea.ngStrap'])
           uploadCounter += uploadFiles[i].length;
           applicant.files = null;
 
-          console.log(uploadFiles)
-            /*console.log(uploadFiles)*/
-            /*console.log(data)*/
           Applicant.multiApply(applicant).then(function(resp) {
 
-            console.log(resp)
             promises.push(resp);
-            /*console.log("Counter " + counter);*/
-            /*var applicantID = resp.data.appID;*/
-            console.log(vm.applicants.length)
-            console.log(promises.length)
+
             if (vm.applicants.length === promises.length) {
               if (uploadCounter === 0) {
                 $timeout(function() {
@@ -319,15 +283,12 @@ angular.module('addApplicant', ['userService', 'mgcrea.ngStrap'])
 
               } else {
                 $q.all(promises).then(function(data) {
-                  console.log(data)
                   if (!data) return;
                   for (var i in data) {
 
                     var temp = {};
                     temp.appID = data[i].data.appID;
                     temp.files = uploadFiles[i];
-                    console.log(uploadFiles)
-                    console.log(uploadFiles.length)
                     if (uploadFiles && uploadFiles.length > 0) {
                       AWS.uploadS3(temp);
                     }
@@ -336,12 +297,9 @@ angular.module('addApplicant', ['userService', 'mgcrea.ngStrap'])
                   $rootScope.$on("app-media-submitted",
                     function() {
                       numUploaded++;
-                      console.log(numUploaded)
-                      console.log(uploadCounter)
                       if (numUploaded === uploadCounter) {
                         $timeout(function() {
                           vm.processing = false;
-                          console.log("Going back to Cali")
                           vm.back();
                           return;
                         }, 500)

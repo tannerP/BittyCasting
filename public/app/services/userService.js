@@ -5,20 +5,14 @@ angular.module('userService', [])
 .factory("EmailValidator", function($http) {
 	var email = new Object();
 	email.validate = function(email, callback){
-		 var MAILGUN_BASE_URL= "https://api.mailgun.net/v3/address/validate";
-		 var key = 
-		console.log(email);
-		    /*return $resource(MAILGUN_BASE_URL, 
-		    	{ format: 'json', jsoncallback: 'JSON_CALLBACK' },
-		    	 { 'load': { 'method': 'JSONP' } });*/
-
+		var MAILGUN_BASE_URL= "https://api.mailgun.net/v3/address/validate";
+	
 		$http.get(MAILGUN_BASE_URL, {
 			params: {
 				address: email,
 				api_key: "pubkey-27a5198e54d0d8aec3a8fabfa7257d17"
 			}
 		 }).success(function(data, status, headers, config) {
-		 	console.log(data)
 		 	return callback(data.is_valid);
 		 }).error(function(data, status, headers, config){
 		 	console.log(data)
@@ -31,6 +25,9 @@ angular.module('userService', [])
 	var email = new Object();
 	email.confirm = function(confirmID){
 	 	return $http.get("register/confirm/"+confirmID)
+	}
+	email.resend = function(confirmID){
+	 	return $http.get("register/resend/"+confirmID)
 	}
 	return email
 })
