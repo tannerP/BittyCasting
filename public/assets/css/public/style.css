@@ -580,6 +580,7 @@ div.navbar-collapse.collapse.in {
     transition: all 0.2s ease; }
 .custom-action-nav-in .navUserInitial {
   display: inline-block;
+  float: right;
   padding: 12px;
   width: 41px;
   height: 41px;
@@ -2680,6 +2681,13 @@ ul.select-coverphoto-wrapper {
 
   .custom-action-nav-in {
     position: relative; }
+    .custom-action-nav-in .navUserInitial {
+      position: absolute;
+      top: -120px;
+      left: 50%;
+      margin-left: -21px;
+      display: block;
+      z-index: 1000; }
     .custom-action-nav-in ul {
       background-color: white;
       float: none;
@@ -2704,13 +2712,6 @@ ul.select-coverphoto-wrapper {
             -ms-transition: all 0.8s ease;
             -o-transition: all 0.8s ease;
             transition: all 0.8s ease; }
-        .custom-action-nav-in ul li.navUserInitial {
-          position: absolute;
-          top: -120px;
-          left: 50%;
-          margin-left: -21px;
-          display: block;
-          z-index: 1000; }
 
   .aside {
     width: 100%; }

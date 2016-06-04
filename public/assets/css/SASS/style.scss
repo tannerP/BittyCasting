@@ -634,24 +634,25 @@ div.navbar-collapse.collapse.in {
             color: $color-blue;
             @include transition(all, 0.2s, ease);
         } 
-        }     
-        .navUserInitial {
-            display: inline-block;
-            padding: 12px;
-            width: 41px;
-            height: 41px;
-            margin: 8px 0 0 15px;
-            background-color: $color-grey-dark;
-            text-align: center;
-            font-size: $font-size-regular;
-            color: white;
-            @include border-radius(50%);
+    }     
+    .navUserInitial {
+        display: inline-block;
+        float: right;
+        padding: 12px;
+        width: 41px;
+        height: 41px;
+        margin: 8px 0 0 15px;
+        background-color: $color-grey-dark;
+        text-align: center;
+        font-size: $font-size-regular;
+        color: white;
+        @include border-radius(50%);
+        @include transition(all, 0.2s, ease);
+        &:hover, &:focus  {
+            cursor: pointer;
+            background-color: $color-grey-darken;
             @include transition(all, 0.2s, ease);
-            &:hover, &:focus  {
-                cursor: pointer;
-                background-color: $color-grey-darken;
-                @include transition(all, 0.2s, ease);
-            } 
+        } 
     }
 }
 
@@ -2934,6 +2935,15 @@ text-align: center;
         
     .custom-action-nav-in {
         position: relative;
+        .navUserInitial {
+            position: absolute;
+            top:-120px;
+            left: 50%;
+            margin-left: -21px;
+            display: block;
+            z-index: 1000;
+        }
+        
         ul {
             background-color: white;
             float: none; 
@@ -2951,14 +2961,6 @@ text-align: center;
                         background-color: $color-grey-lightest;
                         @include transition(all, 0.8s, ease);
                     }  
-                }
-                &.navUserInitial {
-                    position: absolute;
-                    top:-120px;
-                    left: 50%;
-                    margin-left: -21px;
-                    display: block;
-                    z-index: 1000;
                 }
             }
         }

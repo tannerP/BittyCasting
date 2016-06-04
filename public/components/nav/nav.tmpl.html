@@ -37,10 +37,12 @@
           </ul>
         </div>      
         <div ng-if='main.loggedIn' class="custom-action-nav-in"> 
+           <div ng-if='main.loggedIn' class='navUserInitial'>{{main.usrInitial}}</div>
            <ul class="nav navbar-nav">                       
                <li ng-if='main.loggedIn' ng-click="main.doLogout()"><a href = "#">Logout</a></li>
-               <li ng-if='main.loggedIn' ng-click='main.getUsrBtn()' class='navUserInitial'>{{main.usrInitial}}</li>
+<!--               <li ng-if='main.loggedIn' ng-click='main.getUsrBtn()' class='navUserInitial'>{{main.usrInitial}}</li>-->
             </ul>
+            
         </div>  
             
 <!---------------- Not Login ---------------->
