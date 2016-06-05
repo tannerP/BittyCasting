@@ -2738,7 +2738,7 @@ ul.select-coverphoto-wrapper {
     .custom-action-nav li {
       display: inline-block;
       text-align: center;
-      width: 50%;
+      width: 100%;
       float: left; }
     .custom-action-nav .nav-register, .custom-action-nav .nav-signin {
       height: 57px;
