@@ -1466,6 +1466,15 @@ ul.projects li {
         }
     }
     
+    .table-collaborator {
+        thead tr th:nth-child(1) {width: 45%;} //Name
+        thead tr th:nth-child(2) {width: 45%;} //Status    
+        thead tr th:nth-child(3) {width: 10%;} //remove
+        margin-bottom: 29px;
+        cursor: default;
+        tbody tr td{cursor: default;}
+    }
+    
     .table {
         font-size: $font-size-regular;
 
@@ -1626,6 +1635,7 @@ ul.projects li {
         font-size: $font-size-side-formtitle;
         color:	$color-grey;
         font-weight: 400;
+        margin-bottom: 5px;
     }
     
     section {
