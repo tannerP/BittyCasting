@@ -42,10 +42,8 @@
         <div class="sort custom-dropdown" uib-dropdown is-open="false">
             <span type="text" class="custom-form" uib-dropdown-toggle ng-disabled="disabled">{{page.curFilter || "All applicants"}}</span>
             <ul uib-dropdown-menu role="menu" aria-labelledby="single-button">
-                <li role="menuitem"><a href="#" ng-click="page.setFilter(null);
-                page.curFilter='All Applicants' ">All applicants</a></li>
-                <li role="menuitem"><a href="#" ng-click="page.setFilter('favorited');
-                page.curFilter='Favorites' ">Favorites</a></li>
+                <li role="menuitem"><a href="#" ng-click="page.setFilter(null);">All applicants</a></li>
+                <li role="menuitem"><a href="#" ng-click="page.setFilter('Favorites')">Favorites</a></li>
             </ul>
         </div>     
 
@@ -60,9 +58,10 @@
   <div class="cardContainer" ng-if="page.gridView">
   <!-- FILTER -->
     <!-- <ul class='applicants' ng-repeat="app in page.applicants | applicants:filter track by $index"> -->
-    <ul class='applicants' ng-repeat="app in page.applicants | orderBy: '-submission_date' | applicants:filter | limitTo:appLimit |
+    <!-- <ul class='applicants' ng-repeat="app in page.applicants | orderBy: '-submission_date' | applicants:filter | limitTo:appLimit |
      filter:q as applicants track by $index" ng-init="numApps = applicants.length">
-     
+      -->
+    <ul class='applicants' ng-repeat="app in page.applicants | orderBy: '-submission_date' | applicants:page.curFilter | filter:q as applicants track by $index" ng-init="numApps = applicants.length">
       <li class="col-lg-3 col-md-4 col-sm-6">
         <div class="card cardApplicants">
             <div ng-if="app.new" class="alert-new" ng-click="page.updateViewed(app, roleData._id)">New</div>

@@ -5,12 +5,12 @@ angular.module('roleCtrl', ['userService',
 .controller('RolePageController',
     function(Applicant, Role, $location, $routeParams, $rootScope,
       $scope, $aside, $routeParams, $location, $route,
-      $window, $timeout, $route, Meta) {
+      $window, $timeout, $route, Meta, RoleService) {
       var vm = this;
       var fav = false;
 
       vm.setFilter = function(filter) {
-          $scope.filter = filter
+          vm.curFilter = filter
         }
 /*
       $window.onscroll = function() {
