@@ -13,38 +13,52 @@
   <div class="cardContainer">
     <ul class='projects' ng-show="home.gridView">
       <li class="col-lg-3 col-md-4 col-sm-6" ng-repeat-start="project in home.projects">
+          
         <div class="card cardProjects"
              style='background: url({{project.coverphoto.source || "/assets/imgs/img_projectCover01.png"}}) no-repeat top center; background-size: 100% auto;'>
-          <a href="#" ng-click="home.getProjectBtn(project)" class="md-headline">
-            <div class="cardInfoBg"></div>
-            <div class="cardScrim"></div>
-            <div class="cardInfo">
-              <a href="#" ng-click="home.getProjectBtn(project)" class="md-headline">
-                <div class="cardTitle" >{{project.name | words:7}}</div>
-              </a>
-              <div class="cardSubTitle">{{project.num_roles}}</div>
-              <div class='actionBar'>
-                <ul>
-                  <li class="trashcan" ng-click='home.deleteBtn(project)'></li>
-                  <li ng-if="project.guest"
-                      ng-click="home.acceptProject(project)">
-                    Accept
-                  </li>
-                  <li ng-if="project.guest"
+            
+              <div class="cardInviteBg" ng-if="project.guest"></div>
+              <div class="cardInvite" ng-if="project.guest">   
+                  <div class="btn_inviteRefuse"
                       ng-click="home.rejectProject(project)">
-                    Refuse
-                  </li>
-                  
-                  <!--                                        <li class="duplicate"></li>-->
-                </ul>
+                      <span>Refuse</span>
+                  </div>  
+                  <div class="btn_inviteAccept"
+                      ng-click="home.acceptProject(project)">
+                      <span>Accept</span>
+                  </div>
               </div>
-            </div>
-          </a>
-        </div>
-      </li>
-      <li ng-repeat-end></li>
+            
+<!--              <div class="cardInviteInfoBg" ng-if="project.guest"></div>  -->
+              <div class="cardInviteInfo" ng-if="project.guest">
+                  <div class="cardInviteTitle">{{project.name | words:7}}</div>
+                  <div class="cardInviteSubTitle">{{project.num_roles}}</div>
+              </div>
+
+              <a href="#" ng-click="home.getProjectBtn(project)" class="md-headline">
+                <div class="cardInfoBg"></div>
+                <div class="cardScrim"></div>
+                <div class="cardInfo" ng-if="!project.guest">
+                  <a href="#" ng-click="home.getProjectBtn(project)" class="md-headline">
+                    <div class="cardTitle" >{{project.name | words:7}}</div>
+                  </a>
+                  <div class="cardSubTitle">{{project.num_roles}}</div>
+                  <div class='actionBar'>
+                    <ul>
+                      <li class="trashcan" ng-click='home.deleteBtn(project)'></li>
+
+                      <!--                                        <li class="duplicate"></li>-->
+                    </ul>
+                  </div>
+                </div>
+              </a>
+
+         </div> 
+       </li>
+       <li ng-repeat-end></li>
     </ul>
   </div>
+    
   <div class="custom-table table-responsive">
         <table class="table table-hover table-project-overview" ng-show="home.listView">
               <thead>

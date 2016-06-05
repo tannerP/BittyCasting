@@ -396,7 +396,7 @@ header {
   position: fixed;
   right: 0;
   left: 0;
-  z-index: 10; }
+  z-index: 100; }
 
 /*nav animation*/
 div.navbar-collapse.collapse {
@@ -1040,6 +1040,78 @@ ul.projects li {
   transition: all 0.3s ease; }
   .card img {
     cursor: pointer; }
+  .card .cardInviteBg {
+    background-color: rgba(255, 255, 255, 0.7);
+    width: 100%;
+    height: 100%;
+    z-index: 9;
+    position: absolute;
+    top: 0;
+    left: 0; }
+  .card .cardInvite {
+    position: absolute;
+    top: 40px;
+    left: 50%;
+    margin-left: -60px;
+    z-index: 10; }
+    .card .cardInvite .btn_inviteAccept, .card .cardInvite .btn_inviteRefuse {
+      width: 36px;
+      height: 36px;
+      -webkit-border-radius: 50%;
+      -moz-border-radius: 50%;
+      -ms-border-radius: 50%;
+      border-radius: 50%;
+      float: left;
+      margin-right: 50px;
+      -webkit-transition: all 0.2s ease;
+      -moz-transition: all 0.2s ease;
+      -ms-transition: all 0.2s ease;
+      -o-transition: all 0.2s ease;
+      transition: all 0.2s ease;
+      position: relative; }
+      .card .cardInvite .btn_inviteAccept:hover, .card .cardInvite .btn_inviteAccept:focus, .card .cardInvite .btn_inviteRefuse:hover, .card .cardInvite .btn_inviteRefuse:focus {
+        opacity: 0.8;
+        filter: alpha(opacity=80);
+        cursor: pointer; }
+      .card .cardInvite .btn_inviteAccept span, .card .cardInvite .btn_inviteRefuse span {
+        color: #242424;
+        font-size: 12px;
+        position: absolute;
+        top: 40px;
+        left: 50%;
+        margin-left: -19px;
+        -webkit-transition: all 0.2s ease;
+        -moz-transition: all 0.2s ease;
+        -ms-transition: all 0.2s ease;
+        -o-transition: all 0.2s ease;
+        transition: all 0.2s ease; }
+    .card .cardInvite .btn_inviteAccept {
+      background: url("/assets/imgs/ic_check_circle_bl.svg") no-repeat center center;
+      background-size: 36px 36px; }
+    .card .cardInvite .btn_inviteRefuse {
+      background: url("/assets/imgs/ic_cross_circle_coral.svg") no-repeat center center;
+      background-size: 36px 36px; }
+  .card .cardInviteInfo {
+    background-color: white;
+    height: 65px;
+    padding-top: 13px;
+    position: absolute;
+    bottom: 0;
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+    z-index: 12;
+    width: 100%;
+    text-align: center; }
+    .card .cardInviteInfo .cardInviteTitle {
+      font-size: 12px;
+      color: #242424;
+      margin-bottom: 4px; }
+    .card .cardInviteInfo .cardInviteSubTitle {
+      font-size: 10px;
+      color: #999999; }
   .card .alert-new {
     position: absolute;
     top: 12px;
@@ -1122,7 +1194,7 @@ ul.projects li {
     -ms-transition: all 0.3s ease;
     -o-transition: all 0.3s ease;
     transition: all 0.3s ease;
-    z-index: 2;
+    z-index: 4;
     height: 60px; }
     .card .cardInfo a {
       text-decoration: none; }
