@@ -236,10 +236,10 @@ angular.module('userService', [])
 		return $http.put('api/collab/response', money);
 	}
 
-	projectFactory.removeCollab = function(projectID,collab){
+	projectFactory.removeCollab = function(projectID,collabID){
 		var money = {};
 		money.projectID = projectID;
-		money.userID = collab.userID;
+		money.userID = collabID
 		console.log(money)
 		return $http.put('api/collab/remove', money);
 	}

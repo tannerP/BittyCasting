@@ -22,6 +22,7 @@ angular.module('roleCtrl', ['userService',
 
       vm.setFilter = function(filter) {
           $scope.filter = filter
+          
         }
         /*vm.allView = function() {
           console.log(fav)

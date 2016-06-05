@@ -56,7 +56,6 @@ module.exports = function(app, express) {
 	});
 	apiRouter.route('/collab/remove/')
 		.put(function(req, res) {
-			console.log(req.body)
 			if (req.body.projectID && req.body.userID) {
 				Project.findById(req.body.projectID, function(err, project) {
 					if (!project) return res.json({
@@ -123,8 +122,8 @@ module.exports = function(app, express) {
 						}
 					}
 					project.save(function(error, data){
-						if(data) return ({success:true, data:data})
-						else return ({success:false, error:error})
+						if(data) return res.json({success:true, project:data})
+						else return res.json({success:false, error:error})
 					})
 				})
 			})

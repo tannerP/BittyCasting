@@ -69,10 +69,10 @@
         <div class="sort custom-dropdown" uib-dropdown is-open="false">
             <span type="text" class="custom-form" uib-dropdown-toggle ng-disabled="disabled">{{page.curFilter || "All applicants"}}</span>
             <ul uib-dropdown-menu role="menu" aria-labelledby="single-button">
-                <li role="menuitem"><a href="#" ng-click="page.setFilter();
+                <li role="menuitem"><a href="#" ng-click="page.setFilter(null);
                 page.curFilter='All Applicants' ">All applicants</a></li>
                 <li role="menuitem"><a href="#" ng-click="page.setFilter('favorited');
-                page.curFilter='Favorite' ">Favorites</a></li>
+                page.curFilter='Favorites' ">Favorites</a></li>
             </ul>
         </div>     
 

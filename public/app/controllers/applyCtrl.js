@@ -5,10 +5,24 @@ angular.module('applyCtrl', ['userService', 'mgcrea.ngStrap'])
     attrs, controller, transcludeFn) {
     /*console.log(scope)
     console.log(controller)*/
-    scope.$watch('ppv.roles', function(newVal, oldVal){
-      if(newVal &&newVal.length ===1){
+    console.log(scope)
+    scope.$watch('ppv.roles', function(newRoles, oldRoles){
+      
+
+      /*var deadline;
+      for(var i in newRoles){
+        var endTime = new Date(deadline[0]);
+
+        deadline = 
+      }*/
+      console.log(deadline)
+      var now = new Date();
+      var isExpired = endTime < now 
+
+      scope.expired = isExpired;
+      /*if(newVal &&newVal.length ===1){
         controller.requirements = newVal[0].requirements;
-      }
+      }*/
     })
     return;
   }
