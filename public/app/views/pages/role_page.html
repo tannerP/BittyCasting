@@ -20,34 +20,7 @@
         <div class="projectDetailsTitle">Description</div>
         <p ng-bind-html="roleData.description | linky"></p>
       </section>
-<!--
-      <section class="col-md-4">
-        <p class="projectDetailsTitle">Info</p>
-        <div class="div-table">
-          <div class="div-table-row">
-            <div class="div-table-col div-table-row-header">Location</div>
-            <div class="div-table-col">{{roleData.location || "No Info"}}</div>
-          </div>
-          <!-- <div class="div-table-row">
-            <div class="div-table-col div-table-row-header">Time</div>
-            <div class="div-table-col">{{roleData.end_time | date:'h:mm a'}}, {{ roleData.end_date | date: "M/d/yyyy" ||
-              "No end time"}}
-            </div>
-          </div>
-          <div ng-if="roleData.payterms" class="div-table-row">
-            <div class="div-table-col div-table-row-header">Pay term</div>
-            <div class="div-table-col">{{roleData.payterms}}</div>
-          </div>
-          <div class="div-table-row">
-            <div class="div-table-col div-table-row-header">Gender</div>
-            <div class="div-table-col">{{roleData.sex || "No Info"}}</div>
-          </div>
-          <div class="div-table-row">
-            <div class="div-table-col div-table-row-header">Age</div>
-            <div class="div-table-col">{{roleData.age || "No Info"}}</div>
-          </div>
-        </div> 
-      </section>-->
+
       <section class="col-md-4">
         <p class="projectDetailsTitle">Requirements</p>
         <ul>
@@ -178,11 +151,7 @@
           </table>
     </div>
   </div>
-
-
 <!--Review Page-->
-<!-- <div newApplicantForm> + Add</div> -->
-<!--  -->
 <div ng-show="viewApp">
   <div review></div>
   <div class="reviewBar" ng-show="viewApp" style=" z-index:4;">
