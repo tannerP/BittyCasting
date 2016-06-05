@@ -574,9 +574,11 @@ div.navbar-collapse.collapse.in {
 
 .custom-action-nav  {
     
+    ul {list-style: none; padding: 0;}
+    
     float: right;
     
-    div {
+    li {
         font-size: $font-size-regular;        
         margin-left: 35px;
         text-decoration: none;
@@ -2893,6 +2895,37 @@ text-align: center;
             }
         }
     }
+    .custom-action-nav {
+        float: none;
+        ul {margin: 0;}
+        li {
+            display: inline-block;
+            text-align: center;
+            width: 50%;
+            float: left;
+        }
+        .nav-register, .nav-signin {
+            height: 57px;
+            line-height: 57px;
+            margin: 0;
+        }          
+        .nav-register {
+             margin-left: 0;
+             padding: 0;
+        }      
+        .nav-signin {
+            color: white;
+            line-height: 57px;
+            background-color: $color-blue;
+            @include transition(all, 0.2s, ease);
+            border-left: 1px solid white;
+            &:hover, &:focus {
+                color: white;
+                background-color: $color-blue-darken;
+            }
+        }
+    }
+    
     .custom-action-nav ul {
         float: none; 
         height: 57px;
