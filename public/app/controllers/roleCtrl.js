@@ -91,9 +91,9 @@ angular.module('roleCtrl', ['userService',
       vm.listView = false;
       //$scope.isAside track if an aside is open. If it is, 
       //prevent going back, instead, close aside.
-      $scope.$watch('carouselIndex', function(newVal, oldVal) {
+      /*$scope.$watch('carouselIndex', function(newVal, oldVal) {
         if (++newVal === $scope.slides.length) $scope.carouselIndex = 5;
-      });
+      });*/
 
       Role.get($routeParams.role_id)
         .success(function(data) {
@@ -157,12 +157,9 @@ angular.module('roleCtrl', ['userService',
                 applicant.new = true;
               } else {
                 for (var v in applicant.userViewed_IDs) {
-                  /*console.log(applicant.userViewed_IDs[v])*/
-                  /*console.log($rootScope.user)*/
                   var viewed = applicant.userViewed_IDs[v];
                   if (viewed.roleID === $scope.roleData._id &&
                     viewed.userID === $rootScope.user._id) {
-                    /*console.log("viewed matches roleID")*/
                     applicant.new = false;
                   } else applicant.new = true;
 
@@ -171,9 +168,6 @@ angular.module('roleCtrl', ['userService',
               }
 
               if (applicant.favs.length > 0) {
-                /*console.log("before")
-                console.log(applicant.favs)*/
-
                 for (var f in applicant.favs) {
                   var roleID = $routeParams.role_id
                   var appRoleID = applicant.favs[f].roleID;
@@ -185,30 +179,15 @@ angular.module('roleCtrl', ['userService',
                     applicant.favorited = applicant.favs[f].favorited;
                   }
                 }
-                /*console.log("afer")
-                console.log(applicant.favs)*/
               }
 
               //get headshot
               if (applicant.suppliments.length > 0) {
                 for (var j in applicant.suppliments) {
-                  /* console.log(applicant.name)
-                   console.log(applicant.suppliments[j].file_type)
-                   console.log(applicant.suppliments[j].file_type.indexOf('image'))*/
-                  //check for headshot labeling
-                  /*if (angular.equals(applicant.suppliments[j].name, "Headshot") ||
-                    angular.equals(applicant.suppliments[j].name, "headshot" || 
-                    applicant.suppliments[j].file_type.indexOf('image')=== 0)){
-                      applicant.headshot = applicant.suppliments[j].source;
-                      break;
-                  } else*/
                   if (applicant.suppliments[j].file_type.indexOf("image") === 0) {
-                    /*  console.log("Adding headshot");
-                      console.log(applicant.suppliments[j].source)*/
                     applicant.headshot = applicant.suppliments[j].source;
                     break;
                   }
-                  //if no headshot is attached
                   else applicant.headshot = "/assets/imgs/img_headshot_placeholder.png";
                 }
               }
@@ -221,11 +200,16 @@ angular.module('roleCtrl', ['userService',
           })
       }
 
-      /*vm.gridStyle = {'opacity': 1};*/
-
-      /*vm.getProject = function(prjID) {
-        $location.path('/projectDetails/' + prjID);
-      }*/
+      $scope.isActive = function(index){
+        console.log(index)
+        var curCarIndex = $scope.carouselIndex; 
+        console.log(curCarIndex)
+        if(curCarIndex === index)
+          {console.log("Actives")}
+        else{
+          console.log("Inactive")
+        }
+      }
 
       vm.setGridVw = function() {
         RoleService.setView("GRID")
