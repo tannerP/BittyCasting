@@ -524,33 +524,36 @@ div.navbar-collapse.collapse.in {
     -o-transition: all 0.2s ease;
     transition: all 0.2s ease; }
 
-.custom-action-nav ul {
-  list-style-type: none;
-  float: right;
-  margin: 0;
-  padding: 0; }
-.custom-action-nav li {
-  display: inline; }
-  .custom-action-nav li a {
+.custom-action-nav {
+  float: right; }
+  .custom-action-nav ul {
+    list-style: none;
+    padding: 0; }
+  .custom-action-nav li {
     font-size: 12px;
-    line-height: 56px;
     margin-left: 35px;
-    text-decoration: none; }
-  .custom-action-nav li:first-child a {
+    text-decoration: none;
+    display: inline;
+    float: right; }
+    .custom-action-nav li:hover, .custom-action-nav li:focus {
+      cursor: pointer; }
+  .custom-action-nav .nav-register {
+    margin-top: 10px; }
+  .custom-action-nav .nav-signin {
+    line-height: 56px;
     color: #666666;
     -webkit-transition: all 0.2s ease;
     -moz-transition: all 0.2s ease;
     -ms-transition: all 0.2s ease;
     -o-transition: all 0.2s ease;
     transition: all 0.2s ease; }
-  .custom-action-nav li:first-child a:hover, .custom-action-nav li:first-child a:focus {
-    background-color: transparent;
-    color: #06bcc2;
-    -webkit-transition: all 0.2s ease;
-    -moz-transition: all 0.2s ease;
-    -ms-transition: all 0.2s ease;
-    -o-transition: all 0.2s ease;
-    transition: all 0.2s ease; }
+    .custom-action-nav .nav-signin:hover, .custom-action-nav .nav-signin:focus {
+      color: #06bcc2;
+      -webkit-transition: all 0.2s ease;
+      -moz-transition: all 0.2s ease;
+      -ms-transition: all 0.2s ease;
+      -o-transition: all 0.2s ease;
+      transition: all 0.2s ease; }
 
 .custom-action-nav-in ul {
   list-style-type: none;
@@ -580,6 +583,7 @@ div.navbar-collapse.collapse.in {
     transition: all 0.2s ease; }
 .custom-action-nav-in .navUserInitial {
   display: inline-block;
+  float: right;
   padding: 12px;
   width: 41px;
   height: 41px;
@@ -1864,13 +1868,60 @@ ul.select-coverphoto-wrapper {
   display: inline; }
 
 .asideRole {
-  width: 800px; }
+  width: 768px; }
   .asideRole .asideRoleColLeft, .asideRole .asideRoleColRight {
     width: 48%; }
   .asideRole .asideRoleColLeft {
     float: left; }
   .asideRole .asideRoleColRight {
     float: right; }
+
+.collaUserInitial {
+  display: inline-block;
+  float: left;
+  padding: 12px;
+  width: 41px;
+  height: 41px;
+  margin: 5px;
+  background-color: #666666;
+  text-align: center;
+  font-size: 12px;
+  color: white;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  border-radius: 50%; }
+
+.btn-addCircle {
+  display: inline-block;
+  float: left;
+  padding: 12px;
+  width: 41px;
+  height: 41px;
+  margin: 5px;
+  text-align: center;
+  font-size: 12px;
+  color: #666666;
+  border: 1px solid #666666;
+  background: url("/assets/imgs/ic_plus.svg") no-repeat center center;
+  background-size: 20px 20px;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  border-radius: 50%;
+  -webkit-transition: all 0.2s ease;
+  -moz-transition: all 0.2s ease;
+  -ms-transition: all 0.2s ease;
+  -o-transition: all 0.2s ease;
+  transition: all 0.2s ease; }
+  .btn-addCircle:hover, .btn-addCircle:focus {
+    cursor: pointer;
+    background-color: #cccccc;
+    -webkit-transition: all 0.2s ease;
+    -moz-transition: all 0.2s ease;
+    -ms-transition: all 0.2s ease;
+    -o-transition: all 0.2s ease;
+    transition: all 0.2s ease; }
 
 /***************************
           Apply
@@ -2596,6 +2647,36 @@ ul.select-coverphoto-wrapper {
           -o-transition: all 0.8s ease;
           transition: all 0.8s ease; }
 
+  .custom-action-nav {
+    float: none; }
+    .custom-action-nav ul {
+      margin: 0; }
+    .custom-action-nav li {
+      display: inline-block;
+      text-align: center;
+      width: 50%;
+      float: left; }
+    .custom-action-nav .nav-register, .custom-action-nav .nav-signin {
+      height: 57px;
+      line-height: 57px;
+      margin: 0; }
+    .custom-action-nav .nav-register {
+      margin-left: 0;
+      padding: 0; }
+    .custom-action-nav .nav-signin {
+      color: white;
+      line-height: 57px;
+      background-color: #06bcc2;
+      -webkit-transition: all 0.2s ease;
+      -moz-transition: all 0.2s ease;
+      -ms-transition: all 0.2s ease;
+      -o-transition: all 0.2s ease;
+      transition: all 0.2s ease;
+      border-left: 1px solid white; }
+      .custom-action-nav .nav-signin:hover, .custom-action-nav .nav-signin:focus {
+        color: white;
+        background-color: #069A9F; }
+
   .custom-action-nav ul {
     float: none;
     height: 57px; }
@@ -2680,6 +2761,13 @@ ul.select-coverphoto-wrapper {
 
   .custom-action-nav-in {
     position: relative; }
+    .custom-action-nav-in .navUserInitial {
+      position: absolute;
+      top: -120px;
+      left: 50%;
+      margin-left: -21px;
+      display: block;
+      z-index: 1000; }
     .custom-action-nav-in ul {
       background-color: white;
       float: none;
@@ -2704,15 +2792,11 @@ ul.select-coverphoto-wrapper {
             -ms-transition: all 0.8s ease;
             -o-transition: all 0.8s ease;
             transition: all 0.8s ease; }
-        .custom-action-nav-in ul li.navUserInitial {
-          position: absolute;
-          top: -120px;
-          left: 50%;
-          margin-left: -21px;
-          display: block;
-          z-index: 1000; }
 
   .aside {
+    width: 100%; }
+
+  .asideRole .asideRoleColLeft, .asideRole .asideRoleColRight {
     width: 100%; }
 
   /***************************

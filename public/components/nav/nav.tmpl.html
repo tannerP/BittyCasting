@@ -37,29 +37,34 @@
           </ul>
         </div>      
         <div ng-if='main.loggedIn' class="custom-action-nav-in"> 
+           <div ng-if='main.loggedIn' class='navUserInitial' ng-click='main.getUsrBtn()'>
+               {{main.usrInitial}}
+            </div>
            <ul class="nav navbar-nav">                       
                <li ng-if='main.loggedIn' ng-click="main.doLogout()"><a href = "#">Logout</a></li>
-               <li ng-if='main.loggedIn' ng-click='main.getUsrBtn()' class='navUserInitial'>{{main.usrInitial}}</li>
+<!--               <li ng-if='main.loggedIn' ng-click='main.getUsrBtn()' class='navUserInitial'>{{main.usrInitial}}</li>-->
             </ul>
+            
         </div>  
             
 <!---------------- Not Login ---------------->
-         <div ng-if = "!main.loggedIn" class="custom-action-nav">        
-          <ul>
-            <li><a href="#" ng-click='nav.signin()'>Sign in</a></li>
-            <li ng-click='nav.signup()'><a href="#" class="custom-btn-primary-small">Register</a></li>
-          </ul>
-          </div> 
-              <div  ng-if ="main.publicVw" class="custom-site-nav">      
-                <ul class="nav navbar-nav">               
-                  <li><a ng-click="main.navCollapsed = !main.navCollapsed" data-scroll-nav="0">Home</a></li>
-                  <li><a ng-click="main.navCollapsed = !main.navCollapsed" data-scroll-nav="1">Features</a></li>
-                  <!-- <li><a data-scroll-nav="2">Pricing</a></li> -->
-                  <li><a ng-click="main.navCollapsed = !main.navCollapsed" data-scroll-nav="3">About</a></li>
-                  <li><a ng-click="main.navCollapsed = !main.navCollapsed" data-scroll-nav="4">Contact</a></li>
-                </ul>      
-              <!-- </div>                        -->
-            </div><!-- /.navbar-collapse -->
+             <div ng-if = "!main.loggedIn" class="custom-action-nav">
+                 <ul>
+                     <li ng-click='nav.signup()' class="nav-register custom-btn-primary-small">Register</li>
+                     <li ng-click='nav.signin()' class="nav-signin">Sign in</li>
+                 </ul>
+             </div> 
+            
+             <div ng-if ="main.publicVw" class="custom-site-nav">      
+                    <ul class="nav navbar-nav">               
+                      <li><a ng-click="main.navCollapsed = !main.navCollapsed" data-scroll-nav="0">Home</a></li>
+                      <li><a ng-click="main.navCollapsed = !main.navCollapsed" data-scroll-nav="1">Features</a></li>
+                      <!-- <li><a data-scroll-nav="2">Pricing</a></li> -->
+                      <li><a ng-click="main.navCollapsed = !main.navCollapsed" data-scroll-nav="3">About</a></li>
+                      <li><a ng-click="main.navCollapsed = !main.navCollapsed" data-scroll-nav="4">Contact</a></li>
+                    </ul>      
+                  <!-- </div>                        -->
+             </div><!-- /.navbar-collapse -->
          </nav>
       </div>       
   </div>       
