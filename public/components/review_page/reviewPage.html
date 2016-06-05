@@ -52,19 +52,18 @@
                ng-style="{ 'background': 'url(' + slide.source + ') no-repeat center center',
                             'background-size': 'auto 400px'}">
           </div>
-          <!-- <video class="reviewCarouselVideo" ng-if="slide.video"
-                 controls ngf-src='slide.source' > -->
-              <video class="reviewCarouselVideo" ng-if="slide.video"
-                 controls ngf-src='slide.source' >
-            </video>
-               <!-- ng-style="{
-                           'background': 'url(' + slide.source + ') no-repeat center center',
-                           'background-size': 'auto 400px'}"></div> -->
-          <!-- <video class="reviewCarouselVideo" ng-if="slide.video" controls ngf-src='slide.source'>
-          </video> -->
+          <video class="reviewCarouselVideo" ng-if="slide.video"
+               controls ngf-src='slide.source' >
+          </video>
         </li>
         </ul>
     </div>
+    <ul>
+      <li ng-repeat="dot in slides track by $index"
+          ng-class="isActive($index)">
+      </li>
+    </ul>
+    <span>{{carouselIndex}}</span>
   
   <div class="clear"></div>
   <div class="reviewInfo col-md-6">

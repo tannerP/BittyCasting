@@ -12,8 +12,7 @@
   </div>
   <div class="cardContainer">
     <ul class='projects' ng-show="home.gridView">
-      <li class="col-lg-3 col-md-4 col-sm-6" ng-repeat-start="project in home.projects">
-          
+      <li class="col-lg-3 col-md-4 col-sm-6" ng-repeat-start="project in home.projects | orderBy: '-updated_date'">
         <div class="card cardProjects"
              style='background: url({{project.coverphoto.source || "/assets/imgs/img_projectCover01.png"}}) no-repeat top center; background-size: 100% auto;'>
             

@@ -112,7 +112,8 @@ angular.module('projectCtrl', ['userService',
 
           vm.convertInitial = function(name) {
             if (!name) return;
-            return initial = name.first[0] + name.last[0];
+             initial = name.first[0] + name.last[0];
+             return initial.toUpperCase();
           }
 
           vm.save = function() {
@@ -427,21 +428,20 @@ angular.module('projectCtrl', ['userService',
           vm.projects = data.data;
           for (var i in vm.projects) {
             var project = vm.projects[i];
-            /*console.log(vm.projects[i])
-            console.log(vm.projects[i].collabs_id)*/
-            /*console.log($rootScope.user.invites)*/
             var indxInvite = $rootScope.user.invites.indexOf(project._id)
             if (indxInvite > -1) {
-              /*console.log("guest = true")*/
-              vm.projects[i].guest = true;
-              vm.projects[i].accepted = vm.projects[i].collabs_id[indxInvite].accepted;
-
+              var collab = project.collabs_id;
+              for(var j in collab)
+                if(collab[j].userID === $rootScope.user._id)
+              { 
+                project.guest = true;
+                project.accepted = project.collabs_id[j].accepted;
+              }
             }
           }
         })
 
       vm.acceptProject = function(project) {
-        console.log(project)
         Project.response2Invite(true, project)
           .success(function(resp) {
             if (resp.success)
