@@ -5,35 +5,14 @@ angular.module('roleCtrl', ['userService',
 .controller('RolePageController',
     function(Applicant, Role, $location, $routeParams, $rootScope,
       $scope, $aside, $routeParams, $location, $route,
-      $window, $timeout, RoleService, $route, Meta) {
+      $window, $timeout, $route, Meta) {
       var vm = this;
-      $scope.appLimit = 6;
-
-      var funcLog = function() {
-        console.log('hello aside')
-      }
       var fav = false;
-
-      /*vm.toggleFav = function() {
-        fav = !fav;
-        if (fav) $scope.filter = "favorited";
-        else $scope.filter = null;
-      }*/
 
       vm.setFilter = function(filter) {
           $scope.filter = filter
-          
         }
-        /*vm.allView = function() {
-          console.log(fav)
-          fav = !fav;
-          if (fav) $scope.filter = "favorited";
-          else $scope.filter = null;
-        }
-        vm.favView = function(){
-          $scope.filter = "favorited";
-        }*/
-
+/*
       $window.onscroll = function() {
         var position = document.body.scrollTop ||
           document.documentElement.scrollTop || 0;
@@ -50,7 +29,7 @@ angular.module('roleCtrl', ['userService',
         }
         $scope.appLimit = parseInt(((position / 283) + 1) * coefficient);
         $scope.$digest()
-      }
+      }*/
       var editRoleAside = $aside({
           scope: $scope,
           backdrop: 'static',
