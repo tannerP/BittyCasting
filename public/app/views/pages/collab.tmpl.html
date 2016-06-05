@@ -2,7 +2,42 @@
   <div class="asideBg">
     <div class="custom-close" ng-click="$hide()"></div>
 
-    <div class="asideTitle">Collaborators Project:{{project.name}}</div>
+    <div class="asideTitle">Collaborators</div>
+    
+<!--
+    <section>
+      <div class="asideSubtitle">Project</div>
+      <p>{{project.name}}</p>
+    </section>  
+-->
+      
+    <div class="custom-table">
+    <table class="table table-collaborator">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Status</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="collab in project.collabs_id">
+                <td><span>{{collab.userName.first}} {{collab.userName.last}}</span></td>
+                <td>
+                    <span ng-if="collab.accepted">Accepted</span>
+                    <span ng-if="!collab.accepted">Reject</span>
+<!--                    <span ng-if="collab.responded">Responded</span>-->
+                    <span ng-if="!collab.responded">Pending</span>
+                </td>
+                <td>
+                    <span class="btn btn-standard" ng-click="page.removeBtn(collab)"><img src="/assets/imgs/ic_trash.svg" width="16px" height="16px"></span>
+                </td>
+            </tr>
+        </tbody>
+    </table>  
+    </div>
+          
+<!--
     <ul>
       <li ng-repeat="collab in project.collabs_id">
         <span>{{collab.userName.first}} {{collab.userName.last}}</span>
@@ -14,10 +49,25 @@
       </li>
     </ul>
       <br>
+-->
+      
+<!--
+      
       <label>Invite</label>
       <input type="text" placeholder="{{ page.emailPlaceHolder||'Email'}}"
        ng-model="page.guestEmail">
-    <button type="button" class="custom-btn-primary-large custom-btn-cancel"
+-->
+      
+      
+      <div class="form-group">
+          <p>Invite others to cooperate in this project:</p>
+          <input class="custom-form" type="text" placeholder="{{ page.emailPlaceHolder||'E-mail address'}}"
+          ng-model="page.guestEmail">
+      </div>
+      
+      
+      
+    <button type="button" class="custom-btn-primary-large"
              ng-click="page.inviteBtn()">Invite</button>
   </div>
 </div>

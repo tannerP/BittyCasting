@@ -1287,6 +1287,17 @@ ul.projects li {
     vertical-align: middle;
     background: url("/assets/imgs/ic_link.svg") no-repeat center center;
     background-size: 12px 12px; }
+.custom-table .table-collaborator {
+  margin-bottom: 29px;
+  cursor: default; }
+  .custom-table .table-collaborator thead tr th:nth-child(1) {
+    width: 45%; }
+  .custom-table .table-collaborator thead tr th:nth-child(2) {
+    width: 45%; }
+  .custom-table .table-collaborator thead tr th:nth-child(3) {
+    width: 10%; }
+  .custom-table .table-collaborator tbody tr td {
+    cursor: default; }
 .custom-table .table {
   font-size: 12px; }
   .custom-table .table tbody tr {
@@ -1455,7 +1466,8 @@ ul.projects li {
     font-family: "Open Sans", sans-serif;
     font-size: 10px;
     color: #999999;
-    font-weight: 400; }
+    font-weight: 400;
+    margin-bottom: 5px; }
   .aside section {
     margin-bottom: 28px; }
   .aside .custom-btn-cancel {
