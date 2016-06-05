@@ -72,7 +72,7 @@
       <tbody>
       <tr>
         <td>Agent</td>
-        <td>{{currApp.agent}}</td>
+        <td>{{currApp.agent || "&mdash;"}}</td>
       </tr>
       <tr>
         <td>Name</td>
@@ -145,7 +145,7 @@
         <div class="commentHeading">Add a comment</div>
         <textarea class="custom-form-textarea" rows="5" cols="40" type="text" name="comment"
                   ng-model="box.newComment"></textarea>
-        <button class="custom-btn-secondary-small" ng-click="box.addCmt(currApp._id, main.usrInitial, box.newComment)">
+        <button class="custom-btn-secondary-small" ng-click="box.addCmt(currApp._id,box.newComment)">
           Comment
         </button>
       </div>
@@ -156,7 +156,11 @@
         <p class="timestamp">Posted on {{data.timestamp | date:'short'}}
         <ul class="comments-action">
           <!--                <li><a>Edit</a></li>-->
-          <li><a ng-click="box.deleteCmt(currApp._id,$index,data)">Delete</a></li>
+          <li ng-if="data.ownerID === userID">
+            <a ng-click="box.deleteCmt(currApp._id,$index,data)">
+              Delete
+            </a>
+          </li>
         </ul>
       </div>
     </div>

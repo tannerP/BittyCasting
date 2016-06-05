@@ -34,6 +34,7 @@ var env = process.argv[2];
 switch (env) {
   case "prod":
     var config = require('./config').prod; //get config file
+    app.use(morgan('dev')); //HTTP logger
     break;
   case "tp":
     var config = require('./config').tp; //get config file

@@ -156,10 +156,11 @@ angular.module('projectCtrl', ['userService',
   }
 
   vm.inviteBtn = function() {
-    if(vm.guestEmail)
-    {   Mail.sendCollabInvite($scope.project, vm.guestEmail);
-        vm.guestEmail = ""
-        vm.emailPlaceHolder = "Email Sent"}
+    if (vm.guestEmail) {
+      Mail.sendCollabInvite($scope.project, vm.guestEmail);
+      vm.guestEmail = ""
+      vm.emailPlaceHolder = "Email Sent"
+    }
   }
 })
 
@@ -325,10 +326,11 @@ angular.module('projectCtrl', ['userService',
         show: false,
         type: 'success'
       });
-      vm.delete = function(id) {
-        Role.delete(id)
-          .success(function() {
 
+      vm.delete = function(project) {
+
+        Role.delete(project._id)
+          .success(function() {
             if ($location.path().indexOf("/role") > -1) {
               $scope.$emit('aside.hide')
               $window.history.back();
@@ -414,7 +416,7 @@ angular.module('projectCtrl', ['userService',
     })
 
 .controller('HomePageController',
-    function(Project, HomeService, $location, $aside, $scope, $rootScope) {
+    function(Project, HomeService, $location, $route, $aside, $scope, $rootScope) {
       var vm = this;
       $scope.aside = {};
       $scope.aside.projectData = {}
@@ -424,27 +426,36 @@ angular.module('projectCtrl', ['userService',
           vm.processing = false;
           vm.projects = data.data;
           for (var i in vm.projects) {
-            var projectID = vm.projects[i]._id;
-            /*console.log(projectID)
-            console.log($rootScope.user.invites)*/
-            if ($rootScope.user.invites.indexOf(projectID) > -1) {
+            var project = vm.projects[i];
+            /*console.log(vm.projects[i])
+            console.log(vm.projects[i].collabs_id)*/
+            /*console.log($rootScope.user.invites)*/
+            var indxInvite = $rootScope.user.invites.indexOf(project._id)
+            if (indxInvite > -1) {
               /*console.log("guest = true")*/
               vm.projects[i].guest = true;
+              vm.projects[i].accepted = vm.projects[i].collabs_id[indxInvite].accepted;
+
             }
           }
         })
 
       vm.acceptProject = function(project) {
-        Project.response2Invite(true, project).then(function(data) {})
+        console.log(project)
+        Project.response2Invite(true, project)
+          .success(function(resp) {
+            if (resp.success)
+              $location.path('/project/' + resp.project._id);
+          })
       }
       vm.rejectProject = function(project) {
-        Project.response2Invite(false, project).then(function(data) {
-          $route.$reload();
-        })
-      }
-      vm.getProject = function(prjID) {
-        $location.path('/projectDetails/' + prjID);
-      }
+          Project.response2Invite(false, project).then(function(data) {
+            $route.reload();
+          })
+        }
+        /*   vm.getProject = function(prjID) {
+             $location.path('/projectDetails/' + prjID);
+           }*/
 
       vm.setGridVw = function() {
           HomeService.setView("GRID")
@@ -469,8 +480,10 @@ angular.module('projectCtrl', ['userService',
         $scope.projectData = data;
         deletePrjAside.toggle();
       }
-      vm.getProjectBtn = function(id) {
-        $location.path("/project/" + id);
+      vm.getProjectBtn = function(project) {
+        console.log(project)
+        if (project.guest && !project.accepted) return;
+        else $location.path("/project/" + project._id);
       }
 
       /*Helpers  */
@@ -832,8 +845,9 @@ angular.module('projectCtrl', ['userService',
     })
 
 //Change to style.flexDirection = 'column-reverse'
-.controller('deleteProjectController', ['$scope', '$alert', 'Project', '$location', '$route',
-  function($scope, $alert, Project, $location, $route) {
+.controller('deleteProjectController', ['$scope',
+  '$alert', 'Project', '$location', '$route', '$rootScope',
+  function($scope, $alert, Project, $location, $route, $rootScope) {
     var vm = this;
     vm.process = true;
     vm.existing = true;
@@ -852,22 +866,35 @@ angular.module('projectCtrl', ['userService',
       type: 'success'
     });
 
-    vm.delete = function(projID) {
-      Project.delete(projID)
-        .success(function() {
-          $route.reload();
-          vm.processing = false;
-          vm.projectData = null;
-          if ($location.path().indexOf("project") != -1) {
-            $scope.$emit('aside.hide')
-            $scope.$hide();
-            $location.path("/home")
-          } else {
-            $scope.$emit('aside.hide')
+
+
+    vm.delete = function(project) {
+
+      //if guest  Project.remove(projectID, collab)
+      //check if user is a guest of project
+      /*var indxInvite = $rootScope.user.invites.indexOf(project._id)*/
+      if ($rootScope.user._id === project.user_id) project.guest = false
+      else project.guest = true;
+      /*if (indxInvite > -1) project.guest = true;*/
+      if (project.guest) {
+        Project.removeCollab(project._id, $rootScope.user._id);
+      } else {
+        Project.delete(project._id)
+          .success(function() {
             $route.reload();
-            $scope.$hide();
-          }
-        })
+            vm.processing = false;
+            vm.projectData = null;
+          })
+      }
+      if ($location.path().indexOf("project") != -1) {
+        $scope.$emit('aside.hide')
+        $scope.$hide();
+        $location.path("/home")
+      } else {
+        $scope.$emit('aside.hide')
+        $route.reload();
+        $scope.$hide();
+      }
     }
   }
 ]);

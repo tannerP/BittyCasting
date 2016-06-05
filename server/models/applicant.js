@@ -48,6 +48,7 @@ var ApplicantSchema = new Schema({
 	}],
 	comments:[{
 		owner:String,
+		ownerID:String,
 		comment:String,
 		timestamp: {type:Date, default:Date.now},		
 	}],

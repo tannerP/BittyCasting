@@ -56,7 +56,6 @@ module.exports = function(app, express) {
 	});
 	apiRouter.route('/collab/remove/')
 		.put(function(req, res) {
-			console.log(req.body)
 			if (req.body.projectID && req.body.userID) {
 				Project.findById(req.body.projectID, function(err, project) {
 					if (!project) return res.json({
@@ -85,10 +84,10 @@ module.exports = function(app, express) {
 			var response = req.body.response,
 				projectID = req.body.projectID;
 
-/*			console.log(req.body.response)
-			console.log(req.body.projectID)*/
-				//accept invitation
-				//mark project.collabs_id.accepted = true;
+			/*			console.log(req.body.response)
+						console.log(req.body.projectID)*/
+			//accept invitation
+			//mark project.collabs_id.accepted = true;
 			User.findById(req.decoded.id, function(error, user) {
 				var ind = user.invites.indexOf(projectID);
 
@@ -122,9 +121,15 @@ module.exports = function(app, express) {
 							}
 						}
 					}
-					project.save(function(error, data){
-						if(data) return ({success:true, data:data})
-						else return ({success:false, error:error})
+					project.save(function(error, data) {
+						if (data) return res.json({
+							success: true,
+							project: data
+						})
+						else return res.json({
+							success: false,
+							error: error
+						})
 					})
 				})
 			})
@@ -493,47 +498,57 @@ module.exports = function(app, express) {
 					successful: false,
 					error: err
 				});
-				if (req.body.state == 'PUT') {
-					console.log(req.body);
-					app.comments.push({
-						timestamp: new Date(),
-						owner: req.body.owner,
-						comment: req.body.comment
+				console.log(req.body);
+				app.comments.push({
+					timestamp: new Date(),
+					ownerID: req.body.ownerID,
+					owner: req.body.owner,
+					comment: req.body.comment
+				});
+				app.save(function(err) {
+					1
+					if (err) {
+						return res.json({
+							success: false,
+							error: err
+						})
+					}
+					res.json({
+						successful: true,
+						message: "Added comment"
 					});
-					app.save(function(err) {
-						1
-						if (err) {
-							return res.json({
-								success: false,
-								error: err
-							})
-						}
-						res.json({
-							successful: true,
-							message: "Added comment"
-						});
-					})
-				} else if (req.body.state == 'DELETE') {
-					app.comments.pull({
-						_id: req.body._id
-					})
-					app.save(function(err) {
-						if (err) {
-							return res.json({
-								success: false,
-								error: err
-							})
-						}
-						res.json({
-							successful: true,
-							message: "Removed comment"
-						});
-					})
-				} else {
-					console.log("State Error: not delete nor put")
-				}
+				})
 			})
 		})
+apiRouter.route('/comments/delete/:appID')
+	.put(function(req, res) {
+		console.log(req.body)
+		Applicant.findOne({_id:req.params.appID},
+			function(err, app) {
+			for(var i in app.comments){
+				var comment = app.comments[i];
+				if(comment._id == req.body._id)
+				{
+					app.comments.pull(app.comments[i])
+					break;
+				}
+			}
+			app.save(function(err, data) {
+				if (err) {
+					return res.json({
+						success: false,
+						error: err
+					})
+				}
+				res.json({
+					successful: true,
+					message: "Removed comment"
+				});
+			})
+		})
+	})
+
+
 
 	//===============================  Roles ============================
 	apiRouter.route('/roles/:projectID')
@@ -590,19 +605,19 @@ module.exports = function(app, express) {
 					Project.findById(req.params.projectID, function(err, project) {
 						if (!err) {
 							Role.count({
-									projectID: project._id
-								}, function(err, count) {
-									project.num_roles = count;
-									project.save(function(err) {
-										if (err) {
-											return res.json({
-												success: false,
-												error: err
-											})
-										} else return;
-									})
+								projectID: project._id
+							}, function(err, count) {
+								project.num_roles = count;
+								project.save(function(err) {
+									if (err) {
+										return res.json({
+											success: false,
+											error: err
+										})
+									} else return;
 								})
-							}
+							})
+						}
 					})
 					bitly.shortenURL(URL + role._id, role._id, function(data) {
 						return res.json({
@@ -796,7 +811,7 @@ module.exports = function(app, express) {
 			Project.findById(req.params.project_id, function(err, project) {
 				if (err) res.send(err);
 				if (req.body.name) project.name = req.body.name;
-				if(req.body.usage) project.usage = req.body.usage;
+				if (req.body.usage) project.usage = req.body.usage;
 				if (req.body.updated_date) project.updated_date = req.body.updated_date;
 				if (req.body.coverphoto) project.coverphoto = req.body.coverphoto;
 				if (req.body.description) project.description = req.body.description;

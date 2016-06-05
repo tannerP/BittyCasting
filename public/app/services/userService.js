@@ -186,17 +186,15 @@ angular.module('userService', [])
 
 	/*Commenting*/
 	appFactory.pushComment = function(id, data) {
-		data.state = "PUT"
 		return $http.put('api/comments/' + id, data);
 	}
 	appFactory.deleteComment = function(id, data) {
-		var newData = {
+		var data = {
 			owner: data.owner,
 			comment: data.comment,
 			_id: data._id,
-			state: "DELETE"
 		}
-		return $http.put('api/comments/' + id, newData);
+		return $http.put('api/comments/delete/' + id, data);
 	}
 	return appFactory;
 })
@@ -236,10 +234,10 @@ angular.module('userService', [])
 		return $http.put('api/collab/response', money);
 	}
 
-	projectFactory.removeCollab = function(projectID,collab){
+	projectFactory.removeCollab = function(projectID,collabID){
 		var money = {};
 		money.projectID = projectID;
-		money.userID = collab.userID;
+		money.userID = collabID
 		console.log(money)
 		return $http.put('api/collab/remove', money);
 	}

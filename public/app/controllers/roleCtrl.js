@@ -22,6 +22,7 @@ angular.module('roleCtrl', ['userService',
 
       vm.setFilter = function(filter) {
           $scope.filter = filter
+          
         }
         /*vm.allView = function() {
           console.log(fav)
@@ -540,20 +541,27 @@ angular.module('roleCtrl', ['userService',
   ])
 
 .controller('CommentBoxCtrl',
-  function($scope, Applicant) {
+  function($scope, $rootScope, Applicant) {
     var vm = this;
     vm.newComment;
+    $scope.userID = $rootScope.user._id
+    /*console.log($scope.userID)
+    console.log()*/
 
     vm.deleteCmt = function(appID, index, comment) {
       Applicant.deleteComment(appID, comment);
       delete $scope.currApp.comments[index];
     }
-    vm.addCmt = function(appID, owner, comment) {
+
+    vm.addCmt = function(appID, comment) {
+      var owner = $rootScope.user.first[0] + $rootScope.user.last[0];  
       var cmt = {
         timestamp: new Date(),
         owner: owner,
+        ownerID:$rootScope.user._id,
         comment: comment
       }
+      console.log(cmt)
 
       $scope.currApp.comments.push(cmt);
       Applicant.pushComment(appID, cmt);

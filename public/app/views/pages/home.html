@@ -15,11 +15,11 @@
       <li class="col-lg-3 col-md-4 col-sm-6" ng-repeat-start="project in home.projects">
         <div class="card cardProjects"
              style='background: url({{project.coverphoto.source || "/assets/imgs/img_projectCover01.png"}}) no-repeat top center; background-size: 100% auto;'>
-          <a href="/project/{{project._id}}" class="md-headline">
+          <a href="#" ng-click="home.getProjectBtn(project)" class="md-headline">
             <div class="cardInfoBg"></div>
             <div class="cardScrim"></div>
             <div class="cardInfo">
-              <a href="/project/{{project._id}}" class="md-headline">
+              <a href="#" ng-click="home.getProjectBtn(project)" class="md-headline">
                 <div class="cardTitle" >{{project.name | words:7}}</div>
               </a>
               <div class="cardSubTitle">{{project.num_roles}}</div>
