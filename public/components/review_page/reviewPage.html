@@ -157,7 +157,6 @@
         <ul class="comments-action">
           <!--                <li><a>Edit</a></li>-->
           <li ng-if="data.ownerID === userID">
-          <span>{{data.ownerID}}  and {{userID}}</span>
             <a ng-click="box.deleteCmt(currApp._id,$index,data)">
               Delete
             </a>
