@@ -155,7 +155,6 @@ module.exports = function(app, express) {
 				if (user) invite.member = true;
 				else invite.member = false;
 
-
 				invite.userID = req.decoded.id;
 				invite.guestID = null;
 				invite.guestEmail = guestEmail;
@@ -163,7 +162,6 @@ module.exports = function(app, express) {
 				invite.projectName = projectName;
 				invite.notify = true;
 				invite.notify_type = "invite";
-
 
 
 				invite.save(function(err, data) {
