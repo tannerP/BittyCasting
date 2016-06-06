@@ -159,7 +159,7 @@ module.exports = function(app, express) {
 			}, function(err, user) {
 				var invite = new Invite();
 				var emailData = {}
-				if (!user && !user._id) invite.member = false;
+				if (!user) invite.member = false;
 				else {
 					invite.member = true;
 					invite.guestID = null;
