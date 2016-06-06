@@ -416,8 +416,9 @@ angular.module('projectCtrl', ['userService',
 
     })
 
-.controller('HomePageController',
-    function(Project, HomeService, $location, $route, $aside, $scope, $rootScope) {
+.controller('HomeController',
+    function(Project, HomeService, $location,$window,
+     $route, $aside, $scope, $rootScope) {
       var vm = this;
       $scope.aside = {};
       $scope.aside.projectData = {}
@@ -445,7 +446,13 @@ angular.module('projectCtrl', ['userService',
         Project.response2Invite(true, project)
           .success(function(resp) {
             if (resp.success)
+
+              //REMOVE Once have data controll layer,
+              $window.location.reload();
               $location.path('/project/' + resp.project._id);
+              /*project.guest = false;
+              project.accepted = true;
+              */
           })
       }
       vm.rejectProject = function(project) {
@@ -453,10 +460,6 @@ angular.module('projectCtrl', ['userService',
             $route.reload();
           })
         }
-        /*   vm.getProject = function(prjID) {
-             $location.path('/projectDetails/' + prjID);
-           }*/
-
       vm.setGridVw = function() {
           HomeService.setView("GRID")
           updateView();
@@ -481,7 +484,6 @@ angular.module('projectCtrl', ['userService',
         deletePrjAside.toggle();
       }
       vm.getProjectBtn = function(project) {
-        console.log(project)
         if (project.guest && !project.accepted) return;
         else $location.path("/project/" + project._id);
       }
@@ -557,12 +559,20 @@ angular.module('projectCtrl', ['userService',
       $scope.$on('$locationChangeStart', function(event, newUrl, oldUrl) {
         $scope.$hide()
       });
-      vm.coverphotos = [
+      var coverphotosSource = [
         'assets/imgs/img_projectCover01.png',
         'assets/imgs/img_projectCover02.png',
         'assets/imgs/img_projectCover03.png',
         'assets/imgs/img_projectCover04.png',
         'assets/imgs/img_projectCover05.png'
+      ];
+
+      vm.coverphotos = [
+        'assets/imgs/img_projectCover01_tn.png',
+        'assets/imgs/img_projectCover02_tn.png',
+        'assets/imgs/img_projectCover03_tn.png',
+        'assets/imgs/img_projectCover04_tn.png',
+        'assets/imgs/img_projectCover05_tn.png'
       ];
       vm.NEW = true;
       vm.CPStyling = "select-coverphoto";
@@ -581,8 +591,8 @@ angular.module('projectCtrl', ['userService',
         var id = "#" + source.split('/').pop().split('.').shift();
         select(id);
         vm.CP_cust;
-        vm.CP_default = source;
-
+        vm.CP_default = coverphotosSource[index];
+        return;
       }
 
       vm.selectCustCP = function() {

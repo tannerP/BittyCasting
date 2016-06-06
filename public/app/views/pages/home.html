@@ -31,7 +31,7 @@
 <!--              <div class="cardInviteInfoBg" ng-if="project.guest"></div>  -->
               <div class="cardInviteInfo" ng-if="project.guest">
                   <div class="cardInviteTitle">{{project.name | words:7}}</div>
-                  <div class="cardInviteSubTitle">XXXXX invited you to collaborate</div>
+                  <div class="cardInviteSubTitle">{{project.user.first}} {{project.user.last}} invited you to collaborate</div>
               </div>
 
               <a href="#" ng-click="home.getProjectBtn(project)" class="md-headline">

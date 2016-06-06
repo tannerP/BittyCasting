@@ -95,45 +95,45 @@ module.exports = function(app, express) {
 					/*if(user.invites.length ===1) user.invites =[];*/
 					user.invites.splice(ind, 1);
 					/*console.log(user.invites)*/
-					user.save()
-				}
+					user.save(function(err, data) {
+						Project.findById(projectID, function(err, project) {
+							/*console.log(collabs)*/
+							if (err) return res.json({
+								success: false,
+								message: "No project"
+							});
+							//search for user
+							/*console.log(project)*/
+							for (var i in project.collabs_id) {
+								var collab = project.collabs_id[i];
+								collab.responded = true;
+								if (collab.userID.indexOf(req.decoded.id) > -1) {
+									//accept invite
+									if (response === true) {
+										collab.accepted = true;
+										break;
+									}
+									//reject invite
+									else {
+										project.collabs_id.splice(i, 1);
+									}
+								}
+							}
+							project.save(function(error, data) {
+								if (data) return res.json({
+									success: true,
+									project: data
+								})
+								else return res.json({
+									success: false,
+									error: error
+								})
+							})
+						})
 
-				Project.findById(projectID, function(err, project) {
-					/*console.log(collabs)*/
-					if (err) return res.json({
-						success: false,
-						message: "No project"
-					});
-					//search for user
-					/*console.log(project)*/
-					for (var i in project.collabs_id) {
-						var collab = project.collabs_id[i];
-						collab.responded = true;
-						if (collab.userID.indexOf(req.decoded.id) > -1) {
-							//accept invite
-							if (response === true) {
-								collab.accepted = true;
-								break;
-							}
-							//reject invite
-							else {
-								project.collabs_id.splice(i, 1);
-							}
-						}
-					}
-					project.save(function(error, data) {
-						if (data) return res.json({
-							success: true,
-							project: data
-						})
-						else return res.json({
-							success: false,
-							error: error
-						})
 					})
-				})
+				}
 			})
-			return;
 		})
 	apiRouter.route('/collab/invite/:projectID')
 		.put(function(req, res) {
@@ -520,33 +520,34 @@ module.exports = function(app, express) {
 				})
 			})
 		})
-apiRouter.route('/comments/delete/:appID')
-	.put(function(req, res) {
-		console.log(req.body)
-		Applicant.findOne({_id:req.params.appID},
-			function(err, app) {
-			for(var i in app.comments){
-				var comment = app.comments[i];
-				if(comment._id == req.body._id)
-				{
-					app.comments.pull(app.comments[i])
-					break;
-				}
-			}
-			app.save(function(err, data) {
-				if (err) {
-					return res.json({
-						success: false,
-						error: err
+	apiRouter.route('/comments/delete/:appID')
+		.put(function(req, res) {
+			console.log(req.body)
+			Applicant.findOne({
+					_id: req.params.appID
+				},
+				function(err, app) {
+					for (var i in app.comments) {
+						var comment = app.comments[i];
+						if (comment._id == req.body._id) {
+							app.comments.pull(app.comments[i])
+							break;
+						}
+					}
+					app.save(function(err, data) {
+						if (err) {
+							return res.json({
+								success: false,
+								error: err
+							})
+						}
+						res.json({
+							successful: true,
+							message: "Removed comment"
+						});
 					})
-				}
-				res.json({
-					successful: true,
-					message: "Removed comment"
-				});
-			})
+				})
 		})
-	})
 
 
 

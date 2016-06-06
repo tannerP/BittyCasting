@@ -8,7 +8,7 @@ angular.module('app.routes', ['ngRoute'])
         })
         .when('/home',  {
             templateUrl: 'app/views/pages/home.html',
-            controller: 'HomePageController',
+            controller: 'HomeController',
             controllerAs: 'home'
         })
         .when('/privacy_policy',  {

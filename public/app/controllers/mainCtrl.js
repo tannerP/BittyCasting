@@ -35,7 +35,7 @@ angular.module('mainCtrl', ['authService', 'mgcrea.ngStrap'])
 			vm.loggedIn = Auth.isLoggedIn();
 
 			vm.founder = (function() {
-				if ($rootScope.user.role === "founder") return true;
+				if ($rootScope.user &&  $rootScope.user.role === "founder") return true;
 				else return false;
 			});
 
