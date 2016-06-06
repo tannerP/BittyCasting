@@ -56,23 +56,30 @@ module.exports = function(app, express) {
 	});
 	apiRouter.route('/collab/remove/')
 		.put(function(req, res) {
+			console.log(req.body)
 			if (req.body.projectID && req.body.userID) {
 				Project.findById(req.body.projectID, function(err, project) {
+					console.log(project)
 					if (!project) return res.json({
-						success: false,
-						message: 'Project not found.'
-					})
+							success: false,
+							message: 'Project not found.'
+						})
+						//search, then remove collab
 					for (var i in project.collabs_id) {
-						if (project.collabs_id[i].userID.indexOf(req.body.userID) > -1) {
-							console.log("found collab")
+						var collab =  project.collabs_id[i];
+						console.log(collab)
+						if (collab.userID.indexOf(req.body.userID) > -1) {
+							/*console.log("found collab")*/
 							project.collabs_id.splice(i, 1);
-							project.save();
-							return res.json({
-								success: true
-							})
+							project.save(function(err, data) {
+								console.log("save")
+								if (!err) return res.json({
+									success: true
+								})
+							});
+							break;
 						}
 					}
-
 				})
 			} else return res.json({
 				success: false,
@@ -152,12 +159,14 @@ module.exports = function(app, express) {
 			}, function(err, user) {
 				var invite = new Invite();
 				var emailData = {}
-				if (user) invite.member = true;
-				else invite.member = false;
+				if (!user && !user._id) invite.member = false;
+				else {
+					invite.member = true;
+					invite.guestID = null;
+				}
 
 
 				invite.userID = req.decoded.id;
-				invite.guestID = null;
 				invite.guestEmail = guestEmail;
 				invite.projectID = projectID;
 				invite.projectName = projectName;
@@ -187,7 +196,7 @@ module.exports = function(app, express) {
 						Project.findById(projectID, function(error, project) {
 							var data = {};
 							var exist = true;
-							if (user.invites.indexOf(projectID) - 1) {
+							if (user.invites.indexOf(projectID) > - 1) {
 								//this ensure no duplication
 								user.invites.push(projectID)
 							}
@@ -218,6 +227,7 @@ module.exports = function(app, express) {
 												.send(emailData, function(err, data) {
 													return res.json({
 														success: true,
+														data: user
 													});
 												});
 										}
