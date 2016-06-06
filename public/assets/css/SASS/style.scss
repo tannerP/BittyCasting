@@ -787,6 +787,8 @@ section {
         
         img {
             vertical-align: middle;
+            margin: 0 auto;
+            max-height: 100px;
             @include transition(all, 0.8s, ease);
             &:hover, &:focus {
                 opacity: 0.6;
@@ -794,20 +796,96 @@ section {
             }  
         }
         
-        quote {
-            p {
-                font-size: 16px;
-                line-height: 26px;
-                font-style: italic;
-                color: $color-grey-dark;
+        .quoteCarousel {
+            position: relative;
+
+            .quoteCarouselWrapper{
+//                background-color: $color-grey-darkest;
+                ul {
+                    position: relative;
+                    width: 100%; 
+                    height: 170px;
+                }
             }
-            span {
-                font-size: $font-size-medium;
-                color: $color-grey;
-                float: right;
-                margin-top: 10px;
+            
+            .rn-carousel-control.rn-carousel-control-prev {
+                position: absolute;
+                top: 50%;
+                left: 30px;
+                margin-top: -35px;
+                opacity: 0.5;
+                &:hover {
+                    opacity: 1;
+                }
             }
-        
+
+            .rn-carousel-control.rn-carousel-control-next {
+                position: absolute;
+                top: 50%;
+                right: 30px;
+                margin-top: -35px;
+                opacity: 0.5;
+                &:hover {
+                    opacity: 1;
+                }
+            }
+
+            .rn-carousel-control.rn-carousel-control-prev:before, .rn-carousel-control.rn-carousel-control-next:before {
+                content: "";
+                display: block;
+                width: 42px;
+                height: 42px;
+                @include border-radius(50%);
+            }
+
+            .rn-carousel-control.rn-carousel-control-prev:before {
+                background: url("/assets/imgs/ic_prev_w.svg") no-repeat center center $color-blue;
+                background-size: 20px 20px;
+            }
+
+            .rn-carousel-control.rn-carousel-control-next:before {
+                background: url("/assets/imgs/ic_next_w.svg") no-repeat center center $color-blue;
+                background-size: 20px 20px;
+            }
+
+            .quoteCarouselPagination {
+                text-align: center;
+                margin: 15px 0 25px 0;
+                ul {
+                    padding: 0;
+                    li {
+                        width: 7px;
+                        height: 7px;
+                        display: inline-block;
+                        margin-right: 15px;
+                        background-color: $color-grey-light;
+                        @include border-radius(50%);
+                        &:last-child {
+                            margin-right: 0px;
+                        }
+                    }
+                    li.active {
+                        background-color: $color-grey-dark;
+                    }
+                }
+            }
+            
+            quote {
+                vertical-align: middle;
+                p {
+                    font-size: 16px;
+                    line-height: 26px;
+                    font-style: italic;
+                    color: $color-grey-dark;
+                }
+                span {
+                    font-size: $font-size-medium;
+                    color: $color-grey;
+                    float: right;
+                    margin-top: 10px;
+                }
+
+            }
         }
     }
     
@@ -2511,6 +2589,10 @@ text-align: center;
         top: 50%;
         left: 30px;
         margin-top: -35px;
+        opacity: 0.7;
+        &:hover {
+            opacity: 1;
+        }
     }
     
     .rn-carousel-control.rn-carousel-control-next {
@@ -2518,6 +2600,10 @@ text-align: center;
         top: 50%;
         right: 30px;
         margin-top: -35px;
+        opacity: 0.7;
+        &:hover {
+            opacity: 1;
+        }
     }
     
     .rn-carousel-control.rn-carousel-control-prev:before, .rn-carousel-control.rn-carousel-control-next:before {
@@ -2845,12 +2931,6 @@ text-align: center;
         @include box-shadow(0px, 0px, 0px, 0px, rgba(6,188,194,1));
     }
     
-    section.testimonial img{
-        margin: -30px auto 30px auto;
-        max-width: 160px;
-        height: auto;
-    }
-    
     section.about {
         padding-bottom: 30px;
         img {max-width: 240px; padding: 0;}
@@ -2860,6 +2940,27 @@ text-align: center;
             margin: 20px 0 5px 0;
         }
         span {font-size: $font-size-regular;}
+    }
+    
+    section.testimonial {
+        img {
+            margin-bottom: 30px;
+//           max-width: 160px;
+//           height: auto;
+        }
+       .quoteCarousel {        
+            .quoteCarouselWrapper{
+                ul {
+                    height: 200px;
+                }
+            }
+           .rn-carousel-control.rn-carousel-control-prev, .rn-carousel-control.rn-carousel-control-next {
+               margin-top: -100px;
+           }
+           .rn-carousel-control.rn-carousel-control-prev {left:0;}
+           .rn-carousel-control.rn-carousel-control-next {right:0;}
+           
+        }
     }
     
     .pageTitleMobileOffset {padding-top: 120px;}
@@ -3142,6 +3243,21 @@ text-align: center;
         }
     }
     
+    section.testimonial {
+       .quoteCarousel {
+           img {max-width: 160px;}
+            .quoteCarouselWrapper{
+
+                ul {
+                    height: 400px;
+                }
+            }
+            .rn-carousel-control.rn-carousel-control-prev, .rn-carousel-control.rn-carousel-control-next {
+               margin-top: -300px;
+            }
+        }
+    }
+
     /***************************
             Role overview
     ***************************/
