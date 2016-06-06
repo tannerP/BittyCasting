@@ -384,8 +384,12 @@ module.exports = function(app, express) {
             from: "Registration@BittyCasting.com",
             to: data.email,
             subject: "New Registration",
-            html: "Please follow this link to finish your Bittycasting registration." + "https://bittycasting.com/confirm/user/" + data._id,
+            html: "You have been added to our Beta list. "
+             + "You can now access your account at " 
+             + "https://bittycasting.com/ " 
+             + "Thank you for you support." ,
           }
+          /*html: "Please follow this link to finish your Bittycasting registration." + "https://bittycasting.com/confirm/user/" + data._id,*/
           var mailgun = new Mailgun({
             apiKey: config.api_key,
             domain: config.domain
