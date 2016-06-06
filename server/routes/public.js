@@ -423,29 +423,28 @@ module.exports = function(app, express) {
       EmailConfirmation.findOne({
         _id: req.params.confirmID
       }, function(err, data) {
-
-        if (data) {
+        //when confirmation never existed
+        if (!data){
+          return res.json({
+                  success: false,
+                  invalid: true,
+                });
+        }
+        //expired token
+        else if (data || daysOld > DURATION) {
           var DURATION = 14; //days
           var curData = new Date();
           var daysOld = (curData - data.create_date);
           daysOld = Math.ceil(daysOld / (1000 * 3600 * 24));
+
+          return res.json({
+                  success: false,
+                  message: "Your confirmation email is expired. "
+                          + "Resubmit your email to receive another confirmation email."
+                });
         }
-
-        if (!data || daysOld > DURATION) return res.json({
-          success: false,
-          message: "Your confirmation email is expired. Press Send and receive another confirmation."
-        });
-
+        //Invitation found
         else {
-          //sample project
-          /*          var SAMPLE_PROJECT_ID;
-                    Project.findOne({_id:SAMPLE_PROJECT_ID}, function(err, sample){
-                      if(sample){
-
-                      }
-                    })*/
-
-
           User.findOne({
               _id: data.userID
             }).select('name email password')

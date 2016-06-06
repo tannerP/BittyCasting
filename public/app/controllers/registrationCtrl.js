@@ -35,6 +35,7 @@ angular.module('registrationCtrl', ['authService', 'mgcrea.ngStrap'])
 
 		Auth.confirmEmail($routeParams.confirmID)
 			.success(function(data) {
+				console.log(data)
 				if (data.success) {
 					//create sample project
 					var SAMPLE_PROJECT_ID = "57526e67f74b1db80d356ea0";
@@ -54,6 +55,7 @@ angular.module('registrationCtrl', ['authService', 'mgcrea.ngStrap'])
 							console.log(data)
 						})
 				}
+				else if( !data.success && data.invalid) $location.path("/")
 				vm.message = data.message;
 			})
 
