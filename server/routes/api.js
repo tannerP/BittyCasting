@@ -187,9 +187,8 @@ module.exports = function(app, express) {
 						emailData = {
 							from: "friends@bittycasting.com",
 							to: guestEmail,
-							subject: "Invitation to Collaborate in " + req.body.projectName,
-							html: "You have been invited to collaborate " +
-								"in this project. Accept and follow this link: " + URL,
+							subject: "BittyCasting invitation to collaborate on " + req.body.projectName,
+							html: "A user on BittyCasting has invited you to collaborate on a project. To register and accept, go to " + URL,
 						}
 						Project.findById(projectID, function(error, project) {
 							var data = {};
@@ -237,26 +236,25 @@ module.exports = function(app, express) {
 
 					} else { //Invitee is not a member
 						var URL = "https://staging.bittycasting.com/register/invite/" + data._id;
-						console.log(URL)
-						bitly.shorten(URL, function(newURL) {
+						/*console.log(URL)*/
+						/*bitly.shorten(URL, function(newURL) {*/
 
 							emailData = {
 								from: "friends@bittycasting.com",
 								to: guestEmail,
-								subject: "Invitation to Collaborate in " + req.body.projectName,
-								html: "You have been invited to collaborate " +
-									"in this project. Accept and follow this link: " + URL /*+*/
+								subject: "BittyCasting invitation to collaborate on " + req.body.projectName,
+								html: "A user on BittyCasting has invited you to collaborate on a project. To register and accept, go to " + URL /*+*/
 									 /*"invite ID " + data._id,*/
 							}
 							mailgun.messages()
 								.send(emailData, function(err, data) {
-									console.log(data)
+/*									console.log(data)*/
 									return res.json({
 										success: true,
 										data: false
 									});
 								});
-						})
+						/*})*/
 					}
 
 				})
