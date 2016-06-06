@@ -165,14 +165,12 @@ module.exports = function(app, express) {
 					invite.guestID = null;
 				}
 
-
 				invite.userID = req.decoded.id;
 				invite.guestEmail = guestEmail;
 				invite.projectID = projectID;
 				invite.projectName = projectName;
 				invite.notify = true;
 				invite.notify_type = "invite";
-
 
 
 				invite.save(function(err, data) {
