@@ -236,7 +236,7 @@ module.exports = function(app, express) {
 						})
 
 					} else { //Invitee is not a member
-						var URL = "https://bittycasting.com/register/invite/" + data._id;
+						var URL = "https://staging.bittycasting.com/register/invite/" + data._id;
 						console.log(URL)
 						bitly.shorten(URL, function(newURL) {
 
@@ -245,13 +245,15 @@ module.exports = function(app, express) {
 								to: guestEmail,
 								subject: "Invitation to Collaborate in " + req.body.projectName,
 								html: "You have been invited to collaborate " +
-									"in this project. Accept and follow this link: " + newURL + "invite ID " + data._id,
+									"in this project. Accept and follow this link: " + URL /*+*/
+									 /*"invite ID " + data._id,*/
 							}
 							mailgun.messages()
 								.send(emailData, function(err, data) {
 									console.log(data)
 									return res.json({
 										success: true,
+										data: false
 									});
 								});
 						})

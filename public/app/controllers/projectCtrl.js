@@ -112,8 +112,8 @@ angular.module('projectCtrl', ['userService',
 
           vm.convertInitial = function(name) {
             if (!name) return;
-             initial = name.first[0] + name.last[0];
-             return initial.toUpperCase();
+            initial = name.first[0] + name.last[0];
+            return initial.toUpperCase();
           }
 
           vm.save = function() {
@@ -153,7 +153,7 @@ angular.module('projectCtrl', ['userService',
 
   vm.removeBtn = function(collabID, index) {
     /*console.log(collab)*/
-    $scope.project.collabs_id.splice(index,1)
+    $scope.project.collabs_id.splice(index, 1)
     Project.removeCollab($scope.project._id, collabID);
     /*$route.reload();*/
   }
@@ -161,16 +161,29 @@ angular.module('projectCtrl', ['userService',
   vm.inviteBtn = function() {
     if (vm.guestEmail) {
       Mail.sendCollabInvite($scope.project, vm.guestEmail)
-      .success(function(data){
-        var user = data.data;
-        vm.guestEmail = ""
-        var tempData = 
-        $scope.project.collabs_id.push({
-          userName:{first:user.name.first, last:user.name.last}
+        .success(function(resp) {
+          if (!resp.data) {
+            vm.guestEmail = "";
+            vm.emailPlaceHolder = "An invitation is sent"
+/*
+            $scope.project.collabs_id.push({
+              responded:false,
+              accepted:false,
+              email:vm.guestEmail
+            })*/
+          } else {
+            var user = resp.data;
+            vm.guestEmail = ""
+            var tempData =
+              $scope.project.collabs_id.push({
+                userName: {
+                  first: user.name.first,
+                  last: user.name.last
+                }
 
-        })
-        vm.emailPlaceHolder = "Email Sent"
-      });
+              })
+          }
+        });
     }
   }
 })
@@ -427,8 +440,8 @@ angular.module('projectCtrl', ['userService',
     })
 
 .controller('HomeController',
-    function(Project, HomeService, $location,$window,
-     $route, $aside, $scope, $rootScope) {
+    function(Project, HomeService, $location, $window,
+      $route, $aside, $scope, $rootScope) {
       var vm = this;
       $scope.aside = {};
       $scope.aside.projectData = {}
@@ -442,12 +455,11 @@ angular.module('projectCtrl', ['userService',
             var indxInvite = $rootScope.user.invites.indexOf(project._id)
             if (indxInvite > -1) {
               var collab = project.collabs_id;
-              for(var j in collab)
-                if(collab[j].userID === $rootScope.user._id)
-              { 
-                project.guest = true;
-                project.accepted = project.collabs_id[j].accepted;
-              }
+              for (var j in collab)
+                if (collab[j].userID === $rootScope.user._id) {
+                  project.guest = true;
+                  project.accepted = project.collabs_id[j].accepted;
+                }
             }
           }
         })
@@ -457,19 +469,19 @@ angular.module('projectCtrl', ['userService',
           .success(function(resp) {
             if (resp.success)
 
-              //REMOVE Once have data controll layer,
+            //REMOVE Once have data controll layer,
               $window.location.reload();
-              $location.path('/project/' + resp.project._id);
-              /*project.guest = false;
-              project.accepted = true;
-              */
+            $location.path('/project/' + resp.project._id);
+            /*project.guest = false;
+            project.accepted = true;
+            */
           })
       }
       vm.rejectProject = function(project) {
-          Project.response2Invite(false, project).then(function(data) {
-            $route.reload();
-          })
-        }
+        Project.response2Invite(false, project).then(function(data) {
+          $route.reload();
+        })
+      }
       vm.setGridVw = function() {
           HomeService.setView("GRID")
           updateView();

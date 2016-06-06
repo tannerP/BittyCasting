@@ -22,12 +22,12 @@
         </thead>
         <tbody>
             <tr ng-repeat="collab in project.collabs_id">
-                <td><span>{{collab.userName.first}} {{collab.userName.last}}</span></td>
+                <td><span>{{collab.userName.first || collab.email}} {{collab.userName.last}}</span></td>
                 <td>
                     <span ng-if="collab.accepted">Accepted</span>
-                    <span ng-if="!collab.accepted">Reject</span>
+                    <span ng-if="!collab.responded">Pending</span>
 <!--                    <span ng-if="collab.responded">Responded</span>-->
-                    <span ng-if="!collab.responded && !collab.accepted">Email Sent</span>
+                    <!-- <span ng-if="!collab.responded && !collab.accepted">(Email Sent)</span> -->
                 </td>
                 <td>
                     <span class="btn btn-standard" ng-click="page.removeBtn(collab.userID)"><img src="/assets/imgs/ic_trash.svg" width="16px" height="16px"></span>
