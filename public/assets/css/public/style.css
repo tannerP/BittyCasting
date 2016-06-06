@@ -719,6 +719,8 @@ section.testimonial {
   padding-bottom: 60px; }
   section.testimonial img {
     vertical-align: middle;
+    margin: 0 auto;
+    max-height: 100px;
     -webkit-transition: all 0.8s ease;
     -moz-transition: all 0.8s ease;
     -ms-transition: all 0.8s ease;
@@ -727,16 +729,74 @@ section.testimonial {
     section.testimonial img:hover, section.testimonial img:focus {
       opacity: 0.6;
       filter: alpha(opacity=60); }
-  section.testimonial quote p {
-    font-size: 16px;
-    line-height: 26px;
-    font-style: italic;
-    color: #666666; }
-  section.testimonial quote span {
-    font-size: 14px;
-    color: #999999;
-    float: right;
-    margin-top: 10px; }
+  section.testimonial .quoteCarousel {
+    position: relative; }
+    section.testimonial .quoteCarousel .quoteCarouselWrapper ul {
+      position: relative;
+      width: 100%;
+      height: 170px; }
+    section.testimonial .quoteCarousel .rn-carousel-control.rn-carousel-control-prev {
+      position: absolute;
+      top: 50%;
+      left: 30px;
+      margin-top: -35px;
+      opacity: 0.5; }
+      section.testimonial .quoteCarousel .rn-carousel-control.rn-carousel-control-prev:hover {
+        opacity: 1; }
+    section.testimonial .quoteCarousel .rn-carousel-control.rn-carousel-control-next {
+      position: absolute;
+      top: 50%;
+      right: 30px;
+      margin-top: -35px;
+      opacity: 0.5; }
+      section.testimonial .quoteCarousel .rn-carousel-control.rn-carousel-control-next:hover {
+        opacity: 1; }
+    section.testimonial .quoteCarousel .rn-carousel-control.rn-carousel-control-prev:before, section.testimonial .quoteCarousel .rn-carousel-control.rn-carousel-control-next:before {
+      content: "";
+      display: block;
+      width: 42px;
+      height: 42px;
+      -webkit-border-radius: 50%;
+      -moz-border-radius: 50%;
+      -ms-border-radius: 50%;
+      border-radius: 50%; }
+    section.testimonial .quoteCarousel .rn-carousel-control.rn-carousel-control-prev:before {
+      background: url("/assets/imgs/ic_prev_w.svg") no-repeat center center #06bcc2;
+      background-size: 20px 20px; }
+    section.testimonial .quoteCarousel .rn-carousel-control.rn-carousel-control-next:before {
+      background: url("/assets/imgs/ic_next_w.svg") no-repeat center center #06bcc2;
+      background-size: 20px 20px; }
+    section.testimonial .quoteCarousel .quoteCarouselPagination {
+      text-align: center;
+      margin: 15px 0 25px 0; }
+      section.testimonial .quoteCarousel .quoteCarouselPagination ul {
+        padding: 0; }
+        section.testimonial .quoteCarousel .quoteCarouselPagination ul li {
+          width: 7px;
+          height: 7px;
+          display: inline-block;
+          margin-right: 15px;
+          background-color: #cccccc;
+          -webkit-border-radius: 50%;
+          -moz-border-radius: 50%;
+          -ms-border-radius: 50%;
+          border-radius: 50%; }
+          section.testimonial .quoteCarousel .quoteCarouselPagination ul li:last-child {
+            margin-right: 0px; }
+        section.testimonial .quoteCarousel .quoteCarouselPagination ul li.active {
+          background-color: #666666; }
+    section.testimonial .quoteCarousel quote {
+      vertical-align: middle; }
+      section.testimonial .quoteCarousel quote p {
+        font-size: 16px;
+        line-height: 26px;
+        font-style: italic;
+        color: #666666; }
+      section.testimonial .quoteCarousel quote span {
+        font-size: 14px;
+        color: #999999;
+        float: right;
+        margin-top: 10px; }
 section.about {
   padding-bottom: 10px;
   background-color: white;
@@ -2606,11 +2666,6 @@ ul.select-coverphoto-wrapper {
     -moz-box-shadow: 0px 0px 0px 0px #06bcc2;
     box-shadow: 0px 0px 0px 0px #06bcc2; }
 
-  section.testimonial img {
-    margin: -30px auto 30px auto;
-    max-width: 160px;
-    height: auto; }
-
   section.about {
     padding-bottom: 30px; }
     section.about img {
@@ -2623,6 +2678,17 @@ ul.select-coverphoto-wrapper {
       margin: 20px 0 5px 0; }
     section.about span {
       font-size: 12px; }
+
+  section.testimonial img {
+    margin-bottom: 30px; }
+  section.testimonial .quoteCarousel .quoteCarouselWrapper ul {
+    height: 200px; }
+  section.testimonial .quoteCarousel .rn-carousel-control.rn-carousel-control-prev, section.testimonial .quoteCarousel .rn-carousel-control.rn-carousel-control-next {
+    margin-top: -100px; }
+  section.testimonial .quoteCarousel .rn-carousel-control.rn-carousel-control-prev {
+    left: 0; }
+  section.testimonial .quoteCarousel .rn-carousel-control.rn-carousel-control-next {
+    right: 0; }
 
   .pageTitleMobileOffset {
     padding-top: 120px; }
@@ -2898,6 +2964,13 @@ ul.select-coverphoto-wrapper {
   section.about img {
     width: 100%;
     padding: 0; }
+
+  section.testimonial .quoteCarousel img {
+    max-width: 160px; }
+  section.testimonial .quoteCarousel .quoteCarouselWrapper ul {
+    height: 400px; }
+  section.testimonial .quoteCarousel .rn-carousel-control.rn-carousel-control-prev, section.testimonial .quoteCarousel .rn-carousel-control.rn-carousel-control-next {
+    margin-top: -300px; }
 
   /***************************
           Role overview

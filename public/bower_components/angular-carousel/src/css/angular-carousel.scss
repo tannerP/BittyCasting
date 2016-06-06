@@ -48,15 +48,10 @@ div.rn-carousel-indicator span {
 
 /* prev/next controls */
 .rn-carousel-control {
-  transition: opacity 0.2s ease-out;
   font-size: 2rem;
   position: absolute;
   top: 40%;
-  opacity: 0.75;
   cursor: pointer;
-  &:hover {
-    opacity: 1;
-  }
 
   &.rn-carousel-control-prev {
     left: 0.5em;

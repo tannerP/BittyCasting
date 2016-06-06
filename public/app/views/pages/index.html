@@ -96,58 +96,73 @@
       </div>
     </div>
   </section>
+      
   <section class="testimonial">    
       <div class="container">
           <div class="sectionTitle">Testimonial</div>
           <div class="sectionTitleDivider"></div>
-            <div class="reviewCarousel">
-              <div class="reviewCarouselImg">
+            <div class="quoteCarousel">
+            <div class="quoteCarouselWrapper">
+   
                 <ul rn-carousel 
                     rn-carousel-index="carouselIndex"
                     rn-carousel-controls 
                     rn-carousel-controls-allow-loop
                     rn-carousel-transition="fadeAndSlide"
-                    >
-                  <li>
-                    <div class="col-md-2 col-md-offset-2">
+                >
+                    <li>
+                        <div class="col-md-2 col-sm-3 col-md-offset-2 col-sm-offset-1">
                         <a href="http://cinesaurus.com/" target="_blank"><span class="verticalAlignCenterHelper"></span><img ng-src="assets/imgs/logo_cinesaurus.png" class="img-responsive"></a>
-                    </div>
-
-                    <div class="col-md-6">
-                      <quote>
-                        <p>“I have absolutely LOVED BittyCasting and would continue to use this for every project down the road. I am sure that with their continued development, this will grow into an absolutely phenomenal casting portal that outshines anything else out there.”
-                        </p>
-                      <span>— Steven Hudson, Executive Producer</span>
-                      <div class="clear"></div>
-                      </quote>
-                    </div>                      
-                </li>
-                <li>
-                  <div class="col-md-2 col-md-offset-2">
-                      <a href="http://cinesaurus.com/" target="_blank"><span class="verticalAlignCenterHelper"></span><img ng-src="assets/imgs/logo_cinesaurus.png" class="img-responsive"></a>
-                  </div>
-                <div class="col-md-6">
-                  <quote>
-                    <p>“I have absolutely LOVED BittyCasting and would continue to use this for every project down the road. I am sure that with their continued development, this will grow into an absolutely phenomenal casting portal that outshines anything else out there.”
-                    </p>
-                    <span>— Steven Hudson, Executive Producer</span>
-                    <div class="clear"></div>
-                  </quote>
-                  </div>
-              </div>                      
-              </li>
+                        </div>
+                        <div class="col-md-6 col-sm-7">
+                            <quote>
+                                <p>“I have absolutely LOVED BittyCasting and would continue to use this for every project down the road. I am sure that with their continued development, this will grow into an absolutely phenomenal casting portal that outshines anything else out there.”
+                                </p>
+                                <span>— Steven Hudson, Executive Producer</span>
+                                <div class="clear"></div>
+                            </quote>
+                        </div>                      
+                    </li>
+                    <li>
+                        <div class="col-md-2 col-sm-3 col-md-offset-2 col-sm-offset-1">
+                            <a href="https://jumpaheadmarketing.com/" target="_blank"><span class="verticalAlignCenterHelper"></span><img ng-src="assets/imgs/logo_JAM.png" class="img-responsive"></a>
+                        </div>
+                        <div class="col-md-6 col-sm-7">
+                            <quote>
+                              <p>“I have waited for an efficient, easy to use method to help manage the casting process for a long time. This is something I currently use and will be using on each project going forward for sure.”
+                              </p>
+                              <span>— Mike Denman, Creator of Opportunities</span>
+                              <div class="clear"></div>
+                            </quote>
+                        </div>                   
+                    </li>
+                    <li>
+                        <div class="col-md-2 col-sm-3 col-md-offset-2 col-sm-offset-1">
+                            <a href="https://jumpaheadmarketing.com/" target="_blank"><span class="verticalAlignCenterHelper"></span><img ng-src="assets/imgs/logo_doc.png" class="img-responsive"></a>
+                        </div>
+                        <div class="col-md-6 col-sm-7">
+                            <quote>
+                              <p>BittyCasting is truly a game changer. I love BittyCasting because there's no headache and the entire process is simple. As a filmmaker, BittyCasting streamlines my casting process, for myself, my team and the talent that applies."</p>
+                              <span>— Doc Kennedy, Actor, Filmmaker and host of the Filmmakers Focus podcast</span>
+                              <div class="clear"></div>
+                            </quote>
+                        </div>                   
+                    </li>
             </ul>
-          </div>
-        </div>
-      </div>
-              
-    <ul>
-      <li ng-repeat="dot in slides track by $index"
-          ng-class="isActive($index)">
-      </li>
-    </ul>
-    <span>{{carouselIndex}}</span>
-  </div>
+                
+<!--
+            <ul>
+                  <li ng-repeat="dot in slides track by $index"
+                      ng-class="isActive($index)">
+                  </li>
+            </ul>
+            <span>{{carouselIndex}}</span>
+-->
+      
+      </div><!--end of quoteCarouselWrapper-->
+      </div><!--end of quoteCarousel-->
+      
+  </div><!--end of container-->
 </section>
 
 
