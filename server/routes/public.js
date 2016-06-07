@@ -93,12 +93,12 @@ module.exports = function(app, express) {
           }
           var client = checkClientship(proj, req.decoded);
           /*if (client === "owner") {*/
-            return res.json({
-              success: true,
-              client: client,
-              data: role,
-              project: proj,
-            });
+          return res.json({
+            success: true,
+            client: client,
+            data: role,
+            project: proj,
+          });
           /*}
           else{ 
             return res.redirect("/Apply/"+req.params.role_id)
@@ -381,15 +381,12 @@ module.exports = function(app, express) {
           data.save();
 
           var data = {
-            from: "Registration@BittyCasting.com",
-            to: data.email,
-            subject: "New Registration",
-            html: "You have been added to our Beta list. "
-             + "You can now access your account at " 
-             + "https://bittycasting.com/ " 
-             + "Thank you for you support." ,
-          }
-          /*html: "Please follow this link to finish your Bittycasting registration." + "https://bittycasting.com/confirm/user/" + data._id,*/
+              from: "Registration@BittyCasting.com",
+              to: data.email,
+              subject: "New Registration",
+              html: "You have been added to our Beta list. " + "You can now access your account at " + "https://bittycasting.com/ " + "Thank you for you support.",
+            }
+            /*html: "Please follow this link to finish your Bittycasting registration." + "https://bittycasting.com/confirm/user/" + data._id,*/
           var mailgun = new Mailgun({
             apiKey: config.api_key,
             domain: config.domain
@@ -424,11 +421,11 @@ module.exports = function(app, express) {
         _id: req.params.confirmID
       }, function(err, data) {
         //when confirmation never existed
-        if (!data){
+        if (!data) {
           return res.json({
-                  success: false,
-                  invalid: true,
-                });
+            success: false,
+            invalid: true,
+          });
         }
         //expired token
         else if (data || daysOld > DURATION) {
@@ -438,10 +435,9 @@ module.exports = function(app, express) {
           daysOld = Math.ceil(daysOld / (1000 * 3600 * 24));
 
           return res.json({
-                  success: false,
-                  message: "Your confirmation email is expired. "
-                          + "Resubmit your email to receive another confirmation email."
-                });
+            success: false,
+            message: "Your confirmation email is expired. " + "Resubmit your email to receive another confirmation email."
+          });
         }
         //Invitation found
         else {
@@ -568,6 +564,8 @@ module.exports = function(app, express) {
 
           mailgun.messages()
             .send(data, function(err, body) {
+              console.log(err)
+              console.log(body)
               if (err) {
                 return res.json({
                   success: false,
@@ -576,7 +574,7 @@ module.exports = function(app, express) {
               } else {
                 return res.json({
                   success: true,
-                  message: 'An email is sent to you. Please finish'
+                  message: 'An email is sent to you. Please verify your email complete your registration'
                 });
               }
             });
@@ -587,11 +585,14 @@ module.exports = function(app, express) {
     });
   app.route('/register/invitation/:inviteID')
     .put(function(req, res) {
-
+      console.log(req.body)
       Invite.findById(req.params.inviteID, function(err, invite) {
         var user = new User();
-        user.name.last = req.body.name.last;
-        user.name.first = req.body.name.first;
+        var name = req.body.name;
+        user.name = ({
+          first: name.split(" ")[0],
+          last: name.split(" ")[1]
+        })
         user.password = req.body.password;
         user.email = req.body.email;
         user.role = "user";

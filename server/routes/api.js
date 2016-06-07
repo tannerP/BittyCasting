@@ -193,7 +193,7 @@ module.exports = function(app, express) {
 						Project.findById(projectID, function(error, project) {
 							var data = {};
 							var exist = true;
-							if (user.invites.indexOf(projectID) > - 1) {
+							if (user.invites.indexOf(projectID) === -1) {
 								//this ensure no duplication
 								user.invites.push(projectID)
 							}
@@ -248,7 +248,7 @@ module.exports = function(app, express) {
 							}
 							mailgun.messages()
 								.send(emailData, function(err, data) {
-/*									console.log(data)*/
+									console.log(data)
 									return res.json({
 										success: true,
 										data: false

@@ -71,9 +71,9 @@ angular.module('app.routes', ['ngRoute'])
             controllerAs: 'user'
         })
         .when('/register/invite/:inviteID',  {
-            templateUrl: 'app/views/pages/signup.html',
+            templateUrl: 'app/views/pages/index.html',
             controller: 'signupInviteCtrl',
-            controllerAs: 'user'
+            controllerAs: 'vm'
         })
     /*---------------- Admin ----------------*/
  /*       .when('/users',  {

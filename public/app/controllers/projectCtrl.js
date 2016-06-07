@@ -217,6 +217,7 @@ angular.module('projectCtrl', ['userService',
             vm.curRole = data.project.roles[0];
             vm.requirements = vm.curRole.requirements;
           }
+          console.log(data.client)
           switch (data.client) {
             case "public":
               {
@@ -456,7 +457,10 @@ angular.module('projectCtrl', ['userService',
             if (indxInvite > -1) {
               var collab = project.collabs_id;
               for (var j in collab)
+                /*console.log(collab[j].userID)
+                console.log($rootScope.user._id)*/
                 if (collab[j].userID === $rootScope.user._id) {
+                  /*console.log("guest")*/
                   project.guest = true;
                   project.accepted = project.collabs_id[j].accepted;
                 }
@@ -470,7 +474,7 @@ angular.module('projectCtrl', ['userService',
             if (resp.success)
 
             //REMOVE Once have data controll layer,
-              $window.location.reload();
+            $window.location.reload();
             $location.path('/project/' + resp.project._id);
             /*project.guest = false;
             project.accepted = true;

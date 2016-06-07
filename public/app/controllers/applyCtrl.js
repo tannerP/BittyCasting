@@ -5,7 +5,7 @@ angular.module('applyCtrl', ['userService', 'mgcrea.ngStrap'])
     attrs, controller, transcludeFn) {
     /*console.log(scope)
     console.log(controller)*/
-    console.log(scope)
+    /*console.log(scope)*/
     scope.$watch('ppv.roles', function(newRoles, oldRoles){
       
 
