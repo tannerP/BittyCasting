@@ -40,7 +40,7 @@ angular.module('userApp', [
 	.config(function($datepickerProvider) {
 		angular.extend($datepickerProvider.defaults, {
 			dateFormat: 'MM/dd/yyyy',
-			startWeek: 4
+			startWeek: 2
 		})
 	})
 	.config(function($asideProvider) {
