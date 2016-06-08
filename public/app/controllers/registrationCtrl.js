@@ -38,7 +38,7 @@ angular.module('registrationCtrl', ['authService', 'mgcrea.ngStrap'])
 			console.log(data)
 			if (data.success) {
 				//create sample project
-				var SAMPLE_PROJECT_ID = "57526e67f74b1db80d356ea0";
+				var SAMPLE_PROJECT_ID = "571d2844618f2ca363dbef3c";
 				//get sample project
 				Project.get(SAMPLE_PROJECT_ID)
 					.success(function(data) {
