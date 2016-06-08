@@ -13,6 +13,7 @@ var bitly = require("../lib/bitly.js")
 var http = require('http');
 var Mailgun = require("mailgun-js");
 var Invite = require('../models/invite');
+var async = require('async');
 
 
 
@@ -59,20 +60,20 @@ module.exports = function(app, express) {
 			console.log(req.body)
 			if (req.body.projectID && req.body.userID) {
 				Project.findById(req.body.projectID, function(err, project) {
-					console.log(project)
+
 					if (!project) return res.json({
 							success: false,
 							message: 'Project not found.'
 						})
 						//search, then remove collab
 					for (var i in project.collabs_id) {
-						var collab =  project.collabs_id[i];
-						console.log(collab)
+						var collab = project.collabs_id[i];
+
 						if (collab.userID.indexOf(req.body.userID) > -1) {
 							/*console.log("found collab")*/
 							project.collabs_id.splice(i, 1);
 							project.save(function(err, data) {
-								console.log("save")
+
 								if (!err) return res.json({
 									success: true
 								})
@@ -239,21 +240,21 @@ module.exports = function(app, express) {
 						/*console.log(URL)*/
 						/*bitly.shorten(URL, function(newURL) {*/
 
-							emailData = {
-								from: "friends@bittycasting.com",
-								to: guestEmail,
-								subject: "BittyCasting invitation to collaborate on " + req.body.projectName,
-								html: "A user on BittyCasting has invited you to collaborate on a project. To register and accept, go to " + URL /*+*/
-									 /*"invite ID " + data._id,*/
-							}
-							mailgun.messages()
-								.send(emailData, function(err, data) {
-									console.log(data)
-									return res.json({
-										success: true,
-										data: false
-									});
+						emailData = {
+							from: "friends@bittycasting.com",
+							to: guestEmail,
+							subject: "BittyCasting invitation to collaborate on " + req.body.projectName,
+							html: "A user on BittyCasting has invited you to collaborate on a project. To register and accept, go to " + URL /*+*/
+								/*"invite ID " + data._id,*/
+						}
+						mailgun.messages()
+							.send(emailData, function(err, data) {
+								console.log(data)
+								return res.json({
+									success: true,
+									data: false
 								});
+							});
 						/*})*/
 					}
 
@@ -371,6 +372,67 @@ module.exports = function(app, express) {
 			}
 		})
 		//Get all applicants
+	apiRouter.route('/applicant/sample/')
+		.put(function(req, res) {
+			console.log("/applicant/sampleApplicant");
+			console.log(req.body)
+				/*['ryan', "kaiting"]*/
+			var sampleApplicantIDs = ["574a1684d302426a449836f8",
+				"574a163bd302426a449836f5",
+			]
+
+			Applicant.find({
+					'_id': {
+						$in: sampleApplicantIDs
+					}
+				}, function(err, applicants) {
+					/*console.log(applicants)*/
+
+					for (var i in applicants) {
+						applicants[i].roleIDs.push(req.body[i])
+						applicants[i].save(function(err, data) {
+								async.map(req.body, updateCount, function(e, r) {
+									return;
+								});
+
+								function updateCount(id, callback) {
+									Role.findById(id, function(err, role) {
+										/*console.log("line 197:found role")*/
+										if (!err) {
+											Applicant.count({
+												$or: [{
+													'roleID': id
+												}, {
+													'roleIDs': {
+														$in: [id]
+													}
+												}]
+											}, function(err, count) {
+												/*console.log("updated count "+count )*/
+												/*console.log(count);*/
+												if (err) return callback(err, null);
+												else {
+													role.total_apps = count;
+													/*console.log(role.total_apps);*/
+													role.save(function(err, data) {
+														/*console.log(data.name)
+														console.log(data.total_apps)*/
+													});
+													return callback();
+												}
+											})
+										}
+									})
+								}
+							})
+					}
+					return res.json({
+						success: true
+					})
+				})
+				/*Applicant.findOne({_id:req.body.})*/
+		})
+
 	apiRouter.route('/applicants/:roleID')
 		.get(function(req, res) {
 			Applicant.find({
@@ -391,18 +453,13 @@ module.exports = function(app, express) {
 					//interate through roles
 					for (var app in apps) {
 						var tempApp = apps[app];
-						/*console.log(tempApp);*/
 						if (tempApp.roleID) {
-							/*if (tempRole.roleIDs.length < 1) {*/
-							/*tempRole.roleIDs = [];*/
-							//transfer roleID value to roleIDs array.
 							tempApp.roleIDs.push(tempApp.roleID)
 							tempApp.roleID = null;
 							tempApp.save(function(err, data) {
 								if (err)(console.log(err))
 							});
 						}
-						/*}*/
 					}
 
 					var tempArr = [];
@@ -416,7 +473,6 @@ module.exports = function(app, express) {
 							}
 
 						}
-						/*apps[app].favs = null;*/
 					}
 					res.json({
 						'success': true,
@@ -610,7 +666,6 @@ module.exports = function(app, express) {
 						error: err
 					})
 				} else {
-
 					Project.findById(req.params.projectID, function(err, project) {
 						if (!err) {
 							Role.count({
@@ -631,7 +686,7 @@ module.exports = function(app, express) {
 					bitly.shortenURL(URL + role._id, role._id, function(data) {
 						return res.json({
 							success: true,
-							role: data
+							roleID: role._id
 						});
 					});
 				}
@@ -842,23 +897,31 @@ module.exports = function(app, express) {
 		Role.find({
 			projectID: req.params.project_id
 		}, function(err, roles) {
+			console.log(roles)
+			console.log(roles.length)
 			for (var i in roles) {
+
 				Applicant.find({
 					roleIDs: {
 						$in: [roles[i]._id]
 					}
 				}, function(err, apps) {
+					console.log(apps)
 					if (err) console.log(err);
 					else {
 						for (var a in apps) {
 							/*console.log(apps[a].roleIDs.length);*/
-							if (apps[a].suppliments.length <= 1) {
+							console.log("roleIDs: "+ apps[a].roleIDs.length)
+							if (apps[a].roleIDs.length <= 1) {
+								/*console.log(apps[a].suppliments)*/
 								aws.removeSup(apps[a].suppliments);
 								apps[a].remove();
 							} else {
-								/*console.log(apps[a].roleIDs)*/
+								console.log(roles[i]._id)
 								var index = apps[a].roleIDs.indexOf(roles[i]._id);
+								console.log(index)
 								apps[a].roleIDs.splice(index, ++index);
+								console.log("roleIDs: "+ apps[a].roleIDs.length)
 								apps[a].save();
 							}
 						}

@@ -170,7 +170,6 @@ module.exports = function(app, express) {
     })
   })
 
-
   app.post('/applicant', function(req, res) {
     var applicant = new Applicant();
     //check for correct name;
@@ -236,7 +235,7 @@ module.exports = function(app, express) {
 
             function updateCount(roleID, callback) {
               Role.findById(roleID, function(err, role) {
-                console.log("line 197:found role")
+                /*console.log("line 197:found role")*/
                 if (!err) {
                   Applicant.count({
                     $or: [{
@@ -251,7 +250,7 @@ module.exports = function(app, express) {
                     if (err) return callback(err, null);
                     else {
                       role.total_apps = count;
-                      console.log(role.total_apps);
+                      /*console.log(role.total_apps);*/
                       role.save(function(err, data) {});
                       return callback();
                     }

@@ -221,10 +221,6 @@ angular.module('projectCtrl', ['userService',
           switch (data.client) {
             case "public":
               {
-                /*$scope.$emit("hideNav")
-                $scope.$emit("showFooter")
-                vm.prView = false;
-                vm.pView = true;;*/
                 $location.path("/Apply/Project/" + $routeParams.project_id);
                 $location.replace();
                 break;

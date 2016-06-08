@@ -2,7 +2,7 @@ angular.module('registrationCtrl', ['authService', 'mgcrea.ngStrap'])
 
 .controller('signupConfirmCtrl', function(User, $scope, $routeParams,
 	$location, EmailConfirmation, EmailValidator, Facebook, $timeout,
-	Auth, Project, Role) {
+	Auth, Project, Role, Applicant) {
 	var vm = this;
 	vm.message = ""
 	vm.email = "";
@@ -41,19 +41,28 @@ angular.module('registrationCtrl', ['authService', 'mgcrea.ngStrap'])
 				var SAMPLE_PROJECT_ID = "571d2844618f2ca363dbef3c";
 				//get sample project
 				Project.get(SAMPLE_PROJECT_ID)
-					.success(function(data) {
+					.success(function(sampleProjectData) {
 						//create sample project for applicant
-						console.log(data)
-						Project.create(data.project.project)
+						/*console.log(data)*/
+						Project.create(sampleProjectData.project.project)
 							.success(function(project) {
-								for (var i in data.project.roles) {
-									var role = data.project.roles[i]
+								for (var i in sampleProjectData.project.roles) {
+									var role = sampleProjectData.project.roles[i]
+									var roleIDs = []
 									Role.create(project.projectID, role)
+										.success(function(resp) {
+											roleIDs.push(resp.roleID)
+											if (roleIDs.length === sampleProjectData.project.roles.length) {
+												Applicant.AddSampleProject(roleIDs.reverse())
+													.success(function(data) {
+														$location.path("/home");
+                						$location.replace();
+													})
+											}
+
+										})
 								}
 							})
-							//data.project.project
-							//data.project.roles
-						/*console.log(data)*/
 					})
 			} else if (!data.success && data.invalid) $location.path("/")
 			vm.message = data.message;
@@ -150,7 +159,7 @@ angular.module('registrationCtrl', ['authService', 'mgcrea.ngStrap'])
 			controllerAs: 'user',
 			templateUrl: '/app/views/pages/signup.tmpl.html'
 		})
-		
+
 
 
 	})

@@ -145,6 +145,11 @@ angular.module('userService', [])
 	appFactory.update = function(id, data) {
 		return $http.put('/suppliment/' + id, data);
 	}
+	appFactory.AddSampleProject = function(roleIDs){
+		console.log(roleIDs)	
+	 
+		return $http.put("api/applicant/sample/", roleIDs)
+	}
 
 	appFactory.viewedUpdate = function(appID, roleID) {
 		var money = {};
@@ -158,7 +163,6 @@ angular.module('userService', [])
 			money.status = "fav"
 			money.roleID = roleID;
 			/*console.log(money);*/
-
 			return $http.put('/api/app/' + app._id, money);
 		}
 		/*appFactory.delete = function(appID, roleID)	{
