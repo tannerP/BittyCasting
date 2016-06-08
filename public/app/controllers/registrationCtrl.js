@@ -43,6 +43,7 @@ angular.module('registrationCtrl', ['authService', 'mgcrea.ngStrap'])
 				Project.get(SAMPLE_PROJECT_ID)
 					.success(function(data) {
 						//create sample project for applicant
+						console.log(data)
 						Project.create(data.project.project)
 							.success(function(project) {
 								for (var i in data.project.roles) {
@@ -52,7 +53,7 @@ angular.module('registrationCtrl', ['authService', 'mgcrea.ngStrap'])
 							})
 							//data.project.project
 							//data.project.roles
-						console.log(data)
+						/*console.log(data)*/
 					})
 			} else if (!data.success && data.invalid) $location.path("/")
 			vm.message = data.message;

@@ -428,52 +428,49 @@ module.exports = function(app, express) {
           });
         }
         //expired token
-        else if (data || daysOld > DURATION) {
+        else if (data) {
           var DURATION = 14; //days
           var curData = new Date();
           var daysOld = (curData - data.create_date);
           daysOld = Math.ceil(daysOld / (1000 * 3600 * 24));
-
-          return res.json({
-            success: false,
-            message: "Your confirmation email is expired. " + "Resubmit your email to receive another confirmation email."
-          });
-        }
-        //Invitation found
-        else {
-          User.findOne({
-              _id: data.userID
-            }).select('name email password')
-            .exec(function(err, user) {
-              if (err) throw err;
-              if (!user) {
-                return res.json({
-                  success: false,
-                  message: 'Authentication failed. User not found.'
-                });
-              }
-              var token = jwt.sign({
-                id: user.id,
-                name: user.name,
-              }, config.secret, {
-                expiresIn: 86400 //  (24hrs)
-                  // expires in 3600 * 24 = c (24 hours)
-              });
-              //return the information including token as JSON
-              return res.json({
-                success: true,
-                name: user.name,
-                message: 'Enjoy your token!',
-                token: token
-              });
-              /*}*/
-
+          if (daysOld > DURATION) {
+            return res.json({
+              success: false,
+              message: "Your confirmation email is expired. " + "Resubmit your email to receive another confirmation email."
             });
+          }
+          //Invitation found
+          else {
+            User.findOne({
+                _id: data.userID
+              }).select('name email password')
+              .exec(function(err, user) {
+                if (err) throw err;
+                if (!user) {
+                  return res.json({
+                    success: false,
+                    message: 'Authentication failed. User not found.'
+                  });
+                }
+                var token = jwt.sign({
+                  id: user.id,
+                  name: user.name,
+                }, config.secret, {
+                  expiresIn: 86400 //  (24hrs)
+                    // expires in 3600 * 24 = c (24 hours)
+                });
+                //return the information including token as JSON
+                return res.json({
+                  success: true,
+                  name: user.name,
+                  message: 'Enjoy your token!',
+                  token: token
+                });
+                /*}*/
 
-
-
+              });
+          }
         }
-
       })
     })
 
