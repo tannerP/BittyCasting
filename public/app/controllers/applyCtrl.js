@@ -15,11 +15,10 @@ angular.module('applyCtrl', ['userService', 'mgcrea.ngStrap'])
 
         deadline = 
       }*/
-      console.log(deadline)
+      /*console.log(deadline)
       var now = new Date();
       var isExpired = endTime < now 
-
-      scope.expired = isExpired;
+      scope.expired = isExpired;*/
       /*if(newVal &&newVal.length ===1){
         controller.requirements = newVal[0].requirements;
       }*/
