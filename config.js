@@ -43,7 +43,7 @@ exports.prod = {
   "PASS"    : "",
   "HOST"    : "ec2-54-191-157-140.us-west-2.compute.amazonaws.com",  
   "PORT"    : "27017", 
-  "DATABASE" : "dev",
+  "DATABASE" : "prod",
   "api_key" : "key-22cf943037f7135a79633e5f3fb255e1",
   "domain"  : "email.bittycasting.com",
   "from_who" : "internal@bittycasting.com",
