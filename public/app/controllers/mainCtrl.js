@@ -182,9 +182,9 @@ angular.module('mainCtrl', ['authService', 'mgcrea.ngStrap'])
 				$scope.feedback = {};
 				$scope.$hide()
 			}
-
 		}
 	])
+	
 	.controller('loginCtrl', ['$scope', 'Auth', '$location', '$route',
 		function($scope, Auth, $location, $route) {
 			var vm = this;
@@ -215,7 +215,7 @@ angular.module('mainCtrl', ['authService', 'mgcrea.ngStrap'])
 
 		}
 	])
-	.controller('restPassCtrl', ['$scope', 'User', '$location', '$route',
+	.controller('resetPassCtrl', ['$scope', 'User', '$location', '$route',
 		function($scope, User, $location, $route) {
 			var vm = this;
 			vm.message;

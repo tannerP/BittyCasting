@@ -27,7 +27,6 @@ var extend = require("extend");
 app.use(require('prerender-node')
   .set('prerenderToken', 'RDdmSteuNT1ZCbqQ2O0h'));
 
-
 var env = process.argv[2];
 
 /*console.log(env)*/

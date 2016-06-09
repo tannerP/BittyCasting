@@ -300,7 +300,7 @@ module.exports = function(app, express) {
             if (err) {
               return res.json({
                 success: false,
-                message: "An error occure. Please try again."
+                message: "An error occured. Please try again."
               });
             } else {
               return res.json({
@@ -316,7 +316,6 @@ module.exports = function(app, express) {
         });
       }
     })
-
   })
   app.put('/suppliment/:app_id', function(req, res) {
     Applicant.findById(req.params.app_id, function(err, app) {
