@@ -348,9 +348,9 @@ angular.module('projectCtrl', ['userService',
         type: 'success'
       });
 
-      vm.delete = function(project) {
-
-        Role.delete(project._id)
+      vm.delete = function(roleID) {
+        /*console.log(role)*/
+        Role.delete(roleID)
           .success(function() {
             if ($location.path().indexOf("/role") > -1) {
               $scope.$emit('aside.hide')
@@ -686,7 +686,16 @@ angular.module('projectCtrl', ['userService',
       var DEFAULT_COVERPHOTO = "/assets/imgs/img_projectCover01.png";
       vm.projectData = {};
       angular.copy($scope.project, vm.projectData)
+
       vm.coverphotos = [
+        'assets/imgs/img_projectCover01_tn.png',
+        'assets/imgs/img_projectCover02_tn.png',
+        'assets/imgs/img_projectCover03_tn.png',
+        'assets/imgs/img_projectCover04_tn.png',
+        'assets/imgs/img_projectCover05_tn.png'
+      ];
+
+      var coverphotosSource = [
         'assets/imgs/img_projectCover01.png',
         'assets/imgs/img_projectCover02.png',
         'assets/imgs/img_projectCover03.png',
@@ -727,7 +736,7 @@ angular.module('projectCtrl', ['userService',
         var id = "#" + source.split('/').pop().split('.').shift();
         select(id);
         vm.CP_cust = null;
-        vm.CP_default = source;
+        vm.CP_default = coverphotosSource[index];
       }
 
       vm.selectCustCP = function() {
@@ -862,13 +871,14 @@ angular.module('projectCtrl', ['userService',
 
         Role.create(vm.projectID, vm.roleData)
           .success(function(data) {
-            vm.roleData = {};
-            $scope.$emit('aside.hide')
-            $route.reload();
-            Prerender.cacheRole(data.role._id);
-            vm.processing = false;
-            $scope.$hide()
-
+            if(data.success)
+            { vm.roleData = {};
+              $scope.$emit('aside.hide')
+              $route.reload();
+              Prerender.cacheRole(data.roleID);
+              vm.processing = false;
+              $scope.$hide()
+            }
           })
           .error(function(err) {
             console.log(err.message);
