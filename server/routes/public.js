@@ -286,7 +286,7 @@ module.exports = function(app, express) {
           to: user.email,
           subject: "BittyCasting: Password Reset Request",
           html: "Please follow the link to reset your password: "
-           + "https://staging.bittycasting.com/reset/password"
+           + "https://staging.bittycasting.com/reset/password/"
            + pass._id,
         }
 
