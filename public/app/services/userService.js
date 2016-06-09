@@ -81,17 +81,27 @@ angular.module('userService', [])
 			"prerenderToken": "RDdmSteuNT1ZCbqQ2O0h",
 			"url": urlRecache
 		}).then(function(response) {});
+
+	}
+	var fbRecache = function(url){
+		$http.post("https://graph.facebook.com/?id="+url+"&scrape=true")
+			.success(function(response) {
+				console.log(response)
+			});		
 	}
 
 	prerender.cacheRole = function(roleID) {
 		/*console.log(roleID);*/
 		var url = "https://bittycasting.com/Apply/" + roleID;
 		prerenderRecache(url);
+		fbRecache(url)
 	}
 	prerender.cacheProject = function(projectID) {
 		/*console.log(projectID);*/
-		var url = "https://bittycasting.com/Apply/Project" + projectID;
+		var url = "https://bittycasting.com/Apply/Project/" + projectID;
+		var urlPrl="http:\/\/www.imdb.com\/title\/tt2015381\/";
 		prerenderRecache(url);
+		fbRecache(url)
 	}
 
 	return prerender;
