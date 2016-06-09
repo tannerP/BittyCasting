@@ -1,37 +1,39 @@
 <div class="aside" tabindex="-1" role="dialog">
   <div class="asideBg">
 
-    <div class="asideTitle">Sign in</div>
+    <div class="asideTitle">Reset Password</div>
 
     <div ng-if="!login.processing"
          type="button"
          class="custom-close"
          ng-click="$hide()"></div>
 
-    <form ng-submit="login.doLogin(email,password)">
+    <form ng-submit="aside.restBtn(email)">
       <!-- ERROR ICON -->
-      <div class="custom-alert" ng-if="login.error">
-        {{login.error}}
+      <div class="custom-alert" ng-if="aside.error">
+        {{aside.error}}
+      </div>
+      <div class="custom-alert" ng-if="aside.message">
+        {{aside.message}}
       </div>
       <!-- USERNAME INPUT -->
       <div class="form-group">
         <label>E-mail</label>
         <input type="text" class="custom-form" ng-model="email">
       </div>
-      <!-- PASSWORD INPUT -->
-      <div class="form-group">
-        <label>Password</label>
-        <input type="password" class="custom-form" ng-model="password" >
-      </div>
-      <button type="submit" class="custom-btn-primary-large">
-        <span>Sign in</span>
-      </button>
-    </form>
 
+      <button type="submit" class="custom-btn-primary-large">
+        <span>reset</span>
+      </button>
+    </form> 
+
+    
     <div class="asideMessage marginTop20">
-      <p>Forget password?</p>
+      <!-- <p>Forget password? -->
       <!-- <br> -->
-        <a ng-hide="login.resetPassword" href="#" ng-click="nav.resetPass()">Reset Password</a>
+        <!-- <a ng-hide="login.resetPassword" href="#" ng-click="login.toggleBtn()">Reset Password</a> -->
+        <a href="#" ng-click="nav.signin()">Sign in</a>
+        <!-- </p> -->
         <!-- <a href="mailto:support@bittycasting.com">support@bittycasting.com</a> -->
       </div>
       

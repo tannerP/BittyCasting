@@ -1,5 +1,6 @@
 'user strick';
 var User = require("../models/user");
+var PassReset = require("../models/passReset");
 var Invite = require("../models/invite")
 var EmailConfirmation = require("../models/emailConfirmation")
 var Project = require("../models/project");
@@ -106,7 +107,6 @@ module.exports = function(app, express) {
         })
       }
     })
-
   })
 
   app.get('/public/project/:project_id', function(req, res) {
@@ -268,9 +268,57 @@ module.exports = function(app, express) {
     })
 
   })
+  app.put('/resetPass/:email', function(req, res) {
+    /*console.log("HELLLLO")*/
 
+    var usrEmail = req.params.email;
+    User.findOne({
+      email: usrEmail
+    }, function(err, user) {
+      if (user) {
+        var pass = new PassReset();
+        pass.userID = user._id;
+        pass.email = user.email;
+        pass.save()
+
+        var data = {
+          from: "friends@bittycasting",
+          to: user.email,
+          subject: "BittyCasting: Password Reset Request",
+          html: "Please follow the link to reset your password: "
+           + "https://staging.bittycasting.com/reset/password"
+           + pass._id,
+        }
+
+        var mailgun = new Mailgun({
+          apiKey: config.api_key,
+          domain: config.domain
+        });
+
+        mailgun.messages()
+          .send(data, function(err, body) {
+            if (err) {
+              return res.json({
+                success: false,
+                message: "An error occure. Please try again."
+              });
+            } else {
+              return res.json({
+                success: true,
+                message: "An email is sent to your account"
+              });
+            }
+          });
+      } else {
+        return res.json({
+          success: false,
+          message: "Dones't look like this email exists in our system"
+        });
+      }
+    })
+
+  })
   app.put('/suppliment/:app_id', function(req, res) {
-
     Applicant.findById(req.params.app_id, function(err, app) {
       if (err) res.json({
         Error: true,

@@ -35,7 +35,7 @@ angular.module('mainCtrl', ['authService', 'mgcrea.ngStrap'])
 			vm.loggedIn = Auth.isLoggedIn();
 
 			vm.founder = (function() {
-				if ($rootScope.user &&  $rootScope.user.role === "founder") return true;
+				if ($rootScope.user && $rootScope.user.role === "founder") return true;
 				else return false;
 			});
 
@@ -160,37 +160,39 @@ angular.module('mainCtrl', ['authService', 'mgcrea.ngStrap'])
 			}
 		}
 	])
-	
+
 .controller("feedbackCtrl", ['$rootScope', '$scope', 'Mail',
-	'$location',
-	function($rootScope, $scope, Mail, $location) {
-		var vm = this;
-		$scope.feedback = {};
-		vm.fb_master = {};
-		vm.fb_master.user = {};
-
-		vm.submit = function(feedback) {
-
-			angular.copy(feedback, vm.fb_master);
-			vm.fb_master.location = $location.path();
-			vm.fb_master.timestamp = new Date().toLocaleString('en-US');
-			vm.fb_master.user = $rootScope.user;
-
-			console.log(vm.fb_master)
-			Mail.sendFB(vm.fb_master);
-
+		'$location',
+		function($rootScope, $scope, Mail, $location) {
+			var vm = this;
 			$scope.feedback = {};
-			$scope.$hide()
-		}
+			vm.fb_master = {};
+			vm.fb_master.user = {};
 
-	}
-])
-.controller('loginCtrl', ['$scope', 'Auth', '$location', '$route',
+			vm.submit = function(feedback) {
+
+				angular.copy(feedback, vm.fb_master);
+				vm.fb_master.location = $location.path();
+				vm.fb_master.timestamp = new Date().toLocaleString('en-US');
+				vm.fb_master.user = $rootScope.user;
+
+				console.log(vm.fb_master)
+				Mail.sendFB(vm.fb_master);
+
+				$scope.feedback = {};
+				$scope.$hide()
+			}
+
+		}
+	])
+	.controller('loginCtrl', ['$scope', 'Auth', '$location', '$route',
 		function($scope, Auth, $location, $route) {
 			var vm = this;
 			vm.message;
 			vm.loginData = {};
 			vm.process = false;
+			vm.resetPassword = false;
+
 			vm.doLogin = function(email, password) {
 				vm.processing = true; //TODO:processing Icon
 				vm.error = '';
@@ -213,6 +215,59 @@ angular.module('mainCtrl', ['authService', 'mgcrea.ngStrap'])
 
 		}
 	])
+	.controller('restPassCtrl', ['$scope', 'User', '$location', '$route',
+		function($scope, User, $location, $route) {
+			var vm = this;
+			vm.message;
+			vm.loginData = {};
+			vm.process = false;
+			vm.resetPassword = false;
+
+			var feedbackAside = $aside({
+				scope: $scope,
+				title: "Login",
+				show: true,
+				/*controller: '',
+				controllerAs: 'aside',*/
+				templateUrl: '/app/views/pages/newPass.tmpl.html'
+			});
+			
+			/*vm.reset = function() {
+				feedbackAside.toggle();
+			}*/
+
+			/*vm.toggleBtn = function() {
+				vm.resetPassword = !vm.resetPassword;
+			}*/
+
+		}
+	])
+
+.controller('resetPassCtrl', ['$scope', 'User', '$location', '$route',
+	function($scope, User, $location, $route) {
+		var vm = this;
+		vm.message;
+		vm.loginData = {};
+		vm.process = false;
+
+		vm.restBtn = function(email) {
+			vm.processing = true; //TODO:processing Icon
+			vm.error = '';
+			User.resetPass(email)
+				.success(function(data) {
+					if (data.success)
+						vm.message = data.message
+					else {
+						vm.error = data.message
+						$scope.email = ""
+					}
+
+					vm.processing = false;
+
+				});
+		}
+	}
+])
 
 /* NAV */
 .controller('navCtrl', ['$scope', '$popover', '$aside', 'Auth', '$location',
@@ -241,10 +296,26 @@ angular.module('mainCtrl', ['authService', 'mgcrea.ngStrap'])
 			controllerAs: 'user',
 			templateUrl: '/app/views/pages/signup.tmpl.html'
 		})
+		var resetAside = $aside({
+			scope: $scope,
+			title: "Sign up",
+			show: false,
+			controller: 'resetPassCtrl',
+			controllerAs: 'aside',
+			templateUrl: '/app/views/pages/resetPass.tmpl.html'
+		})
 
+		vm.resetPass = function() {
+			resetAside.toggle();
+			setTimeout(function() { //close aside after 1 sec
+				loginAside.hide();
+			}, 500);
+			$scope.navCollapsed = true; //make sure nav is closed
+		}
 		vm.signin = function() {
 			loginAside.toggle();
 			setTimeout(function() { //close aside after 1 sec
+				resetAside.hide();
 				signupAside.hide();
 			}, 500);
 			$scope.navCollapsed = true; //make sure nav is closed

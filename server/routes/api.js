@@ -972,6 +972,7 @@ module.exports = function(app, express) {
 			})
 		});
 	//===============================  USERS  ============================
+	
 	apiRouter.route('/users/:user_id')
 		.get(function(req, res) {
 			User.findById(req.params.user_id, function(err, user) {

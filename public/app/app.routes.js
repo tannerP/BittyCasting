@@ -20,11 +20,6 @@ angular.module('app.routes', ['ngRoute'])
         .when('/terms_of_service',  {
             templateUrl: 'app/views/pages/terms_of_service.html',
         })
-        .when('/login', {
-            templateUrl :'/app/views/pages/login.html',
-        	controller   :'loginCtrl',
-        	controllerAs   : 'login'
-        })
         .when('/Thankyou', {
             templateUrl :'/app/views/pages/thankyou.html',
             controller   :'loginCtrl',
@@ -72,8 +67,18 @@ angular.module('app.routes', ['ngRoute'])
         })
         .when('/register/invite/:inviteID',  {
             templateUrl: 'app/views/pages/index.html',
+            controller: 'resetPassCtrl',
+            controllerAs: 'vm'
+        })
+        .when('/reset/password/:id',  {
+            templateUrl: 'app/views/pages/index.html',
             controller: 'signupInviteCtrl',
             controllerAs: 'vm'
+        })
+        .when('/login', {
+            templateUrl :'/app/views/pages/login.html',
+            controller   :'loginCtrl',
+            controllerAs   : 'login'
         })
     /*---------------- Admin ----------------*/
  /*       .when('/users',  {
@@ -81,6 +86,7 @@ angular.module('app.routes', ['ngRoute'])
             controller: 'userController',
             controllerAs: 'user'
         })*/
+
         .when('/users/create',  {
             templateUrl: 'app/views/pages/signup.html',
             controller: 'signupCtrl',

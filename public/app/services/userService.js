@@ -282,8 +282,8 @@ angular.module('userService', [])
 	userFactory.createWithInvitation = function(inviteID,userData)	{
 		return $http.put('/register/invitation/'+inviteID, userData);
 	};
-	userFactory.create = function(userData)	{
 
+	userFactory.create = function(userData)	{
 		return $http.post('/register/', userData);
 	};
 
@@ -293,6 +293,10 @@ angular.module('userService', [])
 
 	userFactory.delete = function(id) {
 		return $http.delete('/api/users/' + id);
+	};
+
+	userFactory.resetPass = function(email) {
+		return $http.put('/resetPass/'+email);
 	};
 
 	/*userFactory.updateViewPref = function(viewType, page)	{
