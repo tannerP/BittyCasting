@@ -491,6 +491,9 @@ module.exports = function(app, express) {
                 _id: data.userID
               }).select('name email password')
               .exec(function(err, user) {
+                user.isValidated = true;
+                user.save();
+                
                 if (err) throw err;
                 if (!user) {
                   return res.json({
@@ -532,15 +535,22 @@ module.exports = function(app, express) {
             success: false,
             message: 'Authentication failed. User not found.'
           });
-        } else if (user) {
-
+        } else if (user.isValidated === true) {
+          /*var validPassword = user.comparePassword(req.body.password);*/
+          /*if (!validPassword) {*/
+            res.json({
+              success: false,
+              message: 'You account has not been validated. Please check your email, and follow the link provided to complete your email validation.'
+            });
+          }
+          else if (user) {
           var validPassword = user.comparePassword(req.body.password);
           if (!validPassword) {
             res.json({
               success: false,
               message: 'Authentication failed. Wrong password.'
             });
-          } else {
+          }else {
 
             var token = jwt.sign({
               id: user.id,
