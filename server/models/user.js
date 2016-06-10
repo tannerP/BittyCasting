@@ -23,7 +23,7 @@ var UserSchema = new Schema({
 		type:String, 
 		select:true
 	},
-	isValidated: {type:Boolean, default:false },
+	isValidated: {type:Boolean},
 	email:{
 		type:String,
 		lowercase: true,

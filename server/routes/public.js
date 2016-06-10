@@ -591,6 +591,7 @@ module.exports = function(app, express) {
       user.password = req.body.password;
       user.email = req.body.email;
       user.role = "user";
+      user.isValidated = false;
 
       user.save(function(err, user) {
         if (err) {
