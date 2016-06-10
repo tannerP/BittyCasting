@@ -61,7 +61,7 @@ angular.module('app.routes', ['ngRoute'])
             })
     /*---------------- User ----------------*/
         .when('/confirm/user/:confirmID',  {
-            templateUrl: 'app/views/pages/signup_confirm.html',
+            templateUrl: 'app/views/pages/home.html',
             controller: 'signupConfirmCtrl',
             controllerAs: 'user'
         })

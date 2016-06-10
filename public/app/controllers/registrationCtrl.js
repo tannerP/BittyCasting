@@ -1,75 +1,93 @@
 angular.module('registrationCtrl', ['authService', 'mgcrea.ngStrap'])
 
-.controller('signupConfirmCtrl', function(User, $scope, $routeParams,
-	$location, EmailConfirmation, EmailValidator, Facebook, $timeout,
-	Auth, Project, Role, Applicant) {
-	var vm = this;
-	vm.message = ""
-	vm.email = "";
-	vm.send = function() {
-		vm.message = "";
-		EmailConfirmation.resend($routeParams.confirmID)
-			.success(function(data, status, headers, config) {
-				console.log(data)
-				vm.message = data.message;
+.controller('signupConfirmsSliderCtrl', function(User, $scope, $routeParams,
+		$location, EmailConfirmation, EmailValidator, Facebook, $timeout,
+		Auth, Project, Role, Applicant, $aside) {
+		var vm = this;
+		vm.send = function() {
+			vm.message = "";
+			EmailConfirmation.resend($routeParams.confirmID)
+				.success(function(data, status, headers, config) {
+					console.log(data)
+					vm.message = data.message;
+				})
+				.error(function(data, status, headers, config) {
+					console.log(data)
+				})
+		}
+
+		vm.isEmailVallid = true;
+		vm.emailChanging = function(email) {
+			if (!email) return;
+			vm.isEmailVallid = false;
+			EmailValidator.validate(email, function(isvalid) {
+				if (!isvalid) {
+					vm.message = "Invalid Email";
+				} else {
+					vm.message = ""
+				}
+				return;
 			})
-			.error(function(data, status, headers, config) {
+		}
+	})
+
+	.controller('signupConfirmCtrl', function($scope, $routeParams,
+		$location, Facebook, $timeout, Auth, User, Project, Role, Applicant, $aside) {
+		var vm = this;
+		vm.message = ""
+		vm.email = "";
+
+		var confirmSlider = $aside({
+			scope: $scope,
+			backdrop: "static",
+			show: false,
+			controller: 'signupConfirmsSliderCtrl',
+			controllerAs: 'vm',
+			templateUrl: '/app/views/pages/signup_confirm.tmpl.html'
+		});
+
+
+		Auth.confirmEmail($routeParams.confirmID)
+			.success(function(data) {
 				console.log(data)
+				if (!data.success && data.invalid) {
+					$location.path("/")
+					$location.replace();
+				} else if (data.success) {
+					//create sample project
+					var SAMPLE_PROJECT_ID = "571d2844618f2ca363dbef3c";
+					//get sample project
+					Project.get(SAMPLE_PROJECT_ID)
+						.success(function(sampleProjectData) {
+							//create sample project for applicant
+							/*console.log(data)*/
+							Project.create(sampleProjectData.project.project)
+								.success(function(project) {
+									for (var i in sampleProjectData.project.roles) {
+										var role = sampleProjectData.project.roles[i]
+										var roleIDs = []
+										Role.create(project.projectID, role)
+											.success(function(resp) {
+												roleIDs.push(resp.roleID)
+												if (roleIDs.length === sampleProjectData.project.roles.length) {
+													Applicant.AddSampleProject(roleIDs.reverse())
+														.success(function(data) {
+															$location.path("/home");
+															$location.replace();
+														})
+												}
+											})
+									}
+								})
+						})
+				} else if (!data.success) {
+					confirmSlider.show();
+					$scope.message = data.message;
+					/*console.log($scope.message)*/
+				}
 			})
-	}
-
-	vm.isEmailVallid = true;
-	vm.emailChanging = function(email) {
-		if (!email) return;
-		vm.isEmailVallid = false;
-		EmailValidator.validate(email, function(isvalid) {
-			if (!isvalid) {
-				vm.message = "Invalid Email";
-			} else {
-				vm.message = ""
-			}
-			return;
-		})
-
-	}
-
-	Auth.confirmEmail($routeParams.confirmID)
-		.success(function(data) {
-			console.log(data)
-			if (data.success) {
-				//create sample project
-				var SAMPLE_PROJECT_ID = "571d2844618f2ca363dbef3c";
-				//get sample project
-				Project.get(SAMPLE_PROJECT_ID)
-					.success(function(sampleProjectData) {
-						//create sample project for applicant
-						/*console.log(data)*/
-						Project.create(sampleProjectData.project.project)
-							.success(function(project) {
-								for (var i in sampleProjectData.project.roles) {
-									var role = sampleProjectData.project.roles[i]
-									var roleIDs = []
-									Role.create(project.projectID, role)
-										.success(function(resp) {
-											roleIDs.push(resp.roleID)
-											if (roleIDs.length === sampleProjectData.project.roles.length) {
-												Applicant.AddSampleProject(roleIDs.reverse())
-													.success(function(data) {
-														$location.path("/home");
-                						$location.replace();
-													})
-											}
-
-										})
-								}
-							})
-					})
-			} else if (!data.success && data.invalid) $location.path("/")
-			vm.message = data.message;
-		})
-
-	return vm;
-})
+		return vm;
+	})
 
 .controller('signupInviteSliderCtrl', function(User, $scope,
 		$location, EmailValidator, Facebook, $routeParams, $aside) {
@@ -95,8 +113,8 @@ angular.module('registrationCtrl', ['authService', 'mgcrea.ngStrap'])
 		}
 
 		if ($location.path().indexOf('invite') > -1) vm.inviteReg = true;
-		console.log($location.path())
-		console.log(vm.inviteReg)
+		/*console.log($location.path())
+		console.log(vm.inviteReg)*/
 
 		vm.isEmailVallid = true;
 		vm.emailChanging = function(email) {
@@ -145,8 +163,8 @@ angular.module('registrationCtrl', ['authService', 'mgcrea.ngStrap'])
 					}
 				});
 		}
-
 	})
+
 	.controller('signupInviteCtrl', function(User, $scope,
 		$location, EmailValidator, Facebook, $routeParams, $aside) {
 		var vm = this;
@@ -159,9 +177,6 @@ angular.module('registrationCtrl', ['authService', 'mgcrea.ngStrap'])
 			controllerAs: 'user',
 			templateUrl: '/app/views/pages/signup.tmpl.html'
 		})
-
-
-
 	})
 
 .controller('signupCtrl', function(User, $scope,
@@ -174,10 +189,10 @@ angular.module('registrationCtrl', ['authService', 'mgcrea.ngStrap'])
 
 	vm.checkFB = function() {
 		Facebook.login(function(response) {
-			/*		console.log(response)*/
+			/*console.log(response)*/
 			if (response.status === "connected") {
 				Facebook.api('/me?fields=name,email', function(response) {
-					/*						console.log(response)*/
+					/*console.log(response)*/
 					vm.userData.name = response.name;
 					vm.userData.email = response.email;
 					return;
@@ -218,9 +233,7 @@ angular.module('registrationCtrl', ['authService', 'mgcrea.ngStrap'])
 			vm.isEmailVallid = result;
 			return;
 		})
-
 	}
-
 
 	vm.saveUser = function() {
 		vm.processing = true;

@@ -1,0 +1,25 @@
+<div class="aside" tabindex="-1" role="dialog">
+  <div class="asideBg">
+
+    <div class="asideTitle">Sign in</div>
+
+    <div ng-if="!login.processing"
+         type="button"
+         class="custom-close"
+         ng-click="$hide()"></div>
+      <div class='pageTitle'>Welcome to BittyCasting</div>
+      <input type="email" class="custom-form"
+                ng-model="vm.email"
+                ng-model-options='{ debounce: 1000 }'
+                ng-change="vm.emailChanging(vm.email)">
+      
+      <div ng-show="message"  class ="custom-alert">
+        {{message}}
+      </div>
+      
+      <button type="submit" class="custom-btn-primary-large" ng-click="vm.send()">Send Email</button>
+
+    <div class="custom-loader" ng-if="login.processing"><img src='/assets/imgs/spin.gif'></div>
+
+  </div>
+</div>

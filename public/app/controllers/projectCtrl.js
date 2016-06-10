@@ -217,7 +217,6 @@ angular.module('projectCtrl', ['userService',
             vm.curRole = data.project.roles[0];
             vm.requirements = vm.curRole.requirements;
           }
-          console.log(data.client)
           switch (data.client) {
             case "public":
               {

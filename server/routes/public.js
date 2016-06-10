@@ -469,6 +469,7 @@ module.exports = function(app, express) {
           return res.json({
             success: false,
             invalid: true,
+            message: "Invalid Request"
           });
         }
         //expired token
