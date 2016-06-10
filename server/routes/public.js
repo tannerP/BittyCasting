@@ -285,9 +285,7 @@ module.exports = function(app, express) {
           from: "friends@bittycasting",
           to: user.email,
           subject: "BittyCasting: Password Reset Request",
-          html: "Please follow the link to reset your password: "
-           + "https://staging.bittycasting.com/reset/password/"
-           + pass._id,
+          html: "Please follow the link to reset your password: " + "https://staging.bittycasting.com/reset/password/" + pass._id,
         }
 
         var mailgun = new Mailgun({
@@ -493,7 +491,7 @@ module.exports = function(app, express) {
               .exec(function(err, user) {
                 user.isValidated = true;
                 user.save();
-                
+
                 if (err) throw err;
                 if (!user) {
                   return res.json({
@@ -528,44 +526,45 @@ module.exports = function(app, express) {
       /*console.log(req.body);*/
       User.findOne({
         email: req.body.email
-      }).select('name email password').exec(function(err, user) {
+      }).select('name email password isValidated').exec(function(err, user) {
         if (err) throw err;
         if (!user) {
           res.json({
             success: false,
             message: 'Authentication failed. User not found.'
           });
-        } else if (user.isValidated === true) {
-          /*var validPassword = user.comparePassword(req.body.password);*/
-          /*if (!validPassword) {*/
+        } else if (user) {
+          if (user.isValidated === false) {
+            /*var validPassword = user.comparePassword(req.body.password);*/
+            /*if (!validPassword) {*/
             res.json({
               success: false,
               message: 'You account has not been validated. Please check your email, and follow the link provided to complete your email validation.'
             });
-          }
-          else if (user) {
-          var validPassword = user.comparePassword(req.body.password);
-          if (!validPassword) {
-            res.json({
-              success: false,
-              message: 'Authentication failed. Wrong password.'
-            });
-          }else {
+          } else {
+            var validPassword = user.comparePassword(req.body.password);
+            if (!validPassword) {
+              res.json({
+                success: false,
+                message: 'Authentication failed. Wrong password.'
+              });
+            } else {
 
-            var token = jwt.sign({
-              id: user.id,
-              name: user.name,
-            }, config.secret, {
-              expiresIn: 86400 //  (24hrs)
-                // expires in 3600 * 24 = c (24 hours)
-            });
-            //return the information including token as JSON
-            res.json({
-              success: true,
-              name: user.name,
-              message: 'Enjoy your token!',
-              token: token
-            });
+              var token = jwt.sign({
+                id: user.id,
+                name: user.name,
+              }, config.secret, {
+                expiresIn: 86400 //  (24hrs)
+                  // expires in 3600 * 24 = c (24 hours)
+              });
+              //return the information including token as JSON
+              res.json({
+                success: true,
+                name: user.name,
+                message: 'Enjoy your token!',
+                token: token
+              });
+            }
           }
         }
       });
@@ -627,7 +626,7 @@ module.exports = function(app, express) {
               } else {
                 return res.json({
                   success: true,
-                  message: 'An email is sent to you. Please verify your email complete your registration'
+                  message: 'An email is sent to you. Please verify your email to complete your registration'
                 });
               }
             });

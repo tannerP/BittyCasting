@@ -233,16 +233,15 @@ angular.module('registrationCtrl', ['authService', 'mgcrea.ngStrap'])
 				console.log(user)
 				if (!user.success) return vm.message = user.message;
 				else {
-					$scope.$emit('aside.hide')
-					$scope.$hide();
+					vm.message = user.message;
 					//clear the form
 					vm.userData = {};
-					setTimeout(function() {
+					/*setTimeout(function() {
 						vm.processing = false;
-						vm.message = user.message;
-						/*$location.path('/login')*/
+						$scope.$emit('aside.hide')
+						$scope.$hide();
 						return;
-					}, 2000)
+					}, 5000)*/
 				}
 			});
 	}
