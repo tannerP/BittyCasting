@@ -667,7 +667,6 @@ module.exports = function(app, express) {
                   success: false,
                   message: "No project"
                 });
-
                 project.collabs_id.push({
                   userID: user._id,
                   userName: user.name,

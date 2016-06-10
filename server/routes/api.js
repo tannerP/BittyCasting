@@ -249,7 +249,7 @@ module.exports = function(app, express) {
 						}
 						mailgun.messages()
 							.send(emailData, function(err, data) {
-								console.log(data)
+								/*console.log(data)*/
 								return res.json({
 									success: true,
 									data: false
@@ -288,7 +288,6 @@ module.exports = function(app, express) {
 								message: "Already exist",
 								viewed: true
 							});
-
 						}
 					}
 					app.userViewed_IDs.push(money);
