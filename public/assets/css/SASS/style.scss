@@ -81,6 +81,7 @@ $font-size-small: 10px;
      Reusable elements
 ***************************/
 
+body {overflow-x: hidden;}
 .clear {clear: both;}
 
 .custom-disable {
@@ -3252,7 +3253,6 @@ text-align: center;
                Apply
     ***************************/
 
-//    .custom-btn-feedback {display: none;}
     .applyPage { 
         overflow-x: hidden;
         .applyLogo {

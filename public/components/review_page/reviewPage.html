@@ -91,8 +91,8 @@
         <td>Phone</td>
         <td>{{currApp.phone}}</td>
       </tr>
-      <tr>
-        <td ng-if="currApp.links.length > 0">Links:</td>
+      <tr ng-if="currApp.links.length > 0">
+        <td>Links:</td>
         <td>
            <ul>
             <li ng-repeat="link in currApp.links track by $index" ng-show="link != null">
@@ -101,24 +101,24 @@
           </ul>
         </td>
       </tr>
-      <tr>
-        <td ng-if="documents.length > 0">Document<span ng-if="documents.length > 1">s</span>:</td>
+      <tr ng-if="documents.length > 0">
+        <td>Document<span ng-if="documents.length > 1">s</span>:</td>
         <td>
           <ul>
             <li ng-repeat="doc in documents"><a target="_blank" ng-href="{{doc.source}}" download={{doc.name}}>{{doc.name}}</a></li>
           </ul>
         </td>
       </tr>
-      <tr>
-        <td ng-if="images.length > 0">Image<span ng-if="images.length > 1">s</span></td>
+      <tr ng-if="images.length > 0">
+        <td>Image<span ng-if="images.length > 1">s</span></td>
         <td>
           <ul>
             <li ng-repeat="image in images" class = "attch"><a target="_blank" ng-href="{{image.source}}" download={{image.name}}>{{image.name}}</a></li>
           </ul>
         </td>
       </tr>
-      <tr>
-        <td ng-if="video.length > 0">Video
+      <tr ng-if="video.length > 0">
+        <td>Video
           <span ng-if="documents.length > 1">s</span>
           </td>
         <td>
