@@ -707,7 +707,6 @@ section {
                 font-size: 20px;
                 color: white;
                 line-height: 34px;
-                margin-bottom: 35px;
                 font-weight: 200;
             } 
             .brandRequest {   
@@ -2367,7 +2366,7 @@ ul.select-coverphoto-wrapper {
     }
     
     .poweredBy {
-        margin-top: 30px;
+        margin: 30px 0 30px 0;
         float: right;
         p {
             color: $color-grey;
@@ -2970,21 +2969,7 @@ text-align: center;
     }
     
     .pageTitleMobileOffset {padding-top: 120px;}
-    .applyPageLeftBg {display:none;}
-    .applyPage { 
-        .applyLogo {
-            position: relative;
-            top: 0;
-        }
-        .applyPageLeft {
-            position: relative; 
-            border-bottom: 1px solid $color-grey-light;
-            padding: 0 0 60px 0;
-        }
-        .applyPageRight {
-            padding: 0;
-        }
-    }
+    
     div.pageHeader {
         .pageHeader-review {
             text-align: center;
@@ -3273,6 +3258,31 @@ text-align: center;
     
     .btn-add-applicants {
         display: none;
+    }
+    
+    /***************************
+               Apply
+    ***************************/
+    
+    .applyPageLeftBg {display:none;}
+    .applyPage { 
+        .applyLogo {
+            position: relative;
+            top: 0;
+        }
+        .applyPageLeft {
+            position: relative; 
+            border-bottom: 1px solid $color-grey-light;
+            padding: 0 0 60px 0;
+        }
+        .applyPageRight {
+            padding: 0;
+        }
+    }
+    
+    .poweredBy {
+        margin: 30px auto 30px auto;
+        text-align: center;
     }
     
     /***************************

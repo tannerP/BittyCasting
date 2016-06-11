@@ -659,7 +659,6 @@ section.home {
       font-size: 20px;
       color: white;
       line-height: 34px;
-      margin-bottom: 35px;
       font-weight: 200; }
     section.home .brandMessage .brandRequest {
       margin-top: 40px; }
@@ -2146,7 +2145,7 @@ ul.select-coverphoto-wrapper {
     height: 54px;
     z-index: 10; }
   .applyPage .poweredBy {
-    margin-top: 30px;
+    margin: 30px 0 30px 0;
     float: right; }
     .applyPage .poweredBy p {
       color: #999999; }
@@ -2703,19 +2702,6 @@ ul.select-coverphoto-wrapper {
   .pageTitleMobileOffset {
     padding-top: 120px; }
 
-  .applyPageLeftBg {
-    display: none; }
-
-  .applyPage .applyLogo {
-    position: relative;
-    top: 0; }
-  .applyPage .applyPageLeft {
-    position: relative;
-    border-bottom: 1px solid #cccccc;
-    padding: 0 0 60px 0; }
-  .applyPage .applyPageRight {
-    padding: 0; }
-
   div.pageHeader .pageHeader-review {
     text-align: center; }
     div.pageHeader .pageHeader-review .pageTitle span {
@@ -2989,6 +2975,26 @@ ul.select-coverphoto-wrapper {
   ***************************/
   .btn-add-applicants {
     display: none; }
+
+  /***************************
+             Apply
+  ***************************/
+  .applyPageLeftBg {
+    display: none; }
+
+  .applyPage .applyLogo {
+    position: relative;
+    top: 0; }
+  .applyPage .applyPageLeft {
+    position: relative;
+    border-bottom: 1px solid #cccccc;
+    padding: 0 0 60px 0; }
+  .applyPage .applyPageRight {
+    padding: 0; }
+
+  .poweredBy {
+    margin: 30px auto 30px auto;
+    text-align: center; }
 
   /***************************
           Review
