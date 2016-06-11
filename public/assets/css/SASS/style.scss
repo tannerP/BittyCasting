@@ -2316,6 +2316,8 @@ ul.select-coverphoto-wrapper {
     .custom-checkbox {
         margin: -20px 0 29px 0;
     }
+    
+//    .containerApplyMobileBottom {display: none;}
 
     .applyPageLeftBg { 
         width: 50%;  
@@ -3264,25 +3266,43 @@ text-align: center;
     /***************************
                Apply
     ***************************/
-    
-    .applyPageLeftBg {display:none;}
+
     .applyPage { 
         .applyLogo {
             position: relative;
             top: 0;
         }
+        .applyPageLeftBg { 
+            display: none;}
+//            width: 50%;  
+//            position: absolute;
+//            top:0;
+//            left: 0;
+//            width: 50%;
+//            height: 100%;
+//            background-color: white;}
         .applyPageLeft {
             position: relative; 
-            border-bottom: 1px solid $color-grey-light;
+//            border-bottom: 1px solid $color-grey-light;
             padding: 0 0 60px 0;
+        }
+        .containerApplyMobileBottom {
+            margin: 0 -30px -20px -30px;
         }
         .applyPageRight {
             padding: 0;
+            background-color: white;
+            padding: 0 30px 20px 30px;
         }
         .poweredBy {
             float: none;
             margin: 30px auto 30px auto;
             text-align: center;
+            p {font-size: 8px;}
+            img.powerLogo {
+                width: 80px;
+                margin-bottom: 3px;
+            }
         }
     }
     

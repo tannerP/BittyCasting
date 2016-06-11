@@ -49,13 +49,15 @@
 						<!-- <audio ng-if="currFile" controls ngf-src="currFile"> -->
 				</section>
 				<!-- Application Form --> 
-				<section class="col-md-6 col-sm-6" ng-if="!expired">
+
+				<section class="col-md-6 col-sm-6 containerApplyMobileBottom" ng-if="!expired">
 						<div class="applyPageRight">
 								 <div class='pageTitle'>Apply</div>
 																 <div class='pageSubtitle'
 																			 ng-if="ppv.roles.length < 2">
+                                                                 Deadline: 
 																 {{ ppv.roles[0].end_date | date:'mediumDate' }}
-																 Deadline
+																 
 																 </div> 
 								 
 												<form ng-submit="ppv.submit()" name="form" class="css-form">
