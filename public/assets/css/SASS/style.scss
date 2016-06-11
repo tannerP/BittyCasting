@@ -1522,13 +1522,6 @@ ul.projects li {
         thead tr th:nth-child(2) {width: 20%; cursor: pointer;} //name
         thead tr th:nth-child(3) {width: 40%;} //details
         thead tr th:nth-child(4) {width: 20%;} //date      
-        .table-utl ul li {
-            &:nth-child(1) {
-                background: url("/assets/imgs/ic_trash.svg") no-repeat center center white;
-                background-size: 16px 16px; }
-            &:nth-child(2) {background: url("/assets/imgs/ic_share.svg") no-repeat center center white;
-            background-size: 16px 16px; }
-        }
     }
     
     .table-project-details {
@@ -1537,12 +1530,6 @@ ul.projects li {
         thead tr th:nth-child(2) {width: 20%;}  //applicants
         thead tr th:nth-child(3) {width: 40%;}  //description
         thead tr th:nth-child(4) {width: 20%;}  //open until
-        .table-utl ul li {
-            &:nth-child(1) {background: url("/assets/imgs/ic_trash.svg") no-repeat center center white;
-            background-size: 16px 16px; }
-            &:nth-child(2) {background: url("/assets/imgs/ic_share.svg") no-repeat center center white;
-            background-size: 16px 16px; }
-        }
     }
     
     .table-applicants {       
@@ -1553,13 +1540,7 @@ ul.projects li {
         thead tr th:nth-child(3) {width: 20%;} //favorite
         thead tr th:nth-child(4) {width: 20%;} //email
         thead tr th:nth-child(5) {width: 30%;} //phone
-        .table-utl ul li {
-            &:nth-child(1) {
-                background: url("/assets/imgs/ic_trash.svg") no-repeat center center white;
-                background-size: 16px 16px; }
-            &:nth-child(2) {background: url("/assets/imgs/ic_duplicate.svg") no-repeat center center white;
-            background-size: 16px 16px; }
-        }
+
         .alert-new {
             width: 56px;
             height: 24px;
@@ -1649,27 +1630,31 @@ ul.projects li {
                     opacity: 0;
                     @include transition(all, 0.2s, ease);
                     
-                    ul {
+                    div {
+                        display: inline;
+                        float: right;
+                        margin-left: 6px;
+                        width: 36px;
                         height: 36px;
+                        @include border-radius(50%);
+                        border: 1px solid $color-grey-dark;
+                        @include transition(all, 0.2s, ease);
 
-                        li{
-                            display: inline;
-                            float: right;
-                            margin-left: 6px;
-                            width: 36px;
-                            height: 36px;
-                            @include border-radius(50%);
-                            border: 1px solid $color-grey-dark;
+                        &:hover, &:focus {
+                            background-color: #eeeeee;
+                            cursor: pointer;
                             @include transition(all, 0.2s, ease);
-
-                            &:hover, &:focus {
-                                background-color: #eeeeee;
-                                cursor: pointer;
-                                @include transition(all, 0.2s, ease);
-                            }
                         }
                     }
-                }  
+                    
+                    .btn-hover-delete {
+                    background: url("/assets/imgs/ic_trash.svg") no-repeat center center white;
+                    background-size: 16px 16px; }
+                    
+                    .btn-hover-share {
+                    background: url("/assets/imgs/ic_share.svg") no-repeat center center white;
+                    background-size: 16px 16px; }
+                            }  
             }
 
             &:hover>td .table-utl {
@@ -2268,6 +2253,7 @@ ul.select-coverphoto-wrapper {
         @include transition(all, 0.2s, ease);
     } 
 }
+
 /***************************
           Apply
 ***************************/

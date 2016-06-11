@@ -1323,12 +1323,6 @@ ul.projects li {
     width: 40%; }
   .custom-table .table-project-overview thead tr th:nth-child(4) {
     width: 20%; }
-  .custom-table .table-project-overview .table-utl ul li:nth-child(1) {
-    background: url("/assets/imgs/ic_trash.svg") no-repeat center center white;
-    background-size: 16px 16px; }
-  .custom-table .table-project-overview .table-utl ul li:nth-child(2) {
-    background: url("/assets/imgs/ic_share.svg") no-repeat center center white;
-    background-size: 16px 16px; }
 .custom-table .table-project-details thead tr th:nth-child(1) {
   width: 20%;
   cursor: pointer; }
@@ -1338,12 +1332,6 @@ ul.projects li {
   width: 40%; }
 .custom-table .table-project-details thead tr th:nth-child(4) {
   width: 20%; }
-.custom-table .table-project-details .table-utl ul li:nth-child(1) {
-  background: url("/assets/imgs/ic_trash.svg") no-repeat center center white;
-  background-size: 16px 16px; }
-.custom-table .table-project-details .table-utl ul li:nth-child(2) {
-  background: url("/assets/imgs/ic_share.svg") no-repeat center center white;
-  background-size: 16px 16px; }
 .custom-table .table-applicants {
   padding: 0 15px; }
   .custom-table .table-applicants thead tr th:nth-child(1) {
@@ -1357,12 +1345,6 @@ ul.projects li {
     width: 20%; }
   .custom-table .table-applicants thead tr th:nth-child(5) {
     width: 30%; }
-  .custom-table .table-applicants .table-utl ul li:nth-child(1) {
-    background: url("/assets/imgs/ic_trash.svg") no-repeat center center white;
-    background-size: 16px 16px; }
-  .custom-table .table-applicants .table-utl ul li:nth-child(2) {
-    background: url("/assets/imgs/ic_duplicate.svg") no-repeat center center white;
-    background-size: 16px 16px; }
   .custom-table .table-applicants .alert-new {
     width: 56px;
     height: 24px;
@@ -1452,32 +1434,36 @@ ul.projects li {
         -ms-transition: all 0.2s ease;
         -o-transition: all 0.2s ease;
         transition: all 0.2s ease; }
-        .custom-table .table tbody tr td .table-utl ul {
-          height: 36px; }
-          .custom-table .table tbody tr td .table-utl ul li {
-            display: inline;
-            float: right;
-            margin-left: 6px;
-            width: 36px;
-            height: 36px;
-            -webkit-border-radius: 50%;
-            -moz-border-radius: 50%;
-            -ms-border-radius: 50%;
-            border-radius: 50%;
-            border: 1px solid #666666;
+        .custom-table .table tbody tr td .table-utl div {
+          display: inline;
+          float: right;
+          margin-left: 6px;
+          width: 36px;
+          height: 36px;
+          -webkit-border-radius: 50%;
+          -moz-border-radius: 50%;
+          -ms-border-radius: 50%;
+          border-radius: 50%;
+          border: 1px solid #666666;
+          -webkit-transition: all 0.2s ease;
+          -moz-transition: all 0.2s ease;
+          -ms-transition: all 0.2s ease;
+          -o-transition: all 0.2s ease;
+          transition: all 0.2s ease; }
+          .custom-table .table tbody tr td .table-utl div:hover, .custom-table .table tbody tr td .table-utl div:focus {
+            background-color: #eeeeee;
+            cursor: pointer;
             -webkit-transition: all 0.2s ease;
             -moz-transition: all 0.2s ease;
             -ms-transition: all 0.2s ease;
             -o-transition: all 0.2s ease;
             transition: all 0.2s ease; }
-            .custom-table .table tbody tr td .table-utl ul li:hover, .custom-table .table tbody tr td .table-utl ul li:focus {
-              background-color: #eeeeee;
-              cursor: pointer;
-              -webkit-transition: all 0.2s ease;
-              -moz-transition: all 0.2s ease;
-              -ms-transition: all 0.2s ease;
-              -o-transition: all 0.2s ease;
-              transition: all 0.2s ease; }
+        .custom-table .table tbody tr td .table-utl .btn-hover-delete {
+          background: url("/assets/imgs/ic_trash.svg") no-repeat center center white;
+          background-size: 16px 16px; }
+        .custom-table .table tbody tr td .table-utl .btn-hover-share {
+          background: url("/assets/imgs/ic_share.svg") no-repeat center center white;
+          background-size: 16px 16px; }
     .custom-table .table tbody tr:hover > td .table-utl {
       opacity: 1;
       -webkit-transition: all 0.2s ease;

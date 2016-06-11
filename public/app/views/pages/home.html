@@ -90,10 +90,8 @@
                     {{ project.updated_date | date:'short'}}
                   </div>                  
                   <div class="table-utl">
-                    <ul>
-                      <li class="" ng-click='home.deleteBtn(project)'></li>
-                      <li class="" ng-click='home.sharePrjBtn(project)'></li>
-                    </ul>
+                      <div class="btn-hover-delete" ng-click='home.deleteBtn(project)'></div>
+                      <div class="btn-hover-share" ng-click='home.sharePrjBtn(project)'></div>
                   </div>
                 </td>
               </tr>
