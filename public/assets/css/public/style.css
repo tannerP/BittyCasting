@@ -2145,7 +2145,7 @@ ul.select-coverphoto-wrapper {
     height: 54px;
     z-index: 10; }
   .applyPage .poweredBy {
-    margin: 30px 0 30px 0;
+    margin: 30px 0 0 0;
     float: right; }
     .applyPage .poweredBy p {
       color: #999999; }
@@ -2596,6 +2596,23 @@ ul.select-coverphoto-wrapper {
   color: white;
   background-color: #06bcc2;
   font-size: 12px; }
+  .footer a {
+    color: white;
+    -webkit-transition: all 0.2s ease;
+    -moz-transition: all 0.2s ease;
+    -ms-transition: all 0.2s ease;
+    -o-transition: all 0.2s ease;
+    transition: all 0.2s ease; }
+    .footer a:hover {
+      cursor: pointer;
+      opacity: 0.7;
+      filter: alpha(opacity=70);
+      text-decoration: none;
+      -webkit-transition: all 0.2s ease;
+      -moz-transition: all 0.2s ease;
+      -ms-transition: all 0.2s ease;
+      -o-transition: all 0.2s ease;
+      transition: all 0.2s ease; }
   .footer .container {
     padding: 0 20px; }
   .footer p {
@@ -2620,23 +2637,6 @@ ul.select-coverphoto-wrapper {
     .footer .custom-nav-footer ul li {
       display: inline;
       margin: 0 0 0 35px; }
-      .footer .custom-nav-footer ul li a {
-        color: white;
-        -webkit-transition: all 0.2s ease;
-        -moz-transition: all 0.2s ease;
-        -ms-transition: all 0.2s ease;
-        -o-transition: all 0.2s ease;
-        transition: all 0.2s ease; }
-        .footer .custom-nav-footer ul li a:hover {
-          cursor: pointer;
-          opacity: 0.7;
-          filter: alpha(opacity=70);
-          text-decoration: none;
-          -webkit-transition: all 0.2s ease;
-          -moz-transition: all 0.2s ease;
-          -ms-transition: all 0.2s ease;
-          -o-transition: all 0.2s ease;
-          transition: all 0.2s ease; }
   .footer .social ul li {
     float: right;
     display: inline;
@@ -2991,10 +2991,10 @@ ul.select-coverphoto-wrapper {
     padding: 0 0 60px 0; }
   .applyPage .applyPageRight {
     padding: 0; }
-
-  .poweredBy {
+  .applyPage .poweredBy {
     margin: 30px auto 30px auto;
-    text-align: center; }
+    text-align: center;
+    float: none; }
 
   /***************************
           Review
