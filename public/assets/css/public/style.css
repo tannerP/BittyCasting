@@ -2146,7 +2146,7 @@ ul.select-coverphoto-wrapper {
     height: 54px;
     z-index: 10; }
   .applyPage .poweredBy {
-    margin-top: 30px;
+    margin: 30px 0 0 0;
     float: right; }
     .applyPage .poweredBy p {
       color: #999999; }
@@ -2990,8 +2990,13 @@ ul.select-coverphoto-wrapper {
   .btn-add-applicants {
     display: none; }
 
+  .applyPage .poweredBy {
+    float: none;
+    margin: 30px auto 30px auto;
+    text-align: center; }
+
   /***************************
-          Review
+             Review
   ***************************/
   .reviewCarousel .rn-carousel-control.rn-carousel-control-prev {
     left: 10px; }

@@ -2367,7 +2367,7 @@ ul.select-coverphoto-wrapper {
     }
     
     .poweredBy {
-        margin-top: 30px;
+        margin: 30px 0 0 0;
         float: right;
         p {
             color: $color-grey;
@@ -3275,8 +3275,16 @@ text-align: center;
         display: none;
     }
     
+    .applyPage {    
+        .poweredBy {
+            float: none;
+            margin: 30px auto 30px auto;
+            text-align: center;
+        }
+    }   
+    
     /***************************
-            Review
+               Review
     ***************************/
     
     .reviewCarousel .rn-carousel-control.rn-carousel-control-prev {
