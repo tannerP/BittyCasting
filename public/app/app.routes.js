@@ -67,7 +67,7 @@ angular.module('app.routes', ['ngRoute'])
         })
         .when('/register/invite/:inviteID',  {
             templateUrl: 'app/views/pages/index.html',
-            controller: 'resetPassCtrl',
+            controller: 'signupInviteCtrl',
             controllerAs: 'vm'
         })
         .when('/reset/password/:id',  {

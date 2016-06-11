@@ -124,8 +124,7 @@ module.exports = function(app, express) {
         }
         proj.save();*/
         if (!proj.user) proj.user = req.decoded.name;
-
-
+        
         var checkClientship = function(prj, decoded) {
             if (!decoded) return "public";
             else {
@@ -135,11 +134,11 @@ module.exports = function(app, express) {
               } else {
                 for (var i in prj.collabs_id) {
                   var collab = prj.collabs_id[i];
-                  if (collab.userID === req.decoded.id) {
+                  if (collab.userID === decoded.id) {
                     return "collab";
                   }
-                  return "public";
                 }
+                return "public";
               }
             }
           }
@@ -639,7 +638,7 @@ module.exports = function(app, express) {
     });
   app.route('/register/invitation/:inviteID')
     .put(function(req, res) {
-      console.log(req.body)
+      /*console.log(req.body)*/
       Invite.findById(req.params.inviteID, function(err, invite) {
         var user = new User();
         var name = req.body.name;

@@ -251,7 +251,7 @@ module.exports = function(app, express) {
 						}
 						mailgun.messages()
 							.send(emailData, function(err, data) {
-								/*console.log(data)*/
+								console.log(data)
 								return res.json({
 									success: true,
 									data: false

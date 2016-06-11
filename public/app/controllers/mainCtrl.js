@@ -170,7 +170,6 @@ angular.module('mainCtrl', ['authService', 'mgcrea.ngStrap'])
 			vm.fb_master.user = {};
 
 			vm.submit = function(feedback) {
-
 				angular.copy(feedback, vm.fb_master);
 				vm.fb_master.location = $location.path();
 				vm.fb_master.timestamp = new Date().toLocaleString('en-US');
