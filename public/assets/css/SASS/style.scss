@@ -2970,21 +2970,7 @@ text-align: center;
     }
     
     .pageTitleMobileOffset {padding-top: 120px;}
-    .applyPageLeftBg {display:none;}
-    .applyPage { 
-        .applyLogo {
-            position: relative;
-            top: 0;
-        }
-        .applyPageLeft {
-            position: relative; 
-            border-bottom: 1px solid $color-grey-light;
-            padding: 0 0 60px 0;
-        }
-        .applyPageRight {
-            padding: 0;
-        }
-    }
+
     div.pageHeader {
         .pageHeader-review {
             text-align: center;
@@ -3275,13 +3261,30 @@ text-align: center;
         display: none;
     }
     
-    .applyPage {    
+    /***************************
+               Apply
+    ***************************/
+    
+    .applyPageLeftBg {display:none;}
+    .applyPage { 
+        .applyLogo {
+            position: relative;
+            top: 0;
+        }
+        .applyPageLeft {
+            position: relative; 
+            border-bottom: 1px solid $color-grey-light;
+            padding: 0 0 60px 0;
+        }
+        .applyPageRight {
+            padding: 0;
+        }
         .poweredBy {
             float: none;
             margin: 30px auto 30px auto;
             text-align: center;
         }
-    }   
+    }
     
     /***************************
                Review
