@@ -3,7 +3,7 @@
 		<div class="container">
 				<img class="applyLogo" ng-src="assets/imgs/logo_BittyCasting_B.svg">
 				<div ng-if="ppv.loggedIn" class="custom-close-overlay" ng-click="ppv.back()"></div>
-				<section class="col-md-6">
+				<section class="col-md-6 col-sm-6">
 						<div class="applyPageLeft">
 								<div class='pageTitle'>Project<!-- <span>s</span> --></div>
 								<div class='pageSubtitle'>{{ppv.project.name}}</div> <!-- Remove tag causes displaying bug -->
@@ -49,7 +49,7 @@
 						<!-- <audio ng-if="currFile" controls ngf-src="currFile"> -->
 				</section>
 				<!-- Application Form --> 
-				<section class="col-md-6" ng-if="!expired">
+				<section class="col-md-6 col-sm-6" ng-if="!expired">
 						<div class="applyPageRight">
 								 <div class='pageTitle'>Apply</div>
 																 <div class='pageSubtitle'
