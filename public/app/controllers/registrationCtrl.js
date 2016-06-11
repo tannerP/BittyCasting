@@ -158,7 +158,7 @@ angular.module('registrationCtrl', ['authService', 'mgcrea.ngStrap'])
 						vm.userData = {};
 						vm.processing = false;
 						vm.message = "Successfully registered. Please log in to access your account."
-						$location.path('/');
+						$location.path('/home');
 						return;
 					}
 				});
