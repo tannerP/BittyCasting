@@ -84,11 +84,11 @@ module.exports = function(app, express) {
               } else {
                 for (var i in prj.collabs_id) {
                   var collab = prj.collabs_id[i];
-                  if (collab.userID === req.decoded.id) {
+                  if (collab.userID === decoded.id) {
                     return "collab";
                   }
-                  return "public";
                 }
+                return "public";
               }
             }
           }
@@ -124,7 +124,7 @@ module.exports = function(app, express) {
         }
         proj.save();*/
         if (!proj.user) proj.user = req.decoded.name;
-        
+
         var checkClientship = function(prj, decoded) {
             if (!decoded) return "public";
             else {

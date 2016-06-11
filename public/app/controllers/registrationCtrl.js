@@ -130,7 +130,7 @@ angular.module('registrationCtrl', ['authService', 'mgcrea.ngStrap'])
 				/*		console.log(response)*/
 				if (response.status === "connected") {
 					Facebook.api('/me?fields=name,email', function(response) {
-						/*						console.log(response)*/
+						/*console.log(response)*/
 						vm.userData.name = response.name;
 						vm.userData.email = response.email;
 						return;
@@ -155,6 +155,7 @@ angular.module('registrationCtrl', ['authService', 'mgcrea.ngStrap'])
 					else {
 						$scope.$emit('aside.hide')
 							//clear the form
+						$scope.hide();
 						vm.userData = {};
 						vm.processing = false;
 						vm.message = "Successfully registered. Please log in to access your account."
@@ -207,9 +208,9 @@ angular.module('registrationCtrl', ['authService', 'mgcrea.ngStrap'])
 
 	vm.nameChanging = function(name) {
 		var index = name.indexOf(" ");
-
 		var fname = name.split(" ")[0];
 		var lname = name.split(" ")[1];
+
 		if (fname) {
 			fname = fname[0].toUpperCase() + fname.toLowerCase().slice(1);
 			vm.userData.name = fname;
@@ -217,7 +218,6 @@ angular.module('registrationCtrl', ['authService', 'mgcrea.ngStrap'])
 		if (lname) {
 			lname = lname[0].toUpperCase() + lname.toLowerCase().slice(1);
 		}
-
 		if (lname && lname) {
 			vm.userData.name = ''
 			vm.userData.name = fname + " " + lname
@@ -243,7 +243,7 @@ angular.module('registrationCtrl', ['authService', 'mgcrea.ngStrap'])
 				vm.message = data.message;
 			})
 			.success(function(user) {
-				console.log(user)
+				/*console.log(user)*/
 				if (!user.success) return vm.message = user.message;
 				else {
 					vm.message = user.message;
