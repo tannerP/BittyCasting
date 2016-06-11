@@ -150,15 +150,15 @@ angular.module('registrationCtrl', ['authService', 'mgcrea.ngStrap'])
 					vm.message = data.message;
 				})
 				.success(function(user) {
-					console.log(user)
+					/*console.log(user)*/
 					if (!user.success) return vm.message = user.message;
 					else {
 						$scope.$emit('aside.hide')
 							//clear the form
 						vm.userData = {};
 						vm.processing = false;
-						vm.message = user.message;
-						/*$location.path('/home')*/
+						vm.message = "Successfully registered. Please log in to access your account."
+						$location.path('/home');
 						return;
 					}
 				});
@@ -247,14 +247,13 @@ angular.module('registrationCtrl', ['authService', 'mgcrea.ngStrap'])
 				if (!user.success) return vm.message = user.message;
 				else {
 					vm.message = user.message;
-					//clear the form
 					vm.userData = {};
-					/*setTimeout(function() {
+					setTimeout(function() {
 						vm.processing = false;
 						$scope.$emit('aside.hide')
 						$scope.$hide();
 						return;
-					}, 5000)*/
+					}, 7000)
 				}
 			});
 	}

@@ -180,10 +180,12 @@ module.exports = function(app, express) {
 					});
 					//if invitee is not a member
 					if (data.member) {
-						var notification = {};
+						/*var notification = {};
 						notification.notification_type = "invite"
 						notification.data = invite;
-						user.notifications.unshift(notification);
+						user.notifications.unshift(notification);*/
+
+
 						var URL = "bittycasting.com/login";
 						emailData = {
 							from: "friends@bittycasting.com",
@@ -193,7 +195,7 @@ module.exports = function(app, express) {
 						}
 						Project.findById(projectID, function(error, project) {
 							var data = {};
-							var exist = true;
+							var exist = false;
 							if (user.invites.indexOf(projectID) === -1) {
 								//this ensure no duplication
 								user.invites.push(projectID)
@@ -202,16 +204,15 @@ module.exports = function(app, express) {
 							data.accepted = false;
 							data.responded = false;
 							data.userID = user._id;
-
+							//BUG
 							for (var i in project.collabs_id) {
 								var collab = project.collabs_id[i];
-								if (collab.userID.indexOf(user._id) === -1 &&
-									project.collabs_id.length === ++i) {
-									exist = false;
+								if (collab.userID === user._id) {
+									exist = true;
 									break;
 								}
 							}
-							if (project.collabs_id.length < 1) {
+							if (project.collabs_id.length < 1 || !exist) {
 								project.collabs_id.push({
 										userID: user._id,
 										userName: user.name,
@@ -223,6 +224,8 @@ module.exports = function(app, express) {
 										if (!error) {
 											mailgun.messages()
 												.send(emailData, function(err, data) {
+													console.log(err)
+													console.log(data)
 													return res.json({
 														success: true,
 														data: user
@@ -231,7 +234,6 @@ module.exports = function(app, express) {
 										}
 									})
 								})
-
 							}
 						})
 
@@ -249,7 +251,7 @@ module.exports = function(app, express) {
 						}
 						mailgun.messages()
 							.send(emailData, function(err, data) {
-								/*console.log(data)*/
+								console.log(data)
 								return res.json({
 									success: true,
 									data: false
@@ -390,40 +392,40 @@ module.exports = function(app, express) {
 					for (var i in applicants) {
 						applicants[i].roleIDs.push(req.body[i])
 						applicants[i].save(function(err, data) {
-								async.map(req.body, updateCount, function(e, r) {
-									return;
-								});
+							async.map(req.body, updateCount, function(e, r) {
+								return;
+							});
 
-								function updateCount(id, callback) {
-									Role.findById(id, function(err, role) {
-										/*console.log("line 197:found role")*/
-										if (!err) {
-											Applicant.count({
-												$or: [{
-													'roleID': id
-												}, {
-													'roleIDs': {
-														$in: [id]
-													}
-												}]
-											}, function(err, count) {
-												/*console.log("updated count "+count )*/
-												/*console.log(count);*/
-												if (err) return callback(err, null);
-												else {
-													role.total_apps = count;
-													/*console.log(role.total_apps);*/
-													role.save(function(err, data) {
-														/*console.log(data.name)
-														console.log(data.total_apps)*/
-													});
-													return callback();
+							function updateCount(id, callback) {
+								Role.findById(id, function(err, role) {
+									/*console.log("line 197:found role")*/
+									if (!err) {
+										Applicant.count({
+											$or: [{
+												'roleID': id
+											}, {
+												'roleIDs': {
+													$in: [id]
 												}
-											})
-										}
-									})
-								}
-							})
+											}]
+										}, function(err, count) {
+											/*console.log("updated count "+count )*/
+											/*console.log(count);*/
+											if (err) return callback(err, null);
+											else {
+												role.total_apps = count;
+												/*console.log(role.total_apps);*/
+												role.save(function(err, data) {
+													/*console.log(data.name)
+													console.log(data.total_apps)*/
+												});
+												return callback();
+											}
+										})
+									}
+								})
+							}
+						})
 					}
 					return res.json({
 						success: true
@@ -910,7 +912,7 @@ module.exports = function(app, express) {
 					else {
 						for (var a in apps) {
 							/*console.log(apps[a].roleIDs.length);*/
-							console.log("roleIDs: "+ apps[a].roleIDs.length)
+							console.log("roleIDs: " + apps[a].roleIDs.length)
 							if (apps[a].roleIDs.length <= 1) {
 								/*console.log(apps[a].suppliments)*/
 								aws.removeSup(apps[a].suppliments);
@@ -920,7 +922,7 @@ module.exports = function(app, express) {
 								var index = apps[a].roleIDs.indexOf(roles[i]._id);
 								console.log(index)
 								apps[a].roleIDs.splice(index, ++index);
-								console.log("roleIDs: "+ apps[a].roleIDs.length)
+								console.log("roleIDs: " + apps[a].roleIDs.length)
 								apps[a].save();
 							}
 						}
@@ -971,7 +973,7 @@ module.exports = function(app, express) {
 			})
 		});
 	//===============================  USERS  ============================
-	
+
 	apiRouter.route('/users/:user_id')
 		.get(function(req, res) {
 			User.findById(req.params.user_id, function(err, user) {

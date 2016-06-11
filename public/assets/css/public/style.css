@@ -659,7 +659,6 @@ section.home {
       font-size: 20px;
       color: white;
       line-height: 34px;
-      margin-bottom: 35px;
       font-weight: 200; }
     section.home .brandMessage .brandRequest {
       margin-top: 40px; }
@@ -2597,6 +2596,23 @@ ul.select-coverphoto-wrapper {
   color: white;
   background-color: #06bcc2;
   font-size: 12px; }
+  .footer a {
+    color: white;
+    -webkit-transition: all 0.2s ease;
+    -moz-transition: all 0.2s ease;
+    -ms-transition: all 0.2s ease;
+    -o-transition: all 0.2s ease;
+    transition: all 0.2s ease; }
+    .footer a:hover {
+      cursor: pointer;
+      opacity: 0.7;
+      filter: alpha(opacity=70);
+      text-decoration: none;
+      -webkit-transition: all 0.2s ease;
+      -moz-transition: all 0.2s ease;
+      -ms-transition: all 0.2s ease;
+      -o-transition: all 0.2s ease;
+      transition: all 0.2s ease; }
   .footer .container {
     padding: 0 20px; }
   .footer p {
@@ -2621,23 +2637,6 @@ ul.select-coverphoto-wrapper {
     .footer .custom-nav-footer ul li {
       display: inline;
       margin: 0 0 0 35px; }
-      .footer .custom-nav-footer ul li a {
-        color: white;
-        -webkit-transition: all 0.2s ease;
-        -moz-transition: all 0.2s ease;
-        -ms-transition: all 0.2s ease;
-        -o-transition: all 0.2s ease;
-        transition: all 0.2s ease; }
-        .footer .custom-nav-footer ul li a:hover {
-          cursor: pointer;
-          opacity: 0.7;
-          filter: alpha(opacity=70);
-          text-decoration: none;
-          -webkit-transition: all 0.2s ease;
-          -moz-transition: all 0.2s ease;
-          -ms-transition: all 0.2s ease;
-          -o-transition: all 0.2s ease;
-          transition: all 0.2s ease; }
   .footer .social ul li {
     float: right;
     display: inline;
@@ -2980,6 +2979,7 @@ ul.select-coverphoto-wrapper {
   /***************************
              Apply
   ***************************/
+<<<<<<< HEAD
   .applyPage .applyLogo {
     position: relative;
     top: 0; }
@@ -3006,6 +3006,27 @@ ul.select-coverphoto-wrapper {
 
   /***************************
              Review
+=======
+  .applyPageLeftBg {
+    display: none; }
+
+  .applyPage .applyLogo {
+    position: relative;
+    top: 0; }
+  .applyPage .applyPageLeft {
+    position: relative;
+    border-bottom: 1px solid #cccccc;
+    padding: 0 0 60px 0; }
+  .applyPage .applyPageRight {
+    padding: 0; }
+  .applyPage .poweredBy {
+    margin: 30px auto 30px auto;
+    text-align: center;
+    float: none; }
+
+  /***************************
+          Review
+>>>>>>> c78843869ab77bfb4c3d238fc98539c9ad246c0c
   ***************************/
   .reviewCarousel .rn-carousel-control.rn-carousel-control-prev {
     left: 10px; }
