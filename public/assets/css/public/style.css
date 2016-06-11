@@ -2979,9 +2979,6 @@ ul.select-coverphoto-wrapper {
   /***************************
              Apply
   ***************************/
-  .custom-btn-feedback {
-    display: none; }
-
   .applyPage {
     overflow-x: hidden; }
     .applyPage .applyLogo {
