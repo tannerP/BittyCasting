@@ -2013,6 +2013,10 @@ ul.select-coverphoto-wrapper {
 
 .asideRole {
   width: 768px; }
+  .asideRole .asideDesMessage {
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto; }
   .asideRole .asideRoleColLeft, .asideRole .asideRoleColRight {
     width: 48%; }
   .asideRole .asideRoleColLeft {
@@ -2952,6 +2956,8 @@ ul.select-coverphoto-wrapper {
   .aside {
     width: 100%; }
 
+  .asideRole .asideDesMessage {
+    width: 100%; }
   .asideRole .asideRoleColLeft, .asideRole .asideRoleColRight {
     width: 100%; }
 
