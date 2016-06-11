@@ -2979,55 +2979,59 @@ ul.select-coverphoto-wrapper {
   /***************************
              Apply
   ***************************/
-<<<<<<< HEAD
-  .applyPage .applyLogo {
-    position: relative;
-    top: 0; }
-  .applyPage .applyPageLeftBg {
+  .custom-btn-feedback {
     display: none; }
-  .applyPage .applyPageLeft {
-    position: relative;
-    padding: 0 0 60px 0; }
-  .applyPage .containerApplyMobileBottom {
-    margin: 0 -30px -20px -30px; }
-  .applyPage .applyPageRight {
-    padding: 0;
-    background-color: white;
-    padding: 0 30px 20px 30px; }
-  .applyPage .poweredBy {
-    float: none;
-    margin: 30px auto 30px auto;
-    text-align: center; }
-    .applyPage .poweredBy p {
-      font-size: 8px; }
-    .applyPage .poweredBy img.powerLogo {
-      width: 80px;
-      margin-bottom: 3px; }
 
-  /***************************
-             Review
+  .applyPage {
+    overflow-x: hidden; }
+    .applyPage .applyLogo {
+      position: relative;
+      top: 0; }
+    .applyPage .applyPageLeftBg {
+      display: none; }
+    .applyPage .applyPageLeft {
+      position: relative;
+      padding: 0 0 60px 0; }
+    .applyPage .containerApplyMobileBottom {
+      margin: 0 -30px -20px -30px; }
+    .applyPage .applyPageRight {
+      padding: 0;
+      background-color: white;
+      padding: 0 30px 20px 30px; }
+    .applyPage .poweredBy {
+      float: none;
+      margin: 30px auto 30px auto;
+      text-align: center; }
+      .applyPage .poweredBy p {
+        font-size: 8px; }
+      .applyPage .poweredBy img.powerLogo {
+        width: 80px;
+        margin-bottom: 3px; }
+
+    /***************************
+               Review
 =======
-  .applyPageLeftBg {
-    display: none; }
+        .applyPageLeft {
+            position: relative; 
+            border-bottom: 1px solid $color-grey-light;
+            padding: 0 0 60px 0;
+        }
+        .applyPageRight {
+            padding: 0;
+        }
+        .poweredBy {
+            margin: 30px auto 30px auto;
+            text-align: center;
+            float: none;
+        }
+    }
+    
 
-  .applyPage .applyLogo {
-    position: relative;
-    top: 0; }
-  .applyPage .applyPageLeft {
-    position: relative;
-    border-bottom: 1px solid #cccccc;
-    padding: 0 0 60px 0; }
-  .applyPage .applyPageRight {
-    padding: 0; }
-  .applyPage .poweredBy {
-    margin: 30px auto 30px auto;
-    text-align: center;
-    float: none; }
-
-  /***************************
-          Review
+    
+    /***************************
+            Review
 >>>>>>> c78843869ab77bfb4c3d238fc98539c9ad246c0c
-  ***************************/
+    ***************************/
   .reviewCarousel .rn-carousel-control.rn-carousel-control-prev {
     left: 10px; }
 

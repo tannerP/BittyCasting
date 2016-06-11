@@ -2971,11 +2971,7 @@ text-align: center;
     }
     
     .pageTitleMobileOffset {padding-top: 120px;}
-<<<<<<< HEAD
 
-=======
-    
->>>>>>> c78843869ab77bfb4c3d238fc98539c9ad246c0c
     div.pageHeader {
         .pageHeader-review {
             text-align: center;
@@ -3269,18 +3265,14 @@ text-align: center;
     /***************************
                Apply
     ***************************/
-<<<<<<< HEAD
 
-=======
-    
-    .applyPageLeftBg {display:none;}
->>>>>>> c78843869ab77bfb4c3d238fc98539c9ad246c0c
+    .custom-btn-feedback {display: none;}
     .applyPage { 
+        overflow-x: hidden;
         .applyLogo {
             position: relative;
             top: 0;
         }
-<<<<<<< HEAD
         .applyPageLeftBg { 
             display: none;}
 //            width: 50%;  
