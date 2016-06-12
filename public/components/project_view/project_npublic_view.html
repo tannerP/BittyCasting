@@ -18,16 +18,13 @@
       <section class="col-md-6">
         <p style="white-space: pre-wrap">{{vm.project.description}}</p>
       </section>
-      <section class="col-md-3">
+      <section class="col-md-3 collaboratorList">
         <span class="btn-addCircle" ng-if="vm.owner" ng-click="vm.collabBtn(vm.project)"></span>
         <ul>
             <li class="collaUserInitial">{{vm.convertInitial(vm.project.user)}}</li>
             <li ng-repeat="collab in vm.project.collabs_id" ng-if="collab.accepted"
             class="collaUserInitial">{{vm.convertInitial(collab.userName)}}</li>
         </ul>
-      </section>
-      <section class="col-md-3">
-        <!-- <p>Thumbnails of collaborators</p> -->
       </section>
     </div>
     <div class="clear"></div>

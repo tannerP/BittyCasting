@@ -2042,6 +2042,9 @@ ul.select-coverphoto-wrapper {
   .asideRole .asideRoleColRight {
     float: right; }
 
+.collaboratorList {
+  height: 100px; }
+
 .collaUserInitial {
   display: inline-block;
   float: left;

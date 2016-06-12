@@ -2254,6 +2254,10 @@ ul.select-coverphoto-wrapper {
     .asideRoleColRight {float: right;}
 }
 
+.collaboratorList {
+    height: 100px; 
+}
+
 .collaUserInitial {
     display: inline-block;
     float: left;
@@ -2267,7 +2271,6 @@ ul.select-coverphoto-wrapper {
     color: white;
     @include border-radius(50%);
 }
-
 .btn-addCircle {
     display: inline-block;
     float: left;
