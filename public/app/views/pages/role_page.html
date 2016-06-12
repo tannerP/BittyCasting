@@ -137,10 +137,8 @@
               <td>
                 {{ app.phone || "No contact"}}
                 <div class="table-utl">
-                  <ul>
-                    <li ng-if="page.owner" class="trashcan" 
-                    ng-click='page.deleteAsideBtn(app)'></li>
-                  </ul>
+                  <div class="btn-hover-delete" ng-if="page.owner"
+                      ng-click='page.deleteAsideBtn(app)'></div>
                 </div>
               </td>
           </tr>

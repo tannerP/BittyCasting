@@ -81,6 +81,7 @@ $font-size-small: 10px;
      Reusable elements
 ***************************/
 
+body {overflow-x: hidden;}
 .clear {clear: both;}
 
 .custom-disable {
@@ -231,7 +232,7 @@ a {
     &:hover, &:focus {
         text-decoration: none;
         color: $color-blue-lighten;
-        @include transition(all, 0.2s, ease);
+        cursor: pointer;
     }  
 }
 
@@ -1079,6 +1080,50 @@ section {
     margin: 0 -15px 0 -15px;
 }
 
+.btn-edit, .btn-delete, .btn-share, .btn-fav, .btn-email {
+    display: inline;
+    padding-left: 38px; 
+    @include transition(all, 0.8s, ease);
+    &:hover, &:focus {
+        cursor: pointer;
+        background-color: $color-grey-darken;
+    }
+}
+
+.btn-share {            
+    background: url("/assets/imgs/ic_share_w.svg") no-repeat left 15px center $color-blue;
+    background-size: 16px 16px; 
+    &:hover, &:focus {
+        background-color: $color-blue-darken;
+    }
+
+}
+
+.btn-edit {            
+    background: url("/assets/imgs/ic_edit_w.svg") no-repeat left 15px center $color-grey-dark;
+    background-size: 16px 16px;          
+}
+
+.btn-delete {            
+    background: url("/assets/imgs/ic_trash_w.svg") no-repeat left 15px center $color-grey-dark;
+    background-size: 16px 16px;    
+    margin-left: 0px;
+}
+
+.btn-fav {
+    padding-left: 20px;
+    background: none;
+    background-color: $color-grey-dark;
+    img {
+        margin-right: 5px;
+    }
+}
+
+.btn-email {
+    background: url("/assets/imgs/ic_email_w.svg") no-repeat left 15px center $color-grey-dark;
+    background-size: 16px 16px;
+}
+
 div.pageHeader{
     margin: 56px 0 28px 0;
     position: relative;
@@ -1103,50 +1148,8 @@ div.pageHeader{
         }
         
         .btn-edit, .btn-delete, .btn-share, .btn-fav, .btn-email {
-            display: inline;
             float: right;
             margin-left: 5px;
-            padding-left: 38px; 
-            background-color: $color-grey-dark;
-            @include transition(all, 0.8s, ease);
-            &:hover, &:focus {
-                cursor: pointer;
-                background-color: $color-grey-darken;
-            }
-        }
-        
-        .btn-share {            
-            background: url("/assets/imgs/ic_share_w.svg") no-repeat left 15px center $color-blue;
-            background-size: 16px 16px; 
-            &:hover, &:focus {
-                background-color: $color-blue-darken;
-            }
-            
-        }
-        
-        .btn-edit {            
-            background: url("/assets/imgs/ic_edit_w.svg") no-repeat left 15px center $color-grey-dark;
-            background-size: 16px 16px;          
-        }
-        
-        .btn-delete {            
-            background: url("/assets/imgs/ic_trash_w.svg") no-repeat left 15px center $color-grey-dark;
-            background-size: 16px 16px;    
-            margin-left: 0px;
-        }
-        
-        .btn-fav {
-            padding-left: 20px;
-            background: none;
-            background-color: $color-grey-dark;
-            img {
-                margin-right: 5px;
-            }
-        }
-        
-        .btn-email {
-            background: url("/assets/imgs/ic_email_w.svg") no-repeat left 15px center $color-grey-dark;
-            background-size: 16px 16px;
         }
     }
 
@@ -1522,13 +1525,6 @@ ul.projects li {
         thead tr th:nth-child(2) {width: 20%; cursor: pointer;} //name
         thead tr th:nth-child(3) {width: 40%;} //details
         thead tr th:nth-child(4) {width: 20%;} //date      
-        .table-utl ul li {
-            &:nth-child(1) {
-                background: url("/assets/imgs/ic_trash.svg") no-repeat center center white;
-                background-size: 16px 16px; }
-            &:nth-child(2) {background: url("/assets/imgs/ic_share.svg") no-repeat center center white;
-            background-size: 16px 16px; }
-        }
     }
     
     .table-project-details {
@@ -1537,12 +1533,6 @@ ul.projects li {
         thead tr th:nth-child(2) {width: 20%;}  //applicants
         thead tr th:nth-child(3) {width: 40%;}  //description
         thead tr th:nth-child(4) {width: 20%;}  //open until
-        .table-utl ul li {
-            &:nth-child(1) {background: url("/assets/imgs/ic_trash.svg") no-repeat center center white;
-            background-size: 16px 16px; }
-            &:nth-child(2) {background: url("/assets/imgs/ic_share.svg") no-repeat center center white;
-            background-size: 16px 16px; }
-        }
     }
     
     .table-applicants {       
@@ -1553,13 +1543,7 @@ ul.projects li {
         thead tr th:nth-child(3) {width: 20%;} //favorite
         thead tr th:nth-child(4) {width: 20%;} //email
         thead tr th:nth-child(5) {width: 30%;} //phone
-        .table-utl ul li {
-            &:nth-child(1) {
-                background: url("/assets/imgs/ic_trash.svg") no-repeat center center white;
-                background-size: 16px 16px; }
-            &:nth-child(2) {background: url("/assets/imgs/ic_duplicate.svg") no-repeat center center white;
-            background-size: 16px 16px; }
-        }
+
         .alert-new {
             width: 56px;
             height: 24px;
@@ -1649,27 +1633,31 @@ ul.projects li {
                     opacity: 0;
                     @include transition(all, 0.2s, ease);
                     
-                    ul {
+                    div {
+                        display: inline;
+                        float: right;
+                        margin-left: 6px;
+                        width: 36px;
                         height: 36px;
+                        @include border-radius(50%);
+                        border: 1px solid $color-grey-dark;
+                        @include transition(all, 0.2s, ease);
 
-                        li{
-                            display: inline;
-                            float: right;
-                            margin-left: 6px;
-                            width: 36px;
-                            height: 36px;
-                            @include border-radius(50%);
-                            border: 1px solid $color-grey-dark;
+                        &:hover, &:focus {
+                            background-color: #eeeeee;
+                            cursor: pointer;
                             @include transition(all, 0.2s, ease);
-
-                            &:hover, &:focus {
-                                background-color: #eeeeee;
-                                cursor: pointer;
-                                @include transition(all, 0.2s, ease);
-                            }
                         }
                     }
-                }  
+                    
+                    .btn-hover-delete {
+                    background: url("/assets/imgs/ic_trash.svg") no-repeat center center white;
+                    background-size: 16px 16px; }
+                    
+                    .btn-hover-share {
+                    background: url("/assets/imgs/ic_share.svg") no-repeat center center white;
+                    background-size: 16px 16px; }
+                            }  
             }
 
             &:hover>td .table-utl {
@@ -1792,6 +1780,44 @@ ul.projects li {
         margin-bottom: 28px;
     }
     
+    .btn-registerFB {   
+        background: url("/assets/imgs/ic_social_fb.svg") no-repeat left 15px center #3b5998;
+        background-size: 16px 16px;
+        padding-left: 30px;
+        @include transition(all, 0.8s, ease);      
+        &:hover, &:focus {
+            background-color: #2a406d;
+        }    
+    }
+    
+    .dividerOR {
+        font-size: 20px;
+        font-weight: 200;
+        color: $color-grey-light;
+        text-align: center;
+        margin: 20px auto;
+        position: relative;
+        width: 200px;
+        &:after {
+            content:""; 
+            background: #ccc; 
+            position: absolute; 
+            top: 14px; 
+            right: 0; 
+            height: 1px; 
+            width: 70px;
+        }
+        &:before {
+            content:""; 
+            background: #ccc; 
+            position: absolute; 
+            top: 14px; 
+            left: 0;
+            height: 1px; 
+            width: 70px;
+        }
+    }
+    
     .custom-btn-cancel {
         background-color: $color-grey-dark;
         width: 49%;
@@ -1830,6 +1856,7 @@ ul.projects li {
         margin: 10px 0 29px 0;
     }
     .btn-shareFB {
+        height: 44px;
         text-align: center;
         width: 49%;
         float: left;
@@ -1838,6 +1865,7 @@ ul.projects li {
         background: url("/assets/imgs/ic_social_fb.svg") no-repeat left 15px center $color-blue;
         background-size: 16px 16px;
         padding-left: 30px;
+        padding-top: 6px;
         @include transition(all, 0.8s, ease);      
         &:hover, &:focus {
 //            background-color: #2a406d;
@@ -1845,10 +1873,12 @@ ul.projects li {
         }    
     }
     .btn-shareTwitter {
+        height: 44px;
         text-align: center;
         width: 49%;
         float: right;
         margin-top: 10px;
+        padding-top: 6px;
 //        background: url("/assets/imgs/ic_social_twitter.svg") no-repeat left 15px center #00aced;
         background: url("/assets/imgs/ic_social_twitter.svg") no-repeat left 15px center $color-blue;
         background-size: 16px 16px;
@@ -1860,10 +1890,12 @@ ul.projects li {
         }   
     }
     .btn-shareEmail {
+        height: 44px;
         text-align: center;
         width: 49%;
         float: left;
         margin-top: 10px;
+        padding-top: 6px;
         background: url("/assets/imgs/ic_social_email.svg") no-repeat left 15px center #31a357;
                 background: url("/assets/imgs/ic_social_email.svg") no-repeat left 15px center $color-blue;
         background-size: 16px 16px;
@@ -2268,6 +2300,7 @@ ul.select-coverphoto-wrapper {
         @include transition(all, 0.2s, ease);
     } 
 }
+
 /***************************
           Apply
 ***************************/
@@ -2315,6 +2348,8 @@ ul.select-coverphoto-wrapper {
     .custom-checkbox {
         margin: -20px 0 29px 0;
     }
+    
+//    .containerApplyMobileBottom {display: none;}
 
     .applyPageLeftBg { 
         width: 50%;  
@@ -2658,6 +2693,7 @@ text-align: center;
     table {
         font-size: $font-size-regular;
         width: 100%;
+        margin-bottom: 20px;
         tbody tr td{
             vertical-align: text-top;
             height: 32px;
@@ -2969,7 +3005,7 @@ text-align: center;
     }
     
     .pageTitleMobileOffset {padding-top: 120px;}
-    
+
     div.pageHeader {
         .pageHeader-review {
             text-align: center;
@@ -3076,7 +3112,7 @@ text-align: center;
         li {
             display: inline-block;
             text-align: center;
-            width: 100%;
+            width: 50%;
             float: left;
         }
         .nav-register, .nav-signin {
@@ -3263,13 +3299,50 @@ text-align: center;
     /***************************
                Apply
     ***************************/
-    
-    .applyPageLeftBg {display:none;}
+
     .applyPage { 
+        overflow-x: hidden;
         .applyLogo {
             position: relative;
             top: 0;
         }
+        .applyPageLeftBg { 
+            display: none;}
+//            width: 50%;  
+//            position: absolute;
+//            top:0;
+//            left: 0;
+//            width: 50%;
+//            height: 100%;
+//            background-color: white;}
+        .applyPageLeft {
+            position: relative; 
+//            border-bottom: 1px solid $color-grey-light;
+            padding: 0 0 60px 0;
+        }
+        .containerApplyMobileBottom {
+            margin: 0 -30px -20px -30px;
+        }
+        .applyPageRight {
+            padding: 0;
+            background-color: white;
+            padding: 0 30px 20px 30px;
+        }
+        .poweredBy {
+            float: none;
+            margin: 30px auto 30px auto;
+            text-align: center;
+            p {font-size: 8px;}
+            img.powerLogo {
+                width: 80px;
+                margin-bottom: 3px;
+            }
+        }
+    }
+    
+    /***************************
+               Review
+=======
         .applyPageLeft {
             position: relative; 
             border-bottom: 1px solid $color-grey-light;
@@ -3289,6 +3362,7 @@ text-align: center;
     
     /***************************
             Review
+>>>>>>> c78843869ab77bfb4c3d238fc98539c9ad246c0c
     ***************************/
     
     .reviewCarousel .rn-carousel-control.rn-carousel-control-prev {

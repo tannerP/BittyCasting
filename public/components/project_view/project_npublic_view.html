@@ -62,9 +62,8 @@
         <td class="tableHover"><span
           class="tblDate">{{role.end_date | date:mediumDate}}</span>
           <div class="table-utl">
-            <ul>
-              <li ng-if="vm.owner" ng-click="vm.deleteBtn(role)"></li>
-              <li ng-click="vm.shareRoleBtn(role)"></li>
+              <div class="btn-hover-delete" ng-if="vm.owner" ng-click="vm.deleteBtn(role)"></div>
+              <div class="btn-hover-share" ng-click="vm.shareRoleBtn(role)"></div>
             </ul>
           </div>
         </td>

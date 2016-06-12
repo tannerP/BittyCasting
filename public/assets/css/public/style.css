@@ -44,6 +44,9 @@
 /***************************
      Reusable elements
 ***************************/
+body {
+  overflow-x: hidden; }
+
 .clear {
   clear: both; }
 
@@ -197,11 +200,7 @@ a {
   a:hover, a:focus {
     text-decoration: none;
     color: #48d8d8;
-    -webkit-transition: all 0.2s ease;
-    -moz-transition: all 0.2s ease;
-    -ms-transition: all 0.2s ease;
-    -o-transition: all 0.2s ease;
-    transition: all 0.2s ease; }
+    cursor: pointer; }
 
 .paddingBottom60 {
   padding-bottom: 60px; }
@@ -912,6 +911,44 @@ section.contact {
 .cardContainer {
   margin: 0 -15px 0 -15px; }
 
+.btn-edit, .btn-delete, .btn-share, .btn-fav, .btn-email {
+  display: inline;
+  padding-left: 38px;
+  -webkit-transition: all 0.8s ease;
+  -moz-transition: all 0.8s ease;
+  -ms-transition: all 0.8s ease;
+  -o-transition: all 0.8s ease;
+  transition: all 0.8s ease; }
+  .btn-edit:hover, .btn-edit:focus, .btn-delete:hover, .btn-delete:focus, .btn-share:hover, .btn-share:focus, .btn-fav:hover, .btn-fav:focus, .btn-email:hover, .btn-email:focus {
+    cursor: pointer;
+    background-color: #444444; }
+
+.btn-share {
+  background: url("/assets/imgs/ic_share_w.svg") no-repeat left 15px center #06bcc2;
+  background-size: 16px 16px; }
+  .btn-share:hover, .btn-share:focus {
+    background-color: #069A9F; }
+
+.btn-edit {
+  background: url("/assets/imgs/ic_edit_w.svg") no-repeat left 15px center #666666;
+  background-size: 16px 16px; }
+
+.btn-delete {
+  background: url("/assets/imgs/ic_trash_w.svg") no-repeat left 15px center #666666;
+  background-size: 16px 16px;
+  margin-left: 0px; }
+
+.btn-fav {
+  padding-left: 20px;
+  background: none;
+  background-color: #666666; }
+  .btn-fav img {
+    margin-right: 5px; }
+
+.btn-email {
+  background: url("/assets/imgs/ic_email_w.svg") no-repeat left 15px center #666666;
+  background-size: 16px 16px; }
+
 div.pageHeader {
   margin: 56px 0 28px 0;
   position: relative; }
@@ -936,40 +973,8 @@ div.pageHeader {
   div.pageHeader .custom-page-action div:last-child {
     margin-left: 0px; }
   div.pageHeader .custom-page-action .btn-edit, div.pageHeader .custom-page-action .btn-delete, div.pageHeader .custom-page-action .btn-share, div.pageHeader .custom-page-action .btn-fav, div.pageHeader .custom-page-action .btn-email {
-    display: inline;
     float: right;
-    margin-left: 5px;
-    padding-left: 38px;
-    background-color: #666666;
-    -webkit-transition: all 0.8s ease;
-    -moz-transition: all 0.8s ease;
-    -ms-transition: all 0.8s ease;
-    -o-transition: all 0.8s ease;
-    transition: all 0.8s ease; }
-    div.pageHeader .custom-page-action .btn-edit:hover, div.pageHeader .custom-page-action .btn-edit:focus, div.pageHeader .custom-page-action .btn-delete:hover, div.pageHeader .custom-page-action .btn-delete:focus, div.pageHeader .custom-page-action .btn-share:hover, div.pageHeader .custom-page-action .btn-share:focus, div.pageHeader .custom-page-action .btn-fav:hover, div.pageHeader .custom-page-action .btn-fav:focus, div.pageHeader .custom-page-action .btn-email:hover, div.pageHeader .custom-page-action .btn-email:focus {
-      cursor: pointer;
-      background-color: #444444; }
-  div.pageHeader .custom-page-action .btn-share {
-    background: url("/assets/imgs/ic_share_w.svg") no-repeat left 15px center #06bcc2;
-    background-size: 16px 16px; }
-    div.pageHeader .custom-page-action .btn-share:hover, div.pageHeader .custom-page-action .btn-share:focus {
-      background-color: #069A9F; }
-  div.pageHeader .custom-page-action .btn-edit {
-    background: url("/assets/imgs/ic_edit_w.svg") no-repeat left 15px center #666666;
-    background-size: 16px 16px; }
-  div.pageHeader .custom-page-action .btn-delete {
-    background: url("/assets/imgs/ic_trash_w.svg") no-repeat left 15px center #666666;
-    background-size: 16px 16px;
-    margin-left: 0px; }
-  div.pageHeader .custom-page-action .btn-fav {
-    padding-left: 20px;
-    background: none;
-    background-color: #666666; }
-    div.pageHeader .custom-page-action .btn-fav img {
-      margin-right: 5px; }
-  div.pageHeader .custom-page-action .btn-email {
-    background: url("/assets/imgs/ic_email_w.svg") no-repeat left 15px center #666666;
-    background-size: 16px 16px; }
+    margin-left: 5px; }
   div.pageHeader .custom-page-action-secondary .custom-page-action-secondary-title {
     font-size: 16px;
     float: left; }
@@ -1323,12 +1328,6 @@ ul.projects li {
     width: 40%; }
   .custom-table .table-project-overview thead tr th:nth-child(4) {
     width: 20%; }
-  .custom-table .table-project-overview .table-utl ul li:nth-child(1) {
-    background: url("/assets/imgs/ic_trash.svg") no-repeat center center white;
-    background-size: 16px 16px; }
-  .custom-table .table-project-overview .table-utl ul li:nth-child(2) {
-    background: url("/assets/imgs/ic_share.svg") no-repeat center center white;
-    background-size: 16px 16px; }
 .custom-table .table-project-details thead tr th:nth-child(1) {
   width: 20%;
   cursor: pointer; }
@@ -1338,12 +1337,6 @@ ul.projects li {
   width: 40%; }
 .custom-table .table-project-details thead tr th:nth-child(4) {
   width: 20%; }
-.custom-table .table-project-details .table-utl ul li:nth-child(1) {
-  background: url("/assets/imgs/ic_trash.svg") no-repeat center center white;
-  background-size: 16px 16px; }
-.custom-table .table-project-details .table-utl ul li:nth-child(2) {
-  background: url("/assets/imgs/ic_share.svg") no-repeat center center white;
-  background-size: 16px 16px; }
 .custom-table .table-applicants {
   padding: 0 15px; }
   .custom-table .table-applicants thead tr th:nth-child(1) {
@@ -1357,12 +1350,6 @@ ul.projects li {
     width: 20%; }
   .custom-table .table-applicants thead tr th:nth-child(5) {
     width: 30%; }
-  .custom-table .table-applicants .table-utl ul li:nth-child(1) {
-    background: url("/assets/imgs/ic_trash.svg") no-repeat center center white;
-    background-size: 16px 16px; }
-  .custom-table .table-applicants .table-utl ul li:nth-child(2) {
-    background: url("/assets/imgs/ic_duplicate.svg") no-repeat center center white;
-    background-size: 16px 16px; }
   .custom-table .table-applicants .alert-new {
     width: 56px;
     height: 24px;
@@ -1452,32 +1439,36 @@ ul.projects li {
         -ms-transition: all 0.2s ease;
         -o-transition: all 0.2s ease;
         transition: all 0.2s ease; }
-        .custom-table .table tbody tr td .table-utl ul {
-          height: 36px; }
-          .custom-table .table tbody tr td .table-utl ul li {
-            display: inline;
-            float: right;
-            margin-left: 6px;
-            width: 36px;
-            height: 36px;
-            -webkit-border-radius: 50%;
-            -moz-border-radius: 50%;
-            -ms-border-radius: 50%;
-            border-radius: 50%;
-            border: 1px solid #666666;
+        .custom-table .table tbody tr td .table-utl div {
+          display: inline;
+          float: right;
+          margin-left: 6px;
+          width: 36px;
+          height: 36px;
+          -webkit-border-radius: 50%;
+          -moz-border-radius: 50%;
+          -ms-border-radius: 50%;
+          border-radius: 50%;
+          border: 1px solid #666666;
+          -webkit-transition: all 0.2s ease;
+          -moz-transition: all 0.2s ease;
+          -ms-transition: all 0.2s ease;
+          -o-transition: all 0.2s ease;
+          transition: all 0.2s ease; }
+          .custom-table .table tbody tr td .table-utl div:hover, .custom-table .table tbody tr td .table-utl div:focus {
+            background-color: #eeeeee;
+            cursor: pointer;
             -webkit-transition: all 0.2s ease;
             -moz-transition: all 0.2s ease;
             -ms-transition: all 0.2s ease;
             -o-transition: all 0.2s ease;
             transition: all 0.2s ease; }
-            .custom-table .table tbody tr td .table-utl ul li:hover, .custom-table .table tbody tr td .table-utl ul li:focus {
-              background-color: #eeeeee;
-              cursor: pointer;
-              -webkit-transition: all 0.2s ease;
-              -moz-transition: all 0.2s ease;
-              -ms-transition: all 0.2s ease;
-              -o-transition: all 0.2s ease;
-              transition: all 0.2s ease; }
+        .custom-table .table tbody tr td .table-utl .btn-hover-delete {
+          background: url("/assets/imgs/ic_trash.svg") no-repeat center center white;
+          background-size: 16px 16px; }
+        .custom-table .table tbody tr td .table-utl .btn-hover-share {
+          background: url("/assets/imgs/ic_share.svg") no-repeat center center white;
+          background-size: 16px 16px; }
     .custom-table .table tbody tr:hover > td .table-utl {
       opacity: 1;
       -webkit-transition: all 0.2s ease;
@@ -1601,6 +1592,41 @@ ul.projects li {
     margin-bottom: 5px; }
   .aside section {
     margin-bottom: 28px; }
+  .aside .btn-registerFB {
+    background: url("/assets/imgs/ic_social_fb.svg") no-repeat left 15px center #3b5998;
+    background-size: 16px 16px;
+    padding-left: 30px;
+    -webkit-transition: all 0.8s ease;
+    -moz-transition: all 0.8s ease;
+    -ms-transition: all 0.8s ease;
+    -o-transition: all 0.8s ease;
+    transition: all 0.8s ease; }
+    .aside .btn-registerFB:hover, .aside .btn-registerFB:focus {
+      background-color: #2a406d; }
+  .aside .dividerOR {
+    font-size: 20px;
+    font-weight: 200;
+    color: #cccccc;
+    text-align: center;
+    margin: 20px auto;
+    position: relative;
+    width: 200px; }
+    .aside .dividerOR:after {
+      content: "";
+      background: #ccc;
+      position: absolute;
+      top: 14px;
+      right: 0;
+      height: 1px;
+      width: 70px; }
+    .aside .dividerOR:before {
+      content: "";
+      background: #ccc;
+      position: absolute;
+      top: 14px;
+      left: 0;
+      height: 1px;
+      width: 70px; }
   .aside .custom-btn-cancel {
     background-color: #666666;
     width: 49%;
@@ -1648,6 +1674,7 @@ ul.projects li {
   .aside .btn-copyLink {
     margin: 10px 0 29px 0; }
   .aside .btn-shareFB {
+    height: 44px;
     text-align: center;
     width: 49%;
     float: left;
@@ -1655,6 +1682,7 @@ ul.projects li {
     background: url("/assets/imgs/ic_social_fb.svg") no-repeat left 15px center #06bcc2;
     background-size: 16px 16px;
     padding-left: 30px;
+    padding-top: 6px;
     -webkit-transition: all 0.8s ease;
     -moz-transition: all 0.8s ease;
     -ms-transition: all 0.8s ease;
@@ -1663,10 +1691,12 @@ ul.projects li {
     .aside .btn-shareFB:hover, .aside .btn-shareFB:focus {
       background-color: #069A9F; }
   .aside .btn-shareTwitter {
+    height: 44px;
     text-align: center;
     width: 49%;
     float: right;
     margin-top: 10px;
+    padding-top: 6px;
     background: url("/assets/imgs/ic_social_twitter.svg") no-repeat left 15px center #06bcc2;
     background-size: 16px 16px;
     padding-left: 30px;
@@ -1678,10 +1708,12 @@ ul.projects li {
     .aside .btn-shareTwitter:hover, .aside .btn-shareTwitter:focus {
       background-color: #069A9F; }
   .aside .btn-shareEmail {
+    height: 44px;
     text-align: center;
     width: 49%;
     float: left;
     margin-top: 10px;
+    padding-top: 6px;
     background: url("/assets/imgs/ic_social_email.svg") no-repeat left 15px center #31a357;
     background: url("/assets/imgs/ic_social_email.svg") no-repeat left 15px center #06bcc2;
     background-size: 16px 16px;
@@ -2408,7 +2440,8 @@ ul.select-coverphoto-wrapper {
   padding: 30px 0 100px 0; }
   .reviewInfo table {
     font-size: 12px;
-    width: 100%; }
+    width: 100%;
+    margin-bottom: 20px; }
     .reviewInfo table tbody tr td {
       vertical-align: text-top;
       height: 32px; }
@@ -2800,7 +2833,7 @@ ul.select-coverphoto-wrapper {
     .custom-action-nav li {
       display: inline-block;
       text-align: center;
-      width: 100%;
+      width: 50%;
       float: left; }
     .custom-action-nav .nav-register, .custom-action-nav .nav-signin {
       height: 57px;
@@ -2979,26 +3012,56 @@ ul.select-coverphoto-wrapper {
   /***************************
              Apply
   ***************************/
-  .applyPageLeftBg {
-    display: none; }
+  .applyPage {
+    overflow-x: hidden; }
+    .applyPage .applyLogo {
+      position: relative;
+      top: 0; }
+    .applyPage .applyPageLeftBg {
+      display: none; }
+    .applyPage .applyPageLeft {
+      position: relative;
+      padding: 0 0 60px 0; }
+    .applyPage .containerApplyMobileBottom {
+      margin: 0 -30px -20px -30px; }
+    .applyPage .applyPageRight {
+      padding: 0;
+      background-color: white;
+      padding: 0 30px 20px 30px; }
+    .applyPage .poweredBy {
+      float: none;
+      margin: 30px auto 30px auto;
+      text-align: center; }
+      .applyPage .poweredBy p {
+        font-size: 8px; }
+      .applyPage .poweredBy img.powerLogo {
+        width: 80px;
+        margin-bottom: 3px; }
 
-  .applyPage .applyLogo {
-    position: relative;
-    top: 0; }
-  .applyPage .applyPageLeft {
-    position: relative;
-    border-bottom: 1px solid #cccccc;
-    padding: 0 0 60px 0; }
-  .applyPage .applyPageRight {
-    padding: 0; }
-  .applyPage .poweredBy {
-    margin: 30px auto 30px auto;
-    text-align: center;
-    float: none; }
+    /***************************
+               Review
+=======
+        .applyPageLeft {
+            position: relative; 
+            border-bottom: 1px solid $color-grey-light;
+            padding: 0 0 60px 0;
+        }
+        .applyPageRight {
+            padding: 0;
+        }
+        .poweredBy {
+            margin: 30px auto 30px auto;
+            text-align: center;
+            float: none;
+        }
+    }
+    
 
-  /***************************
-          Review
-  ***************************/
+    
+    /***************************
+            Review
+>>>>>>> c78843869ab77bfb4c3d238fc98539c9ad246c0c
+    ***************************/
   .reviewCarousel .rn-carousel-control.rn-carousel-control-prev {
     left: 10px; }
 
