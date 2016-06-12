@@ -227,9 +227,12 @@ angular.module('registrationCtrl', ['authService', 'mgcrea.ngStrap'])
 	vm.isEmailVallid = true;
 	vm.emailChanging = function(email) {
 		if (!email) return;
+		/*vm.userData.email = email.split(" ").join("");*/
+		/*console.log(vm.userData.emailChanging)*/
 
 		vm.isEmailVallid = false;
 		EmailValidator.validate(email, function(result) {
+/*			console.log(result)*/
 			vm.isEmailVallid = result;
 			return;
 		})
@@ -238,12 +241,25 @@ angular.module('registrationCtrl', ['authService', 'mgcrea.ngStrap'])
 	vm.saveUser = function() {
 		vm.processing = true;
 		vm.message = '';
+		/*console.log(vm.userData)*/
+		
+		if(!vm.userData.email || !vm.isEmailVallid){
+			vm.message = "Invalid email."
+			return;
+		}
+		if(!vm.userData.name){
+			vm.message = "Missing name."
+			return;
+		}
+		if(!vm.userData.password){
+			vm.message = "Missing password."; return;
+		}
+
 		User.create(vm.userData)
 			.error(function(data) {
 				vm.message = data.message;
 			})
 			.success(function(user) {
-				/*console.log(user)*/
 				if (!user.success) return vm.message = user.message;
 				else {
 					vm.message = user.message;
