@@ -1,9 +1,14 @@
 <div class="aside" tabindex="-1" role="dialog">
   <div class="asideBg">
-    <div class="asideTitle">Sign up</div>
+    <div class="asideTitle">Free Register</div>
     <div class="custom-close" ng-hide="user.inviteReg" ng-click="$hide()"></div>
+      
+    <button type="submit" class="custom-btn-primary-large btn-registerFB" ng-click="user.checkFB()">Log in with Facebook</button>  
+      
+    <div class="dividerOR">OR</div>
+      
     <form class="container-page">
-      <div class="form-group">
+      
       <div class="form-group">
         <label>E-mail</label>
         <input type="email" class="custom-form"
@@ -11,6 +16,7 @@
                 ng-model-options='{ debounce: 1000 }'
                 ng-change="user.emailChanging(user.userData.email)">
       </div>
+      <div class="form-group">
         <label>Name</label>
         <input type="text" name="name" class="custom-form"
                 ng-model="user.userData.name"
@@ -25,11 +31,13 @@
           {{user.message}}
         </div>
 
-      <button type="submit" class="custom-btn-primary-large" ng-click="user.saveUser()">Sign up for free</button>
-      <button type="submit" class="custom-btn-primary-large" ng-click="user.checkFB()">Facebook</button>
+      <button type="submit" class="custom-btn-primary-large" ng-click="user.saveUser()">Register with E-mail</button>
+        
     </form>
-    <div class="asideMessage">
-      <p>By clicking on “Sign up for free”, I agree to BittyCasting’s <a href="/terms_of_service">terms of service.</a>
+      
+      
+    <div class="asideMessage marginTop20">
+      <p>By clicking on “Log in with Facebook” or "Register with E-mail", I agree to BittyCasting’s <a href="/terms_of_service">terms of service.</a>
       </p>
 
       <p>Already have an account? <a ng-click="nav.signin()">Sign in</a></p>

@@ -915,6 +915,44 @@ section.contact {
 .cardContainer {
   margin: 0 -15px 0 -15px; }
 
+.btn-edit, .btn-delete, .btn-share, .btn-fav, .btn-email {
+  display: inline;
+  padding-left: 38px;
+  -webkit-transition: all 0.8s ease;
+  -moz-transition: all 0.8s ease;
+  -ms-transition: all 0.8s ease;
+  -o-transition: all 0.8s ease;
+  transition: all 0.8s ease; }
+  .btn-edit:hover, .btn-edit:focus, .btn-delete:hover, .btn-delete:focus, .btn-share:hover, .btn-share:focus, .btn-fav:hover, .btn-fav:focus, .btn-email:hover, .btn-email:focus {
+    cursor: pointer;
+    background-color: #444444; }
+
+.btn-share {
+  background: url("/assets/imgs/ic_share_w.svg") no-repeat left 15px center #06bcc2;
+  background-size: 16px 16px; }
+  .btn-share:hover, .btn-share:focus {
+    background-color: #069A9F; }
+
+.btn-edit {
+  background: url("/assets/imgs/ic_edit_w.svg") no-repeat left 15px center #666666;
+  background-size: 16px 16px; }
+
+.btn-delete {
+  background: url("/assets/imgs/ic_trash_w.svg") no-repeat left 15px center #666666;
+  background-size: 16px 16px;
+  margin-left: 0px; }
+
+.btn-fav {
+  padding-left: 20px;
+  background: none;
+  background-color: #666666; }
+  .btn-fav img {
+    margin-right: 5px; }
+
+.btn-email {
+  background: url("/assets/imgs/ic_email_w.svg") no-repeat left 15px center #666666;
+  background-size: 16px 16px; }
+
 div.pageHeader {
   margin: 56px 0 28px 0;
   position: relative; }
@@ -939,40 +977,8 @@ div.pageHeader {
   div.pageHeader .custom-page-action div:last-child {
     margin-left: 0px; }
   div.pageHeader .custom-page-action .btn-edit, div.pageHeader .custom-page-action .btn-delete, div.pageHeader .custom-page-action .btn-share, div.pageHeader .custom-page-action .btn-fav, div.pageHeader .custom-page-action .btn-email {
-    display: inline;
     float: right;
-    margin-left: 5px;
-    padding-left: 38px;
-    background-color: #666666;
-    -webkit-transition: all 0.8s ease;
-    -moz-transition: all 0.8s ease;
-    -ms-transition: all 0.8s ease;
-    -o-transition: all 0.8s ease;
-    transition: all 0.8s ease; }
-    div.pageHeader .custom-page-action .btn-edit:hover, div.pageHeader .custom-page-action .btn-edit:focus, div.pageHeader .custom-page-action .btn-delete:hover, div.pageHeader .custom-page-action .btn-delete:focus, div.pageHeader .custom-page-action .btn-share:hover, div.pageHeader .custom-page-action .btn-share:focus, div.pageHeader .custom-page-action .btn-fav:hover, div.pageHeader .custom-page-action .btn-fav:focus, div.pageHeader .custom-page-action .btn-email:hover, div.pageHeader .custom-page-action .btn-email:focus {
-      cursor: pointer;
-      background-color: #444444; }
-  div.pageHeader .custom-page-action .btn-share {
-    background: url("/assets/imgs/ic_share_w.svg") no-repeat left 15px center #06bcc2;
-    background-size: 16px 16px; }
-    div.pageHeader .custom-page-action .btn-share:hover, div.pageHeader .custom-page-action .btn-share:focus {
-      background-color: #069A9F; }
-  div.pageHeader .custom-page-action .btn-edit {
-    background: url("/assets/imgs/ic_edit_w.svg") no-repeat left 15px center #666666;
-    background-size: 16px 16px; }
-  div.pageHeader .custom-page-action .btn-delete {
-    background: url("/assets/imgs/ic_trash_w.svg") no-repeat left 15px center #666666;
-    background-size: 16px 16px;
-    margin-left: 0px; }
-  div.pageHeader .custom-page-action .btn-fav {
-    padding-left: 20px;
-    background: none;
-    background-color: #666666; }
-    div.pageHeader .custom-page-action .btn-fav img {
-      margin-right: 5px; }
-  div.pageHeader .custom-page-action .btn-email {
-    background: url("/assets/imgs/ic_email_w.svg") no-repeat left 15px center #666666;
-    background-size: 16px 16px; }
+    margin-left: 5px; }
   div.pageHeader .custom-page-action-secondary .custom-page-action-secondary-title {
     font-size: 16px;
     float: left; }
@@ -1590,6 +1596,41 @@ ul.projects li {
     margin-bottom: 5px; }
   .aside section {
     margin-bottom: 28px; }
+  .aside .btn-registerFB {
+    background: url("/assets/imgs/ic_social_fb.svg") no-repeat left 15px center #3b5998;
+    background-size: 16px 16px;
+    padding-left: 30px;
+    -webkit-transition: all 0.8s ease;
+    -moz-transition: all 0.8s ease;
+    -ms-transition: all 0.8s ease;
+    -o-transition: all 0.8s ease;
+    transition: all 0.8s ease; }
+    .aside .btn-registerFB:hover, .aside .btn-registerFB:focus {
+      background-color: #2a406d; }
+  .aside .dividerOR {
+    font-size: 20px;
+    font-weight: 200;
+    color: #cccccc;
+    text-align: center;
+    margin: 20px auto;
+    position: relative;
+    width: 200px; }
+    .aside .dividerOR:after {
+      content: "";
+      background: #ccc;
+      position: absolute;
+      top: 14px;
+      right: 0;
+      height: 1px;
+      width: 70px; }
+    .aside .dividerOR:before {
+      content: "";
+      background: #ccc;
+      position: absolute;
+      top: 14px;
+      left: 0;
+      height: 1px;
+      width: 70px; }
   .aside .custom-btn-cancel {
     background-color: #666666;
     width: 49%;
@@ -2397,7 +2438,8 @@ ul.select-coverphoto-wrapper {
   padding: 30px 0 100px 0; }
   .reviewInfo table {
     font-size: 12px;
-    width: 100%; }
+    width: 100%;
+    margin-bottom: 20px; }
     .reviewInfo table tbody tr td {
       vertical-align: text-top;
       height: 32px; }

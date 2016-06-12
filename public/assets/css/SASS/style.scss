@@ -1080,6 +1080,50 @@ section {
     margin: 0 -15px 0 -15px;
 }
 
+.btn-edit, .btn-delete, .btn-share, .btn-fav, .btn-email {
+    display: inline;
+    padding-left: 38px; 
+    @include transition(all, 0.8s, ease);
+    &:hover, &:focus {
+        cursor: pointer;
+        background-color: $color-grey-darken;
+    }
+}
+
+.btn-share {            
+    background: url("/assets/imgs/ic_share_w.svg") no-repeat left 15px center $color-blue;
+    background-size: 16px 16px; 
+    &:hover, &:focus {
+        background-color: $color-blue-darken;
+    }
+
+}
+
+.btn-edit {            
+    background: url("/assets/imgs/ic_edit_w.svg") no-repeat left 15px center $color-grey-dark;
+    background-size: 16px 16px;          
+}
+
+.btn-delete {            
+    background: url("/assets/imgs/ic_trash_w.svg") no-repeat left 15px center $color-grey-dark;
+    background-size: 16px 16px;    
+    margin-left: 0px;
+}
+
+.btn-fav {
+    padding-left: 20px;
+    background: none;
+    background-color: $color-grey-dark;
+    img {
+        margin-right: 5px;
+    }
+}
+
+.btn-email {
+    background: url("/assets/imgs/ic_email_w.svg") no-repeat left 15px center $color-grey-dark;
+    background-size: 16px 16px;
+}
+
 div.pageHeader{
     margin: 56px 0 28px 0;
     position: relative;
@@ -1104,50 +1148,8 @@ div.pageHeader{
         }
         
         .btn-edit, .btn-delete, .btn-share, .btn-fav, .btn-email {
-            display: inline;
             float: right;
             margin-left: 5px;
-            padding-left: 38px; 
-            background-color: $color-grey-dark;
-            @include transition(all, 0.8s, ease);
-            &:hover, &:focus {
-                cursor: pointer;
-                background-color: $color-grey-darken;
-            }
-        }
-        
-        .btn-share {            
-            background: url("/assets/imgs/ic_share_w.svg") no-repeat left 15px center $color-blue;
-            background-size: 16px 16px; 
-            &:hover, &:focus {
-                background-color: $color-blue-darken;
-            }
-            
-        }
-        
-        .btn-edit {            
-            background: url("/assets/imgs/ic_edit_w.svg") no-repeat left 15px center $color-grey-dark;
-            background-size: 16px 16px;          
-        }
-        
-        .btn-delete {            
-            background: url("/assets/imgs/ic_trash_w.svg") no-repeat left 15px center $color-grey-dark;
-            background-size: 16px 16px;    
-            margin-left: 0px;
-        }
-        
-        .btn-fav {
-            padding-left: 20px;
-            background: none;
-            background-color: $color-grey-dark;
-            img {
-                margin-right: 5px;
-            }
-        }
-        
-        .btn-email {
-            background: url("/assets/imgs/ic_email_w.svg") no-repeat left 15px center $color-grey-dark;
-            background-size: 16px 16px;
         }
     }
 
@@ -1776,6 +1778,44 @@ ul.projects li {
     
     section {
         margin-bottom: 28px;
+    }
+    
+    .btn-registerFB {   
+        background: url("/assets/imgs/ic_social_fb.svg") no-repeat left 15px center #3b5998;
+        background-size: 16px 16px;
+        padding-left: 30px;
+        @include transition(all, 0.8s, ease);      
+        &:hover, &:focus {
+            background-color: #2a406d;
+        }    
+    }
+    
+    .dividerOR {
+        font-size: 20px;
+        font-weight: 200;
+        color: $color-grey-light;
+        text-align: center;
+        margin: 20px auto;
+        position: relative;
+        width: 200px;
+        &:after {
+            content:""; 
+            background: #ccc; 
+            position: absolute; 
+            top: 14px; 
+            right: 0; 
+            height: 1px; 
+            width: 70px;
+        }
+        &:before {
+            content:""; 
+            background: #ccc; 
+            position: absolute; 
+            top: 14px; 
+            left: 0;
+            height: 1px; 
+            width: 70px;
+        }
     }
     
     .custom-btn-cancel {
@@ -2647,6 +2687,7 @@ text-align: center;
     table {
         font-size: $font-size-regular;
         width: 100%;
+        margin-bottom: 20px;
         tbody tr td{
             vertical-align: text-top;
             height: 32px;
