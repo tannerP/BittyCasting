@@ -10,7 +10,7 @@
 						<th>First name</th>  
 						<th>Last name</th>
 						<th>E-mail</th>
-						<th>Gender</th>
+						<th>Agent</th>
 						<th>Phone</th>
 						<th>Requirements</th>
 						<th>Comments</th>
@@ -38,7 +38,13 @@
 					</div>
 				</td>
 				<td>
-					<div class="custom-dropdown" uib-dropdown is-open="false">
+					<div class="custom-form">
+						<input type="text" class="custom-form"
+						placeholder="Agent"
+						ng-model="page.newData.agent">
+					</div>
+
+			<!-- 		<div class="custom-dropdown" uib-dropdown is-open="false">
 						<span type="text" class="custom-form" uib-dropdown-toggle ng-disabled="disabled">
 							{{page.newData.gender || "Gender"}}</span>
 							<ul uib-dropdown-menu role="menu" 
@@ -54,7 +60,7 @@
 									</a>
 								</li>
 							</ul>
-						</div>
+						</div> -->
 					</td>
 					<td>
 						<div class="custom-form">
