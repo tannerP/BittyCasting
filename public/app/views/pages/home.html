@@ -44,8 +44,8 @@
                   <div class="cardSubTitle">Role(s): {{project.num_roles}}</div>
                   <div class='actionBar'>
                     <ul>
-                      <li class="trashcan" ng-click='home.deleteBtn(project)'></li>
-
+                      <li ng-show="!project.collab" class="trashcan" ng-click='home.deleteBtn(project)'></li>
+                      <li ng-show="project.collab" class="" ng-click='home.deleteBtn(project)'> Leave project</li>
                       <!--                                        <li class="duplicate"></li>-->
                     </ul>
                   </div>

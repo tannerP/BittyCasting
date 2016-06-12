@@ -1,6 +1,11 @@
 <div class="aside" tabindex="-1" role="dialog">
   <div class="asideBg">
-    <div class="asideTitle" ng-if="projectAside.delete">Deleting project: <br><span>{{projectData.name}}</span></div>
+    <div
+      ng-show="projectData.collab"
+     class="asideTitle" ng-if="projectAside.delete">Leaving project: <br><span>{{projectData.name}}</span></div>
+    <div 
+    ng-show="!projectData.collab"
+    class="asideTitle" ng-if="projectAside.delete">Deleting project: <br><span>{{projectData.name}}</span></div>
 
 <!--
         <label>
@@ -9,11 +14,22 @@
           All roles associated with this project will be deleted.
         </label>
 -->
-        <p>All applicants and their files associated with roles in this project will be deleted. This action is irreversible.</p>
+        <p ng-show="!projectData.collab">All applicants and their files associated with roles in this project will be deleted. This action is irreversible.</p>
+        <p ng-show="projectData.collab">If you leave you will no longer able to view this project.</p>
 
     <button type="button" class="custom-btn-primary-large custom-btn-cancel" ng-click="$hide()">Cancel</button>
 
-    <button type="submit" class="custom-btn-primary-large custom-btn-delete" ng-click="projectAside.delete(projectData)">Delete</button>
+    <!-- <button type="submit" class="custom-btn-primary-large custom-btn-delete" ng-click="projectAside.delete(projectData)">Delete</button> -->
+    <button ng-show="!projectData.collab"
+            type="submit" 
+            class="custom-btn-primary-large custom-btn-delete"
+            ng-click="projectAside.delete(projectData)">
+            Delete</button>
+    <button ng-show="projectData.collab"
+            type="submit" 
+            class="custom-btn-primary-large custom-btn-delete"
+             ng-click="projectAside.delete(projectData)">
+             Leave</button>
 
   </div>
 </div>

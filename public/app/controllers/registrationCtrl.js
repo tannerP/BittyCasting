@@ -158,8 +158,10 @@ angular.module('registrationCtrl', ['authService', 'mgcrea.ngStrap'])
 						$scope.hide();
 						vm.userData = {};
 						vm.processing = false;
-						vm.message = "Successfully registered. Please log in to access your account."
-						$location.path('/home');
+						vm.message = "Successfully registered. You are being directed to the project."
+						$timeout(function(){
+							$location.path('/');	
+						})
 						return;
 					}
 				});
