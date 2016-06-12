@@ -1,18 +1,19 @@
 <div class="aside" tabindex="-1" role="dialog">
   <div class="asideBg">
 
-    <div class="asideTitle">Sign in</div>
+    <div class="asideTitle">Log in</div>
 
     <div ng-if="!login.processing"
          type="button"
          class="custom-close"
          ng-click="$hide()"></div>
 
+    <button type="submit" class="custom-btn-primary-large btn-registerFB" ng-click="user.checkFB()">Log in with Facebook</button>  
+      
+    <div class="dividerOR">OR</div>  
+      
+      
     <form ng-submit="login.doLogin(email,password)">
-      <!-- ERROR ICON -->
-      <div class="custom-alert" ng-if="login.error">
-        {{login.error}}
-      </div>
       <!-- USERNAME INPUT -->
       <div class="form-group">
         <label>E-mail</label>
@@ -23,15 +24,17 @@
         <label>Password</label>
         <input type="password" class="custom-form" ng-model="password" >
       </div>
+      <!-- ERROR ICON -->
+      <div class="custom-alert" ng-if="login.error">
+        {{login.error}}
+      </div>
       <button type="submit" class="custom-btn-primary-large">
-        <span>Sign in</span>
+        <span>Log in</span>
       </button>
     </form>
 
     <div class="asideMessage marginTop20">
-      <p>Forget password?</p>
-      <!-- <br> -->
-        <a ng-hide="login.resetPassword" href="#" ng-click="nav.resetPass()">Reset Password</a>
+        <p>Forget password? <a ng-hide="login.resetPassword" href="#" ng-click="nav.resetPass()">Reset</a></p>
         <!-- <a href="mailto:support@bittycasting.com">support@bittycasting.com</a> -->
       </div>
       

@@ -232,7 +232,7 @@ a {
     &:hover, &:focus {
         text-decoration: none;
         color: $color-blue-lighten;
-        @include transition(all, 0.2s, ease);
+        cursor: pointer;
     }  
 }
 
@@ -3106,7 +3106,7 @@ text-align: center;
         li {
             display: inline-block;
             text-align: center;
-            width: 100%;
+            width: 50%;
             float: left;
         }
         .nav-register, .nav-signin {
