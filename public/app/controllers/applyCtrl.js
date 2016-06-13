@@ -6,27 +6,33 @@ angular.module('applyCtrl', ['userService', 'mgcrea.ngStrap'])
     /*console.log(scope)
     console.log(controller)*/
     /*console.log(scope)*/
+
+    //search for the furthest date in the future.
     scope.$watch('ppv.roles', function(newRoles, oldRoles){
-      
-
-      /*var deadline;
+      var furthestDeadline;
       for(var i in newRoles){
-        var endTime = new Date(deadline[0]);
-
-        deadline = 
-      }*/
-      /*console.log(deadline)
+        console.log(newRoles[i])
+        var endTime = new Date(newRoles[i].end_time);
+        if(!furthestDeadline || furthestDeadline < endTime){
+          furthestDeadline = endTime;
+        }
+      }
+      /*console.log(deadline)*/
       var now = new Date();
-      var isExpired = endTime < now 
-      scope.expired = isExpired;*/
-      /*if(newVal &&newVal.length ===1){
-        controller.requirements = newVal[0].requirements;
-      }*/
+      if(furthestDeadline > now) var isExpired = false;
+      else var isExpired = true;
+      
+      scope.expired = isExpired;
+
+      if(newRoles && newRoles.length === 1){
+        controller.requirements = newRoles[0].requirements;
+      }
+
     })
     return;
   }
 
-  var publicController = function(Applicant, AWS,
+  var formController = function(Applicant, AWS,
     $location, $routeParams, $scope,
     $rootScope, $aside, $route, $timeout, $window) {
     var vm = this;
@@ -37,6 +43,17 @@ angular.module('applyCtrl', ['userService', 'mgcrea.ngStrap'])
       console.log(data2)
     });*/
     /*vm.currRoleID = vm.roles[0]._id*/
+    /*console.log($scope.expired)*/
+    vm.formStyle = function(){
+      if($scope.expired){
+        return {opacity: 0.2, filter: 'alpha(opacity=20)',}
+      }
+      else{
+        return {'background-color':"blue"};
+      }
+
+    }
+
     vm.loggedIn = false;
     if ($rootScope.user) {
       vm.loggedIn = true;
@@ -111,18 +128,19 @@ angular.module('applyCtrl', ['userService', 'mgcrea.ngStrap'])
       /*console.log(files)
       console.log(index)
       console.log(requirement)*/
-
-      if (!vm.files[index] || vm.files[index].length < 1) {
-        vm.files[index] = new Array();
-      }
-
-      for (var i in files) {
-        var file = {};
-        file.requirement = requirement;
-        file.file = files[i]
-        vm.files[index].push(file)
-      }
-    }
+      if(!$scope.expired)
+      {
+        if (!vm.files[index] || vm.files[index].length < 1) {
+              vm.files[index] = new Array();
+            }
+      
+            for (var i in files) {
+              var file = {};
+              file.requirement = requirement;
+              file.file = files[i]
+              vm.files[index].push(file)
+            }
+          }}
     vm.removeFile = function(rIndex, fIndex) {
       if (vm.files[rIndex][fIndex]) {
         vm.files[rIndex].splice(fIndex, 1);
@@ -134,11 +152,12 @@ angular.module('applyCtrl', ['userService', 'mgcrea.ngStrap'])
 
     vm.addLink = function(arr_index, name) {
       var link = {};
-
-      link.name = name;
-      link.source = vm.newLinks[arr_index];
-      vm.appData.links.push(link)
-      vm.newLinks[arr_index] = "";
+      if(!$scope.expired)
+      {
+        link.name = name;
+        link.source = vm.newLinks[arr_index];
+        vm.appData.links.push(link)
+        vm.newLinks[arr_index] = "";}
     }
 
     vm.removeLink = function(index) {
@@ -249,7 +268,7 @@ angular.module('applyCtrl', ['userService', 'mgcrea.ngStrap'])
                 finishedFileCount++;
                 /*console.log("num files updated toDB " 
                   + finishedFileCount)*/
-                console.log("num files: " + numFiles)
+                /*console.log("num files: " + numFiles)*/
                 if (finishedFileCount === numFiles) {
                   $location.path('/Thankyou');
                 }
@@ -268,7 +287,7 @@ angular.module('applyCtrl', ['userService', 'mgcrea.ngStrap'])
     },
     templateUrl: 'app/views/pages/Apply.html',
     link: link,
-    controller: publicController,
+    controller: formController,
     controllerAs: 'ppv',
     bindToController: true,
     //required Angular V1.3 and above to associate scope to value "ppv"

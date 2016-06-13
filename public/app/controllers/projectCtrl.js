@@ -859,14 +859,14 @@ angular.module('projectCtrl', ['userService',
 
       }
       vm.processing = false;
-      console.log(vm.processing)
+      /*console.log(vm.processing)*/
       vm.createRoleBtn = function() {
 
         /*vm.processing = true;*/
         vm.projectID = $routeParams.project_id;
         vm.roleData.end_date = $scope.selectedDate.toJSON();
         /*vm.roleData.end_time = $scope.selectedTime.toJSON();*/
-        vm.roleData.end_time;
+        /*vm.roleData.end_time;*/
         if (vm.newData.name) {
           vm.addReqt(vm.newData);
         }

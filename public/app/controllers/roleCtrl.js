@@ -180,9 +180,9 @@ angular.module('roleCtrl', ['userService',
       }
 
       $scope.isActive = function(index){
-        console.log(index)
+        /*console.log(index)*/
         var curCarIndex = $scope.carouselIndex; 
-        console.log(curCarIndex)
+        /*console.log(curCarIndex)*/
         if(curCarIndex === index)
           {console.log("Actives")}
         else{
@@ -305,9 +305,9 @@ angular.module('roleCtrl', ['userService',
         Applicant.viewedUpdate(app._id, roleID);
       }
       vm.updateFav = function(index, aplnt, roleID) {
-        console.log(aplnt.favorited)
+        /*console.log(aplnt.favorited)*/
         aplnt.favorited = !aplnt.favorited;
-        console.log(aplnt.favorited)
+        /*console.log(aplnt.favorited)*/
           /*        vm.applicants[index].favorited = !vm.applicants[index].favorited */
 
         /*aplnt.favorited = !aplnt.favorited;*/
@@ -330,7 +330,7 @@ angular.module('roleCtrl', ['userService',
             deleteAppAside.hide();
           })
           .error(function(err) {
-            console.log(err);
+            /*console.log(err);*/
             deleteAppAside.hide();
           })
 

@@ -1,197 +1,205 @@
  <div class="applyPage">
-		<div class="applyPageLeftBg"></div>
-		<div class="container">
-				<img class="applyLogo" ng-src="assets/imgs/logo_BittyCasting_B.svg">
-				<div ng-if="ppv.loggedIn" class="custom-close-overlay" ng-click="ppv.back()"></div>
-				<section class="col-md-6 col-sm-6">
-						<div class="applyPageLeft">
-								<div class='pageTitle'>Project<!-- <span>s</span> --></div>
-								<div class='pageSubtitle'>{{ppv.project.name}}</div> <!-- Remove tag causes displaying bug -->
-								<p ng-bind-html="ppv.project.description | linky"></p>
-								<img ng-src="{{ppv.project.coverphoto.source ||'assets/imgs/img_projectCover01.png'}}" class="img-responsive">
-								<div class='pageTitle'>Roles<!-- <span>s</span> --></div>
-								<ul>
-										<li ng-if="ppv.roles.length > 0"
-												ng-repeat="role in ppv.roles"
-												class="roles-dynamics"
-												ng-click="ppv.update_CurRole(role)"
-												ng-class="ppv.isSelected(role._id)">
-												{{role.name}}
-										</li>              
-								</ul>
-								
-															<p ng-init=""
-								ng-bind-html="ppv.curRole.description || ppv.roles[0].description | linky"></p>
-														
-								<div class="div-table">
-										 <div class="div-table-row" ng-if="ppv.curRole.usage || ppv.roles[0].usage">
-												<div class="div-table-col div-table-row-header">Usage</div>
-												<div style="white-space: pre-wrap" class="div-table-col">{{ppv.curRole.usage || ppv.roles[0].usage }}</div>
-										</div>
-										 <div class="div-table-row" ng-if="ppv.curRole.compensation || ppv.roles[0].compensation">
-												<div class="div-table-col div-table-row-header">Compensation</div>
-												<div style="white-space: pre-wrap" class="div-table-col">{{ppv.curRole.compensation || ppv.roles[0].compensation }}</div>
-										</div>
-										<div class="div-table-row" ng-if="ppv.curRole.sex || ppv.roles[0].sex">
-												<div class="div-table-col div-table-row-header">Gender</div>
-												<div class="div-table-col">{{ppv.curRole.sex || 
-													ppv.roles[0].sex}}</div>
-										</div>
-												<div class="div-table-row" ng-if="ppv.curRole.age || 			ppv.roles[0].age">
-												<div class="div-table-col div-table-row-header">Age Range</div>
-												<div class="div-table-col">{{ppv.curRole.age || 
-													ppv.roles[0].age}}</div>
-										</div>
-								</div>
+ 	<div class="applyPageLeftBg"></div>
+ 	<div class="container">
+ 		<img class="applyLogo" ng-src="assets/imgs/logo_BittyCasting_B.svg">
+ 		<div ng-if="ppv.loggedIn" class="custom-close-overlay" ng-click="ppv.back()"></div>
+ 		<section class="col-md-6 col-sm-6">
+ 			<div class="applyPageLeft">
+ 				<div class='pageTitle'>Project<!-- <span>s</span> --></div>
+ 				<div class='pageSubtitle'>{{ppv.project.name}} <span ng-if="expired">(Closed)</span></div> <!-- Remove tag causes
+ 				 displaying bug -->
+ 				<p ng-bind-html="ppv.project.description | linky"></p>
+ 				<img ng-src="{{ppv.project.coverphoto.source ||'assets/imgs/img_projectCover01.png'}}" class="img-responsive">
+ 				<div class='pageTitle'>Roles<!-- <span>s</span> --></div>
+ 				<ul>
+ 					<li ng-if="ppv.roles.length > 0"
+ 						ng-repeat="role in ppv.roles"
+ 						class="roles-dynamics"
+ 						ng-click="ppv.update_CurRole(role)"
+ 						ng-class="ppv.isSelected(role._id)">
+ 						{{role.name}}
+ 					</li>              
+ 				</ul>
 
-								
-						</div>
-						<!-- <audio ng-if="currFile" controls ngf-src="currFile"> -->
-				</section>
-				<!-- Application Form --> 
+ 				<p ng-init=""
+ 				ng-bind-html="ppv.curRole.description || ppv.roles[0].description | linky"></p>
 
-				<section class="col-md-6 col-sm-6 containerApplyMobileBottom" ng-if="!expired">
+ 				<div class="div-table">
+ 					<div class="div-table-row" ng-if="ppv.curRole.usage || ppv.roles[0].usage">
+ 						<div class="div-table-col div-table-row-header">Usage</div>
+ 						<div style="white-space: pre-wrap" class="div-table-col">{{ppv.curRole.usage || ppv.roles[0].usage }}</div>
+ 					</div>
+ 					<div class="div-table-row" ng-if="ppv.curRole.compensation || ppv.roles[0].compensation">
+ 						<div class="div-table-col div-table-row-header">Compensation</div>
+ 						<div style="white-space: pre-wrap" class="div-table-col">{{ppv.curRole.compensation || ppv.roles[0].compensation }}</div>
+ 					</div>
+ 					<div class="div-table-row" ng-if="ppv.curRole.sex || ppv.roles[0].sex">
+ 						<div class="div-table-col div-table-row-header">Gender</div>
+ 						<div class="div-table-col">{{ppv.curRole.sex || 
+ 							ppv.roles[0].sex}}</div>
+ 						</div>
+ 						<div class="div-table-row" ng-if="ppv.curRole.age || 			ppv.roles[0].age">
+ 							<div class="div-table-col div-table-row-header">Age Range</div>
+ 							<div class="div-table-col">{{ppv.curRole.age || 
+ 								ppv.roles[0].age}}</div>
+ 							</div>
+ 						</div>
 
-						<div class="applyPageRight">
 
-								 <div class='pageTitle'>Apply</div>
-																 <div class='pageSubtitle'
-																			 ng-if="ppv.roles.length < 2">
-                                                                 Deadline: 
-																 {{ ppv.roles[0].end_date | date:'mediumDate' }}
-																 
-																 </div> 
-								 
-												<form ng-submit="ppv.submit()" name="form" class="css-form">
-														<div class = "form-group" ng-if="ppv.roles.length >1">
-																<label>Please check the box next to the role(s) you are applying for.<span></span></label>    
-														</div>
-														<ul class="custom-checkbox" ng-if="ppv.roles.length > 1">
-																<li ng-repeat="role in ppv.roles">
-																		<label><input type="checkbox" ng-click="ppv.toggleRole(role._id,role.requirements)">
-																		<span class="custom-checkbox-style"></span>{{role.name}}
-																	<span class="applicationDeadline">(Deadline: {{ ppv.roles[0].end_date | date:'mediumDate'}})</span>
-</label>
+ 					</div>
+ 					<!-- <audio ng-if="currFile" controls ngf-src="currFile"> -->
+ 				</section>
+ 				<!-- Application Form --> 
+
+ 				<section class="col-md-6 col-sm-6 containerApplyMobileBottom" ng-style="ppv.formStyle();">
+
+ 					<div class="applyPageRight">
+
+ 						<div class='pageTitle'>Apply</div>
+ 						<div class='pageSubtitle'
+ 						ng-if="ppv.roles.length < 2">
+ 						Deadline: 
+ 						{{ ppv.roles[0].end_date | date:'mediumDate' }}
+
+ 					</div> 
+
+ 					<form ng-submit="ppv.submit()" name="form" class="css-form">
+ 						<div class = "form-group" ng-if="ppv.roles.length >1">
+ 							<label>Please check the box next to the role(s) you are applying for.<span></span></label>    
+ 						</div>
+ 						<ul class="custom-checkbox" ng-if="ppv.roles.length > 1">
+ 							<li ng-repeat="role in ppv.roles">
+ 								<label>
+ 									<input type="checkbox"
+ 									ng-click="ppv.toggleRole(role._id,role.requirements)">
+ 									<span class="custom-checkbox-style"></span>{{role.name}}
+ 									<span class="applicationDeadline">(Deadline: {{ ppv.roles[0].end_date | date:'mediumDate'}})</span>
+ 								</label>
 																						<!-- <span 
 																						ng-click="ppv.toggleRole(role._id,role.requirements)" ng-class="{'btn':ppv.isSelected(role._id)}"></span> {{role.name}} -->
-																</li>
-														</ul>            
-														
-														<div class = "form-group">
-																<label>First name<span></span></label>
-																<input type = "text" class="custom-form"  ng-model="ppv.appData.name.first" required>
-														</div>
-														<div class = "form-group">
-																<label>Last name<span class='required'></span></label>
-																<input type = "text" class = "custom-form" ng-model="ppv.appData.name.last" required>
-														</div>
-														<div class = "form-group">
-																<label>E-mail<span></span></label>
-																<input type = "email" class = "custom-form" ng-model="ppv.appData.email" required>
-														</div>   
-														<div class = "form-group">
-																<label>Phone number</label>
-																<input type = "tel" class = "custom-form" ng-model="ppv.appData.phone" maxlength="25">
-														</div>
+																					</li>
+																				</ul>            
+
+																				<div class = "form-group">
+																					<label>First name<span></span></label>
+																					<input type = "text" class="custom-form" 
+																					ng-model="ppv.appData.name.first"
+																					ng-disabled="expired" required>
+																				</div>
+																				<div class = "form-group">
+																					<label>Last name<span class='required'></span></label>
+																					<input type = "text" class = "custom-form"
+																					ng-model="ppv.appData.name.last"
+																					ng-disabled="expired" required>
+																				</div>
+																				<div class = "form-group">
+																					<label>E-mail<span></span></label>
+																					<input type = "email" class = "custom-form"
+																					ng-model="ppv.appData.email"
+																					ng-disabled="expired" required>
+																				</div>   
+																				<div class = "form-group">
+																					<label>Phone number</label>
+																					<input type = "tel" class = "custom-form"
+																					ng-model="ppv.appData.phone" maxlength="25"
+																					ng-disabled="expired">
+																				</div>
 
 														<!-- <div class = "form-group">
 																<label>Age</label>
 																<input type = "tel" class = "custom-form" ng-model="ppv.appData.age" maxlength="10">
-														</div> -->
-																												<div class = "form-group">
+															</div> -->
+															<div class = "form-group">
 																<label>Agent name (if applicable)</label>
-																<input type = "text" class = "custom-form" ng-model="ppv.appData.agent" maxlength="25">
-														</div>
-																										
-																										
-														<div class = "form-group">
+																<input type = "text" class = "custom-form"
+																ng-disabled="expired" ng-model="ppv.appData.agent" maxlength="25" ng-disabled="expired">
+															</div>
+
+
+															<div class = "form-group">
 																<label>Message/Links</label>
-																<textarea type = "text" class = "custom-form-textarea" ng-model="ppv.appData.message" rows="4">
+																<textarea type = "text" class = "custom-form-textarea" ng-model="ppv.appData.message" rows="4" ng-disabled="expired">
 																</textarea>
-														</div>                                            
+															</div>                                            
 
 
-														<div class = "form-group" 
-														ng-repeat="rq in ppv.requirements | uniq: 'name'"
-														ng-init="rIndex = $index">
-														<label>{{rq.name}}<span ng-if="rq.required"></span></label>
-														<!-- Fil Uploader -->
+															<div class = "form-group" 
+															ng-repeat="rq in ppv.requirements | uniq: 'name'"
+															ng-init="rIndex = $index">
+															<label>{{rq.name}}<span ng-if="rq.required"></span></label>
+															<!-- Fil Uploader -->
 																<!-- <div ng-if="rq.file_type != 'link'" class="drop-box" ngf-drop ng-model="ppv.files[$index]" ngf-max-size="500MB" ngf-model-invalid="errors" ngf-accept="'application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/pdf,image/*,video/*'"
 																ngf-pattern="'application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/pdf,image/*,video/*'"
 																ngf-min-size="100"
 																ngf-max-size="250MB" ng-required="true"> -->
 																<!-- Select File -->
-																 <div ng-if="ppv.files[rIndex].length < 1 || !ppv.files[rIndex]">
-																																		 
-																		 <a name="file" 
-																				ngf-accept="'application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/pdf,image/*,video/*'"
-																				ngf-pattern="'application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/pdf,image/*,video/*'"
-																				ngf-before-model-change= "errors = '' "
-																				ngf-min-size="100"
-																				ngf-max-size="500MB"
-																				ngf-model-invalid="errors"
-																				ng-model="$files"
-																				ngf-multiple="true"
-																				ngf-select="ppv.addFile($files, rq, rIndex)">
-																			<span ng-if="!ppv.isNewLink[rIndex]">
-																				Upload
-																			</span>
-																		</a><spam ng-show="!ppv.isNewLink[rIndex]"> /</spam>
-																					<a ng-show="!ppv.isNewLink[rIndex]"
-																					ng-init="ppv.isNewLink[rIndex] = false"
-																					ng-click="ppv.isNewLink[rIndex] = !ppv.isNewLink[rIndex];
-																					ppv.newLinks[rIndex]='' ">Link</a>
-																																		 
-																																		 
-																																				<div class="custom-form" ng-show="ppv.isNewLink[rIndex]">  
-																																						<input ng-model="ppv.newLinks[rIndex]"
-																						placeholder="http://" class="inputShort">
-																																						<img class="upload-cancel" src="/assets/imgs/ic_cross_lightgrey.svg"
-																																									ng-click="ppv.isNewLink[rIndex] = !ppv.isNewLink[rIndex];
-																					ppv.newLinks[rIndex]='' ">
-																																				</div>
-																																		 
-																		
-																		
-																		</div>
+																<div ng-if="ppv.files[rIndex].length < 1 || !ppv.files[rIndex]">																 
+																	<a name="file" 
+																	ngf-accept="'application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/pdf,image/*,video/*'"
+																	ngf-pattern="'application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/pdf,image/*,video/*'"
+																	ngf-before-model-change= "errors = '' "
+																	ngf-min-size="100"
+																	ngf-max-size="500MB"
+																	ngf-model-invalid="errors"
+																	ng-model="$files"
+																	ngf-multiple="true"
+																	ngf-select="ppv.addFile($files, rq, rIndex)">
+																	<span ng-if="!ppv.isNewLink[rIndex]">
+																		Upload
+																	</span>
+																</a><spam ng-show="!ppv.isNewLink[rIndex]"> /</spam>
+																<a ng-show="!ppv.isNewLink[rIndex]"
+																ng-init="ppv.isNewLink[rIndex] = false"
+																ng-click="ppv.isNewLink[rIndex] = !ppv.isNewLink[rIndex];
+																ppv.newLinks[rIndex]='' ">Link</a>
+
+
+																<div class="custom-form" ng-show="ppv.isNewLink[rIndex]">  
+																	<input ng-model="ppv.newLinks[rIndex]"
+																	placeholder="http://" class="inputShort">
+																	<img class="upload-cancel" src="/assets/imgs/ic_cross_lightgrey.svg"
+																	ng-click="ppv.isNewLink[rIndex] = !ppv.isNewLink[rIndex];
+																	ppv.newLinks[rIndex]='' ">
+																</div>
+															</div>
 
 																		<!-- {{ppv.files.length}}
 																		{{ppv.files[fIndex].length}}
 																		<span ng-repeat="file in ppv.files[fIndex]">
 																				{{file.file.name}}
-																		</span> -->
+																			</span> -->
 
-																		<div
-																				class="div-table-col-attachments"
-																				ng-repeat="file in ppv.files[rIndex]"
-																				ng-init="fIndex = $index">
-																				<span>	
-																					
-																					<img ng-if="file.file.type.indexOf(
-																					'image') > -1" 
-																							style ="height:40px; width:auto"
-																							ngf-thumbnail="file.file || 'Attachment'" class="uploadImg">
-																					
-																					<video ng-if="file.file.type.indexOf(
-																					'video') >-1" 
-																									style ="height:40px; width:auto"
-																									controls ngf-src="file.file">
-																					</video>					
-																							{{file.file.name | limitTo:18}}
-<!--                                                                                    <span ng-click='ppv.removeFile(rIndex,fIndex)'>Delete</span>    -->
-																							
-																							<span><img class="upload-cancel" src="/assets/imgs/ic_cross_lightgrey.svg" ng-click='ppv.removeFile(rIndex,$index)'></span>
-																							<span 	name="file" style ="height:40px; width:auto"
-																								ngf-accept="'application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/pdf,image/*,video/*'"
-																								ngf-pattern="'application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/pdf,image/*,video/*'"
-																								ngf-before-model-change= "errors = '' "
-																								ngf-min-size="100"
-																								ngf-max-size="500MB"
-																								ngf-model-invalid="errors"
-																								ng-model="$files"
-																								ngf-multiple="true"
-																								ngf-select="ppv.addFile($files, rq, rIndex)">
-																									<a ng-show="ppv.isLast($index, ppv.files[rIndex])" class="uploadAddMore">Add more</a>
+																			<div
+																			class="div-table-col-attachments"
+																			ng-repeat="file in ppv.files[rIndex]"
+																			ng-init="fIndex = $index">
+																			<span>	
+
+																				<img ng-if="file.file.type.indexOf(
+																				'image') > -1" 
+																				style ="height:40px; width:auto"
+																				ngf-thumbnail="file.file || 'Attachment'" class="uploadImg">
+
+																				<video ng-if="file.file.type.indexOf(
+																				'video') >-1" 
+																				style ="height:40px; width:auto"
+																				controls ngf-src="file.file">
+																			</video>					
+																			{{file.file.name | limitTo:18}}
+																			<!--                                                                                    <span ng-click='ppv.removeFile(rIndex,fIndex)'>Delete</span>    -->
+
+																			<span><img class="upload-cancel" src="/assets/imgs/ic_cross_lightgrey.svg" ng-click='ppv.removeFile(rIndex,$index)'></span>
+																			<span 	name="file" style ="height:40px; width:auto"
+																			ngf-accept="'application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/pdf,image/*,video/*'"
+																			ngf-pattern="'application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/pdf,image/*,video/*'"
+																			ngf-before-model-change= "errors = '' "
+																			ngf-min-size="100"
+																			ngf-max-size="500MB"
+																			ngf-model-invalid="errors"
+																			ng-model="$files"
+																			ngf-multiple="true"
+																			ngf-select="ppv.addFile($files, rq, rIndex)">
+																			<a ng-show="ppv.isLast($index, ppv.files[rIndex])" class="uploadAddMore">Add more</a>
 
 																		</div>
 																<!-- 					ng-if="file.file.type.indexOf('image') > -1"
@@ -209,25 +217,25 @@
 																<input class="applyAddLink" type="text" ng-model="ppv.newLinks[$index]" placeholder="http://">  
 																<span>{{newLink}}</span>                
 																<span ng-click="ppv.addLink($index,rq)"><img src="/assets/imgs/ic_plus.svg" width="16px" height="16px"></span> -->
-													</div>
-												<div ng-if="errors" class ="custom-alert" >
-														<p>Whoops, the file format was invalid.</p>
-														<p ng-if="errors.requirements"> {{errors.requirements.message}}</p>
-												</div>
-													<div ng-if="ppv.message"  class ="custom-alert">
-														{{ppv.message}}
-													</div>   
-												<div ng-show="ppv.processing" class="custom-loader"><img style ="height:60px; width:auto"
-												ng-src='/assets/imgs/spin.gif'></div>  
+															</div>
+															<div ng-if="errors" class ="custom-alert" >
+																<p>Whoops, the file format was invalid.</p>
+																<p ng-if="errors.requirements"> {{errors.requirements.message}}</p>
+															</div>
+															<div ng-if="ppv.message"  class ="custom-alert">
+																{{ppv.message}}
+															</div>   
+															<div ng-show="ppv.processing" class="custom-loader"><img style ="height:60px; width:auto"
+																ng-src='/assets/imgs/spin.gif'></div>  
 
-												<button type="submit" ng-show="!ppv.processing" class="custom-btn-primary-large">Submit</button>
+																<button type="submit" ng-show="!ppv.processing" class="custom-btn-primary-large">Submit</button>
 
-												<p class="btn_paragraph">By clicking on “Submit”, I agree to BittyCasting’s <a href="/submission_agreement" target="_blank">submission agreement.</a></p>
-														<div class="poweredBy">
-																<p>Powered by<a href="/" target="_blank"><img class="powerLogo" ng-src="assets/imgs/logo_BittyCasting.svg"></a></p>
+																<p class="btn_paragraph">By clicking on “Submit”, I agree to BittyCasting’s <a href="/submission_agreement" target="_blank">submission agreement.</a></p>
+																<div class="poweredBy">
+																	<p>Powered by<a href="/" target="_blank"><img class="powerLogo" ng-src="assets/imgs/logo_BittyCasting.svg"></a></p>
+																</div>  
+															</form>	
 														</div>  
-										</form>	
-								</div>  
-						</section>
-				</div>
-</div>
+													</section>
+												</div>
+											</div>
