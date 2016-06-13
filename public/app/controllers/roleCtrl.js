@@ -430,10 +430,10 @@ angular.module('roleCtrl', ['userService',
       }
 
       $scope.descriptionLength = 15;
-      var isTruncated = false;
+       vm.isTruncated = false;
       vm.toggleDescription = function() {
-        isTruncated = !isTruncated;
-        if (!isTruncated) $scope.descriptionLength = 15;
+        vm.isTruncated = !vm.isTruncated;
+        if (!vm.isTruncated) $scope.descriptionLength = 15;
         else {
           var numWord = $scope.roleData.description.split(" ").length;
           $scope.descriptionLength = numWord;

@@ -19,7 +19,12 @@
       <section class="col-md-8">
         <div class="projectDetailsTitle">Description</div>
         <p ng-bind-html="roleData.description | linky | words:descriptionLength:true "></p>
-        <a href="#" ng-click="page.toggleDescription()">Show more </a>
+        <a href="#" 
+            ng-show="!page.isTruncated"
+           ng-click="page.toggleDescription()">Show more</a>
+           <a href="#" 
+           ng-show="page.isTruncated"
+           ng-click="page.toggleDescription()">Show less</a>
       </section>
 
       <section class="col-md-4">
