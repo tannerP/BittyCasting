@@ -73,6 +73,7 @@ angular.module('projectCtrl', ['userService',
             controllerAs: 'page',
             templateUrl: '/app/views/pages/collab.tmpl.html'
           });
+
           vm.collabBtn = function(data) {
             $scope.project = data;
             collabAside.$promise.then(collabAside.toggle);
@@ -106,6 +107,19 @@ angular.module('projectCtrl', ['userService',
           vm.getRoleBtn = function(id) {
             $location.path("/role/" + id)
           }
+          
+          $scope.descriptionLength = 15;
+          vm.isTruncated = false;
+          vm.toggleDescription = function(){
+            vm.isTruncated = !vm.isTruncated;            
+            if(!vm.isTruncated) $scope.descriptionLength = 15;
+            else {
+              /*console.log(vm.project.description)*/
+              var numWord = vm.project.description.split(" ").length;
+              $scope.descriptionLength = numWord;
+            }
+          }
+
           vm.back = function() {
             $window.history.back();
           }
@@ -859,14 +873,14 @@ angular.module('projectCtrl', ['userService',
 
       }
       vm.processing = false;
-      console.log(vm.processing)
+      /*console.log(vm.processing)*/
       vm.createRoleBtn = function() {
 
         /*vm.processing = true;*/
         vm.projectID = $routeParams.project_id;
         vm.roleData.end_date = $scope.selectedDate.toJSON();
         /*vm.roleData.end_time = $scope.selectedTime.toJSON();*/
-        vm.roleData.end_time;
+        /*vm.roleData.end_time;*/
         if (vm.newData.name) {
           vm.addReqt(vm.newData);
         }

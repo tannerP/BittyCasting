@@ -111,6 +111,7 @@
                 <div class="custom-dropdown" uib-dropdown is-open="false">
                     <span type="text" class="custom-form" uib-dropdown-toggle ng-disabled="disabled">{{vm.roleData.sex || "Any"}}</span>
                     <ul uib-dropdown-menu role="menu" aria-labelledby="single-button">
+                        <li role="menuitem"><a href="#" ng-click="vm.roleData.sex = null">Any</a></li>
                         <li role="menuitem"><a href="#" ng-click="vm.roleData.sex = 'Female'">Female</a></li>
                         <li role="menuitem"><a href="#" ng-click="vm.roleData.sex = 'Male'">Male</a></li>
                     </ul>
