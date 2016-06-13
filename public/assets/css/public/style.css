@@ -1273,14 +1273,49 @@ ul.projects li {
       font-size: 10px;
       color: #999999; }
     .card .cardInfo .actionBar {
-      width: 100%;
       padding: 16px 0;
       opacity: 0;
       -webkit-transition: all 0.1s ease;
       -moz-transition: all 0.1s ease;
       -ms-transition: all 0.1s ease;
       -o-transition: all 0.1s ease;
-      transition: all 0.1s ease; }
+      transition: all 0.1s ease;
+      position: relative;
+      text-align: center; }
+      .card .cardInfo .actionBar .actionBarWrapper {
+        display: inline-block; }
+        .card .cardInfo .actionBar .actionBarWrapper div {
+          color: black;
+          width: 36px;
+          height: 36px;
+          -webkit-border-radius: 50%;
+          -moz-border-radius: 50%;
+          -ms-border-radius: 50%;
+          border-radius: 50%;
+          border: 1px solid #666666;
+          float: left;
+          margin-right: 16px;
+          -webkit-transition: all 0.2s ease;
+          -moz-transition: all 0.2s ease;
+          -ms-transition: all 0.2s ease;
+          -o-transition: all 0.2s ease;
+          transition: all 0.2s ease; }
+          .card .cardInfo .actionBar .actionBarWrapper div.btn-hover-delete {
+            background: url("/assets/imgs/ic_trash.svg") no-repeat center center white;
+            background-size: 16px 16px; }
+          .card .cardInfo .actionBar .actionBarWrapper div.btn-hover-leave {
+            background: url("/assets/imgs/ic_leave.svg") no-repeat center center white;
+            background-size: 16px 16px; }
+          .card .cardInfo .actionBar .actionBarWrapper div:last-child, .card .cardInfo .actionBar .actionBarWrapper div:first-child:last-child {
+            margin-right: 0; }
+          .card .cardInfo .actionBar .actionBarWrapper div:hover, .card .cardInfo .actionBar .actionBarWrapper div:focus {
+            background-color: #eeeeee;
+            cursor: pointer;
+            -webkit-transition: all 0.2s ease;
+            -moz-transition: all 0.2s ease;
+            -ms-transition: all 0.2s ease;
+            -o-transition: all 0.2s ease;
+            transition: all 0.2s ease; }
       .card .cardInfo .actionBar ul {
         left: 50%;
         position: relative;

@@ -81,12 +81,12 @@
                             </a>
                             <div class="cardSubTitle">{{ app.updated_date|date:medium}}</div>
                             <div class='actionBar'>
-                              <ul>
-                                <li ng-if="page.owner"
-                                    class="trashcan"
-                                     ng-click='page.deleteAsideBtn(app)'>  
-                                </li>
-                              </ul>
+                                <div class="actionBarWrapper">
+                                    <div ng-if="page.owner"
+                                        class="btn-hover-delete"
+                                         ng-click='page.deleteAsideBtn(app)'>  
+                                    </div>
+                                </div>
                             </div>
                       </div>
                     </a>

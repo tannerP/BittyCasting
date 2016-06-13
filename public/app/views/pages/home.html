@@ -43,11 +43,11 @@
                   </a>
                   <div class="cardSubTitle">Role(s): {{project.num_roles}}</div>
                   <div class='actionBar'>
-                    <ul>
-                      <li ng-show="!project.collab" class="trashcan" ng-click='home.deleteBtn(project)'></li>
-                      <li ng-show="project.collab" class="" ng-click='home.deleteBtn(project)'> Leave project</li>
+                      <div class="actionBarWrapper">
+                          <div ng-if="!project.collab" class="btn-hover-delete" ng-click='home.deleteBtn(project)'></div>
+                          <div ng-if="project.collab" class="btn-hover-leave" ng-click='home.deleteBtn(project)'> </div>
+                      </div>
                       <!--                                        <li class="duplicate"></li>-->
-                    </ul>
                   </div>
                 </div>
               </a>
