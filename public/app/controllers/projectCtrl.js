@@ -448,40 +448,22 @@ angular.module('projectCtrl', ['userService',
           vm.projects = data.data;
           for (var i in vm.projects) {
             var project = vm.projects[i];
-            /*console.log(project._id)*/
-            //check if there're invites
-            console.log("Invites")
-            console.log($rootScope.user.invites)
+            
+            //check if project is in user's Invites. 
             var indxInvite = $rootScope.user.invites.indexOf(project._id)
-            /*console.log(indxInvite)*/
-
-            if (indxInvite > -1) {
+            if (indxInvite > -1) {  //project is in users's invites list. 
               var collab = project.collabs_id;
-              /*console.log(collab)*/
               for (var j in collab)
-                /*console.log(collab[j].userID)
-                console.log($rootScope.user._id)*/
-                /*console.log(collab[j].userID)
-                console.log($rootScope.user._id)*/
                 if (collab[j].userID === $rootScope.user._id) {
-                  /*console.log("guest")*/
                   project.guest = true;
                   project.accepted = project.collabs_id[j].accepted;
                 }
             }
-            //identify collaborating project
-            else {
+            else {  //identify collaborating project
               var collab = project.collabs_id;
-              /*console.log(collab)*/
               for (var j in collab){
-                /*console.log(collab[j].userID)
-                console.log($rootScope.user._id)*/
                 if (collab[j].userID === $rootScope.user._id) {
-                  /*console.log("guest")*/
                   project.collab = true;
-                  /*project.accepted = project.collabs_id[j].accepted;*/
-                  /*console.log(collab[j].userID)
-                console.log($rootScope.user._id)*/
                 }
               }
             }
@@ -492,13 +474,8 @@ angular.module('projectCtrl', ['userService',
         Project.response2Invite(true, project)
           .success(function(resp) {
             if (resp.success)
-
             //REMOVE Once have data controll layer,
             $window.location.reload();
-            /*$location.path('/project/' + resp.project._id);*/
-            /*project.guest = false;
-            project.accepted = true;
-            */
           })
       }
       vm.rejectProject = function(project) {
