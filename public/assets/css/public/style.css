@@ -901,7 +901,8 @@ section.contact {
       margin-right: 20px;
       display: inline; }
     section.contact .contactInfo p {
-      font-size: 14px; }
+      font-size: 14px;
+      font-weight: 200; }
       section.contact .contactInfo p a {
         color: white;
         padding-bottom: 5px; }
