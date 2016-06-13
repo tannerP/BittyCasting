@@ -676,12 +676,21 @@ div.navbar-collapse.collapse.in {
     margin: 60px 0 15px 0;
     letter-spacing: 4;
     text-transform: uppercase;
+    span {
+        color: white;
+    }
 }
 
 .sectionTitleDivider {
     margin: 0 auto 60px auto;
     width: 80px;
     border-top: 1px solid $color-grey-darkest; 
+}
+
+.sectionTitleDividerWhite {
+    margin: 0 auto 60px auto;
+    width: 80px;
+    border-top: 1px solid white; 
 }
 
 section {
@@ -1037,7 +1046,7 @@ section {
     &.contact {
         text-align: center;
         padding-bottom: 120px;
-        background: url("/assets/imgs/img_indexCover03.png") no-repeat center center fixed;
+        background: url("/assets/imgs/img_indexCover04.png") no-repeat center center fixed;
         -webkit-background-size: cover;
         -moz-background-size: cover;
         -o-background-size: cover;
@@ -1047,8 +1056,8 @@ section {
             text-align: left;
 
             img {
-                width: 28px;
-                height: 28px;
+                width: 18px;
+                height: 18px;
                 vertical-align: middle;
                 margin-right: 20px;
                 display: inline;
@@ -1056,10 +1065,10 @@ section {
             p {
                 font-size: $font-size-medium;
                 a {
-                    color: $color-grey-darkest;
+                    color: white;
                     padding-bottom: 5px;
                     &:hover, &:focus {
-                        border-bottom: 1px solid $color-grey-darkest;
+                        border-bottom: 1px solid white;
                         padding-bottom: 5px;
                     }
                 }
@@ -2971,11 +2980,11 @@ text-align: center;
             @include transition(all, 0.2s, ease);
             
             &:nth-child(1) {
-                background: url("/assets/imgs/ic_social_fb.svg") no-repeat center center;
+                background: url("/assets/imgs/ic_social_fb_w.svg") no-repeat center center;
                 background-size: 22px 22px;
             }
             &:nth-child(2) {
-                background: url("/assets/imgs/ic_social_twitter.svg") no-repeat center center;
+                background: url("/assets/imgs/ic_social_twitter_w.svg") no-repeat center center;
                 background-size: 24px 24px;
             }
             &:hover, &:focus {
