@@ -448,18 +448,21 @@ angular.module('projectCtrl', ['userService',
           vm.projects = data.data;
           for (var i in vm.projects) {
             var project = vm.projects[i];
-            console.log(project)
+            /*console.log(project._id)*/
             //check if there're invites
+            console.log("Invites")
+            console.log($rootScope.user.invites)
             var indxInvite = $rootScope.user.invites.indexOf(project._id)
-            console.log(indxInvite)
+            /*console.log(indxInvite)*/
+
             if (indxInvite > -1) {
               var collab = project.collabs_id;
-              console.log(collab)
+              /*console.log(collab)*/
               for (var j in collab)
                 /*console.log(collab[j].userID)
                 console.log($rootScope.user._id)*/
-                console.log(collab[j].userID)
-                console.log($rootScope.user._id)
+                /*console.log(collab[j].userID)
+                console.log($rootScope.user._id)*/
                 if (collab[j].userID === $rootScope.user._id) {
                   /*console.log("guest")*/
                   project.guest = true;
@@ -469,17 +472,18 @@ angular.module('projectCtrl', ['userService',
             //identify collaborating project
             else {
               var collab = project.collabs_id;
-              console.log(collab)
-              for (var j in collab)
+              /*console.log(collab)*/
+              for (var j in collab){
                 /*console.log(collab[j].userID)
                 console.log($rootScope.user._id)*/
-                console.log(collab[j].userID)
-                console.log($rootScope.user._id)
                 if (collab[j].userID === $rootScope.user._id) {
                   /*console.log("guest")*/
                   project.collab = true;
                   /*project.accepted = project.collabs_id[j].accepted;*/
+                  /*console.log(collab[j].userID)
+                console.log($rootScope.user._id)*/
                 }
+              }
             }
           }
         })
