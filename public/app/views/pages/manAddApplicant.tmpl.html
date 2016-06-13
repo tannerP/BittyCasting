@@ -1,34 +1,146 @@
 <div class="aside" tabindex="-1" role="dialog">
   <div class="asideBg">
     <div class="asideTitle">Add Applicant</div>
-    <section>
-      <div class="asideSubtitle">Name</div>
-      <p>Kaiting please make me look pretty</p>
-    </section>
-    <!--
-            <section>
-                <div class="asideSubtitle">Description</div>
-                <p>{{prjDetailCtr.roleData.details}}</p>
-            </section>
-    -->
-    <!-- <section>
-        <div class="checkbox">
-            <label>
-                <input type="checkbox" ng-model='aside.input1'>
-                <span></span> All applicants and their files associated with roles in this project will be deleted.</label>
-            <label>
-                <input type="checkbox" ng-model='aside.input2'><span></span> This action is irreversible.</label>
-        </div>
-    </section> -->
+    <div type="button" class="custom-close" ng-click="$hide()"></div>
+      
+    <div class = "form-group">
+        <label>First name<span></span></label>
+        <input type="text" class="custom-form" ng-model="page.newData.name.first" Required>
+    </div>
+    <div class = "form-group">
+        <label>Last name<span class='required'></span></label>
+        <input type="text" class="custom-form" ng-model="page.newData.name.last" Required >
+    </div>
+    <div class = "form-group">
+        <label>E-mail<span></span></label>
+        <input type="text" class="custom-form" ng-model="page.newData.email" Required >
+    </div>   
+    <div class = "form-group">
+        <label>Phone number</label>
+        <input type="tel" class="custom-form" ng-model="page.newData.phone">
+    </div>
 
- <!--    <p>
-      You are about to delete this item. All information and files associated with the item will also be deleted.
-    </p> -->
-    <button type="button" class="custom-btn-primary-large custom-btn-cancel" ng-click="$hide()">Cancel</button>
-    <button type="submit" class = "custom-btn-primary-large custom-btn-delete" ng-if="!roleAside.edit" ng-click="deleteAppBtn()">Delete</button>
-    <br>
-    <label>
-      There is no undo. This deletion is permanent.
-    </label>
+    <div class = "form-group">
+    <label>Agent name (if applicable)</label>
+        <input type="text" class="custom-form" ng-model="page.newData.agent">
+    </div>
+
+
+    <div class = "form-group">
+    <label>Message/Links</label>
+    <textarea ng-model="page.newData.message" rows="5" class="custom-form-textarea"></textarea>  
+    </textarea>
+    </div>                                            
+
+
+    <div class = "form-group" 
+    ng-repeat="rq in ppv.requirements | uniq: 'name'"
+    ng-init="rIndex = $index">
+    <label>{{rq.name}}<span ng-if="rq.required"></span></label>
+    <!-- Fil Uploader -->
+    <!-- <div ng-if="rq.file_type != 'link'" class="drop-box" ngf-drop ng-model="ppv.files[$index]" ngf-max-size="500MB" ngf-model-invalid="errors" ngf-accept="'application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/pdf,image/*,video/*'"
+    ngf-pattern="'application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/pdf,image/*,video/*'"
+    ngf-min-size="100"
+    ngf-max-size="250MB" ng-required="true"> -->
+    <!-- Select File -->
+    <div ng-if="ppv.files[rIndex].length < 1 || !ppv.files[rIndex]">																 
+    <a name="file" 
+    ngf-accept="'application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/pdf,image/*,video/*'"
+    ngf-pattern="'application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/pdf,image/*,video/*'"
+    ngf-before-model-change= "errors = '' "
+    ngf-min-size="100"
+    ngf-max-size="500MB"
+    ngf-model-invalid="errors"
+    ng-model="$files"
+    ngf-multiple="true"
+    ngf-select="ppv.addFile($files, rq, rIndex)">
+    <span ng-if="!ppv.isNewLink[rIndex]">
+    Upload
+    </span>
+    </a><spam ng-show="!ppv.isNewLink[rIndex]"> /</spam>
+    <a ng-show="!ppv.isNewLink[rIndex]"
+    ng-init="ppv.isNewLink[rIndex] = false"
+    ng-click="ppv.isNewLink[rIndex] = !ppv.isNewLink[rIndex];
+    ppv.newLinks[rIndex]='' ">Link</a>
+
+
+    <div class="custom-form" ng-show="ppv.isNewLink[rIndex]">  
+    <input ng-model="ppv.newLinks[rIndex]"
+    placeholder="http://" class="inputShort">
+    <img class="upload-cancel" src="/assets/imgs/ic_cross_lightgrey.svg"
+    ng-click="ppv.isNewLink[rIndex] = !ppv.isNewLink[rIndex];
+    ppv.newLinks[rIndex]='' ">
+    </div>
+    </div>
+
+    <!-- {{ppv.files.length}}
+    {{ppv.files[fIndex].length}}
+    <span ng-repeat="file in ppv.files[fIndex]">
+        {{file.file.name}}
+    </span> -->
+
+    <div
+    class="div-table-col-attachments"
+    ng-repeat="file in ppv.files[rIndex]"
+    ng-init="fIndex = $index">
+    <span>	
+
+        <img ng-if="file.file.type.indexOf(
+        'image') > -1" 
+        style ="height:40px; width:auto"
+        ngf-thumbnail="file.file || 'Attachment'" class="uploadImg">
+
+        <video ng-if="file.file.type.indexOf(
+        'video') >-1" 
+        style ="height:40px; width:auto"
+        controls ngf-src="file.file">
+    </video>					
+    {{file.file.name | limitTo:18}}
+    <!--                                                                                    <span ng-click='ppv.removeFile(rIndex,fIndex)'>Delete</span>    -->
+
+    <span><img class="upload-cancel" src="/assets/imgs/ic_cross_lightgrey.svg" ng-click='ppv.removeFile(rIndex,$index)'></span>
+    <span 	name="file" style ="height:40px; width:auto"
+    ngf-accept="'application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/pdf,image/*,video/*'"
+    ngf-pattern="'application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/pdf,image/*,video/*'"
+    ngf-before-model-change= "errors = '' "
+    ngf-min-size="100"
+    ngf-max-size="500MB"
+    ngf-model-invalid="errors"
+    ng-model="$files"
+    ngf-multiple="true"
+    ngf-select="ppv.addFile($files, rq, rIndex)">
+    <a ng-show="ppv.isLast($index, ppv.files[rIndex])" class="uploadAddMore">Add more</a>
+
+    </div>
+    <!-- 					ng-if="file.file.type.indexOf('image') > -1"
+            ng-hide="ppv.isNewLink[$index] || 
+            ppv.files[$index].length < 1">
+
+    <span ng-repeat="link in ppv.appData.links track by $index">
+    <div class="applyLinkItem">
+        <span ng-if="link.name == rq">{{link.source}} <span ng-click="ppv.removeLink($index)">
+        <img src="/assets/imgs/ic_trash.svg" width="16px" height="16px"></span>
+                <br>
+        </span>
+    </div>                                   
+    </span>
+    <input class="applyAddLink" type="text" ng-model="ppv.newLinks[$index]" placeholder="http://">  
+    <span>{{newLink}}</span>                
+    <span ng-click="ppv.addLink($index,rq)"><img src="/assets/imgs/ic_plus.svg" width="16px" height="16px"></span> -->
+    </div>
+    <div ng-if="errors" class ="custom-alert" >
+    <p>Whoops, the file format was invalid.</p>
+    <p ng-if="errors.requirements"> {{errors.requirements.message}}</p>
+    </div>
+    <div ng-if="ppv.message"  class ="custom-alert">
+    {{ppv.message}}
+    </div>   
+    <div ng-show="ppv.processing" class="custom-loader"><img style ="height:60px; width:auto"
+    ng-src='/assets/imgs/spin.gif'></div>  
+
+    <button type="submit" ng-show="!ppv.processing" class="custom-btn-primary-large">Submit</button>  
+      
+      
+      
   </div>
 </div>
