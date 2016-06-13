@@ -12,24 +12,24 @@ angular.module('roleCtrl', ['userService',
       vm.setFilter = function(filter) {
           vm.curFilter = filter
         }
-/*
-      $window.onscroll = function() {
-        var position = document.body.scrollTop ||
-          document.documentElement.scrollTop || 0;
-        var width = $window.innerWidth;
-        var cardHeight = 283;
+        /*
+              $window.onscroll = function() {
+                var position = document.body.scrollTop ||
+                  document.documentElement.scrollTop || 0;
+                var width = $window.innerWidth;
+                var cardHeight = 283;
 
-        var coefficient
-        if (width < 345) {
-          coefficient = 2;
-        } else if (width > 345 && width < 660) {
-          coefficient = 2;
-        } else {
-          coefficient = 6
-        }
-        $scope.appLimit = parseInt(((position / 283) + 1) * coefficient);
-        $scope.$digest()
-      }*/
+                var coefficient
+                if (width < 345) {
+                  coefficient = 2;
+                } else if (width > 345 && width < 660) {
+                  coefficient = 2;
+                } else {
+                  coefficient = 6
+                }
+                $scope.appLimit = parseInt(((position / 283) + 1) * coefficient);
+                $scope.$digest()
+              }*/
       var editRoleAside = $aside({
           scope: $scope,
           backdrop: 'static',
@@ -166,8 +166,7 @@ angular.module('roleCtrl', ['userService',
                   if (applicant.suppliments[j].file_type.indexOf("image") === 0) {
                     applicant.headshot = applicant.suppliments[j].source;
                     break;
-                  }
-                  else applicant.headshot = "/assets/imgs/img_headshot_placeholder.png";
+                  } else applicant.headshot = "/assets/imgs/img_headshot_placeholder.png";
                 }
               }
               // no attachment
@@ -179,13 +178,13 @@ angular.module('roleCtrl', ['userService',
           })
       }
 
-      $scope.isActive = function(index){
+      $scope.isActive = function(index) {
         /*console.log(index)*/
-        var curCarIndex = $scope.carouselIndex; 
+        var curCarIndex = $scope.carouselIndex;
         /*console.log(curCarIndex)*/
-        if(curCarIndex === index)
-          {console.log("Actives")}
-        else{
+        if (curCarIndex === index) {
+          console.log("Actives")
+        } else {
           console.log("Inactive")
         }
       }
@@ -308,7 +307,7 @@ angular.module('roleCtrl', ['userService',
         /*console.log(aplnt.favorited)*/
         aplnt.favorited = !aplnt.favorited;
         /*console.log(aplnt.favorited)*/
-          /*        vm.applicants[index].favorited = !vm.applicants[index].favorited */
+        /*        vm.applicants[index].favorited = !vm.applicants[index].favorited */
 
         /*aplnt.favorited = !aplnt.favorited;*/
         Applicant.favUpdate(aplnt, roleID);
@@ -430,6 +429,17 @@ angular.module('roleCtrl', ['userService',
         editRoleAside.$promise.then(editRoleAside.toggle);
       }
 
+      $scope.descriptionLength = 15;
+      var isTruncated = false;
+      vm.toggleDescription = function() {
+        isTruncated = !isTruncated;
+        if (!isTruncated) $scope.descriptionLength = 15;
+        else {
+          var numWord = $scope.roleData.description.split(" ").length;
+          $scope.descriptionLength = numWord;
+        }
+      }
+
       $rootScope.$on('$locationChangeStart', function(event, newUrl, oldUrl) {
         if ($scope.viewApp) {
           vm.backBtn();
@@ -457,8 +467,8 @@ angular.module('roleCtrl', ['userService',
       $scope.Email_text = "Hey, \n \n \t I just created an acting role in BittyCasting that I thought might interest you. Check out the project and role by clicking the link:" + $scope.textToCopy + "\n \n Thanks!";
 
       $scope.Twitter_text = "CASTING CALL: " + $scope.roleData.name +
-       " via " + " " + "@BittyCasting ";
-      $scope.Twitter_url = $scope.roleData.short_url; 
+        " via " + " " + "@BittyCasting ";
+      $scope.Twitter_url = $scope.roleData.short_url;
 
       var successAlert = $alert({
           title: 'Copied!',
@@ -508,8 +518,8 @@ angular.module('roleCtrl', ['userService',
     var vm = this;
     vm.newComment;
     $scope.userID = $rootScope.user._id
-    /*console.log($scope.userID)
-    console.log()*/
+      /*console.log($scope.userID)
+      console.log()*/
 
     vm.deleteCmt = function(appID, index, comment) {
       Applicant.deleteComment(appID, comment);
@@ -517,11 +527,11 @@ angular.module('roleCtrl', ['userService',
     }
 
     vm.addCmt = function(appID, comment) {
-      var owner = $rootScope.user.first[0] + $rootScope.user.last[0];  
+      var owner = $rootScope.user.first[0] + $rootScope.user.last[0];
       var cmt = {
         timestamp: new Date(),
         owner: owner,
-        ownerID:$rootScope.user._id,
+        ownerID: $rootScope.user._id,
         comment: comment
       }
       console.log(cmt)

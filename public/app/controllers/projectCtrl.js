@@ -73,6 +73,7 @@ angular.module('projectCtrl', ['userService',
             controllerAs: 'page',
             templateUrl: '/app/views/pages/collab.tmpl.html'
           });
+
           vm.collabBtn = function(data) {
             $scope.project = data;
             collabAside.$promise.then(collabAside.toggle);
@@ -106,6 +107,19 @@ angular.module('projectCtrl', ['userService',
           vm.getRoleBtn = function(id) {
             $location.path("/role/" + id)
           }
+          
+          $scope.descriptionLength = 15;
+          var isTruncated = false;
+          vm.toggleDescription = function(){
+            isTruncated = !isTruncated;            
+            if(!isTruncated) $scope.descriptionLength = 15;
+            else {
+              console.log(vm.project.description)
+              var numWord = vm.project.description.split(" ").length;
+              $scope.descriptionLength = numWord;
+            }
+          }
+
           vm.back = function() {
             $window.history.back();
           }

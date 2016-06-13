@@ -18,7 +18,8 @@
     <div class="projectDetails col-md-12">
       <section class="col-md-8">
         <div class="projectDetailsTitle">Description</div>
-        <p ng-bind-html="roleData.description | linky"></p>
+        <p ng-bind-html="roleData.description | linky | words:descriptionLength:true "></p>
+        <a href="#" ng-click="page.toggleDescription()">Show more </a>
       </section>
 
       <section class="col-md-4">
