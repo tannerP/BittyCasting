@@ -265,7 +265,6 @@ module.exports = function(app, express) {
         })
       }
     })
-
   })
   app.put('/resetPass/:email', function(req, res) {
     /*console.log("HELLLLO")*/
@@ -663,22 +662,28 @@ module.exports = function(app, express) {
           } else {
             if (invite) {
               Project.findById(invite.projectID, function(err, project) {
+                if (err) return;
 
-                if (err) return res.json({
-                  success: false,
-                  message: "No project"
-                });
                 project.collabs_id.push({
                   userID: user._id,
                   userName: user.name,
                   userProfilePhoto: user.profile,
                 })
                 project.save();
+                return
               })
             }
+            var token = jwt.sign({
+              id: user.id,
+              name: user.name,
+            }, config.secret, {
+              expiresIn: 86400 //  (24hrs)
+                // expires in 3600 * 24 = c (24 hours)
+            });
             return res.json({
               success: true,
-              message: 'User created!'
+              message: 'User created!',
+              token: token
             });
           }
         });

@@ -12,6 +12,13 @@ angular.module('authService', [])
 	var authFactory = {};
 	//log a user in 
 
+	authFactory.setToken = function(data, callback) {
+		console.log(data)
+		// return the promise object and its data
+		AuthToken.setToken(data);
+		return callback();		
+	};
+
 	authFactory.confirmEmail = function(confirmID) {
 
 		// return the promise object and its data
@@ -25,7 +32,6 @@ angular.module('authService', [])
 	};
 
 	authFactory.login = function(email, password) {
-
 		// return the promise object and its data
 		return $http.post('/login', {
 				email: email,
