@@ -384,6 +384,9 @@ html {
   position: relative;
   min-height: 100%; }
 
+button {
+  text-transform: capitalize; }
+
 /***************************
            Header
 ***************************/
