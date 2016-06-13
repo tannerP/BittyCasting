@@ -1,0 +1,34 @@
+<div class="aside" tabindex="-1" role="dialog">
+  <div class="asideBg">
+    <div class="asideTitle">Add Applicant</div>
+    <section>
+      <div class="asideSubtitle">Name</div>
+      <p>Kaiting please make me look pretty</p>
+    </section>
+    <!--
+            <section>
+                <div class="asideSubtitle">Description</div>
+                <p>{{prjDetailCtr.roleData.details}}</p>
+            </section>
+    -->
+    <!-- <section>
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" ng-model='aside.input1'>
+                <span></span> All applicants and their files associated with roles in this project will be deleted.</label>
+            <label>
+                <input type="checkbox" ng-model='aside.input2'><span></span> This action is irreversible.</label>
+        </div>
+    </section> -->
+
+ <!--    <p>
+      You are about to delete this item. All information and files associated with the item will also be deleted.
+    </p> -->
+    <button type="button" class="custom-btn-primary-large custom-btn-cancel" ng-click="$hide()">Cancel</button>
+    <button type="submit" class = "custom-btn-primary-large custom-btn-delete" ng-if="!roleAside.edit" ng-click="deleteAppBtn()">Delete</button>
+    <br>
+    <label>
+      There is no undo. This deletion is permanent.
+    </label>
+  </div>
+</div>

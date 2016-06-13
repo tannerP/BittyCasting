@@ -63,6 +63,12 @@ angular.module('roleCtrl', ['userService',
           show: false,
           templateUrl: '/app/views/pages/applicant_delete.tmpl.html'
         });
+        manAddApplicant = $aside({
+          scope: $scope,
+          keyboard: true,
+          show: false,
+          templateUrl: '/app/views/pages/manAddApplicant.tmpl.html'
+        });
       $scope.viewApp = false;
       $scope.carouselIndex = 0;
       $scope.slides = [];
@@ -141,9 +147,7 @@ angular.module('roleCtrl', ['userService',
                     viewed.userID === $rootScope.user._id) {
                     applicant.new = false;
                   } else applicant.new = true;
-
                 }
-
               }
 
               if (applicant.favs.length > 0) {
@@ -427,6 +431,9 @@ angular.module('roleCtrl', ['userService',
       }
       vm.editRoleBtn = function() {
         editRoleAside.$promise.then(editRoleAside.toggle);
+      }
+      vm.addAppBtn = function() {
+        manAddApplicant.$promise.then(manAddApplicant.toggle);
       }
 
       $scope.descriptionLength = 15;
