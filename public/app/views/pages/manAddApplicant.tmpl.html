@@ -32,102 +32,67 @@
     </textarea>
     </div>                                            
 
+    <div class = "form-group">
+   
+        <div class="div-table">
+            <div class="div-table-row"
+                        ng-repeat="rq in page.role.requirements track by $index">
+                    <div class="div-table-col-attachments">{{rq.name}}</div>
+<!-- link -->
 
-    <div class = "form-group" 
-    ng-repeat="rq in ppv.requirements | uniq: 'name'"
-    ng-init="rIndex = $index">
-    <label>{{rq.name}}<span ng-if="rq.required"></span></label>
-    <!-- Fil Uploader -->
-    <!-- <div ng-if="rq.file_type != 'link'" class="drop-box" ngf-drop ng-model="ppv.files[$index]" ngf-max-size="500MB" ngf-model-invalid="errors" ngf-accept="'application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/pdf,image/*,video/*'"
-    ngf-pattern="'application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/pdf,image/*,video/*'"
-    ngf-min-size="100"
-    ngf-max-size="250MB" ng-required="true"> -->
-    <!-- Select File -->
-    <div ng-if="ppv.files[rIndex].length < 1 || !ppv.files[rIndex]">																 
-    <a name="file" 
-    ngf-accept="'application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/pdf,image/*,video/*'"
-    ngf-pattern="'application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/pdf,image/*,video/*'"
-    ngf-before-model-change= "errors = '' "
-    ngf-min-size="100"
-    ngf-max-size="500MB"
-    ngf-model-invalid="errors"
-    ng-model="$files"
-    ngf-multiple="true"
-    ngf-select="ppv.addFile($files, rq, rIndex)">
-    <span ng-if="!ppv.isNewLink[rIndex]">
-    Upload
-    </span>
-    </a><spam ng-show="!ppv.isNewLink[rIndex]"> /</spam>
-    <a ng-show="!ppv.isNewLink[rIndex]"
-    ng-init="ppv.isNewLink[rIndex] = false"
-    ng-click="ppv.isNewLink[rIndex] = !ppv.isNewLink[rIndex];
-    ppv.newLinks[rIndex]='' ">Link</a>
+<!-- show and hide vm.appSHLinks[currApp][req.id] === false -->
+                    <div class="div-table-col-attachments"
+                                    ng-show="page.appSHLinks[appNdx][$index] &&
+                                page.ifRequirement(rq.name, applicant.files)">
+                        <span class="custom-form">
+                            <input ng-model="applicant.links[$index].source"
+                                         placeholder="http://">
+                            <img class="upload-cancel" src="/assets/imgs/ic_cross_lightgrey.svg" ng-click="page.togAppLinkBtn(appNdx, $index);">
+                        </span>
+                    </div>	
 
+<!-- preview -->									
+                <div class="div-table-col-attachments">
+<!-- repeat --> 		                
+                    <span ng-if="file.requirement === rq.name" ng-repeat="file in applicant.files track by $index">
+                        <img ngf-thumbnail="file.file ||'Attachment'"/>
+                        <video controls ngf-src="file.file"></video>
+                        <span style="display: inline;">{{file.file.name | limitTo:18}}</span>
 
-    <div class="custom-form" ng-show="ppv.isNewLink[rIndex]">  
-    <input ng-model="ppv.newLinks[rIndex]"
-    placeholder="http://" class="inputShort">
-    <img class="upload-cancel" src="/assets/imgs/ic_cross_lightgrey.svg"
-    ng-click="ppv.isNewLink[rIndex] = !ppv.isNewLink[rIndex];
-    ppv.newLinks[rIndex]='' ">
-    </div>
-    </div>
-
-    <!-- {{ppv.files.length}}
-    {{ppv.files[fIndex].length}}
-    <span ng-repeat="file in ppv.files[fIndex]">
-        {{file.file.name}}
-    </span> -->
-
-    <div
-    class="div-table-col-attachments"
-    ng-repeat="file in ppv.files[rIndex]"
-    ng-init="fIndex = $index">
-    <span>	
-
-        <img ng-if="file.file.type.indexOf(
-        'image') > -1" 
-        style ="height:40px; width:auto"
-        ngf-thumbnail="file.file || 'Attachment'" class="uploadImg">
-
-        <video ng-if="file.file.type.indexOf(
-        'video') >-1" 
-        style ="height:40px; width:auto"
-        controls ngf-src="file.file">
-    </video>					
-    {{file.file.name | limitTo:18}}
-    <!--                                                                                    <span ng-click='ppv.removeFile(rIndex,fIndex)'>Delete</span>    -->
-
-    <span><img class="upload-cancel" src="/assets/imgs/ic_cross_lightgrey.svg" ng-click='ppv.removeFile(rIndex,$index)'></span>
-    <span 	name="file" style ="height:40px; width:auto"
-    ngf-accept="'application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/pdf,image/*,video/*'"
-    ngf-pattern="'application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/pdf,image/*,video/*'"
-    ngf-before-model-change= "errors = '' "
-    ngf-min-size="100"
-    ngf-max-size="500MB"
-    ngf-model-invalid="errors"
-    ng-model="$files"
-    ngf-multiple="true"
-    ngf-select="ppv.addFile($files, rq, rIndex)">
-    <a ng-show="ppv.isLast($index, ppv.files[rIndex])" class="uploadAddMore">Add more</a>
-
-    </div>
-    <!-- 					ng-if="file.file.type.indexOf('image') > -1"
-            ng-hide="ppv.isNewLink[$index] || 
-            ppv.files[$index].length < 1">
-
-    <span ng-repeat="link in ppv.appData.links track by $index">
-    <div class="applyLinkItem">
-        <span ng-if="link.name == rq">{{link.source}} <span ng-click="ppv.removeLink($index)">
-        <img src="/assets/imgs/ic_trash.svg" width="16px" height="16px"></span>
-                <br>
-        </span>
-    </div>                                   
-    </span>
-    <input class="applyAddLink" type="text" ng-model="ppv.newLinks[$index]" placeholder="http://">  
-    <span>{{newLink}}</span>                
-    <span ng-click="ppv.addLink($index,rq)"><img src="/assets/imgs/ic_plus.svg" width="16px" height="16px"></span> -->
-    </div>
+                            <img class="upload-cancel"
+                                        src="/assets/imgs/ic_cross_lightgrey.svg"
+                                        ng-click="
+                                        page.removeElFrmArray($index, applicant.files)">
+                     </span><!-- end repeat -->
+                     </div>
+<!-- Upload/Link -->
+                <div ng-show="!page.appSHLinks[appNdx][$index]
+                 && page.ifRequirement(rq.name, applicant.files)"
+                 class="div-table-col-attachments">
+                    <a ngf-select="page.onFileSelectApplicants(			page.newFile,applicant.files)"
+                        ng-model="page.newFile" name="file" 
+                        ngf-pattern="'application/pdf,image/*,video/*'"
+                        ngf-accept="'application/pdf,image/*,video/*'"
+                        ngf-before
+                        ngf-before-model-change= "errors = '' "
+                        ngf-min-size="100"
+                        ngf-max-size="250MB"
+                        ngf-model-invalid="errors"
+                        ng-click="page.newRqmnt(rq.name);">
+                        Upload
+                    </a>/
+                    <a ng-href="#"
+                         ng-click="page.togAppLinkBtn(appNdx, $index);page.newRqmnt(rq.name);">Link</a>
+               </div>
+        </div>
+        </div>
+        
+    </div><!-- end form-group -->
+    
+    
+    
+    
+    
     <div ng-if="errors" class ="custom-alert" >
     <p>Whoops, the file format was invalid.</p>
     <p ng-if="errors.requirements"> {{errors.requirements.message}}</p>
