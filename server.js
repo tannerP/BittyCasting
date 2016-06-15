@@ -81,6 +81,7 @@ var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function(callback) {
   console.log('MONGO: successfully connected to db');
+  console.log('MONGO: successfully connected to db');
 });
 
 var apiRoutes = require(__dirname + '/server/routes/api')(app, express);
