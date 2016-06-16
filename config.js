@@ -7,9 +7,10 @@ exports.tp = {
 	secret: "Hello 2016",
   "USER"    : "",           
   "PASS"    : "",
-  "HOST"    : "127.0.0.1",  
+  /*"HOST"    : "127.0.0.1",  */
+  "HOST"     : "54.191.157.140",
   "PORT"    : "27017", 
-  "DATABASE" : "dev",
+  "DATABASE" : "prod",
   "api_key" : "key-22cf943037f7135a79633e5f3fb255e1",
   "domain"  : "email.bittycasting.com",
   "from_who" : "internal@bittycasting.com",
@@ -41,7 +42,8 @@ exports.prod = {
   secret: "Hello 2016",
   "USER"    : "",           
   "PASS"    : "",
-  "HOST"    : "ec2-54-191-157-140.us-west-2.compute.amazonaws.com",  
+/*  "HOST"    : "ec2-54-191-157-140.us-west-2.compute.amazonaws.com",  */
+  "HOST"     : "54.191.157.140",
   "PORT"    : "27017", 
   "DATABASE" : "prod",
   "api_key" : "key-22cf943037f7135a79633e5f3fb255e1",
