@@ -962,6 +962,7 @@ module.exports = function(app, express) {
 				}
 				var money = {}
 				money.name = user.name;
+				money.email = user.email;
 				money.role = user.role;
 				money._id = user._id;
 				money.invites = user.invites;

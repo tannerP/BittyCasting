@@ -57,6 +57,7 @@ angular.module('userCtrl', ['userService'])
 		var vm = this;
 		Auth.getUser()
 			.then(function(data) {
+				console.log(data)
 				vm.userData = data.data;
 				vm.userData.password = "";
 			})
