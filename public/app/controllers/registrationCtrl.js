@@ -157,13 +157,13 @@ angular.module('registrationCtrl', ['authService', 'mgcrea.ngStrap'])
 					Auth.setToken(resp, function() {
 						vm.userData = {};
 						vm.processing = false;
-						$scope.$emit('aside.hide')
-						$scope.$hide();
 						vm.message = "Successfully registered. You are being directed to the project."
 						$timeout(function(){
+							$scope.$emit('aside.hide')
+							$scope.$hide();
 							$location.path('/home');
 							return;
-						}, 2500)
+						}, 1500)
 					});
 				}
 			});
