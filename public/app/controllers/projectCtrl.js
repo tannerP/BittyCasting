@@ -3,6 +3,14 @@ angular.module('projectCtrl', ['userService',
   ])
   .directive('prpublicview',
     function(Role, Project, $location, $routeParams, $aside, $route) {
+      var link = function(scope, element, attrs, controller, transludeFn){
+        scope.$watch("vm.project", function(newData, oldData){
+          if(newData._id){ //variable used to hide show/hide long project description
+            scope.descriptionWordCount = newData.description.split(" ").length
+          }
+        })
+      }
+
       var controller = ['$scope', 'Role', 'Project', "$location",
         '$routeParams', '$aside', '$route', '$window',
         function($scope, Role, Project, $location, $routeParams,
@@ -108,15 +116,16 @@ angular.module('projectCtrl', ['userService',
             $location.path("/role/" + id)
           }
           
-          $scope.descriptionLength = 15;
+          $scope.descriptionLength = 30;
           vm.isTruncated = false;
+
           vm.toggleDescription = function(){
             vm.isTruncated = !vm.isTruncated;            
-            if(!vm.isTruncated) $scope.descriptionLength = 15;
+            if(!vm.isTruncated) $scope.descriptionLength = 30;
             else {
               /*console.log(vm.project.description)*/
-              var numWord = vm.project.description.split(" ").length;
-              $scope.descriptionLength = numWord;
+              vm.numWords = vm.project.description.split(" ").length;
+              $scope.descriptionLength = vm.numWords;
             }
           }
 
@@ -153,6 +162,7 @@ angular.module('projectCtrl', ['userService',
           roleView: '&',
         },
         templateUrl: 'components/project_view/project_npublic_view.html',
+        link:link,
         controller: controller,
         controllerAs: 'vm',
         bindToController: true //required in 1.3+ with controllerAs
@@ -401,7 +411,7 @@ angular.module('projectCtrl', ['userService',
         vm.processing = true;
         vm.roleData.end_date = $scope.selectedDate;
         vm.roleData.updated_date = new Date();
-        Role.update($routeParams.role_id, vm.roleData)
+        Role.update($routeParams.role_id, vm.role)
           .success(function() {
             $scope.$emit('aside.hide')
             $route.reload();
@@ -875,7 +885,6 @@ angular.module('projectCtrl', ['userService',
       vm.processing = false;
       /*console.log(vm.processing)*/
       vm.createRoleBtn = function() {
-
         /*vm.processing = true;*/
         vm.projectID = $routeParams.project_id;
         vm.roleData.end_date = $scope.selectedDate.toJSON();
@@ -884,7 +893,6 @@ angular.module('projectCtrl', ['userService',
         if (vm.newData.name) {
           vm.addReqt(vm.newData);
         }
-
         Role.create(vm.projectID, vm.roleData)
           .success(function(data) {
             if(data.success)

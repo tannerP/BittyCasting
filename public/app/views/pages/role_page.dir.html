@@ -1,0 +1,166 @@
+<!-- <ppublicview project="vm.project"
+             roles="vm.role" currole="vm.curRole"
+             toggle='vm.togView()'>
+</ppublicview> -->
+
+<div ng-show="!viewApp" class="container paddingBottom60">
+  <div class="pageHeader">
+    <div class="custom-back" ng-click="vm.historyback()" style="z-index: 4;"></div>
+    <div class="custom-page-action" style="z-index: 4;">
+        <div class="custom-btn-secondary-small btn-share" ng-click="vm.shareBtn()">Share</div>
+        <div ng-if="vm.owner" class="custom-btn-secondary-small btn-edit" ng-click="vm.editRoleBtn()">Edit</div>
+        <div ng-if="vm.owner" class="custom-btn-secondary-small btn-delete" ng-click="vm.deleteRoleBtn(vm.role)">Delete</div>
+    </div>
+    <div class='pageTitle pageTitleMobileOffset col-md-4 col-md-offset-4'>{{vm.role.name || "page Casting"}}</div>
+    <div class="clear"></div>
+
+      <div class='pageSubtitle col-md-12'>Submission deadline: {{vm.role.end_date | date:medium}} <span>{{vm.prjClosed}}</span><span ng-if="vm.remaining">({{vm.remaining}})</span></div>
+    <div class="projectDetails col-md-12">
+      <section class="col-md-8">
+        <div class="projectDetailsTitle">Description</div>
+        <p ng-bind-html="vm.role.description | linky | words:descriptionLength:true "></p>
+          <div ng-hide="descriptionWordCount < 30">
+          <a href="#" 
+            ng-show="!vm.isTruncated"
+           ng-click="vm.toggleDescription()">Show more</a>
+           <a href="#" 
+           ng-show="vm.isTruncated"
+           ng-click="vm.toggleDescription()">Show less</a>
+           </div>
+      </section>
+
+      <section class="col-md-4">
+        <p class="projectDetailsTitle">Requirements</p>
+        <ul>
+          <span ng-repeat="rq in vm.role.requirements" ><li><p>{{rq.name}}</p></li></span>
+        </ul>
+      </section>
+    </div>
+    <div class="clear"></div>
+
+    <div class="custom-page-action-secondary">
+      <div class="custom-page-action-secondary-title">
+      <span ng-show="numApps >0">{{numApps}} Applicants total </span> <a class="btn-add-applicants" ng-href="{{'addApplicant/'+ vm.role._id}}"><img ng-src="/assets/imgs/ic_plus_bl.svg"> Add applicants</a>
+      </div>
+    </div>
+
+    <div class="utlBar">
+<!--        <div class="sort" ng-click="vm.toggleFav()">Heart filter</div>-->
+        
+        <div class="sort custom-dropdown" uib-dropdown is-open="false">
+            <span type="text" class="custom-form" uib-dropdown-toggle ng-disabled="disabled">{{vm.curFilter || "All applicants"}}</span>
+            <ul uib-dropdown-menu role="menu" aria-labelledby="single-button">
+                <li role="menuitem"><a href="#" ng-click="vm.setFilter(null);">All applicants</a></li>
+                <li role="menuitem"><a href="#" ng-click="vm.setFilter('Favorites')">Favorites</a></li>
+            </ul>
+        </div>     
+
+        <div class="gridListToggle">
+            <div ng-style="vm.gridStyle" ng-click="vm.setGridVw()"></div>
+            <div ng-style="vm.listStyle" ng-click="vm.setListVw()"></div>
+        </div>
+    </div>
+    <div class="clear"></div>
+  </div>
+  <!-- GRID VIEW -->
+  <div class="cardContainer" ng-show="vm.gridView">
+  <!-- FILTER -->
+    <!-- <ul class='applicants' ng-repeat="app in vm.applicants | applicants:filter track by $index"> -->
+    <!-- <ul class='applicants' ng-repeat="app in vm.applicants | orderBy: '-submission_date' | applicants:filter | limitTo:appLimit |
+     filter:q as applicants track by $index" ng-init="numApps = applicants.length">
+      -->
+    <ul class='applicants' ng-repeat="app in vm.applicants | orderBy: '-submission_date' | applicants:vm.curFilter | filter:q as applicants track by $index" ng-init="numApps = vm.applicants.length">
+
+      <li class="col-lg-3 col-md-4 col-sm-6">
+        <div class="card cardApplicants">
+            <div ng-if="app.new" class="alert-new" ng-click="vm.updateViewed($index,app, vm.role._id)">New</div>
+              <img class="fav-applicant-toggle" ng-if="app.favorited" ng-src="/assets/imgs/ic_fav_w_fill.svg" width="20px" vertical-align="middle" ng-click="vm.updateFav($index,app,vm.role._id)">
+
+              <img class="fav-applicant-toggle" ng-if="!app.favorited" ng-src="/assets/imgs/ic_fav_w.svg" width="20px" vertical-align="middle" ng-click="vm.updateFav($index,app,vm.role._id)">
+
+                <div ng-if="app.headshot" class="card cardApplicants" ng-style="{
+                  'background':'url('+ app.headshot+ ') no-repeat center center',
+                   'background-size': 'auto 100%', 'background-color': '#242424'}">
+                    <a href="" class="md-headline" ng-click="vm.viewBtn(app)">
+                      <div class="cardInfoBg"></div>
+                      <div class="cardScrim"></div>
+                      <div class="cardInfo">
+                            <a href="" class="md-headline" ng-click="vm.viewBtn(app)">
+                              <div class="cardTitle">{{app.name.first}} {{app.name.last}}</div>
+                            </a>
+                            <div class="cardSubTitle">{{ app.updated_date|date:medium}}</div>
+                            <div class='actionBar'>
+                                <div class="actionBarWrapper">
+                                    <div ng-if="vm.owner"
+                                        class="btn-hover-delete"
+                                         ng-click='vm.deleteAsideBtn(app)'>  
+                                    </div>
+                                </div>
+                            </div>
+                      </div>
+                    </a>
+                </div>
+            </div>
+      </li>
+    </ul>
+
+  </div>
+  <!-- LIST VIEW -->
+  <div ng-show="!viewApp && vm.listView" class="custom-table table-responsive">
+            <table class="table table-hover table-applicants">
+              <thead>
+              <tr>
+                <th>Headshot</th>  
+                <th>Name</th>
+                <th>Favorite</th>
+                <th>Email</th>
+                <th>Phone</th>
+              </tr>
+              </thead>
+
+              <tbody>
+              <!-- LOOP OVER THE USERS -->
+              <tr ng-repeat="app in vm.applicants | orderBy: '-submission_date' | applicants:vm.curFilter | filter:q as applicants track by $index" ng-init="numApps = applicants.length">
+                <td ng-click="vm.viewBtn(app)">
+                    <div ng-if="app.headshot" ng-style="{
+                    'background':'url('+ app.headshot+ ') no-repeat center center', 
+                    'background-size': 'auto 100%', 
+                    'background-color': '#242424',
+                    'width': '60px',
+                    'height': '60px'}">
+                    </div>
+                </td>
+                <td ng-click="vm.viewBtn($index)">
+                    <div ng-if="app.new" class="alert-new">New</div>
+                    {{app.name.first}} {{app.name.last}}
+                </td>
+                <td>
+                  <div ng-click="vm.updateFav($index,app,vm.role._id)" >
+                    <img  ng-if="app.favorited" ng-src="/assets/imgs/ic_fav_b_fill.svg" width="20px" vertical-align="middle" >
+                    <img ng-if="!app.favorited" ng-src="/assets/imgs/ic_fav_b.svg" width="20px" vertical-align="middle">
+                  </div>
+                </td>
+                <td ng-click="vm.viewBtn($index)">
+                  {{ app.email }}
+                </td>
+              <td>
+                {{ app.phone || "No contact"}}
+                <div class="table-utl">
+                  <div class="btn-hover-delete" ng-if="vm.owner"
+                      ng-click='vm.deleteAsideBtn(app)'></div>
+                </div>
+              </td>
+          </tr>
+          <tr ng-repeat-end></tr>
+          </tbody>
+          </table>
+    </div>
+  </div>
+<!--Review Page-->
+<div ng-show="viewApp">
+  <div review></div>
+  <div class="reviewBar" ng-show="viewApp" style=" z-index:4;">
+    <div class="previous" ng-click="vm.lastApp()">Previous</div>
+    <div class="next" ng-click="vm.nextApp()">Next</div>
+  </div>
+</div>

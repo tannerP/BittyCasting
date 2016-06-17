@@ -16,12 +16,15 @@
       <img ng-src="{{vm.project.coverphoto.source}}" class="img-responsive">
       </section>
       <section class="col-md-6">
-        <p style="white-space: pre-wrap">{{vm.project.description
-        | words:descriptionLength:true | linky}}</p>
+        <!-- <p style="white-space: pre-wrap">{{vm.project.description
+        | words:descriptionLength:true | linky}}</p> -->
+        <p ng-bind-html="vm.project.description | linky | words:descriptionLength:true "></p>
+        <div ng-hide="descriptionWordCount< 30">
         <a href="#" ng-if="!vm.isTruncated"
             ng-click="vm.toggleDescription()">Show more </a>
         <a href="#" ng-if="vm.isTruncated"
            ng-click="vm.toggleDescription()">Show less </a>
+        </div>
       </section>
       <section class="col-md-3 collaboratorList">
         <span class="btn-addCircle" ng-if="vm.owner" ng-click="vm.collabBtn(vm.project)"></span>
