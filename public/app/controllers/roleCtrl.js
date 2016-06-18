@@ -5,13 +5,40 @@ angular.module('roleCtrl', ['userService',
     function($location, $aside) {
       var link = function(scope, element,
     attrs, controller, transcludeFn) {
+        
         scope.$watch('vm.role', function(newRole, oldRole){
           /*console.log(newRole)
           console.log(oldRole)*/
           if(newRole && newRole.description){
             scope.roleData = newRole
+            controller.roleData = newRole
             scope.descriptionWordCount = newRole.description.split(" ").length;
             /*console.log(scope.descriptionWordCount)*/
+
+            var now = new Date()
+            var endDate = new Date(scope.roleData.end_date);
+            var timeDiff = endDate - now;
+            var left = Math.ceil(timeDiff / (1000 * 3600 * 24));
+            //calculate 
+            if (left < 8) { //only alert when 7 days left
+              /*if (left > 0) { //larger than 0
+              }*/
+              if (left > 1) {
+                controller.remaining = left + " days left";
+                controller.prjClosed;
+                return;
+              } else if (left === 1) {
+                controller.remaining = "Ends today";
+                controller.prjClosed;
+                return;
+              } else if (left < 0) {
+                controller.remaining = "";
+                controller.prjClosed = "(Closed)";
+              } else {
+                controller.prjClosed = "";
+                controller.remaining = "";
+              }
+            }
           }
       })
     } 
@@ -348,6 +375,7 @@ angular.module('roleCtrl', ['userService',
           role: '=',
           owner: '=',
           applicants: '=',
+          usrinitial: '=',
           historyback :'&'
         },
         templateUrl: 'app/views/pages/role_page.dir.html',
@@ -380,31 +408,6 @@ angular.module('roleCtrl', ['userService',
           $scope.roleData = data.data;
           if ($scope.roleData) {
             getApps();
-
-            var now = new Date()
-            var endDate = new Date(data.data.end_date);
-            var timeDiff = endDate - now;
-            var left = Math.ceil(timeDiff / (1000 * 3600 * 24));
-            //calculate 
-            if (left < 8) { //only alert when 7 days left
-              /*if (left > 0) { //larger than 0
-              }*/
-              if (left > 1) {
-                vm.remaining = left + " days left";
-                vm.prjClosed;
-                return;
-              } else if (left === 1) {
-                vm.remaining = "Ends today";
-                vm.prjClosed;
-                return;
-              } else if (left < 0) {
-                vm.remaining = "";
-                vm.prjClosed = "(Closed)";
-              } else {
-                vm.prjClosed = "";
-                vm.remaining = "";
-              }
-            }
           }
         })
         .error(function(error) {

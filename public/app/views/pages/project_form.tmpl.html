@@ -31,7 +31,8 @@
       </div>
         <ul class="select-coverphoto-wrapper">
             <li ng-repeat=" photoLink in vm.coverphotos track by $index">
-              <div class="{{vm.CPStyling}}"
+              <div ng-class="vm.CPStyling"
+                    class="no-animate"
                     id="{{photoLink.split('/').pop().split('.').shift()}}" 
                     ng-click="vm.selectCP(photoLink, $index)"
                     style="background: url({{photoLink}});
