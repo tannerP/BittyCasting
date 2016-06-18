@@ -21,6 +21,8 @@ angular.module('roleCtrl', ['userService',
         $window, $timeout, $route, Meta, RoleService) {
         var vm = this;
         var fav = false;
+        vm.newComment = "" // solution for when switch between applicants, 
+        //need to clear comment
 
         vm.setFilter = function(filter) {
           /*console.log("filter")
@@ -148,6 +150,7 @@ angular.module('roleCtrl', ['userService',
         }
 
         var updateCarosel = function(applicant) {
+          $scope.newComment = ""
           $scope.carouselIndex = 0;
           $scope.slides = [];
           for (var i in $scope.applicants) {
@@ -542,14 +545,18 @@ angular.module('roleCtrl', ['userService',
 .controller('CommentBoxCtrl',
   function($scope, $rootScope, Applicant) {
     var vm = this;
-    vm.newComment;
+    vm.newComment = ""
     $scope.userID = $rootScope.user._id
       /*console.log($scope.userID)
       console.log()*/
 
     vm.deleteCmt = function(appID, index, comment) {
-      Applicant.deleteComment(appID, comment);
-      delete $scope.currApp.comments[index];
+      Applicant.deleteComment(appID, comment)
+        .success(function(data){
+          console.log(data)
+          delete $scope.currApp.comments[index];
+        })
+      
     }
 
     vm.addCmt = function(appID, comment) {
@@ -560,10 +567,14 @@ angular.module('roleCtrl', ['userService',
         ownerID: $rootScope.user._id,
         comment: comment
       }
-      console.log(cmt)
+      /*console.log(cmt)*/
 
       $scope.currApp.comments.push(cmt);
-      Applicant.pushComment(appID, cmt);
+      Applicant.pushComment(appID, cmt)
+        .success(function(data){
+            console.log(data)
+            $scope.currApp.comments = data.comments
+        })
       vm.newComment = "";
     }
   })

@@ -563,15 +563,14 @@ module.exports = function(app, express) {
 					successful: false,
 					error: err
 				});
-				console.log(req.body);
+				/*console.log(req.body);*/
 				app.comments.push({
 					timestamp: new Date(),
 					ownerID: req.body.ownerID,
 					owner: req.body.owner,
 					comment: req.body.comment
 				});
-				app.save(function(err) {
-					1
+				app.save(function(err, app) {
 					if (err) {
 						return res.json({
 							success: false,
@@ -580,37 +579,46 @@ module.exports = function(app, express) {
 					}
 					res.json({
 						successful: true,
-						message: "Added comment"
+						message: "Added comment",
+						comments: app.comments
 					});
 				})
 			})
 		})
 	apiRouter.route('/comments/delete/:appID')
 		.put(function(req, res) {
-			console.log(req.body)
+			/*console.log(req.body)*/
 			Applicant.findOne({
 					_id: req.params.appID
 				},
 				function(err, app) {
 					for (var i in app.comments) {
 						var comment = app.comments[i];
-						if (comment._id == req.body._id) {
+						/*console.log(comment._id)
+						console.log(req.body._id)*/
+						if (comment._id.toString() === req.body._id) {
 							app.comments.pull(app.comments[i])
+							app.save(function(err, data) {
+								if (err) {
+									return res.json({
+										success: false,
+										error: err
+									})
+								}
+								res.json({
+									successful: true,
+									message: "Removed comment"
+								});
+							})
 							break;
 						}
-					}
-					app.save(function(err, data) {
-						if (err) {
+						else{
 							return res.json({
-								success: false,
-								error: err
-							})
+										success: false,
+										message: "Can't seem to find comment"
+									})
 						}
-						res.json({
-							successful: true,
-							message: "Removed comment"
-						});
-					})
+					}
 				})
 		})
 
@@ -993,16 +1001,16 @@ module.exports = function(app, express) {
 				user.save(function(err) {
 					if (err)
 						if (err.code == 11000)
-						return res.json({
-							success: false,
-							message: 'A user with that email already exists.'
-						});
-					else
-						return res.json({
-							success: false,
-							message: 'A user with that email already exists.',
-							error:err
-						});
+							return res.json({
+								success: false,
+								message: 'A user with that email already exists.'
+							});
+						else
+							return res.json({
+								success: false,
+								message: 'A user with that email already exists.',
+								error: err
+							});
 
 					else {
 						var token = jwt.sign({

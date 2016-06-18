@@ -156,7 +156,7 @@ angular.module('userService', [])
 		return $http.put('/suppliment/' + id, data);
 	}
 	appFactory.AddSampleProject = function(roleIDs){
-		console.log(roleIDs)	
+	/*	console.log(roleIDs)	*/
 	 
 		return $http.put("api/applicant/sample/", roleIDs)
 	}
@@ -204,8 +204,6 @@ angular.module('userService', [])
 	}
 	appFactory.deleteComment = function(id, data) {
 		var data = {
-			owner: data.owner,
-			comment: data.comment,
 			_id: data._id,
 		}
 		return $http.put('api/comments/delete/' + id, data);
