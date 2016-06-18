@@ -472,6 +472,8 @@ module.exports = function(app, express) {
         }
         //expired token
         else if (data) {
+          data.remove()
+          
           var DURATION = 14; //days
           var curData = new Date();
           var daysOld = (curData - data.create_date);
@@ -690,10 +692,12 @@ module.exports = function(app, express) {
             }
           });
         }
+        else{
         return res.json({
-                  success: true,
-                  message: 'A user with that email already exists.'
+                  success: false,
+                  message: 'Could not find invitation'
                 });
+              }
       })
     });
   return app;
