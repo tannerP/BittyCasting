@@ -472,6 +472,8 @@ module.exports = function(app, express) {
         }
         //expired token
         else if (data) {
+          data.remove()
+
           var DURATION = 14; //days
           var curData = new Date();
           var daysOld = (curData - data.create_date);
@@ -648,45 +650,55 @@ module.exports = function(app, express) {
         user.password = req.body.password;
         user.email = req.body.email;
         user.role = "user";
-        if (invite) user.invites.push(invite.projectID)
-        user.save(function(err, user) {
-          if (err) {
-            //duplicate entry
-            if (err.code == 11000)
-              return res.json({
-                success: false,
-                message: 'A user with that email already exists.'
-              });
-            else
-              return res.send(err);
-          } else {
-            if (invite) {
-              Project.findById(invite.projectID, function(err, project) {
-                if (err) return;
+        if (invite) {
+          invite.remove();
+          user.invites.push(invite.projectID)
 
-                project.collabs_id.push({
-                  userID: user._id,
-                  userName: user.name,
-                  userProfilePhoto: user.profile,
+          user.save(function(err, user) {
+            if (err) {
+              //duplicate entry
+              if (err.code == 11000)
+                return res.json({
+                  success: false,
+                  message: 'A user with that email already exists.'
+                });
+              else
+                return res.send(err);
+            } else {
+              /*if (invite) {*/
+                Project.findById(invite.projectID, function(err, project) {
+                  if (err) return;
+                  project.collabs_id.push({
+                    userID: user._id,
+                    userName: user.name,
+                    userProfilePhoto: user.profile,
+                  })
+                  project.save();
+                  return
                 })
-                project.save();
-                return
-              })
+              /*}*/
+              var token = jwt.sign({
+                id: user.id,
+                name: user.name,
+              }, config.secret, {
+                expiresIn: 86400 //  (24hrs)
+                  // expires in 3600 * 24 = c (24 hours)
+              });
+
+              return res.json({
+                success: true,
+                message: 'User created!',
+                token: token
+              });
             }
-            var token = jwt.sign({
-              id: user.id,
-              name: user.name,
-            }, config.secret, {
-              expiresIn: 86400 //  (24hrs)
-                // expires in 3600 * 24 = c (24 hours)
-            });
-            return res.json({
-              success: true,
-              message: 'User created!',
-              token: token
-            });
-          }
-        });
+          });
+        }
+        else{
+        return res.json({
+                  success: false,
+                  message: 'Could not find invitation'
+                });
+              }
       })
     });
   return app;

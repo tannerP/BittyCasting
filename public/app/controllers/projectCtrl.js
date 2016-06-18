@@ -3,6 +3,14 @@ angular.module('projectCtrl', ['userService',
   ])
   .directive('prpublicview',
     function(Role, Project, $location, $routeParams, $aside, $route) {
+      var link = function(scope, element, attrs, controller, transludeFn) {
+        scope.$watch("vm.project", function(newData, oldData) {
+          if (newData._id) { //variable used to hide show/hide long project description
+            scope.descriptionWordCount = newData.description.split(" ").length
+          }
+        })
+      }
+
       var controller = ['$scope', 'Role', 'Project', "$location",
         '$routeParams', '$aside', '$route', '$window',
         function($scope, Role, Project, $location, $routeParams,
@@ -107,16 +115,18 @@ angular.module('projectCtrl', ['userService',
           vm.getRoleBtn = function(id) {
             $location.path("/role/" + id)
           }
-          
-          $scope.descriptionLength = 15;
+
+
+          var MAXLENGTH = 430;
+          $scope.descriptionLength = MAXLENGTH;
           vm.isTruncated = false;
-          vm.toggleDescription = function(){
-            vm.isTruncated = !vm.isTruncated;            
-            if(!vm.isTruncated) $scope.descriptionLength = 15;
+          vm.toggleDescription = function() {
+            vm.isTruncated = !vm.isTruncated;
+            if (!vm.isTruncated) $scope.descriptionLength = MAXLENGTH;
             else {
               /*console.log(vm.project.description)*/
-              var numWord = vm.project.description.split(" ").length;
-              $scope.descriptionLength = numWord;
+              /*vm.numWords = vm.project.description.split(" ").length;*/
+              $scope.descriptionLength = vm.project.description.length
             }
           }
 
@@ -153,6 +163,7 @@ angular.module('projectCtrl', ['userService',
           roleView: '&',
         },
         templateUrl: 'components/project_view/project_npublic_view.html',
+        link: link,
         controller: controller,
         controllerAs: 'vm',
         bindToController: true //required in 1.3+ with controllerAs
@@ -179,12 +190,12 @@ angular.module('projectCtrl', ['userService',
           if (!resp.data) {
             vm.guestEmail = "";
             vm.emailPlaceHolder = "An invitation is sent"
-/*
-            $scope.project.collabs_id.push({
-              responded:false,
-              accepted:false,
-              email:vm.guestEmail
-            })*/
+              /*
+                          $scope.project.collabs_id.push({
+                            responded:false,
+                            accepted:false,
+                            email:vm.guestEmail
+                          })*/
           } else {
             var user = resp.data;
             vm.guestEmail = ""
@@ -401,6 +412,7 @@ angular.module('projectCtrl', ['userService',
         vm.processing = true;
         vm.roleData.end_date = $scope.selectedDate;
         vm.roleData.updated_date = new Date();
+
         Role.update($routeParams.role_id, vm.roleData)
           .success(function() {
             $scope.$emit('aside.hide')
@@ -462,20 +474,19 @@ angular.module('projectCtrl', ['userService',
           vm.projects = data.data;
           for (var i in vm.projects) {
             var project = vm.projects[i];
-            
+
             //check if project is in user's Invites. 
             var indxInvite = $rootScope.user.invites.indexOf(project._id)
-            if (indxInvite > -1) {  //project is in users's invites list. 
+            if (indxInvite > -1) { //project is in users's invites list. 
               var collab = project.collabs_id;
               for (var j in collab)
                 if (collab[j].userID === $rootScope.user._id) {
                   project.guest = true;
                   project.accepted = project.collabs_id[j].accepted;
                 }
-            }
-            else {  //identify collaborating project
+            } else { //identify collaborating project
               var collab = project.collabs_id;
-              for (var j in collab){
+              for (var j in collab) {
                 if (collab[j].userID === $rootScope.user._id) {
                   project.collab = true;
                 }
@@ -489,7 +500,7 @@ angular.module('projectCtrl', ['userService',
           .success(function(resp) {
             if (resp.success)
             //REMOVE Once have data controll layer,
-            $window.location.reload();
+              $window.location.reload();
           })
       }
       vm.rejectProject = function(project) {
@@ -520,7 +531,7 @@ angular.module('projectCtrl', ['userService',
         $scope.projectData = data;
         deletePrjAside.toggle();
       }
-      
+
       vm.getProjectBtn = function(project) {
         if (project.guest && !project.accepted) return;
         else $location.path("/project/" + project._id);
@@ -614,13 +625,13 @@ angular.module('projectCtrl', ['userService',
       ];
       vm.NEW = true;
       vm.CPStyling = "select-coverphoto";
-      vm.CPStylingSelected = "select-coverphoto-selected";
+      vm.CPStylingSelected = "select-coverphoto-selected"
       vm.CP_cust;
       vm.CP_default;
 
       var select = function(id) {
         angular.element(document.querySelector("." + vm.CPStylingSelected))
-          .removeClass(vm.CPStylingSelected)
+          .removeClass("select-coverphoto-selected")
         var myEl = angular.element(document.querySelector(id));
         myEl.addClass(vm.CPStylingSelected);
       }
@@ -702,6 +713,20 @@ angular.module('projectCtrl', ['userService',
       var DEFAULT_COVERPHOTO = "/assets/imgs/img_projectCover01.png";
       vm.projectData = {};
       angular.copy($scope.project, vm.projectData)
+        //source: image href source. Used as ids 
+      vm.selectCP = function(source, index) {
+        var id = source.split('/').pop().split('.').shift();
+        select(id);
+        vm.CP_cust = null;
+        vm.CP_default = coverphotosSource[index];
+      }
+
+      vm.selectCustCP = function() {
+        var id = "cust-cp";
+        select(id);
+        vm.CP_default = null;
+      }
+
 
       vm.coverphotos = [
         'assets/imgs/img_projectCover01_tn.png',
@@ -718,6 +743,7 @@ angular.module('projectCtrl', ['userService',
         'assets/imgs/img_projectCover04.png',
         'assets/imgs/img_projectCover05.png'
       ];
+
       /*angular.copy($scope.projectData,$scope.projectData);*/
       //TODO: remove. Using angular-elastic 
       /*if($scope.aside.projectData.description){
@@ -741,30 +767,33 @@ angular.module('projectCtrl', ['userService',
       }();
 
       var select = function(id) {
+        id = "#" + id
         angular.element(document.querySelector("." + vm.CPStylingSelected))
           .removeClass(vm.CPStylingSelected)
         var myEl = angular.element(document.querySelector(id));
         myEl.addClass(vm.CPStylingSelected);
       }
 
-      //source: image href source. Used as ids 
-      vm.selectCP = function(source, index) {
-        var id = "#" + source.split('/').pop().split('.').shift();
-        select(id);
-        vm.CP_cust = null;
-        vm.CP_default = coverphotosSource[index];
-      }
-
-      vm.selectCustCP = function() {
-        var id = "#cust-cp";
-        select(id);
-        vm.CP_default = null;
-      }
-
       vm.prepImg = function(file, event, flow) {
-        var data = new Array().push(file);
-        vm.CP_cust = file;
-      }
+          var data = new Array().push(file);
+          vm.CP_cust = file;
+        }
+        //determine if coverphoto is one of the defaults
+      /*vm.initSelect  = function() {
+        if ($scope.project.coverphoto.name === "default") {
+          for (var i in coverphotosSource) {
+            var source = coverphotosSource[i];
+            if (source === $scope.project.coverphoto.source) {
+              console.log(source)
+              source = vm.coverphotos[i];
+              var id = source.split('/').pop().split('.').shift()
+              select(id)
+            }
+          }
+        } else {
+
+        }
+      }*/
 
       vm.processing = false;
       vm.update = function(data) {
@@ -800,6 +829,7 @@ angular.module('projectCtrl', ['userService',
               });
           });
         }
+
         //not updating Project cover photo
         Project.update(vm.projectData._id,
             vm.projectData)
@@ -875,7 +905,6 @@ angular.module('projectCtrl', ['userService',
       vm.processing = false;
       /*console.log(vm.processing)*/
       vm.createRoleBtn = function() {
-
         /*vm.processing = true;*/
         vm.projectID = $routeParams.project_id;
         vm.roleData.end_date = $scope.selectedDate.toJSON();
@@ -884,11 +913,10 @@ angular.module('projectCtrl', ['userService',
         if (vm.newData.name) {
           vm.addReqt(vm.newData);
         }
-
         Role.create(vm.projectID, vm.roleData)
           .success(function(data) {
-            if(data.success)
-            { vm.roleData = {};
+            if (data.success) {
+              vm.roleData = {};
               $scope.$emit('aside.hide')
               $route.reload();
               Prerender.cacheRole(data.roleID);

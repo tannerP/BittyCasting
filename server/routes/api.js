@@ -238,7 +238,7 @@ module.exports = function(app, express) {
 						})
 
 					} else { //Invitee is not a member
-						var URL = "https://staging.bittycasting.com/register/invite/" + data._id;
+						var URL = "https://bittycasting.com/register/invite/" + data._id;
 						/*console.log(URL)*/
 						/*bitly.shorten(URL, function(newURL) {*/
 
@@ -563,15 +563,14 @@ module.exports = function(app, express) {
 					successful: false,
 					error: err
 				});
-				console.log(req.body);
+				/*console.log(req.body);*/
 				app.comments.push({
 					timestamp: new Date(),
 					ownerID: req.body.ownerID,
 					owner: req.body.owner,
 					comment: req.body.comment
 				});
-				app.save(function(err) {
-					1
+				app.save(function(err, app) {
 					if (err) {
 						return res.json({
 							success: false,
@@ -580,37 +579,46 @@ module.exports = function(app, express) {
 					}
 					res.json({
 						successful: true,
-						message: "Added comment"
+						message: "Added comment",
+						comments: app.comments
 					});
 				})
 			})
 		})
 	apiRouter.route('/comments/delete/:appID')
 		.put(function(req, res) {
-			console.log(req.body)
+			/*console.log(req.body)*/
 			Applicant.findOne({
 					_id: req.params.appID
 				},
 				function(err, app) {
 					for (var i in app.comments) {
 						var comment = app.comments[i];
-						if (comment._id == req.body._id) {
+						/*console.log(comment._id)
+						console.log(req.body._id)*/
+						if (comment._id.toString() === req.body._id) {
 							app.comments.pull(app.comments[i])
+							app.save(function(err, data) {
+								if (err) {
+									return res.json({
+										success: false,
+										error: err
+									})
+								}
+								res.json({
+									successful: true,
+									message: "Removed comment"
+								});
+							})
 							break;
 						}
-					}
-					app.save(function(err, data) {
-						if (err) {
+						else{
 							return res.json({
-								success: false,
-								error: err
-							})
+										success: false,
+										message: "Can't seem to find comment"
+									})
 						}
-						res.json({
-							successful: true,
-							message: "Removed comment"
-						});
-					})
+					}
 				})
 		})
 
@@ -962,6 +970,7 @@ module.exports = function(app, express) {
 				}
 				var money = {}
 				money.name = user.name;
+				money.email = user.email;
 				money.role = user.role;
 				money._id = user._id;
 				money.invites = user.invites;
@@ -984,17 +993,29 @@ module.exports = function(app, express) {
 		.put(function(req, res) {
 			User.findById(req.params.user_id, function(err, user) {
 				if (err) res.send(err);
+				if (req.body.email) user.email = req.body.email;
 				if (req.body.name) user.name = req.body.name;
-				if (req.body.username) user.username = req.body.username;
+				/*if (req.body.username) user.username = req.body.username;*/
 				if (req.body.password) user.password = req.body.password;
 
 				user.save(function(err) {
-					if (err) console.log(err);
-					if (err) res.send(err);
+					if (err)
+						if (err.code == 11000)
+							return res.json({
+								success: false,
+								message: 'A user with that email already exists.'
+							});
+						else
+							return res.json({
+								success: false,
+								message: 'A user with that email already exists.',
+								error: err
+							});
+
 					else {
 						var token = jwt.sign({
-							name: self.name,
-							username: self.username
+							id: user.id,
+							name: user.name,
 						}, config.secret, {
 							expiresIn: 86400
 						}); //24 hrs

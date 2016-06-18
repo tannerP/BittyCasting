@@ -155,16 +155,15 @@ angular.module('registrationCtrl', ['authService', 'mgcrea.ngStrap'])
 				if (!resp.success) return vm.message = resp.message;
 				else {
 					Auth.setToken(resp, function() {
-						$scope.$emit('aside.hide')
-							//clear the form
-						$scope.$hide();
 						vm.userData = {};
 						vm.processing = false;
 						vm.message = "Successfully registered. You are being directed to the project."
 						$timeout(function(){
+							$scope.$emit('aside.hide')
+							$scope.$hide();
 							$location.path('/home');
 							return;
-						}, 2500)
+						}, 1500)
 					});
 				}
 			});
