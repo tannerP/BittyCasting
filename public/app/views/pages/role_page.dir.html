@@ -130,7 +130,7 @@
                     'height': '60px'}">
                     </div>
                 </td>
-                <td ng-click="vm.viewBtn($index)">
+                <td ng-click="vm.viewBtn(app)">
                     <div ng-if="app.new" class="alert-new">New</div>
                     {{app.name.first}} {{app.name.last}}
                 </td>
@@ -140,10 +140,10 @@
                     <img ng-if="!app.favorited" ng-src="/assets/imgs/ic_fav_b.svg" width="20px" vertical-align="middle">
                   </div>
                 </td>
-                <td ng-click="vm.viewBtn($index)">
+                <td ng-click="vm.viewBtn(app)">
                   {{ app.email }}
                 </td>
-              <td>
+              <td ng-click="vm.viewBtn(app)">
                 {{ app.phone || "No contact"}}
                 <div class="table-utl">
                   <div class="btn-hover-delete" ng-if="vm.owner"

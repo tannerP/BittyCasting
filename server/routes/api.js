@@ -985,17 +985,29 @@ module.exports = function(app, express) {
 		.put(function(req, res) {
 			User.findById(req.params.user_id, function(err, user) {
 				if (err) res.send(err);
+				if (req.body.email) user.email = req.body.email;
 				if (req.body.name) user.name = req.body.name;
-				if (req.body.username) user.username = req.body.username;
+				/*if (req.body.username) user.username = req.body.username;*/
 				if (req.body.password) user.password = req.body.password;
 
 				user.save(function(err) {
-					if (err) console.log(err);
-					if (err) res.send(err);
+					if (err)
+						if (err.code == 11000)
+						return res.json({
+							success: false,
+							message: 'A user with that email already exists.'
+						});
+					else
+						return res.json({
+							success: false,
+							message: 'A user with that email already exists.',
+							error:err
+						});
+
 					else {
 						var token = jwt.sign({
-							name: self.name,
-							username: self.username
+							id: user.id,
+							name: user.name,
 						}, config.secret, {
 							expiresIn: 86400
 						}); //24 hrs
