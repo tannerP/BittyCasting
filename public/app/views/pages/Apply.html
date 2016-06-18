@@ -57,7 +57,8 @@
 
  						<div class='pageTitle'>Apply</div>
  						<div class='pageSubtitle'
- 						ng-if="ppv.roles.length < 2">
+ 						ng-if="ppv.roles.length === 1">
+
  						Deadline: 
  						{{ ppv.roles[0].end_date | date:'mediumDate' }}
 
@@ -68,12 +69,22 @@
  							<label>Please check the box next to the role(s) you are applying for.<span></span></label>    
  						</div>
  						<ul class="custom-checkbox" ng-if="ppv.roles.length > 1">
- 							<li ng-repeat="role in ppv.roles">
+ 							<li ng-repeat="role in ppv.roles track by $index" >
  								<label>
  									<input type="checkbox"
+ 									ng-disabled="ppv.roles[$index].isClosed"
  									ng-click="ppv.toggleRole(role._id,role.requirements)">
- 									<span class="custom-checkbox-style"></span>{{role.name}}
- 									<span class="applicationDeadline">(Deadline: {{ ppv.roles[0].end_date | date:'mediumDate'}})</span>
+ 									<span class="custom-checkbox-style">
+ 									</span>
+ 										<div ng-style="ppv.rolesStyle(role.isClosed)">
+ 										{{role.name}}
+ 										</div>
+ 									<span class="applicationDeadline"
+ 												style="display:inline;"
+ 												 ng-hide="ppv.roles[$index].isClosed">
+ 												 (Deadline: {{ ppv.roles[$index].end_date | date:'mediumDate'}})</span>
+ 									<span class="applicationDeadline" 
+ 												 ng-if="ppv.roles[$index].isClosed"> (Closed)</span>
  								</label>
 																						<!-- <span 
 																						ng-click="ppv.toggleRole(role._id,role.requirements)" ng-class="{'btn':ppv.isSelected(role._id)}"></span> {{role.name}} -->
