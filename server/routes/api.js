@@ -375,8 +375,8 @@ module.exports = function(app, express) {
 		//Get all applicants
 	apiRouter.route('/applicant/sample/')
 		.put(function(req, res) {
-			console.log("/applicant/sampleApplicant");
-			console.log(req.body)
+			/*console.log("/applicant/sampleApplicant");
+			console.log(req.body)*/
 				/*['ryan', "kaiting"]*/
 			var sampleApplicantIDs = ["574a1684d302426a449836f8",
 				"574a163bd302426a449836f5",
@@ -668,7 +668,7 @@ module.exports = function(app, express) {
 			role.requirements = req.body.requirements;
 
 			role.save(function(err, role) {
-				console.log(role)
+				/*console.log(role)*/
 				if (err) {
 					return res.json({
 						success: false,
@@ -915,7 +915,7 @@ module.exports = function(app, express) {
 						$in: [roles[i]._id]
 					}
 				}, function(err, apps) {
-					console.log(apps)
+					/*console.log(apps)*/
 					if (err) console.log(err);
 					else {
 						for (var a in apps) {
@@ -926,11 +926,11 @@ module.exports = function(app, express) {
 								aws.removeSup(apps[a].suppliments);
 								apps[a].remove();
 							} else {
-								console.log(roles[i]._id)
+								/*console.log(roles[i]._id)*/
 								var index = apps[a].roleIDs.indexOf(roles[i]._id);
-								console.log(index)
+								/*console.log(index)*/
 								apps[a].roleIDs.splice(index, ++index);
-								console.log("roleIDs: " + apps[a].roleIDs.length)
+								/*console.log("roleIDs: " + apps[a].roleIDs.length)*/
 								apps[a].save();
 							}
 						}
@@ -1058,7 +1058,7 @@ module.exports = function(app, express) {
 	apiRouter.route('/user/settings')
 		.put(function(req, res) {
 			User.findById(req.decoded.id, function(err, user) {
-				console.log(user.views)
+				/*console.log(user.views)*/
 				switch (req.body.page) {
 					case "role":
 						user.views.role = req.body.view;
@@ -1068,10 +1068,10 @@ module.exports = function(app, express) {
 						break;
 				}
 				user.save()
-				console.log(user.views)
+				/*console.log(user.views)*/
 
 
-				console.log("Reached api")
+/*				console.log("Reached api")*/
 					/*console.log(req)
 					console.log(res)*/
 				return res.json({

@@ -234,8 +234,6 @@ angular.module('applyCtrl', ['userService', 'mgcrea.ngStrap'])
     vm.submit = function() {
       var numFiles = 0;
       var uploadFiles = []
-
-
       for (var i in vm.requirements) {
         /*console.log('i is ' + i)
         console.log(vm.files[i])*/
@@ -350,7 +348,7 @@ angular.module('applyCtrl', ['userService', 'mgcrea.ngStrap'])
     Pub.getAppPrj($routeParams.id).then(function(data) {
       vm.project = data.data.project.project;
       $rootScope.meta = Meta.prjMeta(vm.project);
-      console.log($rootScope.meta)
+      /*console.log($rootScope.meta)*/
       vm.roles = data.data.project.roles;
       if (vm.project) {
         $rootScope.meta = Meta.prjMeta(vm.project);

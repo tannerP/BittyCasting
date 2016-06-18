@@ -391,7 +391,7 @@ module.exports = function(app, express) {
         }
         //Invokes the method to send emails given the above data with the helper library
       mailgun.messages().send(data, function(err, body) {
-        console.log(body)
+        /*console.log(body)*/
           //If there is an error, render the error page
         if (err) {
           console.log(err)
@@ -618,8 +618,8 @@ module.exports = function(app, express) {
 
           mailgun.messages()
             .send(data, function(err, body) {
-              console.log(err)
-              console.log(body)
+              /*console.log(err)
+              console.log(body)*/
               if (err) {
                 return res.json({
                   success: false,
