@@ -11,8 +11,8 @@ angular.module('applyCtrl', ['userService', 'mgcrea.ngStrap'])
     scope.$watch('ppv.roles', function(newRoles, oldRoles){
       var furthestDeadline;
       for(var i in newRoles){
-        console.log(newRoles[i])
-        var endTime = new Date(newRoles[i].end_time);
+        /*console.log(newRoles[i])*/
+        var endTime = new Date(newRoles[i].end_date);
         if(!furthestDeadline || furthestDeadline < endTime){
           furthestDeadline = endTime;
         }
@@ -49,7 +49,7 @@ angular.module('applyCtrl', ['userService', 'mgcrea.ngStrap'])
         return {opacity: 0.2, filter: 'alpha(opacity=20)',}
       }
       else{
-        return {'background-color':"blue"};
+        return;
       }
 
     }
