@@ -18,8 +18,8 @@
       <section class="col-md-6">
         <!-- <p style="white-space: pre-wrap">{{vm.project.description
         | words:descriptionLength:true | linky}}</p> -->
-        <p ng-bind-html="vm.project.description | linky | words:descriptionLength:true "></p>
-        <div ng-hide="descriptionWordCount< 30">
+        <p ng-bind-html="vm.project.description | linky | characters:descriptionLength:true "></p>
+        <div ng-hide="vm.project.description.length < 430">
         <a href="#" ng-if="!vm.isTruncated"
             ng-click="vm.toggleDescription()">Show more </a>
         <a href="#" ng-if="vm.isTruncated"

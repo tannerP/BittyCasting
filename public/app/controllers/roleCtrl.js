@@ -325,14 +325,15 @@ angular.module('roleCtrl', ['userService',
           editRoleAside.$promise.then(editRoleAside.toggle);
         }
 
-        $scope.descriptionLength = 30;
+        var MAXLENGTH = 430;
+        $scope.descriptionLength = MAXLENGTH;
         vm.isTruncated = false;
         vm.toggleDescription = function() {
           vm.isTruncated = !vm.isTruncated;
-          if (!vm.isTruncated) $scope.descriptionLength = 30;
+          if (!vm.isTruncated) $scope.descriptionLength = MAXLENGTH;
           else {
-            var numWord = vm.role.description.split(" ").length;
-            $scope.descriptionLength = numWord;
+            /*var numWord = vm.role.description.split(" ").length;*/
+            $scope.descriptionLength = vm.role.description
           }
         }
 

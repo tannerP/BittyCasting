@@ -116,16 +116,17 @@ angular.module('projectCtrl', ['userService',
             $location.path("/role/" + id)
           }
           
-          $scope.descriptionLength = 30;
-          vm.isTruncated = false;
 
+          var MAXLENGTH = 430;
+          $scope.descriptionLength = MAXLENGTH;
+          vm.isTruncated = false;
           vm.toggleDescription = function(){
             vm.isTruncated = !vm.isTruncated;            
-            if(!vm.isTruncated) $scope.descriptionLength = 30;
+            if(!vm.isTruncated) $scope.descriptionLength = MAXLENGTH;
             else {
               /*console.log(vm.project.description)*/
-              vm.numWords = vm.project.description.split(" ").length;
-              $scope.descriptionLength = vm.numWords;
+              /*vm.numWords = vm.project.description.split(" ").length;*/
+              $scope.descriptionLength = vm.project.description.length
             }
           }
 

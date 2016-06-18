@@ -19,7 +19,7 @@
       <section class="col-md-8">
         <div class="projectDetailsTitle">Description</div>
         <p ng-bind-html="vm.role.description | linky | words:descriptionLength:true "></p>
-          <div ng-hide="descriptionWordCount < 30">
+          <div ng-hide="vm.role.description.length < 430">
           <a href="#" 
             ng-show="!vm.isTruncated"
            ng-click="vm.toggleDescription()">Show more</a>
