@@ -74,13 +74,13 @@
  									<input type="checkbox"
  									ng-disabled="ppv.roles[$index].isClosed"
  									ng-click="ppv.toggleRole(role._id,role.requirements)">
- 									<span class="custom-checkbox-style">
+ 									<span class="custom-checkbox-style"
+ 												ng-style="ppv.rolesCheckBoxStyle(role.isClosed)">
  									</span>
- 										<div ng-style="ppv.rolesStyle(role.isClosed)">
+ 										<div ng-style="ppv.rolesStyle(role.isClosed)" style="display:inline;">
  										{{role.name}}
  										</div>
  									<span class="applicationDeadline"
- 												style="display:inline;"
  												 ng-hide="ppv.roles[$index].isClosed">
  												 (Deadline: {{ ppv.roles[$index].end_date | date:'mediumDate'}})</span>
  									<span class="applicationDeadline" 

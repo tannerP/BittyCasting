@@ -84,7 +84,18 @@ angular.module('applyCtrl', ['userService', 'mgcrea.ngStrap'])
       } else {
         return;
       }
+    }
 
+    vm.rolesCheckBoxStyle = function(isExpired) {
+      console.log(isExpired)
+      if (isExpired) {
+        return {
+          opacity: 0.3,
+          filter: 'alpha(opacity=30)'
+        }
+      } else {
+        return;
+      }
     }
 
     vm.loggedIn = false;
