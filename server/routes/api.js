@@ -238,7 +238,7 @@ module.exports = function(app, express) {
 						})
 
 					} else { //Invitee is not a member
-						var URL = "https://staging.bittycasting.com/register/invite/" + data._id;
+						var URL = "https://bittycasting.com/register/invite/" + data._id;
 						/*console.log(URL)*/
 						/*bitly.shorten(URL, function(newURL) {*/
 
