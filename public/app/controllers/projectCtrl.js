@@ -262,6 +262,7 @@ angular.module('projectCtrl', ['userService',
             default:
               {
                 $location.path("/home");
+                $location.replace();
               }
           }
         })

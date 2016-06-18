@@ -42,7 +42,6 @@ exports.prod = {
   secret: "Hello 2016",
   "USER"    : "",           
   "PASS"    : "",
-/*  "HOST"    : "ec2-54-191-157-140.us-west-2.compute.amazonaws.com",  */
   "HOST"     : "54.149.142.66",
   "PORT"    : "27017", 
   "DATABASE" : "prod",

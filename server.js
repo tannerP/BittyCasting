@@ -24,8 +24,8 @@ var path = require('path');
 var User = require(__dirname + '/server//models/user.js');
 var extend = require("extend");
 
-app.use(require('prerender-node')
-  .set('prerenderToken', 'RDdmSteuNT1ZCbqQ2O0h'));
+/*app.use(require('prerender-node')
+  .set('prerenderToken', 'RDdmSteuNT1ZCbqQ2O0h'));*/
 
 var env = process.argv[2];
 
@@ -80,6 +80,7 @@ var db = mongoose.connection;
 
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function(callback) {
+  console.log('MONGO: successfully connected to db');
   console.log('MONGO: successfully connected to db');
 });
 
