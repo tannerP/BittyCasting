@@ -473,7 +473,7 @@ module.exports = function(app, express) {
         //expired token
         else if (data) {
           data.remove()
-          
+
           var DURATION = 14; //days
           var curData = new Date();
           var daysOld = (curData - data.create_date);
@@ -651,6 +651,7 @@ module.exports = function(app, express) {
         user.email = req.body.email;
         user.role = "user";
         if (invite) {
+          invite.remove();
           user.invites.push(invite.projectID)
 
           user.save(function(err, user) {
@@ -664,7 +665,7 @@ module.exports = function(app, express) {
               else
                 return res.send(err);
             } else {
-              if (invite) {
+              /*if (invite) {*/
                 Project.findById(invite.projectID, function(err, project) {
                   if (err) return;
                   project.collabs_id.push({
@@ -675,7 +676,7 @@ module.exports = function(app, express) {
                   project.save();
                   return
                 })
-              }
+              /*}*/
               var token = jwt.sign({
                 id: user.id,
                 name: user.name,
