@@ -36,9 +36,9 @@
   padding-bottom: 0;
 } */
 .no-animate {
-   -webkit-transition: none !important;
-   transition: none !important;
-}
+  -webkit-transition: none !important;
+  transition: none !important; }
+
 /***************************
           Colors
 ***************************/
@@ -2208,6 +2208,8 @@ ul.select-coverphoto-wrapper {
     .applyPage .applyPageLeft ul .rolesDynamicsActive {
       color: #06bcc2;
       border: 2px solid #06bcc2; }
+  .applyPage .applicationDeadline {
+    display: inline; }
   .applyPage .applyLogo {
     position: absolute;
     top: 40px;
