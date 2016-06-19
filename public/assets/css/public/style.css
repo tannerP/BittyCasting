@@ -1836,7 +1836,7 @@ ul.projects li {
     cursor: pointer; }
     .form-group a.uploadAddMore {
       float: right; }
-  .form-group button {
+  .form-group .btn-closeDeadline {
     position: absolute;
     right: 0;
     bottom: 4px;
@@ -1853,7 +1853,7 @@ ul.projects li {
     -ms-transition: all 0.8s ease;
     -o-transition: all 0.8s ease;
     transition: all 0.8s ease; }
-    .form-group button:hover, .form-group button:focus {
+    .form-group .btn-closeDeadline:hover, .form-group .btn-closeDeadline:focus {
       background-color: #444444;
       color: white;
       -webkit-transition: all 0.8s ease;
