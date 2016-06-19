@@ -78,7 +78,7 @@
         <div class="card cardApplicants">
             <div ng-if="app.new" class="alert-new" ng-click="vm.updateViewed($index,app, vm.role._id)">New</div>
               <img class="fav-applicant-toggle" ng-if="app.favorited" ng-src="/assets/imgs/ic_fav_w_fill.svg" width="20px" vertical-align="middle" ng-click="vm.updateFav($index,app,vm.role._id)">
-              <span>{{app.numFavs}}</span>
+              <span ng-hide="app.numFavs < 1" class="fav-applicant-counter" ng-click="vm.updateFav($index,app,vm.role._id)">{{app.numFavs}}</span>
 
               <img class="fav-applicant-toggle" ng-if="!app.favorited" ng-src="/assets/imgs/ic_fav_w.svg" width="20px" vertical-align="middle" ng-click="vm.updateFav($index,app,vm.role._id)">
 
