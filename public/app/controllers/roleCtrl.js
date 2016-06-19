@@ -197,8 +197,8 @@ angular.module('roleCtrl', ['userService',
           if (app && app.new) {
             app.new = false;
             vm.updateViewed(app, vm.role._id)
-            addSlides($scope.slides, app.suppliments);
           }
+          addSlides($scope.slides, app.suppliments);
         }
 
         vm.viewBtn = function(app) {
@@ -206,6 +206,7 @@ angular.module('roleCtrl', ['userService',
           updateCarosel(app);
           $scope.viewApp = true;
         }
+
         vm.nextApp = function() {
           if ($scope.currIndex < vm.applicants.length - 1) {
             /*$scope.currIndex = $scope.currIndex;*/

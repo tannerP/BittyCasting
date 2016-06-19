@@ -7,16 +7,15 @@ angular.module('applicantFilters', [])
           case "Favorites":
             if (!applicants) return applicants;
             for (var a in applicants) {
-
               var applicant = applicants[a];
               if (!applicant.favs || applicant.favs.length === 0) return filtered;
 
-              for (var f in applicant.favs) {
+              /*for (var f in applicant.favs) {*/
                 var cur = applicant.favs[f]
                 if (applicant.favorited) {
                   filtered.push(applicant);
                 }
-              }
+              /*}*/
 
             }
             break;
