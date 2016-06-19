@@ -151,14 +151,19 @@
 								</div>
 							</td>
 							<td>
-								<div class="custom-dropdown" uib-dropdown is-open="false">
+									<div class="custom-form">
+										<input type="text" class="custom-form"
+										placeholder="Agent"
+										ng-model="page.newData.agent">
+									</div>
+								<!-- <div class="custom-dropdown" uib-dropdown is-open="false">
 									<span type="text" class="custom-form" uib-dropdown-toggle ng-disabled="disabled">
 										{{applicant.gender || "Gender"}}</span>
 										<ul uib-dropdown-menu role="menu" aria-labelledby="single-button">
 											<li role="menuitem"><a href="#" ng-click="applicant.gender = 'Female'">Female</a></li>
 											<li role="menuitem"><a href="#" ng-click="applicant.gender = 'Male'">Male</a></li>
 										</ul>
-								</div> 
+								</div>  -->
 								</td>
 								<td>
 									<div class="custom-form">
