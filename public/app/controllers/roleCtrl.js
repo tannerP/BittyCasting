@@ -5,10 +5,17 @@ angular.module('roleCtrl', ['userService',
     function($location, $aside) {
       var link = function(scope, element,
     attrs, controller, transcludeFn) {
-        console.log(scope)
+        /*console.log(scope)*/
+        scope.$watch('vm.applicants', function(newApps, oldApps){
+            console.log(newApps)
+            console.log(oldApps)
+          if(newApps) {
+            scope.numApps = newApps.length;
+            console.log(scope.numApps)
+          }
+        })
         
         scope.$watch('vm.role', function(newRole, oldRole){
-          
           if(newRole && newRole.description){
             console.log(newRole.length)
             /*console.log(oldRole.length)*/
@@ -182,8 +189,8 @@ angular.module('roleCtrl', ['userService',
           $scope.newComment = ""
           $scope.carouselIndex = 0;
           $scope.slides = [];
-          for (var i in $scope.applicants) {
-            var temp = $scope.applicants[i];
+          for (var i in vm.applicants) {
+            var temp = vm.applicants[i];
             if (temp._id === applicant._id) {
               $scope.currIndex = parseInt(i);
               break;
@@ -243,30 +250,40 @@ angular.module('roleCtrl', ['userService',
         }
 
         var removeApp = function(appID){
+          console.log($scope.numApps)
+
+          if(vm.applicants.length === 1) vm.applicants = [];
           for(var i in vm.applicants){
             console.log("applicants loop")
             var app = vm.applicants[i]
             if(app._id === appID){ 
               console.log("Found match")
               vm.applicants.splice(i,1);
+              --$scope.numApps;
+              console.log("after")
+              console.log($scope.numApps)
+              return;
             }
           }
         }
 
         $scope.deleteAppBtn = function() {
+          console.log($scope.currApp)
+          console.log($scope.numApps)
           Applicant.delete($scope.currApp._id, $scope.roleData._id)
             .success(function() {
               /*getApps();*/
+
+              removeApp($scope.currApp._id);
+
               if ($scope.viewApp === true) { //full page review
                 if ($scope.numApps === 0) {
+                  $scope.currApp = {};
                   vm.backBtn();
                 }
                 vm.lastApp();
               }
-              else deleteAppAside.hide();
-
-              removeApp($scope.currApp._id);
-              --$scope.numApps;
+              deleteAppAside.hide();
 
             })
             .error(function(err) {
