@@ -18,7 +18,7 @@
     <div class="projectDetails col-md-12">
       <section class="col-md-8">
         <div class="projectDetailsTitle">Description</div>
-        <p ng-bind-html="vm.role.description | linky | words:descriptionLength:true "></p>
+        <p ng-bind-html="vm.role.description | linky | characters:descriptionLength:true "></p>
           <div ng-hide="vm.role.description.length < 430" 
                         class="no-animate">
           <a href="#" 

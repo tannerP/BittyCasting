@@ -250,32 +250,23 @@ angular.module('roleCtrl', ['userService',
         }
 
         var removeApp = function(appID) {
-          console.log($scope.numApps)
-
           if (vm.applicants.length === 1) vm.applicants = [];
           for (var i in vm.applicants) {
-            console.log("applicants loop")
             var app = vm.applicants[i]
             if (app._id === appID) {
-              console.log("Found match")
               vm.applicants.splice(i, 1);
-              console.log("after")
-              console.log($scope.numApps)
               return;
             }
           }
         }
 
         $scope.deleteAppBtn = function() {
-          console.log($scope.currApp)
-          console.log($scope.numApps)
           Applicant.delete($scope.currApp._id, $scope.roleData._id)
             .success(function() {
               --$scope.numApps;
-              /*getApps();*/
-
+              
               removeApp($scope.currApp._id);
-              console.log("view app " + $scope.viewApp)
+
               if ($scope.viewApp === true) { //full page review
                 if ($scope.numApps === 0) {
                   $scope.currApp = {};
