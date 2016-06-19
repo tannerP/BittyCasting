@@ -583,34 +583,28 @@ module.exports = function(app, express) {
       var name = req.body.name;
       var arrName = name.split(' ');
 
-      if(arrName.length < 2){
-        return res.json({success:false, message:"User name invalid."})
-      }
-      else if(arrName.length > 2)
-      {
+      if (arrName.length < 2) {
+        return res.json({
+          success: false,
+          message: "User name invalid."
+        })
+      } else if (arrName.length > 2) {
         var middleName = "";
-        
-        /*console.log(arrName.length)*/
-        for(var i in name.split(' ') ){
-          /*console.log(i)*/
-          if (i > 0 && i < arrName.length - 1){
-            /*console.log(arrName)*/
-            /*console.log("i "+ i)*/
-            /*console.log(arrName[i])*/
-            /*if(i === arrName.length - 1)
-            middleName += name.split(' ')[i];
-            else*/
+        //extract middle name
+        for (var i in name.split(' ')) {
+          if (i > 0 && i < arrName.length - 1) {
             middleName += name.split(' ')[i] + " ";
           }
         }
 
         var fname = name.split(" ")[0]
-        var lname = name.split(" ")[arrName.length -1]
+        var lname = name.split(" ")[arrName.length - 1]
+
         user.name = ({
-        first: fname[0].toUpperCase() + fname.toLowerCase().slice(1),
-        middle:middleName.trim(),
-        last: lname[0].toUpperCase() + lname.toLowerCase().slice(1)
-      })
+          first: fname[0].toUpperCase() + fname.toLowerCase().slice(1),
+          middle: middleName.trim(),
+          last: lname[0].toUpperCase() + lname.toLowerCase().slice(1)
+        })
       }
       /*console.log(req.body.name)
       console.log(user.name)*/
@@ -670,10 +664,33 @@ module.exports = function(app, express) {
       Invite.findById(req.params.inviteID, function(err, invite) {
         var user = new User();
         var name = req.body.name;
-        user.name = ({
-          first: name.split(" ")[0],
-          last: name.split(" ")[1]
-        })
+        
+        var arrName = name.split(' ');
+
+        if (arrName.length < 2) {
+          return res.json({
+            success: false,
+            message: "User name invalid."
+          })
+        } else if (arrName.length > 2) {
+          var middleName = "";
+          //extract middle name
+          for (var i in name.split(' ')) {
+            if (i > 0 && i < arrName.length - 1) {
+              middleName += name.split(' ')[i] + " ";
+            }
+          }
+
+          var fname = name.split(" ")[0]
+          var lname = name.split(" ")[arrName.length - 1]
+
+          user.name = ({
+            first: fname[0].toUpperCase() + fname.toLowerCase().slice(1),
+            middle: middleName.trim(),
+            last: lname[0].toUpperCase() + lname.toLowerCase().slice(1)
+          })
+        }
+        
         user.password = req.body.password;
         user.email = req.body.email;
         user.role = "user";
