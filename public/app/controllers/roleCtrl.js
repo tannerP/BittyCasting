@@ -5,11 +5,13 @@ angular.module('roleCtrl', ['userService',
     function($location, $aside) {
       var link = function(scope, element,
     attrs, controller, transcludeFn) {
+        console.log(scope)
         
         scope.$watch('vm.role', function(newRole, oldRole){
-          /*console.log(newRole)
-          console.log(oldRole)*/
+          
           if(newRole && newRole.description){
+            console.log(newRole.length)
+            /*console.log(oldRole.length)*/
             scope.roleData = newRole
             controller.roleData = newRole
             scope.descriptionWordCount = newRole.description.split(" ").length;
@@ -240,19 +242,32 @@ angular.module('roleCtrl', ['userService',
           /*$route.reload();*/
         }
 
+        var removeApp = function(appID){
+          for(var i in vm.applicants){
+            console.log("applicants loop")
+            var app = vm.applicants[i]
+            if(app._id === appID){ 
+              console.log("Found match")
+              vm.applicants.splice(i,1);
+            }
+          }
+        }
+
         $scope.deleteAppBtn = function() {
           Applicant.delete($scope.currApp._id, $scope.roleData._id)
             .success(function() {
               /*getApps();*/
-              --$scope.numApps;
               if ($scope.viewApp === true) { //full page review
                 if ($scope.numApps === 0) {
                   vm.backBtn();
                 }
                 vm.lastApp();
               }
-              getApps();
-              deleteAppAside.hide();
+              else deleteAppAside.hide();
+
+              removeApp($scope.currApp._id);
+              --$scope.numApps;
+
             })
             .error(function(err) {
               /*console.log(err);*/
@@ -376,7 +391,8 @@ angular.module('roleCtrl', ['userService',
           owner: '=',
           applicants: '=',
           usrinitial: '=',
-          historyback :'&'
+          historyback :'&',
+          getapps: '&'
         },
         templateUrl: 'app/views/pages/role_page.dir.html',
         link:link,
@@ -407,6 +423,7 @@ angular.module('roleCtrl', ['userService',
           vm.processing = false;
           $scope.roleData = data.data;
           if ($scope.roleData) {
+            /*console.log("running getapps")*/
             getApps();
           }
         })
@@ -414,7 +431,11 @@ angular.module('roleCtrl', ['userService',
           console.log(error);
         })
 
-      function getApps() {
+      $scope.getApps = function(){
+        getApps();
+      }  
+
+      var getApps = function() {
         Applicant.getAll($routeParams.role_id)
           .success(function(data) {
             vm.processing = false;
