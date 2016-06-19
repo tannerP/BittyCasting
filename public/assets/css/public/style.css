@@ -1469,7 +1469,8 @@ ul.projects li {
 .custom-table .table {
   font-size: 12px; }
   .custom-table .table tbody tr {
-    cursor: pointer; }
+    cursor: pointer;
+    height: 60px; }
     .custom-table .table tbody tr td {
       vertical-align: middle;
       position: relative; }
@@ -1729,7 +1730,7 @@ ul.projects li {
     width: 49%;
     float: left;
     margin-top: 10px;
-    background: url("/assets/imgs/ic_social_fb.svg") no-repeat left 15px center #06bcc2;
+    background: url("/assets/imgs/ic_social_fb_w.svg") no-repeat left 15px center #06bcc2;
     background-size: 16px 16px;
     padding-left: 30px;
     padding-top: 6px;
@@ -1747,7 +1748,7 @@ ul.projects li {
     float: right;
     margin-top: 10px;
     padding-top: 6px;
-    background: url("/assets/imgs/ic_social_twitter.svg") no-repeat left 15px center #06bcc2;
+    background: url("/assets/imgs/ic_social_twitter_w.svg") no-repeat left 15px center #06bcc2;
     background-size: 16px 16px;
     padding-left: 30px;
     -webkit-transition: all 0.8s ease;
@@ -1764,7 +1765,6 @@ ul.projects li {
     float: left;
     margin-top: 10px;
     padding-top: 6px;
-    background: url("/assets/imgs/ic_social_email.svg") no-repeat left 15px center #31a357;
     background: url("/assets/imgs/ic_social_email.svg") no-repeat left 15px center #06bcc2;
     background-size: 16px 16px;
     padding-left: 30px;
@@ -2386,12 +2386,21 @@ ul.select-coverphoto-wrapper {
         height: 14px; }
 
 .thankYouPage {
-  text-align: center; }
+  text-align: center;
+  margin-bottom: 130px; }
 
 .thankYouLogo {
   width: 54px;
   height: 54px;
   margin: 0 auto; }
+
+.thankYouSocial {
+  width: 300px;
+  margin: 0 auto; }
+  .thankYouSocial .twitter-follow-button {
+    margin: 0 0 10px 0; }
+  .thankYouSocial .fb-follow {
+    margin: 0 0 40px 0; }
 
 /***************************
            Review
