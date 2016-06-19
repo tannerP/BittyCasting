@@ -1729,7 +1729,7 @@ ul.projects li {
     width: 49%;
     float: left;
     margin-top: 10px;
-    background: url("/assets/imgs/ic_social_fb.svg") no-repeat left 15px center #06bcc2;
+    background: url("/assets/imgs/ic_social_fb_w.svg") no-repeat left 15px center #06bcc2;
     background-size: 16px 16px;
     padding-left: 30px;
     padding-top: 6px;
@@ -1747,7 +1747,7 @@ ul.projects li {
     float: right;
     margin-top: 10px;
     padding-top: 6px;
-    background: url("/assets/imgs/ic_social_twitter.svg") no-repeat left 15px center #06bcc2;
+    background: url("/assets/imgs/ic_social_twitter_w.svg") no-repeat left 15px center #06bcc2;
     background-size: 16px 16px;
     padding-left: 30px;
     -webkit-transition: all 0.8s ease;
@@ -1764,7 +1764,6 @@ ul.projects li {
     float: left;
     margin-top: 10px;
     padding-top: 6px;
-    background: url("/assets/imgs/ic_social_email.svg") no-repeat left 15px center #31a357;
     background: url("/assets/imgs/ic_social_email.svg") no-repeat left 15px center #06bcc2;
     background-size: 16px 16px;
     padding-left: 30px;
