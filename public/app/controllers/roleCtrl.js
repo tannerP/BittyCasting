@@ -5,19 +5,14 @@ angular.module('roleCtrl', ['userService',
     function($location, $aside) {
       var link = function(scope, element,
         attrs, controller, transcludeFn) {
-        /*console.log(scope)*/
         scope.$watch('vm.applicants', function(newApps, oldApps) {
-          console.log(newApps)
-          console.log(oldApps)
           if (newApps) {
             scope.numApps = newApps.length;
-            console.log(scope.numApps)
           }
         })
 
         scope.$watch('vm.role', function(newRole, oldRole) {
           if (newRole && newRole.description) {
-            console.log(newRole.length)
               /*console.log(oldRole.length)*/
             scope.roleData = newRole
             controller.roleData = newRole

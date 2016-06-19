@@ -377,7 +377,7 @@ module.exports = function(app, express) {
 		.put(function(req, res) {
 			/*console.log("/applicant/sampleApplicant");
 			console.log(req.body)*/
-				/*['ryan', "kaiting"]*/
+			/*['ryan', "kaiting"]*/
 			var sampleApplicantIDs = ["574a1684d302426a449836f8",
 				"574a163bd302426a449836f5",
 			]
@@ -611,12 +611,11 @@ module.exports = function(app, express) {
 								});
 							})
 							break;
-						}
-						else{
+						} else {
 							return res.json({
-										success: false,
-										message: "Can't seem to find comment"
-									})
+								success: false,
+								message: "Can't seem to find comment"
+							})
 						}
 					}
 				})
@@ -906,37 +905,44 @@ module.exports = function(app, express) {
 		Role.find({
 			projectID: req.params.project_id
 		}, function(err, roles) {
-			console.log(roles)
-			console.log(roles.length)
-			for (var i in roles) {
+			/*console.log(roles)
+			console.log(roles.length)*/
+			if (roles) {
+				//check if roles belong to user
+				if(roles[i] && roles[i].userID !== req.decoded.id)
+				{
+						return res.json({success:false, message:"Invalid request"})
+				}
 
-				Applicant.find({
-					roleIDs: {
-						$in: [roles[i]._id]
-					}
-				}, function(err, apps) {
-					/*console.log(apps)*/
-					if (err) console.log(err);
-					else {
-						for (var a in apps) {
-							/*console.log(apps[a].roleIDs.length);*/
-							console.log("roleIDs: " + apps[a].roleIDs.length)
-							if (apps[a].roleIDs.length <= 1) {
-								/*console.log(apps[a].suppliments)*/
-								aws.removeSup(apps[a].suppliments);
-								apps[a].remove();
-							} else {
-								/*console.log(roles[i]._id)*/
-								var index = apps[a].roleIDs.indexOf(roles[i]._id);
-								/*console.log(index)*/
-								apps[a].roleIDs.splice(index, ++index);
-								/*console.log("roleIDs: " + apps[a].roleIDs.length)*/
-								apps[a].save();
+				for (var i in roles) {
+					Applicant.find({
+						roleIDs: {
+							$in: [roles[i]._id]
+						}
+					}, function(err, apps) {
+						/*console.log(apps)*/
+						if (err) console.log(err);
+						else {
+							for (var a in apps) {
+								/*console.log(apps[a].roleIDs.length);*/
+								console.log("roleIDs: " + apps[a].roleIDs.length)
+								if (apps[a].roleIDs.length <= 1) {
+									/*console.log(apps[a].suppliments)*/
+									aws.removeSup(apps[a].suppliments);
+									apps[a].remove();
+								} else {
+									/*console.log(roles[i]._id)*/
+									var index = apps[a].roleIDs.indexOf(roles[i]._id);
+									/*console.log(index)*/
+									apps[a].roleIDs.splice(index, ++index);
+									/*console.log("roleIDs: " + apps[a].roleIDs.length)*/
+									apps[a].save();
+								}
 							}
 						}
-					}
-				})
-				roles[i].remove();
+					})
+					roles[i].remove();
+				}
 			}
 		})
 		Project.remove({
@@ -1068,12 +1074,12 @@ module.exports = function(app, express) {
 						break;
 				}
 				user.save()
-				/*console.log(user.views)*/
+					/*console.log(user.views)*/
 
 
-/*				console.log("Reached api")*/
-					/*console.log(req)
-					console.log(res)*/
+				/*				console.log("Reached api")*/
+				/*console.log(req)
+				console.log(res)*/
 				return res.json({
 					success: true
 				})
