@@ -94,8 +94,7 @@ angular.module('registrationCtrl', ['authService', 'mgcrea.ngStrap'])
 	$aside, Auth) {
 	var vm = this;
 
-	vm.nameChanging = function(name) {
-		/*console.log(name)*/
+/*	vm.nameChanging = function(name) {
 		var index = name.indexOf(" ");
 		var fname = name.split(" ")[0];
 		var lname = name.split(" ")[1];
@@ -111,7 +110,7 @@ angular.module('registrationCtrl', ['authService', 'mgcrea.ngStrap'])
 			vm.userData.name = ''
 			vm.userData.name = fname + " " + lname
 		}
-	}
+	}*/
 
 	if ($location.path().indexOf('invite') > -1) vm.inviteReg = true;
 	/*console.log($location.path())
@@ -225,9 +224,9 @@ angular.module('registrationCtrl', ['authService', 'mgcrea.ngStrap'])
 				//last key pressed was a space
 				//capitalize following word
 				//extract last word capitalize, then concat back
-				console.log(name)
+				/*console.log(name)
 				console.log(name.length)
-				console.log(name.substring(--name.length,name.length))
+				console.log(name.substring(--name.length,name.length))*/
 				isLastKeySpace = false;
 			}
 			//if last key is a space 

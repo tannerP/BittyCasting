@@ -392,7 +392,7 @@ module.exports = function(app, express) {
         //Invokes the method to send emails given the above data with the helper library
       mailgun.messages().send(data, function(err, body) {
         /*console.log(body)*/
-          //If there is an error, render the error page
+        //If there is an error, render the error page
         if (err) {
           console.log(err)
         } else {
@@ -581,10 +581,40 @@ module.exports = function(app, express) {
 
       //set the users information (comes from the request)
       var name = req.body.name;
-      user.name = ({
-        first: name.split(" ")[0],
-        last: name.split(" ")[1]
+      var arrName = name.split(' ');
+
+      if(arrName.length < 2){
+        return res.json({success:false, message:"User name invalid."})
+      }
+      else if(arrName.length > 2)
+      {
+        var middleName = "";
+        
+        /*console.log(arrName.length)*/
+        for(var i in name.split(' ') ){
+          /*console.log(i)*/
+          if (i > 0 && i < arrName.length - 1){
+            /*console.log(arrName)*/
+            /*console.log("i "+ i)*/
+            /*console.log(arrName[i])*/
+            /*if(i === arrName.length - 1)
+            middleName += name.split(' ')[i];
+            else*/
+            middleName += name.split(' ')[i] + " ";
+          }
+        }
+
+        var fname = name.split(" ")[0]
+        var lname = name.split(" ")[arrName.length -1]
+        user.name = ({
+        first: fname[0].toUpperCase() + fname.toLowerCase().slice(1),
+        middle:middleName.trim(),
+        last: lname[0].toUpperCase() + lname.toLowerCase().slice(1)
       })
+      }
+      /*console.log(req.body.name)
+      console.log(user.name)*/
+
 
       /*user.name.last = req.body.name.last;
       user.name.first = req.body.name.first;*/
@@ -618,8 +648,6 @@ module.exports = function(app, express) {
 
           mailgun.messages()
             .send(data, function(err, body) {
-              /*console.log(err)
-              console.log(body)*/
               if (err) {
                 return res.json({
                   success: false,
@@ -633,7 +661,6 @@ module.exports = function(app, express) {
               }
             });
         }
-
       })
 
     });
@@ -666,7 +693,7 @@ module.exports = function(app, express) {
                 return res.send(err);
             } else {
               /*if (invite) {*/
-                Project.findById(invite.projectID, function(err, project) {
+              Project.findById(invite.projectID, function(err, project) {
                   if (err) return;
                   project.collabs_id.push({
                     userID: user._id,
@@ -676,7 +703,7 @@ module.exports = function(app, express) {
                   project.save();
                   return
                 })
-              /*}*/
+                /*}*/
               var token = jwt.sign({
                 id: user.id,
                 name: user.name,
@@ -692,13 +719,12 @@ module.exports = function(app, express) {
               });
             }
           });
+        } else {
+          return res.json({
+            success: false,
+            message: 'Could not find invitation'
+          });
         }
-        else{
-        return res.json({
-                  success: false,
-                  message: 'Could not find invitation'
-                });
-              }
       })
     });
   return app;
