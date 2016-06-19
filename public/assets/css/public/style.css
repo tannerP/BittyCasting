@@ -2386,15 +2386,21 @@ ul.select-coverphoto-wrapper {
         height: 14px; }
 
 .thankYouPage {
-  text-align: center; }
+  text-align: center;
+  margin-bottom: 130px; }
 
 .thankYouLogo {
   width: 54px;
   height: 54px;
   margin: 0 auto; }
 
-.twitter-follow-button {
-  margin: 0 auto 20px auto; }
+.thankYouSocial {
+  width: 300px;
+  margin: 0 auto; }
+  .thankYouSocial .twitter-follow-button {
+    margin: 0 0 10px 0; }
+  .thankYouSocial .fb-follow {
+    margin: 0 0 40px 0; }
 
 /***************************
            Review

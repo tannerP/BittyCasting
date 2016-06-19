@@ -2615,18 +2615,25 @@ ul.select-coverphoto-wrapper {
 
 .thankYouPage {
     text-align: center;
+    margin-bottom: 130px;  
 }
-
 
 .thankYouLogo {
     width: 54px;
     height: 54px;
     margin: 0 auto;}
 
-.twitter-follow-button {
-    margin: 0 auto 20px auto;
+.thankYouSocial {
+    width: 300px;
+//    background-color: aqua;
+    margin: 0 auto;
+    .twitter-follow-button {
+        margin: 0 0 10px 0;
+    }  
+    .fb-follow {
+        margin: 0 0 40px 0;
+    }
 }
-    
 
 /***************************
            Review
