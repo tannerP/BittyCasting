@@ -1469,7 +1469,8 @@ ul.projects li {
 .custom-table .table {
   font-size: 12px; }
   .custom-table .table tbody tr {
-    cursor: pointer; }
+    cursor: pointer;
+    height: 60px; }
     .custom-table .table tbody tr td {
       vertical-align: middle;
       position: relative; }
@@ -2391,6 +2392,9 @@ ul.select-coverphoto-wrapper {
   width: 54px;
   height: 54px;
   margin: 0 auto; }
+
+.twitter-follow-button {
+  margin: 0 auto 20px auto; }
 
 /***************************
            Review

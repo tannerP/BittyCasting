@@ -1664,6 +1664,7 @@ ul.projects li {
 
         tbody tr {
             cursor: pointer;
+            height: 60px;
             td {
                 vertical-align: middle;
                 position: relative;
@@ -2613,7 +2614,7 @@ ul.select-coverphoto-wrapper {
 }
 
 .thankYouPage {
-text-align: center;
+    text-align: center;
 }
 
 
@@ -2621,6 +2622,10 @@ text-align: center;
     width: 54px;
     height: 54px;
     margin: 0 auto;}
+
+.twitter-follow-button {
+    margin: 0 auto 20px auto;
+}
     
 
 /***************************
