@@ -1430,6 +1430,16 @@ ul.projects li {
         z-index: 1;
     }
     
+    .fav-applicant-counter {
+        position: absolute;
+        top: 14px;
+        right: 19px;
+        z-index: 1;
+        color: $color-grey;
+        font-size: 10px;
+        cursor: pointer;
+    }
+    
     .cardScrim {
         position: absolute;
         top: 0;
