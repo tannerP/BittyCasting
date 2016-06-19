@@ -198,12 +198,13 @@ angular.module('roleCtrl', ['userService',
           }
 
           $scope.currApp = applicant;
+          /*console.log("change currApp at updateCarosel")*/
           var app = applicant;
-          if (app.new) {
+          if (app && app.new) {
             app.new = false;
             vm.updateViewed(app, $scope.roleData._id)
+            addSlides($scope.slides, app.suppliments);
           }
-          addSlides($scope.slides, app.suppliments);
         }
 
         vm.viewBtn = function(app) {
@@ -212,7 +213,7 @@ angular.module('roleCtrl', ['userService',
           $scope.viewApp = true;
         }
         vm.nextApp = function() {
-          if ($scope.currIndex < $scope.applicants.length - 1) {
+          if ($scope.currIndex < vm.applicants.length - 1) {
             /*$scope.currIndex = $scope.currIndex;*/
             $scope.currIndex += 1;
             /*vm.viewBtn($scope.currIndex)*/
@@ -220,19 +221,19 @@ angular.module('roleCtrl', ['userService',
             $scope.currIndex = 0;
           }
 
-          updateCarosel($scope.applicants[$scope.currIndex]);
+          updateCarosel(vm.applicants[$scope.currIndex]);
         }
         vm.lastApp = function() {
           /*console.log($scope.currIndex)*/
           if ($scope.currIndex <= 0) {
-            $scope.currIndex = $scope.applicants.length - 1;
+            $scope.currIndex = vm.applicants.length - 1;
             /*vm.viewBtn($scope.currIndex)*/
             /*updateCarosel($scope.currIndex)*/
           } else {
             $scope.currIndex -= 1;
             /*updateCarosel($scope.currIndex);*/
           }
-          updateCarosel($scope.applicants[$scope.currIndex]);
+          updateCarosel(vm.applicants[$scope.currIndex]);
         }
         vm.updateViewed = function(app, roleID) {
           app.new = false;
@@ -259,7 +260,6 @@ angular.module('roleCtrl', ['userService',
             if(app._id === appID){ 
               console.log("Found match")
               vm.applicants.splice(i,1);
-              --$scope.numApps;
               console.log("after")
               console.log($scope.numApps)
               return;
@@ -272,10 +272,11 @@ angular.module('roleCtrl', ['userService',
           console.log($scope.numApps)
           Applicant.delete($scope.currApp._id, $scope.roleData._id)
             .success(function() {
+              --$scope.numApps;
               /*getApps();*/
 
               removeApp($scope.currApp._id);
-
+              console.log("view app " + $scope.viewApp)  
               if ($scope.viewApp === true) { //full page review
                 if ($scope.numApps === 0) {
                   $scope.currApp = {};
@@ -369,6 +370,7 @@ angular.module('roleCtrl', ['userService',
         $scope.asideOpened = false;
         vm.deleteAsideBtn = function(app) {
           $scope.asideOpened = false;
+          console.log("change currApp at delete aside btn")
           $scope.currApp = app
           deleteAppAside.$promise.then(deleteAppAside.toggle);
         }
