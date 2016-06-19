@@ -10,7 +10,7 @@ angular.module('applyCtrl', ['userService', 'mgcrea.ngStrap'])
     //search for the furthest date in the future.
     scope.$watch('ppv.roles', function(newRoles, oldRoles) {
       var furthestDeadline;
-      var isExpired = true;
+      var isExpired = false;
       var closedC = 0;
       if (newRoles) {
         for (var i in newRoles) {
@@ -36,8 +36,9 @@ angular.module('applyCtrl', ['userService', 'mgcrea.ngStrap'])
         }
         /*console.log(closedC)
         console.log(newRoles.length)*/
+        scope.expired = false;
         if (closedC === newRoles.length) scope.expired = true;
-        /*console.log(deadline)*/
+        /*console.log(scope.expired)*/
 
         if (newRoles && newRoles.length === 1) {
           controller.requirements = newRoles[0].requirements;

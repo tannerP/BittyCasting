@@ -91,11 +91,10 @@ angular.module('registrationCtrl', ['authService', 'mgcrea.ngStrap'])
 
 .controller('signupInviteSliderCtrl', function(User, $scope,
 	$location, EmailValidator, Facebook, $routeParams, $timeout,
-	 $aside, Auth) {
+	$aside, Auth) {
 	var vm = this;
 
-	vm.nameChanging = function(name) {
-		/*console.log(name)*/
+/*	vm.nameChanging = function(name) {
 		var index = name.indexOf(" ");
 		var fname = name.split(" ")[0];
 		var lname = name.split(" ")[1];
@@ -111,7 +110,7 @@ angular.module('registrationCtrl', ['authService', 'mgcrea.ngStrap'])
 			vm.userData.name = ''
 			vm.userData.name = fname + " " + lname
 		}
-	}
+	}*/
 
 	if ($location.path().indexOf('invite') > -1) vm.inviteReg = true;
 	/*console.log($location.path())
@@ -158,7 +157,7 @@ angular.module('registrationCtrl', ['authService', 'mgcrea.ngStrap'])
 						vm.userData = {};
 						vm.processing = false;
 						vm.message = "Successfully registered. You are being directed to the project."
-						$timeout(function(){
+						$timeout(function() {
 							$scope.$emit('aside.hide')
 							$scope.$hide();
 							$location.path('/home');
@@ -209,24 +208,59 @@ angular.module('registrationCtrl', ['authService', 'mgcrea.ngStrap'])
 		return;
 	}
 
+	var isLastKeySpace = true;
+	vm.nameKeyDown = function(name, event) {
+		//prevent defaul
+			console.log(event)
+			console.log(name.length)
+			console.log(name)
+			if(name && name.length === 0){
+				console.log(name)
+				console.log(name.toUpperCase())
+				name = name.toUpperCase()
+				return;
+			}
+			if (isLastKeySpace === true) {
+				//last key pressed was a space
+				//capitalize following word
+				//extract last word capitalize, then concat back
+				/*console.log(name)
+				console.log(name.length)
+				console.log(name.substring(--name.length,name.length))*/
+				isLastKeySpace = false;
+			}
+			//if last key is a space 
+			//next word should be capitalized
+			else if (event.which === 32) {
+				/*console.log("space key")*/
+				isLastKeySpace = true;
+			} else {
+				/*console.log("regular")*/
+				isLastKeySpace = false;
+				return;
+			}
 
-	vm.nameChanging = function(name) {
-		var index = name.indexOf(" ");
-		var fname = name.split(" ")[0];
-		var lname = name.split(" ")[1];
 
-		if (fname) {
-			fname = fname[0].toUpperCase() + fname.toLowerCase().slice(1);
-			vm.userData.name = fname;
+
 		}
-		if (lname) {
-			lname = lname[0].toUpperCase() + lname.toLowerCase().slice(1);
-		}
-		if (lname && lname) {
-			vm.userData.name = ''
-			vm.userData.name = fname + " " + lname
-		}
-	}
+		/*
+			vm.nameChanging = function(name) {
+				var index = name.indexOf(" ");
+				var fname = name.split(" ")[0];
+				var lname = name.split(" ")[1];
+
+				if (fname) {
+					fname = fname[0].toUpperCase() + fname.toLowerCase().slice(1);
+					vm.userData.name = fname;
+				}
+				if (lname) {
+					lname = lname[0].toUpperCase() + lname.toLowerCase().slice(1);
+				}
+				if (lname && lname) {
+					vm.userData.name = ''
+					vm.userData.name = fname + " " + lname
+				}
+			}*/
 
 	vm.isEmailVallid = true;
 	vm.emailChanging = function(email) {

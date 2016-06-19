@@ -19,7 +19,7 @@
                            <img ng-if="!currApp.favorited" ng-src="/assets/imgs/ic_fav_w.svg" width="16px" vertical-align="middle">Favorite
                         </div>
                         <div
-                            ng-if="page.owner" 
+                            ng-if="vm.owner" 
                             class="custom-btn-secondary-small btn-email"
                             href="#"
                             socialshare
@@ -30,7 +30,7 @@
                         </div>   
                         <div class="custom-btn-secondary-small btn-delete"
                               ng-click="page.deleteAsideBtn(currApp)"
-                              ng-if="page.owner">
+                              ng-if="vm.owner">
                               Delete
                         </div>
                 </div>

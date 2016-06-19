@@ -21,8 +21,8 @@
         <label>Name</label>
         <input type="text" name="name" class="custom-form"
                 ng-model="user.userData.name"
-                ng-change="user.nameChanging(user.userData.name)"
                 required>
+          <!-- ng-keydown="user.nameKeyDown(user.userData.name,$event)" -->
       </div>
       <div class="form-group">
         <label>Create password</label>
