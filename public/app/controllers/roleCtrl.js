@@ -4,21 +4,21 @@ angular.module('roleCtrl', ['userService',
   .directive('rolepage',
     function($location, $aside) {
       var link = function(scope, element,
-    attrs, controller, transcludeFn) {
+        attrs, controller, transcludeFn) {
         /*console.log(scope)*/
-        scope.$watch('vm.applicants', function(newApps, oldApps){
-            console.log(newApps)
-            console.log(oldApps)
-          if(newApps) {
+        scope.$watch('vm.applicants', function(newApps, oldApps) {
+          console.log(newApps)
+          console.log(oldApps)
+          if (newApps) {
             scope.numApps = newApps.length;
             console.log(scope.numApps)
           }
         })
-        
-        scope.$watch('vm.role', function(newRole, oldRole){
-          if(newRole && newRole.description){
+
+        scope.$watch('vm.role', function(newRole, oldRole) {
+          if (newRole && newRole.description) {
             console.log(newRole.length)
-            /*console.log(oldRole.length)*/
+              /*console.log(oldRole.length)*/
             scope.roleData = newRole
             controller.roleData = newRole
             scope.descriptionWordCount = newRole.description.split(" ").length;
@@ -49,8 +49,8 @@ angular.module('roleCtrl', ['userService',
               }
             }
           }
-      })
-    } 
+        })
+      }
 
       var controller = function(Applicant, Role, $location, $routeParams, $rootScope,
         $scope, $aside, $routeParams, $location, $route,
@@ -58,13 +58,13 @@ angular.module('roleCtrl', ['userService',
         var vm = this;
         var fav = false;
         vm.newComment = "" // solution for when switch between applicants, 
-        //need to clear comment
+          //need to clear comment
 
         vm.setFilter = function(filter) {
           /*console.log("filter")
           console.log(filter)*/
-            vm.curFilter = filter
-          }
+          vm.curFilter = filter
+        }
 
         var editRoleAside = $aside({
             scope: $scope,
@@ -171,8 +171,7 @@ angular.module('roleCtrl', ['userService',
               vm.listView = true;
 
               /*vm.setGridVw()*/
-            }
-            else {
+            } else {
               vm.setGridVw()
             }
 
@@ -250,16 +249,16 @@ angular.module('roleCtrl', ['userService',
           /*$route.reload();*/
         }
 
-        var removeApp = function(appID){
+        var removeApp = function(appID) {
           console.log($scope.numApps)
 
-          if(vm.applicants.length === 1) vm.applicants = [];
-          for(var i in vm.applicants){
+          if (vm.applicants.length === 1) vm.applicants = [];
+          for (var i in vm.applicants) {
             console.log("applicants loop")
             var app = vm.applicants[i]
-            if(app._id === appID){ 
+            if (app._id === appID) {
               console.log("Found match")
-              vm.applicants.splice(i,1);
+              vm.applicants.splice(i, 1);
               console.log("after")
               console.log($scope.numApps)
               return;
@@ -276,7 +275,7 @@ angular.module('roleCtrl', ['userService',
               /*getApps();*/
 
               removeApp($scope.currApp._id);
-              console.log("view app " + $scope.viewApp)  
+              console.log("view app " + $scope.viewApp)
               if ($scope.viewApp === true) { //full page review
                 if ($scope.numApps === 0) {
                   $scope.currApp = {};
@@ -389,6 +388,13 @@ angular.module('roleCtrl', ['userService',
           editRoleAside.$promise.then(editRoleAside.toggle);
         }
 
+        $rootScope.$on('$locationChangeStart', function(event, newUrl, oldUrl) {
+          if ($scope.viewApp) {
+            vm.backBtn();
+            event.preventDefault(); // This prevents the navigation from happening
+          }
+        });
+
         var MAXLENGTH = 430;
         $scope.descriptionLength = MAXLENGTH;
         vm.isTruncated = false;
@@ -410,11 +416,11 @@ angular.module('roleCtrl', ['userService',
           owner: '=',
           applicants: '=',
           usrinitial: '=',
-          historyback :'&',
+          historyback: '&',
           getapps: '&'
         },
         templateUrl: 'app/views/pages/role_page.dir.html',
-        link:link,
+        link: link,
         controller: controller,
         controllerAs: 'vm',
         bindToController: true //required in 1.3+ with controllerAs
@@ -450,9 +456,9 @@ angular.module('roleCtrl', ['userService',
           console.log(error);
         })
 
-      $scope.getApps = function(){
+      $scope.getApps = function() {
         getApps();
-      }  
+      }
 
       var getApps = function() {
         Applicant.getAll($routeParams.role_id)
@@ -510,15 +516,6 @@ angular.module('roleCtrl', ['userService',
             console.log(error);
           })
       }
-
-
-      $rootScope.$on('$locationChangeStart', function(event, newUrl, oldUrl) {
-        if ($scope.viewApp) {
-          vm.backBtn();
-          event.preventDefault(); // This prevents the navigation from happening
-        }
-      });
-
     })
   .controller('shareRoleController', ['$scope', '$alert', '$location',
     '$timeout',
@@ -595,28 +592,28 @@ angular.module('roleCtrl', ['userService',
 
     vm.deleteCmt = function(appID, index, comment) {
       Applicant.deleteComment(appID, comment)
-        .success(function(data){
+        .success(function(data) {
           console.log(data)
           delete $scope.currApp.comments[index];
         })
-      
+
     }
 
     vm.addCmt = function(appID, comment) {
       var owner = $rootScope.user.first[0] + $rootScope.user.last[0];
       var cmt = {
-        timestamp: new Date(),
-        owner: owner,
-        ownerID: $rootScope.user._id,
-        comment: comment
-      }
-      /*console.log(cmt)*/
+          timestamp: new Date(),
+          owner: owner,
+          ownerID: $rootScope.user._id,
+          comment: comment
+        }
+        /*console.log(cmt)*/
 
       $scope.currApp.comments.push(cmt);
       Applicant.pushComment(appID, cmt)
-        .success(function(data){
-            console.log(data)
-            $scope.currApp.comments = data.comments
+        .success(function(data) {
+          console.log(data)
+          $scope.currApp.comments = data.comments
         })
       vm.newComment = "";
     }
