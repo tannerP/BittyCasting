@@ -1973,6 +1973,7 @@ ul.projects li {
 }
 
 .form-group {
+    position: relative;
     
     ul {
         list-style: none;
@@ -2031,7 +2032,23 @@ ul.projects li {
             float: right;
         }
     }
-
+    button {
+        position: absolute;
+        right: 0;
+        bottom: 4px;
+        border: 0;
+        color: white;  
+        font-size: $font-size-regular;
+        background-color: $color-grey-dark; 
+        padding: 5px 10px;
+        @include box-shadow(0px, 1px, 1px, 0px, rgba(0,0,0,0.2));
+        @include transition(all, 0.8s, ease);
+        &:hover, &:focus {
+            background-color: $color-grey-darken;
+            color: white; 
+            @include transition(all, 0.8s, ease);
+        }  
+    }
 }
 
 .custom-form {
