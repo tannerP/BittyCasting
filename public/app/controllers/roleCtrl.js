@@ -234,17 +234,28 @@ angular.module('roleCtrl', ['userService',
           app.new = false;
           Applicant.viewedUpdate(app._id, roleID);
         }
+
+        /*Optimistic resolution*/
         vm.updateFav = function(index, aplnt, roleID) {
-          /*console.log(aplnt.favorited)*/
-          aplnt.favorited = !aplnt.favorited;
-
-          if(aplnt.favorited === false) aplnt.numFavs--;
-          else aplnt.numFavs++;
-          /*console.log(aplnt.favorited)*/
-          /*        $scope.applicants[index].favorited = !$scope.applicants[index].favorited */
-
-          /*aplnt.favorited = !aplnt.favorited;*/
           Applicant.favUpdate(aplnt, roleID);
+          
+          if(!aplnt.favs || aplnt.favs < 1)
+          {
+            aplnt.numFavs++
+          }
+          for(var i in aplnt.favs){
+            if(aplnt.favs[i].userID === $rootScope.user._id )
+            {
+              /*console.log("match")*/
+              aplnt.favs[i].favorited = !aplnt.favs[i].favorited
+              if(aplnt.favs[i].favorited == false) aplnt.numFavs--;
+              else aplnt.numFavs++;
+            }
+          }
+
+          if(aplnt.numFavs < 1) {aplnt.favorited = false}
+          else {aplnt.favorited = true;}
+          return;
           /*$route.reload();*/
         }
 
@@ -475,18 +486,20 @@ angular.module('roleCtrl', ['userService',
 
               }
 
-              if (applicant.favs.length > 0) {
+              if (applicant && applicant.favs.length > 0) {
                 for (var f in applicant.favs) {
                   var roleID = $routeParams.role_id
                   var appRoleID = applicant.favs[f].roleID;
                   //filter
                   if (roleID !== appRoleID) applicant.favs.splice(f, 1);
                   //check and assigned as favorited
-                  if (applicant && applicant.favs[f] &&
+                  /*if (applicant && applicant.favs[f] &&
                     $rootScope.user._id === applicant.favs[f].userID && $scope.roleData._id === applicant.favs[f].roleID) {
                     applicant.favorited = applicant.favs[f].favorited;
-                  }
+                  }*/
                   if(applicant.favs[f].favorited === true) applicant.numFavs++; 
+                  if(applicant.numFavs > 0) applicant.favorited = true;
+                  else applicant.favorited = false;
                 }
               }
 
