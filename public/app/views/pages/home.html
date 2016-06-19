@@ -71,7 +71,7 @@
             
               <tbody>
               <!-- LOOP OVER THE USERS -->
-              <tr ng-repeat="project in home.projects">
+              <tr ng-repeat="project in home.projects | orderBy: '-updated_date'">
                 <td ng-click="home.getProjectBtn(project)">
                      <div style='background: url({{project.coverphoto.source || "/assets/imgs/img_projectCover01.png"}}) no-repeat center center; background-size: 100% auto; height: 60px; width: auto;'>
 

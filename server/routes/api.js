@@ -317,8 +317,8 @@ module.exports = function(app, express) {
 
 					/*console.log(tempFav);*/
 					var usrInx = -1;
-					// console.log(app.favs)
 					//check if user ever favorited applicant for this role
+					
 					for (var i in app.favs) {
 						var curr = {};
 						curr.roleID = app.favs[i].roleID,
@@ -329,10 +329,6 @@ module.exports = function(app, express) {
 							usrInx = i;
 						}
 					}
-
-					/*        console.log(usrInx);
-					 */
-					/*var index = app.favs.indexOf(req.decoded.id);*/
 					if (usrInx === -1) {
 						/*          console.log("adding for the first time");*/
 						var reqData = {
@@ -469,7 +465,7 @@ module.exports = function(app, express) {
 						tempArr = apps[app].favs;
 						apps[app].favs = [];
 						for (var j in tempArr) {
-							if (tempArr[j].userID === req.decoded.id) {
+							if (tempArr[j].roleID === req.params.roleID) {
 								apps[app].favs.push(tempArr[j])
 							}
 

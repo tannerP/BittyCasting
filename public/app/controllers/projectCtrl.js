@@ -5,7 +5,7 @@ angular.module('projectCtrl', ['userService',
     function(Role, Project, $location, $routeParams, $aside, $route) {
       var link = function(scope, element, attrs, controller, transludeFn) {
         scope.$watch("vm.project", function(newData, oldData) {
-          if (newData._id) { //variable used to hide show/hide long project description
+          if (newData._id && newData.description) { //variable used to hide show/hide long project description
             scope.descriptionWordCount = newData.description.split(" ").length
           }
         })

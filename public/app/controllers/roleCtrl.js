@@ -196,7 +196,7 @@ angular.module('roleCtrl', ['userService',
           var app = applicant;
           if (app && app.new) {
             app.new = false;
-            vm.updateViewed(app, $scope.roleData._id)
+            vm.updateViewed(app, vm.role._id)
             addSlides($scope.slides, app.suppliments);
           }
         }
@@ -236,6 +236,9 @@ angular.module('roleCtrl', ['userService',
         vm.updateFav = function(index, aplnt, roleID) {
           /*console.log(aplnt.favorited)*/
           aplnt.favorited = !aplnt.favorited;
+
+          if(aplnt.favorited === false) aplnt.numFavs--;
+          else aplnt.numFavs++;
           /*console.log(aplnt.favorited)*/
           /*        $scope.applicants[index].favorited = !$scope.applicants[index].favorited */
 
@@ -355,7 +358,6 @@ angular.module('roleCtrl', ['userService',
         $scope.asideOpened = false;
         vm.deleteAsideBtn = function(app) {
           $scope.asideOpened = false;
-          console.log("change currApp at delete aside btn")
           $scope.currApp = app
           deleteAppAside.$promise.then(deleteAppAside.toggle);
         }
@@ -455,6 +457,7 @@ angular.module('roleCtrl', ['userService',
             //apply filters
             for (var i in vm.applicants) {
               var applicant = vm.applicants[i];
+              applicant.numFavs = 0;
 
               //filter for new applicant
               if (applicant.userViewed_IDs.length === 0) {
@@ -482,6 +485,7 @@ angular.module('roleCtrl', ['userService',
                     $rootScope.user._id === applicant.favs[f].userID && $scope.roleData._id === applicant.favs[f].roleID) {
                     applicant.favorited = applicant.favs[f].favorited;
                   }
+                  if(applicant.favs[f].favorited === true) applicant.numFavs++; 
                 }
               }
 
