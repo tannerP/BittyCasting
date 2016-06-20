@@ -68,15 +68,28 @@ module.exports = function(app, express) {
 						//search, then remove collab
 					for (var i in project.collabs_id) {
 						var collab = project.collabs_id[i];
-
 						if (collab.userID.indexOf(req.body.userID) > -1) {
 							/*console.log("found collab")*/
 							project.collabs_id.splice(i, 1);
 							project.save(function(err, data) {
-
-								if (!err) return res.json({
-									success: true
+								User.findById(req.body.userID, function(error, user) {
+									if (!user) return res.json({
+											success: false,
+											message: "Unable to update request."
+										})
+										/*console.log(user)*/
+									var ind = user.invites.indexOf(req.body.projectID);
+									if (ind > -1) {
+										/*if(user.invites.length ===1) user.invites =[];*/
+										user.invites.splice(ind, 1);
+										user.save(function(err, user) {
+											if (!err) return res.json({
+												success: true
+											})
+										})
+									}
 								})
+
 							});
 							break;
 						}
@@ -220,19 +233,22 @@ module.exports = function(app, express) {
 									})
 									/*console.log(project.collabs_id)*/
 								project.save(function(error, project) {
-									user.save(function(error, user) {
-										if (!error) {
-											mailgun.messages()
-												.send(emailData, function(err, data) {
-													/*console.log(err)
-													console.log(data)*/
-													return res.json({
-														success: true,
-														data: user
+									if (!error) {
+										user.save(function(error, user) {
+											if (!error) {
+												mailgun.messages()
+													.send(emailData, function(err, data) {
+														/*console.log(err)
+														console.log(data)*/
+														return res.json({
+															success: true,
+															user_name:user.name,
+															userID:user._id
+														});
 													});
-												});
-										}
-									})
+											}
+										})
+									}
 								})
 							}
 						})
@@ -254,7 +270,7 @@ module.exports = function(app, express) {
 								/*console.log(data)*/
 								return res.json({
 									success: true,
-									data: false
+									message: data
 								});
 							});
 						/*})*/
@@ -318,7 +334,7 @@ module.exports = function(app, express) {
 					/*console.log(tempFav);*/
 					var usrInx = -1;
 					//check if user ever favorited applicant for this role
-					
+
 					for (var i in app.favs) {
 						var curr = {};
 						curr.roleID = app.favs[i].roleID,
@@ -905,9 +921,11 @@ module.exports = function(app, express) {
 			console.log(roles.length)*/
 			if (roles) {
 				//check if roles belong to user
-				if(roles[i] && roles[i].userID !== req.decoded.id)
-				{
-						return res.json({success:false, message:"Invalid request"})
+				if (roles[i] && roles[i].userID !== req.decoded.id) {
+					return res.json({
+						success: false,
+						message: "Invalid request"
+					})
 				}
 
 				for (var i in roles) {

@@ -176,36 +176,28 @@ angular.module('projectCtrl', ['userService',
   vm.guestEmail = "";
   /*var project = $scope.$parent.vm.project; */
 
-  vm.removeBtn = function(collabID, index) {
-    /*console.log(collab)*/
+  vm.removeBtn = function(userID, index) {
     $scope.project.collabs_id.splice(index, 1)
-    Project.removeCollab($scope.project._id, collabID);
-    /*$route.reload();*/
+    Project.removeCollab($scope.project._id, userID);
   }
 
   vm.inviteBtn = function() {
     if (vm.guestEmail) {
       Mail.sendCollabInvite($scope.project, vm.guestEmail)
         .success(function(resp) {
-          if (!resp.data) {
+
+          if (!resp.user_name) {
             vm.guestEmail = "";
             vm.emailPlaceHolder = "An invitation is sent"
-              /*
-                          $scope.project.collabs_id.push({
-                            responded:false,
-                            accepted:false,
-                            email:vm.guestEmail
-                          })*/
           } else {
-            var user = resp.data;
+            var name = resp.user_name;
             vm.guestEmail = ""
-            var tempData =
               $scope.project.collabs_id.push({
                 userName: {
-                  first: user.name.first,
-                  last: user.name.last
-                }
-
+                  first: name.first,
+                  last: name.last,
+                },
+                userID:resp.userID
               })
           }
         });

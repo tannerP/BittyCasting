@@ -701,7 +701,6 @@ module.exports = function(app, express) {
         user.email = req.body.email;
         user.role = "user";
         if (invite) {
-          invite.remove();
           user.invites.push(invite.projectID)
 
           user.save(function(err, user) {
@@ -723,6 +722,7 @@ module.exports = function(app, express) {
                     userName: user.name,
                     userProfilePhoto: user.profile,
                   })
+                  invite.remove();
                   project.save();
                   return
                 })
