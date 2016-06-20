@@ -26,8 +26,8 @@ angular.module('userService', [])
 	email.confirm = function(confirmID){
 	 	return $http.get("register/confirm/"+confirmID)
 	}
-	email.resend = function(confirmID){
-	 	return $http.get("register/resend/"+confirmID)
+	email.resend = function(email){
+	 	return $http.get("register/resend/"+email)
 	}
 	return email
 })

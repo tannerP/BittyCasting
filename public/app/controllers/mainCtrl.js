@@ -185,13 +185,18 @@ angular.module('mainCtrl', ['authService', 'mgcrea.ngStrap'])
 	])
 	
 	.controller('loginCtrl', ['$scope', 'Auth', '$location', '$route',
-		function($scope, Auth, $location, $route) {
+		'EmailConfirmation',
+		function($scope, Auth, $location, $route, EmailConfirmation) {
 			var vm = this;
 			vm.message;
 			vm.loginData = {};
 			vm.process = false;
 			vm.resetPassword = false;
-
+			vm.resendEmail = function(email){
+				EmailConfirmation.resend(email)
+					.success(function(resp){
+					})
+			}
 			vm.doLogin = function(email, password) {
 				vm.processing = true; //TODO:processing Icon
 				vm.error = '';
@@ -199,16 +204,20 @@ angular.module('mainCtrl', ['authService', 'mgcrea.ngStrap'])
 					.success(function(data) {
 						vm.processing = false;
 						if (data.success) {
-							//if a user successfully logs in, redirect to users page
 							vm.loginData = {};
 							$scope.$emit('aside.hide')
-								//conditional for /login vs aside
 							if ($location.path() == '/login') $location.path('/home');
 							else {
 								$location.path('/home');
 								$scope.$hide();
 							}
-						} else vm.error = data.message;
+						} else {
+							vm.error = data.message;
+							if(data.notConfirmed){
+								vm.resendMode = true;
+							}
+						}
+
 					});
 			};
 

@@ -13,14 +13,14 @@
     <div class="dividerOR">OR</div>   -->
       
       
-    <form ng-submit="login.doLogin(email,password)">
+    <form>
       <!-- USERNAME INPUT -->
       <div class="form-group">
         <label>E-mail</label>
         <input type="text" class="custom-form" ng-model="email">
       </div>
       <!-- PASSWORD INPUT -->
-      <div class="form-group">
+      <div class="form-group" ng-hide=login.resendMode>
         <label>Password</label>
         <input type="password" class="custom-form" ng-model="password" >
       </div>
@@ -28,8 +28,16 @@
       <div class="custom-alert" ng-if="login.error">
         {{login.error}}
       </div>
-      <button type="submit" class="custom-btn-primary-large">
+      <button ng-hide="login.resendMode"
+              ng-click="login.doLogin(email,password)"
+              class="custom-btn-primary-large no-animate">
         <span>Log in</span>
+      </button>
+
+      <button ng-show="login.resendMode"
+              ng-click="login.resendEmail(email)"
+              class="custom-btn-primary-large no-animate">
+        <span>Resend email</span>
       </button>
     </form>
 

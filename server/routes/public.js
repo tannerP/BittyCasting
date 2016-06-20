@@ -408,10 +408,10 @@ module.exports = function(app, express) {
     /*  })
     });*/
 
-  app.route('/register/resend/:confirmID')
+  app.route('/register/resend/:email')
     .get(function(req, res) {
       EmailConfirmation.findOne({
-        _id: req.params.confirmID
+        email: req.params.email
       }, function(err, data) {
         if (!data) return res.json({
           success: false,
@@ -421,13 +421,14 @@ module.exports = function(app, express) {
           //reset create_date instead of creating a new EmailConfirmation object. 
           data.create_date = new Date();
           data.save();
-
-          var data = {
-              from: "Registration@BittyCasting.com",
-              to: data.email,
-              subject: "New Registration",
-              html: "You have been added to our Beta list. " + "You can now access your account at " + "https://bittycasting.com/ " + "Thank you for you support.",
-            }
+         var data = {
+            from: "Registration@BittyCasting.com",
+            to: req.params.email,
+            subject: "Confirm: New Registration",
+            html: user.name.first[0].toUpperCase() + user.name.first.toLowerCase().slice(1) +
+              ', please follow this link to finish your Bittycasting registration. ' +
+              "https://bittycasting.com/confirm/user/" + confirmation._id,
+          }
             /*html: "Please follow this link to finish your Bittycasting registration." + "https://bittycasting.com/confirm/user/" + data._id,*/
           var mailgun = new Mailgun({
             apiKey: config.api_key,
@@ -474,7 +475,7 @@ module.exports = function(app, express) {
         else if (data) {
           data.remove()
 
-          var DURATION = 14; //days
+          var DURATION = 7; //days
           var curData = new Date();
           var daysOld = (curData - data.create_date);
           daysOld = Math.ceil(daysOld / (1000 * 3600 * 24));
@@ -540,7 +541,9 @@ module.exports = function(app, express) {
             /*if (!validPassword) {*/
             res.json({
               success: false,
-              message: 'You account has not been validated. Please check your email, and follow the link provided to complete your email validation.'
+              notConfirmed: true,
+              message: 'Your email address has not been validated. '
+              + 'Click Resend Email to receive another email.'
             });
           } else {
             var validPassword = user.comparePassword(req.body.password);

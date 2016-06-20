@@ -1028,7 +1028,7 @@ module.exports = function(app, express) {
 						else
 							return res.json({
 								success: false,
-								message: 'A user with that email already exists.',
+								message: 'Error occured. Please try again at a later time.',
 								error: err
 							});
 
