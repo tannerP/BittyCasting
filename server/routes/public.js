@@ -582,11 +582,18 @@ module.exports = function(app, express) {
       //set the users information (comes from the request)
       var name = req.body.name;
       var arrName = name.split(' ');
+      var fname = name.split(" ")[0]
+      var lname = name.split(" ")[arrName.length - 1]
 
       if (arrName.length < 2) {
         return res.json({
           success: false,
           message: "User name invalid."
+        })
+      } else if (arrName.length === 2) {
+        user.name = ({
+          first: fname[0].toUpperCase() + fname.toLowerCase().slice(1),
+          last: lname[0].toUpperCase() + lname.toLowerCase().slice(1)
         })
       } else if (arrName.length > 2) {
         var middleName = "";
@@ -596,9 +603,6 @@ module.exports = function(app, express) {
             middleName += name.split(' ')[i] + " ";
           }
         }
-
-        var fname = name.split(" ")[0]
-        var lname = name.split(" ")[arrName.length - 1]
         middleName = middleName.trim();
         user.name = ({
           first: fname[0].toUpperCase() + fname.toLowerCase().slice(1),
@@ -666,7 +670,7 @@ module.exports = function(app, express) {
       Invite.findById(req.params.inviteID, function(err, invite) {
         var user = new User();
         var name = req.body.name;
-        
+
         var arrName = name.split(' ');
 
         if (arrName.length < 2) {
@@ -692,7 +696,7 @@ module.exports = function(app, express) {
             last: lname[0].toUpperCase() + lname.toLowerCase().slice(1)
           })
         }
-        
+
         user.password = req.body.password;
         user.email = req.body.email;
         user.role = "user";
