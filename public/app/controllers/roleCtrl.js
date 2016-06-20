@@ -239,17 +239,20 @@ angular.module('roleCtrl', ['userService',
         vm.updateFav = function(index, aplnt, roleID) {
           Applicant.favUpdate(aplnt, roleID);
           
-          if(!aplnt.favs || aplnt.favs < 1)
+          if(aplnt.favs < 1)
           {
             aplnt.numFavs++
           }
           for(var i in aplnt.favs){
             if(aplnt.favs[i].userID === $rootScope.user._id )
             {
-              /*console.log("match")*/
+              console.log("before")
+              console.log(aplnt.favs[i].favorited)
               aplnt.favs[i].favorited = !aplnt.favs[i].favorited
               if(aplnt.favs[i].favorited == false) aplnt.numFavs--;
               else aplnt.numFavs++;
+              console.log("after")
+              console.log(aplnt.favs[i].favorited)
             }
           }
 
