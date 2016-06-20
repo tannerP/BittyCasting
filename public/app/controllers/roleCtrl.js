@@ -237,9 +237,12 @@ angular.module('roleCtrl', ['userService',
 
         /*Optimistic resolution*/
         vm.updateFav = function(index, aplnt, roleID) {
+          console.log(index)
+          console.log(aplnt)
+          console.log(roleID)
           Applicant.favUpdate(aplnt, roleID);
           
-          if(aplnt.favs < 1)
+          if(aplnt.favs === 0)
           {
             aplnt.numFavs++
           }

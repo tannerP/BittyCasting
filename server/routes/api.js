@@ -71,6 +71,53 @@ module.exports = function(app, express) {
 						if (collab.userID.indexOf(req.body.userID) > -1) {
 							/*console.log("found collab")*/
 							project.collabs_id.splice(i, 1);
+
+							
+							Applicant.find({
+								roleID: project.roleID
+							}, function(err, app) {
+								/*console.log(app)
+								console.log(err)*/
+								if (!app) return;
+
+								var usrInx = -1;
+
+								for (var i in app.favs) {
+									var curr = {};
+									curr.roleID = app.favs[i].roleID,
+										curr.userID = app.favs[i].userID;
+									if (curr.userID === req.decoded.id && curr.roleID === req.body.roleID) {
+
+										usrInx = i;
+
+										if (usrInx > -1) {
+											//remove collab favoriting data
+											app.favs.splice(usrInx, 1);
+											//remove viewed
+											for (var i in app.userViewed_IDs) {
+												var curr = {};
+												curr.roleID = app.userViewed_IDs[i].roleID,
+													curr.userID = app.userViewed_IDs[i].userID;
+
+												if (curr.userID === req.decoded.id && curr.roleID === req.body.roleID) {
+
+													usrInx = i;
+													if (usrInx > -1) {
+														//remove reviewed data
+														app.userViewed_IDs.splice(usrInx, 1);
+														console.log("Saving app")
+														app.save()
+													}
+												}
+											}
+										}
+									}
+								}
+
+
+
+							});
+
 							project.save(function(err, data) {
 								User.findById(req.body.userID, function(error, user) {
 									if (!user) return res.json({
@@ -235,16 +282,18 @@ module.exports = function(app, express) {
 								project.save(function(error, project) {
 									if (!error) {
 										user.save(function(error, user) {
+											if (user) {
+												return res.json({
+													success: true,
+													user_name: user.name,
+													userID: user._id
+												});
+											}
 											if (!error) {
 												mailgun.messages()
 													.send(emailData, function(err, data) {
 														/*console.log(err)
 														console.log(data)*/
-														return res.json({
-															success: true,
-															user_name:user.name,
-															userID:user._id
-														});
 													});
 											}
 										})
