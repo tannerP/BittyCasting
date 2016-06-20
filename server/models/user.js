@@ -13,8 +13,10 @@ var UserSchema = new Schema({
 	birth_date:{type:Date, default:Date.now},
 	role: String,
 	invites:[],
-	notifications:[{notification_type:String,data:{}}],
-	views:{home:String,
+	notifications:[
+									{ notification_type:String,data:{} }
+									],
+	views:{homez:String,
 				 role:String},	
 	//content
 	profile_photo:{},

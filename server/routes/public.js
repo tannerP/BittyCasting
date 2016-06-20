@@ -618,8 +618,8 @@ module.exports = function(app, express) {
       user.isValidated = false;
 
       user.save(function(err, user) {
-        /*console.log(err)
-        console.log(user)*/
+        console.log(err)
+        console.log(user)
         if (err) {
           console.log(err);
           //duplicate entry
