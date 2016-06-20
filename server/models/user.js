@@ -9,7 +9,7 @@ var UserSchema = new Schema({
 	//meta
 	create_date: {type:Date, default:Date.now},
 	last_active: {type:Date, default:Date.now},
-	name : {first:String, middle:String, last:String},
+	name : { type:Object, require:true },
 	birth_date:{type:Date, default:Date.now},
 	role: String,
 	invites:[],

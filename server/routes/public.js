@@ -599,10 +599,10 @@ module.exports = function(app, express) {
 
         var fname = name.split(" ")[0]
         var lname = name.split(" ")[arrName.length - 1]
-
+        middleName = middleName.trim();
         user.name = ({
           first: fname[0].toUpperCase() + fname.toLowerCase().slice(1),
-          middle: middleName.trim(),
+          middle: middleName,
           last: lname[0].toUpperCase() + lname.toLowerCase().slice(1)
         })
       }
@@ -618,6 +618,8 @@ module.exports = function(app, express) {
       user.isValidated = false;
 
       user.save(function(err, user) {
+        /*console.log(err)
+        console.log(user)*/
         if (err) {
           console.log(err);
           //duplicate entry
