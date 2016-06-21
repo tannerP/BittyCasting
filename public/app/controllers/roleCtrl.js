@@ -96,9 +96,11 @@ angular.module('roleCtrl', ['userService',
           scope: $scope,
           keyboard: true,
           show: false,
+          controller: 'manAddApplicantCtrl',
+          controllerAs: 'aside',
           templateUrl: '/app/views/pages/manAddApplicant.tmpl.html'
         });
-        
+
         $scope.viewApp = false;
         $scope.carouselIndex = 0;
         $scope.slides = [];
@@ -555,70 +557,92 @@ angular.module('roleCtrl', ['userService',
           })
       }
     })
-  .controller('shareRoleController', ['$scope', '$alert', '$location',
+  .controller('manAddApplicantCtrl', ['$scope', '$alert', '$location',
     '$timeout',
-    function($scope, $alert, $location, $timeout) {
-      //TODO: this is a temp fix for projeview-private,
-      // table view role sharing
-      $scope.$on('$locationChangeStart', function(event, newUrl, oldUrl) {
-        $scope.$hide()
-      });
-      if ($scope.role) {
-        $scope.roleData = $scope.role;
+    function($scope, $alert, $location, flow, $timeout, Applicant) {
+      
+      console.log("Man applicant Ctrl ")
+      console.log("")
+      var vm = this;
+
+      vm.prepImgs = function(files, event, flow) {
+        console.log(files)
+        /*console.log(event)
+        console.log(flow)*/
+        
+
+
+
       }
-      $scope.textToCopy = $scope.roleData.short_url;
-
-      $scope.FB_text = "CASTING CALL: " + $scope.roleData.name +
-        " \ " + $scope.roleData.description;
-
-      $scope.Email_text = "Hey, \n \n \t I just created an acting role in BittyCasting that I thought might interest you. Check out the project and role by clicking the link:" + $scope.textToCopy + "\n \n Thanks!";
-
-      $scope.Twitter_text = "CASTING CALL: " + $scope.roleData.name +
-        " via " + " " + "@BittyCasting ";
-      $scope.Twitter_url = $scope.roleData.short_url;
-
-      var successAlert = $alert({
-          title: 'Copied!',
-          animation: 'am-fade-and-slide-top',
-          duration: '1',
-          placement: 'top-right',
-          type: 'success',
-          show: false,
-          type: 'success'
-        }),
-        errAlert = $alert({
-          title: '',
-          content: 'Copied',
-          placement: 'top-right',
-          type: 'info',
-          show: false,
-          type: 'success'
-        });
-
-      var previewLink = "/Apply/" + $scope.roleData._id;
-      $scope.preview = function() {
-        $scope.$emit('aside.hide')
-        $timeout(function() {
-          $scope.$hide();
-          $location.path(previewLink)
-        }, 100)
-      }
-      $scope.success = function() {
-        $scope.toggle = true;
-        successAlert.toggle();
-        $scope.textToCopy = "Copied."
-        $timeout(function() {
-          $scope.textToCopy = $scope.roleData.short_url;
-        }, 1500);
-      };
-
-      $scope.fail = function(err) {
-        console.error('Error!', err);
-        errAlert.toggle();
-      }
-      return;
     }
+
   ])
+
+
+.controller('shareRoleController', ['$scope', '$alert', '$location',
+  '$timeout',
+  function($scope, $alert, $location, $timeout) {
+    //TODO: this is a temp fix for projeview-private,
+    // table view role sharing
+    $scope.$on('$locationChangeStart', function(event, newUrl, oldUrl) {
+      $scope.$hide()
+    });
+    if ($scope.role) {
+      $scope.roleData = $scope.role;
+    }
+    $scope.textToCopy = $scope.roleData.short_url;
+
+    $scope.FB_text = "CASTING CALL: " + $scope.roleData.name +
+      " \ " + $scope.roleData.description;
+
+    $scope.Email_text = "Hey, \n \n \t I just created an acting role in BittyCasting that I thought might interest you. Check out the project and role by clicking the link:" + $scope.textToCopy + "\n \n Thanks!";
+
+    $scope.Twitter_text = "CASTING CALL: " + $scope.roleData.name +
+      " via " + " " + "@BittyCasting ";
+    $scope.Twitter_url = $scope.roleData.short_url;
+
+    var successAlert = $alert({
+        title: 'Copied!',
+        animation: 'am-fade-and-slide-top',
+        duration: '1',
+        placement: 'top-right',
+        type: 'success',
+        show: false,
+        type: 'success'
+      }),
+      errAlert = $alert({
+        title: '',
+        content: 'Copied',
+        placement: 'top-right',
+        type: 'info',
+        show: false,
+        type: 'success'
+      });
+
+    var previewLink = "/Apply/" + $scope.roleData._id;
+    $scope.preview = function() {
+      $scope.$emit('aside.hide')
+      $timeout(function() {
+        $scope.$hide();
+        $location.path(previewLink)
+      }, 100)
+    }
+    $scope.success = function() {
+      $scope.toggle = true;
+      successAlert.toggle();
+      $scope.textToCopy = "Copied."
+      $timeout(function() {
+        $scope.textToCopy = $scope.roleData.short_url;
+      }, 1500);
+    };
+
+    $scope.fail = function(err) {
+      console.error('Error!', err);
+      errAlert.toggle();
+    }
+    return;
+  }
+])
 
 .controller('CommentBoxCtrl',
   function($scope, $rootScope, Applicant) {
