@@ -473,7 +473,6 @@ module.exports = function(app, express) {
         }
         //expired token
         else if (data) {
-          data.remove()
 
           var DURATION = 7; //days
           var curData = new Date();
@@ -491,16 +490,16 @@ module.exports = function(app, express) {
                 _id: data.userID
               }).select('name email password')
               .exec(function(err, user) {
+                   if (!user) return res.json({
+                  success: false,
+                  message: ' User not found.'
+                });
+                else if (err) throw err;
+
                 user.isValidated = true;
                 user.save();
+                data.remove() //data = invite
 
-                if (err) throw err;
-                if (!user) {
-                  return res.json({
-                    success: false,
-                    message: 'Authentication failed. User not found.'
-                  });
-                }
                 var token = jwt.sign({
                   id: user.id,
                   name: user.name,
