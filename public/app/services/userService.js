@@ -86,7 +86,7 @@ angular.module('userService', [])
 	var fbRecache = function(url){
 		$http.post("https://graph.facebook.com/?id="+url+"&scrape=true")
 			.success(function(response) {
-				console.log(response)
+				/*console.log(response)*/
 			});		
 	}
 

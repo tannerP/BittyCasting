@@ -192,13 +192,13 @@ angular.module('projectCtrl', ['userService',
           } else {
             var name = resp.user_name;
             vm.guestEmail = ""
-              $scope.project.collabs_id.push({
-                userName: {
-                  first: name.first,
-                  last: name.last,
-                },
-                userID:resp.userID
-              })
+            $scope.project.collabs_id.push({
+              userName: {
+                first: name.first,
+                last: name.last,
+              },
+              userID: resp.userID
+            })
           }
         });
     }
@@ -398,6 +398,32 @@ angular.module('projectCtrl', ['userService',
 
       $scope.selectedDate = vm.roleData.end_date;
       vm.processing = false;
+
+      vm.closeRoleBtn = function() {
+
+        d = new Date();
+        d.setDate(d.getDate()-1);
+        $scope.selectedDate = d;
+        vm.roleData.end_date = $scope.selectedDate;
+        /*console.log(vm.roleData.end_date)
+        console.log(vm.roleData.end_date)*/
+
+        Role.update($routeParams.role_id, vm.roleData)
+          .success(function() {
+            $route.reload();
+            Prerender.cacheRole($routeParams.role_id);
+            $timeout(function() {
+              vm.processing = false;
+              vm.projectData = null;
+            }, 150);
+          })
+          .error(function(err) {
+            vm.message = err.message; 
+            console.log(err.message);
+          })
+
+      }
+
       vm.updateRole = function() {
         if (vm.newData.name) {
           vm.addReqt(vm.newData);
@@ -772,21 +798,21 @@ angular.module('projectCtrl', ['userService',
           vm.CP_cust = file;
         }
         //determine if coverphoto is one of the defaults
-      /*vm.initSelect  = function() {
-        if ($scope.project.coverphoto.name === "default") {
-          for (var i in coverphotosSource) {
-            var source = coverphotosSource[i];
-            if (source === $scope.project.coverphoto.source) {
-              console.log(source)
-              source = vm.coverphotos[i];
-              var id = source.split('/').pop().split('.').shift()
-              select(id)
+        /*vm.initSelect  = function() {
+          if ($scope.project.coverphoto.name === "default") {
+            for (var i in coverphotosSource) {
+              var source = coverphotosSource[i];
+              if (source === $scope.project.coverphoto.source) {
+                console.log(source)
+                source = vm.coverphotos[i];
+                var id = source.split('/').pop().split('.').shift()
+                select(id)
+              }
             }
-          }
-        } else {
+          } else {
 
-        }
-      }*/
+          }
+        }*/
 
       vm.processing = false;
       vm.update = function(data) {
