@@ -13,7 +13,7 @@ angular.module('authService', [])
 	//log a user in 
 
 	authFactory.setToken = function(data, callback) {
-		console.log(data)
+		/*console.log(data)*/
 		// return the promise object and its data
 		AuthToken.setToken(data);
 		return callback();		

@@ -1,4 +1,8 @@
-<div class="aside" tabindex="-1" role="dialog">
+<div class="aside" tabindex="-1" role="dialog"
+        flow-init="{target: '/upload', singleFile: false}"
+      flow-file-added="vm.prepImg( $file, $event, $flow )"
+      flow-files-submitted="$flow.upload()"
+      flow-file-success="$file.msg = $message">
   <div class="asideBg">
     <div class="asideTitle">Add Applicant</div>
     <div type="button" class="custom-close" ng-click="$hide()"></div>
@@ -32,67 +36,24 @@
     </textarea>
     </div>                                            
 
-    <div class = "form-group">
-   
-        <div class="div-table">
-            <div class="div-table-row"
-                        ng-repeat="rq in page.role.requirements track by $index">
-                    <div class="div-table-col-attachments">{{rq.name}}</div>
-<!-- link -->
-
-<!-- show and hide vm.appSHLinks[currApp][req.id] === false -->
-                    <div class="div-table-col-attachments"
-                                    ng-show="page.appSHLinks[appNdx][$index] &&
-                                page.ifRequirement(rq.name, applicant.files)">
-                        <span class="custom-form">
-                            <input ng-model="applicant.links[$index].source"
-                                         placeholder="http://">
-                            <img class="upload-cancel" src="/assets/imgs/ic_cross_lightgrey.svg" ng-click="page.togAppLinkBtn(appNdx, $index);">
-                        </span>
-                    </div>	
-
-<!-- preview -->									
-                <div class="div-table-col-attachments">
-<!-- repeat --> 		                
-                    <span ng-if="file.requirement === rq.name" ng-repeat="file in applicant.files track by $index">
-                        <img ngf-thumbnail="file.file ||'Attachment'"/>
-                        <video controls ngf-src="file.file"></video>
-                        <span style="display: inline;">{{file.file.name | limitTo:18}}</span>
-
-                            <img class="upload-cancel"
-                                        src="/assets/imgs/ic_cross_lightgrey.svg"
-                                        ng-click="
-                                        page.removeElFrmArray($index, applicant.files)">
-                     </span><!-- end repeat -->
-                     </div>
-<!-- Upload/Link -->
-                <div ng-show="!page.appSHLinks[appNdx][$index]
-                 && page.ifRequirement(rq.name, applicant.files)"
-                 class="div-table-col-attachments">
-                    <a ngf-select="page.onFileSelectApplicants(			page.newFile,applicant.files)"
-                        ng-model="page.newFile" name="file" 
-                        ngf-pattern="'application/pdf,image/*,video/*'"
-                        ngf-accept="'application/pdf,image/*,video/*'"
-                        ngf-before
-                        ngf-before-model-change= "errors = '' "
-                        ngf-min-size="100"
-                        ngf-max-size="250MB"
-                        ngf-model-invalid="errors"
-                        ng-click="page.newRqmnt(rq.name);">
-                        Upload
-                    </a>/
-                    <a ng-href="#"
-                         ng-click="page.togAppLinkBtn(appNdx, $index);page.newRqmnt(rq.name);">Link</a>
-               </div>
-        </div>
-        </div>
-        
-    </div><!-- end form-group -->
+    <div class="form-group">
+        <label flow-btn>Add files</label>
+      </div>
+        <ul class="select-coverphoto-wrapper">
+            <li ng-repeat="file in $flow.files" >
+              <div class="{{page.CPStyling}}"
+                    id="cust-cp" 
+                    ng-click="page.selectCustCP()">
+              <img ng-if="$flow.files.length > 0" flow-img="file" 
+              style="width:100%; height:60px;"/>
+              </div>
+            </li>
+        </ul>
+    </div>
     
     
     
-    
-    
+     
     <div ng-if="errors" class ="custom-alert" >
     <p>Whoops, the file format was invalid.</p>
     <p ng-if="errors.requirements"> {{errors.requirements.message}}</p>

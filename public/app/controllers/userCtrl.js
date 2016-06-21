@@ -42,9 +42,9 @@ angular.module('userCtrl', ['userService'])
 		// use the create function in the userService
 		User.createWithInvitation($routeParams.inviteID,vm.userData)
 		.then(function(res){
-			console.log(res)
+			/*console.log(res)*/
 			vm.message = res.data.message;
-			console.log(vm.message)
+			/*console.log(vm.message)*/
 			vm.processing = false;
 			return;
 		})
@@ -53,18 +53,29 @@ angular.module('userCtrl', ['userService'])
 })
 
 .controller('profileController',
-	function($routeParams, User, Auth) {
+	function($routeParams, User, Auth, $timeout) {
 		var vm = this;
 		Auth.getUser()
 			.then(function(data) {
+				console.log(data)
 				vm.userData = data.data;
 				vm.userData.password = "";
 			})
 		vm.saveUser = function() {
+			if(vm.userData.password){
+				if(vm.userData.password !== vm.userData.password1){
+					vm.message="Password doesn't match."
+					return;
+				}
+			}
 			User.update(vm.userData._id, vm.userData)
 				.success(function(data) {
 					vm.processing = false;
 					vm.message = data.message;
+					$timeout(function(){
+						vm.message=""
+						return;
+					}, 5000)
 				});
 		}
 	})

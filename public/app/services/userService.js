@@ -26,8 +26,8 @@ angular.module('userService', [])
 	email.confirm = function(confirmID){
 	 	return $http.get("register/confirm/"+confirmID)
 	}
-	email.resend = function(confirmID){
-	 	return $http.get("register/resend/"+confirmID)
+	email.resend = function(email){
+	 	return $http.get("register/resend/"+email)
 	}
 	return email
 })
@@ -86,7 +86,7 @@ angular.module('userService', [])
 	var fbRecache = function(url){
 		$http.post("https://graph.facebook.com/?id="+url+"&scrape=true")
 			.success(function(response) {
-				console.log(response)
+				/*console.log(response)*/
 			});		
 	}
 
@@ -156,7 +156,7 @@ angular.module('userService', [])
 		return $http.put('/suppliment/' + id, data);
 	}
 	appFactory.AddSampleProject = function(roleIDs){
-		console.log(roleIDs)	
+	/*	console.log(roleIDs)	*/
 	 
 		return $http.put("api/applicant/sample/", roleIDs)
 	}
@@ -204,8 +204,6 @@ angular.module('userService', [])
 	}
 	appFactory.deleteComment = function(id, data) {
 		var data = {
-			owner: data.owner,
-			comment: data.comment,
 			_id: data._id,
 		}
 		return $http.put('api/comments/delete/' + id, data);

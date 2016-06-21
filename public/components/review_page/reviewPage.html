@@ -2,7 +2,7 @@
   <container>
     <div class="reviewHeaderContent col-md-4 col-md-offset-4"><p>{{currIndex +1}}/{{numApps}} applicants for
       {{roleData.name}}</p></div>
-    <div class="custom-close-overlay" ng-click="page.backBtn()"></div>
+    <div class="custom-close-overlay" ng-click="vm.backBtn()"></div>
   </container>
 </div>
 
@@ -14,12 +14,13 @@
             <div class='pageTitle'><span>{{currApp.name.first}} {{currApp.name.last}}</span></div>
                 <div class="custom-page-action">                
       <!--                    <input type="checkbox" ng-model="currApp.favorited" ng-change="page.updateFav(currApp)"></input>-->
-                        <div class="custom-btn-secondary-small btn-fav" ng-click="page.updateFav($index,currApp,roleData._id)">
+                        <div class="custom-btn-secondary-small btn-fav" ng-click="vm.updateFav($index,currApp,roleData._id)">
                            <img ng-if="currApp.favorited" ng-src="/assets/imgs/ic_fav_w_fill.svg" width="16px" vertical-align="middle">
                            <img ng-if="!currApp.favorited" ng-src="/assets/imgs/ic_fav_w.svg" width="16px" vertical-align="middle">Favorite
+                           <span ng-hide="currApp.numFavs < 1" class="fav-applicant-counter" ng-click="vm.updateFav($index,app,vm.role._id)">{{currApp.numFavs}}</span>
                         </div>
                         <div
-                            ng-if="page.owner" 
+                            ng-if="vm.owner" 
                             class="custom-btn-secondary-small btn-email"
                             href="#"
                             socialshare
@@ -29,8 +30,8 @@
                             socialshare-body="{{Email_text}}">E-mail
                         </div>   
                         <div class="custom-btn-secondary-small btn-delete"
-                              ng-click="page.deleteAsideBtn(currApp)"
-                              ng-if="page.owner">
+                              ng-click="vm.deleteAsideBtn(currApp)"
+                              ng-if="vm.owner">
                               Delete
                         </div>
                 </div>
@@ -145,11 +146,12 @@
 
   <div class="reviewComment col-md-6" ng-controller="CommentBoxCtrl as box">
       <div class="makeComment">
-        <div class="commentThumbnail">{{main.usrInitial}}</div>
+        <div class="commentThumbnail">{{vm.usrinitial}}</div>
         <div class="commentHeading">Add a comment</div>
-        <textarea class="custom-form-textarea" rows="5" cols="40" type="text" name="comment"
-                  ng-model="box.newComment"></textarea>
-        <button class="custom-btn-secondary-small" ng-click="box.addCmt(currApp._id,box.newComment)">
+        <textarea class="custom-form-textarea" rows="2" cols="40"
+                   type="text" name="comment"  ng-model="currApp.newComment">
+        </textarea>
+        <button class="custom-btn-secondary-small" ng-click="box.addCmt(currApp._id,currApp.newComment); currApp.newComment='' ">
           Comment
         </button>
       </div>

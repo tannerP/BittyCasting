@@ -8,24 +8,41 @@ angular.module('applyCtrl', ['userService', 'mgcrea.ngStrap'])
     /*console.log(scope)*/
 
     //search for the furthest date in the future.
-    scope.$watch('ppv.roles', function(newRoles, oldRoles){
+    scope.$watch('ppv.roles', function(newRoles, oldRoles) {
       var furthestDeadline;
-      for(var i in newRoles){
-        console.log(newRoles[i])
-        var endTime = new Date(newRoles[i].end_time);
-        if(!furthestDeadline || furthestDeadline < endTime){
-          furthestDeadline = endTime;
-        }
-      }
-      /*console.log(deadline)*/
-      var now = new Date();
-      if(furthestDeadline > now) var isExpired = false;
-      else var isExpired = true;
-      
-      scope.expired = isExpired;
+      var isExpired = false;
+      var closedC = 0;
+      if (newRoles) {
+        for (var i in newRoles) {
+          /*console.log(newRoles[i])*/
 
-      if(newRoles && newRoles.length === 1){
-        controller.requirements = newRoles[0].requirements;
+          var endDate = new Date(newRoles[i].end_date);
+          var now = new Date()
+
+          if (endDate) var timeDiff = endDate - now;
+
+          var left = Math.ceil(timeDiff / (1000 * 3600 * 24));
+          /*console.log(left)*/
+
+          if (left < 0) {
+            closedC++;
+            controller.roles[i].isClosed = true;
+          } else {
+            controller.roles[i].isClosed = false;
+            /*isExpired = false;
+            scope.expired = isExpired;*/
+          }
+          /*console.log(scope.expired)*/
+        }
+        /*console.log(closedC)
+        console.log(newRoles.length)*/
+        scope.expired = false;
+        if (closedC === newRoles.length) scope.expired = true;
+        /*console.log(scope.expired)*/
+
+        if (newRoles && newRoles.length === 1) {
+          controller.requirements = newRoles[0].requirements;
+        }
       }
 
     })
@@ -44,22 +61,50 @@ angular.module('applyCtrl', ['userService', 'mgcrea.ngStrap'])
     });*/
     /*vm.currRoleID = vm.roles[0]._id*/
     /*console.log($scope.expired)*/
-    vm.formStyle = function(){
-      if($scope.expired){
-        return {opacity: 0.2, filter: 'alpha(opacity=20)',}
-      }
-      else{
-        return {'background-color':"blue"};
+    vm.formStyle = function() {
+      if ($scope.expired) {
+        return {
+          opacity: 0.2,
+          filter: 'alpha(opacity=20)',
+        }
+      } else {
+        return;
       }
 
+    }
+
+    vm.rolesStyle = function(isExpired) {
+      console.log(isExpired)
+      if (isExpired) {
+        return {
+          "text-decoration": "line-through",
+          "display":"inline"
+          /*opacity: 0.4,
+          filter: 'alpha(opacity=40)',*/
+        }
+      } else {
+        return;
+      }
+    }
+
+    vm.rolesCheckBoxStyle = function(isExpired) {
+      console.log(isExpired)
+      if (isExpired) {
+        return {
+          opacity: 0.3,
+          filter: 'alpha(opacity=30)'
+        }
+      } else {
+        return;
+      }
     }
 
     vm.loggedIn = false;
     if ($rootScope.user) {
       vm.loggedIn = true;
     };
-    vm.isLast = function(index, array){
-      if(++index === array.length) return true;
+    vm.isLast = function(index, array) {
+      if (++index === array.length) return true;
       else return false
     }
     vm.update_CurRole = function(role) {
@@ -128,19 +173,19 @@ angular.module('applyCtrl', ['userService', 'mgcrea.ngStrap'])
       /*console.log(files)
       console.log(index)
       console.log(requirement)*/
-      if(!$scope.expired)
-      {
+      if (!$scope.expired) {
         if (!vm.files[index] || vm.files[index].length < 1) {
-              vm.files[index] = new Array();
-            }
-      
-            for (var i in files) {
-              var file = {};
-              file.requirement = requirement;
-              file.file = files[i]
-              vm.files[index].push(file)
-            }
-          }}
+          vm.files[index] = new Array();
+        }
+
+        for (var i in files) {
+          var file = {};
+          file.requirement = requirement;
+          file.file = files[i]
+          vm.files[index].push(file)
+        }
+      }
+    }
     vm.removeFile = function(rIndex, fIndex) {
       if (vm.files[rIndex][fIndex]) {
         vm.files[rIndex].splice(fIndex, 1);
@@ -152,12 +197,12 @@ angular.module('applyCtrl', ['userService', 'mgcrea.ngStrap'])
 
     vm.addLink = function(arr_index, name) {
       var link = {};
-      if(!$scope.expired)
-      {
+      if (!$scope.expired) {
         link.name = name;
         link.source = vm.newLinks[arr_index];
         vm.appData.links.push(link)
-        vm.newLinks[arr_index] = "";}
+        vm.newLinks[arr_index] = "";
+      }
     }
 
     vm.removeLink = function(index) {
@@ -168,10 +213,10 @@ angular.module('applyCtrl', ['userService', 'mgcrea.ngStrap'])
     }
 
     var isValid = function(requirements, files, links) {
-        /*var */
+      /*var */
       for (var i in requirements) {
         var req = requirements[i]
-        /*var file = files[i]*/
+          /*var file = files[i]*/
         var link = links[i]
         if (req.required) {
 
@@ -182,24 +227,22 @@ angular.module('applyCtrl', ['userService', 'mgcrea.ngStrap'])
           }
         }
         /*console.log(file)*/
-        
+
       }
     }
 
     vm.processing = false;
     vm.submit = function() {
       var numFiles = 0;
-      var uploadFiles =[]
-
-
+      var uploadFiles = []
       for (var i in vm.requirements) {
         /*console.log('i is ' + i)
         console.log(vm.files[i])*/
         if (vm.files[i]) {
-          for(var j in vm.files[i]){
+          for (var j in vm.files[i]) {
 
-              uploadFiles.push(vm.files[i][j]);
-              numFiles++;
+            uploadFiles.push(vm.files[i][j]);
+            numFiles++;
           }
           /*console.log('File length is ' + vm.files[i].length)
           console.log("vm.files[i].length ")
@@ -209,7 +252,7 @@ angular.module('applyCtrl', ['userService', 'mgcrea.ngStrap'])
         }
       }
 
-      var index = isValid(vm.requirements,vm.files, vm.newLinks);
+      var index = isValid(vm.requirements, vm.files, vm.newLinks);
       vm.message = '';
       /*console.log(index)*/
       if (index > -1) { // valid = -1
@@ -306,7 +349,7 @@ angular.module('applyCtrl', ['userService', 'mgcrea.ngStrap'])
     Pub.getAppPrj($routeParams.id).then(function(data) {
       vm.project = data.data.project.project;
       $rootScope.meta = Meta.prjMeta(vm.project);
-      console.log($rootScope.meta)
+      /*console.log($rootScope.meta)*/
       vm.roles = data.data.project.roles;
       if (vm.project) {
         $rootScope.meta = Meta.prjMeta(vm.project);
@@ -344,7 +387,7 @@ angular.module('applyCtrl', ['userService', 'mgcrea.ngStrap'])
         Pub.getAppPrj(castingRole.projectID).then(function(data) {
           vm.project = data.data.project.project;
           $rootScope.meta = Meta.prjMeta(vm.project);
-          console.log($rootScope.meta)
+          /*console.log($rootScope.meta)*/
           vm.otherRoles = data.data.project.roles;
           if (vm.project && vm.roles[0]) {
             $rootScope.meta = Meta.roleMeta(castingRole, vm.project);

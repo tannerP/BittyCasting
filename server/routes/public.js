@@ -391,8 +391,8 @@ module.exports = function(app, express) {
         }
         //Invokes the method to send emails given the above data with the helper library
       mailgun.messages().send(data, function(err, body) {
-        console.log(body)
-          //If there is an error, render the error page
+        /*console.log(body)*/
+        //If there is an error, render the error page
         if (err) {
           console.log(err)
         } else {
@@ -408,10 +408,10 @@ module.exports = function(app, express) {
     /*  })
     });*/
 
-  app.route('/register/resend/:confirmID')
+  app.route('/register/resend/:email')
     .get(function(req, res) {
       EmailConfirmation.findOne({
-        _id: req.params.confirmID
+        email: req.params.email
       }, function(err, data) {
         if (!data) return res.json({
           success: false,
@@ -421,12 +421,12 @@ module.exports = function(app, express) {
           //reset create_date instead of creating a new EmailConfirmation object. 
           data.create_date = new Date();
           data.save();
-
           var data = {
               from: "Registration@BittyCasting.com",
-              to: data.email,
-              subject: "New Registration",
-              html: "You have been added to our Beta list. " + "You can now access your account at " + "https://bittycasting.com/ " + "Thank you for you support.",
+              to: req.params.email,
+              subject: "Confirm: New Registration",
+              html: 'Please follow this link to finish your Bittycasting registration. ' +
+                "https://bittycasting.com/confirm/user/" + data._id,
             }
             /*html: "Please follow this link to finish your Bittycasting registration." + "https://bittycasting.com/confirm/user/" + data._id,*/
           var mailgun = new Mailgun({
@@ -436,6 +436,7 @@ module.exports = function(app, express) {
 
           mailgun.messages()
             .send(data, function(err, body) {
+              console.log(body)
               if (err) {
                 return res.json({
                   success: false,
@@ -448,11 +449,6 @@ module.exports = function(app, express) {
                 });
               }
             });
-          //resend email
-
-          /*var curData = new Date();
-          var daysOld = (curData - data.create_date);
-          daysOld = Math.ceil(daysOld / (1000 * 3600 * 24));*/
         }
       })
     })
@@ -472,32 +468,33 @@ module.exports = function(app, express) {
         }
         //expired token
         else if (data) {
-          var DURATION = 14; //days
+          var DURATION = 7; //days
           var curData = new Date();
           var daysOld = (curData - data.create_date);
           daysOld = Math.ceil(daysOld / (1000 * 3600 * 24));
           if (daysOld > DURATION) {
             return res.json({
               success: false,
-              message: "Your confirmation email is expired. " + "Resubmit your email to receive another confirmation email."
+              message: "Your confirmation email is expired. " 
+              + "Resubmit your email to receive another confirmation email."
             });
           }
           //Invitation found
           else {
             User.findOne({
-                _id: data.userID
+                email: data.email
               }).select('name email password')
               .exec(function(err, user) {
+                if (!user) return res.json({
+                  success: false,
+                  message: ' User not found.'
+                });
+                else if (err) throw err;
+
                 user.isValidated = true;
                 user.save();
+                data.remove() //data = invite
 
-                if (err) throw err;
-                if (!user) {
-                  return res.json({
-                    success: false,
-                    message: 'Authentication failed. User not found.'
-                  });
-                }
                 var token = jwt.sign({
                   id: user.id,
                   name: user.name,
@@ -512,8 +509,6 @@ module.exports = function(app, express) {
                   message: 'Enjoy your token!',
                   token: token
                 });
-                /*}*/
-
               });
           }
         }
@@ -538,7 +533,8 @@ module.exports = function(app, express) {
             /*if (!validPassword) {*/
             res.json({
               success: false,
-              message: 'You account has not been validated. Please check your email, and follow the link provided to complete your email validation.'
+              notConfirmed: true,
+              message: 'Your email address has not been validated. ' + 'Click Resend Email to receive another email.'
             });
           } else {
             var validPassword = user.comparePassword(req.body.password);
@@ -579,10 +575,38 @@ module.exports = function(app, express) {
 
       //set the users information (comes from the request)
       var name = req.body.name;
-      user.name = ({
-        first: name.split(" ")[0],
-        last: name.split(" ")[1]
-      })
+      var arrName = name.split(' ');
+      var fname = name.split(" ")[0]
+      var lname = name.split(" ")[arrName.length - 1]
+
+      if (arrName.length < 2) {
+        return res.json({
+          success: false,
+          message: "User name invalid."
+        })
+      } else if (arrName.length === 2) {
+        user.name = ({
+          first: fname[0].toUpperCase() + fname.toLowerCase().slice(1),
+          last: lname[0].toUpperCase() + lname.toLowerCase().slice(1)
+        })
+      } else if (arrName.length > 2) {
+        var middleName = "";
+        //extract middle name
+        for (var i in name.split(' ')) {
+          if (i > 0 && i < arrName.length - 1) {
+            middleName += name.split(' ')[i] + " ";
+          }
+        }
+        middleName = middleName.trim();
+        user.name = ({
+          first: fname[0].toUpperCase() + fname.toLowerCase().slice(1),
+          middle: middleName,
+          last: lname[0].toUpperCase() + lname.toLowerCase().slice(1)
+        })
+      }
+      /*console.log(req.body.name)
+      console.log(user.name)*/
+
 
       /*user.name.last = req.body.name.last;
       user.name.first = req.body.name.first;*/
@@ -592,6 +616,8 @@ module.exports = function(app, express) {
       user.isValidated = false;
 
       user.save(function(err, user) {
+        console.log(err)
+        console.log(user)
         if (err) {
           console.log(err);
           //duplicate entry
@@ -616,8 +642,6 @@ module.exports = function(app, express) {
 
           mailgun.messages()
             .send(data, function(err, body) {
-              console.log(err)
-              console.log(body)
               if (err) {
                 return res.json({
                   success: false,
@@ -631,7 +655,6 @@ module.exports = function(app, express) {
               }
             });
         }
-
       })
 
     });
@@ -641,52 +664,84 @@ module.exports = function(app, express) {
       Invite.findById(req.params.inviteID, function(err, invite) {
         var user = new User();
         var name = req.body.name;
-        user.name = ({
-          first: name.split(" ")[0],
-          last: name.split(" ")[1]
-        })
+
+        var arrName = name.split(' ');
+
+        if (arrName.length < 2) {
+          return res.json({
+            success: false,
+            message: "User name invalid."
+          })
+        } else if (arrName.length > 2) {
+          var middleName = "";
+          //extract middle name
+          for (var i in name.split(' ')) {
+            if (i > 0 && i < arrName.length - 1) {
+              middleName += name.split(' ')[i] + " ";
+            }
+          }
+
+          var fname = name.split(" ")[0]
+          var lname = name.split(" ")[arrName.length - 1]
+
+          user.name = ({
+            first: fname[0].toUpperCase() + fname.toLowerCase().slice(1),
+            middle: middleName.trim(),
+            last: lname[0].toUpperCase() + lname.toLowerCase().slice(1)
+          })
+        }
+
         user.password = req.body.password;
         user.email = req.body.email;
         user.role = "user";
-        if (invite) user.invites.push(invite.projectID)
-        user.save(function(err, user) {
-          if (err) {
-            //duplicate entry
-            if (err.code == 11000)
-              return res.json({
-                success: false,
-                message: 'A user with that email already exists.'
-              });
-            else
-              return res.send(err);
-          } else {
-            if (invite) {
-              Project.findById(invite.projectID, function(err, project) {
-                if (err) return;
+        if (invite) {
+          user.invites.push(invite.projectID)
 
-                project.collabs_id.push({
-                  userID: user._id,
-                  userName: user.name,
-                  userProfilePhoto: user.profile,
+          user.save(function(err, user) {
+            if (err) {
+              //duplicate entry
+              if (err.code == 11000)
+                return res.json({
+                  success: false,
+                  message: 'A user with that email already exists.'
+                });
+              else
+                return res.send(err);
+            } else {
+              /*if (invite) {*/
+              Project.findById(invite.projectID, function(err, project) {
+                  if (err) return;
+                  project.collabs_id.push({
+                    userID: user._id,
+                    userName: user.name,
+                    userProfilePhoto: user.profile,
+                  })
+                  invite.remove();
+                  project.save();
+                  return
                 })
-                project.save();
-                return
-              })
+                /*}*/
+              var token = jwt.sign({
+                id: user.id,
+                name: user.name,
+              }, config.secret, {
+                expiresIn: 86400 //  (24hrs)
+                  // expires in 3600 * 24 = c (24 hours)
+              });
+
+              return res.json({
+                success: true,
+                message: 'User created!',
+                token: token
+              });
             }
-            var token = jwt.sign({
-              id: user.id,
-              name: user.name,
-            }, config.secret, {
-              expiresIn: 86400 //  (24hrs)
-                // expires in 3600 * 24 = c (24 hours)
-            });
-            return res.json({
-              success: true,
-              message: 'User created!',
-              token: token
-            });
-          }
-        });
+          });
+        } else {
+          return res.json({
+            success: false,
+            message: 'Could not find invitation'
+          });
+        }
       })
     });
   return app;
