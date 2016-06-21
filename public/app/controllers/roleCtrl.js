@@ -13,7 +13,7 @@ angular.module('roleCtrl', ['userService',
 
         scope.$watch('vm.role', function(newRole, oldRole) {
           if (newRole && newRole.description) {
-              /*console.log(oldRole.length)*/
+            /*console.log(oldRole.length)*/
             scope.roleData = newRole
             controller.roleData = newRole
             scope.descriptionWordCount = newRole.description.split(" ").length;
@@ -237,30 +237,39 @@ angular.module('roleCtrl', ['userService',
 
         /*Optimistic resolution*/
         vm.updateFav = function(index, aplnt, roleID) {
-          console.log(index)
+          /*console.log(index)
           console.log(aplnt)
-          console.log(roleID)
+          console.log(roleID)*/
           Applicant.favUpdate(aplnt, roleID);
-          
-          if(aplnt.favs === 0)
-          {
+
+          if (aplnt.favs.length === 0) {
             aplnt.numFavs++
-          }
-          for(var i in aplnt.favs){
-            if(aplnt.favs[i].userID === $rootScope.user._id )
-            {
-              console.log("before")
-              console.log(aplnt.favs[i].favorited)
-              aplnt.favs[i].favorited = !aplnt.favs[i].favorited
-              if(aplnt.favs[i].favorited == false) aplnt.numFavs--;
-              else aplnt.numFavs++;
-              console.log("after")
-              console.log(aplnt.favs[i].favorited)
+            //optomistic push.
+            var optData = {
+              roleID: roleID,
+              userID: $rootScope.user._id,
+              favorited: true
+            };
+            aplnt.favs.push(optData)
+          } else {
+            for (var i in aplnt.favs) {
+              if (aplnt.favs[i].userID === $rootScope.user._id) {
+                console.log("before")
+                console.log(aplnt.favs[i].favorited)
+                aplnt.favs[i].favorited = !aplnt.favs[i].favorited
+                if (aplnt.favs[i].favorited == false) aplnt.numFavs--;
+                else aplnt.numFavs++;
+                console.log("after")
+                console.log(aplnt.favs[i].favorited)
+              }
             }
           }
 
-          if(aplnt.numFavs < 1) {aplnt.favorited = false}
-          else {aplnt.favorited = true;}
+          if (aplnt.numFavs < 1) {
+            aplnt.favorited = false
+          } else {
+            aplnt.favorited = true;
+          }
           return;
           /*$route.reload();*/
         }
@@ -280,7 +289,7 @@ angular.module('roleCtrl', ['userService',
           Applicant.delete($scope.currApp._id, $scope.roleData._id)
             .success(function() {
               --$scope.numApps;
-              
+
               removeApp($scope.currApp._id);
 
               if ($scope.viewApp === true) { //full page review
@@ -503,8 +512,8 @@ angular.module('roleCtrl', ['userService',
                     $rootScope.user._id === applicant.favs[f].userID && $scope.roleData._id === applicant.favs[f].roleID) {
                     applicant.favorited = applicant.favs[f].favorited;
                   }*/
-                  if(applicant.favs[f].favorited === true) applicant.numFavs++; 
-                  if(applicant.numFavs > 0) applicant.favorited = true;
+                  if (applicant.favs[f].favorited === true) applicant.numFavs++;
+                  if (applicant.numFavs > 0) applicant.favorited = true;
                   else applicant.favorited = false;
                 }
               }
