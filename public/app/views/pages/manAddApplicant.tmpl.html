@@ -36,37 +36,33 @@
     </div>                                            
 
     <div class="form-group">
-        <label flow-btn>Add files</label>
-      </div>
-        <ul >
+    <!-- NOTE: usering <input>, <a>, and <label> results in error; it forces another upload attempt -->
+        <table>
+        <!-- <thead>
+            <th>header1 </th>
+            <th>header2 </th>
+        <thead> -->
+         <tbody>
+            <tr ng-repeat="req in vm.role.requirements">
+                <td>
+                    <label>{{req.name}}
+                    <span class='required' ng-if="req.required"></span>
+                    </label>
+                    <span flow-btn>Add files</span> or 
+                    <a href="#">Link</a> 
+                </td>
+            </tr>
+        </tbody>   
+        </table>
+
+    </div>
+        <ul>
             <li ng-repeat="file in $flow.files" >
-              <!-- <div class="{{aside.CPStyling}}"
-                    id="cust-cp" 
-                    ng-click="aside.selectCustCP()"> -->
               <img ng-if="$flow.files.length > 0" flow-img="file" 
-              style="width:100%; height:60px;"/>
+              style="width:auto; height:60px; float:left"/>
               <!-- </div> -->
             </li>
-        </ul>
-                        <div ng-if="ppv.files[rIndex].length < 1 || !ppv.files[rIndex]">                                                                 
-                                                                    <a name="file" 
-                                                                    ngf-accept="'application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/pdf,image/*,video/*'"
-                                                                    ngf-pattern="'application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/pdf,image/*,video/*'"
-                                                                    ngf-before-model-change= "errors = '' "
-                                                                    ngf-min-size="100"
-                                                                    ngf-max-size="500MB"
-                                                                    ngf-model-invalid="errors"
-                                                                    ng-model="$files"
-                                                                    ngf-multiple="true"
-                                                                    ngf-select="ppv.addFile($files, rq, rIndex)">
-                                                                    <span ng-if="!ppv.isNewLink[rIndex]">
-                                                                        Upload
-                                                                    </span>
-                                                                </a>
-    </div>
-    
-    
-    
+        </ul>    
      
     <div ng-if="errors" class ="custom-alert" >
     <p>Whoops, the file format was invalid.</p>

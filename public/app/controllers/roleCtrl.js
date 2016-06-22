@@ -560,19 +560,48 @@ angular.module('roleCtrl', ['userService',
   .controller('manAddApplicantCtrl', ['$scope', '$alert', '$location',
     '$timeout',
     function($scope, $alert, $location, flow, $timeout, Applicant) {
-      
+
       console.log("Man applicant Ctrl ")
       console.log("")
       var vm = this;
 
       vm.prepImgs = function(files, event, flow) {
         console.log(files)
-        /*console.log(event)
-        console.log(flow)*/
-        
+          /*console.log(event)
+          console.log(flow)*/
+      }
 
+      vm.submitBtn = function() {
 
+        Applicant.apply(vm.appData)
+          .then(function(resp) {
+            vm.processing = true;
+            vm.applicantID = resp.data.appID;
+            //soft out null files in array
+            if (numFiles === 0) {
+              $timeout(function() {
+                vm.processing = false;
+                $location.path('/Thankyou');
+              }, 1500)
 
+            } else {
+              /*console.log(uploadFiles.length)
+              console.log(uploadFiles)*/
+
+              AWS.uploadAppMedias(uploadFiles, vm.requirements,
+                vm.applicantID, $rootScope.awsConfig.bucket);
+              $rootScope.$on("app-media-submitted",
+                function() {
+                  finishedFileCount++;
+                  /*console.log("num files updated toDB " 
+                    + finishedFileCount)*/
+                  /*console.log("num files: " + numFiles)*/
+                  if (finishedFileCount === numFiles) {
+                    $location.path('/Thankyou');
+                  }
+                })
+            }
+          })
       }
     }
 
