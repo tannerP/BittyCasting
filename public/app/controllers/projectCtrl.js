@@ -127,6 +127,7 @@ angular.module('projectCtrl', ['userService',
               /*console.log(vm.project.description)*/
               /*vm.numWords = vm.project.description.split(" ").length;*/
               $scope.descriptionLength = vm.project.description.length
+              $scope.descriptionLength = null;
             }
           }
 
