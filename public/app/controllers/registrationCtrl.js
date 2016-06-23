@@ -162,7 +162,7 @@ angular.module('registrationCtrl', ['authService', 'mgcrea.ngStrap'])
 							$scope.$hide();
 							$location.path('/home');
 							return;
-						}, 2500)
+						}, 1500)
 					});
 				}
 			});

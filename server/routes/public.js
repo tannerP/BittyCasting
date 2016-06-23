@@ -698,7 +698,9 @@ module.exports = function(app, express) {
         var name = req.body.name;
 
         var arrName = name.split(' ');
-
+        var fname = name.split(" ")[0]
+        var lname = name.split(" ")[arrName.length - 1]
+        
         if (arrName.length < 2) {
           return res.json({
             success: false,
