@@ -279,14 +279,14 @@ module.exports = function(app, express) {
         })
       }
       var curData = new Date();
-      var daysOld = (curData - data.create_date +2);
-      if (daysOld > 2){
+      var daysOld = (curData - data.create_date + 2);
+      if (daysOld > 2) {
 
       }
       data.remove()
       return res.json({
-          success: true
-        })
+        success: true
+      })
     })
   })
 
@@ -620,7 +620,8 @@ module.exports = function(app, express) {
           first: fname[0].toUpperCase() + fname.toLowerCase().slice(1),
           last: lname[0].toUpperCase() + lname.toLowerCase().slice(1)
         })
-      } else if (arrName.length > 2) {
+      } 
+      else if (arrName.length > 2) {
         var middleName = "";
         //extract middle name
         for (var i in name.split(' ')) {
@@ -702,6 +703,11 @@ module.exports = function(app, express) {
           return res.json({
             success: false,
             message: "User name invalid."
+          })
+        } else if (arrName.length === 2) {
+          user.name = ({
+            first: fname[0].toUpperCase() + fname.toLowerCase().slice(1),
+            last: lname[0].toUpperCase() + lname.toLowerCase().slice(1)
           })
         } else if (arrName.length > 2) {
           var middleName = "";
