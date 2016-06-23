@@ -475,8 +475,7 @@ module.exports = function(app, express) {
           if (daysOld > DURATION) {
             return res.json({
               success: false,
-              message: "Your confirmation email is expired. " 
-              + "Resubmit your email to receive another confirmation email."
+              message: "Your confirmation email is expired. " + "Resubmit your email to receive another confirmation email."
             });
           }
           //Invitation found
@@ -671,6 +670,11 @@ module.exports = function(app, express) {
           return res.json({
             success: false,
             message: "User name invalid."
+          })
+        } else if (arrName.length === 2) {
+          user.name = ({
+            first: fname[0].toUpperCase() + fname.toLowerCase().slice(1),
+            last: lname[0].toUpperCase() + lname.toLowerCase().slice(1)
           })
         } else if (arrName.length > 2) {
           var middleName = "";
