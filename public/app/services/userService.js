@@ -307,6 +307,11 @@ angular.module('userService', [])
 		return $http.put('/resetPass/'+email);
 	};
 
+	userFactory.newPass = function(resetID, newpass) {
+
+		return $http.put('/newPass/'+resetID +"/"+newpass);
+	};
+
 	/*userFactory.updateViewPref = function(viewType, page)	{
 		return $http.delete('/api/users/' + id);
 	};*/

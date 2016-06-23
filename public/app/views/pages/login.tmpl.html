@@ -30,7 +30,8 @@
       </div>
       <button ng-hide="login.resendMode"
               ng-click="login.doLogin(email,password)"
-              class="custom-btn-primary-large no-animate">
+              class="custom-btn-primary-large no-animate"
+              ng-disabled="vm.processing">
         <span>Log in</span>
       </button>
 
@@ -43,9 +44,9 @@
 
     <div class="asideMessage marginTop20">
         <p>Forget password?
-        <!-- <a ng-hide="login.resetPassword" href="#" ng-click="nav.resetPass()">Reset</a> -->
-        <a ng-hide="login.resetPassword"
-        href="mailto:support@bittycasting.com">support@bittycasting.com</a>
+        <a ng-hide="login.resetPassword" href="#" ng-click="nav.resetPass()">Reset</a>
+        <!-- <a ng-hide="login.resetPassword"
+        href="mailto:support@bittycasting.com">support@bittycasting.com</a> -->
         </p>
       </div>
       

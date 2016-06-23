@@ -162,12 +162,27 @@ angular.module('registrationCtrl', ['authService', 'mgcrea.ngStrap'])
 							$scope.$hide();
 							$location.path('/home');
 							return;
-						}, 1500)
+						}, 2500)
 					});
 				}
 			});
 	}
 })
+
+.controller('resetPassCtrl', function(User, $scope,
+	$location, $routeParams, $aside) {
+	var vm = this;
+	var signupAside = $aside({
+		scope: $scope,
+		backdrop: 'static',
+		title: "Password Reset",
+		show: true,
+		controller: 'signupInviteSliderCtrl',
+		controllerAs: 'user',
+		templateUrl: '/app/views/pages/resetPass.tmpl.html'
+	})
+})
+
 
 .controller('signupInviteCtrl', function(User, $scope,
 	$location, EmailValidator, Facebook, $routeParams, $aside) {
@@ -308,7 +323,7 @@ angular.module('registrationCtrl', ['authService', 'mgcrea.ngStrap'])
 						$scope.$emit('aside.hide')
 						$scope.$hide();
 						return;
-					}, 7000)
+					}, 5000)
 				}
 			});
 	}

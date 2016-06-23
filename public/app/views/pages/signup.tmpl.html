@@ -33,7 +33,12 @@
           {{user.message}}
         </div>
 
-      <button type="submit" class="custom-btn-primary-large" ng-click="user.saveUser()">Register with E-mail</button>
+      <button type="submit"
+              class="custom-btn-primary-large"
+              ng-disabled="user.processing"
+               ng-click="user.saveUser()">
+               Register with E-mail
+      </button>
         
     </form>
       

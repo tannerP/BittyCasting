@@ -266,6 +266,30 @@ module.exports = function(app, express) {
       }
     })
   })
+  app.put('/newPass/:resetID/:password', function(req, res) {
+
+    var resetID = req.params.resetID;
+    var newPassword = req.params.password;
+    PassReset.findById(resetID, function(err, data) {
+      console.log(err)
+      console.log(data)
+      if (err || !data) { //err, nodata (expired)
+        return res.json({
+          success: false
+        })
+      }
+      var curData = new Date();
+      var daysOld = (curData - data.create_date +2);
+      if (daysOld > 2){
+
+      }
+      data.remove()
+      return res.json({
+          success: true
+        })
+    })
+  })
+
   app.put('/resetPass/:email', function(req, res) {
     /*console.log("HELLLLO")*/
 
@@ -421,14 +445,14 @@ module.exports = function(app, express) {
           //reset create_date instead of creating a new EmailConfirmation object. 
           data.create_date = new Date();
           data.save();
-         var data = {
-            from: "Registration@BittyCasting.com",
-            to: req.params.email,
-            subject: "Confirm: New Registration",
-            html: user.name.first[0].toUpperCase() + user.name.first.toLowerCase().slice(1) +
-              ', please follow this link to finish your Bittycasting registration. ' +
-              "https://bittycasting.com/confirm/user/" + confirmation._id,
-          }
+          var data = {
+              from: "Registration@BittyCasting.com",
+              to: req.params.email,
+              subject: "Confirm: New Registration",
+              html: user.name.first[0].toUpperCase() + user.name.first.toLowerCase().slice(1) +
+                ', please follow this link to finish your Bittycasting registration. ' +
+                "https://bittycasting.com/confirm/user/" + confirmation._id,
+            }
             /*html: "Please follow this link to finish your Bittycasting registration." + "https://bittycasting.com/confirm/user/" + data._id,*/
           var mailgun = new Mailgun({
             apiKey: config.api_key,
@@ -490,7 +514,7 @@ module.exports = function(app, express) {
                 _id: data.userID
               }).select('name email password')
               .exec(function(err, user) {
-                   if (!user) return res.json({
+                if (!user) return res.json({
                   success: false,
                   message: ' User not found.'
                 });
@@ -541,8 +565,7 @@ module.exports = function(app, express) {
             res.json({
               success: false,
               notConfirmed: true,
-              message: 'Your email address has not been validated. '
-              + 'Click Resend Email to receive another email.'
+              message: 'Your email address has not been validated. ' + 'Click Resend Email to receive another email.'
             });
           } else {
             var validPassword = user.comparePassword(req.body.password);

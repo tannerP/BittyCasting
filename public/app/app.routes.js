@@ -72,7 +72,7 @@ angular.module('app.routes', ['ngRoute'])
         })
         .when('/reset/password/:id',  {
             templateUrl: 'app/views/pages/index.html',
-            controller: 'signupInviteCtrl',
+            controller: 'newPassCtrl',
             controllerAs: 'vm'
         })
         .when('/login', {
