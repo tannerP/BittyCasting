@@ -7,7 +7,6 @@ angular.module('applicantFilters', [])
         switch (filter) {
           case "Favorites":
             if (!applicants) return applicants;
-            console.log(applicants.length)
             for (var a in applicants) {
               var applicant = applicants[a];
 

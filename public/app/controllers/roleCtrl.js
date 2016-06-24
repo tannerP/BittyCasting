@@ -92,6 +92,15 @@ angular.module('roleCtrl', ['userService',
             show: false,
             templateUrl: '/app/views/pages/applicant_delete.tmpl.html'
           });
+        manAddApplicant = $aside({
+          scope: $scope,
+          keyboard: true,
+          show: false,
+          controller: 'manAddApplicantCtrl',
+          controllerAs: 'aside',
+          templateUrl: '/app/views/pages/manAddApplicant.tmpl.html'
+        });
+
         $scope.viewApp = false;
         $scope.carouselIndex = 0;
         $scope.slides = [];
@@ -244,6 +253,7 @@ angular.module('roleCtrl', ['userService',
 
           if (aplnt.favs.length === 0) {
             aplnt.numFavs++
+
             //optomistic push.
             var optData = {
               roleID: roleID,
@@ -402,13 +412,27 @@ angular.module('roleCtrl', ['userService',
         vm.editRoleBtn = function() {
           editRoleAside.$promise.then(editRoleAside.toggle);
         }
-
+        vm.addAppBtn = function() {
+          manAddApplicant.$promise.then(manAddApplicant.toggle);
+        }
         $rootScope.$on('$locationChangeStart', function(event, newUrl, oldUrl) {
           if ($scope.viewApp) {
             vm.backBtn();
             event.preventDefault(); // This prevents the navigation from happening
           }
         });
+
+        $scope.viewApp = false;
+        $scope.carouselIndex = 0;
+        $scope.slides = [];
+        vm.gridView = true;
+        vm.listView = false;
+        //$scope.isAside track if an aside is open. If it is, 
+        //prevent going back, instead, close aside.
+        /*$scope.$watch('carouselIndex', function(newVal, oldVal) {
+          if (++newVal === $scope.slides.length) $scope.carouselIndex = 5;
+        });*/
+
 
         var MAXLENGTH = 430;
         $scope.descriptionLength = MAXLENGTH;
@@ -496,9 +520,7 @@ angular.module('roleCtrl', ['userService',
                     viewed.userID === $rootScope.user._id) {
                     applicant.new = false;
                   } else applicant.new = true;
-
                 }
-
               }
 
               if (applicant && applicant.favs.length > 0) {
@@ -536,70 +558,123 @@ angular.module('roleCtrl', ['userService',
           })
       }
     })
-  .controller('shareRoleController', ['$scope', '$alert', '$location',
+
+  .controller('manAddApplicantCtrl', ['$scope', '$alert', '$location',
     '$timeout',
-    function($scope, $alert, $location, $timeout) {
-      //TODO: this is a temp fix for projeview-private,
-      // table view role sharing
-      $scope.$on('$locationChangeStart', function(event, newUrl, oldUrl) {
-        $scope.$hide()
-      });
-      if ($scope.role) {
-        $scope.roleData = $scope.role;
+    function($scope, $alert, $location, flow, $timeout, Applicant) {
+
+      console.log("Man applicant Ctrl ")
+      console.log("")
+      var vm = this;
+
+      vm.prepImgs = function(files, event, flow) {
+        console.log(files)
+          /*console.log(event)
+          console.log(flow)*/
       }
-      $scope.textToCopy = $scope.roleData.short_url;
 
-      $scope.FB_text = "CASTING CALL: " + $scope.roleData.name +
-        " \ " + $scope.roleData.description;
+      vm.submitBtn = function() {
 
-      $scope.Email_text = "Hey, \n \n \t I just created an acting role in BittyCasting that I thought might interest you. Check out the project and role by clicking the link:" + $scope.textToCopy + "\n \n Thanks!";
+        Applicant.apply(vm.appData)
+          .then(function(resp) {
+            vm.processing = true;
+            vm.applicantID = resp.data.appID;
+            //soft out null files in array
+            if (numFiles === 0) {
+              $timeout(function() {
+                vm.processing = false;
+                $location.path('/Thankyou');
+              }, 1500)
 
-      $scope.Twitter_text = "CASTING CALL: " + $scope.roleData.name +
-        " via " + " " + "@BittyCasting ";
-      $scope.Twitter_url = $scope.roleData.short_url;
+            } else {
+              /*console.log(uploadFiles.length)
+              console.log(uploadFiles)*/
 
-      var successAlert = $alert({
-          title: 'Copied!',
-          animation: 'am-fade-and-slide-top',
-          duration: '1',
-          placement: 'top-right',
-          type: 'success',
-          show: false,
-          type: 'success'
-        }),
-        errAlert = $alert({
-          title: '',
-          content: 'Copied',
-          placement: 'top-right',
-          type: 'info',
-          show: false,
-          type: 'success'
-        });
-
-      var previewLink = "/Apply/" + $scope.roleData._id;
-      $scope.preview = function() {
-        $scope.$emit('aside.hide')
-        $timeout(function() {
-          $scope.$hide();
-          $location.path(previewLink)
-        }, 100)
+              AWS.uploadAppMedias(uploadFiles, vm.requirements,
+                vm.applicantID, $rootScope.awsConfig.bucket);
+              $rootScope.$on("app-media-submitted",
+                function() {
+                  finishedFileCount++;
+                  /*console.log("num files updated toDB " 
+                    + finishedFileCount)*/
+                  /*console.log("num files: " + numFiles)*/
+                  if (finishedFileCount === numFiles) {
+                    $location.path('/Thankyou');
+                  }
+                })
+            }
+          })
       }
-      $scope.success = function() {
-        $scope.toggle = true;
-        successAlert.toggle();
-        $scope.textToCopy = "Copied."
-        $timeout(function() {
-          $scope.textToCopy = $scope.roleData.short_url;
-        }, 1500);
-      };
-
-      $scope.fail = function(err) {
-        console.error('Error!', err);
-        errAlert.toggle();
-      }
-      return;
     }
+
   ])
+
+
+.controller('shareRoleController', ['$scope', '$alert', '$location',
+  '$timeout',
+  function($scope, $alert, $location, $timeout) {
+    //TODO: this is a temp fix for projeview-private,
+    // table view role sharing
+    $scope.$on('$locationChangeStart', function(event, newUrl, oldUrl) {
+      $scope.$hide()
+    });
+    if ($scope.role) {
+      $scope.roleData = $scope.role;
+    }
+    $scope.textToCopy = $scope.roleData.short_url;
+
+    $scope.FB_text = "CASTING CALL: " + $scope.roleData.name +
+      " \ " + $scope.roleData.description;
+
+    $scope.Email_text = "Hey, \n \n \t I just created an acting role in BittyCasting that I thought might interest you. Check out the project and role by clicking the link:" + $scope.textToCopy + "\n \n Thanks!";
+
+    $scope.Twitter_text = "CASTING CALL: " + $scope.roleData.name +
+      " via " + " " + "@BittyCasting ";
+    $scope.Twitter_url = $scope.roleData.short_url;
+
+    var successAlert = $alert({
+        title: 'Copied!',
+        animation: 'am-fade-and-slide-top',
+        duration: '1',
+        placement: 'top-right',
+        type: 'success',
+        show: false,
+        type: 'success'
+      }),
+      errAlert = $alert({
+        title: '',
+        content: 'Copied',
+        placement: 'top-right',
+        type: 'info',
+        show: false,
+        type: 'success'
+
+      });
+
+    var previewLink = "/Apply/" + $scope.roleData._id;
+    $scope.preview = function() {
+      $scope.$emit('aside.hide')
+      $timeout(function() {
+        $scope.$hide();
+        $location.path(previewLink)
+      }, 100)
+    }
+    $scope.success = function() {
+      $scope.toggle = true;
+      successAlert.toggle();
+      $scope.textToCopy = "Copied."
+      $timeout(function() {
+        $scope.textToCopy = $scope.roleData.short_url;
+      }, 1500);
+    };
+
+    $scope.fail = function(err) {
+      console.error('Error!', err);
+      errAlert.toggle();
+    }
+    return;
+  }
+])
 
 .controller('CommentBoxCtrl',
   function($scope, $rootScope, Applicant) {

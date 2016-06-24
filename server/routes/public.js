@@ -271,8 +271,8 @@ module.exports = function(app, express) {
     var resetID = req.params.resetID;
     var newPassword = req.params.password;
     PassReset.findById(resetID, function(err, data) {
-      console.log(err)
-      console.log(data)
+      /*console.log(err)
+      console.log(data)*/
       if (err || !data) { //err, nodata (expired)
         return res.json({
           success: false
@@ -449,9 +449,8 @@ module.exports = function(app, express) {
               from: "Registration@BittyCasting.com",
               to: req.params.email,
               subject: "Confirm: New Registration",
-              html: user.name.first[0].toUpperCase() + user.name.first.toLowerCase().slice(1) +
-                ', please follow this link to finish your Bittycasting registration. ' +
-                "https://bittycasting.com/confirm/user/" + confirmation._id,
+              html: 'Please follow this link to finish your Bittycasting registration. ' +
+                "https://bittycasting.com/confirm/user/" + data._id,
             }
             /*html: "Please follow this link to finish your Bittycasting registration." + "https://bittycasting.com/confirm/user/" + data._id,*/
           var mailgun = new Mailgun({
@@ -461,6 +460,7 @@ module.exports = function(app, express) {
 
           mailgun.messages()
             .send(data, function(err, body) {
+              /*console.log(body)*/
               if (err) {
                 return res.json({
                   success: false,
@@ -473,11 +473,6 @@ module.exports = function(app, express) {
                 });
               }
             });
-          //resend email
-
-          /*var curData = new Date();
-          var daysOld = (curData - data.create_date);
-          daysOld = Math.ceil(daysOld / (1000 * 3600 * 24));*/
         }
       })
     })
@@ -497,7 +492,6 @@ module.exports = function(app, express) {
         }
         //expired token
         else if (data) {
-
           var DURATION = 7; //days
           var curData = new Date();
           var daysOld = (curData - data.create_date);
@@ -505,13 +499,14 @@ module.exports = function(app, express) {
           if (daysOld > DURATION) {
             return res.json({
               success: false,
+              resubmit: true,
               message: "Your confirmation email is expired. " + "Resubmit your email to receive another confirmation email."
             });
           }
           //Invitation found
           else {
             User.findOne({
-                _id: data.userID
+                email: data.email
               }).select('name email password')
               .exec(function(err, user) {
                 if (!user) return res.json({
@@ -522,7 +517,7 @@ module.exports = function(app, express) {
 
                 user.isValidated = true;
                 user.save();
-                data.remove() //data = invite
+                data.remove() //data = confirmation
 
                 var token = jwt.sign({
                   id: user.id,
@@ -538,8 +533,6 @@ module.exports = function(app, express) {
                   message: 'Enjoy your token!',
                   token: token
                 });
-                /*}*/
-
               });
           }
         }
@@ -597,99 +590,132 @@ module.exports = function(app, express) {
     });
   app.route('/register')
     .post(function(req, res) {
-      //create a new instance of the User model
-      var user = new User();
-      var confirmation = new EmailConfirmation();
-      confirmation.userID = user._id;
-      confirmation.email = req.body.email;
-      confirmation.save();
+      //OPTIMIZATION NOTE: look into reduce this first
+      var mailgun = new Mailgun({
+        apiKey: config.api_key,
+        domain: config.domain
+      });
 
-      //set the users information (comes from the request)
-      var name = req.body.name;
-      var arrName = name.split(' ');
-      var fname = name.split(" ")[0]
-      var lname = name.split(" ")[arrName.length - 1]
-
-      if (arrName.length < 2) {
-        return res.json({
-          success: false,
-          message: "User name invalid."
-        })
-      } else if (arrName.length === 2) {
-        user.name = ({
-          first: fname[0].toUpperCase() + fname.toLowerCase().slice(1),
-          last: lname[0].toUpperCase() + lname.toLowerCase().slice(1)
-        })
-      } 
-      else if (arrName.length > 2) {
-        var middleName = "";
-        //extract middle name
-        for (var i in name.split(' ')) {
-          if (i > 0 && i < arrName.length - 1) {
-            middleName += name.split(' ')[i] + " ";
-          }
-        }
-        middleName = middleName.trim();
-        user.name = ({
-          first: fname[0].toUpperCase() + fname.toLowerCase().slice(1),
-          middle: middleName,
-          last: lname[0].toUpperCase() + lname.toLowerCase().slice(1)
-        })
-      }
-      /*console.log(req.body.name)
-      console.log(user.name)*/
-
-
-      /*user.name.last = req.body.name.last;
-      user.name.first = req.body.name.first;*/
-      user.password = req.body.password;
-      user.email = req.body.email;
-      user.role = "user";
-      user.isValidated = false;
-
-      user.save(function(err, user) {
-        console.log(err)
-        console.log(user)
-        if (err) {
-          console.log(err);
-          //duplicate entry
-          if (err.code == 11000)
+      EmailConfirmation.findOne({
+        email: req.body.email
+      }, function(err, confirmation) {
+        console.log(err, confirmation)
+          //Confirmation doesn't exist
+          //Create EConfirmation, and new user
+        if (err || !confirmation) {
+          var user = new User();
+          var confirmation = new EmailConfirmation();
+          confirmation.userID = user._id;
+          confirmation.email = req.body.email;
+          var name = req.body.name;
+          var arrName = name.split(' ');
+          var fname = name.split(" ")[0]
+          var lname = name.split(" ")[arrName.length - 1]
+          //normalize name
+          if (arrName.length < 2) {
             return res.json({
               success: false,
-              message: 'A user with that email already exists.'
-            });
-        } else {
-          var data = {
-            from: "Registration@BittyCasting.com",
-            to: req.body.email,
-            subject: "Confirm: New Registration",
-            html: user.name.first[0].toUpperCase() + user.name.first.toLowerCase().slice(1) +
-              ', please follow this link to finish your Bittycasting registration. ' +
-              "https://bittycasting.com/confirm/user/" + confirmation._id,
-          }
-          var mailgun = new Mailgun({
-            apiKey: config.api_key,
-            domain: config.domain
-          });
-
-          mailgun.messages()
-            .send(data, function(err, body) {
-              if (err) {
-                return res.json({
-                  success: false,
-                  error: err
-                });
-              } else {
-                return res.json({
-                  success: true,
-                  message: 'An email is sent to you. Please verify your email to complete your registration'
-                });
+              message: "User name invalid."
+            })
+          } else if (arrName.length === 2) {
+            user.name = ({
+              first: fname[0].toUpperCase() + fname.toLowerCase().slice(1),
+              last: lname[0].toUpperCase() + lname.toLowerCase().slice(1)
+            })
+          } else if (arrName.length > 2) {
+            var middleName = "";
+            //extract middle name
+            for (var i in name.split(' ')) {
+              if (i > 0 && i < arrName.length - 1) {
+                middleName += name.split(' ')[i] + " ";
               }
-            });
+            }
+            middleName = middleName.trim();
+            user.name = ({
+              first: fname[0].toUpperCase() + fname.toLowerCase().slice(1),
+              middle: middleName,
+              last: lname[0].toUpperCase() + lname.toLowerCase().slice(1)
+            })
+          }
+
+          user.password = req.body.password;
+          user.email = req.body.email;
+          user.role = "user";
+          user.isValidated = false;
+          user.save(function(err, user) {
+            /*console.log(data)*/
+            if (err) {
+              confirmation.remove()
+              return res.json({
+                success: false,
+                message: 'Looks like you alrady have an account.'
+              });
+            } else {
+              var data = {
+                from: "Registration@BittyCasting.com",
+                to: req.body.email,
+                subject: "Confirm: New Registration",
+                html: user.name.first[0].toUpperCase() + user.name.first.toLowerCase().slice(1) +
+                  ', please follow this link to finish your Bittycasting registration. ' +
+                  "https://bittycasting.com/confirm/user/" + confirmation._id,
+              }
+
+              mailgun.messages()
+                .send(data, function(err, body) {
+                  if (err) {
+                    return res.json({
+                      success: false,
+                      error: err
+                    });
+                  } else {
+                    return res.json({
+                      success: true,
+                      message: 'New Client,An email is sent to you. Please verify your email to complete your registration'
+                    });
+                  }
+                });
+
+            }
+          })
+        } else {
+          //update confirmation
+          //user already exist in DB
+          confirmation.create_date = Date.now();
+          confirmation.save();
+          User.findOne({
+            email: req.body.email
+          }, function(err, data) {
+            if (data) {
+              user = data;
+            }
+            var data = {
+              from: "Registration@BittyCasting.com",
+              to: req.body.email,
+              subject: "Confirm: New Registration",
+              html: user.name.first[0].toUpperCase() + user.name.first.toLowerCase().slice(1) +
+                ', please follow this link to finish your Bittycasting registration. ' +
+                "https://bittycasting.com/confirm/user/" + confirmation._id,
+            }
+
+            mailgun.messages()
+              .send(data, function(err, body) {
+                if (err) {
+                  return res.json({
+                    success: false,
+                    error: err
+                  });
+                } else {
+                  return res.json({
+                    success: true,
+                    message: 'Existing, An email is sent to you. Please verify your email to complete your registration'
+                  });
+                }
+              });
+          })
         }
       })
-
     });
+
   app.route('/register/invitation/:inviteID')
     .put(function(req, res) {
       /*console.log(req.body)*/
@@ -700,7 +726,7 @@ module.exports = function(app, express) {
         var arrName = name.split(' ');
         var fname = name.split(" ")[0]
         var lname = name.split(" ")[arrName.length - 1]
-        
+
         if (arrName.length < 2) {
           return res.json({
             success: false,

@@ -25,8 +25,11 @@
         <input type="password" class="custom-form" ng-model="password" >
       </div>
       <!-- ERROR ICON -->
-      <div class="custom-alert" ng-if="login.error">
+      <div ng-if="!login.message && login.error" class="custom-alert">
         {{login.error}}
+      </div>
+      <div ng-if="login.error && login.message " class="custom-alert" >
+        {{login.message}}
       </div>
       <button ng-hide="login.resendMode"
               ng-click="login.doLogin(email,password)"
@@ -44,13 +47,16 @@
 
     <div class="asideMessage marginTop20">
         <p>Forget password?
+        <!-- <a ng-hide="login.resetPassword" href="#" ng-click="nav.resetPass()">Reset</a> -->
+        <!-- <a ng-hide="login.resetPassword"
+        href="mailto:support@bittycasting.com">support@bittycasting.com</a> -->
         <a ng-hide="login.resetPassword" href="#" ng-click="nav.resetPass()">Reset</a>
         <!-- <a ng-hide="login.resetPassword"
         href="mailto:support@bittycasting.com">support@bittycasting.com</a> -->
         </p>
+        <p>Don't have an account? <a ng-click="nav.signup()">Sign up</a></p>
       </div>
       
-      <p>Don't have an account? <a ng-click="nav.signup()">Sign up</a></p>
     </div>
 
     <div class="custom-loader" ng-if="login.processing"><img src='/assets/imgs/spin.gif'></div>
