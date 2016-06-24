@@ -65,7 +65,8 @@ angular.module('mainCtrl', ['authService', 'mgcrea.ngStrap'])
 				//show footer & nav
 				if ($location.path() === '/' ||
 					$location.path() === '/login' ||
-					$location.path() === '/signup') {
+					$location.path() === '/signup' ||
+					$location.path().indexOf("reset/password") > -1) {
 					vm.publicVw = true;
 					vm.footer = true;
 				}
@@ -286,8 +287,8 @@ angular.module('mainCtrl', ['authService', 'mgcrea.ngStrap'])
 		/*vm.message = "hello"*/
 
 		vm.restBtn = function(email) {
-			console.log("Button pressed")
-			console.log(email)
+			/*console.log("Button pressed")
+			console.log(email)*/
 			vm.processing = true; //TODO:processing Icon
 			vm.error = '';
 			User.resetPass(email)

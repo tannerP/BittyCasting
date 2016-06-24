@@ -12,10 +12,12 @@ angular.module('roleCtrl', ['userService',
         })
 
         scope.$watch('vm.role', function(newRole, oldRole) {
-          if (newRole && newRole.description) {
+          if (newRole) {
             /*console.log(oldRole.length)*/
             scope.roleData = newRole
+            /*console.log(scope.roleData)*/
             controller.roleData = newRole
+            if( newRole.description)
             scope.descriptionWordCount = newRole.description.split(" ").length;
             /*console.log(scope.descriptionWordCount)*/
 
@@ -563,8 +565,6 @@ angular.module('roleCtrl', ['userService',
     '$timeout',
     function($scope, $alert, $location, flow, $timeout, Applicant) {
 
-      console.log("Man applicant Ctrl ")
-      console.log("")
       var vm = this;
 
       vm.prepImgs = function(files, event, flow) {
@@ -618,9 +618,10 @@ angular.module('roleCtrl', ['userService',
     $scope.$on('$locationChangeStart', function(event, newUrl, oldUrl) {
       $scope.$hide()
     });
-    if ($scope.role) {
+    console.log($scope.roleData)
+    /*if ($scope.role) {
       $scope.roleData = $scope.role;
-    }
+    }*/
     $scope.textToCopy = $scope.roleData.short_url;
 
     $scope.FB_text = "CASTING CALL: " + $scope.roleData.name +

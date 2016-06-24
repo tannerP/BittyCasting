@@ -45,16 +45,27 @@ angular.module('userService', [])
 		return meta;
 	}
 	this.roleMeta = function(role, project) {
+		/*console.log(project)
+		console.log(role)*/
 		meta.title = "CASTING CALL: " + role.name
 		meta.url = ""
 		meta.url = meta.site_name + "/Apply/" + role._id;
-		meta.description = role.description;
+		
+		meta.description = "";
+		if(project.usage)		meta.description += project.usage;
+		if(role.compensation)		meta.description += " " + role.compensation;
+		if(role.sex)		meta.description += " " + role.sex;
+		if(role.age)		meta.description += " " + role.age;
+		if(role.description)		meta.description += "\n" + role.description;
+		
+
 		if (project.coverphoto.name === "default") {
 			meta.image = meta.site_name + '/' + project.coverphoto.source;
 		} else {
 			meta.image = "https://" + project.coverphoto.source.replace(/.*?:\/\//g, "");
 		}
 		/*meta.image_secure = project.coverphoto.source;*/
+		console.log(meta)
 		return meta;
 	}
 	this.prjMeta = function(project) {
