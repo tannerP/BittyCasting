@@ -162,29 +162,29 @@ angular.module('mainCtrl', ['authService', 'mgcrea.ngStrap'])
 	])
 
 .controller("feedbackCtrl", ['$rootScope', '$scope', 'Mail',
-		'$location',
-		function($rootScope, $scope, Mail, $location) {
-			var vm = this;
+	'$location',
+	function($rootScope, $scope, Mail, $location) {
+		var vm = this;
+		$scope.feedback = {};
+		vm.fb_master = {};
+		vm.fb_master.user = {};
+
+		vm.submit = function(feedback) {
+			angular.copy(feedback, vm.fb_master);
+			vm.fb_master.location = $location.path();
+			vm.fb_master.timestamp = new Date().toLocaleString('en-US');
+			vm.fb_master.user = $rootScope.user;
+
+			console.log(vm.fb_master)
+			Mail.sendFB(vm.fb_master);
+
 			$scope.feedback = {};
-			vm.fb_master = {};
-			vm.fb_master.user = {};
-
-			vm.submit = function(feedback) {
-				angular.copy(feedback, vm.fb_master);
-				vm.fb_master.location = $location.path();
-				vm.fb_master.timestamp = new Date().toLocaleString('en-US');
-				vm.fb_master.user = $rootScope.user;
-
-				console.log(vm.fb_master)
-				Mail.sendFB(vm.fb_master);
-
-				$scope.feedback = {};
-				$scope.$hide()
-			}
+			$scope.$hide()
 		}
-	])
-	
-	.controller('loginCtrl', ['$scope', 'Auth', '$location', '$route',
+	}
+])
+
+.controller('loginCtrl', ['$scope', 'Auth', '$location', '$route',
 		'EmailConfirmation',
 		function($scope, Auth, $location, $route, EmailConfirmation) {
 			var vm = this;
@@ -192,6 +192,7 @@ angular.module('mainCtrl', ['authService', 'mgcrea.ngStrap'])
 			vm.loginData = {};
 			vm.process = false;
 			vm.resetPassword = false;
+
 			vm.resendEmail = function(email){
 				EmailConfirmation.resend(email)
 					.success(function(resp){
@@ -214,7 +215,7 @@ angular.module('mainCtrl', ['authService', 'mgcrea.ngStrap'])
 							}
 						} else {
 							vm.error = data.message;
-							if(data.notConfirmed){
+							if (data.notConfirmed) {
 								vm.resendMode = true;
 							}
 						}
@@ -224,42 +225,70 @@ angular.module('mainCtrl', ['authService', 'mgcrea.ngStrap'])
 
 		}
 	])
-	.controller('resetPassCtrl', ['$scope', 'User', '$location', '$route',
-		function($scope, User, $location, $route) {
+	.controller('newPassAsideCtrl', ['$scope', 'User', '$location', '$route', '$routeParams',
+		function($scope, User, $location, $route, $routeParams) {
+			var vm = this;
+			var resetID = $routeParams.id;
+			console.log(resetID)
+
+			vm.processing = false;
+			vm.submitBtn = function(pass1, pass2) {
+				vm.processing = true;
+
+				if (pass1.length < 8) {
+					vm.message = "Weak password.";
+					return
+				}
+
+				if (pass1 !== pass2) {
+					vm.message = "Password doesn't match.";
+					return
+				} else {
+					vm.message = ""
+					User.newPass(resetID, pass1)
+						.success(function(res) {
+							vm.processing = false;
+							console.log(data)
+							vm.message = res.message
+							return;
+						})
+				}
+			}
+		}
+	])
+	.controller('newPassCtrl', ['$scope', 'User', '$location', '$route', '$aside',
+		function($scope, User, $location, $route, $aside) {
 			var vm = this;
 			vm.message;
 			vm.loginData = {};
 			vm.process = false;
-			vm.resetPassword = false;
+			/*vm.resetPassword = false;*/
 
 			var feedbackAside = $aside({
-				scope: $scope,
-				title: "Login",
 				show: true,
-				/*controller: '',
-				controllerAs: 'aside',*/
+				backdrop: 'static',
+				controller: 'newPassAsideCtrl',
+				controllerAs: 'aside',
 				templateUrl: '/app/views/pages/newPass.tmpl.html'
 			});
-			
-			/*vm.reset = function() {
-				feedbackAside.toggle();
-			}*/
 
-			/*vm.toggleBtn = function() {
-				vm.resetPassword = !vm.resetPassword;
-			}*/
+			/*vm.submit*/
 
-		}
+		return; }
 	])
-
-.controller('resetPassCtrl', ['$scope', 'User', '$location', '$route',
+.controller('resetPassAsideCtrl', ['$scope', 'User', '$location', '$route',
 	function($scope, User, $location, $route) {
+		console.log("resetPassCtrl")
 		var vm = this;
 		vm.message;
 		vm.loginData = {};
 		vm.process = false;
 
+		/*vm.message = "hello"*/
+
 		vm.restBtn = function(email) {
+			console.log("Button pressed")
+			console.log(email)
 			vm.processing = true; //TODO:processing Icon
 			vm.error = '';
 			User.resetPass(email)
@@ -270,12 +299,10 @@ angular.module('mainCtrl', ['authService', 'mgcrea.ngStrap'])
 						vm.error = data.message
 						$scope.email = ""
 					}
-
 					vm.processing = false;
-
 				});
 		}
-	}
+		return; }
 ])
 
 /* NAV */
@@ -307,9 +334,8 @@ angular.module('mainCtrl', ['authService', 'mgcrea.ngStrap'])
 		})
 		var resetAside = $aside({
 			scope: $scope,
-			title: "Sign up",
 			show: false,
-			controller: 'resetPassCtrl',
+			controller: 'resetPassAsideCtrl',
 			controllerAs: 'aside',
 			templateUrl: '/app/views/pages/resetPass.tmpl.html'
 		})

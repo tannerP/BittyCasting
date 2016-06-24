@@ -253,12 +253,13 @@ angular.module('roleCtrl', ['userService',
 
           if (aplnt.favs.length === 0) {
             aplnt.numFavs++
-              //optomistic push.
-              var optData = {
-                roleID: roleID,
-                userID: $rootScope.user._id,
-                favorited: true
-              };
+
+            //optomistic push.
+            var optData = {
+              roleID: roleID,
+              userID: $rootScope.user._id,
+              favorited: true
+            };
             aplnt.favs.push(optData)
           } else {
             for (var i in aplnt.favs) {
@@ -414,7 +415,6 @@ angular.module('roleCtrl', ['userService',
         vm.addAppBtn = function() {
           manAddApplicant.$promise.then(manAddApplicant.toggle);
         }
-
         $rootScope.$on('$locationChangeStart', function(event, newUrl, oldUrl) {
           if ($scope.viewApp) {
             vm.backBtn();
@@ -432,6 +432,7 @@ angular.module('roleCtrl', ['userService',
         /*$scope.$watch('carouselIndex', function(newVal, oldVal) {
           if (++newVal === $scope.slides.length) $scope.carouselIndex = 5;
         });*/
+
 
         var MAXLENGTH = 430;
         $scope.descriptionLength = MAXLENGTH;
@@ -557,6 +558,7 @@ angular.module('roleCtrl', ['userService',
           })
       }
     })
+
   .controller('manAddApplicantCtrl', ['$scope', '$alert', '$location',
     '$timeout',
     function($scope, $alert, $location, flow, $timeout, Applicant) {
@@ -646,6 +648,7 @@ angular.module('roleCtrl', ['userService',
         type: 'info',
         show: false,
         type: 'success'
+
       });
 
     var previewLink = "/Apply/" + $scope.roleData._id;

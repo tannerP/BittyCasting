@@ -266,6 +266,30 @@ module.exports = function(app, express) {
       }
     })
   })
+  app.put('/newPass/:resetID/:password', function(req, res) {
+
+    var resetID = req.params.resetID;
+    var newPassword = req.params.password;
+    PassReset.findById(resetID, function(err, data) {
+      console.log(err)
+      console.log(data)
+      if (err || !data) { //err, nodata (expired)
+        return res.json({
+          success: false
+        })
+      }
+      var curData = new Date();
+      var daysOld = (curData - data.create_date + 2);
+      if (daysOld > 2) {
+
+      }
+      data.remove()
+      return res.json({
+        success: true
+      })
+    })
+  })
+
   app.put('/resetPass/:email', function(req, res) {
     /*console.log("HELLLLO")*/
 
@@ -588,7 +612,8 @@ module.exports = function(app, express) {
           first: fname[0].toUpperCase() + fname.toLowerCase().slice(1),
           last: lname[0].toUpperCase() + lname.toLowerCase().slice(1)
         })
-      } else if (arrName.length > 2) {
+      } 
+      else if (arrName.length > 2) {
         var middleName = "";
         //extract middle name
         for (var i in name.split(' ')) {
@@ -665,7 +690,9 @@ module.exports = function(app, express) {
         var name = req.body.name;
 
         var arrName = name.split(' ');
-
+        var fname = name.split(" ")[0]
+        var lname = name.split(" ")[arrName.length - 1]
+        
         if (arrName.length < 2) {
           return res.json({
             success: false,
