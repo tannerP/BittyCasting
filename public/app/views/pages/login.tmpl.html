@@ -48,15 +48,15 @@
     <div class="asideMessage marginTop20">
         <p>Forget password?
         <!-- <a ng-hide="login.resetPassword" href="#" ng-click="nav.resetPass()">Reset</a> -->
-        <a ng-hide="login.resetPassword"
-        href="mailto:support@bittycasting.com">support@bittycasting.com</a>
+        <!-- <a ng-hide="login.resetPassword"
+        href="mailto:support@bittycasting.com">support@bittycasting.com</a> -->
         <a ng-hide="login.resetPassword" href="#" ng-click="nav.resetPass()">Reset</a>
         <!-- <a ng-hide="login.resetPassword"
         href="mailto:support@bittycasting.com">support@bittycasting.com</a> -->
         </p>
+        <p>Don't have an account? <a ng-click="nav.signup()">Sign up</a></p>
       </div>
       
-      <p>Don't have an account? <a ng-click="nav.signup()">Sign up</a></p>
     </div>
 
     <div class="custom-loader" ng-if="login.processing"><img src='/assets/imgs/spin.gif'></div>

@@ -94,23 +94,23 @@ angular.module('registrationCtrl', ['authService', 'mgcrea.ngStrap'])
 	$aside, Auth) {
 	var vm = this;
 
-/*	vm.nameChanging = function(name) {
-		var index = name.indexOf(" ");
-		var fname = name.split(" ")[0];
-		var lname = name.split(" ")[1];
-		if (fname) {
-			fname = fname[0].toUpperCase() + fname.toLowerCase().slice(1);
-			vm.userData.name = fname;
-		}
-		if (lname) {
-			lname = lname[0].toUpperCase() + lname.toLowerCase().slice(1);
-		}
+	/*	vm.nameChanging = function(name) {
+			var index = name.indexOf(" ");
+			var fname = name.split(" ")[0];
+			var lname = name.split(" ")[1];
+			if (fname) {
+				fname = fname[0].toUpperCase() + fname.toLowerCase().slice(1);
+				vm.userData.name = fname;
+			}
+			if (lname) {
+				lname = lname[0].toUpperCase() + lname.toLowerCase().slice(1);
+			}
 
-		if (lname && lname) {
-			vm.userData.name = ''
-			vm.userData.name = fname + " " + lname
-		}
-	}*/
+			if (lname && lname) {
+				vm.userData.name = ''
+				vm.userData.name = fname + " " + lname
+			}
+		}*/
 
 	if ($location.path().indexOf('invite') > -1) vm.inviteReg = true;
 	/*console.log($location.path())
@@ -225,11 +225,11 @@ angular.module('registrationCtrl', ['authService', 'mgcrea.ngStrap'])
 
 	var isLastKeySpace = true;
 	vm.nameKeyDown = function(name, event) {
-		//prevent defaul
+			//prevent defaul
 			console.log(event)
 			console.log(name.length)
 			console.log(name)
-			if(name && name.length === 0){
+			if (name && name.length === 0) {
 				console.log(name)
 				console.log(name.toUpperCase())
 				name = name.toUpperCase()
@@ -314,16 +314,25 @@ angular.module('registrationCtrl', ['authService', 'mgcrea.ngStrap'])
 				vm.message = data.message;
 			})
 			.success(function(resp) {
-				if (!resp.success) return vm.message = resp.message;
-				else {
+				if (!resp.success) {
+					setTimeout(function() {
+						vm.processing = false;
+						$scope.$emit('aside.hide')
+						$scope.$hide();
+						$scope.signin();
+						return;
+					}, 1000)
+					return vm.message = resp.message;
+				} else {
 					vm.message = resp.message;
 					vm.userData = {};
 					setTimeout(function() {
 						vm.processing = false;
 						$scope.$emit('aside.hide')
 						$scope.$hide();
+						$scope.signin();
 						return;
-					}, 5000)
+					}, 1000)
 				}
 			});
 	}

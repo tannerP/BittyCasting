@@ -248,7 +248,6 @@ angular.module('mainCtrl', ['authService', 'mgcrea.ngStrap'])
 					User.newPass(resetID, pass1)
 						.success(function(res) {
 							vm.processing = false;
-							console.log(data)
 							vm.message = res.message
 							return;
 						})
@@ -347,14 +346,21 @@ angular.module('mainCtrl', ['authService', 'mgcrea.ngStrap'])
 			}, 500);
 			$scope.navCollapsed = true; //make sure nav is closed
 		}
+		/*$scope.resetPass = vm.resetPass();*/
 		vm.signin = function() {
 			loginAside.toggle();
 			setTimeout(function() { //close aside after 1 sec
 				resetAside.hide();
 				signupAside.hide();
 			}, 500);
-			$scope.navCollapsed = true; //make sure nav is closed
+			/*$scope.navCollapsed = true; //make sure nav is closed*/
 		}
+
+		$scope.signin = function() {
+			vm.signin();
+			/*$scope.navCollapsed = true; //make sure nav is closed*/
+		}
+		
 		vm.signup = function() {
 			signupAside.toggle();
 			setTimeout(function() { //close aside after 1 sec
@@ -362,6 +368,7 @@ angular.module('mainCtrl', ['authService', 'mgcrea.ngStrap'])
 			}, 500);
 			$scope.navCollapsed = true; //make sure nav is closed
 		}
+		/*$scope.signup = vm.signup();*/
 		vm.navCtrl;
 	}
 ]);
