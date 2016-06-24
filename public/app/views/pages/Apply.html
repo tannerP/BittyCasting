@@ -8,9 +8,11 @@
  				<div class='pageTitle'>Project<!-- <span>s</span> --></div>
  				<div class='pageSubtitle'>{{ppv.project.name}} <span ng-if="expired">(Closed)</span></div> <!-- Remove tag causes
  				 displaying bug -->
+ 				
  				<p ng-bind-html="ppv.project.description | linky"></p>
- 				<div class="div-table-col div-table-row-header">Usage</div>
- 				<p ng-bind-html="ppv.project.usage "></p>
+ 				<div class="div-table-col div-table-row-header"
+ 						ng-if="ppv.project.usage">Usage</div>
+ 				<p ng-bind-html="ppv.project.usage"></p>
  				<img ng-src="{{ppv.project.coverphoto.source ||'assets/imgs/img_projectCover01.png'}}" class="img-responsive">
  				<div class='pageTitle'>Roles<!-- <span>s</span> --></div>
  				<ul>
