@@ -412,7 +412,7 @@ angular.module('roleCtrl', ['userService',
 
         var MAXLENGTH = 430;
         $scope.descriptionLength = MAXLENGTH;
-        vm.isTruncated = false;
+        vm.isTruncated = true;
         vm.toggleDescription = function() {
           vm.isTruncated = !vm.isTruncated;
           if (!vm.isTruncated) $scope.descriptionLength = MAXLENGTH;

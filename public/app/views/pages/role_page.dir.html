@@ -18,16 +18,19 @@
     <div class="projectDetails col-md-12">
       <section class="col-md-8">
         <div class="projectDetailsTitle">Description</div>
-        <p ng-bind-html="vm.role.description | linky | characters:descriptionLength:true "></p>
+        <p ng-show="vm.isTruncated"
+         ng-bind-html="vm.role.description | linky | characters:descriptionLength:true "></p>
+        
+        <p ng-show="!vm.isTruncated" ng-bind-html="vm.role.description | linky "></p>
           <div ng-hide="vm.role.description.length < 430" 
                         class="no-animate">
           <a href="#" 
               class="no-animate"
-            ng-show="!vm.isTruncated"
+            ng-show="vm.isTruncated"
            ng-click="vm.toggleDescription()">Show more</a>
            <a href="#" 
               class="no-animate"
-               ng-show="vm.isTruncated"
+               ng-show="!vm.isTruncated"
                ng-click="vm.toggleDescription()">Show less</a>
            </div>
       </section>
