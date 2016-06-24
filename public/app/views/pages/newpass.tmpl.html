@@ -1,10 +1,8 @@
 <div class="aside" tabindex="-1" role="dialog">
   <div class="asideBg">
     <div class="asideTitle">New Password</div>
-    <!-- <div class="custom-close" ng-hide="user.inviteReg" ng-click="$hide()"></div> -->
+    <div class="custom-close" ng-hide="user.inviteReg" ng-click="$hide()"></div>
     <form class="container-page">
-      <div class="form-group">
-      <div class="form-group">
       
       <div class="form-group">
         <label>New password</label>
@@ -22,9 +20,9 @@
       <button type="submit" class="custom-btn-primary-large"
                ng-click="aside.submitBtn(aside.pass,aside.pass1)">Reset Password</button>
     </form>
-    <div class="asideMessage">
-
-      <p>Already have an account? <a ng-click="nav.signin()">Sign in</a></p>
+    <div class="asideMessage" ng-controller="navCtrl as nav">
+      <br>
+      <p>Already have an account? <a ng-click="nav.signin(); $hide()">Sign in</a></p>
     </div>
   </div>
 </div>

@@ -271,22 +271,64 @@ module.exports = function(app, express) {
     var resetID = req.params.resetID;
     var newPassword = req.params.password;
     PassReset.findById(resetID, function(err, data) {
-      /*console.log(err)
-      console.log(data)*/
       if (err || !data) { //err, nodata (expired)
         return res.json({
-          success: false
+          success: false,
+          resendEmail: true,
+          message: "Your request is invalid. Try sending another reset password email."
         })
       }
       var curData = new Date();
-      var daysOld = (curData - data.create_date + 2);
-      if (daysOld > 2) {
+      var daysOld = (curData - data.createdAt);
+          daysOld = Math.ceil(daysOld / (1000 * 3600 * 24));
 
+/*      console.log("days old "+ daysOld);*/
+
+      if (daysOld > 2) {
+        return res.json({
+          success: false,
+          message: "Token is expired. Please send another reset password email."
+        })
+      } else {
+        //update password
+        User.findById(data.userID, function(err, user) {
+        if (err) res.send(err);
+        
+        if (newPassword) user.password = newPassword;
+        /*if (req.body.username) user.username = req.body.username;*/
+        /*if (req.body.password) user.password = req.body.password;*/
+
+        user.save(function(err) {
+          if (err)
+            if (err.code == 11000)
+              return res.json({
+                success: false,
+                message: 'A user with that email already exists.'
+              });
+            else
+              return res.json({
+                success: false,
+                message: 'Error occured. Please try again at a later time.',
+                error: err
+              });
+
+          else {
+            var token = jwt.sign({
+              id: user.id,
+              name: user.name,
+            }, config.secret, {
+              expiresIn: 86400
+            }); //24 hrs
+            return res.json({
+              name: user.name,
+              success: true,
+              message: 'New password updated!',
+              token: token
+            });
+          } 
+        });
+      });
       }
-      data.remove()
-      return res.json({
-        success: true
-      })
     })
   })
 
@@ -301,7 +343,7 @@ module.exports = function(app, express) {
         var pass = new PassReset();
         pass.userID = user._id;
         pass.email = user.email;
-        pass.save()
+
 
         var data = {
           from: "friends@bittycasting",
@@ -315,20 +357,25 @@ module.exports = function(app, express) {
           domain: config.domain
         });
 
-        mailgun.messages()
-          .send(data, function(err, body) {
-            if (err) {
-              return res.json({
-                success: false,
-                message: "An error occured. Please try again."
+        pass.save(function(err, pass) {
+          if (pass) {
+            mailgun.messages()
+              .send(data, function(err, body) {
+                console.log(err)
+                if (err) {
+                  return res.json({
+                    success: false,
+                    message: "An error occured. Please try again."
+                  });
+                } else {
+                  return res.json({
+                    success: true,
+                    message: "An email is sent to your account"
+                  });
+                }
               });
-            } else {
-              return res.json({
-                success: true,
-                message: "An email is sent to your account"
-              });
-            }
-          });
+          }
+        })
       } else {
         return res.json({
           success: false,
@@ -611,7 +658,7 @@ module.exports = function(app, express) {
           var arrName = name.split(' ');
           var fname = name.split(" ")[0]
           var lname = name.split(" ")[arrName.length - 1]
-          //normalize name
+            //normalize name
           if (arrName.length < 2) {
             return res.json({
               success: false,

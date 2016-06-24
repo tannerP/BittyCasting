@@ -1094,8 +1094,7 @@ module.exports = function(app, express) {
 							message: 'User updated!',
 							token: token
 						});
-
-					}
+					}	
 				});
 			});
 		})
