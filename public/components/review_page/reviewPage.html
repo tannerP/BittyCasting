@@ -17,7 +17,7 @@
                         <div class="custom-btn-secondary-small btn-fav" ng-click="vm.updateFav($index,currApp,roleData._id)">
                            <img ng-if="currApp.favorited" ng-src="/assets/imgs/ic_fav_w_fill.svg" width="16px" vertical-align="middle">
                            <img ng-if="!currApp.favorited" ng-src="/assets/imgs/ic_fav_w.svg" width="16px" vertical-align="middle">Favorite
-                           <span ng-hide="currApp.numFavs < 1" class="fav-applicant-counter" ng-click="vm.updateFav($index,app,vm.role._id)">{{currApp.numFavs}}</span>
+                           <span ng-hide="currApp.numFavs < 1" class="fav-applicant-counter-review" ng-click="vm.updateFav($index,app,vm.role._id)">{{currApp.numFavs}}</span>
                         </div>
                         <div
                             ng-if="vm.owner" 

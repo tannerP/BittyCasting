@@ -51,7 +51,7 @@
         <a class="btn-add-applicants" ng-href="#" ng-click=vm.addAppBtn()>
         <img ng-src="/assets/imgs/ic_plus_bl.svg"> Add applicants</a>
 <!-- ======= -->
-      <span ng-show="numApps >0">{{numApps}} Applicants total </span> <a class="btn-add-applicants" ng-href="{{'addApplicant/'+ vm.role._id}}"><img ng-src="/assets/imgs/ic_plus_bl.svg"> Add applicants</a>
+<!--      <span ng-show="numApps >0">{{numApps}} Applicants total </span> <a class="btn-add-applicants" ng-href="{{'addApplicant/'+ vm.role._id}}"><img ng-src="/assets/imgs/ic_plus_bl.svg"> Add applicants</a>-->
 <!-- >>>>>>> dev -->
       </div>
     </div>
@@ -148,9 +148,10 @@
                     {{app.name.first}} {{app.name.last}}
                 </td>
                 <td>
-                  <div ng-click="vm.updateFav($index,app,vm.role._id)" >
+                  <div class="ic_fav" ng-click="vm.updateFav($index,app,vm.role._id)" >
                     <img  ng-if="app.favorited" ng-src="/assets/imgs/ic_fav_b_fill.svg" width="20px" vertical-align="middle" >
                     <img ng-if="!app.favorited" ng-src="/assets/imgs/ic_fav_b.svg" width="20px" vertical-align="middle">
+                    <span ng-hide="app.numFavs < 1" class="fav-applicant-counter-icon">{{app.numFavs}}</span>
                   </div>
                 </td>
                 <td ng-click="vm.viewBtn(app)">
