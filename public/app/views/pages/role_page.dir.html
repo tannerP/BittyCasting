@@ -22,7 +22,7 @@
          ng-bind-html="vm.role.description | linky | characters:descriptionLength:true "></p>
         
         <p ng-show="!vm.isTruncated" ng-bind-html="vm.role.description | linky "></p>
-          <div ng-hide="vm.role.description.length < 430" 
+          <div ng-hide="!vm.role.description ||vm.role.description.length < 430" 
                         class="no-animate">
           <a href="#" 
               class="no-animate"

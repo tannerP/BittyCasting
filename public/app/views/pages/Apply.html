@@ -9,8 +9,6 @@
  				<div class='pageSubtitle'>{{ppv.project.name}} <span ng-if="expired">(Closed)</span></div> <!-- Remove tag causes
  				 displaying bug -->
  				<p ng-bind-html="ppv.project.description | linky"></p>
- 				<div class="div-table-col div-table-row-header">Usage</div>
- 				<p ng-bind-html="ppv.project.usage "></p>
  				<img ng-src="{{ppv.project.coverphoto.source ||'assets/imgs/img_projectCover01.png'}}" class="img-responsive">
  				<div class='pageTitle'>Roles<!-- <span>s</span> --></div>
  				<ul>
@@ -23,8 +21,7 @@
  					</li>              
  				</ul>
 
- 				<p ng-init=""
- 				ng-bind-html="ppv.curRole.description || ppv.roles[0].description | linky"></p>
+ 				<p ng-bind-html="ppv.curRole.description || ppv.roles[0].description | linky"></p>
 
  				<div class="div-table">
  					<!-- <div class="div-table-row" ng-if="ppv.curRole.usage || ppv.roles[0].usage">
@@ -40,12 +37,31 @@
  						<div class="div-table-col">{{ppv.curRole.sex || 
  							ppv.roles[0].sex}}</div>
  						</div>
+ 						
  						<div class="div-table-row" ng-if="ppv.curRole.age || 			ppv.roles[0].age">
- 							<div class="div-table-col div-table-row-header">Age Range</div>
- 							<div class="div-table-col">{{ppv.curRole.age || 
- 								ppv.roles[0].age}}</div>
- 							</div>
+	 							<div class="div-table-col div-table-row-header">Age Range</div>
+	 							<div class="div-table-col">{{ppv.curRole.age || 
+	 								ppv.roles[0].age}}</div>
  						</div>
+ 						<div class="div-table-row" ng-if="ppv.curRole.union || 			ppv.roles[0].union">
+	 							<div class="div-table-col div-table-row-header">
+	 							Union</div>
+	 							<div class="div-table-col">
+	 									{{ppv.curRole.union || ppv.roles[0].union}}</div>
+ 						</div>
+ 						<div class="div-table-row" ng-if="ppv.project.usage">
+ 								<div class="div-table-col div-table-row-header">
+ 										Usage</div>
+ 								<div class="div-table-col">
+ 									{{ppv.project.usage}} </div>
+ 						</div>
+ 						<div class="div-table-row" ng-if="ppv.project.location">
+ 								<div class="div-table-col div-table-row-header">
+ 										Location</div>
+ 								<div class="div-table-col">
+ 									{{ppv.project.location}} </div>
+ 						</div>
+ 						
 
 
  					</div>

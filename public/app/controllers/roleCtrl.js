@@ -429,13 +429,7 @@ angular.module('roleCtrl', ['userService',
         $scope.slides = [];
         vm.gridView = true;
         vm.listView = false;
-        //$scope.isAside track if an aside is open. If it is, 
-        //prevent going back, instead, close aside.
-        /*$scope.$watch('carouselIndex', function(newVal, oldVal) {
-          if (++newVal === $scope.slides.length) $scope.carouselIndex = 5;
-        });*/
-
-
+        
         var MAXLENGTH = 430;
         $scope.descriptionLength = MAXLENGTH;
         vm.isTruncated = true;

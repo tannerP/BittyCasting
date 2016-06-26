@@ -19,6 +19,7 @@ var RoleSchema = new Schema({
 	projectID:{ type: String, required: true },
 	name: { type:String, required: true},
 	description: { type:String, require:true },
+	union: { type:String},
 	
 	short_url:{ type:String},
 	compensation: String,
