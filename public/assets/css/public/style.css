@@ -189,6 +189,8 @@ body {
 p {
   font-size: 12px;
   line-height: 24px; }
+  p span {
+    font-weight: 700; }
 
 label {
   font-weight: 400; }
