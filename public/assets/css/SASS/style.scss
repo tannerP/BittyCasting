@@ -225,6 +225,7 @@ body {overflow-x: hidden;}
 p {
     font-size: $font-size-regular;
     line-height: 24px;
+    span {font-weight: 700;}
 }
 
 label {font-weight: 400;}
