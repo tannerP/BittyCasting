@@ -567,10 +567,23 @@ angular.module('roleCtrl', ['userService',
 
       var vm = this;
 
+      vm.updateCurAtchmntClick = function(attachment){
+        vm.curAtchmnt = attachment;
+      }
+
       vm.prepImgs = function(files, event, flow) {
         console.log(files)
+        for(var i in vm.roles.attachment)
+        {
+          switch(vm.curAtchmnt){
+            case vm.roles.attachment[i]:
+
+                }
+      }
+        /*console.log(files)*/
           /*console.log(event)
           console.log(flow)*/
+          
       }
 
       vm.submitBtn = function() {

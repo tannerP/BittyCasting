@@ -166,7 +166,6 @@
 																ng-click="ppv.isNewLink[rIndex] = !ppv.isNewLink[rIndex];
 																ppv.newLinks[rIndex]='' ">Link</a>
 
-
 																<div class="custom-form" ng-show="ppv.isNewLink[rIndex]">  
 																	<input ng-model="ppv.newLinks[rIndex]"
 																	placeholder="http://" class="inputShort">
@@ -212,7 +211,8 @@
 																			ng-model="$files"
 																			ngf-multiple="true"
 																			ngf-select="ppv.addFile($files, rq, rIndex)">
-																			<a ng-show="ppv.isLast($index, ppv.files[rIndex])" class="uploadAddMore">Add more</a>
+																			<a 
+																			ng-show="ppv.isLast($index, ppv.files[rIndex])" class="uploadAddMore no-animate">Add more</a>
 
 																		</div>
 																<!-- 					ng-if="file.file.type.indexOf('image') > -1"

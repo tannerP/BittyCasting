@@ -5,7 +5,6 @@
   <div class="asideBg">
     <div class="asideTitle">Add Applicant</div>
     <div type="button" class="custom-close" ng-click="$hide()"></div>
-      
     <div class = "form-group">
         <label>First name<span></span></label>
         <input type="text" class="custom-form" ng-model="aside.newData.name.first" Required>
@@ -32,6 +31,7 @@
     <div class = "form-group">
     <label>Message/Links</label>
     <textarea ng-model="aside.newData.message" rows="5" class="custom-form-textarea"></textarea>  
+    <!-- </textarea> -->
     </div>                                            
 
     <div class="form-group" ng-repeat="req in vm.role.requirements">
@@ -49,7 +49,7 @@
 <!--
         <table>
          <tbody>
-            <tr ng-repeat="req in vm.role.requirements">
+            <tr ng-repeat="req in vm.role.requirements track by $index">
                 <td>
                     <label>{{req.name}}
                     <span class='required' ng-if="req.required"></span>
@@ -58,22 +58,22 @@
                 <td>
                     <span flow-btn><a>Add files</a></span> or 
                     <a href="#">Link</a> 
+                    <input type="link" ng-show="vm.links[$index]">
                 </td>
             </tr>
         </tbody>   
         </table>
 -->
-
+    </div>     
+    <div ng-if="errors" class ="custom-alert" >
+        <p>Whoops, the file format was invalid.</p>
+        <p ng-if="errors.requirements"> {{errors.requirements.message}}</p>
     </div>
     
-     
-    <div ng-if="errors" class ="custom-alert" >
-    <p>Whoops, the file format was invalid.</p>
-    <p ng-if="errors.requirements"> {{errors.requirements.message}}</p>
-    </div>
     <div ng-if="aside.message"  class ="custom-alert">
     {{ppv.message}}
     </div>   
+    
     <div ng-show="aside.processing" class="custom-loader"><img style ="height:60px; width:auto"
     ng-src='/assets/imgs/spin.gif'></div>  
 
