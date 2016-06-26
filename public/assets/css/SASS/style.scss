@@ -1136,17 +1136,6 @@ section {
     img {
         margin-right: 5px;
     }
-    .fav-applicant-counter {
-        width: 20px;
-        text-align: center;
-        position: absolute;
-        top: 14px;
-        right: 12px;
-        z-index: 1;
-        color: $color-grey;
-        font-size: 10px;
-        cursor: pointer;
-    }
     .fav-applicant-counter-review {
         width: 16px;
         text-align: center;
@@ -2385,7 +2374,7 @@ ul.select-coverphoto-wrapper {
     font-size: $font-size-regular;
     color: $color-grey-dark;
     border: 1px solid $color-grey-dark;
-    background: url("/assets/imgs/ic_plus.svg") no-repeat center center;
+    background: url("/assets/imgs/ic_people.svg") no-repeat center center;
     background-size: 20px 20px;
     @include border-radius(50%);
     @include transition(all, 0.2s, ease);
@@ -2394,6 +2383,25 @@ ul.select-coverphoto-wrapper {
         background-color: $color-grey-light;
         @include transition(all, 0.2s, ease);
     } 
+}
+
+/***************************
+          Role detail
+***************************/
+
+.ic_fav {
+    position: relative;
+    .fav-applicant-counter-icon {
+        position: absolute;
+        width: 20px;
+        text-align: center;
+        top: 2px;
+        left: 1px;
+        z-index: 1;
+        color: $color-grey;
+        font-size: 10px;
+        cursor: pointer;
+    }
 }
 
 /***************************
