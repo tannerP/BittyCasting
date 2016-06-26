@@ -9,8 +9,10 @@ angular.module('applicantFilters', [])
             if (!applicants) return applicants;
             for (var a in applicants) {
               var applicant = applicants[a];
+                /*console.log(applicant.name)
+                console.log(applicant.favs)*/
+                if (applicant.numFavs > 0) {
 
-                if (applicant.favs.length > 0) {
                   filtered.push(applicant);
                 }
               /*}*/
