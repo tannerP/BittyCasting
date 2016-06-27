@@ -1,15 +1,34 @@
  <div class="applyPage">
  	<div class="applyPageLeftBg"></div>
  	<div class="container">
- 		<img class="applyLogo" ng-src="assets/imgs/logo_BittyCasting_B.svg">
+ 		<img class="applyLogo" 
+ 					ng-src="assets/imgs/logo_BittyCasting_B.svg">
  		<div ng-if="ppv.loggedIn" class="custom-close-overlay" ng-click="ppv.back()"></div>
  		<section class="col-md-6 col-sm-6">
  			<div class="applyPageLeft">
- 				<div class='pageTitle'>Project<!-- <span>s</span> --></div>
- 				<div class='pageSubtitle'>{{ppv.project.name}} <span ng-if="expired">(Closed)</span></div> <!-- Remove tag causes
+<!-- PROJECT --> 			
+ 				<div class='pageTitle'>Project</div>
+ 				<div class='pageSubtitle'>{{ppv.project.name}} <span ng-if="expired">(Closed)</span></div>
+ 				 <!-- Remove tag causes
  				 displaying bug -->
- 				<p ng-bind-html="ppv.project.description | linky"></p>
+ 				<p ng-if="ppv.isPrjTruncated"
+ 					ng-bind-html="ppv.project.description | linky | characters:minFilter:true"></p>
+
+ 				<p ng-if="!ppv.isPrjTruncated"
+ 					ng-bind-html="ppv.project.description | linky"></p>
+ 				
+ 				<a href="#" 
+          class="no-animate"
+        	ng-show="ppv.isPrjTruncated"
+       		ng-click="ppv.togglePrjDescription()">Show more</a>
+       <a href="#" 
+          class="no-animate"
+          ng-show="!ppv.isPrjTruncated"
+          ng-click="ppv.togglePrjDescription()">Show less</a>
+
+
  				<img ng-src="{{ppv.project.coverphoto.source ||'assets/imgs/img_projectCover01.png'}}" class="img-responsive">
+<!-- ROLES -->
  				<div class='pageTitle'>Roles<!-- <span>s</span> --></div>
  				<ul>
  					<li ng-if="ppv.roles.length > 0"
@@ -21,7 +40,25 @@
  					</li>              
  				</ul>
 
- 				<p ng-bind-html="ppv.curRole.description || ppv.roles[0].description | linky"></p>
+ 				<p ng-show="!ppv.isRTruncated"
+ 					ng-bind-html="ppv.curRole.description | linky"></p>
+ 				<span ng-if="ppv.curRole.description.length > 430">
+ 				<p ng-show="ppv.isRTruncated"
+ 					ng-bind-html="ppv.curRole.description | linky | characters:minFilter:true">
+ 				</p>
+
+				<a href="#" 
+          class="no-animate"
+        ng-show="ppv.isRTruncated"
+       ng-click="ppv.toggleRoleDescription()">Show more</a>
+       <a href="#" 
+          class="no-animate"
+           ng-show="!ppv.isRTruncated"
+           ng-click="ppv.toggleRoleDescription()">Show less</a>
+
+       </span>
+
+ 				
 
  				<div class="div-table">
  					<!-- <div class="div-table-row" ng-if="ppv.curRole.usage || ppv.roles[0].usage">
@@ -62,8 +99,6 @@
  									{{ppv.project.location}} </div>
  						</div>
  						
-
-
  					</div>
  					<!-- <audio ng-if="currFile" controls ngf-src="currFile"> -->
  				</section>
