@@ -28,7 +28,7 @@
       <div ng-if="!login.message && login.error" class="custom-alert">
         {{login.error}}
       </div>
-      <div ng-if="login.error && login.message " class="custom-alert" >
+      <div ng-if="login.error && login.message " class="custom-alert-success" >
         {{login.message}}
       </div>
       <button ng-hide="login.resendMode"
@@ -56,10 +56,11 @@
         </p>
         <p>Don't have an account? <a ng-click="nav.signup()">Sign up</a></p>
       </div>
+      <!-- Spinnner -->
+      <div ng-show="login.processing" class="custom-loader">
+        <img style ="height:60px; width:auto" ng-src='/assets/imgs/spin.gif'>
+      </div>  
       
     </div>
-
-    <div class="custom-loader" ng-if="login.processing"><img src='/assets/imgs/spin.gif'></div>
-
   </div>
 </div>

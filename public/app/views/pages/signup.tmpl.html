@@ -29,7 +29,10 @@
         <input type="password" class="custom-form" ng-model="user.userData.password" required>
       </div>
       <!-- ERROR ICON -->
-        <div class="custom-alert" ng-if="user.message">
+        <div class="custom-alert" ng-if="user.error">
+          {{user.error}}
+        </div>
+        <div class="custom-alert-success" ng-if="user.message">
           {{user.message}}
         </div>
 

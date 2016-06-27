@@ -577,7 +577,7 @@ module.exports = function(app, express) {
                 return res.json({
                   success: true,
                   name: user.name,
-                  message: 'Enjoy your token!',
+                  message: 'Success! Loging in.',
                   token: token
                 });
               });
@@ -695,9 +695,11 @@ module.exports = function(app, express) {
               confirmation.remove()
               return res.json({
                 success: false,
+                exists: true,
                 message: 'Looks like you alrady have an account.'
               });
             } else {
+              
               var data = {
                 from: "Registration@BittyCasting.com",
                 to: req.body.email,
@@ -754,7 +756,7 @@ module.exports = function(app, express) {
                 } else {
                   return res.json({
                     success: true,
-                    message: 'Existing, An email is sent to you. Please verify your email to complete your registration'
+                    message: 'An email is sent to you. Please verify your email to complete your registration'
                   });
                 }
               });
