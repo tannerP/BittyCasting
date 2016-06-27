@@ -22,8 +22,8 @@
          ng-bind-html="vm.role.description | linky | characters:descriptionLength:true "></p>
         
         <p ng-show="!vm.isTruncated" ng-bind-html="vm.role.description | linky "></p>
-          <div ng-hide="!vm.role.description ||vm.role.description.length < 430" 
-                        class="no-animate">
+          <div ng-hide="!vm.role.description ||vm.role.description.length < 430"
+            class="no-animate">
           <a href="#" 
               class="no-animate"
             ng-show="vm.isTruncated"
@@ -32,7 +32,7 @@
               class="no-animate"
                ng-show="!vm.isTruncated"
                ng-click="vm.toggleDescription()">Show less</a>
-           </div>
+          </div>
       </section>
 
       <section class="col-md-4">
@@ -47,8 +47,8 @@
     <div class="custom-page-action-secondary">
       <div class="custom-page-action-secondary-title">
 <!-- <<<<<<< HEAD -->
-      <span ng-show="numApps >0">{{numApps}} Applicants total </span>
-        <!-- <a class="btn-add-applicants" ng-href="#" ng-click=vm.addAppBtn()>
+      <!-- <span ng-show="numApps >0">{{numApps}} Applicants total </span>
+        <a class="btn-add-applicants" ng-href="#" ng-click=vm.addAppBtn()>
         <img ng-src="/assets/imgs/ic_plus_bl.svg"> Add applicants</a> -->
 
       <span ng-show="numApps >0">{{numApps}} Applicants total </span> <a class="btn-add-applicants" ng-href="{{'addApplicant/'+ vm.role._id}}"><img ng-src="/assets/imgs/ic_plus_bl.svg"> Add applicants</a>
