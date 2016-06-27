@@ -16,7 +16,7 @@
 
  				<p ng-if="!ppv.isPrjTruncated"
  					ng-bind-html="ppv.project.description | linky"></p>
- 				<span ng-if="ppv.project.description.length < 430">
+ 				<span ng-if="ppv.project.description.length > 420">
 	 				<a href="#" 
 	          class="no-animate"
 	        	ng-show="ppv.isPrjTruncated"
@@ -26,8 +26,6 @@
 	          ng-show="!ppv.isPrjTruncated"
 	          ng-click="ppv.togglePrjDescription()">Show less</a>
          </span>
-
-
  				<img ng-src="{{ppv.project.coverphoto.source ||'assets/imgs/img_projectCover01.png'}}" class="img-responsive">
 <!-- ROLES -->
  				<div class='pageTitle'>Roles<!-- <span>s</span> --></div>
