@@ -16,15 +16,16 @@
 
  				<p ng-if="!ppv.isPrjTruncated"
  					ng-bind-html="ppv.project.description | linky"></p>
- 				
- 				<a href="#" 
-          class="no-animate"
-        	ng-show="ppv.isPrjTruncated"
-       		ng-click="ppv.togglePrjDescription()">Show more</a>
-       <a href="#" 
-          class="no-animate"
-          ng-show="!ppv.isPrjTruncated"
-          ng-click="ppv.togglePrjDescription()">Show less</a>
+ 				<span ng-if="ppv.project.description.length < 430">
+	 				<a href="#" 
+	          class="no-animate"
+	        	ng-show="ppv.isPrjTruncated"
+	       		ng-click="ppv.togglePrjDescription()">Show more</a>
+	       <a href="#" 
+	          class="no-animate"
+	          ng-show="!ppv.isPrjTruncated"
+	          ng-click="ppv.togglePrjDescription()">Show less</a>
+         </span>
 
 
  				<img ng-src="{{ppv.project.coverphoto.source ||'assets/imgs/img_projectCover01.png'}}" class="img-responsive">
