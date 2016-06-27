@@ -201,7 +201,7 @@ angular.module('registrationCtrl', ['authService', 'mgcrea.ngStrap'])
 })
 
 .controller('signupCtrl', function(User, $scope,
-	$location, EmailValidator, Facebook) {
+	$location, EmailValidator, Facebook, $timeout) {
 	var vm = this;
 	vm.userData = {};
 	vm.userData.name = "";
@@ -317,24 +317,24 @@ angular.module('registrationCtrl', ['authService', 'mgcrea.ngStrap'])
 				/*vm.error = data.message;*/
 			})
 			.success(function(resp) {
+				vm.userData.password = ""
 				console.log(resp)
 				if (!resp.success) {
 					vm.error = resp.message;
+					vm.userData = {};
+					/*console.log(vm.error)*/
 					if(resp.exists)
-					{
-						setTimeout(function() {
+						$timeout(function() {
 											vm.processing = false;
 											$scope.$emit('aside.hide')
 											$scope.$hide();
 											$scope.signin();
 											return;
 										}, 17000)
-					}
-					 vm.error = resp.error;
 				} else {
 					vm.message = resp.message;
 					vm.userData = {};
-					setTimeout(function() {
+					$timeout(function() {
 						vm.processing = false;
 						$scope.$emit('aside.hide')
 						$scope.$hide();

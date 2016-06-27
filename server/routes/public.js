@@ -346,10 +346,10 @@ module.exports = function(app, express) {
 
 
         var data = {
-          from: "friends@bittycasting",
+          from: "support@bittycasting",
           to: user.email,
           subject: "BittyCasting: Password Reset Request",
-          html: "Please follow the link to reset your password: " + "https://staging.bittycasting.com/reset/password/" + pass._id,
+          html: "Please follow the link to reset your password: " + "https://bittycasting.com/reset/password/" + pass._id,
         }
 
         var mailgun = new Mailgun({
@@ -717,51 +717,66 @@ module.exports = function(app, express) {
                       error: err
                     });
                   } else {
+                    confirmation.save();
                     return res.json({
                       success: true,
-                      message: 'New Client,An email is sent to you. Please verify your email to complete your registration'
+                      message: 'An email is sent to you. Please verify your email to complete your registration.'
                     });
                   }
                 });
+              }
 
-            }
           })
         } else {
           //update confirmation
           //user already exist in DB
           confirmation.create_date = Date.now();
-          confirmation.save();
+          
           User.findOne({
             email: req.body.email
           }, function(err, data) {
-            if (data) {
-              user = data;
-            }
-            var data = {
-              from: "Registration@BittyCasting.com",
-              to: req.body.email,
-              subject: "Confirm: New Registration",
-              html: user.name.first[0].toUpperCase() + user.name.first.toLowerCase().slice(1) +
-                ', please follow this link to finish your Bittycasting registration. ' +
-                "https://bittycasting.com/confirm/user/" + confirmation._id,
-            }
-
-            mailgun.messages()
-              .send(data, function(err, body) {
-                if (err) {
-                  return res.json({
-                    success: false,
-                    error: err
-                  });
-                } else {
-                  return res.json({
-                    success: true,
-                    message: 'An email is sent to you. Please verify your email to complete your registration'
-                  });
-                }
+            console.log(err, data)
+            if (!data || err) {
+              confirmation.remove(function(err, data){
+                if(!err || data)
+                return res.json({
+                      success: false,
+                      message: 'An error occured. Please try again.'
+                    });
+                else return;
               });
-          })
+            }else{
+              confirmation.save();
+              user = data;
+              var data = {
+                from: "Registration@BittyCasting.com",
+                to: req.body.email,
+                subject: "Confirm: New Registration",
+                html: user.name.first[0].toUpperCase() + user.name.first.toLowerCase().slice(1) +
+                  ', please follow this link to finish your Bittycasting registration. ' +
+                  "https://bittycasting.com/confirm/user/" + confirmation._id,
+              }
+
+              mailgun.messages()
+                .send(data, function(err, body) {
+                  if (err) {
+                    return res.json({
+                      success: false,
+                      message: "An error occured. Please try again.",
+                      error: err
+                    });
+                  } else {
+                    return res.json({
+                      success: true,
+                      message: 'An email is sent to you. Please verify your email to complete your registration'
+                    });
+                  }
+                });
+              }
+
+            })
         }
+
       })
     });
 
