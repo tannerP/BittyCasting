@@ -208,8 +208,6 @@ angular.module('registrationCtrl', ['authService', 'mgcrea.ngStrap'])
 	vm.userData.email = "";
 	vm.type = 'create';
 
-	vm.message = "testing message"
-
 	vm.checkFB = function() {
 		Facebook.login(function(response) {
 			/*console.log(response)*/
