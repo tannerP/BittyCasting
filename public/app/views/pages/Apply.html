@@ -42,18 +42,23 @@
  				<p ng-show="!ppv.isRTruncated"
  					ng-bind-html="ppv.curRole.description | linky"></p>
  				<span ng-if="ppv.curRole.description.length > 430">
- 				<p ng-show="ppv.isRTruncated"
+ 				
+ 					<p ng-show="ppv.isRTruncated"
  					ng-bind-html="ppv.curRole.description | linky | characters:minFilter:true">
- 				</p>
+ 					</p>
 
-				<a href="#" 
+					<a href="#" 
           class="no-animate"
-        ng-show="ppv.isRTruncated"
-       ng-click="ppv.toggleRoleDescription()">Show more</a>
-       <a href="#" 
+	        ng-show="ppv.isRTruncated"
+  		    ng-click="ppv.toggleRoleDescription()">
+  		    Show more
+  		  	</a>
+       	<a href="#" 
           class="no-animate"
            ng-show="!ppv.isRTruncated"
-           ng-click="ppv.toggleRoleDescription()">Show less</a>
+           ng-click="ppv.toggleRoleDescription()">
+           Show less
+        </a>
 
        </span>
 

@@ -15,6 +15,14 @@ angular.module('applyCtrl', ['userService', 'mgcrea.ngStrap'])
       if (newRoles) {
       //Expiration dates 
       controller.curRole = newRoles[0];
+      
+      if(controller.curRole.description.length > 420)
+        scope.isRTruncated = true;
+      else scope.isRTruncated = false;
+
+      console.log(scope.isRTruncated)
+
+
         for (var i in newRoles) {
           var endDate = new Date(newRoles[i].end_date);
           var now = new Date()
@@ -73,10 +81,19 @@ angular.module('applyCtrl', ['userService', 'mgcrea.ngStrap'])
     
     vm.isPrjTruncated = true;
     
-    vm.isRTruncated = true;
+    /*vm.isRTruncated = true;*/
     
     vm.toggleRoleDescription = function() {
+      /*console.log("toggling")*/
       vm.isRTruncated = !vm.isRTruncated;
+      /*console.log(vm.isRTruncated)*/
+    /*
+      if(vm.curRole.description.length > MAXLENGTH)
+      {
+        $scope.isRTruncated = true;
+      }
+      else scope.isRTruncated = false;*/
+      
     }
 
     vm.togglePrjDescription = function() {
@@ -118,6 +135,9 @@ angular.module('applyCtrl', ['userService', 'mgcrea.ngStrap'])
   }
   vm.update_CurRole = function(role) {
     vm.curRole = role;
+    if(vm.curRole.description.length > MAXLENGTH)
+      vm.isRTruncated = true;
+    else vm.isRTruncated = false;
   }
 
   vm.isSelected = function(id) {
