@@ -135,7 +135,7 @@ angular.module('addApplicant', ['userService', 'mgcrea.ngStrap'])
     }
 
     vm.resetNewApp = function() {
-        console.log("reseting app")
+        /*console.log("reseting app")*/
         vm.files = [];
         vm.newData = {};
         vm.newData.files = [];
@@ -143,7 +143,7 @@ angular.module('addApplicant', ['userService', 'mgcrea.ngStrap'])
         vm.newData.name.first = "";
         vm.newData.name.last = "";
         vm.newData.age = "";
-        vm.newData.gender = "Female";
+        /*vm.newData.gender = "Female";*/
         vm.newData.email = "";
         vm.newData.message = "";
         vm.newData.roleIDs = [];

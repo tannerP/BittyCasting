@@ -13,38 +13,54 @@
     <div class="dividerOR">OR</div>   -->
       
       
-    <form ng-submit="login.doLogin(email,password)">
+    <form>
       <!-- USERNAME INPUT -->
       <div class="form-group">
         <label>E-mail</label>
         <input type="text" class="custom-form" ng-model="email">
       </div>
       <!-- PASSWORD INPUT -->
-      <div class="form-group">
+      <div class="form-group" ng-hide=login.resendMode>
         <label>Password</label>
         <input type="password" class="custom-form" ng-model="password" >
       </div>
       <!-- ERROR ICON -->
-      <div class="custom-alert" ng-if="login.error">
+      <div ng-if="!login.message && login.error" class="custom-alert">
         {{login.error}}
       </div>
-      <button type="submit" class="custom-btn-primary-large">
+      <div ng-if="login.error && login.message " class="custom-alert-success" >
+        {{login.message}}
+      </div>
+      <button ng-hide="login.resendMode"
+              ng-click="login.doLogin(email,password)"
+              class="custom-btn-primary-large no-animate"
+              ng-disabled="vm.processing">
         <span>Log in</span>
+      </button>
+
+      <button ng-show="login.resendMode"
+              ng-click="login.resendEmail(email)"
+              class="custom-btn-primary-large no-animate">
+        <span>Resend email</span>
       </button>
     </form>
 
     <div class="asideMessage marginTop20">
         <p>Forget password?
         <!-- <a ng-hide="login.resetPassword" href="#" ng-click="nav.resetPass()">Reset</a> -->
-        <a ng-hide="login.resetPassword"
-        href="mailto:support@bittycasting.com">support@bittycasting.com</a>
+        <!-- <a ng-hide="login.resetPassword"
+        href="mailto:support@bittycasting.com">support@bittycasting.com</a> -->
+        <a ng-hide="login.resetPassword" href="#" ng-click="nav.resetPass()">Reset</a>
+        <!-- <a ng-hide="login.resetPassword"
+        href="mailto:support@bittycasting.com">support@bittycasting.com</a> -->
         </p>
+        <p>Don't have an account? <a ng-click="nav.signup()">Sign up</a></p>
       </div>
+      <!-- Spinnner -->
+      <div ng-show="login.processing" class="custom-loader">
+        <img style ="height:60px; width:auto" ng-src='/assets/imgs/spin.gif'>
+      </div>  
       
-      <p>Don't have an account? <a ng-click="nav.signup()">Sign up</a></p>
     </div>
-
-    <div class="custom-loader" ng-if="login.processing"><img src='/assets/imgs/spin.gif'></div>
-
   </div>
 </div>

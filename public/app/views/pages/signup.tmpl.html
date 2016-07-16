@@ -29,14 +29,21 @@
         <input type="password" class="custom-form" ng-model="user.userData.password" required>
       </div>
       <!-- ERROR ICON -->
-        <div class="custom-alert" ng-if="user.message">
+        <div class="custom-alert" ng-if="user.error">
+          {{user.error}}
+        </div>
+        <div class="custom-alert" style='color:#75a332;border-color:#75a332;' ng-if="user.message">
           {{user.message}}
         </div>
 
-      <button type="submit" class="custom-btn-primary-large" ng-click="user.saveUser()">Register with E-mail</button>
+      <button type="submit"
+              class="custom-btn-primary-large"
+              ng-disabled="user.processing"
+               ng-click="user.saveUser()">
+               Register with E-mail
+      </button>
         
     </form>
-      
       
     <div class="asideMessage marginTop20">
       <p>By clicking on “Log in with Facebook” or "Register with E-mail", I agree to BittyCasting’s <a href="/terms_of_service">terms of service.</a>

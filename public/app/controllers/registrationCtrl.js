@@ -9,9 +9,11 @@ angular.module('registrationCtrl', ['authService', 'mgcrea.ngStrap'])
 		EmailConfirmation.resend($routeParams.confirmID)
 			.success(function(data, status, headers, config) {
 				/*console.log(data)*/
-				vm.message = data.message;
+				if(data.success) vm.message = data.message;
+				else if(!data.success) vm.error = data.message
 			})
 			.error(function(data, status, headers, config) {
+
 				/*console.log(data)*/
 			})
 	}
@@ -49,7 +51,7 @@ angular.module('registrationCtrl', ['authService', 'mgcrea.ngStrap'])
 
 	Auth.confirmEmail($routeParams.confirmID)
 		.success(function(data) {
-			console.log(data)
+			/*console.log(data)*/
 			if (!data.success && data.invalid) {
 				$location.path("/")
 				$location.replace();
@@ -94,23 +96,23 @@ angular.module('registrationCtrl', ['authService', 'mgcrea.ngStrap'])
 	$aside, Auth) {
 	var vm = this;
 
-/*	vm.nameChanging = function(name) {
-		var index = name.indexOf(" ");
-		var fname = name.split(" ")[0];
-		var lname = name.split(" ")[1];
-		if (fname) {
-			fname = fname[0].toUpperCase() + fname.toLowerCase().slice(1);
-			vm.userData.name = fname;
-		}
-		if (lname) {
-			lname = lname[0].toUpperCase() + lname.toLowerCase().slice(1);
-		}
+	/*	vm.nameChanging = function(name) {
+			var index = name.indexOf(" ");
+			var fname = name.split(" ")[0];
+			var lname = name.split(" ")[1];
+			if (fname) {
+				fname = fname[0].toUpperCase() + fname.toLowerCase().slice(1);
+				vm.userData.name = fname;
+			}
+			if (lname) {
+				lname = lname[0].toUpperCase() + lname.toLowerCase().slice(1);
+			}
 
-		if (lname && lname) {
-			vm.userData.name = ''
-			vm.userData.name = fname + " " + lname
-		}
-	}*/
+			if (lname && lname) {
+				vm.userData.name = ''
+				vm.userData.name = fname + " " + lname
+			}
+		}*/
 
 	if ($location.path().indexOf('invite') > -1) vm.inviteReg = true;
 	/*console.log($location.path())
@@ -151,7 +153,7 @@ angular.module('registrationCtrl', ['authService', 'mgcrea.ngStrap'])
 			})
 			.success(function(resp) {
 				/*console.log(resp)*/
-				if (!resp.success) return vm.message = resp.message;
+				if (!resp.success) return vm.error = resp.message;
 				else {
 					Auth.setToken(resp, function() {
 						vm.userData = {};
@@ -169,6 +171,21 @@ angular.module('registrationCtrl', ['authService', 'mgcrea.ngStrap'])
 	}
 })
 
+.controller('resetPassCtrl', function(User, $scope,
+	$location, $routeParams, $aside) {
+	var vm = this;
+	var signupAside = $aside({
+		scope: $scope,
+		backdrop: 'static',
+		title: "Password Reset",
+		show: true,
+		controller: 'signupInviteSliderCtrl',
+		controllerAs: 'user',
+		templateUrl: '/app/views/pages/resetPass.tmpl.html'
+	})
+})
+
+
 .controller('signupInviteCtrl', function(User, $scope,
 	$location, EmailValidator, Facebook, $routeParams, $aside) {
 	var vm = this;
@@ -184,7 +201,7 @@ angular.module('registrationCtrl', ['authService', 'mgcrea.ngStrap'])
 })
 
 .controller('signupCtrl', function(User, $scope,
-	$location, EmailValidator, Facebook) {
+	$location, EmailValidator, Facebook, $timeout) {
 	var vm = this;
 	vm.userData = {};
 	vm.userData.name = "";
@@ -210,11 +227,11 @@ angular.module('registrationCtrl', ['authService', 'mgcrea.ngStrap'])
 
 	var isLastKeySpace = true;
 	vm.nameKeyDown = function(name, event) {
-		//prevent defaul
+			//prevent defaul
 			console.log(event)
 			console.log(name.length)
 			console.log(name)
-			if(name && name.length === 0){
+			if (name && name.length === 0) {
 				console.log(name)
 				console.log(name.toUpperCase())
 				name = name.toUpperCase()
@@ -296,19 +313,33 @@ angular.module('registrationCtrl', ['authService', 'mgcrea.ngStrap'])
 
 		User.create(vm.userData)
 			.error(function(data) {
-				vm.message = data.message;
+				vm.error = "Error occured. Please try again later."
+				/*vm.error = data.message;*/
 			})
 			.success(function(resp) {
-				if (!resp.success) return vm.message = resp.message;
-				else {
+				vm.userData.password = ""
+				if (!resp.success) {
+					vm.error = resp.message;
+					vm.userData = {};
+					/*console.log(vm.error)*/
+					if(resp.exists)
+						$timeout(function() {
+											vm.processing = false;
+											$scope.$emit('aside.hide')
+											$scope.$hide();
+											$scope.signin();
+											return;
+										}, 17000)
+				} else {
 					vm.message = resp.message;
 					vm.userData = {};
-					setTimeout(function() {
+					$timeout(function() {
 						vm.processing = false;
 						$scope.$emit('aside.hide')
 						$scope.$hide();
+						$scope.signin();
 						return;
-					}, 7000)
+					}, 17000)
 				}
 			});
 	}

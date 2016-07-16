@@ -6,7 +6,7 @@
       <div class="asideTitle" ng-if="vm.edit">Edit role</div>
         
       <div class="asideDesMessage">  
-          <p>By default, applicants will be asked to provide the following information on the application page for this role: name, e-mail, phone number, and agent name (if applicable).</p>
+          <p>By default, when you share this role for applicants to apply, they will be asked to provide their <span>name, e-mail, phone number, and agent name (if applicable)</span>. The following information will be displayed on the same page for reference.</p>
       </div>
       <div class="clear"></div>
         
@@ -33,8 +33,16 @@
                      start-date="vm.startDate"
                      start-week="1"
                      required bs-datepicker autoclose="true">
-<!--                <button class="btn-closeDeadline">Close</button>-->
+                <button ng-if="vm.edit"
+                        class="btn-closeDeadline"
+                        ng-click="vm.closeRoleBtn()">Close</button>
             </div>
+          </div>
+          
+          <div class = "form-group">
+              <label>Compensation</label>
+              <input type = "text" class = "custom-form"
+                      ng-model = "vm.roleData.compensation">
           </div>
 
     <!--
@@ -58,13 +66,7 @@
           
     </div><!--end of asideRoleColLeft-->   
     
-      <div class="asideRoleColRight">    
-          
-          <div class = "form-group">
-              <label>Compensation</label>
-              <input type = "text" class = "custom-form"
-                      ng-model = "vm.roleData.compensation">
-          </div>
+      <div class="asideRoleColRight">      
           
           <!-- <div class = "form-group">
               <label>Usage</label>
@@ -73,6 +75,20 @@
                         class="custom-form-textarea"
                   ></textarea>
           </div> -->
+          
+          <div class = "form-group">
+                <label>Union Status</label>
+                <div class="custom-dropdown" uib-dropdown is-open="false">
+                    <span type="text" class="custom-form" uib-dropdown-toggle ng-disabled="disabled">{{vm.roleData.union || "Any"}}</span>
+                    <ul uib-dropdown-menu role="menu" aria-labelledby="single-button">
+                        <li role="menuitem"><a href="#" ng-click="vm.roleData.union = null">Any</a></li>
+                        <li role="menuitem"><a href="#" ng-click="vm.roleData.union = 'Nonunion'">Non-Union</a></li>
+                        <li role="menuitem"><a href="#" ng-click="vm.roleData.union = 'SAG'">SAG-AFTRA</a></li>
+                        <li role="menuitem"><a href="#" ng-click="vm.roleData.union = 'ACTRA'">ACTRA</a></li>
+                        <li role="menuitem"><a href="#" ng-click="vm.roleData.union = 'Other'">Other</a></li>
+                    </ul>
+                </div>  
+          </div>
 
           <div class = "form-group">
                 <label>Race or Ethnicity</label>

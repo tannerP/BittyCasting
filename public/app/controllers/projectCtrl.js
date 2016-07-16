@@ -5,7 +5,7 @@ angular.module('projectCtrl', ['userService',
     function(Role, Project, $location, $routeParams, $aside, $route) {
       var link = function(scope, element, attrs, controller, transludeFn) {
         scope.$watch("vm.project", function(newData, oldData) {
-          if (newData._id) { //variable used to hide show/hide long project description
+          if (newData._id && newData.description) { //variable used to hide show/hide long project description
             scope.descriptionWordCount = newData.description.split(" ").length
           }
         })
@@ -122,12 +122,6 @@ angular.module('projectCtrl', ['userService',
           vm.isTruncated = false;
           vm.toggleDescription = function() {
             vm.isTruncated = !vm.isTruncated;
-            if (!vm.isTruncated) $scope.descriptionLength = MAXLENGTH;
-            else {
-              /*console.log(vm.project.description)*/
-              /*vm.numWords = vm.project.description.split(" ").length;*/
-              $scope.descriptionLength = vm.project.description.length
-            }
           }
 
           vm.back = function() {
@@ -176,37 +170,29 @@ angular.module('projectCtrl', ['userService',
   vm.guestEmail = "";
   /*var project = $scope.$parent.vm.project; */
 
-  vm.removeBtn = function(collabID, index) {
-    /*console.log(collab)*/
+  vm.removeBtn = function(userID, index) {
     $scope.project.collabs_id.splice(index, 1)
-    Project.removeCollab($scope.project._id, collabID);
-    /*$route.reload();*/
+    Project.removeCollab($scope.project._id, userID);
   }
 
   vm.inviteBtn = function() {
     if (vm.guestEmail) {
       Mail.sendCollabInvite($scope.project, vm.guestEmail)
         .success(function(resp) {
-          if (!resp.data) {
+
+          if (!resp.user_name) {
             vm.guestEmail = "";
             vm.emailPlaceHolder = "An invitation is sent"
-              /*
-                          $scope.project.collabs_id.push({
-                            responded:false,
-                            accepted:false,
-                            email:vm.guestEmail
-                          })*/
           } else {
-            var user = resp.data;
+            var name = resp.user_name;
             vm.guestEmail = ""
-            var tempData =
-              $scope.project.collabs_id.push({
-                userName: {
-                  first: user.name.first,
-                  last: user.name.last
-                }
-
-              })
+            $scope.project.collabs_id.push({
+              userName: {
+                first: name.first,
+                last: name.last,
+              },
+              userID: resp.userID
+            })
           }
         });
     }
@@ -406,6 +392,32 @@ angular.module('projectCtrl', ['userService',
 
       $scope.selectedDate = vm.roleData.end_date;
       vm.processing = false;
+
+      vm.closeRoleBtn = function() {
+
+        d = new Date();
+        d.setDate(d.getDate()-1);
+        $scope.selectedDate = d;
+        vm.roleData.end_date = $scope.selectedDate;
+        /*console.log(vm.roleData.end_date)
+        console.log(vm.roleData.end_date)*/
+
+        Role.update($routeParams.role_id, vm.roleData)
+          .success(function() {
+            $route.reload();
+            Prerender.cacheRole($routeParams.role_id);
+            $timeout(function() {
+              vm.processing = false;
+              vm.projectData = null;
+            }, 150);
+          })
+          .error(function(err) {
+            vm.message = err.message; 
+            console.log(err.message);
+          })
+
+      }
+
       vm.updateRole = function() {
         if (vm.newData.name) {
           vm.addReqt(vm.newData);
@@ -780,21 +792,21 @@ angular.module('projectCtrl', ['userService',
           vm.CP_cust = file;
         }
         //determine if coverphoto is one of the defaults
-      /*vm.initSelect  = function() {
-        if ($scope.project.coverphoto.name === "default") {
-          for (var i in coverphotosSource) {
-            var source = coverphotosSource[i];
-            if (source === $scope.project.coverphoto.source) {
-              console.log(source)
-              source = vm.coverphotos[i];
-              var id = source.split('/').pop().split('.').shift()
-              select(id)
+        /*vm.initSelect  = function() {
+          if ($scope.project.coverphoto.name === "default") {
+            for (var i in coverphotosSource) {
+              var source = coverphotosSource[i];
+              if (source === $scope.project.coverphoto.source) {
+                console.log(source)
+                source = vm.coverphotos[i];
+                var id = source.split('/').pop().split('.').shift()
+                select(id)
+              }
             }
-          }
-        } else {
+          } else {
 
-        }
-      }*/
+          }
+        }*/
 
       vm.processing = false;
       vm.update = function(data) {

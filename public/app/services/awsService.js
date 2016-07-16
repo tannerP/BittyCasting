@@ -161,6 +161,7 @@ angular.module('awsService', [])
                       name: files[i].requirement.name,
                       file_type: file.type
                     };
+                    //optimization point
                     Applicant.update(updateID, parsedData);
                     $rootScope.$emit('app-media-submitted')
 

@@ -75,7 +75,7 @@ angular.module('userCtrl', ['userService'])
 					$timeout(function(){
 						vm.message=""
 						return;
-					}, 1500)
+					}, 5000)
 				});
 		}
 	})

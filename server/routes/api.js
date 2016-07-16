@@ -68,15 +68,75 @@ module.exports = function(app, express) {
 						//search, then remove collab
 					for (var i in project.collabs_id) {
 						var collab = project.collabs_id[i];
-
 						if (collab.userID.indexOf(req.body.userID) > -1) {
 							/*console.log("found collab")*/
 							project.collabs_id.splice(i, 1);
-							project.save(function(err, data) {
 
-								if (!err) return res.json({
-									success: true
+							
+							Applicant.find({
+								roleID: project.roleID
+							}, function(err, app) {
+								/*console.log(app)
+								console.log(err)*/
+								if (!app) return;
+
+								var usrInx = -1;
+
+								for (var i in app.favs) {
+									var curr = {};
+									curr.roleID = app.favs[i].roleID,
+										curr.userID = app.favs[i].userID;
+									if (curr.userID === req.decoded.id && curr.roleID === req.body.roleID) {
+
+										usrInx = i;
+
+										if (usrInx > -1) {
+											//remove collab favoriting data
+											app.favs.splice(usrInx, 1);
+											//remove viewed
+											for (var i in app.userViewed_IDs) {
+												var curr = {};
+												curr.roleID = app.userViewed_IDs[i].roleID,
+													curr.userID = app.userViewed_IDs[i].userID;
+
+												if (curr.userID === req.decoded.id && curr.roleID === req.body.roleID) {
+
+													usrInx = i;
+													if (usrInx > -1) {
+														//remove reviewed data
+														app.userViewed_IDs.splice(usrInx, 1);
+														console.log("Saving app")
+														app.save()
+													}
+												}
+											}
+										}
+									}
+								}
+
+
+
+							});
+
+							project.save(function(err, data) {
+								User.findById(req.body.userID, function(error, user) {
+									if (!user) return res.json({
+											success: false,
+											message: "Unable to update request."
+										})
+										/*console.log(user)*/
+									var ind = user.invites.indexOf(req.body.projectID);
+									if (ind > -1) {
+										/*if(user.invites.length ===1) user.invites =[];*/
+										user.invites.splice(ind, 1);
+										user.save(function(err, user) {
+											if (!err) return res.json({
+												success: true
+											})
+										})
+									}
 								})
+
 							});
 							break;
 						}
@@ -220,19 +280,24 @@ module.exports = function(app, express) {
 									})
 									/*console.log(project.collabs_id)*/
 								project.save(function(error, project) {
-									user.save(function(error, user) {
-										if (!error) {
-											mailgun.messages()
-												.send(emailData, function(err, data) {
-													/*console.log(err)
-													console.log(data)*/
-													return res.json({
-														success: true,
-														data: user
-													});
+									if (!error) {
+										user.save(function(error, user) {
+											if (user) {
+												return res.json({
+													success: true,
+													user_name: user.name,
+													userID: user._id
 												});
-										}
-									})
+											}
+											if (!error) {
+												mailgun.messages()
+													.send(emailData, function(err, data) {
+														/*console.log(err)
+														console.log(data)*/
+													});
+											}
+										})
+									}
 								})
 							}
 						})
@@ -254,7 +319,7 @@ module.exports = function(app, express) {
 								/*console.log(data)*/
 								return res.json({
 									success: true,
-									data: false
+									message: data
 								});
 							});
 						/*})*/
@@ -317,8 +382,8 @@ module.exports = function(app, express) {
 
 					/*console.log(tempFav);*/
 					var usrInx = -1;
-					// console.log(app.favs)
 					//check if user ever favorited applicant for this role
+
 					for (var i in app.favs) {
 						var curr = {};
 						curr.roleID = app.favs[i].roleID,
@@ -329,10 +394,6 @@ module.exports = function(app, express) {
 							usrInx = i;
 						}
 					}
-
-					/*        console.log(usrInx);
-					 */
-					/*var index = app.favs.indexOf(req.decoded.id);*/
 					if (usrInx === -1) {
 						/*          console.log("adding for the first time");*/
 						var reqData = {
@@ -377,7 +438,7 @@ module.exports = function(app, express) {
 		.put(function(req, res) {
 			/*console.log("/applicant/sampleApplicant");
 			console.log(req.body)*/
-				/*['ryan', "kaiting"]*/
+			/*['ryan', "kaiting"]*/
 			var sampleApplicantIDs = ["574a1684d302426a449836f8",
 				"574a163bd302426a449836f5",
 			]
@@ -469,7 +530,7 @@ module.exports = function(app, express) {
 						tempArr = apps[app].favs;
 						apps[app].favs = [];
 						for (var j in tempArr) {
-							if (tempArr[j].userID === req.decoded.id) {
+							if (tempArr[j].roleID === req.params.roleID) {
 								apps[app].favs.push(tempArr[j])
 							}
 
@@ -611,12 +672,11 @@ module.exports = function(app, express) {
 								});
 							})
 							break;
-						}
-						else{
+						} else {
 							return res.json({
-										success: false,
-										message: "Can't seem to find comment"
-									})
+								success: false,
+								message: "Can't seem to find comment"
+							})
 						}
 					}
 				})
@@ -657,6 +717,7 @@ module.exports = function(app, express) {
 			role.compensation = req.body.compensation;
 			role.description = req.body.description;
 			role.ethnicity = req.body.ethnicity;
+			role.union = req.body.union;
 			role.end_date = req.body.end_date;
 			role.end_time = req.body.end_time;
 			role.location = req.body.location;
@@ -780,7 +841,7 @@ module.exports = function(app, express) {
 				role.name = req.body.name;
 				role.age = req.body.age;
 				role.compensation = req.body.compensation;
-
+				role.union = req.body.union;
 				role.description = req.body.description;
 				role.ethnicity = req.body.ethnicity;
 				role.end_date = req.body.end_date;
@@ -790,7 +851,6 @@ module.exports = function(app, express) {
 				role.payterms = req.body.payterms;
 				role.projectID = req.body.projectID;
 				role.usage = req.body.usage;
-
 
 				role.sex = req.body.sex;
 				role.requirements = req.body.requirements;
@@ -816,6 +876,7 @@ module.exports = function(app, express) {
 			project.user_id = req.decoded.id;
 			project.user = req.decoded.name //User Name
 			project.name = req.body.name;
+			project.location = req.body.location;
 			project.description = req.body.description
 			project.coverphoto = req.body.coverphoto
 			project.usage = req.body.usage
@@ -884,11 +945,15 @@ module.exports = function(app, express) {
 			Project.findById(req.params.project_id, function(err, project) {
 				if (err) res.send(err);
 				if (req.body.name) project.name = req.body.name;
-				if (req.body.usage) project.usage = req.body.usage;
 				if (req.body.updated_date) project.updated_date = req.body.updated_date;
 				if (req.body.coverphoto) project.coverphoto = req.body.coverphoto;
+				
 				if (req.body.description) project.description = req.body.description;
 				else project.description = null;
+				
+				if (req.body.usage) project.usage = req.body.usage;
+				else project.usage = null
+
 				project.save(function(err) {
 					if (err) console.log(err);
 					if (err) res.send(err);
@@ -906,37 +971,46 @@ module.exports = function(app, express) {
 		Role.find({
 			projectID: req.params.project_id
 		}, function(err, roles) {
-			console.log(roles)
-			console.log(roles.length)
-			for (var i in roles) {
+			/*console.log(roles)
+			console.log(roles.length)*/
+			if (roles) {
+				//check if roles belong to user
+				if (roles[i] && roles[i].userID !== req.decoded.id) {
+					return res.json({
+						success: false,
+						message: "Invalid request"
+					})
+				}
 
-				Applicant.find({
-					roleIDs: {
-						$in: [roles[i]._id]
-					}
-				}, function(err, apps) {
-					/*console.log(apps)*/
-					if (err) console.log(err);
-					else {
-						for (var a in apps) {
-							/*console.log(apps[a].roleIDs.length);*/
-							console.log("roleIDs: " + apps[a].roleIDs.length)
-							if (apps[a].roleIDs.length <= 1) {
-								/*console.log(apps[a].suppliments)*/
-								aws.removeSup(apps[a].suppliments);
-								apps[a].remove();
-							} else {
-								/*console.log(roles[i]._id)*/
-								var index = apps[a].roleIDs.indexOf(roles[i]._id);
-								/*console.log(index)*/
-								apps[a].roleIDs.splice(index, ++index);
-								/*console.log("roleIDs: " + apps[a].roleIDs.length)*/
-								apps[a].save();
+				for (var i in roles) {
+					Applicant.find({
+						roleIDs: {
+							$in: [roles[i]._id]
+						}
+					}, function(err, apps) {
+						/*console.log(apps)*/
+						if (err) console.log(err);
+						else {
+							for (var a in apps) {
+								/*console.log(apps[a].roleIDs.length);*/
+								console.log("roleIDs: " + apps[a].roleIDs.length)
+								if (apps[a].roleIDs.length <= 1) {
+									/*console.log(apps[a].suppliments)*/
+									aws.removeSup(apps[a].suppliments);
+									apps[a].remove();
+								} else {
+									/*console.log(roles[i]._id)*/
+									var index = apps[a].roleIDs.indexOf(roles[i]._id);
+									/*console.log(index)*/
+									apps[a].roleIDs.splice(index, ++index);
+									/*console.log("roleIDs: " + apps[a].roleIDs.length)*/
+									apps[a].save();
+								}
 							}
 						}
-					}
-				})
-				roles[i].remove();
+					})
+					roles[i].remove();
+				}
 			}
 		})
 		Project.remove({
@@ -1008,7 +1082,7 @@ module.exports = function(app, express) {
 						else
 							return res.json({
 								success: false,
-								message: 'A user with that email already exists.',
+								message: 'Error occured. Please try again at a later time.',
 								error: err
 							});
 
@@ -1025,8 +1099,7 @@ module.exports = function(app, express) {
 							message: 'User updated!',
 							token: token
 						});
-
-					}
+					}	
 				});
 			});
 		})
@@ -1068,12 +1141,12 @@ module.exports = function(app, express) {
 						break;
 				}
 				user.save()
-				/*console.log(user.views)*/
+					/*console.log(user.views)*/
 
 
-/*				console.log("Reached api")*/
-					/*console.log(req)
-					console.log(res)*/
+				/*				console.log("Reached api")*/
+				/*console.log(req)
+				console.log(res)*/
 				return res.json({
 					success: true
 				})

@@ -3,12 +3,12 @@
 
     <div class="asideTitle">Reset Password</div>
 
-    <div ng-if="!login.processing"
+    <div ng-if="!aside.processing"
          type="button"
          class="custom-close"
          ng-click="$hide()"></div>
 
-    <form ng-submit="aside.restBtn(email)">
+    <form>
       <!-- ERROR ICON -->
       <div class="custom-alert" ng-if="aside.error">
         {{aside.error}}
@@ -18,11 +18,14 @@
       </div>
       <!-- USERNAME INPUT -->
       <div class="form-group">
-        <label>E-mail</label>
-        <input type="text" class="custom-form" ng-model="email">
+        <label>Email</label>
+        <input type="email" class="custom-form" ng-model="email" required>
+        <!-- <label>Confirm</label>
+        <input type="password" class="custom-form" ng-model="aside.pass1"> -->
       </div>
 
-      <button type="submit" class="custom-btn-primary-large">Reset</button>
+      <button class="custom-btn-primary-large"
+              ng-click="aside.restBtn(email)">Send Email</button>
     </form> 
 
     
@@ -30,15 +33,15 @@
       <!-- <p>Forget password? -->
       <!-- <br> -->
         <!-- <a ng-hide="login.resetPassword" href="#" ng-click="login.toggleBtn()">Reset Password</a> -->
-<!--        <a href="#" ng-click="nav.signin()">Sign in</a>-->
+        <p href="#" ng-click="signin()">Ready to sign in? <a> Sign in</a></p>
         <!-- </p> -->
         <!-- <a href="mailto:support@bittycasting.com">support@bittycasting.com</a> -->
-      </div>
+      <!-- </div> -->
       
       <!-- <p>Don't have an account? <a ng-click="nav.signup()">Sign up</a></p> -->
     </div>
 
-    <div class="custom-loader" ng-if="login.processing"><img src='/assets/imgs/spin.gif'></div>
+    <div class="custom-loader" ng-if="aside.processing"><img src='/assets/imgs/spin.gif'></div>
 
   </div>
 </div>

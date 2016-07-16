@@ -9,12 +9,14 @@ var UserSchema = new Schema({
 	//meta
 	create_date: {type:Date, default:Date.now},
 	last_active: {type:Date, default:Date.now},
-	name : {first:String, middle:String, last:String},
+	name : { type:Object, require:true },
 	birth_date:{type:Date, default:Date.now},
 	role: String,
 	invites:[],
-	notifications:[{notification_type:String,data:{}}],
-	views:{home:String,
+	notifications:[
+									{ notification_type:String,data:{} }
+									],
+	views:{homez:String,
 				 role:String},	
 	//content
 	profile_photo:{},

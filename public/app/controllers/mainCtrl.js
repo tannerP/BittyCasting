@@ -65,7 +65,8 @@ angular.module('mainCtrl', ['authService', 'mgcrea.ngStrap'])
 				//show footer & nav
 				if ($location.path() === '/' ||
 					$location.path() === '/login' ||
-					$location.path() === '/signup') {
+					$location.path() === '/signup' ||
+					$location.path().indexOf("reset/password") > -1) {
 					vm.publicVw = true;
 					vm.footer = true;
 				}
@@ -162,111 +163,158 @@ angular.module('mainCtrl', ['authService', 'mgcrea.ngStrap'])
 	])
 
 .controller("feedbackCtrl", ['$rootScope', '$scope', 'Mail',
-		'$location',
-		function($rootScope, $scope, Mail, $location) {
-			var vm = this;
+	'$location',
+	function($rootScope, $scope, Mail, $location) {
+		var vm = this;
+		$scope.feedback = {};
+		vm.fb_master = {};
+		vm.fb_master.user = {};
+
+		vm.submit = function(feedback) {
+			angular.copy(feedback, vm.fb_master);
+			vm.fb_master.location = $location.path();
+			vm.fb_master.timestamp = new Date().toLocaleString('en-US');
+			vm.fb_master.user = $rootScope.user;
+
+			console.log(vm.fb_master)
+			Mail.sendFB(vm.fb_master);
+
 			$scope.feedback = {};
-			vm.fb_master = {};
-			vm.fb_master.user = {};
-
-			vm.submit = function(feedback) {
-				angular.copy(feedback, vm.fb_master);
-				vm.fb_master.location = $location.path();
-				vm.fb_master.timestamp = new Date().toLocaleString('en-US');
-				vm.fb_master.user = $rootScope.user;
-
-				console.log(vm.fb_master)
-				Mail.sendFB(vm.fb_master);
-
-				$scope.feedback = {};
-				$scope.$hide()
-			}
+			$scope.$hide()
 		}
-	])
-	
-	.controller('loginCtrl', ['$scope', 'Auth', '$location', '$route',
-		function($scope, Auth, $location, $route) {
-			var vm = this;
-			vm.message;
-			vm.loginData = {};
-			vm.process = false;
-			vm.resetPassword = false;
+	}
+])
 
-			vm.doLogin = function(email, password) {
-				vm.processing = true; //TODO:processing Icon
-				vm.error = '';
-				Auth.login(email, password)
-					.success(function(data) {
-						vm.processing = false;
-						if (data.success) {
-							//if a user successfully logs in, redirect to users page
-							vm.loginData = {};
-							$scope.$emit('aside.hide')
-								//conditional for /login vs aside
-							if ($location.path() == '/login') $location.path('/home');
-							else {
-								$location.path('/home');
-								$scope.$hide();
-							}
-						} else vm.error = data.message;
-					});
-			};
-
-		}
-	])
-	.controller('resetPassCtrl', ['$scope', 'User', '$location', '$route',
-		function($scope, User, $location, $route) {
-			var vm = this;
-			vm.message;
-			vm.loginData = {};
-			vm.process = false;
-			vm.resetPassword = false;
-
-			var feedbackAside = $aside({
-				scope: $scope,
-				title: "Login",
-				show: true,
-				/*controller: '',
-				controllerAs: 'aside',*/
-				templateUrl: '/app/views/pages/newPass.tmpl.html'
-			});
-			
-			/*vm.reset = function() {
-				feedbackAside.toggle();
-			}*/
-
-			/*vm.toggleBtn = function() {
-				vm.resetPassword = !vm.resetPassword;
-			}*/
-
-		}
-	])
-
-.controller('resetPassCtrl', ['$scope', 'User', '$location', '$route',
-	function($scope, User, $location, $route) {
+.controller('loginCtrl', ['$scope', 'Auth', '$location', '$route',
+	'EmailConfirmation','$timeout',
+	function($scope, Auth, $location,$route, EmailConfirmation,$timeout) {
 		var vm = this;
 		vm.message;
 		vm.loginData = {};
 		vm.process = false;
+		vm.resetPassword = false;
 
-		vm.restBtn = function(email) {
+		vm.resendEmail = function(email) {
+			EmailConfirmation.resend(email)
+				.success(function(resp) {
+					vm.message = resp.message;
+				})
+		}
+
+		vm.doLogin = function(email, password) {
 			vm.processing = true; //TODO:processing Icon
 			vm.error = '';
-			User.resetPass(email)
+			Auth.login(email, password)
 				.success(function(data) {
-					if (data.success)
-						vm.message = data.message
-					else {
-						vm.error = data.message
-						$scope.email = ""
+					console.log(data)
+					$scope.password = ""
+					if(data.success){
+						vm.loginData = {};
+						vm.message = "Success!"
+						/*console.log("Going home.")*/
+						$location.path('/home');
+						$scope.$emit('aside.hide')
+						$timeout(function(){
+								$scope.$hide();
+								vm.processing = false;
+							},600)
+
+						/*if ($location.path() == '/login')
+							$location.path('/home');
+						else {	
+						}*/
+					} else {
+						vm.processing = false;
+						vm.error = data.message;
+						if (data.notConfirmed) {
+							vm.resendMode = true;
+						}
 					}
-
-					vm.processing = false;
-
 				});
+			};
+
 		}
-	}
-])
+	])
+	.controller('newPassAsideCtrl', ['$scope', 'User', '$location', '$route', '$routeParams',
+		function($scope, User, $location, $route, $routeParams) {
+			var vm = this;
+			var resetID = $routeParams.id;
+			console.log(resetID)
+
+			vm.processing = false;
+			vm.submitBtn = function(pass1, pass2) {
+				vm.processing = true;
+
+				if (pass1.length < 8) {
+					vm.message = "Weak password.";
+					return
+				}
+
+				if (pass1 !== pass2) {
+					vm.message = "Password doesn't match.";
+					return
+				} else {
+					vm.message = ""
+					User.newPass(resetID, pass1)
+						.success(function(res) {
+							vm.processing = false;
+							vm.message = res.message
+							return;
+						})
+				}
+			}
+		}
+	])
+	.controller('newPassCtrl', ['$scope', 'User', '$location', '$route', '$aside',
+		function($scope, User, $location, $route, $aside) {
+			var vm = this;
+			vm.message;
+			vm.loginData = {};
+			vm.process = false;
+			/*vm.resetPassword = false;*/
+
+			var feedbackAside = $aside({
+				show: true,
+				backdrop: 'static',
+				controller: 'newPassAsideCtrl',
+				controllerAs: 'aside',
+				templateUrl: '/app/views/pages/newPass.tmpl.html'
+			});
+
+			/*vm.submit*/
+
+			return;
+		}
+	])
+	.controller('resetPassAsideCtrl', ['$scope', 'User', '$location', '$route',
+		function($scope, User, $location, $route) {
+			console.log("resetPassCtrl")
+			var vm = this;
+			vm.message;
+			vm.loginData = {};
+			vm.process = false;
+
+			/*vm.message = "hello"*/
+
+			vm.restBtn = function(email) {
+				/*console.log("Button pressed")
+				console.log(email)*/
+				vm.processing = true; //TODO:processing Icon
+				vm.error = '';
+				User.resetPass(email)
+					.success(function(data) {
+						if (data.success)
+							vm.message = data.message
+						else {
+							vm.error = data.message
+							$scope.email = ""
+						}
+						vm.processing = false;
+					});
+			}
+			return;
+		}
+	])
 
 /* NAV */
 .controller('navCtrl', ['$scope', '$popover', '$aside', 'Auth', '$location',
@@ -297,35 +345,42 @@ angular.module('mainCtrl', ['authService', 'mgcrea.ngStrap'])
 		})
 		var resetAside = $aside({
 			scope: $scope,
-			title: "Sign up",
 			show: false,
-			controller: 'resetPassCtrl',
+			controller: 'resetPassAsideCtrl',
 			controllerAs: 'aside',
 			templateUrl: '/app/views/pages/resetPass.tmpl.html'
 		})
 
 		vm.resetPass = function() {
-			resetAside.toggle();
-			setTimeout(function() { //close aside after 1 sec
-				loginAside.hide();
-			}, 500);
-			$scope.navCollapsed = true; //make sure nav is closed
-		}
+				resetAside.toggle();
+				setTimeout(function() { //close aside after 1 sec
+					loginAside.hide();
+				}, 500);
+				$scope.navCollapsed = true; //make sure nav is closed
+			}
+			/*$scope.resetPass = vm.resetPass();*/
 		vm.signin = function() {
 			loginAside.toggle();
 			setTimeout(function() { //close aside after 1 sec
 				resetAside.hide();
 				signupAside.hide();
 			}, 500);
-			$scope.navCollapsed = true; //make sure nav is closed
+			/*$scope.navCollapsed = true; //make sure nav is closed*/
 		}
+
+		$scope.signin = function() {
+			vm.signin();
+			/*$scope.navCollapsed = true; //make sure nav is closed*/
+		}
+
 		vm.signup = function() {
-			signupAside.toggle();
-			setTimeout(function() { //close aside after 1 sec
-				loginAside.hide();
-			}, 500);
-			$scope.navCollapsed = true; //make sure nav is closed
-		}
+				signupAside.toggle();
+				setTimeout(function() { //close aside after 1 sec
+					loginAside.hide();
+				}, 500);
+				$scope.navCollapsed = true; //make sure nav is closed
+			}
+			/*$scope.signup = vm.signup();*/
 		vm.navCtrl;
 	}
 ]);
