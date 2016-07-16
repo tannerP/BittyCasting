@@ -1947,6 +1947,16 @@ ul.projects li {
   .custom-alert p {
     margin-bottom: 0; }
 
+.custom-alert-success {
+  color: #75a332;
+  outline: none;
+  padding: 12px;
+  font-size: 12px;
+  border: 1px solid #D84444;
+  margin-bottom: 20px; }
+  .custom-alert-success p {
+    margin-bottom: 0; }
+
 ul.select-coverphoto-wrapper {
   margin: -18px -3px 20px -3px;
   overflow: hidden; }

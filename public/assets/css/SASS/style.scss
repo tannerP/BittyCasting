@@ -2142,6 +2142,16 @@ ul.projects li {
     p {margin-bottom: 0;}
 }
 
+.custom-alert-success {
+    color: $color-green;
+    outline: none;
+    padding: 12px;
+    font-size: $font-size-regular;
+    border: 1px solid $color-red;
+    margin-bottom: 20px;
+    p {margin-bottom: 0;}  
+}
+
 ul.select-coverphoto-wrapper {
     margin: -18px -3px 20px -3px;
     overflow: hidden;
