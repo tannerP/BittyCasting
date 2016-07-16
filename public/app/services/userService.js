@@ -65,7 +65,7 @@ angular.module('userService', [])
 			meta.image = "https://" + project.coverphoto.source.replace(/.*?:\/\//g, "");
 		}
 		/*meta.image_secure = project.coverphoto.source;*/
-		console.log(meta)
+		/*console.log(meta)*/
 		return meta;
 	}
 	this.prjMeta = function(project) {

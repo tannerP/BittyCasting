@@ -25,7 +25,6 @@ angular.module('userApp', [
 		'footer',
 		'ReviewPage',
 		'ProjectView',
-		'ApplicantForm',
 		'Nav',
 		'pdf',
 		'flow',

@@ -429,23 +429,12 @@ angular.module('roleCtrl', ['userService',
         $scope.slides = [];
         vm.gridView = true;
         vm.listView = false;
-        //$scope.isAside track if an aside is open. If it is, 
-        //prevent going back, instead, close aside.
-        /*$scope.$watch('carouselIndex', function(newVal, oldVal) {
-          if (++newVal === $scope.slides.length) $scope.carouselIndex = 5;
-        });*/
-
-
+        
         var MAXLENGTH = 430;
         $scope.descriptionLength = MAXLENGTH;
         vm.isTruncated = true;
         vm.toggleDescription = function() {
           vm.isTruncated = !vm.isTruncated;
-          if (!vm.isTruncated) $scope.descriptionLength = MAXLENGTH;
-          else {
-            /*var numWord = vm.role.description.split(" ").length;*/
-            $scope.descriptionLength = vm.role.description
-          }
         }
 
       }
@@ -567,10 +556,23 @@ angular.module('roleCtrl', ['userService',
 
       var vm = this;
 
+      vm.updateCurAtchmntClick = function(attachment){
+        vm.curAtchmnt = attachment;
+      }
+
       vm.prepImgs = function(files, event, flow) {
         console.log(files)
+        for(var i in vm.roles.attachment)
+        {
+          switch(vm.curAtchmnt){
+            case vm.roles.attachment[i]:
+
+                }
+      }
+        /*console.log(files)*/
           /*console.log(event)
           console.log(flow)*/
+          
       }
 
       vm.submitBtn = function() {

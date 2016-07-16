@@ -8,13 +8,17 @@
          class="custom-close"
          ng-click="$hide()"></div>
       <div class='pageTitle'>Welcome to BittyCasting</div>
-      <input type="email" class="custom-form"
-                ng-model="vm.email"
-                ng-model-options='{ debounce: 1000 }'
-                ng-change="vm.emailChanging(vm.email)">
+      <input ng-model-options='{debounce: 1000}'
+            class="custom-form"
+            type="email" 
+            ng-model="vm.email"
+            ng-change="vm.emailChanging(vm.email)">
       
-      <div ng-show="message"  class ="custom-alert">
-        {{message}}
+      <div ng-show="vm.message" class ="custom-alert-success">
+        {{vm.message}}
+      </div>
+      <div ng-show="vm.error" class ="custom-alert">
+        {{vm.error}}
       </div>
       
       <button type="submit" class="custom-btn-primary-large" ng-click="vm.send()">Send Email</button>

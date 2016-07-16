@@ -122,13 +122,6 @@ angular.module('projectCtrl', ['userService',
           vm.isTruncated = false;
           vm.toggleDescription = function() {
             vm.isTruncated = !vm.isTruncated;
-            if (!vm.isTruncated) $scope.descriptionLength = MAXLENGTH;
-            else {
-              /*console.log(vm.project.description)*/
-              /*vm.numWords = vm.project.description.split(" ").length;*/
-              $scope.descriptionLength = vm.project.description.length
-              $scope.descriptionLength = null;
-            }
           }
 
           vm.back = function() {

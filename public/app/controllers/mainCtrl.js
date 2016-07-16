@@ -186,42 +186,51 @@ angular.module('mainCtrl', ['authService', 'mgcrea.ngStrap'])
 ])
 
 .controller('loginCtrl', ['$scope', 'Auth', '$location', '$route',
-		'EmailConfirmation',
-		function($scope, Auth, $location, $route, EmailConfirmation) {
-			var vm = this;
-			vm.message;
-			vm.loginData = {};
-			vm.process = false;
-			vm.resetPassword = false;
+	'EmailConfirmation','$timeout',
+	function($scope, Auth, $location,$route, EmailConfirmation,$timeout) {
+		var vm = this;
+		vm.message;
+		vm.loginData = {};
+		vm.process = false;
+		vm.resetPassword = false;
 
-			vm.resendEmail = function(email){
-				EmailConfirmation.resend(email)
-					.success(function(resp){
-						vm.message = resp.message;
-					})
-			}
-			vm.doLogin = function(email, password) {
-				vm.processing = true; //TODO:processing Icon
-				vm.error = '';
-				Auth.login(email, password)
-					.success(function(data) {
-						vm.processing = false;
-						if (data.success) {
-							vm.loginData = {};
-							$scope.$emit('aside.hide')
-							if ($location.path() == '/login') $location.path('/home');
-							else {
-								$location.path('/home');
+		vm.resendEmail = function(email) {
+			EmailConfirmation.resend(email)
+				.success(function(resp) {
+					vm.message = resp.message;
+				})
+		}
+
+		vm.doLogin = function(email, password) {
+			vm.processing = true; //TODO:processing Icon
+			vm.error = '';
+			Auth.login(email, password)
+				.success(function(data) {
+					console.log(data)
+					$scope.password = ""
+					if(data.success){
+						vm.loginData = {};
+						vm.message = "Success!"
+						/*console.log("Going home.")*/
+						$location.path('/home');
+						$scope.$emit('aside.hide')
+						$timeout(function(){
 								$scope.$hide();
-							}
-						} else {
-							vm.error = data.message;
-							if (data.notConfirmed) {
-								vm.resendMode = true;
-							}
-						}
+								vm.processing = false;
+							},600)
 
-					});
+						/*if ($location.path() == '/login')
+							$location.path('/home');
+						else {	
+						}*/
+					} else {
+						vm.processing = false;
+						vm.error = data.message;
+						if (data.notConfirmed) {
+							vm.resendMode = true;
+						}
+					}
+				});
 			};
 
 		}
@@ -274,36 +283,38 @@ angular.module('mainCtrl', ['authService', 'mgcrea.ngStrap'])
 
 			/*vm.submit*/
 
-		return; }
-	])
-.controller('resetPassAsideCtrl', ['$scope', 'User', '$location', '$route',
-	function($scope, User, $location, $route) {
-		console.log("resetPassCtrl")
-		var vm = this;
-		vm.message;
-		vm.loginData = {};
-		vm.process = false;
-
-		/*vm.message = "hello"*/
-
-		vm.restBtn = function(email) {
-			/*console.log("Button pressed")
-			console.log(email)*/
-			vm.processing = true; //TODO:processing Icon
-			vm.error = '';
-			User.resetPass(email)
-				.success(function(data) {
-					if (data.success)
-						vm.message = data.message
-					else {
-						vm.error = data.message
-						$scope.email = ""
-					}
-					vm.processing = false;
-				});
+			return;
 		}
-		return; }
-])
+	])
+	.controller('resetPassAsideCtrl', ['$scope', 'User', '$location', '$route',
+		function($scope, User, $location, $route) {
+			console.log("resetPassCtrl")
+			var vm = this;
+			vm.message;
+			vm.loginData = {};
+			vm.process = false;
+
+			/*vm.message = "hello"*/
+
+			vm.restBtn = function(email) {
+				/*console.log("Button pressed")
+				console.log(email)*/
+				vm.processing = true; //TODO:processing Icon
+				vm.error = '';
+				User.resetPass(email)
+					.success(function(data) {
+						if (data.success)
+							vm.message = data.message
+						else {
+							vm.error = data.message
+							$scope.email = ""
+						}
+						vm.processing = false;
+					});
+			}
+			return;
+		}
+	])
 
 /* NAV */
 .controller('navCtrl', ['$scope', '$popover', '$aside', 'Auth', '$location',
@@ -341,13 +352,13 @@ angular.module('mainCtrl', ['authService', 'mgcrea.ngStrap'])
 		})
 
 		vm.resetPass = function() {
-			resetAside.toggle();
-			setTimeout(function() { //close aside after 1 sec
-				loginAside.hide();
-			}, 500);
-			$scope.navCollapsed = true; //make sure nav is closed
-		}
-		/*$scope.resetPass = vm.resetPass();*/
+				resetAside.toggle();
+				setTimeout(function() { //close aside after 1 sec
+					loginAside.hide();
+				}, 500);
+				$scope.navCollapsed = true; //make sure nav is closed
+			}
+			/*$scope.resetPass = vm.resetPass();*/
 		vm.signin = function() {
 			loginAside.toggle();
 			setTimeout(function() { //close aside after 1 sec
@@ -361,15 +372,15 @@ angular.module('mainCtrl', ['authService', 'mgcrea.ngStrap'])
 			vm.signin();
 			/*$scope.navCollapsed = true; //make sure nav is closed*/
 		}
-		
+
 		vm.signup = function() {
-			signupAside.toggle();
-			setTimeout(function() { //close aside after 1 sec
-				loginAside.hide();
-			}, 500);
-			$scope.navCollapsed = true; //make sure nav is closed
-		}
-		/*$scope.signup = vm.signup();*/
+				signupAside.toggle();
+				setTimeout(function() { //close aside after 1 sec
+					loginAside.hide();
+				}, 500);
+				$scope.navCollapsed = true; //make sure nav is closed
+			}
+			/*$scope.signup = vm.signup();*/
 		vm.navCtrl;
 	}
 ]);

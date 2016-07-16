@@ -1,17 +1,33 @@
  <div class="applyPage">
  	<div class="applyPageLeftBg"></div>
  	<div class="container">
- 		<img class="applyLogo" ng-src="assets/imgs/logo_BittyCasting_B.svg">
+ 		<img class="applyLogo" 
+ 					ng-src="assets/imgs/logo_BittyCasting_B.svg">
  		<div ng-if="ppv.loggedIn" class="custom-close-overlay" ng-click="ppv.back()"></div>
  		<section class="col-md-6 col-sm-6">
  			<div class="applyPageLeft">
- 				<div class='pageTitle'>Project<!-- <span>s</span> --></div>
- 				<div class='pageSubtitle'>{{ppv.project.name}} <span ng-if="expired">(Closed)</span></div> <!-- Remove tag causes
+<!-- PROJECT --> 			
+ 				<div class='pageTitle'>Project</div>
+ 				<div class='pageSubtitle'>{{ppv.project.name}} <span ng-if="expired">(Closed)</span></div>
+ 				 <!-- Remove tag causes
  				 displaying bug -->
- 				<p ng-bind-html="ppv.project.description | linky"></p>
- 				<div class="div-table-col div-table-row-header">Usage</div>
- 				<p ng-bind-html="ppv.project.usage "></p>
+ 				<p ng-if="ppv.isPrjTruncated"
+ 					ng-bind-html="ppv.project.description | linky | characters:minFilter:true"></p>
+
+ 				<p ng-if="!ppv.isPrjTruncated"
+ 					ng-bind-html="ppv.project.description | linky"></p>
+ 				<span ng-if="ppv.project.description.length > 420">
+	 				<a href="#" 
+	          class="no-animate"
+	        	ng-show="ppv.isPrjTruncated"
+	       		ng-click="ppv.togglePrjDescription()">Show more</a>
+	       <a href="#" 
+	          class="no-animate"
+	          ng-show="!ppv.isPrjTruncated"
+	          ng-click="ppv.togglePrjDescription()">Show less</a>
+         </span>
  				<img ng-src="{{ppv.project.coverphoto.source ||'assets/imgs/img_projectCover01.png'}}" class="img-responsive">
+<!-- ROLES -->
  				<div class='pageTitle'>Roles<!-- <span>s</span> --></div>
  				<ul>
  					<li ng-if="ppv.roles.length > 0"
@@ -23,8 +39,25 @@
  					</li>              
  				</ul>
 
- 				<p ng-init=""
- 				ng-bind-html="ppv.curRole.description || ppv.roles[0].description | linky"></p>
+ 				<p ng-show="!ppv.isRTruncated"
+ 					ng-bind-html="ppv.curRole.description | linky"></p>
+ 				<span ng-if="ppv.curRole.description.length > 430">
+ 				<p ng-show="ppv.isRTruncated"
+ 					ng-bind-html="ppv.curRole.description | linky | characters:minFilter:true">
+ 				</p>
+
+				<a href="#" 
+          class="no-animate"
+        ng-show="ppv.isRTruncated"
+       ng-click="ppv.toggleRoleDescription()">Show more</a>
+       <a href="#" 
+          class="no-animate"
+           ng-show="!ppv.isRTruncated"
+           ng-click="ppv.toggleRoleDescription()">Show less</a>
+
+       </span>
+
+ 				
 
  				<div class="div-table">
  					<!-- <div class="div-table-row" ng-if="ppv.curRole.usage || ppv.roles[0].usage">
@@ -40,14 +73,31 @@
  						<div class="div-table-col">{{ppv.curRole.sex || 
  							ppv.roles[0].sex}}</div>
  						</div>
+ 						
  						<div class="div-table-row" ng-if="ppv.curRole.age || 			ppv.roles[0].age">
- 							<div class="div-table-col div-table-row-header">Age Range</div>
- 							<div class="div-table-col">{{ppv.curRole.age || 
- 								ppv.roles[0].age}}</div>
- 							</div>
+	 							<div class="div-table-col div-table-row-header">Age Range</div>
+	 							<div class="div-table-col">{{ppv.curRole.age || 
+	 								ppv.roles[0].age}}</div>
  						</div>
-
-
+ 						<div class="div-table-row" ng-if="ppv.curRole.union || 			ppv.roles[0].union">
+	 							<div class="div-table-col div-table-row-header">
+	 							Union</div>
+	 							<div class="div-table-col">
+	 									{{ppv.curRole.union || ppv.roles[0].union}}</div>
+ 						</div>
+ 						<div class="div-table-row" ng-if="ppv.project.usage">
+ 								<div class="div-table-col div-table-row-header">
+ 										Usage</div>
+ 								<div class="div-table-col">
+ 									{{ppv.project.usage}} </div>
+ 						</div>
+ 						<div class="div-table-row" ng-if="ppv.project.location">
+ 								<div class="div-table-col div-table-row-header">
+ 										Location</div>
+ 								<div class="div-table-col">
+ 									{{ppv.project.location}} </div>
+ 						</div>
+ 						
  					</div>
  					<!-- <audio ng-if="currFile" controls ngf-src="currFile"> -->
  				</section>
@@ -166,7 +216,6 @@
 																ng-click="ppv.isNewLink[rIndex] = !ppv.isNewLink[rIndex];
 																ppv.newLinks[rIndex]='' ">Link</a>
 
-
 																<div class="custom-form" ng-show="ppv.isNewLink[rIndex]">  
 																	<input ng-model="ppv.newLinks[rIndex]"
 																	placeholder="http://" class="inputShort">
@@ -212,7 +261,8 @@
 																			ng-model="$files"
 																			ngf-multiple="true"
 																			ngf-select="ppv.addFile($files, rq, rIndex)">
-																			<a ng-show="ppv.isLast($index, ppv.files[rIndex])" class="uploadAddMore">Add more</a>
+																			<a 
+																			ng-show="ppv.isLast($index, ppv.files[rIndex])" class="uploadAddMore no-animate">Add more</a>
 
 																		</div>
 																<!-- 					ng-if="file.file.type.indexOf('image') > -1"

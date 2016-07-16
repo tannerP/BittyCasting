@@ -9,9 +9,11 @@ angular.module('registrationCtrl', ['authService', 'mgcrea.ngStrap'])
 		EmailConfirmation.resend($routeParams.confirmID)
 			.success(function(data, status, headers, config) {
 				/*console.log(data)*/
-				vm.message = data.message;
+				if(data.success) vm.message = data.message;
+				else if(!data.success) vm.error = data.message
 			})
 			.error(function(data, status, headers, config) {
+
 				/*console.log(data)*/
 			})
 	}
@@ -49,7 +51,7 @@ angular.module('registrationCtrl', ['authService', 'mgcrea.ngStrap'])
 
 	Auth.confirmEmail($routeParams.confirmID)
 		.success(function(data) {
-			console.log(data)
+			/*console.log(data)*/
 			if (!data.success && data.invalid) {
 				$location.path("/")
 				$location.replace();
@@ -151,7 +153,7 @@ angular.module('registrationCtrl', ['authService', 'mgcrea.ngStrap'])
 			})
 			.success(function(resp) {
 				/*console.log(resp)*/
-				if (!resp.success) return vm.message = resp.message;
+				if (!resp.success) return vm.error = resp.message;
 				else {
 					Auth.setToken(resp, function() {
 						vm.userData = {};
@@ -199,12 +201,14 @@ angular.module('registrationCtrl', ['authService', 'mgcrea.ngStrap'])
 })
 
 .controller('signupCtrl', function(User, $scope,
-	$location, EmailValidator, Facebook) {
+	$location, EmailValidator, Facebook, $timeout) {
 	var vm = this;
 	vm.userData = {};
 	vm.userData.name = "";
 	vm.userData.email = "";
 	vm.type = 'create';
+
+	vm.message = "testing message"
 
 	vm.checkFB = function() {
 		Facebook.login(function(response) {
@@ -311,28 +315,33 @@ angular.module('registrationCtrl', ['authService', 'mgcrea.ngStrap'])
 
 		User.create(vm.userData)
 			.error(function(data) {
-				vm.message = data.message;
+				vm.error = "Error occured. Please try again later."
+				/*vm.error = data.message;*/
 			})
 			.success(function(resp) {
+				vm.userData.password = ""
 				if (!resp.success) {
-					setTimeout(function() {
-						vm.processing = false;
-						$scope.$emit('aside.hide')
-						$scope.$hide();
-						$scope.signin();
-						return;
-					}, 1000)
-					return vm.message = resp.message;
+					vm.error = resp.message;
+					vm.userData = {};
+					/*console.log(vm.error)*/
+					if(resp.exists)
+						$timeout(function() {
+											vm.processing = false;
+											$scope.$emit('aside.hide')
+											$scope.$hide();
+											$scope.signin();
+											return;
+										}, 17000)
 				} else {
 					vm.message = resp.message;
 					vm.userData = {};
-					setTimeout(function() {
+					$timeout(function() {
 						vm.processing = false;
 						$scope.$emit('aside.hide')
 						$scope.$hide();
 						$scope.signin();
 						return;
-					}, 1000)
+					}, 17000)
 				}
 			});
 	}

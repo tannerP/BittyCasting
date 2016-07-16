@@ -717,6 +717,7 @@ module.exports = function(app, express) {
 			role.compensation = req.body.compensation;
 			role.description = req.body.description;
 			role.ethnicity = req.body.ethnicity;
+			role.union = req.body.union;
 			role.end_date = req.body.end_date;
 			role.end_time = req.body.end_time;
 			role.location = req.body.location;
@@ -840,7 +841,7 @@ module.exports = function(app, express) {
 				role.name = req.body.name;
 				role.age = req.body.age;
 				role.compensation = req.body.compensation;
-
+				role.union = req.body.union;
 				role.description = req.body.description;
 				role.ethnicity = req.body.ethnicity;
 				role.end_date = req.body.end_date;
@@ -850,7 +851,6 @@ module.exports = function(app, express) {
 				role.payterms = req.body.payterms;
 				role.projectID = req.body.projectID;
 				role.usage = req.body.usage;
-
 
 				role.sex = req.body.sex;
 				role.requirements = req.body.requirements;
@@ -876,6 +876,7 @@ module.exports = function(app, express) {
 			project.user_id = req.decoded.id;
 			project.user = req.decoded.name //User Name
 			project.name = req.body.name;
+			project.location = req.body.location;
 			project.description = req.body.description
 			project.coverphoto = req.body.coverphoto
 			project.usage = req.body.usage
@@ -944,11 +945,15 @@ module.exports = function(app, express) {
 			Project.findById(req.params.project_id, function(err, project) {
 				if (err) res.send(err);
 				if (req.body.name) project.name = req.body.name;
-				if (req.body.usage) project.usage = req.body.usage;
 				if (req.body.updated_date) project.updated_date = req.body.updated_date;
 				if (req.body.coverphoto) project.coverphoto = req.body.coverphoto;
+				
 				if (req.body.description) project.description = req.body.description;
 				else project.description = null;
+				
+				if (req.body.usage) project.usage = req.body.usage;
+				else project.usage = null
+
 				project.save(function(err) {
 					if (err) console.log(err);
 					if (err) res.send(err);

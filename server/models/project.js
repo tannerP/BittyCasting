@@ -17,6 +17,7 @@ var ProjectSchema = new Schema ({
 	short_url: String,
 	updated_date: {type:Date, default:Date.now},
 	num_roles: {type:Number, default:0},
+	location: {type:String},
 	name : {
 		type: String, 
 	},
