@@ -214,7 +214,7 @@
         <div ng-if="vm.processing" class="custom-loader">
           <img style ="height:40px; width:auto" ng-src='/assets/imgs/spin.gif'>
         </div>   
-      <button ng-if="!vm.edit" type="submit" id="submit" value="Create role" class="custom-btn-primary-large" ng-disabled="vm.processing">
+      <button ng-if="!vm.edit" type="submit" id="submit" value="Create role" class="custom-btn-primary-large" ng-disabled="vm.processing" onclick="_gaq.push(['_trackEvent', 'create', 'createRole', 'role_form']);">
         Create role
       </button>
       <button ng-if="vm.edit" type="submit" class="custom-btn-primary-large" ng-click="vm.updateRole()" ng-disabled="vm.processing">
