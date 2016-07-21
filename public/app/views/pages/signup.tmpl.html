@@ -39,7 +39,8 @@
       <button type="submit"
               class="custom-btn-primary-large"
               ng-disabled="user.processing"
-               ng-click="user.saveUser()">
+               ng-click="user.saveUser()"
+              onclick="_gaq.push(['_trackEvent', 'signup', 'signupWithEmail', 'signup']);">
                Register with E-mail
       </button>
         

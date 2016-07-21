@@ -59,7 +59,7 @@
         <img style ="height:40px; width:auto" ng-src='/assets/imgs/spin.gif'>
       </div>  
       <button type="submit" class="custom-btn-primary-large" ng-if="vm.NEW"
-       ng-click="vm.save(aside.projectData.name, aside.projectData.description)" ng-disabled="vm.processing" onclick="_gaq.push(['_trackEvent', 'create', 'createProject', '/project_form.tmpl.html']);">
+       ng-click="vm.save(aside.projectData.name, aside.projectData.description)" ng-disabled="vm.processing" onclick="_gaq.push(['_trackEvent', 'create', 'createProject', 'project_form']);">
         <span>Create project</span>
       </button>
       <button type="submit" class="custom-btn-primary-large" ng-if="!vm.NEW"
