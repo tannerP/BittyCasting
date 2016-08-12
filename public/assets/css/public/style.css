@@ -396,7 +396,7 @@ button {
 /***************************
            Construction
 ***************************/
-.constructionBg {
+html {
   background: url("/assets/imgs/img_indexCover02.png") no-repeat 50% 50% fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
