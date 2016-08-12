@@ -449,6 +449,28 @@ button {
 }
 
 /***************************
+           Construction
+***************************/
+
+.construction {
+    padding-top: 160px;
+    text-align: center;   
+    width: 100%;
+    h2 {
+        font-size: 36px;
+        color: white;
+        letter-spacing: 2;
+        margin-bottom: 25px;
+        font-weight: 200;
+        text-transform: capitalize;
+    } 
+    p {
+        color: white;
+    }
+}
+
+
+/***************************
            Header
 ***************************/
 
