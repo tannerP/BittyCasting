@@ -383,7 +383,8 @@ input.cmn-toggle-round:checked + label:after {
   padding: 1px; }
 
 html, body {
-  font-family: "Open Sans", sans-serif; }
+  font-family: "Open Sans", sans-serif;
+  background-color: transparent; }
 
 html {
   position: relative;
