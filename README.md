@@ -21,9 +21,9 @@ Give examples
 3. Install MongoDB
 4. cd to directory and run NPM to download depencies
 
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
+* [NPM](https://www.npmjs.com/) - The web framework used
+* [NodeJS](https://nodejs.org/en//) - Dependency Management
+* [MongoDB](https://www.mongodb.com/) - Used to generate RSS Feeds
 
 ## Contributing
 
