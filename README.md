@@ -10,10 +10,6 @@ Requries internet access to download dependencies.
 
 Requires MongoDB, NPM, NodeJS
 
-```
-Give examples
-```
-
 ### Installing
 
 1. Install NPM 
@@ -35,7 +31,7 @@ Not taking contribution.
 
 ## Authors
 
-* **Tanner Phan** - *Initial work* - [Portfolio](https://tannerphan.me)
+* **Tanner Phan** - [Tanner's Portfolio](https://tannerphan.me)
 
 ## License
 
