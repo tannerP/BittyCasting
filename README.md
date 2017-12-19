@@ -15,11 +15,11 @@ Requires MongoDB, NPM, NodeJS
 1. Install NPM 
 2. Use NPM to install NodeJS
 3. Install MongoDB
-4. cd to directory and run NPM to download depencies
+4. `cd` to directory and run `npm` to download depencies
 
-* [NPM](https://www.npmjs.com/) - The web framework used
-* [NodeJS](https://nodejs.org/en//) - Dependency Management
-* [MongoDB](https://www.mongodb.com/) - Used to generate RSS Feeds
+* [NPM](https://www.npmjs.com/) - Dependency Management
+* [NodeJS](https://nodejs.org/en//) - JavaScript Server
+* [MongoDB](https://www.mongodb.com/) - Database
 
 ## Contributing
 
